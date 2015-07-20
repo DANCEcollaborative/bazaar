@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="Verygood">
+        <phrase>Very good</phrase>
+    </concept>
+    <concept label="concept_83">
+        <phrase>[Student1], greet [Student2] and ask her name in German.</phrase>
+    </concept>
+    <concept label="concept_84">
+        <phrase>Guten Morgen wie heissen Sie</phrase>
+    </concept>
+    <concept label="concept_85">
+        <phrase>Guten Morgen wie heist Sie</phrase>
+    </concept>
+    <concept label="verbConjugation">
+        <phrase>You did not use verbs conjugation appropriately. Look at the table on the Whiteboard for examples of Verb Conjugation.[IMAGE=verbsConjugationRule.jpg]</phrase>
+    </concept>
+    <concept label="concept_87">
+        <phrase>ok</phrase>
+    </concept>
+    <concept label="concept_88">
+        <phrase>I don't know</phrase>
+    </concept>
+    <concept label="concept_89">
+        <phrase>You can look at the vocabulary on the whiteboard.[IMAGE=vocabulary.jpg]</phrase>
+    </concept>
+    <concept label="concept_90">
+        <phrase>ok</phrase>
+    </concept>
+    <concept label="concept_91">
+        <phrase>[Student2], can you respond to the question, asked by [Student1] in German</phrase>
+    </concept>
+    <concept label="concept_92">
+        <phrase>Guten Morgen Ich heisse John Smith</phrase>
+    </concept>
+    <concept label="concept_93">
+        <phrase>The correct answer is: Guten Morgen, wie heissen Sie?</phrase>
+    </concept>
+    <concept label="concept_94">
+        <phrase>The correct answer: Guten Morgen, Ich heisse John Smith</phrase>
+    </concept>
+    <concept label="concept_95">
+        <phrase>Guten Morgen Ich heissen John Smith</phrase>
+    </concept>
+    <concept label="concept_96">
+        <phrase>I don't know</phrase>
+    </concept>
+    <concept label="concept_97">
+        <phrase>[Student1], ask [Student2] whether she can work with a computer?</phrase>
+    </concept>
+    <concept label="concept_98">
+        <phrase>Koennen Sie am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_99">
+        <phrase>Sie koennen am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_100">
+        <phrase>You can look at the rule for asking questions on the whiteboard.[IMAGE=askingQuestion.jpg]</phrase>
+    </concept>
+    <concept label="concept_101">
+        <phrase>ok</phrase>
+    </concept>
+    <concept label="concept_102">
+        <phrase>Koennen Sie auf Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_103">
+        <phrase>You used Prepositions incorrectly. Look at the table on the whiteboard for the proper use of prepositions.[IMAGE=prepositions.jpg]</phrase>
+    </concept>
+    <concept label="concept_104">
+        <phrase>ok</phrase>
+    </concept>
+    <concept label="idonotknow">
+        <phrase>I don't know</phrase>
+        <phrase>I do not know</phrase>
+    </concept>
+    <concept label="concept_106">
+        <phrase>I don't know</phrase>
+    </concept>
+    <concept label="concept_107">
+        <phrase>EMPTY_PHRASE</phrase>
+    </concept>
+    <concept label="concept_108">
+        <phrase>[Student2], can you respond to the question, asked by [Student1] in German</phrase>
+    </concept>
+    <concept label="concept_109">
+        <phrase>Ja ich kann am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_110">
+        <phrase>The correct answer is : Koennen Sie am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_111">
+        <phrase>Nein ich kann nicht am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_112">
+        <phrase>Ja  ich kann auf Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_113">
+        <phrase>Ja ich koennen  am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_114">
+        <phrase>The correct answer: Ja, ich  kann am Computer arbeiten  or: Nein, ich kann nicht am Computer arbeiten</phrase>
+    </concept>
+    <concept label="concept_115">
+        <phrase>The correct answer is : Wie gut sind Ihre Englisch kenntnisse</phrase>
+    </concept>
+    <concept label="concept_116">
+        <phrase>[Student1], ask [Student2]  how good is her knowledge of English</phrase>
+    </concept>
+    <concept label="concept_117">
+        <phrase>Wie gut sind Ihre Englisch kenntnisse</phrase>
+    </concept>
+    <concept label="concept_118">
+        <phrase>Sind Ihre Englisch kenntnisse gut</phrase>
+    </concept>
+    <concept label="concept_119">
+        <phrase>Wie gut ist Ihre Englisch kenntnisse</phrase>
+    </concept>
+    <concept label="concept_120">
+        <phrase>[Student2], can you respond to the question, asked by [Student1] in German</phrase>
+    </concept>
+    <concept label="concept_121">
+        <phrase>Englisch ist meine Muttersprache</phrase>
+    </concept>
+    <concept label="concept_122">
+        <phrase>Englisch ist mein Muttersprache</phrase>
+    </concept>
+    <concept label="concept_123">
+        <phrase>Use the Nouns-Gender rule correctly as shown on the whiteboard.[IMAGE:nounGenderRule.jpg]</phrase>
+    </concept>
+    <concept label="concept_124">
+        <phrase>ok</phrase>
+    </concept>
+    <concept label="concept_125">
+        <phrase>The correct answer: Englisch ist  meine Muttersprache</phrase>
+    </concept>
+    <concept label="concept_126">
+        <phrase>Tell [Student2] that we will contact you and say Goodbye</phrase>
+    </concept>
+    <concept label="concept_127">
+        <phrase>Wir rufen Sie morgen an  aufwiedersehen </phrase>
+    </concept>
+    <concept label="concept_128">
+        <phrase>Wir anrufen Sie morgen aufwiedersehen</phrase>
+    </concept>
+    <concept label="concept_129">
+        <phrase>The base of the verb should be separated from the prefix when there are some other words between them.[IMAGE=separationVerbPrefixRule.jpg]</phrase>
+    </concept>
+    <concept label="concept_130">
+        <phrase>ok</phrase>
+    </concept>
+    <concept label="concept_131">
+        <phrase>The correct answer:  Danke schoen aufwiedersehen</phrase>
+    </concept>
+    <concept label="concept_132">
+        <phrase>[Student2], can you respond to the sentence of  [Student1] in German</phrase>
+    </concept>
+    <concept label="concept_133">
+        <phrase>Danke schoen aufwiedersehen</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>Interview</subgoal>
+  </step>
+</goal>
+
+<goal name="Interview" template-name="template_23" difficulty="1">
+  <step>
+    <initiation>concept_83</initiation>
+    <response say="Verygood">concept_84</response>
+    <response say="verbConjugation">concept_85</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_93">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_91</initiation>
+    <response say="Verygood">concept_92</response>
+    <response say="verbConjugation">concept_95</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_94">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_97</initiation>
+    <response say="Verygood">concept_98</response>
+    <response say="concept_100">concept_99</response>
+    <response say="concept_103">concept_102</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_110">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_108</initiation>
+    <response say="Verygood">concept_109</response>
+    <response say="Verygood">concept_111</response>
+    <response say="concept_103">concept_112</response>
+    <response say="verbConjugation">concept_113</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_114">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_116</initiation>
+    <response say="Verygood">concept_117</response>
+    <response say="concept_100">concept_118</response>
+    <response say="verbConjugation">concept_119</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_115">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_120</initiation>
+    <response say="Verygood">concept_121</response>
+    <response say="concept_123">concept_122</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_125">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_126</initiation>
+    <response say="Verygood">concept_127</response>
+    <response say="concept_129">concept_128</response>
+    <response say="concept_89">idonotknow</response>
+  </step>
+  <step>
+    <initiation>concept_132</initiation>
+    <response say="Verygood">concept_133</response>
+    <response say="concept_89">idonotknow</response>
+    <response say="concept_131">unanticipated-response</response>
+  </step>
+</goal>
+
+</script>
+</scenario>

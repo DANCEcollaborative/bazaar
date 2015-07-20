@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+	<module name="nlu">
+		<dict>
+			<key>matchers</key><string>default taghelper</string>
+			<key>matcher-policy</key><string>thresh</string>
+			<key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+			<key>taghelper-port</key><string>7557</string>
+			<key>taghelper-timeout</key><string>60</string>
+		</dict>
+	</module>
+</configuration>
+
+<transitions>
+	<transition ack-type="agree" floor-status="neutral">
+		<tphrase> yes </tphrase>
+		<tphrase> okay </tphrase>
+	</transition>
+	<transition ack-type="agree" scope="nonimmediate">
+		<tphrase> Yes, I agree. </tphrase>
+		<tphrase> Very good! </tphrase>
+		<tphrase> Excellent! </tphrase>
+	</transition>
+	<transition ack-type="agree" ack-polarity="neg">
+		<tphrase> I disagree with you. </tphrase>
+		<tphrase> That doesn't sound right to me.</tphrase>
+	</transition>
+	<transition ack-type="understand" floor-status="neutral">
+		<tphrase> I understand what you are saying. </tphrase>
+		<tphrase> I think I understand what you mean. </tphrase>
+	</transition>
+	<transition ack-type="hear" floor-status="concede" scope="immediate"> 
+		<tphrase> uh-huh </tphrase>
+		<tphrase> hmmm-huh </tphrase>
+		<tphrase> yeah </tphrase>
+		<tphrase> I'm listening. </tphrase>
+		<tphrase> Go on.</tphrase>
+	</transition>
+	<transition topic-status="refresh">
+		<tphrase> So, back to the original question. </tphrase>
+		<tphrase> Let's try the original question again. </tphrase>
+		<tphrase> Once again on the original question. </tphrase>
+	</transition>
+	<transition topic-status="interrupt">
+		<tphrase> Let's put this aside for a minute and come back to it later. </tphrase>
+	</transition>
+</transitions>
+
+<concepts>
+	<concept label="unanticipated-response">
+		<phrase>anything else</phrase>
+	</concept>
+	<concept label="verygood">
+		<phrase>Very good</phrase>
+	</concept>
+	<concept label="concept_52">
+		<phrase>S1, greet S2 and ask her name in German</phrase>
+	</concept>
+	<concept label="concept_53">
+		<phrase>Guten Morgen wie heissen Sie</phrase>
+	</concept>
+	<concept label="verb conjugation">
+		<phrase>Guten Morgen, wie heist Sie</phrase>
+	</concept>
+	<concept label="Understood">
+		<phrase>ok</phrase>
+	</concept>
+	<concept label="concept_56">
+		<phrase>Very good</phrase>
+	</concept>
+	<concept label="concept_57">
+		<phrase>Guten Morgen, Ich heissen John Smith</phrase>
+	</concept>
+	<concept label="concept_58">
+		<phrase>I don't know</phrase>
+	</concept>
+	<concept label="concept_59">
+		<phrase> Vocabulary:
+arbeiten&#045; to work
+anrufen - to call &#040;by phone&#041;
+aufwiedersehen&#045; good bye!
+danke shoun&#045; thank you very much
+Englisch&#045; English
+ich - I
+heissen&#045; to call &#040;used to ask what is your name&#041;
+Kenntnis - die Kenntnis&#045; knowledge
+koennen&#045; can
+meine&#045; my
+morgen &#045; tomorrow
+Muttersprache&#045; mother tongue
+wie&#045; how</phrase>
+	</concept>
+	<concept label="concept_60">
+		<phrase>Vocabulary:
+arbeiten&#045; to work
+anrufen - to call &#040;by phone&#041;
+aufwiedersehen&#045; good bye!
+danke shoun&#045; thank you very much
+Englisch&#045; English
+ich - I
+heissen&#045; to call &#040;used to ask what is your name&#041;
+Kenntnis - die Kenntnis&#045; knowledge
+koennen&#045; can
+meine&#045; my
+morgen &#045; tomorrow
+Muttersprache&#045; mother tongue
+wie&#045; how</phrase>
+	</concept>
+	<concept label="concept_61">
+		<phrase>ok</phrase>
+	</concept>
+	<concept label="concept_62">
+		<phrase>The correct answer is : Guten Morgen, wie heissen Sie? </phrase>
+	</concept>
+	<concept label="concept_63">
+		<phrase>Very good</phrase>
+	</concept>
+	<concept label="concept_64">
+		<phrase>S2, can you respond to the question, asked by S1 in German</phrase>
+	</concept>
+	<concept label="concept_65">
+		<phrase>Guten Morgen, Ich heisse John Smith</phrase>
+	</concept>
+	<concept label="concept_67">
+		<phrase>I don't know</phrase>
+	</concept>
+	<concept label="concept_68">
+		<phrase>&#045;	The correct answer: Guten Morgen, Ich heisse John Smith</phrase>
+	</concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+ <step>
+ <subgoal>GermanInterview</subgoal>
+ </step>
+</goal>
+
+<goal name="GermanInterview" template-name="Template1" difficulty="1">
+	<step>
+		<initiation>concept_52</initiation>
+		<response say="verygood">concept_53</response>
+		<response push="verbConjugGoal">verb conjugation</response>
+		<response push="VocabularyGoal">concept_58</response>
+		<response say="concept_62">unanticipated-response</response>
+	</step>
+	<step>
+		<initiation>concept_64</initiation>
+		<response say="concept_63">concept_65</response>
+		<response push="verbConjugGoal">concept_57</response>
+		<response push="VocabularyGoal">concept_67</response>
+		<response say="concept_68">unanticipated-response</response>
+	</step>
+</goal>
+
+<goal name="verbConjugGoal" template-name="template2" difficulty="1">
+	<step>
+		<initiation>concept_57</initiation>
+		<response say="concept_56">Understood</response>
+	</step>
+</goal>
+
+<goal name="VocabularyGoal" template-name="template3" difficulty="1">
+	<step>
+		<initiation>concept_60</initiation>
+		<response>concept_61</response>
+	</step>
+</goal>
+
+</script>
+</scenario>

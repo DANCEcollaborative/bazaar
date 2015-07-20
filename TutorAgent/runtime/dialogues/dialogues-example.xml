@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+    <dialog concept="ANIMAL_IDENTIFICATION" scenario="scenario-animals">
+    	<trigger annotation="ANIMALS"/>
+        <intro>We can work on your basic zoology. Are you ready?</intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - I'm here when you need me.</cancel>
+    </dialog>
+  
+    <dialog concept="GET_A_HUG" scenario="scenario-hugs">
+    	<trigger annotation="CONFUSION"/>
+    	<trigger annotation="QUESTION"/>
+        <intro>It sounds like you're confused. Would you like some help?</intro>
+        <accept annotation="AFFIRMATIVE">Great!</accept>
+        <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
+    </dialog>
+</dialogs>

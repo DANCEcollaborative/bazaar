@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt id="RECOGNIZE_PREDICTION">
+        <text>Nice job making a full prediction, [STUDENT]. Your group has [TEAM SCORE] points.</text>
+        <text>Keep on predicting, [STUDENT]. +[AWARD] to the discussion.</text>
+        <text>Thanks for putting a prediction+explanation out there, [STUDENT] :-)</text>
+     
+    </prompt>
+       
+    <prompt id="RECOGNIZE_UNSUPPORTED_PREDICTION">
+        <text>Please explain your prediction, [STUDENT].</text>
+        <text>That's a good start to a prediction...</text>
+        <text>Thanks for starting a prediction, [STUDENT].</text>
+        
+    </prompt>
+    <prompt id="RECOGNIZE_EXPLANATION">
+        <text>Thanks for offering an explanation, [STUDENT]  :-)</text>
+        <text>Keep on explaining, [STUDENT]. +[AWARD] to the discussion!</text>
+        <text>It's nice that you're explaining your reasoning. +[AWARD]!</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_UNSUPPORTED_CHALLENGE">
+        <text>Thanks for challenging, [STUDENT]. Now please explain your position.</text>
+        <text>[STUDENT]- that's a good *start* to a challenge...</text>
+        <text>Please continue, [STUDENT].</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_CHALLENGE">
+        <text>Nice challenge, [STUDENT]. Your group has [TEAM SCORE] points.</text>
+        <text>Keep on challenging, [STUDENT]. +[AWARD] to the discussion.</text>
+        <text>Thanks for keeping the discussion lively, [STUDENT].</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_REVOICE">
+        <text>Thanks for asking for a re-voice, [STUDENT]. +[AWARD] to the group.</text>
+        <text>Perfect time for a re-voicing, [STUDENT].</text>
+        <text>[STUDENT] has a good idea - find another way to say what you've been talking about.</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_REVOICE_REQUEST">
+        <text>Thanks for asking for a re-voice, [STUDENT]. +[AWARD] to the group.</text>
+        <text>Perfect time for a re-voicing, [STUDENT].</text>
+        <text>[STUDENT] has a good idea - find another way to say what you've been talking about.</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_EXPLANATION_REQUEST">
+        <text>Thanks for asking for an explanation, [STUDENT]. +[AWARD] to the group.</text>
+        <text>[STUDENT] is right - this is a good time for a better explanation.</text>
+        <text>Can anyone follow up on [STUDENT]'s request with a good explanation?</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_CHALLENGE_REQUEST">
+        <text>Thanks for offering the chance for a challenge, [STUDENT]. :-)</text>
+        <text>[STUDENT] is right - this is a good time for a challenge.</text>
+        <text>Excellent push-back, [STUDENT]. +[AWARD] to the group.</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_REQUEST">
+        <text>Thanks for keeping the discussion going, [STUDENT]. :-)</text>
+        <text>Thanks for that, [STUDENT]. +[AWARD]! Can anyone respond?</text>
+        <text>[STUDENT]'s request has increased the group's score to [TEAM SCORE].</text>
+    </prompt>
+    
+    <prompt id="RECOGNIZE_GENERAL">
+        <text>Nice contribution, [STUDENT].</text>
+        <text>Thanks, [STUDENT]!</text>
+        <text>Great discussion, everyone - your group has [TEAM SCORE] combined points.</text>
+    </prompt>
+</prompts>

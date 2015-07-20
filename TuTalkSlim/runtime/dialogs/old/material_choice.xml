@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="concept_245">
+        <phrase>Right</phrase>
+    </concept>
+    <concept label="concept_246">
+        <phrase>No, higher yield stress is better.</phrase>
+    </concept>
+    <concept label="concept_247">
+        <phrase>Would you choose a material that with high yield stress or low yield stress?</phrase>
+    </concept>
+    <concept label="concept_248">
+        <phrase>increase</phrase>
+        <phrase>high</phrase>
+        <phrase>more</phrase>
+        <phrase>higher</phrase>
+        <phrase>increased</phrase>
+        <phrase>high yield stress</phrase>
+        <phrase>higher yield stress</phrase>
+        <phrase>increased stress</phrase>
+        <phrase>more yield stress</phrase>
+    </concept>
+    <concept label="concept_249">
+        <phrase>decrease</phrase>
+        <phrase>less</phrase>
+        <phrase>low</phrase>
+        <phrase>lower</phrase>
+        <phrase>lesser</phrase>
+        <phrase>low yield stress</phrase>
+        <phrase>lower yield stress</phrase>
+        <phrase>less yield stress</phrase>
+        <phrase>lesser yield stress</phrase>
+        <phrase>decreased</phrase>
+    </concept>
+    <concept label="concept_250">
+        <phrase>All other things same, you want to choose a stronger material i.e. a material which can withstand higher stress i.e. high yield stress.</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>how_to_choose_material</subgoal>
+  </step>
+</goal>
+
+<goal name="how_to_choose_material" template-name="template_20" difficulty="1">
+  <step>
+    <initiation>concept_247</initiation>
+    <response say="concept_245">concept_248</response>
+    <response say="concept_246">concept_249</response>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_250</initiation>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

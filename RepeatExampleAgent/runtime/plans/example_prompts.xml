@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+	<prompt strategy="task" id="GREETING">
+		<text>Hello, I'm [AGENT NAME], the Bazaar example agent! This message comes from the PromptStepHandler, by way of the PlanExecutor component.</text>
+	</prompt>
+
+	<prompt strategy="task" id="EXPLAIN">
+		<text>The rest of the responses you'll see from me come from two dynamic components, the RepeatReactor and the ParrotTalker, which are paying attention to what you say (supported by the MessageAnnotator component), and how often you say it.</text>
+	</prompt>
+<prompt strategy="task" id="CONCLUDE">
+		<text>Okay… you're on your own from here on out. Good luck!</text>
+	</prompt></prompts>

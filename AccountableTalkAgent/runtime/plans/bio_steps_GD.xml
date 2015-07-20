@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="bio_winter_2011">
+
+<!-- if PromptStepHandler has the rate_limited property set (default=true), the "delay" value 
+does not need to include reading time - only additional response/waiting time -->
+    <stage name="intro" timeout="1">
+        <step type="prompt"  delay="30">AGENT_GREETING</step>
+        <step type="prompt"   delay="1">BEGIN_TASK</step>
+    <!--  </stage> 
+    
+  		<stage name="condition_a" timeout="40">
+        <step type="prompt"    delay="5">CONDITION_A_SETUP</step>
+        <step type="whiteboard" delay="10" label="main_image" loc="0,0" path="images/condition_a_setup.png">CONDITION_A_SETUP_IMAGE</step>
+        <step type="prompt"    delay="1">CONDITION_A_NOTES</step>
+        <step type="listen"    delay="1" timeout="45">CONDITION_A_RECALL_LISTEN</step>
+        <step type="prompt"    delay="1">CONDITION_A_RESULTS</step>
+        <step type="whiteboard" delay="10" label="main_image2" loc="0,0" path="images/condition_a_results.png">CONDITION_A_ANSWER_IMAGE</step>
+        <step type="whiteboard" delay="0" label="main_image" delete="true">CONDITION_A_DELETE_ANSWER_IMAGE</step>
+        <step type="prompt"    delay="1">CONDITION_A_EXPLAIN</step>
+        <step type="listen"    delay="1" timeout="120">CONDITION_A_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="1">CONDITION_A_WEIGHTS</step>
+        <step type="whiteboard" delay="10" label="main_image" loc="0,0" path="images/condition_a_results_weights.png">CONDITION_A_ANSWER_IMAGE</step>
+        <step type="whiteboard" delay="1" label="main_image2" delete="true">CONDITION_A_DELETE_IMAGE_2</step>
+        <step type="prompt"    delay="1">CONDITION_A_WEIGHTS_RECALL</step>
+        <step type="listen"    delay="1" timeout="30">CONDITION_A_WEIGHTS_RECALL_LISTEN</step>
+        <step type="prompt"    delay="1">CONDITION_A_WEIGHTS_EXPLAIN</step>
+        <step type="listen"    delay="1" timeout="150">CONDITION_A_WEIGHTS_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="10">CONDITION_A_WRAP</step>
+        <step type="whiteboard" delay="0" label="main_image2" delete="true">CONDITION_A_DELETE_IMAGE_3</step>
+        <step type="whiteboard" delay="0" label="main_image" delete="true">CONDITION_A_DELETE_IMAGE_3</step>
+        
+   </stage>  
+    
+    <stage name="condition_b"    timeout="40">-->
+        <step type="prompt"    delay="0">CONDITION_B_SETUP</step>
+        <step type="whiteboard" delay="10" label="main_image3" loc="0,0" path="images/condition_b_setup.png">CONDITION_B_SETUP_IMAGE</step>
+		<step type="prompt"    delay="1">CONDITION_B_NOTES</step>
+        <step type="prompt"    delay="1">CONDITION_B_RESULTS</step>
+        <step type="whiteboard" delay="10" label="main_image2" loc="0,0" path="images/condition_b_results.png">CONDITION_B_ANSWER_IMAGE</step>
+        <step type="prompt"    delay="1">CONDITION_B_EXPLAIN</step>
+        <step type="listen"    delay="1" timeout="200">CONDITION_B_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="10">CONDITION_B_EXPLAIN_WRAP</step> 
+        
+        <step type="whiteboard" delay="0" label="main_image2" delete="true">CONDITION_B_DELETE_IMAGE_3</step>
+        <step type="whiteboard" delay="1" label="main_image3" delete="true">CONDITION_B_DELETE_IMAGE_3</step>
+   <!-- </stage>
+    
+    <stage name="condition_c"   timeout="270"> -->
+        <!-- <step type="whiteboard" delay="1" label="main_image" delete="true">CONDITION_B_REMOVE_SETUP</step> -->
+        
+        <step type="prompt"    delay="5">CONDITION_C_SETUP</step>
+        <step type="whiteboard" delay="10" label="main_image" loc="0,0" path="images/condition_c_setup.png">CONDITION_C_SETUP_IMAGE</step>
+        <step type="prompt"    delay="1">CONDITION_C_RECALL_GLUCOSE</step>
+        <step type="listen"    delay="1" timeout="45">CONDITION_C_RECALL_GLUCOSE_LISTEN</step>
+        <step type="prompt"    delay="1">CONDITION_C_NOTES</step>
+        <!-- <step type="prompt"    delay="1">CONDITION_C_RECALL_INDICATOR</step>
+        <step type="listen"    delay="1" timeout="45">CONDITION_C_RECALL_INDICATOR_LISTEN</step> -->
+        <step type="prompt"    delay="1">CONDITION_C_RESULTS</step>
+        <step type="whiteboard" delay="10" label="main_image2" loc="0,0" path="images/condition_c_results.png">CONDITION_C_ANSWER_IMAGE</step>
+        <step type="prompt"    delay="1">CONDITION_C_EXPLAIN</step>
+        <step type="listen"    delay="1" timeout="200">CONDITION_C_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="10">CONDITION_C_EXPLAIN_WRAP</step>  
+        <step type="whiteboard" delay="0" label="main_image2" delete="true">CONDITION_B_DELETE_IMAGE</step>
+        <step type="whiteboard" delay="0" label="main_image" delete="true">CONDITION_B_DELETE_IMAGE</step>
+   <!-- </stage>
+        
+    <stage name="condition_d"   timeout="500"> -->
+        <step type="prompt"    delay="0">CONDITION_D_SETUP</step>
+        <step type="whiteboard" delay="10" label="main_image3" loc="0,0" path="images/condition_d_setup.png">CONDITION_C_SETUP_IMAGE</step>
+        <step type="prompt"    delay="1">CONDITION_D_PREDICT</step>
+        <step type="listen"    delay="1" timeout="200">CONDITION_D_PREDICT_LISTEN</step>
+     
+        
+   
+    <!--</stage>
+    
+    <stage name="close" timeout="1000">-->
+        <step type="prompt"    delay="30">CONDITION_D_EXPLAIN_WRAP</step>  
+        <step type="prompt"  delay="0">ACTIVITY_WRAP</step>
+    </stage>
+</plan>

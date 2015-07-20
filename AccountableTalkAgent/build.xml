@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="AccountableTalkAgent">
+    <property environment="env"/>
+    <property name="BasilicaCore.location" value="../BasilicaCore"/>
+    <property name="BaseAgent.location" value="../BaseAgent"/>
+    <property name="MoodleTalkAgent.location" value="../MoodleTalkAgent"/>
+    <property name="SocketTalkit.location" value="../SocketTalkit"/>
+    <property name="ECLIPSE_HOME" value="../../../../Applications/eclipse"/>
+    <property name="workspace_loc:BioRevoiceAgent/runtime" value="${workspace_loc:BioRevoiceAgent/runtime}"/>
+    <property name="SocialAgent.location" value="../SocialAgent"/>
+    <property name="Synonymizer.location" value="../Synonymizer"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="BasilicaCore.classpath">
+        <pathelement location="${BasilicaCore.location}/bin"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/JGraph/jgraph.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/resolver.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/serializer.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/xercesImpl.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/xml-apis.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Utilities.jar"/>
+    </path>
+    <path id="BaseAgent.classpath">
+        <pathelement location="${BaseAgent.location}/bin"/>
+        <path refid="BasilicaCore.classpath"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/JGraph/jgraph.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/resolver.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/serializer.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/xercesImpl.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/xml-apis.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/agilo-client.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/agilo-common.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-chatblocks.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-framework.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-laf.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-mathexpression.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-spellcheck.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-utils.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-whiteboard.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-client.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-common.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-jdicbrowser.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-replication.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-screenshotchat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-tabbedchat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-user.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-virtualmeeting.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-vncviewer.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-webpagechat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-whiteboardchat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/jazzy-core.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/jazzy-swing.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/jdic.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/log4j.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Utilities.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/jopt/jopt-simple-4.3.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/Jabber/smack.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/Jabber/smackx-debug.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/Jabber/smackx-jingle.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/Jabber/smackx.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/Moodle/mysql-connector-java-5.1.26-bin.jar"/>
+    </path>
+    <path id="SocialAgent.classpath">
+        <pathelement location="${SocialAgent.location}/build/classes"/>
+        <path refid="BaseAgent.classpath"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Utilities.jar"/>
+    </path>
+    <path id="Synonymizer.classpath">
+        <pathelement location="${Synonymizer.location}/bin"/>
+        <pathelement location="${Synonymizer.location}/lib/edu.mit.jwi_2.2.1_jdk.jar"/>
+        <pathelement location="${Synonymizer.location}/lib/stemmer.jar"/>
+    </path>
+    <path id="AccountableTalkAgent.classpath">
+        <pathelement location="bin"/>
+        <path refid="BaseAgent.classpath"/>
+        <path refid="SocialAgent.classpath"/>
+        <path refid="Synonymizer.classpath"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/JGraph/jgraph.jar"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Utilities.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/agilo-client.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/agilo-common.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-chatblocks.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-framework.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-laf.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-mathexpression.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-spellcheck.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-utils.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/base-whiteboard.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-client.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-common.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-jdicbrowser.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-replication.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-screenshotchat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-tabbedchat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-user.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-virtualmeeting.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-vncviewer.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-webpagechat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/cc-whiteboardchat.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/jazzy-core.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/jazzy-swing.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/jdic.jar"/>
+        <pathelement location="${BaseAgent.location}/lib/Environments/ConcertChat/Libraries/log4j.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.uad"/>
+                <exclude name="**/*.ucd"/>
+                <exclude name="**/*.uld"/>
+                <exclude name="**/*.upd"/>
+                <exclude name="**/*.udd"/>
+                <exclude name="**/*.uod"/>
+                <exclude name="**/*.usd"/>
+                <exclude name="**/*.utd"/>
+                <exclude name="**/*.uud"/>
+                <exclude name="**/*.odd"/>
+                <exclude name="**/*.ead"/>
+                <exclude name="**/*.ecd"/>
+                <exclude name="**/*.eld"/>
+                <exclude name="**/*.epd"/>
+                <exclude name="**/*.edd"/>
+                <exclude name="**/*.eod"/>
+                <exclude name="**/*.esd"/>
+                <exclude name="**/*.etd"/>
+                <exclude name="**/*.eud"/>
+                <exclude name="**/*.urd"/>
+                <exclude name="**/*.uml"/>
+                <exclude name="**/*.ecore"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${BasilicaCore.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${BaseAgent.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SocialAgent.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${Synonymizer.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${BasilicaCore.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${BaseAgent.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SocialAgent.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${Synonymizer.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="AccountableTalkAgent.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${MoodleTalkAgent.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${MoodleTalkAgent.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SocketTalkit.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SocketTalkit.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="RevoicingActor (3)">
+        <java classname="basilica2.accountable.listeners.RevoicingActor" failonerror="true" fork="yes">
+            <classpath refid="AccountableTalkAgent.classpath"/>
+        </java>
+    </target>
+    <target name="TranscriptAnnotator (Diffusion12)">
+        <java classname="basilica2.accountable.util.TranscriptAnnotator" dir="${workspace_loc:BioRevoiceAgent/runtime}" failonerror="true" fork="yes">
+            <arg line="/Users/dadamson/Dropbox/cmu-bio/2012-unit4/bio_diffusion_all_tutor_annotations.csv"/>
+            <classpath refid="AccountableTalkAgent.classpath"/>
+        </java>
+    </target>
+</project>

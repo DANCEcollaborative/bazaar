@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="concept_260">
+        <phrase>That&#039;s right. However, on the down side, increasing heat in has a negative environmental impact. As a side note, increasing efficiency is normally good both for power output and for environmental impact. Thus, in this case also increasing heat input to the cycle increases power output.</phrase>
+    </concept>
+    <concept label="concept_261">
+        <phrase>Cycle Efficiency improves by increasing Tmax. In general, increasing efficiency is good both for power output and environmental impact, although in this case, we will see that increasing heat input to the cycle comes with a negative environmental impact.</phrase>
+    </concept>
+    <concept label="concept_262">
+        <phrase>If you increase the maximum temperature &#040;T @ S2&#041; of the cycle, what happens to the cycle efficiency?</phrase>
+    </concept>
+    <concept label="increase">
+        <phrase>increase</phrase>
+        <phrase>high</phrase>
+        <phrase>up</phrase>
+        <phrase>more</phrase>
+        <phrase>higher</phrase>
+    </concept>
+    <concept label="decrease">
+        <phrase>decrease</phrase>
+        <phrase>less</phrase>
+        <phrase>down</phrase>
+        <phrase>low</phrase>
+        <phrase>lower</phrase>
+        <phrase>reduce</phrase>
+    </concept>
+    <concept label="concept_265">
+        <phrase>We see this in Graph 1 on your worksheet.</phrase>
+    </concept>
+    <concept label="concept_266">
+        <phrase>Lets think about it in a bit more detail. What happens to the net power output of the cycle when you increase Tmax?</phrase>
+    </concept>
+    <concept label="concept_268">
+        <phrase>You are right. The net power output increases.</phrase>
+    </concept>
+    <concept label="concept_269">
+        <phrase>The net power output of the cycle increases by increasing Tmax.</phrase>
+    </concept>
+    <concept label="concept_271">
+        <phrase>Increasing heat input to the cycle is bad because the heat rejected by the cycle increases by increasing Tmax.</phrase>
+    </concept>
+    <concept label="concept_272">
+        <phrase>No! The materials will fail if you increase the maximum temperature too much.</phrase>
+    </concept>
+    <concept label="concept_273">
+        <phrase>Good. Material properties constrain the maximum temperature we can use in a Cycle. For our cycle, Tmax cannot be more than 570C</phrase>
+    </concept>
+    <concept label="concept_274">
+        <phrase>The materials will fail if you increase the maximum temperature too much.</phrase>
+    </concept>
+    <concept label="concept_275">
+        <phrase>Yes...</phrase>
+    </concept>
+    <concept label="concept_276">
+        <phrase>We see this in Graph 4 on your worksheet.</phrase>
+    </concept>
+    <concept label="concept_277">
+        <phrase>On the other hand, what about waste heat? Does it increase or decrease?</phrase>
+    </concept>
+    <concept label="concept_278">
+        <phrase>We see this in Graph 3 of the worksheet.</phrase>
+    </concept>
+    <concept label="concept_279">
+        <phrase>Conceptually, any thoughts on why increasing Tmax has these effects?</phrase>
+    </concept>
+    <concept label="reason1">
+        <phrase>more heat</phrase>
+        <phrase>heat added</phrase>
+        <phrase>higher heat</phrase>
+    </concept>
+    <concept label="concept_281">
+        <phrase>At higher Tmax, more heat is added to the working fluid in the cycle, which does more work, thereby increasing the efficiency. But it also rejects more heat.</phrase>
+    </concept>
+    <concept label="concept_282">
+        <phrase>BTW: Is it safe to keep increasing Tmax?</phrase>
+    </concept>
+    <concept label="yes">
+        <phrase>yes</phrase>
+        <phrase>why not</phrase>
+        <phrase>sure</phrase>
+        <phrase>yeah</phrase>
+        <phrase>ok</phrase>
+        <phrase>absolutely</phrase>
+        <phrase>ofcourse</phrase>
+        <phrase>of course</phrase>
+        <phrase>yup</phrase>
+        <phrase>i think so</phrase>
+        <phrase>Right</phrase>
+        <phrase>yeh</phrase>
+        <phrase>yeahh</phrase>
+        <phrase>yeahhh</phrase>
+        <phrase>yesss</phrase>
+    </concept>
+    <concept label="no">
+        <phrase>no</phrase>
+        <phrase>never</phrase>
+        <phrase>nope</phrase>
+        <phrase>nah</phrase>
+        <phrase>nay</phrase>
+        <phrase>not really</phrase>
+        <phrase>nahh</phrase>
+    </concept>
+    <concept label="materials">
+        <phrase>break</phrase>
+        <phrase>fail</phrase>
+        <phrase>material</phrase>
+        <phrase>strength</phrase>
+        <phrase>properties</phrase>
+        <phrase>property</phrase>
+        <phrase>steel</phrase>
+    </concept>
+    <concept label="concept_286">
+        <phrase>Try using this understanding that our team now shares to come up with a potential value of Tmax &#040;T @ S2&#041; that will help you meet your objectives.</phrase>
+    </concept>
+    <concept label="concept_287">
+        <phrase>We will move on to considering Pmax in a few minutes.</phrase>
+    </concept>
+    <concept label="better">
+        <phrase>better</phrase>
+        <phrase>improve</phrase>
+        <phrase>good</phrase>
+    </concept>
+    <concept label="worse">
+        <phrase>poor</phrase>
+        <phrase>degrade</phrase>
+        <phrase>worse</phrase>
+        <phrase>bad</phrase>
+    </concept>
+    <concept label="concept_289">
+        <phrase>Correct. Increasing heat input to the cycle is bad because the waste heat increases too.</phrase>
+    </concept>
+    <concept label="concept_290">
+        <phrase>Increasing heat input to the cycle is bad because the heat rejected by the cycle increases by increasing Tmax.</phrase>
+    </concept>
+    <concept label="concept_291">
+        <phrase>Increasing heat input to the cycle is bad because the heat rejected by the cycle increases by increasing Tmax.</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>goal_1</subgoal>
+  </step>
+</goal>
+
+<goal name="goal_1" template-name="template_22" difficulty="1">
+  <step>
+    <initiation>concept_262</initiation>
+    <response say="concept_260">increase</response>
+    <response say="concept_261">decrease</response>
+    <response say="concept_261">unanticipated-response</response>
+    <response say="concept_260">better</response>
+    <response say="concept_261">worse</response>
+  </step>
+  <step>
+    <initiation>concept_265</initiation>
+  </step>
+  <step>
+    <initiation>concept_266</initiation>
+    <response say="concept_268">increase</response>
+    <response say="concept_269">decrease</response>
+    <response say="concept_269">unanticipated-response</response>
+    <response say="concept_268">better</response>
+    <response say="concept_269">worse</response>
+  </step>
+  <step>
+    <initiation>concept_276</initiation>
+  </step>
+  <step>
+    <initiation>concept_277</initiation>
+    <response say="concept_271">unanticipated-response</response>
+    <response say="concept_291">better</response>
+    <response say="concept_290">worse</response>
+    <response say="concept_289">increase</response>
+    <response say="concept_290">decrease</response>
+  </step>
+  <step>
+    <initiation>concept_278</initiation>
+  </step>
+  <step>
+    <initiation>concept_279</initiation>
+    <response say="concept_275">reason1</response>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_281</initiation>
+  </step>
+  <step>
+    <initiation>concept_282</initiation>
+    <response say="concept_272">yes</response>
+    <response say="concept_273">no</response>
+    <response say="concept_273">materials</response>
+    <response say="concept_274">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_286</initiation>
+  </step>
+  <step>
+    <initiation>concept_287</initiation>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

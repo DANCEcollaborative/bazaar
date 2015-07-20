@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>When you're all ready, type 'ready' to continue to the next part.</text>
+       <text>Type 'ready' when everyone agrees to move on.</text>
+       <text>We'll move to the next part once everyone's got this - type 'ready' to let me know.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT].</text>
+       <text>Okay, [STUDENT].</text>
+       <text>Got it, [STUDENT].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay, everyone. Let's move on...</text>
+       <text>That's all [NUM_READY] of you. Let's move on!</text>
+       <text>Thanks! Let's continue.</text>
+       <text>Let's continue.</text>
+       <text>Moving on...</text>
+       <text>Moving on!</text>
+       <text>...</text>
+       <text>Onward...</text>
+       <text>Thanks. Moving on...</text>
+    </prompt>
+    
+</prompts>

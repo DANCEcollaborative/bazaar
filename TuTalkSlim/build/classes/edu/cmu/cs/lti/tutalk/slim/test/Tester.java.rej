@@ -1,0 +1,17 @@
+***************
+*** 76,82 ****
+              }
+              System.out.println("=============================");
+              List<Concept> matchingConcepts = new ArrayList<Concept>();
+-             while (matchingConcepts.size() == 0) {
+                  //Get Input
+                  String input = in.nextLine();
+                  System.out.println("Evaluating: " + input.trim());
+--- 80,86 ----
+              }
+              System.out.println("=============================");
+              List<Concept> matchingConcepts = new ArrayList<Concept>();
++             while (matchingConcepts.isEmpty()) {
+                  //Get Input
+                  String input = in.nextLine();
+                  System.out.println("Evaluating: " + input.trim());

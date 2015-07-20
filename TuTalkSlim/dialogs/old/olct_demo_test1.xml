@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="concept_207">
+        <phrase>Yes that’s correct. “Search” is the technique we use to look for something in a set.</phrase>
+    </concept>
+    <concept label="concept_208">
+        <phrase>This is a search problem. We use the “search” technique when we are looking for something.</phrase>
+    </concept>
+    <concept label="concept_209">
+        <phrase>The tournament organizers are “looking for” a champion among N players. What kind of a problem are the organizers facing?</phrase>
+    </concept>
+    <concept label="concept_210">
+        <phrase>Search Problem</phrase>
+        <phrase>Looking problem</phrase>
+        <phrase>Search</phrase>
+        <phrase>A Search Problem</phrase>
+        <phrase>Searching</phrase>
+        <phrase>Binary Search</phrase>
+        <phrase>Binary Search Problem</phrase>
+        <phrase>Look for</phrase>
+        <phrase>Find</phrase>
+        <phrase>Looking for</phrase>
+        <phrase>Finding</phrase>
+        <phrase>Finding problem</phrase>
+        <phrase>Look up</phrase>
+    </concept>
+    <concept label="concept_217">
+        <phrase>After every round, some of the players will be eliminated and the others will advance to the next round. How many players will be eliminated at each round in the tournament?</phrase>
+    </concept>
+    <concept label="concept_218">
+        <phrase>Half</phrase>
+        <phrase>50&#037;</phrase>
+        <phrase>50</phrase>
+        <phrase>One half</phrase>
+        <phrase>N/2</phrase>
+        <phrase>Half of the players</phrase>
+        <phrase>Half of the players in the round</phrase>
+        <phrase>Fifty percent</phrase>
+        <phrase>Nearly half</phrase>
+        <phrase>Almost half</phrase>
+    </concept>
+    <concept label="concept_213">
+        <phrase>You are right. Each round “eliminates” half of its players i.e. half of the candidates in the “search” problem. We are “searching by elimination”.</phrase>
+    </concept>
+    <concept label="concept_214">
+        <phrase>At each round, the tournament eliminates half of the players. Hence, the organizers are search for the champion by elimination.</phrase>
+    </concept>
+    <concept label="concept_215">
+        <phrase>At each round, we have some winners and some losers. Hence, how many groups do the players get split into at each round?</phrase>
+    </concept>
+    <concept label="concept_216">
+        <phrase>2</phrase>
+    </concept>
+    <concept label="concept_219">
+        <phrase>You got that right. Players are split into two groups at each round i.e. a group of winners and a group of losers. The loser’s group is eliminated and the search for the champion continues in the winner’s group.</phrase>
+    </concept>
+    <concept label="concept_220">
+        <phrase>No. The correct answer is two groups i.e. winners and losers. The loser’s group is eliminated and we continue to search in the winner’s group.</phrase>
+    </concept>
+    <concept label="concept_221">
+        <phrase>The answer is two groups i.e. winners and losers. The tournament eliminates the loser’s group and continues to search in the winner’s group.</phrase>
+    </concept>
+    <concept label="concept_222">
+        <phrase>N/2</phrase>
+    </concept>
+    <concept label="concept_223">
+        <phrase>Something Else about this Tennis problem Answer</phrase>
+    </concept>
+    <concept label="concept_224">
+        <phrase>What is the log &#040;base 2&#041; of 8?</phrase>
+    </concept>
+    <concept label="concept_225">
+        <phrase>3</phrase>
+    </concept>
+    <concept label="concept_226">
+        <phrase>Log &#040;base 2&#041; is calculated by log &#040;base 10&#041; 8 / log &#040;base 10&#041; 2</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>binary_search</subgoal>
+  </step>
+</goal>
+
+<goal name="binary_search" template-name="binary_search_template" difficulty="1">
+  <step>
+    <initiation>concept_209</initiation>
+    <response say="concept_207">concept_210</response>
+    <response say="concept_208">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_217</initiation>
+    <response say="concept_213">concept_218</response>
+    <response say="concept_214">unanticipated-response</response>
+    <response push="binary_search_subgoal1">concept_223</response>
+  </step>
+  <step>
+    <initiation>concept_215</initiation>
+    <response say="concept_219">concept_216</response>
+    <response say="concept_220">concept_222</response>
+    <response say="concept_221">unanticipated-response</response>
+  </step>
+</goal>
+
+<goal name="binary_search_subgoal1" template-name="sub_goal_template1" difficulty="1">
+  <step>
+    <initiation>concept_224</initiation>
+    <response>concept_225</response>
+    <response say="concept_226">unanticipated-response</response>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

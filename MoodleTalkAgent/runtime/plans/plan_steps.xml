@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+    <stage name="initiate" type="other" delay="0">
+    	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->        
+        <step type="greet" timeout="30" delay="10">GREETINGS</step>
+        <step type="prompt" delay="0" prompt="SETUP">SETUP_STEP</step>
+        <step type="prompt" delay="0" prompt="INSTRUCTIONS">INSTRUCTIONS_STEP</step>
+    </stage>
+    <stage name="body" type="other" delay="5">
+        <step type="prompt" delay="45" prompt="ABOUT_ACCOUNTABLE_TALK">ABOUT_AT_STEP</step>
+        <step type="prompt" delay="0" prompt="ABOUT_TUTORIALS">ABOUT_TUTORIALS_STEP</step>
+        <step type="prompt" delay="0" prompt="ABOUT_LISTENING">ABOUT_LISTENING_STEP</step>
+    	<step type="dialogue" delay="10" dialogue="ANIMAL_IDENTIFICATION">DEMO_TUTORIAL</step>
+    	<step type="dialogue" delay="60" prompt="FINISH_TUTORIALS">FINISH_TUTORIAL_STEP</step>
+        <step type="prompt" delay="5" prompt="END_MACRO">LAST_STEP</step>
+    </stage>
+</plan>

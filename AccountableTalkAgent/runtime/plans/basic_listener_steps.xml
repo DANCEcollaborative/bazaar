@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="bio_winter_2011">
+
+<!-- if PromptStepHandler has the rate_limited property set (default=true), the "delay" value 
+does not need to include reading time - only additional response/waiting time -->
+    <stage name="intro" timeout="1">
+        <step type="prompt"    delay="2">CONDITION_A_NOTES</step>
+        <step type="listen"    delay="2" timeout="1000">CONDITION_A_RECALL_LISTEN</step>
+    </stage>
+</plan>

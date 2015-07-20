@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="FRONT_MATTER">
+        <text>Hi, all. I'm Quinn - I'll be your facilitator today.</text>
+    </prompt>
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Take a minute to introduce yourselves...</text>
+    </prompt>
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME]!</text>
+        <text>Ahoy, [NAME].</text>
+        <text>Hey there, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+    </prompt>
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    <prompt strategy="task" id="DO_GREETING">
+        <text>It's nice to meet you all.</text>
+    </prompt>
+    <prompt strategy="task" id="START_INSTRUCTIONS">
+        <text>Let's get started. |Start by reading and discussing the introductory material.</text>
+    </prompt>
+    <prompt strategy="task" id="READING_REMINDER">
+        <text>If you have any questions or thoughts about the background material, share them with your partner.</text>
+    </prompt>
+    <prompt strategy="task" id="PART_1A">
+        <text>If you haven't started on Part 1 yet, you should get to it.</text>
+    </prompt>
+    <prompt strategy="task" id="PART_1B">
+        <text>Keep on going...</text>
+    </prompt>
+    <prompt strategy="task" id="PART_2">
+        <text>Okay, now start part 2.</text>
+    </prompt>
+    <prompt strategy="task" id="PART_2_CHECKIN">
+        <text>Just checking in -- you should be making some progress on Part 2...</text>
+    </prompt>
+    <prompt strategy="task" id="LAST_CALL">
+        <text>Alright - I'm out of here. | Thanks, everyone!</text>
+    </prompt>
+    <prompt strategy="task" id="FINISH">
+        <text>Hand in your completed assignment to your professor when you leave.</text>
+    </prompt>
+</prompts>

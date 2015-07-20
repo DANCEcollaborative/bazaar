@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- "delay" is the delay *after* the given step completes -->
+<plan name="thermof09">
+    <stage name="intro" timeout="1">
+        <step type="prompt" delay="5" prompt="DO_GREETING">DO_GREETING_STEP</step>
+        <step type="prompt"  delay="0" prompt="BEGIN_TASK">BEGIN_TASK_STEP</step>
+    </stage>
+    <!-- "timeout" is an absolute time from start that this stage should start,
+    	(ending whatever step was running before).
+    	you can use "delay" instead to specify a pause between stages -->
+   <!-- <stage name="animals" timeout="10"> 
+        <step type="prompt"  delay="10" prompt="ANOTHER_STEP">ANOTHER_STEP</step>
+        <step type="dialog"  delay="15">ANIMAL_IDENTIFICATION_STEP</step>
+        
+        <step type="prompt"  delay="10">GOODBYE</step>
+        <step type="logout"  delay="10">END</step> 
+    </stage> -->
+</plan>

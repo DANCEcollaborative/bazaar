@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs goal="neutral">
+    <dialog concept="IODINE_INDICATOR" scenario="permeability-s12-iodine.xml">
+        <intro>In order to notice change in our cell model, we'll need to look at some *indicators*. | The first indicator (iodine solution) will tell us where starch is present.</intro>
+        <cue id="AFFIRMATIVE">Are you ready to talk about the indicator for starch?</cue>
+    </dialog>
+    <dialog concept="WEIGHT_INDICATOR" scenario="permeability-s12-weight.xml">
+        <intro>We can also measure the change in the cell model's weight.</intro>
+        <cue id="AFFIRMATIVE">Are you ready to talk about weight as an indicator?</cue>
+    </dialog>
+    <dialog concept="GLUCOSE_INDICATOR" scenario="permeability-s12-glucose-strips.xml">
+        <intro>Another qualitative indicator can detect glucose.</intro>
+        <cue id="AFFIRMATIVE">Are you ready to talk about the glucose indicator?</cue>
+    </dialog>
+</dialogs>

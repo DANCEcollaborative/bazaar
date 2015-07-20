@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Synonymizer">
+    <property environment="env"/>
+    <property name="AccountableTalkAgent.location" value="../AccountableTalkAgent"/>
+    <property name="ECLIPSE_HOME" value="../../../../Applications/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="Synonymizer.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/edu.mit.jwi_2.2.1_jdk.jar"/>
+        <pathelement location="lib/stemmer.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.uad"/>
+                <exclude name="**/*.ucd"/>
+                <exclude name="**/*.uld"/>
+                <exclude name="**/*.upd"/>
+                <exclude name="**/*.udd"/>
+                <exclude name="**/*.uod"/>
+                <exclude name="**/*.usd"/>
+                <exclude name="**/*.utd"/>
+                <exclude name="**/*.uud"/>
+                <exclude name="**/*.odd"/>
+                <exclude name="**/*.ead"/>
+                <exclude name="**/*.ecd"/>
+                <exclude name="**/*.eld"/>
+                <exclude name="**/*.epd"/>
+                <exclude name="**/*.edd"/>
+                <exclude name="**/*.eod"/>
+                <exclude name="**/*.esd"/>
+                <exclude name="**/*.etd"/>
+                <exclude name="**/*.eud"/>
+                <exclude name="**/*.urd"/>
+                <exclude name="**/*.uml"/>
+                <exclude name="**/*.ecore"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Synonymizer.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${AccountableTalkAgent.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${AccountableTalkAgent.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="ASentenceMatcher">
+        <java classname="dadamson.words.ASentenceMatcher" failonerror="true" fork="yes">
+            <classpath refid="Synonymizer.classpath"/>
+        </java>
+    </target>
+    <target name="MatrixSentenceMatcher">
+        <java classname="dadamson.words.MatrixSentenceMatcher" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx2500M"/>
+            <classpath refid="Synonymizer.classpath"/>
+        </java>
+    </target>
+    <target name="ParaphraseFeatureAnnotator">
+        <java classname="dadamson.words.ParaphraseFeatureAnnotator" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx1000M"/>
+            <arg line="msr_paraphrase_train.txt results/msr_train_scores_more.csv"/>
+            <classpath refid="Synonymizer.classpath"/>
+        </java>
+    </target>
+    <target name="SynonymSentenceMatcher">
+        <java classname="dadamson.words.SynonymSentenceMatcher" failonerror="true" fork="yes">
+            <classpath refid="Synonymizer.classpath"/>
+        </java>
+    </target>
+    <target name="TOEFL_Tester">
+        <java classname="dadamson.words.TOEFL_Tester" failonerror="true" fork="yes">
+            <arg line="toefl.raw wordnet_guess"/>
+            <classpath refid="Synonymizer.classpath"/>
+        </java>
+    </target>
+</project>

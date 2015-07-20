@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>When you've finished reading your training materials and you think your whole group is ready, press the "We're Ready" button to begin.</text>
+       <!-- <text>Press "We're Ready" when everyone agrees to move on.</text>
+       <text>Once everyone is in agreement, press the "We're Ready" button.</text>-->
+    </prompt>
+    
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up this section.</text>
+       <text>It's nearly time to start the next section - please finish discussing this one.</text>
+       <text>Okay, let's get ready to finish up this section.</text>
+       <text>We're gonna have to move on soon.</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="WAIT_FOR_READING_INTRODUCTION">
+       <text>Take a minute to read the overview for this section. Press the "We're Ready" button when you think your team is done.</text>
+       <!-- <text>Press the "We're Ready" button when you've all finished reading the intro.</text> -->
+       <!-- <text>We'll start the next part once everyone is caught up - press Ready when your group is set.</text> -->
+    </prompt>
+    
+    
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <!-- <text>Press "We're Ready" when your team has finished discussing this.</text> -->
+       <text>Once you've fully discussed this with your team, press the "We're Ready" button.</text>
+       <text>We'll start the next part once everyone is comfortable with this - press Ready when your group is set.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <!-- <text>Press "We're Ready" once your team has finished reading and discussing this.</text> -->
+       <text>Once you've read this and discussed it with your team, press the "We're Ready" button.</text>
+       <text>When everyone is comfortable with this material, press Ready.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>Take your time to discuss this - we'll move on when everyone is ready.</text>
+       <text>When you've reached consensus in your group, press the Ready button.</text>
+       <text>Make sure your team agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until the rest of your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until everyone else is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay, everyone. Let's move on...</text>
+       <text>Looks like everyone's together - let's move on!</text>
+       <text>Thanks! Let's continue.</text>
+       <text>I think we're all ready.</text>
+       <text>Moving on...</text>
+       <text>Looks like we're ready.</text>
+       <text>Onward!</text>
+       <text>Thanks. Moving on...</text>
+    </prompt>
+    
+</prompts>

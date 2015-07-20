@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="bio_winter_2011">
+
+    <stage name="intro" timeout="1">
+        <step type="prompt"  delay="5">STUDENT_GREETING</step>
+        <step type="prompt"   delay="5">BEGIN_TASK</step>
+    </stage> 
+    
+    <stage name="starch" timeout="25">
+        <step type="prompt"    delay="0">EXPERIMENT_1_SETUP</step>
+        <step type="whiteboard" delay="15" label="setup" loc="0,0" path="images/experiment_1_setup.png">EXPERIMENT_1_SETUP_IMAGE</step>
+        <step type="prompt"    delay="5">EXPERIMENT_1_NOTES</step>
+        <step type="prompt"    delay="5">EXPERIMENT_1_PREDICT</step>
+        <step type="listen"    delay="5" timeout="75">EXPERIMENT_1_PREDICT_LISTEN</step>
+        <step type="prompt"    delay="5">EXPERIMENT_1_PREDICT_WRAP</step>
+        <step type="prompt"    delay="5">EXPERIMENT_1_RESULTS</step>
+        <step type="whiteboard" delay="15" label="reveal" loc="0,200" path="images/experiment_1_reveal.png">EXPERIMENT_1_ANSWER_IMAGE</step>
+        <step type="prompt"    delay="5">EXPERIMENT_1_EXPLAIN</step>
+        <step type="listen"    delay="5" timeout="75">EXPERIMENT_1_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="5">EXPERIMENT_1_EXPLAIN_WRAP</step>
+        
+    </stage>
+    
+    <stage name="indicators_glucose_strips" timeout="250">
+        <step type="prompt"  delay="0">GLUCOSE_INDICATOR</step>
+    </stage>
+    
+    <stage name="glucose_outside" timeout="260">
+        <step type="prompt"  delay="0">GLUCOSE_OUTSIDE</step>   
+        <step type="prompt"    delay="0">EXPERIMENT_2_SETUP</step>
+        <step type="whiteboard" delay="15" label="setup" loc="0,0" path="images/experiment_1_setup.png">EXPERIMENT_2_SETUP_IMAGE</step>
+        <step type="prompt"    delay="5">EXPERIMENT_2_NOTES</step>
+        <step type="prompt"    delay="5">EXPERIMENT_2_PREDICT</step>
+        <step type="listen"    delay="5" timeout="75">EXPERIMENT_2_PREDICT_LISTEN</step>
+        <step type="prompt"    delay="5">EXPERIMENT_2_PREDICT_WRAP</step>
+        <step type="prompt"    delay="5">EXPERIMENT_2_RESULTS</step>
+        <step type="whiteboard" delay="15" label="reveal" loc="0,200" path="images/experiment_1_reveal.png">EXPERIMENT_2_ANSWER_IMAGE</step>
+        <step type="prompt"    delay="5">EXPERIMENT_2_EXPLAIN</step>
+        <step type="listen"    delay="5" timeout="75">EXPERIMENT_2_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="5">EXPERIMENT_2_EXPLAIN_WRAP</step>  
+    </stage>
+    
+    <stage name="glucose_inside" timeout="270">
+        <step type="prompt"  delay="0">GLUCOSE_INSIDE</step>  
+        <step type="prompt"    delay="0">EXPERIMENT_3_SETUP</step>
+        <step type="whiteboard" delay="15" label="setup" loc="0,0" path="images/experiment_1_setup.png">EXPERIMENT_3_SETUP_IMAGE</step>
+        <step type="prompt"    delay="5">EXPERIMENT_3_NOTES</step>
+        <step type="prompt"    delay="5">EXPERIMENT_3_PREDICT</step>
+        <step type="listen"    delay="5" timeout="75">EXPERIMENT_3_PREDICT_LISTEN</step>
+        <step type="prompt"    delay="5">EXPERIMENT_3_PREDICT_WRAP</step>
+        <step type="prompt"    delay="5">EXPERIMENT_3_RESULTS</step>
+        <step type="whiteboard" delay="15" label="reveal" loc="0,200" path="images/experiment_1_reveal.png">EXPERIMENT_3_ANSWER_IMAGE</step>
+        <step type="prompt"    delay="5">EXPERIMENT_3_EXPLAIN</step>
+        <step type="listen"    delay="5" timeout="75">EXPERIMENT_3_EXPLAIN_LISTEN</step>
+        <step type="prompt"    delay="5">EXPERIMENT_3_EXPLAIN_WRAP</step>  
+    </stage>
+    
+    <stage name="close" timeout="280">
+        <step type="prompt"  delay="0">DO_CONCLUDE</step>
+        <step type="prompt"  delay="15">STUDENT_CONCLUDE</step>
+    </stage>
+</plan>

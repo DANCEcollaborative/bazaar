@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="ans1">
+        <phrase>Ich stehe um 7 uhr auf</phrase>
+    </concept>
+    <concept label="veryGood">
+        <phrase>Very good</phrase>
+    </concept>
+    <concept label="concept_39">
+        <phrase>You are required to translate these sentences into German? "I wake up at 7."</phrase>
+    </concept>
+    <concept label="ans2w">
+        <phrase>Ich stehen um 7 uhr auf</phrase>
+    </concept>
+    <concept label="stehe">
+        <phrase>Ich stehe um 7 uhr auf</phrase>
+    </concept>
+    <concept label="steheCorrect">
+        <phrase>The correct answer is: Ich stehe um 7 uhr auf</phrase>
+    </concept>
+    <concept label="verbConjugation">
+        <phrase>Please refer to the rule: Singular case: Ich wohne Du wohnst Sie wohnen er/sie/es wohnt Plural case: Wir wohnen ihr wohnt Sie wohnen sie wohnen.  Can you now guess the correct answer?</phrase>
+    </concept>
+    <concept label="concept_46">
+        <phrase>Very good</phrase>
+    </concept>
+    <concept label="concept_47">
+        <phrase>yes</phrase>
+    </concept>
+    <concept label="concept_48">
+        <phrase>no</phrase>
+    </concept>
+    <concept label="concept_49">
+        <phrase>Refer to verb Conjugation rules </phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>translation</subgoal>
+  </step>
+</goal>
+
+<goal name="translation" template-name="lesson1" difficulty="1">
+  <step>
+    <initiation>concept_39</initiation>
+    <response say="veryGood">ans1</response>
+    <response push="verbsConjugation">ans2w</response>
+  </step>
+</goal>
+
+<goal name="verbsConjugation" template-name="vc" difficulty="1">
+  <step>
+    <initiation>verbConjugation</initiation>
+    <response say="concept_46">concept_47</response>
+    <response say="concept_49">concept_48</response>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

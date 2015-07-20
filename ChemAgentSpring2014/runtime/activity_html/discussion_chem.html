@@ -1,0 +1,1232 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>HTML5 Sortable jQuery Plugin</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href='discussion.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript"
+  src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+<body>
+<div id="intro_text">
+    <div class="chem_box chem_text">
+		<h2>General Introduction</h2>
+		<p>Each member of your group has received some training materials on the intermolecular forces that hold liquids together and 
+		   influence a liquid's boiling point.  In particular, one of you has learned about the forces at work in liquids consisting of 
+		   non-polar molecules, one of you learned about liquids composed of polar molecules, and one of you learned about ionic liquids.</p>
+		<p>We'll be asking you some questions that will give you an opportunity to teach the other members of your group about the 
+		   things you've read about.  In addition, we'll ask you some questions that will require your collective expertise.  Make sure you 
+		   discuss things with the other members of your group - because by doing so, you'll be able produce more accurate answers to the questions 
+		   and you'll all learn more.</p>
+    </div>
+    </div>
+<div id="intro_intro">
+	<div class="chem_box chem_text">
+		<h2>Getting on the Same Page</h2>
+		<p>Before we start looking at data that will require you to combine your respective expertise, we'll take a look at three data sets, 
+		   each of which can be explained by just one of you.  Looking at these data sets together will provide an opportunity for each of you to share 
+		   with the other group members what you learned.  Try to explain what you learned as well as you can - your group is relying on you!	</p>
+	</div>	
+</div>
+
+<div id="intro_chart1">
+	<div class="chem_box chem_text">
+		<p><strong>1</strong>.  This data set involves the boiling point of unbranched and branched alkanes.</p>
+		<img class="chem_image" alt="Boiling Point vs van der Waals Area for Linear and Branched Alkanes" 
+			  src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/samepage_1_linear_700.png"/>
+		<p>Questions pertaining to this data: </p>
+		<ol type="a">
+			<li>Which type of molecule (non-polar, polar, ionic) is represented here? </li>
+			<li>Which factors influence the boiling point of the chemical species in the figure?  How do those factors show up in the figure? </li>
+			<li>Are there any factors that influence the boiling point of these chemicals that aren't evident from the figure?  If so, what are 
+			    they?  Describe or draw a figure that would make clear the influence those factors have on the boiling point.</li>
+		</ol>
+		<P>Use the space below to take notes during your group's discussion of this data set.</p>
+		<p><textarea class="chem_notes" style="width:80%" placeholder="add notes here"> </textarea></p>
+	<div class="chem_comment">These are your personal notes - nobody else can see what you write here.</div>
+	</div>
+</div>		
+		
+<div id="intro_chart2">
+	<div class="chem_box chem_text">
+		<p><strong>2</strong>. This data set involves two groups of molecules.  Within each group, the molecules have the same number and 
+		   type of atoms but in different arrangements.  Within each group are molecules that are classified as ethers, aldehydes, and ketones, etc.</p>
+		<img class="chem_image" alt="Boiling Point as a Function of Dipole Moment" 
+			  src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/samepage_2_isomer_700.png"/>
+		<p>Questions pertaining to this data: </p>
+		<ol type="a">
+			<li>Which type of molecule (non-polar, polar, ionic) is represented here? </li>
+			<li>Which factors influence the boiling point of the chemical species in the figure?  How do those factors show up in the figure? </li>
+			<li>Are there any factors that influence the boiling point of these chemicals that aren't evident from the figure?  If so, what are 
+			    they?  Describe or draw a figure that would make clear the influence those factors have on the boiling point.</li>
+		</ol>
+		<P>Use the space below to take notes during your group's discussion of this data set.</p>
+		<p><textarea class="chem_notes" style="width:80%" placeholder="add notes here"> </textarea></p>
+	   <div class="chem_comment">These are your personal notes - nobody else can see what you write here.</div>
+	</div>
+</div>	
+	
+<div id="intro_chart3">
+	<div class="chem_box chem_text">
+		<p><strong>3</strong>. The last data set we'll look at involves diatomic substances composed of one atom from the left side of the 
+		   periodic table and one element from the right side of the periodic table.</p>
+		<img class="chem_image" alt="Boiling Point as a Function of Reciprocal of Square of Sum of Ion Radii" 
+			  src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/samepage_3_radii_700.png"/>
+		<p>Questions pertaining to this data: </p>
+		<ol type="a">
+			<li>Which type of molecule (non-polar, polar, ionic) is represented here? </li>
+			<li>Which factors influence the boiling point of the chemical species in the figure?  How do those factors show up in the figure? </li>
+			<li>Are there any factors that influence the boiling point of these chemicals that aren't evident from the figure?  If so, what are 
+			    they?  Describe or draw a figure that would make clear the influence those factors have on the boiling point.</li>
+		</ol>
+		<P>Use the space below to take notes during your group's discussion of this data set.</p>
+		<p><textarea class="chem_notes" style="width:80%" placeholder="add notes here"> </textarea></p>
+	<div class="chem_comment">These are your personal notes - nobody else can see what you write here.</div>
+	</div>	
+</div>
+	
+<div  id="task_intro">
+	<div class="chem_box chem_text">
+		<h2>Predicting Boiling Points</h2>
+		<p>Now that you've looked at some data that demonstrate the various intermolecular forces and their effects on a substance's boiling point, 
+		   we're going to look at some incomplete data sets to get a little practice.  Here you'll be given the names and chemical 
+		   formulae of three substances but boiling points for only two of them.  Your job will be to decide where the third substance falls in the 
+		   series.  Is its boiling point higher than that of the other two substances?  Is it in between them, or is it lower than both of them?  
+		   You should discuss with your group which of the factors you discussed earlier are relevant for the given substances and 
+		   how those factors influence a substance's boiling point.  Make sure that everyone agrees on one answer.</p>
+		<img class="chem_image"  src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/predictboiling_1_diagram_700.png"/>   
+		<p>Once you've agreed on an answer, you will be given some additional data about the substances which may or may not help you with your task.  
+		   You will need to determine whether that data is relevant to the given substances and, if so, whether it confirms or contradicts your initial 
+		   answer.  Again, make sure your group comes to a consensus on whether your initial answer is correct or not.  If you think your group's initial 
+		   answer was wrong, try to agree on which answer is correct.</p>
+		<p>After you either have picked a new answer or stuck with your original answer, you'll be given the missing boiling point data and possibly
+   		   some additional, pertinent data, along with an explanation.  Whether you got the answer right or not, you should look at the data and explanation 
+		   to make sure you understand how to reason about the data.  Ok, let's get started!</p>
+	</div>	
+</div>
+
+<div id="periodic_reference">
+<div class="chem_box">
+<a href="http://ankara.lti.cs.cmu.edu/bazaar/chemactivity/periodic.jpg" target="_blank"><img class="chem_image" src="http://ankara.lti.cs.cmu.edu/bazaar/chemactivity/periodic.jpg"></img></a>
+<div class="chem_comment"> if you click on this table, it should open in a new tab that in your browser. That way, you won't have to keep scrolling back up to refer to it!</div>
+</div>
+</div>
+	
+<div id="task_a_predict">
+	<div class="chem_box">
+		<p><strong>1</strong>. Where does the boiling point of stannane fall relative to those of silane and germane?  </p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">stannane</div>
+			     <div class="chem_fact">SnH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+			
+			<li> <div class="chem_long">silane</div>
+			     <div class="chem_fact">SiH<font size="-2"><sub>4</sub></font></div> 
+			     <div class="chem_fact">161 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">germane</div>
+			     <div class="chem_fact">GeH<font size="-2"><sub>4</sub></font></div> 
+			     <div class="chem_fact">185 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">
+		<p>Consider the following:</p>
+		<ul>
+			<li>What type of molecules these are</li>
+			<li>What factors might be relevant to their boiling points </li>
+			<li>Whether those factors argue in favor of higher or lower boiling points.  </li>
+		</ul>
+		<p>Please discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>
+
+<div id="task_a_check">
+	<div class="chem_box">
+		<p>Now that you've agreed upon an answer, here is some additional data that may or may not help you to confirm or contradict your initial answer. </p>
+	</div>
+	<div class="chem_box">	
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">Molar Mass</div>
+			     <div class="chem_fact">BP (K)</div></li>
+    
+			<li> <div class="chem_long">stannane</div>
+			     <div class="chem_fact">SnH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_fact">122.74176</div>
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+			
+			<li> <div class="chem_long">silane</div>
+			     <div class="chem_fact">SiH<font size="-2"><sub>4</sub></font></div> 
+			     <div class="chem_fact">32.11726</div> 
+			     <div class="chem_fact">161 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">germane</div>
+			     <div class="chem_fact">GeH<font size="-2"><sub>4</sub></font></div> 
+			     <div class="chem_fact">76.67176</div> 
+			     <div class="chem_fact">185 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">	
+		<p>After considering this additional data, either confirm or change your answer.  Discuss this with your group until 
+		   you all come to a consensus.</p>
+	</div>
+</div>
+
+<div id="task_a_explain">
+	<div class="chem_box chem_text">
+		<p>Ok, here's the moment of truth!  It turns out that the boiling point of stannane is 221 &#176;K, giving it a higher boiling point than both 
+		   silane and germane.  Because these are non-polar molecules, the only intermolecular force at work is the dispersion force.  
+		   As the molecule at the center of the tetrahedron gets bigger (silane &#8594;  germane &#8594;  stannane), so does the molecule's van der 
+		   Waals area.  This means that there is more area over which molecules can experience attractive interactions with other molecules. 
+		   The increased attraction between molecules results in an elevated boiling point.</p>
+		<p>Unfortunately, the van der Waals area of germane was not available, so the van der Waals areas of these molecules won't be provided
+  		   here.  However, it turns out that the molar mass of molecules often serves as a helpful proxy for van der Waals area.  In general, 
+		   and certainly within classes of similar molecules, the van der Waals area goes up monotonically with molar mass.</p>
+		 <p>Please discuss this explanation with your group.</p>  
+	</div>
+</div>	
+	
+<div id="task_b_predict">
+	<div class="chem_box">
+		<p><strong>2</strong>. Where does the boiling point of isobutanol fall in relationship to those of butanol and tert-butanol?  </p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">butanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div>
+			     <div class="chem_fact">390.81 &#176;K</div></li>
+			
+			<li> <div class="chem_long">tert-butanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div> 
+			     <div class="chem_fact">355.57 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">isobutanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div> 
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">
+		<p>Consider the following:</p>
+		<ul>
+			<li>What type of molecules these are</li>
+			<li>What factors might be relevant to their boiling points </li>
+			<li>Whether those factors argue in favor of higher or lower boiling points.  </li>
+		</ul>
+		<p>Discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>	
+	
+<div id="task_b_check">
+	<div class="chem_box">
+		<p>Now that you've agreed upon an answer, here is some additional data that may or may not help you to confirm or contradict your initial answer.   </p>
+			<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">Dipole Moment</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">butanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div>
+			     <div class="chem_fact">1.661</div>
+			     <div class="chem_fact">390.81 &#176;K</div></li>
+			
+			<li> <div class="chem_long">tert-butanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div> 
+			     <div class="chem_fact">1.67</div> 
+			     <div class="chem_fact">355.57 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">isobutanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div> 
+			     <div class="chem_fact">1.64</div> 
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+		</ul>
+	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	
+		<p>After considering this additional data, either confirm or change your answer.  Please discuss this with your group until 
+		   you all come to a consensus.</p>
+</div>
+</div>	
+	
+<div id="task_b_explain">
+	<div class="chem_box  chem_text">
+		<p>It turns out that isobutanol has a boiling point of 380.81 &#176;K, which puts it in between butanol and tert-butanol.  
+		   In this case, the dipole moment data was not helpful.  The dipole moments were all very close in value and therefore do not substantially 
+		   change the boiling point.  To see what has a more profound effect on the boiling point, take a look at these structure drawings:  </p>	 
+	
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+				 <div class="chem_long">butanol </div>
+				 <div class="chem_long">isobutanol </div>
+				 <div class="chem_long">tert-butanol </div></li>
+			 <li class="chem_structure disabled">
+				 <div class="chem_drawing"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/1-Butanol_skeletal.svg/200px-1-Butanol_skeletal.svg.png"/></div>
+				 <div class="chem_drawing"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Isobutanol.svg/200px-Isobutanol.svg.png"/></div>
+				 <div class="chem_drawing"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/4/4e/Tert-butanol-2D-skeletal.png"/></div></li>
+		</ul>
+		<p>From these structure drawings, it's clear that moving from butanol to isobutanol to tert-butanol involves an increase in the number of branches
+		   from 0 to 1 to 2.  Additional branches reduce the ability of molecules to interact across large surface areas, thereby reducing the dispersion 
+		   force and the boiling point. </p>	 
+		<p>Please discuss this explanation with your group.</p>
+	</div>		
+</div>		
+
+<div id="task_c_predict">
+	<div class="chem_box">
+		<p><strong>3</strong>. Where does the boiling point of potassium chloride fall in relation to those of sodium bromide and rubidium fluoride?</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">Sodium Bromide</div>
+			     <div class="chem_fact">NaBr</div>
+			     <div class="chem_fact">1663.82 &#176;K</div></li>
+			
+			<li> <div class="chem_long">Potassium Chloride</div>
+			     <div class="chem_fact">KCl</div> 
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">Rubidium Fluoride</div>
+			     <div class="chem_fact">RbF</div> 
+			     <div class="chem_fact">1683.15 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">
+		<p>Consider the following:</p>
+		<ul>
+			<li>What type of molecules these are</li>
+			<li>What factors might be relevant to their boiling points </li>
+			<li>Whether those factors argue in favor of higher or lower boiling points.  </li>
+		</ul>
+		<p>Discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>	
+	
+<div id="task_c_check">	
+	<div class="chem_box">
+		<p>Now that you've agreed upon an answer, here is some additional data that may or may not help you to confirm or contradict your initial answer.   </p>
+	</div>
+	<div class="chem_box">	
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">Sum of Radii</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">Sodium Bromide</div>
+			     <div class="chem_fact">NaBr</div>
+			     <div class="chem_fact">298</div>
+			     <div class="chem_fact">1663.82 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">Potassium Chloride</div>
+			     <div class="chem_fact">KCl</div> 
+			     <div class="chem_fact">278</div> 
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">Rubidium Fluoride</div>
+			     <div class="chem_fact">RbF</div> 
+			     <div class="chem_fact">284</div> 
+			    <div class="chem_fact">1683.15 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">	
+		<p>After considering this additional data, either confirm or change your answer.  Please discuss this with your group until 
+		   you all come to a consensus.</p>
+	</div>
+</div>	
+	
+<div id="task_c_explain">	
+	<div class="chem_box chem_text">
+		<p>The actual boiling point of KCl is 1689 &#176;K, which is higher than the other two substances in this data set.  
+		   Hopefully, you identified these substances as being ionic and you remembered that ionic substances are held together by 
+		   Coulomb forces.  </p>
+		<P>In order to properly use the radius data you were given, you needed to remember that the sum of ion radii appears in the
+		   denominator of the Coulomb force equation.  Once you recall that, getting the answer is easy: the substance with the 
+		   smallest sum of radii should have the highest boiling point, as KCl does.</p>
+		<p>Don't worry if it was difficult to reason about the boiling points of these compounds before you 
+		   were given the radius data. These substances were chosen to make it initially unclear what the answer should
+		   be.</p>
+		<p>Please discuss this explanation with your group.</p>
+	</div>		
+</div>
+
+<div id="task_d_predict">
+	<div class="chem_box">
+		<p><strong>4</strong>. Where does the boiling point of magnesium oxide fall in relation to those of sodium iodide and potassium chloride?</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">Sodium Iodide</div>
+			     <div class="chem_fact">NaI</div>
+			     <div class="chem_fact">1577 &#176;K</div></li>
+			
+			<li> <div class="chem_long">Magnesium Oxide</div>
+			     <div class="chem_fact">MgO</div> 
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">Potassium Chloride</div>
+			     <div class="chem_fact">KCl</div> 
+			     <div class="chem_fact">1689 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">
+		<p>Consider the following:</p>
+		<ul>
+			<li>What type of molecules these are</li>
+			<li>What factors might be relevant to their boiling points </li>
+			<li>Whether those factors argue in favor of higher or lower boiling points.  </li>
+		</ul>
+		<p>Discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>	
+	
+<div id="task_d_check">	
+	<div class="chem_box">
+		<p>Now that you've agreed upon an answer, here is some additional data that may or may not help you to confirm or contradict your initial answer.   </p>
+	</div>
+	<div class="chem_box">	
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">Dipole Moment</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">Sodium Iodide</div>
+			     <div class="chem_fact">NaI</div>
+			     <div class="chem_long">4.887</div>
+			     <div class="chem_fact">1577 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">Magnesium Oxide</div>
+			     <div class="chem_fact">MgO</div> 
+			     <div class="chem_long">6.2</div> 
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">Potassium Chloride</div>
+			     <div class="chem_fact">KCl</div> 
+			     <div class="chem_long">10.271</div> 
+			    <div class="chem_fact">1689 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">	
+		<p>After considering this additional data, either confirm or change your answer.  Please discuss this with your group until 
+		   you all come to a consensus.</p>
+	</div>
+</div>	
+	
+<div  id="task_d_explain">	
+	<div class="chem_box chem_text">
+		<p>The boiling point of magnesium oxide turns out to be 3873 &#176;K, which is much, much higher than both sodium iodide 
+		   and potassium chloride.  All three of these substances are ionic, which means that rather than being shared equally 
+		   by both atoms, one or more electrons are essentially transferred from the less electronegative atom to the more 
+		   electronegative atom.  This causes the previously electrically neutral atoms to become positively and negatively 
+		   charged, respectively.  The interactions between these charged species is governed by Coulomb's law and the 
+		   dipole moment has little to no influence on the interactions. </p>
+		<P>In the previous problem, you saw that the Coulomb force increases with decreasing ion separation.  In this problem, 
+		   the key factor is the charge on the ions.  Sodium iodide and potassium chloride consist of ions with charges of
+		    +1 or -1.  In contrast, magnesium oxide consists of Mg<font size="-2"><sup>2+</sup></font> and 
+		    O<font size="-2"><sup>2-</sup></font>.  Because the Coulomb force equation is:</p>
+	
+	<div class="math-block-normal" id="math_task_d">
+		  <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+			  <mo>=</mo>
+			  <mi>k</mi>
+			  <mfrac>
+				<mrow>
+					<mrow>
+						<msup>
+							<mi>q</mi>
+							<mn>&#x2212;</mn>
+						</msup>
+						<mo>&InvisibleTimes;</mo>
+						<msup>
+							<mi>q</mi>
+							<mn>&#x2B;</mn>
+						</msup>
+					</mrow>
+				</mrow>
+				<mrow>
+				  <msup>
+					<mrow>
+					  <mrow>
+						<mo>|</mo>
+						<mrow>
+							<msup>
+								<mi>r</mi>
+								<mn>&#x2212;</mn>
+							</msup>
+						  <mo>&#x2B;</mo>
+							<msup>
+								<mi>r</mi>
+								<mn>&#x2B;</mn>
+							</msup>
+						</mrow>
+						<mo>|</mo>
+					  </mrow>
+					</mrow>
+					<mn>2</mn>
+				  </msup>
+				</mrow>
+			  </mfrac>
+			</mrow>
+		  </math>
+	</div>
+	<script>MathJax.Hub.Queue(["Typeset",MathJax.Hub,"math_task_d"]);</script>
+		<p>
+			The larger ionic charges lead to much larger inter-ion forces.  This, in turn, makes the boiling point very high.</p>
+		<p>Please discuss this explanation with your group.</p>
+	</div>		
+</div>
+	
+<div id="task_e_predict">	
+	<div class="chem_box">
+		<p><strong>5</strong>. Where does the boiling point of diethyl ether fall in relation to those of methyl ethyl ether and butanol?</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">Structure</div>
+			     <div class="chem_fact">Boiling Point (K)</div></li>
+			     
+			<li> <div class="chem_long">butanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div>
+			     <div class="chem_long"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/1-Butanol_skeletal.svg/200px-1-Butanol_skeletal.svg.png"/></div>
+			     <div class="chem_fact">390.81 &#176;K</div></li>
+			
+			<li> <div class="chem_long">methyl ethyl ether</div>
+			     <div class="chem_fact">C<font size="-2"><sub>3</sub></font>H<font size="-2"><sub>8</sub></font>O</div>
+			     <div class="chem_long"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ethylmethylether_Structural_Formulae.png/799px-Ethylmethylether_Structural_Formulae.png"/></div>
+			     <div class="chem_fact">280.5 &#176;K</div></li>
+
+			     
+			<li> <div class="chem_long">diethyl ether</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div>
+				 <div class="chem_long"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Diethyl-ether-2D-skeletal.svg/200px-Diethyl-ether-2D-skeletal.svg.png"/></div>
+				 <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">
+		<p>Consider the following:</p>
+		<ul>
+			<li>What type of molecules these are</li>
+			<li>What factors might be relevant to their boiling points </li>
+			<li>Whether those factors argue in favor of higher or lower boiling points.  </li>
+		</ul>
+		<p>Discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>	
+	
+<div id="task_e_check">	
+	<div class="chem_box">
+		<p>Now that you've agreed upon an answer, here's some additional data that may or may not help you to confirm or contradict your initial answer.   </p>
+	</div>
+	<div class="chem_box">	
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">Dipole Moment</div>
+			     <div class="chem_long">vdW Area</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">butanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div>
+			     <div class="chem_long">1.661</div>
+			     <div class="chem_long">7.62E+09</div>
+			     <div class="chem_fact">390.81 &#176;K</div></li>
+			
+			<li> <div class="chem_long">methyl ethyl ether</div>
+			     <div class="chem_fact">C<font size="-2"><sub>3</sub></font>H<font size="-2"><sub>8</sub></font>O</div>
+			     <div class="chem_long">1.229</div>
+			     <div class="chem_long">6.19E+09</div>
+			     <div class="chem_fact">280.5 &#176;K</div></li>
+
+			     
+			<li> <div class="chem_long">diethyl ether</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>10</sub></font>O</div>
+				 <div class="chem_long">1.151</div>
+				 <div class="chem_long">7.54E+09</div>
+				 <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">	
+		<p>After considering this additional data, either confirm or change your answer.  Please discuss this with your group until 
+		   you all come to a consensus.</p>
+	</div>
+</div>	
+	
+<div id="task_e_explain">
+	<div class="chem_box chem_text">
+		<p>The boiling point of diethyl ether is 307.58 &#176;K, which puts it in between butanol and methyl ethyl ether.  To understand
+  		   how to reason about this data set, it makes sense to divide it into two comparisons: comparing diethyl ether with methyl 
+		   ethyl ether and comparing diethyl ether with butanol.</p>
+		<p>Diethyl ether has a slightly lower dipole moment than methyl ethyl ether, which you might expect would lead to diethyl 
+		   ether having a lower boiling point than methyl ethyl ether.  However, diethyl ether's larger van der Waals area dominates the 
+		   dipole consideration and leads to a higher boiling point.  Even without the van der Waals area data, the fact that the two 
+		   molecules have a similar dipole moment but diethyl ether has an additional carbon and 2 hydrogens should lead you to guess 
+		   that diethyl ether has the higher boiling point.</p>
+		<p>In comparing diethyl ether and butanol, the first thing to notice is that they have the same chemical formula.  As a 
+		   consequence, we can expect their van der Waals areas and dispersion forces to be comparable.  Once you see the additional 
+		   data, the fact that butanol has both a larger dipole and greater van der Waals area should make it obvious that its boiling 
+		   point is higher.  In this case, more than 80 &#176;K higher.</p>
+		<p>Please discuss this explanation with your group.</p>
+	</div>		
+</div>	
+	
+<div id="task_f_predict">	
+	<div class="chem_box">
+		<p><strong>6</strong>. Where does the boiling point of propanol (propyl alcohol) fall in relation to those of methyl vinyl ether and methyl ethyl ketone?</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">Boiling Point (K)</div></li>
+				 
+			<li> <div class="chem_long">methyl vinyl ether</div>
+			     <div class="chem_fact">C<font size="-2"><sub>3</sub></font>H<font size="-2"><sub>6</sub></font>O</div>
+			     <div class="chem_fact">278.65 &#176;K</div></li>
+				 
+			<li> <div class="chem_long">propanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>3</sub></font>H<font size="-2"><sub>8</sub></font>O</div>
+				 <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+				 
+			<li> <div class="chem_long">methyl ethyl ketone</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>8</sub></font>O</div>
+			     <div class="chem_fact">352.79 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">
+		<p>Consider the following:</p>
+		<ul>
+			<li>What type of molecules these are</li>
+			<li>What factors might be relevant to their boiling points </li>
+			<li>Whether those factors argue in favor of higher or lower boiling points.  </li>
+		</ul>
+		<p>Discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>
+	
+<div id="task_f_check">
+	<div class="chem_box">
+		<p>Now that you've agreed upon an answer, here is some additional data that may or may not help you to confirm or contradict your initial answer.   </p>
+	</div>
+	<div class="chem_box">	
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">Dipole Moment</div>
+			     <div class="chem_long">vdW Area</div>
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methyl vinyl ether</div>
+			     <div class="chem_fact">C<font size="-2"><sub>3</sub></font>H<font size="-2"><sub>6</sub></font>O</div>
+			     <div class="chem_long">0.965</div>
+			     <div class="chem_long">5.66E+09</div>
+			     <div class="chem_fact">278.65 &#176;K</div></li>
+			
+			<li> <div class="chem_long">propanol</div>
+			     <div class="chem_fact">C<font size="-2"><sub>3</sub></font>H<font size="-2"><sub>8</sub></font>O</div>
+			     <div class="chem_long">1.679</div>
+			     <div class="chem_long">6.28E+09</div>
+				 <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+
+			     
+			<li> <div class="chem_long">methyl ethyl ketone</div>
+			     <div class="chem_fact">C<font size="-2"><sub>4</sub></font>H<font size="-2"><sub>8</sub></font>O</div>
+				 <div class="chem_long">2.760</div>
+				 <div class="chem_long">7.19E+09</div>
+			     <div class="chem_fact">352.79 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Drag the compounds into the order your group agrees on. (This is your personal copy - nobody else can see your changes)</div>
+	<div class="chem_box">	
+		<p>After considering this additional data, either confirm or change your answer.  Please discuss this with your group until 
+		   you all come to a consensus.</p>
+	</div>
+</div>
+	
+<div id="task_f_explain_1">
+	<div class="chem_box chem_text">
+		<p>Everything you have learned so far should have prompted you to say that propanol has a boiling point between those of methyl 
+		   vinyl ether and methyl ethyl ketone.  However, it doesn't.  Its boiling point is 370.35 &#176;K, which is above the boiling 
+		   points of both methyl vinyl ether and methyl ethyl ketone.  This is true despite the fact that both its dipole moment and van 
+		   der Waals area fall in between those of the other two molecules.  So, what is going on?</p>
+		<p>Before we get into a formal explanation of this, let's take a look at some more data, just to illustrate that the behavior of
+		   propanol is not an anomaly, but rather, part of a systematic trend.</p>
+	</div>		
+</div>
+
+<div id="task_f_explain_2">
+	<div class="chem_box chem_text">
+		<img class="chem_image" alt="Boiling Point vs van der Waals Area for Linear and Branched Alkanes" 
+			  src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/task_f_explain_2_dipole_700.png">
+	
+	<div class="chem_comment">Figure 1: Boiling point as a function of dipole moment for selected ethers, aldehydes, ketones, and alcohols 
+		(excludes any branched isomers)
+	</div>
+		<p>In Figure 1, it's clear that there are two different sets of behaviors.  For molecules with the formula 
+		   C<font size="-2"><sub>n</sub></font>H<font size="-2"><sub>2n</sub></font>O – that is, for aldehydes, ketones, and some ethers -
+		   an increase in dipole moment from about 1 Debye to nearly 3 Debye results in an a boiling point elevation of 40-50 &#176;K.  
+		   That's about 20-25 &#176;K per 1 Debye increase in dipole moment.</p>
+		<p>In contrast, for molecules with the formula C<font size="-2"><sub>n</sub></font>H<font size="-2"><sub>2(n+1)</sub></font>O, the 
+		   alcohols have a boiling point 80-100K greater than their ether counterparts despite a difference in dipole moment of only about 
+		   0.4 Debye.  Clearly the mechanism responsible for the boiling point behavior of the aldehydes and ketones is not 
+		   responsible for the alcohols as well.</p>
+		<p>So, we return to the question, what is going on?</p>
+		<p>If you have any thoughts on this, share them with your group.  </p>
+	</div>	
+</div>
+
+<div  id="task_f_explain_3">
+	<div class="chem_box chem_text">
+		<p>It turns out that hydrogen bonding is a factor here.  We haven't discussed hydrogen bonding yet, so let's take a look at it.  </p>
+		<p>Hydrogen bonding comes about when a molecule contains a X-H bond where X is O, F, or N.  These highly electronegative
+   		   atoms pull on the hydrogen's electron such that the hydrogen atom ends up with a partial positive charge.  
+		   This positive charge, typically denoted &#948;+, is then attracted to lone pairs of electrons belonging to atoms on 
+		   different molecules (or even different parts of the same molecule).</p>
+		<p>Hydrogen bonds can be quite strong (about 1/10th the strength of a covalent bond) and they account for some boiling point
+  		   behavior that cannot be explained via dispersion or dipole-dipole interactions, like the high boiling point of water.</p>
+
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+				 <div class="chem_long">methyl vinyl ether</div>
+				 <div class="chem_long">propanol </div>
+				 <div class="chem_long">methyl ethyl ketone </div></li>
+			 <li class="chem_structure disabled">
+				 <div class="chem_drawing"><img class="chem_image" src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/task_f_explain_3_mve.png"/></div>
+				 <div class="chem_drawing"><img class="chem_image" src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/task_f_explain_3_propanol.png"/></div>
+				 <div class="chem_drawing"><img class="chem_image" src="http://collective2.chem.cmu.edu/chem105/intermolecular/images/task_f_explain_3_mek.png"/></div></li>
+		</ul>
+
+	    <p>If you look at the molecules in the table above, you can observe that only with propanol, do we have the necessary conditions for hydrogen bonding: 
+		   an O-H bond.  It is this bond and the hydrogen bonding that it enables that is responsible for propanol's unexpectedly high boiling point.</p>
+		<p>Don't forget, all these forces are cumulative.  So, molecules that hydrogen bond with one another also experience dispersion forces and 
+		   dipole-dipole forces.  Recall question 1 about butanol and its branched isomers.  The branched isomers had lower boiling points than the 
+		   non-branched isomer.  As discussed, this is because branching caused a reduction in dispersion interactions between molecules.  
+		   So, even though butanol, like propanol, has hydrogen bonding, part of its boiling point behavior still comes from dispersion forces 
+		   and if those dispersion forces are reduced, so is its boiling point.  </p>
+	</div>	
+</div>	
+	
+<div id="final_a_predict">	
+	<div class="chem_box">
+		<h2>Putting it all together</h2>
+		<p>In this final set of exercises, you'll be given three sets of data. Each data set begins with methane and 
+		   gradually replaces the hydrogen atoms in methane with halogen atoms.  The first data series we&#146;ll consider
+		   involves substituting methane&#146;s hydrogen with fluorine atoms. </p>
+		   
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">vdW Area </div>
+			     <div class="chem_long">Dipole Moment</div>			     
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">2.88E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">112 &#176;K</div></li>
+			
+			<li> <div class="chem_long">fluoromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>3</sub></font>F</div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>		
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">difluoromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>2</sub></font>F<font size="-2"><sub>2</sub></font></div> 
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">trifluoromethane</div>
+			     <div class="chem_fact">CHF<font size="-2"><sub>3</sub></font></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">tetrafluoromethane</div>
+			     <div class="chem_fact">CF<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Table 1: Fluoromethanes with missing data.  You can add notes and drag the compounds into the 
+	      order your group agrees on. (This is your personal copy - nobody else can see your changes).
+	</div>
+	<div class="chem_box chem_text">
+		<p>In the table above, start with fluoromethane and decide whether its van der Waals area is smaller or 
+		   larger than the van der Waals area of methane.  Then, decide whether fluoromethane's dipole moment 
+		   is smaller or larger than methane.  Finally, on the basis of the van der Waals area and dipole determinations
+		   you made, decide whether the boiling point of fluoromethane is higher or lower than that of methane.</p>
+		<p>Now that you understand the process, compare the molecules below based upon van der Waals area, 
+		   dipole moment, and boiling point. </p>
+		<!-- <ul>
+			<li>Difluoromethane: higher or lower than fluoromethane?</li>
+			<li>Trifluoromethane: higher or lower than difluoromethane?</li>
+			<li>Tetrafluoromethane: higher or lower than trifluoromethane?</li>
+			<li>Tetrafluoromethane: higher or lower than methane?</li>
+		</ul> -->
+		<p>Please discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>
+	
+<div id="final_a_check">
+	<div class="chem_box">
+		<p>Now that you've completed those comparisons, let's check how well you did.</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">vdW Area </div>
+			     <div class="chem_long">Dipole Moment</div>			     
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">2.88E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">112 &#176;K</div></li>
+			
+			<li> <div class="chem_long">fluoromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>3</sub></font>F</div>
+			     <div class="chem_long">3.22E+09</div>
+			     <div class="chem_long">1.851</div>		
+			     <div class="chem_fact">195 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">difluoromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>2</sub></font>F<font size="-2"><sub>2</sub></font></div> 
+			     <div class="chem_long">3.55E+09</div>
+			     <div class="chem_long">1.979</div>					     
+			     <div class="chem_fact">221 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">trifluoromethane</div>
+			     <div class="chem_fact">CHF<font size="-2"><sub>3</sub></font></div>
+			     <div class="chem_long">3.87E+09</div>
+			     <div class="chem_long">1.649</div>					     
+			     <div class="chem_fact">191 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">tetrafluoromethane</div>
+			     <div class="chem_fact">CF<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">4.60E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">145 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Table 2: Fluoromethanes with all data filled in.
+   </div>
+	<div class="chem_box chem_text">	
+	    <p>Well, how did you do?</p>
+	    <p>The one consistent trend across all the comparisons is that the van der Waals area increases 
+	       with each fluorine added.  This should have been expected since hydrogen is a small atom.  </p>
+		<p>Hopefully, you also recognized the dipole moment trend.  Since fluorine has a high electronegativity, 
+		   when one fluorine is substituted for one hydrogen, you should expect the dipole moment to go up.  
+		   When you substitute another fluorine for another hydrogen and you perform the vector sum, you will 
+		   find that the dipole moment should go up again.  When you add a substitute in a third fluorine, 
+		   the bond dipoles start to cancel out and the dipole moment goes down.  Finally, it should have 
+		   been clear that when you had four fluorines, the bond dipoles completely cancel and the overall 
+		   dipole moment is zero.</p>
+		<p>The difficulty here is that the van der Waals area rises with each additional fluorine, 
+		   while the dipole moment initially increases and then decreases.  Given that both the dipole 
+		   moment and the van der Waals area increase with the substitution of the first two fluorines, 
+		   it should have been clear that the boiling point would increase.  However, when you substitute 
+		   in a third fluorine and the dipole moment goes down, what happens to the boiling point?  Does the 
+		   effect of the van der Waals area win and increase the boiling point or does the effect of the 
+		   dipole moment dominate and result in a reduced boiling point?  In this case, the dipole moment 
+		   wins and we see a reduction in boiling point with each of the last two fluorines added.  However, 
+		   it&#146;s worth noting that the boiling point of tetrafluoromethane is higher than that of methane 
+		   due to the increase in van der Waals area.</p>
+		<p>Please discuss this explanation with your group.</p>
+	</div>
+</div>
+
+<div id="final_b_predict">	
+	<div class="chem_box">
+		<p>Now that you're comfortable with the explanation of the fluoromethane data, let's 
+		   take a look at a similar string of substitutions, except this time we'll use chlorine instead 
+		   of fluorine.</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">vdW Area </div>
+			     <div class="chem_long">Dipole Moment</div>			     
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">2.88E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">112 &#176;K</div></li>
+			
+			<li> <div class="chem_long">chloromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>3</sub></font>Cl</div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>		
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">dichloromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>2</sub></font>Cl<font size="-2"><sub>2</sub></font></div> 
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">trichloromethane</div>
+			     <div class="chem_fact">CHCl<font size="-2"><sub>3</sub></font></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">tetrachloromethane</div>
+			     <div class="chem_fact">CCl<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Table 3: Chloromethanes with missing data.  You may add notes and drag the compounds into the 
+	      order your group agrees on. (This is your personal copy - nobody else can see your changes)
+	</div>
+	<div class="chem_box chem_text">
+		<p>Looking at Table 3, perform the same analysis you did with the data in table one. 
+		   That is, for each additional chlorine atom substituted into the methane molecule, determine 
+		   whether the van der Waals area, the dipole moment, and the boiling point increase or decrease. </p> 
+		<p>Please discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>
+
+<div id="final_b_check">
+	<div class="chem_box">
+		<p>Now that you're done with that, let's see how you did.</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">vdW Area </div>
+			     <div class="chem_long">Dipole Moment</div>			     
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">2.88E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">112 &#176;K</div></li>
+			
+			<li> <div class="chem_long">chloromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>3</sub></font>Cl</div>
+			     <div class="chem_long">3.92E+09</div>
+			     <div class="chem_long">1.871</div>		
+			     <div class="chem_fact">249 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">dichloromethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>2</sub></font>Cl<font size="-2"><sub>2</sub></font></div> 
+			     <div class="chem_long">4.99E+09</div>
+			     <div class="chem_long">1.601</div>					     
+			     <div class="chem_fact">313 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">trichloromethane</div>
+			     <div class="chem_fact">CHCl<font size="-2"><sub>3</sub></font></div>
+			     <div class="chem_long">7.66E+09</div>
+			     <div class="chem_long">1.01</div>					     
+			     <div class="chem_fact">334 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">tetrachloromethane</div>
+			     <div class="chem_fact">CCl<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">7.28E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">346 &#176;K</div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Table 4: Chloromethanes with all data filled in.
+   </div>
+	<div class="chem_box chem_text">	
+	    <p>Looking at the van der Waals area data, we see that each chlorine substituted into the 
+	       molecule increases the van der Waals area, except for the last one, which results in a small 
+	       decrease.  This decrease is probably because in trichloromethane, the relatively large chlorine
+	       atoms (at least large in relation to hydrogen) spread out as much as they can to reduce repulsion 
+	       between them.  However, when the fourth chlorine is added, the atoms are forced back into the 
+	       tetrahedral structure.</p>
+	    <p>In the dipole data, we see more evidence of chlorines spreading out.  The fact that the dipole
+	       moment decreases from chloromethane to dichloromethane indicates that the angle between the 
+	       chlorines is larger than 109.47 degrees, which is expected for tetrahedral molecules.  So, you 
+	       might not have expected the dipole moment to decrease from chloromethane to dichloromethane but 
+	       hopefully you expected the rest of the dipole moment behavior based on the fluoromethane trends.</p>
+		<p>Please discuss this explanation with your group.</p>
+	</div>
+</div>
+	
+<div  id="final_b_explain">
+	<div class="chem_box chem_text">
+		<p>Now that we've explained the van der Waals area and dipole moment trends, let's look 
+		   at the boiling point.  In the case of the fluoromethanes, we saw the boiling point track with the 
+		   dipole moment.  What happens here?  Well, except for the rise in boiling point from 
+		   trichloromethane to tetrachloromethane, the boiling point tracks well with the van der Waals area.  
+		   Why should dipole moment dominate for the fluoromethanes but not the chloromethanes? 
+		   Well, you can see that, on average, the van der Waals area of the chloromethanes is much larger 
+		   than that of the fluoromethanes.  This means that the dispersion forces will be larger.  
+		   Evidently, in the case of the chloromethanes, the dispersion forces are large enough that 
+		   they outweigh the dipole-dipole interactions.</p>
+		<p>Before we move on to the bromomethanes, you may still be wondering how the boiling point of 
+		   tetrachloromethane can be higher than that of trichloromethane despite the fact that both 
+		   its van der Waals area and dipole moment are lower.  From the data presented in Table 4, 
+		   there is no good explanation.  However, one possible explanation is that the added 
+		   chlorine increases the polarizability of the molecule.</p>
+		<p>If you look at the van der Waals volume of trichloromethane and tetrachloromethane, they are 
+		   43.5 cm<font size="-2"><sup>3</sup></font>/mol and 52.3 cm<font size="-2"><sup>3</sup></font>/mol,
+		   respectively.  Since polarizability tracks with van der Waals volume, it seems reasonable, 
+		   in the absence of any evidence to the contrary, that the added chlorine increases 
+		   the polarizability of tetrachloromethane.  While no polarizability data is available, 
+		   it seems reasonable to assume that the increased polarizability of tetrachloromethane 
+		   is sufficiently large so as to offset the reduction in van der Waals area and lead 
+		   to an increase in dispersion forces.  This increase in dispersion forces is then
+		   responsible for the increase in boiling point in spite of the reduction in van der Waals area.</p>
+	    <p>Please discuss this explanation with your group.</p>
+	</div>	
+</div>		
+
+
+<div id="final_c_predict">	
+	<div class="chem_box">
+		<p>Now, the final task for the whole activity: perform an analysis similar to what you 
+		did for the fluoromethanes and chloromethanes on the bromomethanes.</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">vdW Area </div>
+			     <div class="chem_long">Dipole Moment</div>			     
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">2.88E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">112 &#176;K</div></li>
+			
+			<li> <div class="chem_long">bromomethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>3</sub></font>Br</div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>		
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">dibromomethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>2</sub></font>Br<font size="-2"><sub>2</sub></font></div> 
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">tribromomethane</div>
+			     <div class="chem_fact">CHBr<font size="-2"><sub>3</sub></font></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+			     
+			<li> <div class="chem_long">tetrabromomethane</div>
+			     <div class="chem_fact">CBr<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>
+			     <div class="chem_long"><input placeholder="" style="width:90%"/></div>					     
+			     <div class="chem_fact"><input placeholder="" style="width:90%"/></div></li>
+		</ul>
+	</div>	
+	<div class="chem_comment">Table 5: Bromomethanes with missing data.  You may add notes and drag the compounds into the 
+	      order your group agrees on. (This is your personal copy - nobody else can see your changes)
+	</div>
+	<div class="chem_box">
+		<p>Looking at Table 3, perform the same analysis you did with the data in the previous exercises. 
+		   That is, For each additional bromine atom substituted into the methane molecule, determine 
+		   whether the van der Waals area, the dipole moment, and the boiling point increase or decrease.</p> 
+		<p>Please discuss these items with your group until you come to a consensus. </p>
+	</div>	
+</div>
+
+<div id="final_c_check">
+	<div class="chem_box">
+		<p>Now that you've completed your analysis, how did you do?</p>
+	</div>
+	<div class="chem_box">
+		<ul class="exclude list" style="float:left;width:700px;">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_long">vdW Area </div>
+			     <div class="chem_long">Dipole Moment</div>			     
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">methane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">2.88E+09</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">112 &#176;K</div></li>
+			
+			<li> <div class="chem_long">bromomethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>3</sub></font>Br</div>
+			     <div class="chem_long">4.20E+09</div>
+			     <div class="chem_long">1.811</div>		
+			     <div class="chem_fact">277 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">dibromomethane</div>
+			     <div class="chem_fact">CH<font size="-2"><sub>2</sub></font>Br<font size="-2"><sub>2</sub></font></div> 
+			     <div class="chem_long">5.53E+09</div>
+			     <div class="chem_long">1.43</div>					     
+			     <div class="chem_fact">370 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">tribromomethane</div>
+			     <div class="chem_fact">CHBr<font size="-2"><sub>3</sub></font></div>
+			     <div class="chem_long">6.81E+09</div>
+			     <div class="chem_long">0.99</div>					     
+			     <div class="chem_fact">422 &#176;K</div></li>
+			     
+			<li> <div class="chem_long">tetrabromomethane</div>
+			     <div class="chem_fact">CBr<font size="-2"><sub>4</sub></font></div>
+			     <div class="chem_long">-No Data-</div>
+			     <div class="chem_long">0</div>					     
+			     <div class="chem_fact">463 &#176;K</div></li>
+		</ul>
+	</div>	
+    <div class="chem_comment">Table 6: Bromomethanes with all data filled in.
+    </div>
+	<div class="chem_box chem_text">	
+	    <p>As you can see from Table 6, the bromomethanes basically follow the same trends as 
+	       the chloromethanes, only in a more pronounced way.  It turns out that no van 
+	       der Waals area data for tetrabromomethane was available but it seems reasonable to 
+	       assume it would exhibit behavior similar to tetrachloromethane.  Whatever its behavior, 
+	       however, the boiling point increases continuously as bromine is substituted for 
+	       hydrogen due to the growing influence of dispersion forces.</p>
+	    <p>That wraps it up for this exercise.  Thanks for your participation!  
+	       We hope you learned a lot and maybe had some fun along the way. In recitation, 
+	       everyone will take a post-test to help us assess our instructional materials
+	       and how helpful they were to you.</p>
+	</div>
+</div>
+
+	
+	<!-- Examples Below 
+
+	
+	
+		<div class="chem_box">
+
+
+		<p>_____________________________________________________________________</p>
+	<p><strong>1</strong>. Where does the boiling point of stannane fall relative to those of silane and germane?  
+		<ul class="exclude list" style="float:left">
+			<li class="disabled">
+			     <div class="chem_long">Name</div>
+			     <div class="chem_fact">Formula</div>
+			     <div class="chem_fact">Dipole Moment</div>  
+			     <div class="chem_long">Structure</div>  
+			     <div class="chem_fact">BP (K)</div></li>
+			     
+			<li> <div class="chem_long">Water</div>
+			     <div class="chem_fact">H2O</div>
+			     <div class="chem_fact">100.32</div>  
+			     <div class="chem_long"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/6/6b/1-Butanol_skeletal.svg"/></div>  
+			     <div class="chem_fact">100 C</div></li>
+			
+			<li> <div class="chem_long">Mercury</div>
+			     <div class="chem_fact">Hg</div> 
+			     <div class="chem_fact">43.2</div>  
+			     <div class="chem_long"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/b/b4/Ethylmethylether_Structural_Formulae.png"/></div>  
+			     <div class="chem_fact">356.7 C</div></li>
+			     
+			<li> <div class="chem_long">Hydrocholric Acid</div>
+			     <div class="chem_fact">HCl</div> 
+			     <div class="chem_fact">9999.5</div>  
+			     <div class="chem_long"><img class="chem_image" src="http://upload.wikimedia.org/wikipedia/commons/f/f4/Diethyl-ether-2D-skeletal.svg"/></div>  
+			     <div class="chem_fact"><input placeholder="?" style="width:90%"/></div></li>
+		</ul>
+		
+		</div>
+	
+	
+	
+    <!-- beginning of no-table example 
+    <div class="chem_box">
+		<h2>Problem A5</h2>
+		<p>Text that should come before a picture.</p>
+		<img class="chem_image" src="http://ankara.lti.cs.cmu.edu/bazaar/chemactivity/intro/chart1.png">
+        <p>Text that should come after the problem.</p>
+		
+		<textarea class="chem_notes" placeholder="add notes here"> </textarea>
+		<div class="chem_comment">These are your personal notes - nobody else can see what you write here.</div>
+		
+	</div>
+	
+	<!-- end of example -->
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="jquery.sortable.min.js"></script>
+	<script>
+		$(function() {
+			$('.sortable').sortable();
+			$('.handles').sortable({
+				handle: 'span'
+			});
+			$('.connected').sortable({
+				connectWith: '.connected'
+			});
+			$('.exclude').sortable({
+				items: ':not(.disabled)'
+			});
+		});
+	</script>
+</body>
+</html>

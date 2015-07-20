@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="concept_191">
+        <phrase>Intuitively, if you wanted to make the wrench easier to use, would you make it longer or shorter?</phrase>
+    </concept>
+    <concept label="concept_192">
+        <phrase>big</phrase>
+        <phrase>bigger</phrase>
+        <phrase>large</phrase>
+        <phrase>larger</phrase>
+        <phrase>long</phrase>
+        <phrase>longer</phrase>
+    </concept>
+    <concept label="concept_193">
+        <phrase>small</phrase>
+        <phrase>Smaller </phrase>
+        <phrase>shorter</phrase>
+        <phrase>short</phrase>
+    </concept>
+    <concept label="concept_194">
+        <phrase>Thats right.</phrase>
+    </concept>
+    <concept label="concept_195">
+        <phrase>Hmmm... a longer wrench would be easier to use.</phrase>
+    </concept>
+    <concept label="concept_196">
+        <phrase>Why is a longer wrench easier to use though! Lets look at the concept of Moment.</phrase>
+    </concept>
+    <concept label="concept_197">
+        <phrase>When you are use a wrench to turn a bolt, do you want higher or lower moment?</phrase>
+    </concept>
+    <concept label="concept_198">
+        <phrase>increase</phrase>
+        <phrase>high</phrase>
+        <phrase>more</phrase>
+        <phrase>increases</phrase>
+        <phrase>higher</phrase>
+        <phrase>increased</phrase>
+    </concept>
+    <concept label="concept_199">
+        <phrase>Thats right. More moment means the Wrench turns easily.</phrase>
+    </concept>
+    <concept label="concept_200">
+        <phrase>No, we want a higher moment.</phrase>
+    </concept>
+    <concept label="concept_201">
+        <phrase>Right</phrase>
+    </concept>
+    <concept label="concept_202">
+        <phrase>Longer wrench delivers more moment.</phrase>
+    </concept>
+    <concept label="concept_203">
+        <phrase>We want a higher moment.</phrase>
+    </concept>
+    <concept label="concept_204">
+        <phrase>Lets apply this concept to the design challenge.</phrase>
+    </concept>
+    <concept label="concept_205">
+        <phrase>less</phrase>
+        <phrase>small</phrase>
+        <phrase>Smaller </phrase>
+        <phrase>low</phrase>
+        <phrase>lower</phrase>
+        <phrase>lesser</phrase>
+    </concept>
+    <concept label="concept_206">
+        <phrase>We know that moment = force x length. So...</phrase>
+    </concept>
+    <concept label="concept_207">
+        <phrase>If we increase the length of the wrench, does the moment increase?</phrase>
+    </concept>
+    <concept label="concept_208">
+        <phrase>yes</phrase>
+        <phrase>sure</phrase>
+        <phrase>yeah</phrase>
+        <phrase>ok</phrase>
+        <phrase>ofcourse</phrase>
+        <phrase>yup</phrase>
+        <phrase>i agree</phrase>
+        <phrase>agree</phrase>
+        <phrase>Right</phrase>
+        <phrase>yeh</phrase>
+    </concept>
+    <concept label="concept_209">
+        <phrase>no</phrase>
+        <phrase>nope</phrase>
+        <phrase>dont think so</phrase>
+        <phrase>i dont think so</phrase>
+        <phrase>not sure</phrase>
+        <phrase>i doubt it</phrase>
+        <phrase>nay</phrase>
+        <phrase>doubt it</phrase>
+        <phrase>not really</phrase>
+        <phrase>i am not sure</phrase>
+    </concept>
+    <concept label="concept_210">
+        <phrase>So, using a longer wrench, you can get a higher moment for the same effort &#040;force&#041;. That makes the wrench easy to use, right?</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>length_makes_easy</subgoal>
+  </step>
+</goal>
+
+<goal name="length_makes_easy" template-name="template_18" difficulty="1">
+  <step>
+    <initiation>concept_191</initiation>
+    <response say="concept_194">concept_192</response>
+    <response say="concept_195">concept_193</response>
+    <response say="concept_195">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_196</initiation>
+  </step>
+  <step>
+    <initiation>concept_197</initiation>
+    <response say="concept_199">concept_198</response>
+    <response say="concept_200">concept_205</response>
+    <response say="concept_203">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_206</initiation>
+  </step>
+  <step>
+    <initiation>concept_207</initiation>
+    <response say="concept_201">concept_208</response>
+    <response say="concept_202">concept_209</response>
+    <response say="concept_202">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_210</initiation>
+    <response say="concept_204">unanticipated-response</response>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

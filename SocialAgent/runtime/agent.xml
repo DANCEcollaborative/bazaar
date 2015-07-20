@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent name="Kay (Tutor)">
+    <components>
+        
+        <component name="stateMemory" type="Memory" class="basilica2.agents.components.StateMemory" properties=""/>
+
+        <component name="ccListener" type="Filter" class="basilica2.agents.components.ConcertChatListener" properties=""/>
+        <component name="ccActor" type="Actor" class="basilica2.agents.components.WhiteboardActor" properties=""/>
+        <component name="inputCoordinator" type="Coordinator" class="basilica2.agents.components.InputCoordinator" properties=""/>
+        <component name="outputCoordinator" type="Coordinator" class="basilica2.agents.components.OutputCoordinator" properties=""/>
+
+        <!--
+        <component name="myOutputCordinator" type="Filter" class="edu.cmu.cs.lti.bioagent.components.OutputCordinator" properties="outputcordinator.properties"/>
+        -->
+    </components>
+    <connections>
+        <connection from="ccListener" to="inputCoordinator"/>
+        <connection from="inputCoordinator" to="inputCoordinator"></connection><connection from="inputCoordinator" to="outputCoordinator"></connection>
+        <connection from="outputCoordinator" to="ccActor"/>
+        <!--
+        <connection from="myCCListener" to="myOutputCordinator"/>
+        <connection from="myOutputCordinator" to="myCCActor"/>
+        -->
+    </connections>
+</agent>

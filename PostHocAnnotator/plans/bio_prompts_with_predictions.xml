@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+ 
+    <prompt strategy="task" id="AGENT_GREETING">
+        <text> 
+                Hi, my name is [AGENT NAME]. I'll be working with you in this activity. Take a minute to introduce yourselves. 
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="BEGIN_TASK">
+        <text> 
+               I won't tell you if you're right or wrong, but I'll give feedback as you discuss things as a team. |Remember that each member's final answers will be considered as part of the team score.
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_A_SETUP">
+        <text> 
+                Let's start with the experiment you saw in class earlier - - starch inside the dialysis tubing, iodine solution outside. 
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_A_NOTES">
+        <text> 
+                &lt;&lt; Here's a picture of that lab setup. How did the colors of the liquids change over time?
+        </text>
+    </prompt>
+    
+    <prompt strategy="task" id="CONDITION_A_RESULTS">
+        <text> 
+                &lt;&lt; Here's a picture of what the experiment looked like after 1 hour, and after 24 hours.
+        </text>
+    </prompt>
+
+
+    <prompt strategy="task" id="CONDITION_A_EXPLAIN">
+        <text> 
+                What do the changes in color inside and outside tell you about the movement of starch and iodine molecules?
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_A_WEIGHTS">
+        <text> 
+                There might be more going on, as well.|On the whiteboard, here's the weight of the dialysis tube at the three observed points in time. 
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_A_WEIGHTS_RECALL">
+        <text> 
+                What happened to the weight of the tube over time?
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_A_WEIGHTS_EXPLAIN">
+        <text> 
+                What does the increase in weight tell us about the movement of water molecules?
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_A_WRAP">
+        <text> 
+                Great discussion, everyone.
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_B_SETUP">
+        <text> 
+                Let's look at a different experimental setup - iodine solution inside the tube, starch suspension outside.
+        </text>
+    </prompt>
+    
+    <prompt strategy="task" id="CONDITION_B_NOTES">
+        <text> 
+                The starting weight of the tubing is given, as well.
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_B_PREDICT">
+        <text> 
+                Take a few minutes to reach agreement with your team - what changes in weight and color do you think will happen over time? | (Be sure to write down your prediction on your worksheet.)
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_B_RESULTS">
+        <text> 
+                &lt;&lt; Here's what actually happened in this setup over time.
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_B_EXPLAIN">
+        <text> 
+                Do these observations match your predicitons? Explain what you think is going on.
+        </text>
+    </prompt>
+
+
+
+
+    <prompt strategy="task" id="CONDITION_B_EXPLAIN_WRAP">
+        <text> 
+                As you wrap up your discussion, be sure to write down your explanation on the worksheet.
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_C_SETUP">
+        <text> 
+                Let's do another set of experiments. We'll use the same dialysis tubing membrane, but with pure water on the outside and a glucose solution on the inside. 
+        </text>
+    </prompt>
+    
+        <prompt strategy="task" id="CONDITION_C_RECALL_GLUCOSE">
+        <text> 
+				How are glucose molecules different from starch molecules? (you can refer to your worksheet's glossary)           
+        </text>
+    </prompt>
+
+
+    <prompt strategy="task" id="CONDITION_C_NOTES">
+        <text> 
+                We'll use the tube weight as a quantitative indicator for water movement. |  We'll also use *glucose test strips* to detect the presence of glucose inside or outside of the membrane.
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_C_RECALL_INDICATOR">
+        <text> 
+                How is using the glucose test strips similar to the way we used iodine in the earlier experiments?
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_C_PREDICT">
+        <text> 
+                Take a few minutes to reach agreement with your team - what changes in weight and test-strip color do you think you'll observe over time?
+        </text>
+    </prompt>
+
+
+    <prompt strategy="task" id="CONDITION_C_RESULTS">
+        <text> 
+                &lt;&lt; Here's what actually happened in this setup over time.
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_C_EXPLAIN">
+        <text> 
+                Your predictions may not match these observations - explain what you think is going on, and why the results with glucose might be different than what you saw with starch.
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="CONDITION_C_EXPLAIN_WRAP">
+        <text> 
+                As you wrap up your discussion, be sure to write down your explanation on the worksheet.
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_D_SETUP">
+        <text> 
+                Here's the last experiment - glucose solution on the outside, pure water on the inside. 
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_D_PREDICT">
+        <text> 
+                Take a few minutes to discuss what changes you think you'll see in this condition. Agree on a prediction *and* an explanation that everyone understands - this answer will be part of your team score on the post-test.
+        </text>
+    </prompt>
+
+
+
+    <prompt strategy="task" id="CONDITION_D_EXPLAIN_WRAP">
+        <text> 
+                As you wrap up your discussion, be sure to write down your prediction and explanation on the worksheet.
+        </text>
+    </prompt>
+
+    <prompt strategy="task" id="ACTIVITY_WRAP">
+        <text> 
+                All right, we're wrapping up. Thanks, team!
+        </text>
+    </prompt>
+ </prompts>

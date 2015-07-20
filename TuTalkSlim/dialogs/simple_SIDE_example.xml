@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="animal_example">
+	<configuration>
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module>
+	</configuration>
+
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="interrupt">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<concepts>
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		<concept label="intro">
+			<phrase>Can you name an animal?</phrase>
+		</concept>
+		<concept label="unrecognize">
+			<phrase>I don't know what that is.</phrase>
+		</concept>
+		<concept label="dont_be_clever">
+			<phrase>Don't try to be so clever.</phrase>
+		</concept>
+		
+		<concept label="yes">
+			<phrase>yes</phrase>
+			<phrase>yep</phrase>
+			<phrase>yeah</phrase>
+		</concept>
+		
+		<concept label="no">
+			<phrase>no</phrase>
+			<phrase>nope</phrase>
+			<phrase>don't think so</phrase>
+		</concept>
+		
+		<concept label="recognize_fish">
+			<phrase>...that's a fish!</phrase>
+		</concept>
+		<concept label="recognize_mammal">
+			<phrase>...that's a mammal!</phrase>
+		</concept>
+		<concept label="recognize_bird">
+			<phrase>...that's a bird!</phrase>
+		</concept>
+		
+		<concept label="fish" model="animals" />
+		<concept label="mammal" model="animals" />
+		<concept label="bird" model="animals" />
+	</concepts>
+
+	<script>
+		<goal name="start" difficulty="1">
+			<step>
+				<initiation>intro</initiation>
+				<response say="dont_be_clever">yes</response>
+				<response say="recognize_fish">fish</response>
+				<response say="recognize_bird">bird</response>
+				<response say="recognize_mammal">mammal</response>
+				<response say="unrecognized">unanticipated-response</response>
+			</step>
+		</goal>
+	</script>
+
+</scenario>

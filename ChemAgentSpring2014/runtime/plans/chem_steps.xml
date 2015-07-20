@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+    <stage name="initiate" type="other" delay="0">
+    	
+    	
+        <step type="prompt" delay="5" prompt="AGENT_INTRODUCE">AGENT_INTRODUCE</step>
+        <step type="prompt" delay="5" prompt="DO_GREETING">DO_GREETING</step>
+        <step type="html" delay="5" label="info" id="intro_text">intro_text_html</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CHECKIN">TRAINING_WAIT</step>
+    </stage>
+    
+    <stage name="introduction" type="other" delay="5">
+        <step type="html" delay="5" label="info" id="intro_intro">intro_intro_html</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="3" checkin_prompt="WAIT_FOR_READING_INTRODUCTION">WAIT</step>
+        
+        <step type="prompt" delay="0" prompt="INTRO_1">INTRO_1</step>
+        <step type="html" delay="0" label="info" id="intro_chart1">intro_chart1_html</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_DISCUSSION">FACILITATE_INTRO_1</step>
+        <!-- nice long timeout before moving on to next problem -->
+
+        <step type="prompt" delay="0" prompt="INTRO_2">INTRO_2</step>
+        <step type="html" delay="0" label="info" id="intro_chart2">intro_chart2_html</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_DISCUSSION">FACILITATE_INTRO_2</step>
+        <!-- nice long timeout before moving on to next problem -->
+        
+        <step type="prompt" delay="0" prompt="INTRO_3">INTRO_3</step>
+        <step type="html" delay="0" label="info" id="intro_chart3">intro_chart3_html</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_DISCUSSION">FACILITATE_INTRO_3</step>
+        <!-- nice long timeout before moving on to next problem -->
+        
+        <step type="html" delay="5" label="info" id="periodic_reference">periodic_reference_html</step>
+        <step type="prompt" delay="5" prompt="INTRO_TASK">INTRO_TASK</step>
+        <step type="html" delay="5" label="info" id="task_intro">task_intro_html</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="3" checkin_prompt="WAIT_FOR_READING_INTRODUCTION">WAIT</step>
+    </stage>
+    
+    <stage name="taskA" type="other" delay="3">
+    
+        <step type="prompt" delay="0" prompt="TASK_START">TASK_START_A</step>
+        <step type="html" delay="5" label="info" id="task_a_predict">task_a_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="TASK_PREDICT">TASK_PREDICT_A</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_A</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="task_a_check">task_a_check_html</step>
+        <step type="prompt" delay="5" prompt="TASK_CHECK">TASK_CHECK_A</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_A</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info3" id="task_a_explain">task_a_explain_html</step>
+        <step type="prompt" delay="5" prompt="TASK_EXPLAIN">TASK_EXPLAIN_A</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_A</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0" prompt="TASK_FINISH">TASK_FINISH_A</step>-->
+    </stage>
+    
+    <stage name="taskB" type="other" delay="5">
+        
+        <step type="prompt" delay="0" prompt="TASK_START">TASK_START_B</step>
+        <step type="html" delay="5" label="info" id="task_b_predict">task_b_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="TASK_PREDICT">TASK_PREDICT_B</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="task_b_check">task_b_check_html</step>
+        <step type="prompt" delay="5" prompt="TASK_CHECK">TASK_CHECK_B</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info3" id="task_b_explain">task_b_explain_html</step>
+        <step type="prompt" delay="5" prompt="TASK_EXPLAIN">TASK_EXPLAIN_B</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0" prompt="TASK_FINISH">TASK_FINISH_B</step>-->
+    </stage>
+    
+     <stage name="taskC" type="other" delay="5">
+     
+        <step type="prompt" delay="0" prompt="TASK_START">TASK_START_C</step>
+        <step type="html" delay="5" label="info" id="task_c_predict">task_c_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="TASK_PREDICT">TASK_PREDICT_C</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_C</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="task_c_check">task_c_check_html</step>
+        <step type="prompt" delay="5" prompt="TASK_CHECK">TASK_CHECK_C</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_C</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info3" id="task_c_explain">task_c_explain_html</step>
+        <step type="prompt" delay="5" prompt="TASK_EXPLAIN">TASK_EXPLAIN_C</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_C</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0" prompt="TASK_FINISH">TASK_FINISH_C</step> -->
+    </stage>
+    
+    <stage name="taskD" type="other" delay="5">
+     
+        <step type="prompt" delay="0" prompt="TASK_START">TASK_START_D</step>
+        <step type="html" delay="5" label="info" id="task_d_predict">task_d_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="TASK_PREDICT">TASK_PREDICT_D</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_D</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="task_d_check">task_d_check_html</step>
+        <step type="prompt" delay="5" prompt="TASK_CHECK">TASK_CHECK_D</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_D</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info3" id="task_d_explain">task_d_explain_html</step>
+        <step type="prompt" delay="5" prompt="TASK_EXPLAIN">TASK_EXPLAIN_D</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_D</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0" prompt="TASK_FINISH">TASK_FINISH_D</step> -->
+    </stage>
+    
+        <stage name="taskE" type="other" delay="5">
+     
+        <step type="prompt" delay="0" prompt="TASK_START">TASK_START_E</step>
+        <step type="html" delay="5" label="info" id="task_e_predict">task_e_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="TASK_PREDICT">TASK_PREDICT_E</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_E</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="task_e_check">task_e_check_html</step>
+        <step type="prompt" delay="5" prompt="TASK_CHECK">TASK_CHECK_E</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_E</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info3" id="task_e_explain">task_e_explain_html</step>
+        <step type="prompt" delay="5" prompt="TASK_EXPLAIN">TASK_EXPLAIN_E</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_E</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0" prompt="TASK_FINISH">TASK_FINISH_E</step> -->
+    </stage>
+        <stage name="taskF" type="other" delay="5">
+     
+        <step type="prompt" delay="0" prompt="TASK_START">TASK_START_F</step>
+        <step type="html" delay="5" label="info" id="task_f_predict">task_f_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="TASK_PREDICT">TASK_PREDICT_F</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_F</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="task_f_check">task_f_check_html</step>
+        <step type="prompt" delay="5" prompt="TASK_CHECK">TASK_CHECK_F</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_F</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info3" id="task_f_explain_1">task_f_explain_html</step>
+        <step type="prompt" delay="5" prompt="TASK_EXPLAIN">TASK_EXPLAIN_F</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_F</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        
+        <step type="html" delay="0" label="info" id="task_f_explain_2">task_f_explain2_html</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN2</step>
+        <step type="html" delay="0" label="info" id="task_f_explain_3">task_f_explain3_html</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN3</step>
+        
+        <!--<step type="prompt" delay="0" prompt="TASK_FINISH">TASK_FINISH_F</step> -->
+    </stage>
+    
+    <stage name="finalA" type="other" delay="5">
+     
+        <step type="prompt" delay="5" prompt="FINAL_INTRO">FINAL_INTRO</step>
+        
+        <step type="prompt" delay="0" prompt="FINAL_START">FINAL_START_A</step>
+        <step type="html" delay="5" label="info" id="final_a_predict">final_a_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="FINAL_PREDICT">FINAL_PREDICT_A</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_FINAL_A</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="final_a_check">final_a_check_html</step>
+        <step type="prompt" delay="5" prompt="FINAL_EXPLAIN">FINAL_EXPLAIN_A</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_FINAL_A</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+       
+        <!-- no "explain" for final task A... -->
+        
+        <!--<step type="prompt" delay="0" prompt="FINAL_FINISH">FINAL_FINISH_F</step> -->
+    </stage>
+        
+   <stage name="finalB" type="other" delay="5">
+     
+        <step type="prompt" delay="0" prompt="FINAL_START">FINAL_START_B</step>
+        <step type="html" delay="5" label="info" id="final_b_predict">final_b_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="FINAL_PREDICT">FINAL_PREDICT_B</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_FINAL_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="final_b_check">final_b_check_html</step>
+        <step type="prompt" delay="5" prompt="FINAL_CHECK">FINAL_CHECK_B</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_CHECK_FINAL_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+         <step type="html" delay="0" label="info3" id="final_b_explain">final_b_explain_html</step>
+        <step type="prompt" delay="5" prompt="FINAL_EXPLAIN">FINAL_EXPLAIN_B</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_READING">FACILITATE_EXPLAIN_FINAL_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        
+        
+        <!--<step type="prompt" delay="0" prompt="FINAL_FINISH">FINAL_FINISH_B</step> -->
+    </stage>
+     <stage name="finalC" type="other" delay="5">
+     
+        <step type="prompt" delay="0" prompt="FINAL_START">FINAL_START_C</step>
+        <step type="html" delay="5" label="info" id="final_c_predict">final_c_predict_html</step>
+        
+        <step type="prompt" delay="5" prompt="FINAL_PREDICT">FINAL_PREDICT_C</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="3" checkin_prompt="WAIT_FOR_CONSENSUS">FACILITATE_PREDICT_FINAL_C</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="html" delay="0" label="info" id="final_c_check">final_c_check_html</step>
+        <step type="prompt" delay="30" prompt="FINAL_EXPLAIN">FINAL_EXPLAIN_C</step>
+        <!-- no "explain" or facilitation for the end of final task C... -->
+        
+        
+        <!-- no "explain" for final task C... -->
+        
+        <!--<step type="prompt" delay="0" prompt="FINAL_FINISH">FINAL_FINISH_C</step> -->
+       
+    </stage>
+    <stage name="wrap" type="other" delay="5">
+     
+        <step type="prompt" delay="5" prompt="ACTIVITY_FINISH">ACTIVITY_FINISH</step>
+        <step type="logout" delay="5">LOGOUT</step>
+        
+        <!-- <step type="listen">FACILITATE_END</step> -->
+        <!-- infinite timeout - stay in facilitation mode until the end -->
+        
+   </stage>
+</plan>

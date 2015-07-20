@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="concept_252">
+        <phrase>good</phrase>
+    </concept>
+    <concept label="concept_253">
+        <phrase>Nope...</phrase>
+    </concept>
+    <concept label="concept_254">
+        <phrase>The cost we have been calculating is only the material cost of the wrench handle. Is that the only cost involved?</phrase>
+    </concept>
+    <concept label="concept_255">
+        <phrase>yes</phrase>
+        <phrase>sure</phrase>
+        <phrase>yeah</phrase>
+        <phrase>absolutely</phrase>
+        <phrase>ofcourse</phrase>
+        <phrase>definitely</phrase>
+        <phrase>yup</phrase>
+        <phrase>i think so</phrase>
+        <phrase>Right</phrase>
+    </concept>
+    <concept label="concept_256">
+        <phrase>no</phrase>
+        <phrase>not</phrase>
+        <phrase>nope</phrase>
+        <phrase>nay</phrase>
+        <phrase>not really</phrase>
+        <phrase>no no</phrase>
+        <phrase>definitely not</phrase>
+        <phrase>absolutely not</phrase>
+        <phrase>manufacturing cost</phrase>
+        <phrase>labor</phrase>
+        <phrase>labour</phrase>
+        <phrase>marketing</phrase>
+        <phrase>sales</phrase>
+        <phrase>storage costs</phrase>
+    </concept>
+    <concept label="concept_257">
+        <phrase>Manufacturing a wrench involves many other costs besides the raw material.</phrase>
+    </concept>
+    <concept label="concept_258">
+        <phrase>Infact, sometimes small changes in the material cost of the wrench are negligible compared to all the costs.</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>is_this_all_the_cost</subgoal>
+  </step>
+</goal>
+
+<goal name="is_this_all_the_cost" template-name="template_21" difficulty="1">
+  <step>
+    <initiation>concept_254</initiation>
+    <response say="concept_253">concept_255</response>
+    <response say="concept_252">concept_256</response>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_257</initiation>
+  </step>
+  <step>
+    <initiation>concept_258</initiation>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="TuTalkSlim">
+    <property environment="env"/>
+    <property name="BasilicaCore.location" value="../BasilicaCore"/>
+    <property name="MoodleTalkAgent.location" value="../MoodleTalkAgent"/>
+    <property name="SocketTalkit.location" value="../SocketTalkit"/>
+    <property name="TutorAgent.location" value="../TutorAgent"/>
+    <property name="ECLIPSE_HOME" value="../../../../Applications/eclipse"/>
+    <property name="workspace_loc:TuTalkSlim/runtime" value="runtime"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="TuTalkSlim.classpath">
+        <pathelement location="build/classes"/>
+        <pathelement location="${BasilicaCore.location}/lib/OtherLibraries/Xerces/xercesImpl.jar"/>
+        <pathelement location="lib/lingpipe-2.3.0.jar"/>
+        <pathelement location="lib/commons-lang3-3.1.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="src">
+                <exclude name="**/*.uad"/>
+                <exclude name="**/*.ucd"/>
+                <exclude name="**/*.uld"/>
+                <exclude name="**/*.upd"/>
+                <exclude name="**/*.udd"/>
+                <exclude name="**/*.uod"/>
+                <exclude name="**/*.usd"/>
+                <exclude name="**/*.utd"/>
+                <exclude name="**/*.uud"/>
+                <exclude name="**/*.odd"/>
+                <exclude name="**/*.ead"/>
+                <exclude name="**/*.ecd"/>
+                <exclude name="**/*.eld"/>
+                <exclude name="**/*.epd"/>
+                <exclude name="**/*.edd"/>
+                <exclude name="**/*.eod"/>
+                <exclude name="**/*.esd"/>
+                <exclude name="**/*.etd"/>
+                <exclude name="**/*.eud"/>
+                <exclude name="**/*.urd"/>
+                <exclude name="**/*.uml"/>
+                <exclude name="**/*.ecore"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="build/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="TuTalkSlim.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${MoodleTalkAgent.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${MoodleTalkAgent.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SocketTalkit.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SocketTalkit.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${TutorAgent.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${TutorAgent.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="SidePredictor">
+        <java classname="edu.cmu.cs.lti.tutalk.module.SidePredictor" failonerror="true" fork="yes">
+            <classpath refid="TuTalkSlim.classpath"/>
+        </java>
+    </target>
+    <target name="Tester (1)">
+        <java classname="edu.cmu.cs.lti.tutalk.slim.test.Tester" dir="${workspace_loc:TuTalkSlim/runtime}" failonerror="true" fork="yes">
+            <classpath refid="TuTalkSlim.classpath"/>
+        </java>
+    </target>
+</project>

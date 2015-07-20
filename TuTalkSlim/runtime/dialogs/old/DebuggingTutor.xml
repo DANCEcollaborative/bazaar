@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="affirmative">
+        <phrase>yes</phrase>
+    </concept>
+    <concept label="negative">
+        <phrase>no</phrase>
+        <phrase>never</phrase>
+        <phrase>nope</phrase>
+        <phrase>nah</phrase>
+        <phrase>it wont</phrase>
+        <phrase>it won&#039;t</phrase>
+        <phrase>broken</phrase>
+        <phrase>crash</phrase>
+    </concept>
+    <concept label="p1_right">
+        <phrase>That&#039;s right. His code contains a simple error that will keep it from performing as planned.</phrase>
+    </concept>
+    <concept label="p1_wrong">
+        <phrase>Not this time... Bill&#039;s code compiles and runs, but there is a problem. </phrase>
+    </concept>
+    <concept label="less_than">
+        <phrase>less than</phrase>
+        <phrase>&lt;</phrase>
+        <phrase>smaller than</phrase>
+    </concept>
+    <concept label="syntax">
+        <phrase>semicolon</phrase>
+        <phrase>syntax</phrase>
+        <phrase>typo</phrase>
+        <phrase>colon</phrase>
+        <phrase>&#059;</phrase>
+        <phrase>error</phrase>
+        <phrase>mistake</phrase>
+    </concept>
+    <concept label="use_a_while">
+        <phrase>use while</phrase>
+        <phrase>while loop</phrase>
+        <phrase>don&#039;t use for</phrase>
+        <phrase>not use for</phrase>
+        <phrase>while</phrase>
+    </concept>
+    <concept label="wrong_p1_2">
+        <phrase>No, Bill&#039;s choice of a for loop is fine for this problem&#059; he knows exactly how many items are in the collection, and that number isn&#039;t going to change.</phrase>
+    </concept>
+    <concept label="wrong_p1_1">
+        <phrase>No, his code doesn&#039;t contain syntax errors. Remember, it compiled and ran.</phrase>
+    </concept>
+    <concept label="concept_78">
+        <phrase>Welcome to the Debugging Tutor! I&#039;m here to teach you about debugging some common errors that you might encounter in your code! Many errors can come about from simple logical slips. These errors will not always cause compiler errors, so sometimes they are hard to notice. Let&#039;s try to work through a few of these errors.</phrase>
+    </concept>
+    <concept label="concept_80">
+        <phrase>Bill has a problem with his code. He has an array of ten strings and wants to print each string in the array to the screen. I&#039;ll put his code on the whiteboard for you. Bill is about to compile and run his code. Do you think it will perform as expected?</phrase>
+    </concept>
+    <concept label="concept_81">
+        <phrase>When Bill runs his code, he finds that it prints only nine names. What part of the code is causing the error?</phrase>
+    </concept>
+    <concept label="nine">
+        <phrase>nine</phrase>
+        <phrase>9</phrase>
+    </concept>
+    <concept label="encourage">
+        <phrase>That&#039;s right!</phrase>
+        <phrase>Yes, I agree.</phrase>
+        <phrase>Yes, that&#039;s correct!</phrase>
+        <phrase>Good job!</phrase>
+    </concept>
+    <concept label="discouraged">
+        <phrase>Not quite...</phrase>
+        <phrase>Are you sure?</phrase>
+        <phrase>I&#039;m not so sure...</phrase>
+        <phrase>Well...</phrase>
+    </concept>
+    <concept label="concept_85">
+        <phrase>Think about what could cause the condition Bill has used for the loop to become false. What value will the variable i have when the condition becomes false?</phrase>
+    </concept>
+    <concept label="concept_86">
+        <phrase>When i is 9, the loop will exit. This means that the string, myStrings[9], will never be printed! </phrase>
+    </concept>
+    <concept label="p2_right">
+        <phrase>ten</phrase>
+        <phrase>10</phrase>
+        <phrase> i &lt;=9</phrase>
+        <phrase>i &lt; 10</phrase>
+        <phrase>less than equal</phrase>
+        <phrase>i&lt;10</phrase>
+        <phrase>i&lt;=9</phrase>
+        <phrase>&lt;=</phrase>
+    </concept>
+    <concept label="concept_88">
+        <phrase>What could Bill use instead of the condition i &lt; 9 that would make his code work as desired?</phrase>
+    </concept>
+    <concept label="move_on">
+        <phrase>move on</phrase>
+    </concept>
+    <concept label="concept_91">
+        <phrase>We can choose to change i &lt; 9 to EITHER i &lt; 10 or i &lt;= 9. Both of these conditions won&#039;t terminate until i = 10, which means the code will correctly print out all ten names. 
+
+When you&#039;re ready, respond with &#039;move on&#039; and we can discuss a different problem.</phrase>
+    </concept>
+    <concept label="add_a_line">
+        <phrase>add a line</phrase>
+        <phrase>add line</phrase>
+        <phrase>add</phrase>
+    </concept>
+    <concept label="remove_a_line">
+        <phrase>remove line</phrase>
+        <phrase>remove a line</phrase>
+        <phrase>delete line</phrase>
+        <phrase>delete a line</phrase>
+        <phrase>remove</phrase>
+        <phrase>delete</phrase>
+    </concept>
+    <concept label="change_a_line">
+        <phrase>change line</phrase>
+        <phrase>change a line</phrase>
+        <phrase>edit line</phrase>
+        <phrase>edit a line</phrase>
+        <phrase>change</phrase>
+    </concept>
+    <concept label="concept_96">
+        <phrase>Here is another common problem you may encounter when dealing with loops. 
+
+Jessica is using a for loop to print out all of the numbers between one and ten. I&#039;ll put her code up on the whiteboard for you. Take a look at it and tell me if you think it will perform as she expects. Do you think this code will work?</phrase>
+    </concept>
+    <concept label="concept_97">
+        <phrase>When Jessica runs the code, she discovers that it doesn&#039;t print out all the numbers she wants it to. Instead, it only prints even numbers. Does she need to add a line, remove a line, or change a line in her code to fix this problem?</phrase>
+    </concept>
+    <concept label="concept_98">
+        <phrase>It looks like Jessica might have confused for loops with while loops. When using a for loop, the variable you are using as a counter can be incremented in the loop declaration. Jessica also incremented the same value inside the loop body. This means the value is being incremented twice. Removing the i&#043;&#043; from inside the loop will make the code work as expected.</phrase>
+    </concept>
+    <concept label="for_loop">
+        <phrase>for loop</phrase>
+        <phrase>for</phrase>
+    </concept>
+    <concept label="while_loop">
+        <phrase>while loop</phrase>
+        <phrase>while</phrase>
+    </concept>
+    <concept label="concept_102">
+        <phrase>Let&#039;s think about this for a second. There are a few kinds of loop but the most common are for loops and while loops. Which kind of loop is appropriate for a situation where you want to repeat something a specific fixed number of times?</phrase>
+    </concept>
+    <concept label="concept_103">
+        <phrase>A for loop is most appropriate in this circumstance because the syntax makes it easy to write. In Jessica&#039;s code, she has written her loop&#039;s break condition as i &lt;= 10, and her increment adds one to i every time the loop runs.
+Ready for the next problem?</phrase>
+    </concept>
+    <concept label="concept_104">
+        <phrase>Look at this code for using a while loop in the same circumstance. Will this code work correctly?</phrase>
+    </concept>
+    <concept label="concept_105">
+        <phrase>The code will just loop forever because the writer forgot to increment i inside the loop, like this. Since i was never being changed, the condition i &lt;= 10 would always be true. So let&#039;s get back to the original problem, shall we?</phrase>
+    </concept>
+    <concept label="wrong_p2_2">
+        <phrase>No, actually there is a slight error in this code.</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>start_tutor</subgoal>
+  </step>
+</goal>
+
+<goal name="clarify_p1" template-name="template_1" difficulty="1">
+  <step>
+    <initiation>concept_85</initiation>
+    <response say="encourage">nine</response>
+    <response say="discouraged">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_86</initiation>
+  </step>
+</goal>
+
+<goal name="clarify_p2" template-name="template_1" difficulty="1">
+  <step>
+    <initiation>concept_102</initiation>
+    <response say="encourage">for_loop</response>
+    <response say="discouraged">while_loop</response>
+    <response say="discouraged">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_103</initiation>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_104</initiation>
+    <response say="discouraged">affirmative</response>
+    <response say="encourage">negative</response>
+  </step>
+  <step>
+    <initiation>concept_105</initiation>
+    <response>unanticipated-response</response>
+  </step>
+</goal>
+
+<goal name="start_tutor" template-name="start_template" difficulty="1">
+  <step>
+    <initiation>concept_78</initiation>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_80</initiation>
+    <response say="p1_wrong">affirmative</response>
+    <response say="p1_right">negative</response>
+  </step>
+  <step>
+    <initiation>concept_81</initiation>
+    <response>less_than</response>
+    <response say="wrong_p1_1" push="clarify_p1">syntax</response>
+    <response say="wrong_p1_2" push="clarify_p1">use_a_while</response>
+    <response say="discouraged">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_88</initiation>
+    <response say="encourage">p2_right</response>
+    <response say="discouraged">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_91</initiation>
+    <response>move_on</response>
+  </step>
+  <step>
+    <initiation>concept_96</initiation>
+    <response say="encourage">negative</response>
+    <response say="wrong_p2_2">affirmative</response>
+  </step>
+  <step>
+    <initiation>concept_97</initiation>
+    <response say="encourage">remove_a_line</response>
+    <response say="discouraged" push="clarify_p2">add_a_line</response>
+    <response say="discouraged" push="clarify_p2">change_a_line</response>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_98</initiation>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

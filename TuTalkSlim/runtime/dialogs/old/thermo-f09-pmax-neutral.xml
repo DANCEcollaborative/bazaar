@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="increase">
+        <phrase>increase</phrase>
+        <phrase>high</phrase>
+        <phrase>up</phrase>
+        <phrase>more</phrase>
+        <phrase>higher</phrase>
+    </concept>
+    <concept label="decrease">
+        <phrase>decrease</phrase>
+        <phrase>less</phrase>
+        <phrase>down</phrase>
+        <phrase>low</phrase>
+        <phrase>lower</phrase>
+        <phrase>reduce</phrase>
+    </concept>
+    <concept label="yes">
+        <phrase>yes</phrase>
+        <phrase>why not</phrase>
+        <phrase>sure</phrase>
+        <phrase>yeah</phrase>
+        <phrase>ok</phrase>
+        <phrase>absolutely</phrase>
+        <phrase>ofcourse</phrase>
+        <phrase>of course</phrase>
+        <phrase>yup</phrase>
+        <phrase>i think so</phrase>
+        <phrase>Right</phrase>
+        <phrase>yeh</phrase>
+        <phrase>yeahh</phrase>
+        <phrase>yeahhh</phrase>
+        <phrase>yesss</phrase>
+    </concept>
+    <concept label="no">
+        <phrase>no</phrase>
+        <phrase>never</phrase>
+        <phrase>nope</phrase>
+        <phrase>nah</phrase>
+        <phrase>nay</phrase>
+        <phrase>not really</phrase>
+        <phrase>nahh</phrase>
+    </concept>
+    <concept label="materials">
+        <phrase minimal="no" >break</phrase>
+        <phrase minimal="no" >fail</phrase>
+        <phrase minimal="no" >material</phrase>
+        <phrase minimal="no" >strength</phrase>
+        <phrase minimal="no" >properties</phrase>
+        <phrase minimal="no" >property</phrase>
+        <phrase minimal="no" >steel</phrase>
+    </concept>
+    <concept label="better">
+        <phrase>better</phrase>
+    </concept>
+    <concept label="worse">
+        <phrase>bad</phrase>
+        <phrase>poor</phrase>
+        <phrase>degrade</phrase>
+        <phrase>worse</phrase>
+    </concept>
+    <concept label="reason2">
+        <phrase>Higher Temperature</phrase>
+        <phrase>higher carnot</phrase>
+        <phrase>added at higher temperature</phrase>
+    </concept>
+    <concept label="concept_262">
+        <phrase>What would happen to cycle efficiency if you increase the maximum pressure in the cycle &#040;P @ S1&#041;?</phrase>
+    </concept>
+    <concept label="concept_302">
+        <phrase>You got that right. The efficiency of the cycle increases.</phrase>
+    </concept>
+    <concept label="concept_303">
+        <phrase>Hmmm.... Cycle Efficiency improves to a certain extent by increasing Pmax.</phrase>
+    </concept>
+    <concept label="concept_304">
+        <phrase>Steam quality at the turbine exit degrades on increasing Pmax as shown in Graph 6.</phrase>
+    </concept>
+    <concept label="concept_305">
+        <phrase>Right. Steam quality drops as we see in Graph 6.</phrase>
+    </concept>
+    <concept label="concept_306">
+        <phrase>Correct. At higher Pmax, the need to reject heat to the environment reduces.</phrase>
+    </concept>
+    <concept label="concept_307">
+        <phrase>At higher Pmax, the need to reject heat to the environment reduces.</phrase>
+    </concept>
+    <concept label="concept_308">
+        <phrase>By increasing Pmax, heat is added to the cycle at a higher temperature, which leads to higher carnot efficiency. The T&#045;S diagram on Page 26 of the book explains this.</phrase>
+    </concept>
+    <concept label="concept_309">
+        <phrase>Good. By increasing Pmax, heat is added to the cycle at a higher temperature, which leads to higher carnot efficiency. The T&#045;S diagram on Page 26 of the book explains this.</phrase>
+    </concept>
+    <concept label="concept_310">
+        <phrase>We see this in Graph 5 on your worksheet.</phrase>
+    </concept>
+    <concept label="concept_311">
+        <phrase>On the other hand, what happens to the steam quality at the turbine exit &#040;S3&#041; by increasing Pmax?</phrase>
+    </concept>
+    <concept label="concept_312">
+        <phrase>Let&#039;s take a closer look at this. What happens to the amount of heat rejected by the cycle on increasing Pmax?We see this in graph 7.</phrase>
+    </concept>
+    <concept label="concept_313">
+        <phrase>We see this in graph 7.</phrase>
+    </concept>
+    <concept label="concept_314">
+        <phrase>What about the net power generated by the cycle? Does it increase?</phrase>
+    </concept>
+    <concept label="concept_315">
+        <phrase>As you see in graph 8, the net power output increases to some extent upon increasing Pmax, but it reduces thereafter.</phrase>
+    </concept>
+    <concept label="concept_316">
+        <phrase>Can you explain why increasing Pmax improves efficiency and reduces heat rejected to the environment?</phrase>
+    </concept>
+    <concept label="concept_318">
+        <phrase>One final note about Pmax: Like Tmax, it is bound by Material strength and cannot be too high.</phrase>
+    </concept>
+    <concept label="concept_319">
+        <phrase>Let&#039;s try to apply this knowledge to choose a good value for Pmax that meets your objectives. We&#039;ll talk about Pmin after that.</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start" template-name="template_start_1">
+  <step>
+    <subgoal>goal_1</subgoal>
+  </step>
+</goal>
+
+<goal name="goal_1" template-name="template_22" difficulty="1">
+  <step>
+    <initiation>concept_262</initiation>
+    <response say="concept_302" truth-val="unknown">increase</response>
+    <response say="concept_303">decrease</response>
+    <response say="concept_303">unanticipated-response</response>
+    <response say="concept_302">better</response>
+    <response say="concept_303">worse</response>
+  </step>
+  <step>
+    <initiation>concept_310</initiation>
+  </step>
+  <step>
+    <initiation>concept_311</initiation>
+    <response say="concept_304">increase</response>
+    <response say="concept_305">decrease</response>
+    <response say="concept_304">better</response>
+    <response say="concept_305">worse</response>
+    <response say="concept_304">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_312</initiation>
+    <response say="concept_306">decrease</response>
+    <response say="concept_307">increase</response>
+    <response say="concept_307">better</response>
+    <response say="concept_307">worse</response>
+    <response say="concept_307">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_313</initiation>
+  </step>
+  <step>
+    <initiation>concept_314</initiation>
+    <response>increase</response>
+    <response>yes</response>
+    <response>decrease</response>
+    <response>no</response>
+    <response>unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_315</initiation>
+  </step>
+  <step>
+    <initiation>concept_316</initiation>
+    <response say="concept_308">unanticipated-response</response>
+    <response say="concept_309">reason2</response>
+  </step>
+  <step>
+    <initiation>concept_318</initiation>
+  </step>
+  <step>
+    <initiation>concept_319</initiation>
+  </step>
+</goal>
+
+
+</script>
+</scenario>

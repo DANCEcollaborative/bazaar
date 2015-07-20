@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "http://andes3.lrdc.pitt.edu/TuTalk/TuTalkScenario.dtd">
+<scenario default-language="en">
+
+<configuration>
+<module name="nlu">
+   <dict>
+     <key>matchers</key><string>default taghelper</string>
+     <key>matcher-policy</key><string>thresh</string>
+     <key>taghelper-host</key><string>ankara.lti.cs.cmu.edu</string>
+     <key>taghelper-port</key><string>7557</string>
+     <key>taghelper-timeout</key><string>60</string>
+   </dict>
+</module>
+</configuration>
+
+<transitions>
+  <transition ack-type="agree" floor-status="neutral">
+    <tphrase> yes </tphrase>
+    <tphrase> okay </tphrase>
+  </transition>
+  <transition ack-type="agree" scope="nonimmediate">
+    <tphrase> Yes, I agree. </tphrase>
+    <tphrase> Very good! </tphrase>
+    <tphrase> Excellent! </tphrase>
+  </transition>
+  <transition ack-type="agree" ack-polarity="neg">
+    <tphrase> I disagree with you. </tphrase>
+    <tphrase> That doesn't sound right to me.</tphrase>
+  </transition>
+  <transition ack-type="understand" floor-status="neutral">
+    <tphrase> I understand what you are saying. </tphrase>
+    <tphrase> I think I understand what you mean. </tphrase>
+  </transition>
+  <transition ack-type="hear"  floor-status="concede" scope="immediate">   
+    <tphrase> uh-huh </tphrase>
+    <tphrase> hmmm-huh </tphrase>
+    <tphrase> yeah </tphrase>
+    <tphrase> I'm listening. </tphrase>
+    <tphrase> Go on.</tphrase>
+  </transition>
+  <transition topic-status="refresh">
+    <tphrase> So, back to the original question. </tphrase>
+    <tphrase> Let's try the original question again. </tphrase>
+    <tphrase> Once again on the original question. </tphrase>
+   </transition>
+   <transition topic-status="interrupt">
+    <tphrase>
+     Let's put this aside for a minute and come back to it later.
+    </tphrase>
+  </transition>
+</transitions>
+
+<concepts>
+    <concept label="unanticipated-response">
+        <phrase>anything else</phrase>
+    </concept>
+    <concept label="concept_212">
+        <phrase>What would happen if the stress in our Wrench is too high?</phrase>
+    </concept>
+    <concept label="concept_213">
+        <phrase>break</phrase>
+        <phrase>breaks</phrase>
+        <phrase>breaks down</phrase>
+        <phrase>breakdown</phrase>
+        <phrase>break down</phrase>
+        <phrase>deform</phrase>
+        <phrase>deforms</phrase>
+        <phrase>deformed</phrase>
+        <phrase>it will be deformed</phrase>
+        <phrase>it will break</phrase>
+        <phrase>fails</phrase>
+        <phrase>fail</phrase>
+        <phrase>failure</phrase>
+        <phrase>it can fail</phrase>
+    </concept>
+    <concept label="concept_214">
+        <phrase>Thats right.</phrase>
+    </concept>
+    <concept label="concept_215">
+        <phrase>The wrench can break in such a case.</phrase>
+    </concept>
+    <concept label="concept_216">
+        <phrase>A wrench that can break in normal use is not safe!</phrase>
+    </concept>
+    <concept label="concept_217">
+        <phrase>EMPTY_PHRASE</phrase>
+    </concept>
+    <concept label="concept_218">
+        <phrase>Right</phrase>
+    </concept>
+    <concept label="concept_219">
+        <phrase>Lower stress is better.</phrase>
+    </concept>
+    <concept label="concept_220">
+        <phrase>In general, to keep a wrench safe, we want to keep the stress in a Wrench high or low?</phrase>
+    </concept>
+    <concept label="concept_221">
+        <phrase>increase</phrase>
+        <phrase>high</phrase>
+        <phrase>up</phrase>
+        <phrase>more</phrase>
+        <phrase>higher</phrase>
+        <phrase>above</phrase>
+        <phrase>increased</phrase>
+    </concept>
+    <concept label="concept_222">
+        <phrase>decrease</phrase>
+        <phrase>less</phrase>
+        <phrase>small</phrase>
+        <phrase>Smaller </phrase>
+        <phrase>down</phrase>
+        <phrase>low</phrase>
+        <phrase>lower</phrase>
+    </concept>
+    <concept label="concept_223">
+        <phrase>What property of a wrench determines when the stress is too high?</phrase>
+    </concept>
+    <concept label="concept_224">
+        <phrase>material</phrase>
+        <phrase>substance</phrase>
+        <phrase>material properties</phrase>
+        <phrase>made off</phrase>
+        <phrase>wrench material</phrase>
+    </concept>
+    <concept label="concept_225">
+        <phrase>yield stress</phrase>
+        <phrase>yield</phrase>
+        <phrase>yielding stress</phrase>
+        <phrase>strength</phrase>
+        <phrase>stregnth</phrase>
+        <phrase>strong</phrase>
+        <phrase>how strong</phrase>
+    </concept>
+    <concept label="concept_226">
+        <phrase>Would you let the stress in the wrench you design reach yield stress?</phrase>
+    </concept>
+    <concept label="concept_227">
+        <phrase>yes</phrase>
+        <phrase>why not</phrase>
+        <phrase>sure</phrase>
+        <phrase>yeah</phrase>
+        <phrase>ok</phrase>
+        <phrase>absolutely</phrase>
+        <phrase>ofcourse</phrase>
+        <phrase>yup</phrase>
+        <phrase>Right</phrase>
+        <phrase>yeh</phrase>
+        <phrase>yeahh</phrase>
+        <phrase>yeahhh</phrase>
+        <phrase>yesss</phrase>
+    </concept>
+    <concept label="concept_228">
+        <phrase>no</phrase>
+        <phrase>never</phrase>
+        <phrase>nope</phrase>
+        <phrase>nah</phrase>
+        <phrase>nay</phrase>
+        <phrase>not really</phrase>
+        <phrase>nahh</phrase>
+        <phrase>dont think so</phrase>
+    </concept>
+    <concept label="concept_229">
+        <phrase>We use a factor of safety to avoid reaching yield stress.</phrase>
+    </concept>
+    <concept label="concept_230">
+        <phrase>One last thing on this topic, Does more &#040;or less&#041; stress in a wrench make it easier to use?</phrase>
+    </concept>
+    <concept label="concept_231">
+        <phrase>yes</phrase>
+        <phrase>why not</phrase>
+        <phrase>sure</phrase>
+        <phrase>ok</phrase>
+        <phrase>absolutely</phrase>
+        <phrase>ofcourse</phrase>
+        <phrase>definitely</phrase>
+        <phrase>affirmative</phrase>
+        <phrase>yeh</phrase>
+        <phrase>alright</phrase>
+        <phrase>oh yeah</phrase>
+        <phrase>positive</phrase>
+    </concept>
+    <concept label="concept_232">
+        <phrase>no</phrase>
+        <phrase>negative</phrase>
+        <phrase>never</phrase>
+        <phrase>nope</phrase>
+        <phrase>dont think so</phrase>
+        <phrase>nah</phrase>
+        <phrase>nay</phrase>
+        <phrase>not really</phrase>
+        <phrase>naah</phrase>
+    </concept>
+    <concept label="concept_233">
+        <phrase>Now, that we understand the relationship of stress and safety, lets try to apply it to the design challenge.</phrase>
+    </concept>
+    <concept label="concept_234">
+        <phrase>Right. Yield Stress is a material property we want to watch out for.</phrase>
+    </concept>
+    <concept label="concept_235">
+        <phrase>Correct.</phrase>
+    </concept>
+    <concept label="concept_236">
+        <phrase>Yield stress determines when the stress is too high for a wrench.</phrase>
+    </concept>
+    <concept label="concept_237">
+        <phrase>No no.. That wouldnt be safe.</phrase>
+    </concept>
+    <concept label="concept_238">
+        <phrase>You got that right.</phrase>
+    </concept>
+    <concept label="concept_239">
+        <phrase>We dont want to let the stress reach yield stress.</phrase>
+    </concept>
+    <concept label="concept_240">
+        <phrase>Not really.. </phrase>
+    </concept>
+    <concept label="concept_241">
+        <phrase>You are correct about that..</phrase>
+    </concept>
+    <concept label="concept_242">
+        <phrase>Stress doesnt determine ease of use.</phrase>
+    </concept>
+    <concept label="concept_243">
+        <phrase>Its the moment delivered by the wrench that determines ease of use.</phrase>
+    </concept>
+</concepts>
+
+<script>
+
+<goal name="start">
+  <step>
+   <subgoal>stress_controls_safety</subgoal>
+  </step>
+</goal>
+
+<goal name="stress_controls_safety" template-name="template_19" difficulty="1">
+  <step>
+    <initiation>concept_212</initiation>
+    <response say="concept_214">concept_213</response>
+    <response say="concept_215">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_216</initiation>
+  </step>
+  <step>
+    <initiation>concept_220</initiation>
+    <response say="concept_219">concept_221</response>
+    <response say="concept_218">concept_222</response>
+    <response say="concept_219">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_223</initiation>
+    <response say="concept_234">concept_224</response>
+    <response say="concept_235">concept_225</response>
+    <response say="concept_236">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_226</initiation>
+    <response say="concept_237">concept_227</response>
+    <response say="concept_238">concept_228</response>
+    <response say="concept_239">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_229</initiation>
+  </step>
+  <step>
+    <initiation>concept_230</initiation>
+    <response say="concept_240">concept_231</response>
+    <response say="concept_241">concept_232</response>
+    <response say="concept_242">unanticipated-response</response>
+  </step>
+  <step>
+    <initiation>concept_243</initiation>
+  </step>
+  <step>
+    <initiation>concept_233</initiation>
+  </step>
+</goal>
+
+
+</script>
+</scenario>
