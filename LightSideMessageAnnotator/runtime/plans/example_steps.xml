@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="stress_test">
+    <stage name="script" type="other" delay="0">
+        <!-- "delay" on a step is the delay *after* the step completes, in seconds. do not be deceived!-->
+        <step type="prompt" prompt="GREETING" delay="10">GREETING_STEP</step>
+        <step type="whiteboard" path="http://ankara.lti.cs.cmu.edu/bazaar/barter.jpg" delay="30">IMAGE_STEP</step>
+        <step type="prompt" delay="300">EXPLAIN</step>
+    </stage>
+    
+    <!--jump to here after *timeout* seconds from the start of the script, no matter how long earlier steps take-->
+    <stage name="wrap" type="other" timeout="120"> 
+        <step type="prompt" delay="0">CONCLUDE</step>
+    </stage>
+</plan>
