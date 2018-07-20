@@ -35,11 +35,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import edu.cmu.cs.lti.tutalk.script.Concept;
-import edu.cmu.cs.lti.tutalk.script.Goal;
-import edu.cmu.cs.lti.tutalk.script.Response;
-import edu.cmu.cs.lti.tutalk.script.ResponseExpected;
-import edu.cmu.cs.lti.tutalk.script.Scenario;
+import edu.cmu.cs.lti.tutalk.script.*;
 
 /**
  *
@@ -79,6 +75,11 @@ public class TuTalkAutomata {
     public void setScenario(Scenario s) 
     {
         currentScenario = s;
+    }
+
+    public ConceptLibrary getCurrentScenarioLibrary()
+    {
+        return currentScenario.getConceptLibrary();
     }
 
     public List<String> start() 
@@ -151,7 +152,11 @@ public class TuTalkAutomata {
             cs.add(expected.get(i).getConcept());
         }
         cs.add(currentScenario.getConceptLibrary().getConcept("_dont_know_"));
-        return evaluator.evaluateTurn(turn, cs, annotations);
+        List<EvaluatedConcept> matched = evaluator.evaluateTurn(turn, cs, annotations);
+        //TODO: Changed here
+        String[] userPrompts = turn.split(" | ");
+        matched.add(new EvaluatedConcept(getCurrentScenarioLibrary().getConcept(userPrompts[userPrompts.length-2]), 1));
+        return matched;
     }
     
     public List<EvaluatedConcept> evaluateTuteeTurn(String turn) 
@@ -218,3 +223,4 @@ public class TuTalkAutomata {
         return currentState;
     }
 }
+

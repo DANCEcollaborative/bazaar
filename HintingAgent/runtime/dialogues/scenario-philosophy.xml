@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" id="scenario-TOPIC_REQUEST_PHILOSOPHY" scenario-name="scenario-TOPIC_REQUEST_PHILOSOPHY">
+    <configuration>
+        <!-- It *is* possible to hook up a LightSide classifier to TuTalk,
+                such that the predicted labels are treated as concepts.
+                but not today. -->
+        <!--
+                <module kind="model" name="animals" id="animals"
+                    classname="edu.cmu.cs.lti.tutalk.module.SidePredictor" id="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+                    <param key="path" value="models/animals.ser" />
+                </module>
+                -->
+    </configuration>
+    <!-- I'm not entirely sure what these are used for. -->
+    <transitions>
+        <transition ack-type="agree" floor-status="neutral">
+            <tphrase> yes </tphrase>
+            <tphrase> okay </tphrase>
+        </transition>
+        <transition ack-type="none">
+            <tphrase> moving on... </tphrase>
+        </transition>
+    </transitions>
+    <!-- 'Concepts' define things that students might say,
+             AND things that the tutor might say back.
+             Tutor concepts should take the form of phrase lists.
+             Student concepts can be phrase lists,
+             regular expressions, or lists of annotations,
+             but only one of these at a time. -->
+    <concepts>
+        <!-- this is a special kind of concept for catching unexpected student responses -->
+        <concept label="unanticipated-response">
+            <phrase>anything else</phrase>
+        </concept>
+        <!-- tutor concepts. -->
+        <concept label="introduction">
+            <phrase>Time to get philosophical
+            </phrase>
+        </concept>
+        <concept label="conclusion">
+            <phrase>We're done for now</phrase>
+        </concept>
+        <concept label="concept_question1">
+            <phrase>Do you think 42 is the magic universal number?
+            </phrase>
+        </concept>
+        <concept label="hint1" type="annotation">
+            <phrase>What you told previously was not right
+            </phrase>
+        </concept>
+        <concept label="hint2">
+            <phrase>There is 1 way to go wrong
+            </phrase>
+        </concept>
+        <concept label="hint3">
+            <phrase>There are only 2 possibilities
+            </phrase>
+        </concept>
+        <concept label="hint4">
+            <phrase>There are only 2 possibilities. And you've chosen the wrong one
+            </phrase>
+        </concept>
+        <!-- the tutor will choose randomly between multiple phrases for a concept. -->
+        <concept label="unrecognized">
+            <phrase>I don't know what that is.</phrase>
+            <phrase>That doesn't make sense to me.</phrase>
+        </concept>
+        <concept label="correct">
+            <phrase>Well done!</phrase>
+            <phrase>Okeydoke.</phrase>
+            <phrase>Sounds good...</phrase>
+        </concept>
+        <concept label="incorrect">
+            <phrase>Here's a hint</phrase>
+            <phrase>Let's help you out</phrase>
+        </concept>
+        <concept label="ok">
+            <phrase>Ok</phrase>
+        </concept>
+        <!-- ent tutor concepts. -->
+        <!-- student concepts. -->
+        <!-- these match against external (MessageAnnotator) annotations. -->
+
+        <!--<concept label="yes" type="annotation">-->
+            <!--<phrase>AFFIRMATIVE</phrase>-->
+        <!--</concept>-->
+        <!--<concept label="no" type="annotation">-->
+            <!--<phrase>NEGATIVE</phrase>-->
+        <!--</concept>-->
+        <!-- these match against regular expressions. -->
+        <concept label="incorrect_answer" type="regex">
+            <phrase>incorrect|wrong|false|nah|no</phrase>
+        </concept>
+        <concept label="correct_answer" type="regex">
+            <phrase>correct|right|true|ya|yes</phrase>
+        </concept>
+    </concepts>
+    <script>
+        <goal difficulty="1" id="start" name="start">
+            <step id="stepID1" name="stepID1">
+                <!-- deliver a statement from the concept named "introduction"  -->
+                <initiation>introduction</initiation>
+            </step>
+            <step id="stepID2" name="stepID2">
+                <initiation>concept_question1</initiation>
+                <response say="correct">correct_answer</response>
+                <response push="goalID2" say="incorrect">incorrect_answer</response>
+                <!-- <response push="elicitate1_2" say="response1_2">unanticipated-response</response> -->
+            </step>
+            <step id="stepID1" name="stepID1">
+                <initiation>conclusion</initiation>
+            </step>
+        </goal>
+        <goal difficulty="0" id="goalID2" name="goalID2">
+            <step id="stepID1" name="stepID1">
+                <initiation>hint1</initiation>
+                <response say="correct">correct_answer</response>
+                <response push="goalID3" say="incorrect">incorrect_answer</response>
+            </step>
+        </goal>
+        <goal difficulty="0" id="goalID3" name="goalID3">
+            <step id="stepID1" name="stepID1">
+                <initiation>hint2</initiation>
+                <response say="correct">correct_answer</response>
+                <response push="goalID4" say="incorrect">incorrect_answer</response>
+            </step>
+        </goal>
+        <goal difficulty="0" id="goalID4" name="goalID4">
+            <step id="stepID1" name="stepID1">
+                <initiation>hint3</initiation>
+                <response say="correct">correct_answer</response>
+                <response push="goalID5" say="conclusion">incorrect_answer</response>
+            </step>
+        </goal>
+        <goal difficulty="0" id="goalID5" name="goalID5">
+            <step id="stepID1" name="stepID1">
+                <initiation>hint4</initiation>
+                <response say="correct">correct_answer</response>
+                <response say="conclusion">incorrect_answer</response>
+            </step>
+        </goal>
+    </script>
+</scenario>

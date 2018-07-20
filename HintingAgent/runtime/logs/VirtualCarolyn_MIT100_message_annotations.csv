@@ -1,0 +1,26 @@
+2018-05-09,17:13:23,0,VirtualCarolyn,1525900404489,"Welcome, Barbara
+I'm VirtualCarolyn. I'm here to have an interactive dialogue with you to assist you in your discussion on philosophical concepts
+You can wait for another person to join or start discussing with me a philosophical concept.",INTRODUCTION
+2018-05-09,17:13:23,0,VirtualCarolyn,1525900406538,...,...
+2018-05-09,17:13:32,0,Barbara,1525900413186,philosophy,PHILOSOPHY
+2018-05-09,17:13:33,0,VirtualCarolyn,1525900414568,I noticed that you are talking about philosophy. If you want to check your knowledge on philosophy with me say 'LET'S DISCUSS ABOUT philosophy' and I will ask some questions on it.,TOPIC_ELICITATION
+2018-05-09,17:13:43,0,Barbara,1525900423484,LET'S DISCUSS ABOUT philosophy,TOPIC_REQUEST+PHILOSOPHY
+2018-05-09,17:13:43,0,VirtualCarolyn,1525900424601,"
+               Let's start discussing ?
+        ",TUTOR
+2018-05-09,17:13:47,0,Barbara,1525900428151,yes,AFFIRMATIVE+ANSWER_CORRECT
+2018-05-09,17:13:48,0,VirtualCarolyn,1525900428617,Let's get started.,TUTOR
+2018-05-09,17:13:48,0,VirtualCarolyn,1525900430625,Time to get philosophical,TUTOR+introduction+concept_question1
+2018-05-09,17:13:48,0,VirtualCarolyn,1525900430632,Do you think 42 is the magic universal number?,TUTOR+introduction+concept_question1
+2018-05-09,17:13:54,0,Barbara,1525900434117,no,ANSWER_WRONG+CHALLENGE_CONTRIBUTION+NEGATIVE
+2018-05-09,17:13:58,0,VirtualCarolyn,1525900438662,Let's help you out,TUTOR+incorrect+hint1
+2018-05-09,17:13:58,0,VirtualCarolyn,1525900438663,What you told previously was not right,TUTOR+incorrect+hint1
+2018-05-09,17:14:04,0,Barbara,1525900445196,Wrong,ANSWER_WRONG+DISAGREE
+2018-05-09,17:14:09,0,VirtualCarolyn,1525900450701,Here's a hint,TUTOR+hint2
+2018-05-09,17:14:09,0,VirtualCarolyn,1525900450702,There is 1 way to go wrong,TUTOR+hint2
+2018-05-09,17:14:23,0,Barbara,1525900463243,Wrong,ANSWER_WRONG+DISAGREE
+2018-05-09,17:14:24,0,VirtualCarolyn,1525900466763,Let's help you out,TUTOR+incorrect+hint3
+2018-05-09,17:14:24,0,VirtualCarolyn,1525900466764,There are only 2 possibilities,TUTOR+incorrect+hint3
+2018-05-09,17:14:31,0,Barbara,1525900471432,yes,AFFIRMATIVE+ANSWER_CORRECT
+2018-05-09,17:14:35,0,VirtualCarolyn,1525900476802,Well done!,TUTOR+conclusion
+2018-05-09,17:14:35,0,VirtualCarolyn,1525900476803,We're done for now,TUTOR+conclusion

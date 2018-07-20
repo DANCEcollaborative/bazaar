@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+    <stage name="initiate" type="other" delay="0">
+    	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->        
+        <!--  <step type="greet" timeout="60" delay="10">GREETINGS</step>
+        <step type="prompt" delay="10" prompt="SETUP">SETUP_STEP</step>
+        <step type="prompt" delay="5" prompt="WHITEBOARD_INSTRUCTIONS">WHITEBOARD_INSTRUCTIONS</step>
+        <step type="whiteboard" delay="5" path="http://blogs.adobe.com/digitalpublishing/files/2011/02/android_logo.gif">SHOW_IMAGE</step>
+        -->
+        
+    </stage>
+    <stage name="body" type="other" delay="300">
+        <step type="prompt" delay="300">...</step>
+    	<step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="600" prompt="QUESTION1" >QUESTION1</step>
+    	<step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="600" prompt="QUESTION2" >QUESTION2</step>
+    	<step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="600" prompt="QUESTION3" >QUESTION3</step>
+    	<step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="600" prompt="QUESTION4" >QUESTION4</step>
+    	<step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="600" prompt="QUESTION5" >QUESTION5</step>
+    	<step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="600" prompt="QUESTION6" >QUESTION6</step>
+    </stage>
+</plan>

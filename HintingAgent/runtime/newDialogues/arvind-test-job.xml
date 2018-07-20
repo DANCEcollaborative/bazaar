@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-jobDiscussion">
+    <configuration>
+
+        <!-- It *is* possible to hook up a LightSide classifier to TuTalk,
+        such that the predicted labels are treated as concepts.
+        but not today. -->
+
+        <!--
+        <module kind="model" name="animals"
+            classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+            <param key="path" value="models/animals.ser" />
+        </module>
+        -->
+
+    </configuration>
+
+    <!-- I'm not entirely sure what these are used for. -->
+    <transitions>
+        <transition ack-type="agree" floor-status="neutral">
+            <tphrase>yes</tphrase>
+            <tphrase>okay</tphrase>
+        </transition>
+
+        <transition ack-type="none">
+            <tphrase>moving on...</tphrase>
+        </transition>
+    </transitions>
+
+    <!-- 'Concepts' define things that students might say,
+         AND things that the tutor might say back.
+         Tutor concepts should take the form of phrase lists.
+         Student concepts can be phrase lists,
+         regular expressions, or lists of annotations,
+         but only one of these at a time. -->
+
+    <concepts>
+        <!-- this is a special kind of concept for catching unexpected student responses -->
+        <concept label="unanticipated-response">
+            <phrase>anything else</phrase>
+        </concept>
+
+
+        <!-- tutor concepts. -->
+
+        <concept label="endhappy">
+            <phrase>Sounds good</phrase>
+        </concept>
+
+        <concept label="question1">
+            <phrase>What job do you want?</phrase>
+        </concept>
+
+        <concept label="question2">
+            <phrase>What's the meaning of life?</phrase>
+        </concept>
+
+        <concept label="conclusion">
+            <phrase>Catch you later</phrase>
+            <phrase>Nice talking to you</phrase>
+            <phrase>Have a nice day. Bye!</phrase>
+        </concept>
+        <!-- the tutor will choose randomly between multiple phrases for a concept. -->
+
+        <concept label="unrecognized">
+            <phrase>Okay</phrase>
+        </concept>
+
+        <concept label="hmm">
+            <phrase>Mm hmm</phrase>
+            <phrase>Ok</phrase>
+            <phrase>Interesting</phrase>
+        </concept>
+
+
+        <concept label="end_happy">
+            <phrase>Awesome</phrase>
+            <phrase>Sounds great</phrase>
+        </concept>
+        <concept label="SayHi">
+            <phrase>Hi!</phrase>
+            <phrase>Hello</phrase>
+        </concept>
+
+        <concept label="your_name">
+            <phrase>What's your name?</phrase>
+            <phrase>Hi I am Arvind! You are?</phrase>
+        </concept>
+
+        <concept label="lti_student">
+            <phrase>Are you an LTI student?</phrase>
+        </concept>
+
+        <!-- ent tutor concepts. -->
+
+
+        <!-- student concepts. -->
+        <concept label="name">
+            <phrase>Sree</phrase>
+        </concept>
+
+        <concept label="question2_answer">
+            <phrase>Work hard</phrase>
+        </concept>
+
+        <!-- these match against external (MessageAnnotator) annotations. -->
+        <concept label="yes" type="annotation">
+            <phrase>AFFIRMATIVE</phrase>
+        </concept>
+
+        <concept label="no" type="annotation">
+            <phrase>NEGATIVE</phrase>
+        </concept>
+
+        <!-- these match against regular expressions. -->
+
+        <concept label="general_answer" type="regex">
+            <phrase>engineer|scientist|software</phrase>
+        </concept>
+
+    </concepts>
+
+
+    <script>
+        <goal name="start" difficulty="0">
+
+            <!--<step>-->
+            <!--&lt;!&ndash; deliver a statement from the concept named "introduction"  &ndash;&gt;-->
+            <!--<initiation>introduction</initiation>-->
+            <!--</step>-->
+
+            <step>
+                <initiation>your_name</initiation>
+                <response push="job" say="SayHi">name</response>
+                <response push="life_meaning" say="unrecognized">unanticipated-response</response>
+
+            </step>
+
+            <step>
+                <initiation>lti_student</initiation>
+                <response push="life_meaning">yes</response>
+                <response push="job" say="unrecognized">unanticipated-response</response>
+
+            </step>
+
+            <step>
+                <initiation>conclusion</initiation>
+            </step>
+
+        </goal>
+
+        <goal name="job" difficulty="0">
+
+            <step>
+                <!-- Every step begins with an initiating concept or literal phrase -->
+                <initiation>question1</initiation>
+
+                <response say="end_happy">general_answer</response>
+                <response say="hmm">unanticipated-response</response>
+            </step>
+
+        </goal>
+
+        <goal name="life_meaning" difficulty="0">
+
+            <step>
+                <!-- Every step begins with an initiating concept or literal phrase -->
+                <initiation>question2</initiation>
+                <response say="end_happy">question2_answer</response>
+                <response say="hmm">unanticipated-response</response>
+            </step>
+
+        </goal>
+
+    </script>
+
+</scenario>

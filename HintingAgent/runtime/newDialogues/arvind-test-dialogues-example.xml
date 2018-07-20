@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+
+    <dialog concept="LP_PRECIPITATION" scenario="scenario-lp_precipitation" description="low pressure precipitation">
+
+        <intro>
+            Do you want to tak about a job?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>
+
+    </dialog>
+
+    <dialog concept="LP_PRECIPITATION" scenario="scenario-lp_precipitation" description="low pressure precipitation">
+
+        <intro>
+            Will you like to answer some questions related to low pressure and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>
+
+    </dialog>
+
+</dialogs>
