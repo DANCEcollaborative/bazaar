@@ -21,7 +21,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 {
 	//String pathToLightSide = "/Users/researcher/Downloads/LightSide_2.3.1_20141107";
 	//String pathToModel = "saved/test.xml";
-	String pathToLightSide = "../../../../../runtime/LightSide_2.3.1_20141107";
+	String pathToLightSide = "/Users/researcher/Downloads/LightSide_2.3.1_20141107";
 	String pathToModel = "saved/gst_reasoning_model.model.xml";
 	String predictionCommand = "scripts/predict.sh";
 	
