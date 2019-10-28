@@ -31,23 +31,38 @@
  */
 package basilica2.tutor.events;
 
+import basilica2.agents.events.MessageEvent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
+
+//edited by gst
 
 public class DoTutoringEvent extends Event {
 
     public static String GENERIC_NAME = "DO_TUTORING_EVENT";
     private String concept;
+    private MessageEvent messageEvent;
 
     public DoTutoringEvent(Component s, String sc) {
         super(s);
         concept = sc;
+    } 
+    
+    public DoTutoringEvent(Component s, String sc, MessageEvent me) {
+        super(s);
+        concept = sc;
+        messageEvent = me;
+        System.out.println("Inside0");
     }
 
     public String getConcept() {
         return concept;
     }
 
+    public MessageEvent getMessageEvent() {
+        return messageEvent;
+    } 
+    
     @Override
     public String getName() {
         return GENERIC_NAME;

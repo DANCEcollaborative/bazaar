@@ -1,5 +1,7 @@
 package basilica2.tutor.listeners;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 public class TutorialTriggerWatcher extends BasilicaAdapter
 {
 	Map<String[], String> dialogueTriggers = new HashMap<String[], String>();
-	String dialogueConfigFile="dialogues/dialogues-example.xml";   // was "dialogues/dialogues-config.xml"
+	String dialogueConfigFile="dialogues/dialogues-example.xml";
 	private String tutorialCondition = "tutorial";
 	public TutorialTriggerWatcher(Agent a)
 	{
@@ -61,11 +63,15 @@ public class TutorialTriggerWatcher extends BasilicaAdapter
 								String trigger = triggerMeElmo.getAttribute("annotation");
 								triggers[j] = trigger;
 							}
+							
 							dialogueTriggers.put(triggers, conceptName);
 							
 						}
 					}
 				}
+				
+
+
 			}
 		}
 		catch (Exception ex)
@@ -73,6 +79,9 @@ public class TutorialTriggerWatcher extends BasilicaAdapter
 			ex.printStackTrace();
 		}
 	}
+	
+
+	
 	@Override
 	public void processEvent(InputCoordinator source, Event event)
 	{}
@@ -98,9 +107,11 @@ public class TutorialTriggerWatcher extends BasilicaAdapter
 		}
 		for(String[] trigger : dialogueTriggers.keySet())
 		{
+			
 			if(me.hasAnyAnnotations(trigger))
 			{
-				DoTutoringEvent toot = new DoTutoringEvent(source, dialogueTriggers.get(trigger));
+			    // gst edit	
+				DoTutoringEvent toot = new DoTutoringEvent(source, dialogueTriggers.get(trigger), me);
 				source.addPreprocessedEvent(toot);
 			}
 		}

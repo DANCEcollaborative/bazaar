@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+
+    <stage name="initiate" type="other" delay="10">
+        <step type="prompt" delay="600">Use this space to discuss the relative merits and demerits of each plan from your assigned perspective in step 2 and come to a consensus on which plan you think is the best. Wherever possible, supplement plan suggestions, agreements and disagreements with reasons, and try to refer to or build upon your teammates' ideas. I will support you in the process.</step>
+		<step type="prompt" delay="300">Thank you for participating in the discussion, you have 5 minutes to come to a consensus about a plan and complete your proposal on the right. Pay attention to include all your arguments in the proposal.</step>        
+        <step type="logout" delay="10">LOG_OUT</step>
+    </stage>
+</plan>
