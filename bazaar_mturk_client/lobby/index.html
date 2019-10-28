@@ -1,0 +1,39 @@
+<html>
+  <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://dadamson.bitbucket.org/include/colors.js" type="text/javascript"></script>
+    <script src="client.js" type="text/javascript"></script>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <title>Matchmaker Lobby</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="connect">
+      <h2>The Lobby</h2>
+ 	<form action="#">          
+	<fieldset>
+	<p>Welcome to the lobby. Once you have logged in with your name, we will match you up with a chat partner.</p>
+        <p>Note that whenever you log in, you will be assigned to a new partner.</p>       
+            <label for="nick">Name</label>
+            <input id="nickInput" class="text" type="text" name="nick" value=""/>
+	    <br/>
+        <input id="connectButton" class="button" type="submit" name="" value="Enter the Lobby"/>
+	    <br/>
+	    <br/>
+          </fieldset>
+        </form>
+      </div>
+      <div id="loading"><p>loading</p></div>
+      <div id="log">
+      </div>
+      <div id="toolbar">
+        <ul id="status">
+          <li id="usersLink">1 user</li>
+          <li><span id="uptime_text"> uptime: <span id="uptime">?</span></span></li>
+          <li><span id="memory_text"> memory: <span id="rss">?</span>mb RSS</span></li>
+        </ul>
+        <input tabindex="1" type="text" id="entry"/>
+      </div>
+  </body>
+</html>

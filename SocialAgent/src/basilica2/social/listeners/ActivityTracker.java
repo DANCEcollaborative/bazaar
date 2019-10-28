@@ -58,8 +58,10 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 
 	public static String GENERIC_NAME = "ActivityTracker";
 	public static String GENERIC_TYPE = "Filter";
-	private double activity_prompt_pulse = 4;
-	private int group_activity_min_threshold = 2; // Less than 2 turns in 3
+	private double activity_prompt_pulse = 3;
+	//private double chat_time=10; //no bazaar after 10 minutes;
+	
+	private int group_activity_min_threshold = 0; // Less than 2 turns in 3
 													// minutes is bad!
 	private Map<String, Integer> messageCounts;
 	private int totalMessages = 0;
@@ -107,8 +109,14 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 		}
 	}
 
+//	private void startTrackingofWholeChat(){
+//		Timer t= new Timer(chat_time, this);
+//		t.start();
+//	}
 	private void handleMessageEvent(MessageEvent me)
 	{
+//		startTrackingofWholeChat();// track the time of the whole chat
+		
 		if (!isTracking && shouldTrack) startTracking();
 		String from = me.getFrom();
 		Integer count = messageCounts.get(from);
@@ -147,11 +155,12 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 	{
 		// informObservers("<timedout id=\"" + id + "\" />");
 		// Find the person with the lowest number of messages since last pulse
-
+        System.out.println("Dormant");
 		String[] participants = messageCounts.keySet().toArray(new String[0]);
 		if(participants == null)
 		{
 			log(Logger.LOG_WARNING, "Participants list is empty!");
+			System.out.println("empty Dormant");
 			participants = new String[0];
 		}
 		if (participants.length > 0)
@@ -172,15 +181,17 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 					minCountParticipant = participants[i];
 				}
 			}
-
-			if (totalMessages < group_activity_min_threshold)
+			System.out.println("Dormant");
+			if (totalMessages <= group_activity_min_threshold)
 			{
+				System.out.println("Dormant Group");
 				DormantGroupEvent dge = new DormantGroupEvent(source);
 				source.queueNewEvent(dge);
 				status = "dormant=GROUP," + status;
 			}
 			else if ((minCount * 2) < maxCount)
 			{
+					System.out.println("Dormant Student");	
 					DormantStudentEvent dse = new DormantStudentEvent(source, minCountParticipant);
 					source.queueNewEvent(dse);
 					status = "dormant=" + source + "," + status;

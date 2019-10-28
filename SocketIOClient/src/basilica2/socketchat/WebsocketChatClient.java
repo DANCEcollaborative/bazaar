@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -277,13 +278,34 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 			if(event.equals("updateusers"))
 			{
-				
-					System.out.println("Users: "+((JSONObject) args[0]).names());
-					
-					Iterator<String> keys = ((JSONObject) args[0]).keys();
+				    JSONArray names_list = ((JSONObject) args[0]).names();
+				    JSONArray perspective_list = ((JSONObject) args[1]).names();
+					//System.out.println("Users: "+((JSONObject) args[0]).names() + " " + Integer.toString(names_list.length()));
+				    System.out.println("Users: "+((JSONObject) args[0]).names());
+				    //System.out.println("Users: "+ names_list.length());
+					JSONObject jObject = (JSONObject) args[0];
+					JSONObject jObject_ = (JSONObject) args[1];
+					Iterator<String> keys = jObject.keys();
 					while (keys.hasNext())
 					{
-						PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, keys.next(), PresenceEvent.PRESENT);
+		                String key = (String)keys.next();
+		                String value = null;
+		                String perspective = null;
+						try {
+							value = jObject.getString(key);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						try {
+							perspective = jObject_.getString(key);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, key, PresenceEvent.PRESENT, value, perspective, (String)args[2]);
 						WebsocketChatClient.this.broadcast(pe);
 					}
 				
@@ -304,7 +326,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 			else if(event.equals("updatepresence"))
 			{
 				String message = (String)args[1];
-				PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, (String)args[0], message.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT);
+				System.out.println("Perspective : " + (String)args[3]);
+				PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, (String)args[0], message.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, (String)args[2], (String)args[3]);
 				WebsocketChatClient.this.broadcast(pe);
 			}
 			else if(event.equals("updateready"))
