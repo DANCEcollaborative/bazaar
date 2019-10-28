@@ -51,7 +51,11 @@ public class PresenceEvent extends Event
     public static String PRESENT = "PRESENT";
     public static String ABSENT = "ABSENT";
     private String agentname;
+    private String agentid;
+    private String agentperspective;
+    private String agentupdate;
     private String type;
+    private int numUsers;
 
     public PresenceEvent(Component s, String a, String t) {
         super(s);
@@ -59,14 +63,61 @@ public class PresenceEvent extends Event
         type = t;
     }
 
-    public String getUsername() {
+    public PresenceEvent(Component s, String a, String t, String id) {
+        super(s);
+        agentname = a;
+        type = t;
+        agentid = id;
+	}
+    
+    public PresenceEvent(Component s, String a, String t, String id, String perspective) {
+        super(s);
+        agentname = a;
+        type = t;
+        agentid = id;
+        agentperspective = perspective;
+	}
+
+    public PresenceEvent(Component s, String a, String t, String id, String perspective, String update) {
+        super(s);
+        agentname = a;
+        type = t;
+        agentid = id;
+        agentperspective = perspective;
+        agentupdate = update;
+	}
+    
+    public PresenceEvent(Component s, String a, String t, int num) {
+        super(s);
+        agentname = a;
+        type = t;
+        numUsers = num;
+	}
+
+	public String getUsername() {
         return agentname;
     }
+	
+	public String getUserId() {
+        return agentid;
+    }
 
+	public String getUserPerspective() {
+        return agentperspective;
+    }
+	
+	public String getUserUpdate() {
+        return agentupdate;
+    }
+	
     public String getType() {
         return type;
     }
 
+    public int getNumUsers() {
+        return numUsers;
+    }
+    
     @Override
     public String getName() {
         return GENERIC_NAME;

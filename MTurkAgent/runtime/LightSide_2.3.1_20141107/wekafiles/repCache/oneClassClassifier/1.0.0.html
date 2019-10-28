@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<table summary="Package oneClassClassifier:  summary">
+<tr><td valign=top>Author:</td><td width=50></td><td>Katherine Hempstalk and Eibe Frank</td></tr>
+<tr><td valign=top>Category:</td><td width=50></td><td>Classification</td></tr>
+<tr><td valign=top>Date:</td><td width=50></td><td>2009-09-10</td></tr>
+<tr><td valign=top>Depends:</td><td width=50></td><td>weka (&#62;=3.7.1)</td></tr>
+<tr><td valign=top>Description:</td><td width=50></td><td>Performs one-class classification on a dataset.<br/><br/>Classifier reduces the class being classified to just a single class, and learns the datawithout using any information from other classes.  The testing stage will classify as 'target'or 'outlier' - so in order to calculate the outlier pass rate the dataset must contain informationfrom more than one class.<br/><br/>Also, the output varies depending on whether the label 'outlier' exists in the instances usedto build the classifier.  If so, then 'outlier' will be predicted, if not, then the label willbe considered missing when the prediction does not favour the target class.  The 'outlier' classwill not be used to build the model if there are instances of this class in the dataset.  It cansimply be used as a flag, you do not need to relabel any classes.<br/><br/>For more information, see:<br/><br/>Kathryn Hempstalk, Eibe Frank, Ian H. Witten: One-Class Classification by Combining Density and Class Probability Estimation. In: Proceedings of the 12th European Conference on Principles and Practice of Knowledge Discovery in Databases and 19th European Conference on Machine Learning, ECMLPKDD2008, Berlin, 505--519, 2008.</td></tr>
+<tr><td valign=top>License:</td><td width=50></td><td>GPL 2.0</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Weka team &#60;wekalist{[at]}list.scms.waikato.ac.nz&#62;</td></tr>
+<tr><td valign=top>PackageURL:</td><td width=50></td><td><a href="http://prdownloads.sourceforge.net/weka/oneClassClassifier1.0.0.zip?download">http://prdownloads.sourceforge.net/weka/oneClassClassifier1.0.0.zip?download</a></td></tr>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://weka.sourceforge.net/doc.packages/oneClassClassifier">http://weka.sourceforge.net/doc.packages/oneClassClassifier</a></td></tr>
+<tr><td valign=top>Version:</td><td width=50></td><td>1.0.0</td></tr>
+</table>
+</body>
+</html>

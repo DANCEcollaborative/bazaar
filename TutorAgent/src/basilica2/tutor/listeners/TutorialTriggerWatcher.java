@@ -20,7 +20,7 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 public class TutorialTriggerWatcher extends BasilicaAdapter
 {
 	Map<String[], String> dialogueTriggers = new HashMap<String[], String>();
-	String dialogueConfigFile="dialogues/dialogues-config.xml";
+	String dialogueConfigFile="dialogues/dialogues-example.xml";   // was "dialogues/dialogues-config.xml"
 	private String tutorialCondition = "tutorial";
 	public TutorialTriggerWatcher(Agent a)
 	{
