@@ -1,0 +1,64 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=sasLoader
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2011-07-05
+
+# Title (required)
+Title=SAS sas7bdat file reader
+
+# Category (recommended)
+Category=Converter
+
+# Author (required)
+Author=Mark Hall <mhall@pentaho.com>
+
+# Maintainer (required)
+Maintainer=Mark Hall <mhall@pentaho.com>
+
+# License (required)
+License=LGPL 2.1
+
+# Description (required)
+Description=Provides a loader for SAS's sas7bdat file format. Uses the eobjects.org "SassyReader" project. Sample sas7bdat data can be found in ${WEKA_HOME}/packages/sasLoader/sample-data.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/weka/sasLoader1.0.0.zip?download
+
+# URL for further information
+URL=http://sassyreader.eobjects.org/
+
+# Changes in this release
+# Changes=
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+# Related=packageName1,packageName2,...
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.3)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstall=Funky package requires some extra\n\
+# stuff to be installed after installing this package. You will\n\
+# need to blah, blah, blah in order to blah, blah, blah...
+
+# Prevent package from being loaded by Weka if the named
+# files/directories are not present (relative to the package's
+# root directory). Useful for packages that require the user
+# to manually install some third-party library(s). (optional)
+DoNotLoadIfFileNotPresent=lib/SassyReader-0.1.jar,lib/commons-logging-1.1.jar,lib/slf4j-api-1.6.1.jar,lib/slf4j-simple-1.6.1.jar
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+DoNotLoadIfFileNotPresentMessage=sasLoader can't be loaded because some some libraries are missing from the lib directory. Needed are SassyReader-0.1.jar, commons-logging-1.1.jar, slf4j-api-1.6.1.jar and slf4j-simple-1.6.1.jar.

@@ -1,0 +1,46 @@
+# Description file for ArabicStemmers_LightStemmers
+#
+# 
+
+# Package name (required)
+PackageName=ArabicStemmers_LightStemmers
+
+# Version (required)
+Version=1.0.0
+
+#Date
+Date=2010-10-8
+
+# Title (required)
+Title=Arabic Stemmer / Light Stemmer 
+
+Category=Preprocessing
+
+# Author (required)
+Author=Motaz K. Saad <motaz.saad@gmail.com>
+
+# Maintainer (required)
+Maintainer=Motaz K. Saad <motaz.saad@gmail.com>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=Performs Stemming / Light Stemming for Arabic words using the Stemming / Light Stemming algorithms. <br>Stemming reduces words to their stems. Light stemming, in contrast, removes common affixes from words without reducing them totheir stems. The main idea for using light stemming is that many word variants do not have similar meanings or semantics although these word variants are generated from the same root. Thus, root extraction algorithms affect the meanings of words. Light stemming aims to enhance feature/keyword reduction while retaining the words meanings. It removes some defined prefixes and suffixes from the word instead of extracting the original root.<br>For more information, please refer to: Motaz K. Saad and Wesam Ashour, "Arabic Morphological Tools for Text Mining", 6th ArchEng International Symposiums, EEECS’10 the 6th International Symposium on Electrical and Electronics Engineering and Computer Science, pp. 112-117, European University of Lefke, Cyprus, 2010.<br>This package requires to run Weka with (-Dfile.encoding=utf-8) option<br>or change the line (fileEncoding=Cp1252) to (fileEncoding=utf-8) in weka.ini file <br>files also should be in utf-8 format.<br>To use Open Source Arabic Corpora (OSAC), please refer to Motaz K. Saad and Wesam Ashour, "OSAC: Open Source Arabic Corpora", 6th ArchEng International Symposiums, EEECS’10 the 6th International Symposium on Electrical and Electronics Engineering and Computer Science, pp. 118-123, European University of Lefke, Cyprus, 2010. <br>OSAC can be downloaed from: http://sourceforge.net/projects/ar-text-mining/files/Arabic-Corpora/<br>For other Arabic Corpora, Please refer to http://aracorpus.e3rab.com
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/ar-text-mining/ArabicStemmers_LightStemmers_1.0.0.zip?download
+
+# URL for further information
+URL=
+
+# Related to other packages?
+Related=
+
+# Dependencies
+Depends=weka (>=3.7.1)
+
+# Special instructions to be displayed on installation of this package
+MessageToDisplayOnInstallation=This package requires to run Weka with (-Dfile.encoding=utf-8) option\n\
+ or change the line (fileEncoding=Cp1252) to (fileEncoding=utf-8) in weka.ini file \n\
+ files also should be in utf-8 format.
