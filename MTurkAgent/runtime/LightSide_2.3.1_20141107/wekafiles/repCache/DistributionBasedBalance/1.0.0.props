@@ -1,0 +1,41 @@
+# Description file for DistributionBasedBalance package
+# 
+
+# Package name (required)
+PackageName=DistributionBasedBalance
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2011-02-07
+
+# Title (required)
+Title=Distribution-based balancing of datasets
+
+# Category (recommended)
+Category=Preprocessing
+
+# Author (required)
+Author=Pablo Bermejo<Pablo.Bermejo@uclm.es>
+
+# Maintainer (required)
+Maintainer=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=It learns one of the four available distributions from a set of instances, and replaces such a set resampling, for each class value, a given number of instances from the learnt distribution.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.dsi.uclm.es/personal/PabloBermejo/downloads/DistributionBasedBalance1.0.0.zip
+
+# Enhances various other packages ?
+Enhances=weka.filters.supervised.instance
+
+# Dependencies 
+Depends=weka (>=3.7.1)
+
+
+

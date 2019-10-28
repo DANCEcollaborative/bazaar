@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="hug_example">
+	<configuration>
+<!-- 		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> -->
+	</configuration>
+
+	<transitions>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<concepts>
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		<concept label="intro">
+			<phrase>Would you like a hug?</phrase>
+		</concept>
+		
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+		
+		<concept label="give_hug">
+			<phrase>...hug!</phrase>
+		</concept>
+		
+		<concept label="no_hug">
+			<phrase>:-(</phrase>
+		</concept>
+		
+	</concepts>
+
+	<script>
+		<goal name="start" difficulty="1">
+			<step>
+				<initiation>intro</initiation>
+				<response say="give_hug">yes</response>
+				<response say="no_hug">no</response>
+				<response say="no_hug">unanticipated-response</response>
+			</step>
+		</goal>
+	</script>
+
+</scenario>

@@ -1,0 +1,27 @@
+
+# Description file for Parallel Coordinates Plot Weka package                   
+#                                                                               
+                                                                                
+PackageName=PCP
+                                                                                
+Version=1.0.0
+                                                                                
+Date=2010-09-11
+                                                                                
+Title=Parallel Coordinates Plot
+                                                                                
+Category=Visualization
+                                                                                
+Author=Anton Slutsky <anton.slutsky@drexel.edu>
+                                                                                
+Maintainer=Anton Slutsky <anton.slutsky@drexel.edu>
+                                                                                
+License=GPL 2.0|Mozilla
+                                                                                
+Description=Parallel coordinates is a common way of visualizing high-dimensional geometry and analyzing multivariate data. To show a set of points in an n-dimensional space, a backdrop is drawn consisting of n parallel lines, typically vertical and equally spaced. A point in n-dimensional space is represented as a polyline with vertices on the parallel axes; the position of the vertex on the i-th axis corresponds to the i-th coordinate of the point. [http://en.wikipedia.org/wiki/Parallel_coordinates]
+                                                                                
+PackageURL=http://sourceforge.net/projects/wekapcp/files/PCP.zip/download
+                                                                                
+URL=http://sourceforge.net/projects/wekapcp
+
+Depends=weka (>=3.7.2)
