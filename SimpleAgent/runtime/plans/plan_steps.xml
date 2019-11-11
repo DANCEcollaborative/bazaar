@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+
+    <stage name="initiate" type="other" delay="10">
+        <step type="prompt" delay="600">You are working in a team to design an energy proposal for a city. Now your goal is to choose from 4 different plans. Plan 1 highlights Coal energy. Plan 2 highlights Wind energy. Plan 3 highlights Nuclear energy. Plan 4 highlights Hydroelectric energy. Please discuss with the relative merits and demerits of each plan with your team.</step>
+		<step type="prompt" delay="300">Thank you for participating in the discussion. You now have just 5 minutes to finalize a joint argument in favor of one plan and complete your proposal on the left. Keep in mind that you will be evaluated solely based on the quality of your proposal (i.e., the thoroughness of the reasoning displayed).</step>        
+        <step type="logout" delay="10">LOG_OUT</step>
+    </stage>
+</plan>
