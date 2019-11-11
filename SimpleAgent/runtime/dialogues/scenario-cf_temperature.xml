@@ -44,28 +44,18 @@
 		
 		<!-- tutor concepts. -->
 		<concept label="introduction">
-			<phrase>Let's see how much you know about cold fronts and temperature.
+			<phrase>We can talk about cold fronts and temperature in a little more detail.
             </phrase>
-		</concept>
-
-		<concept label="conclusion">
-			<phrase>Let's move on to other question.</phrase>
 		</concept>
 
 		<concept label="conclusion1">
-			<phrase>Let's move on to other topic.</phrase>
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
 		</concept>
 
 		<concept label="question1">
-			<phrase>Where is the temperature cooler in regards to a Cold front?
+			<phrase>Can you explain why the temperature is cooler behind a cold front? Feel free to refer to points on the map.
             </phrase>
 		</concept>
-
-		<concept label="question2">
-			<phrase>When warm and cold fronts meet, there is likely to be a Low Pressure center. That means the temperature at these intersections is… ?
-            </phrase>
-		</concept>
-
 
 		<concept label="unrecognized">
 			<phrase>I don't know what that is.</phrase>
@@ -84,47 +74,24 @@
 
 
 		<concept label="response1_1">
-			<phrase>That is correct. The temperature is cooler behind a cold front.</phrase>
+			<phrase>It sounds like you're on the right track. A cold front is the beginning of a mass of cold air, that is cooling the air down as it moves forward. This is why the coolest temperatures are behind a cold front. </phrase>
 		</concept>
 
 		<concept label="response1_2">
-			<phrase>That is incorrect.</phrase>
+			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
 
 		<concept label="response1_2_1">
-			<phrase>That is correct. The temperature is cooler behind a cold front.</phrase>
+			<phrase>It sounds like you're on the right track. A cold front is the beginning of a mass of cold air, that is cooling the air down as it moves forward. This is why the coolest temperatures are behind a cold front.</phrase>
 		</concept>
 
 		<concept label="response1_2_2">
-			<phrase>That is incorrect.</phrase>
+			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
-
-		<concept label="response2_1">
-			<phrase>That is correct. Since cold air sinks and low pressure centers are concentrations of air low in the atmosphere, the temperature is most likely cooler.</phrase>
-		</concept>
-
-		<concept label="response2_2">
-			<phrase>That is incorrect.</phrase>
-		</concept>
-
-		<concept label="response2_2_1">
-			<phrase>That is correct. Since cold air sinks and low pressure centers are concentrations of air low in the atmosphere, the temperature is most likely cooler.</phrase>
-		</concept>
-
-		<concept label="response2_2_2">
-			<phrase>That is incorrect.</phrase>
-		</concept>
-
-	
 
 
 		<concept label="correct_response1">
-			<phrase>That is incorrect. The temperature cooler behind a cold front.
-			</phrase>
-		</concept>
-
-		<concept label="correct_response2">
-			<phrase>That is incorrect. Since cold air sinks and low pressure centers are concentrations of air low in the atmosphere, the temperature is most likely cooler.
+			<phrase>Let me help you out. A cold front is the beginning of a mass of cold air, that is cooling the air down as it moves forward. This is why the coolest temperatures are behind a cold front.
 			</phrase>
 		</concept>
 
@@ -139,38 +106,21 @@
 
 
 		<concept label="answer1_1" type="regex">
-			<phrase>behind|back|backward|in the back</phrase>
+			<phrase>beginning of cool|beginning of cold|makes air cold|makes air cool|cools down|gets cool|gets cold</phrase>
 		</concept>
 
 		<concept label="answer1_2" type="regex">
-			<phrase>front|forward|in front</phrase>
+			<phrase>beginning of warm|beginning of hot|makes air hot|makes air warm|warms up|gets warm|gets hot</phrase>
 		</concept>
 
 		<concept label="answer1_2_1" type="regex">
-			<phrase>behind|back|backward|in the back</phrase>
+			<phrase>cool|cold|low|lower|cooler|colder</phrase>
 		</concept>
 
 		<concept label="answer1_2_2" type="regex">
-			<phrase>front|forward|in front</phrase>
+			<phrase>warm|hot|high|higher|warmer|hotter</phrase>
 		</concept>
 
-		<concept label="answer2_1" type="regex">
-			<phrase>cooler|cool|low|lower</phrase>
-		</concept>
-		
-	    <concept label="answer2_2" type="regex">
-			<phrase>warm|warmer|high|higher</phrase>
-		</concept>
-
-		 <concept label="answer2_2_1" type="regex">
-			<phrase>cooler|cool|low|lower</phrase>
-		</concept>
-
-		 <concept label="answer2_2_2" type="regex">
-			<phrase>warm|warmer|high|higher</phrase>
-		</concept>
-
-		
 
 	</concepts>
 
@@ -199,28 +149,9 @@
 			</step>
 
 			<step>
-				<initiation>conclusion</initiation>
-			</step>
-
-			
-			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>question2</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="response2_1">answer2_1</response>
-				<response push="elicitate2_1" say="response2_2">answer2_2</response>
-				<response push="elicitate2_2" say="response2_2">unanticipated-response</response>
-			</step>
-
-			<step>
 				<initiation>conclusion1</initiation>
 			</step>
+
 			
 		</goal>
 
@@ -228,7 +159,7 @@
 		<goal name="elicitate1_1" difficulty="0">
 
 			<step>
-				<initiation>Remember that temperature fronts indicate the temperature behind the front. Where is the temperature cooler in regards to a cold front?</initiation>
+				<initiation>A cold front is the beginning of a mass of what temperature air?</initiation>
                 <response say="response1_2_1">answer1_2_1</response>
 				<response say="correct_response1">answer1_2_2</response>
 				<response say="correct_response1">unanticipated-response</response>
@@ -238,30 +169,10 @@
 		<goal name="elicitate1_2" difficulty="0">
 
 			<step>
-				<initiation>I did not understand your answer. Where is the temperature cooler in regards to a Cold front?</initiation>
+				<initiation>Sorry, I didn't understand you. Can you explain why the temperature is cooler behind a cold front? Feel free to refer to points on the map.</initiation>
                 <response say="response1_2_1">answer1_2_1</response>
 				<response say="correct_response1">answer1_2_2</response>
 				<response say="correct_response1">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="elicitate2_1" difficulty="0">
-
-			<step>
-				<initiation>Low pressure centers represent air concentrated lower in the atmosphere. That means the temperature of this air is most likely...?</initiation>
-                <response say="response2_2_1">answer2_2_1</response>
-				<response say="correct_response2">answer2_2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="elicitate2_2" difficulty="0">
-
-			<step>
-				<initiation>I did not understand your answer. When warm and cold fronts meet, there is likely to be a Low Pressure center. That means the temperature at these intersections is… ?</initiation>
-                <response say="response2_2_1">answer2_2_1</response>
-				<response say="correct_response2">answer2_2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
 			</step>
 		</goal>
 

@@ -44,24 +44,16 @@
 		
 		<!-- tutor concepts. -->
 		<concept label="introduction">
-			<phrase>Let's see how much you know about cold fronts, warm fronts and wind direction.
+			<phrase>We can talk about cold fronts, warm fronts, and wind direction in a little more detail.
             </phrase>
-		</concept>
-
-		<concept label="conclusion">
-			<phrase>Let's move on to other question.</phrase>
 		</concept>
 
 		<concept label="conclusion1">
-			<phrase>Let's move on to other topic.</phrase>
-		</concept>
-		<concept label="question1">
-			<phrase>When warm and cold fronts meet, there is likely to be a Low Pressure center. What is the strength of the winds at these intersections?
-            </phrase>
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
 		</concept>
 
-		<concept label="question2">
-			<phrase>When warm and cold fronts meet, there is likely to be a Low Pressure center. What is the direction of the winds at these intersections?
+		<concept label="question1">
+			<phrase>Can you describe the wind speed and direction at the intersection of cold and warm fronts? Feel free to refer to the map.
             </phrase>
 		</concept>
 
@@ -82,32 +74,18 @@
 
 
 		<concept label="response1_1">
-			<phrase>That is correct. The wind direction is strong at these intersections.</phrase>
+			<phrase>It sounds like you're on the right track. When warm fronts and cold fronts meet, there is usually a low pressure center; so the winds tend be strong and counter-clockwise.</phrase>
 		</concept>
 
 		<concept label="response1_2">
-			<phrase>That is incorrect.</phrase>
-		</concept>
-
-		<concept label="response2_1">
-			<phrase>That is correct. The wind direction is counter-clockwise at these intersections.</phrase>
-		</concept>
-
-		<concept label="response2_2">
-			<phrase>That is incorrect.</phrase>
+			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
 
 
 		<concept label="correct_response1">
-			<phrase>That is incorrect. The wind is strong at these intersections.
+			<phrase>Let me help you out. When warm fronts and cold fronts meet, there is usually a low pressure center; so the winds tend be strong and counter-clockwise.
 			</phrase>
 		</concept>
-
-		<concept label="correct_response2">
-			<phrase>The wind direction is counter-clockwise at these intersections.
-			</phrase>
-		</concept>
-
 		
 		<concept label="yes" type="annotation">
 			<phrase>AFFIRMATIVE</phrase>
@@ -119,21 +97,12 @@
 
 
 		<concept label="answer1_1" type="regex">
-			<phrase>strong|stronger</phrase>
+			<phrase>strong|stronger|high|higher|counter clockwise|counter-clockwise|counterclockwise</phrase>
 		</concept>
 
 		<concept label="answer1_2" type="regex">
-			<phrase>weak|weaker</phrase>
+			<phrase>weak|weaker|low|lower|clockwise|clock wise|mild|more mild</phrase>
 		</concept>
-
-		<concept label="answer2_1" type="regex">
-			<phrase>counterclockwise|counter clockwise|counter-clockwise</phrase>
-		</concept>
-
-		<concept label="answer2_2" type="regex">
-			<phrase>clockwise|clock|clkwise|clock wise</phrase>
-		</concept>
-
 		
 	</concepts>
 
@@ -161,22 +130,6 @@
 				<response push="elicitate1" say="response1_2">unanticipated-response</response>
 			</step>
 
-
-			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>question2</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="response2_1">answer2_1</response>
-				<response say="correct_response2">answer2_2</response>
-				<response push="elicitate2" say="response1_2">unanticipated-response</response>
-			</step>
-
 			<step>
 				<initiation>conclusion1</initiation>
 			</step>
@@ -187,24 +140,13 @@
 			<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation>I did not understand your answer. When warm and cold fronts meet, there is likely to be a Low Pressure center. What is the strength of the winds at these intersections?</initiation>
+				<initiation>Sorry, I didn't understand you. Can you describe the wind speed and direction at the intersection of cold and warm fronts? Feel free to refer to the map.</initiation>
                 <response say="response1_1">answer1_1</response>
 				<response say="correct_response1">answer1_2</response>
 				<response say="correct_response1">unanticipated-response</response>
 			</step>
 		</goal>
 
-		<goal name="elicitate2" difficulty="0">
-
-			<step>
-				<initiation>I did not understand your answer. When warm and cold fronts meet, there is likely to be a Low Pressure center. What is the direction of the winds at these intersections?</initiation>
-                <response say="response2_1">answer2_1</response>
-				<response say="correct_response2">answer2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
-			</step>
-		</goal>
-
-		
 
 	</script>
 

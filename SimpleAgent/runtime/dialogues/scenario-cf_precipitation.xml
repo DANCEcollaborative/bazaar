@@ -44,27 +44,21 @@
 		
 		<!-- tutor concepts. -->
 		<concept label="introduction">
-			<phrase>Let's see how much you know about cold fronts and precipitation.
+			<phrase>We can talk about cold fronts and precipitation in a little more detail.
             </phrase>
 		</concept>
 
-		<concept label="conclusion">
-			<phrase>Let's move on to other question.</phrase>
-		</concept>
-					<concept label="conclusion1">
-			<phrase>Let's move on to other topic.</phrase>
+		<concept label="conclusion1">
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
 		</concept>	
+		
 		<concept label="question1">
-			<phrase>Where is the chance of precipitation higher in regards to a cold front?
+			<phrase>Why do you think the chance of precipitation is higher behind a cold front? Feel free to refer to points on the map.
             </phrase>
 		</concept>
 		
 		<!-- the tutor will choose randomly between multiple phrases for a concept. -->
-		<concept label="question2">
-			<phrase>When warm and cold fronts meet, there is likely to be a Low Pressure center. That means the chance of precipitation at these intersections is…?</phrase>
-</concept>
 
-		
 		<concept label="unrecognized">
 			<phrase>I don't know what that is.</phrase>
 			<phrase>That doesn't make sense to me.</phrase>
@@ -82,59 +76,29 @@
 
 		
 		<concept label="response1_1">
-			<phrase>That is correct. The chance of precipitation is higher behind a cold front.</phrase>
+			<phrase>It sounds like you're on the right track. When a cold front moves in, the air cools down and condenses, creating more moisture and clouds. This increases the chance of precipitation. </phrase>
 		</concept>
 
 		<concept label="response1_2">
-			<phrase>That is incorrect.
+			<phrase>It sounds like you could use some help.
 			</phrase>
 		</concept>
 
 		<concept label="response1_2_1">
-			<phrase>That is correct. Since Low Pressure centers push air upward which condenses to form moisture and clouds, and low pressure centers are usually behind cold fronts, the chance of precipitation is higher behind a cold front.</phrase>
+			<phrase>It sounds like you're on the right track. When a cold front moves in, the air cools down and condenses, creating more moisture and clouds. This increases the chance of precipitation.</phrase>
 		</concept>
 
 		<concept label="response1_2_2">
-			<phrase>That is incorrect.
+			<phrase>It sounds like you could use some help.
 			</phrase>
 		</concept>
-
-		
-		<concept label="response2_1">
-			<phrase>That is correct. Since Low Pressure centers push air upward which condenses to form moisture and clouds, and low pressure centers are usually found at intersections of cold fronts and warm fronts, the chance of precipitation is higher at these intersections.
-			</phrase>
-		</concept>
-
-		<concept label="response2_2">
-			<phrase>That is incorrect.
-			</phrase>
-		</concept>
-		
-	    <concept label="response2_2_1">
-			<phrase>That is correct. Since Low Pressure centers push air upward which condenses to form moisture and clouds, and low pressure centers are usually found at intersections of cold fronts and warm fronts, the chance of precipitation is higher at these intersections.
-			</phrase>
-		</concept>
-
-		<concept label="response2_2_2">
-			<phrase>That is incorrect.
-			</phrase>
-		</concept>
-
-
-
 
 		
 		<concept label="correct_response1">
-			<phrase>That is incorrect. The chance of precipitation is higher behind the cold front.
-			
+			<phrase>Let me help you out. When a cold front moves in, the air cools down and condenses, creating more moisture and clouds. This increases the chance of precipitation.
 			</phrase>
 		</concept>
 		
-	    <concept label="correct_response2">
-			<phrase>That is incorrect. When warm and cold fronts meet, there is likely to be a Low Pressure center. That means the chance of precipitation at these intersections is higher.
-			</phrase>
-		</concept>
-
 		
 		<!-- ent tutor concepts. -->
 		
@@ -153,38 +117,21 @@
 		<!-- these match against regular expressions. -->
 
 		<concept label="answer1_1" type="regex">
-			<phrase>Behind the cold front|behind|back|backward</phrase>
+			<phrase>air cools down|air condenses|air creates moisture|air creates clouds|gets denser|gets colder|gets cooler|cools down|condenses</phrase>
 		</concept>
 		
 	    <concept label="answer1_2" type="regex">
-			<phrase>In front of the cold front|front|in front|infront</phrase>
+			<phrase>air warms up|air expands|less moisture|less clouds|gets lighter|less dense|gets hotter|gets warmer|warms up|expands</phrase>
 		</concept>
 
 		<concept label="answer1_2_1" type="regex">
-			<phrase>Behind the cold front|behind|back|backward</phrase>
+			<phrase>air condenses|air creates moisture|air creates clouds|gets denser|condenses</phrase>
 		</concept>
 		
 	    <concept label="answer1_2_2" type="regex">
-			<phrase>In front of the cold front|front|in front|infront</phrase>
+			<phrase>air warms up|air expands|less moisture|less clouds|gets lighter|less dense|gets hotter|gets warmer|warms up|expands</phrase>
 		</concept>		
 		
-		
-		<concept label="answer2_1" type="regex">
-			<phrase>high|higher</phrase>
-		</concept>
-		
-	    <concept label="answer2_2" type="regex">
-			<phrase>low|lower</phrase>
-		</concept>
-
-		 <concept label="answer2_2_1" type="regex">
-			<phrase>high|higher|more</phrase>
-		</concept>
-
-		 <concept label="answer2_2_2" type="regex">
-			<phrase>low|lower|less</phrase>
-		</concept>
-
 
 	</concepts>
 	
@@ -211,24 +158,7 @@
 				<response push="elicitate1_1" say="response1_2">answer1_2</response>
 				<response push="elicitate1_2" say="response1_2">unanticipated-response</response>
 			</step>
-			
-			
-			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>question2</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="response2_1">answer2_1</response>
-				<response push="elicitate2_1" say="response2_2">answer2_2</response>
-				<response push="elicitate2_2" say="response2_2">unanticipated-response</response>
-			</step>
 
-		
 			
 			<step>
 				<initiation>conclusion1</initiation>
@@ -240,7 +170,7 @@
 		<goal name="elicitate1_1" difficulty="0">
 
 			<step>
-				<initiation>There are usually Low Pressure centers behind cold fronts and High pressure centers in front of cold fronts. Where is the chance of precipitation higher?</initiation>
+				<initiation>When a cold front moves in, the air cools down behind it. Why do you think this increases the chance of precipitation?</initiation>
                 <response say="response1_2_1">answer1_2_1</response>
 				<response say="correct_response1">answer1_2_2</response>
 				<response say="correct_response1">unanticipated-response</response>
@@ -250,34 +180,13 @@
 		<goal name="elicitate1_2" difficulty="0">
 
 			<step>
-				<initiation>I did not understand your answer. Where is the chance of precipitation higher in regards to a cold front?</initiation>
+				<initiation>Sorry, I didn't understand you. Why do you think the chance of precipitation is higher behind a cold front? Feel free to refer to points on the map.</initiation>
                 <response say="response1_2_1">answer1_2_1</response>
 				<response say="correct_response1">answer1_2_2</response>
 				<response say="correct_response1">unanticipated-response</response>
 			</step>
 		</goal>
-		
-		<goal name="elicitate2_1" difficulty="0">
 
-			<step>
-				<initiation>In a low pressure center the air moves upwards. When warm and cold fronts meet, there is likely to be a Low Pressure center. That means the chance of precipitation at these intersections is…?</initiation>
-                <response say="response2_2_1">answer2_2_1</response>
-				<response say="correct_response2">answer2_2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="elicitate2_2" difficulty="0">
-
-			<step>
-				<initiation>I did not understand your answer. When warm and cold fronts meet, there is likely to be a Low Pressure center. That means the chance of precipitation at these intersections is…?</initiation>
-                <response say="response2_2_1">answer2_2_1</response>
-				<response say="correct_response2">answer2_2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
-			</step>
-		</goal>
-
-		
 
 	</script>
 

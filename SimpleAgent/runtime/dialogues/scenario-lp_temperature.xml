@@ -44,28 +44,18 @@
 		
 		<!-- tutor concepts. -->
 		<concept label="introduction">
-			<phrase>Let's see how much you know about low pressure and temperature.
+			<phrase>We can talk about low pressure and temperature in a little more detail.
             </phrase>
-		</concept>
-
-		<concept label="conclusion">
-			<phrase>Let's move on to other question.</phrase>
 		</concept>
 
 		<concept label="conclusion1">
-			<phrase>Let's move on to other topic.</phrase>
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
 		</concept>
 
 		<concept label="question1">
-			<phrase>Where is the air concentrated in a low pressure center?
+			<phrase>Can you explain why the temperature is most likely cooler at a low pressure center?
             </phrase>
 		</concept>
-
-		<concept label="question2">
-			<phrase>Since the air has concentrated lower in the atmosphere, the temperature is most likely…?
-            </phrase>
-		</concept>
-
 
 		<concept label="unrecognized">
 			<phrase>I don't know what that is.</phrase>
@@ -84,48 +74,25 @@
 
 
 		<concept label="response1_1">
-			<phrase>That is correct. The air is concentrated lower in the atmosphere in a low pressure center.</phrase>
+			<phrase>It sounds like you're on the right track. Cold air sinks and low pressure is a concentration of air that is low in altitude. It is most likely then that this air is cooler.</phrase>
 		</concept>
 
 		<concept label="response1_2">
-			<phrase>That is incorrect.</phrase>
+			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
 
 		<concept label="response1_2_1">
-			<phrase>That is correct. The air is concentrated lower in the atmosphere in a low pressure center.</phrase>
+			<phrase>It sounds like you're on the right track. Cold air sinks and low pressure is a concentration of air that is low in altitude. It is most likely then that this air is cooler.</phrase>
 		</concept>
 
 		<concept label="response1_2_2">
-			<phrase>That is incorrect.</phrase>
+			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
-
-		<concept label="response2_1">
-			<phrase>That is correct. Warm air rises and cool air sinks, so it is most likely cooler where there is a low pressure center.</phrase>
-		</concept>
-
-		<concept label="response2_2">
-			<phrase>That is incorrect.</phrase>
-		</concept>
-
-		<concept label="response2_2_1">
-			<phrase>That is correct. Warm air rises and cool air sinks, so it is most likely cooler where there is a low pressure center.</phrase>
-		</concept>
-
-		<concept label="response2_2_2">
-			<phrase>That is incorrect.</phrase>
-		</concept>
-
 
 		<concept label="correct_response1">
-			<phrase>That is incorrect. The concentration of air in a low pressure center is low in altitude
+			<phrase>Let me help you out. Cold air sinks and low pressure is a concentration of air that is low in altitude. It is most likely then that this air is cooler.
 			</phrase>
 		</concept>
-
-		<concept label="correct_response2">
-			<phrase>That is incorrect. Since the air has concentrated lower in the atmosphere, the temperature is most likely cooler.
-			</phrase>
-		</concept>
-
 
 		<concept label="yes" type="annotation">
 			<phrase>AFFIRMATIVE</phrase>
@@ -137,35 +104,19 @@
 
 
 		<concept label="answer1_1" type="regex">
-			<phrase>low altitude|lower|low</phrase>
+			<phrase>low altitude|lower|low|cold air sinks|cool air sinks|colder air sinks|cooler air sinks</phrase>
 		</concept>
 
 		<concept label="answer1_2" type="regex">
-			<phrase>high altitude|higher|high</phrase>
+			<phrase>high altitude|higher|high|hot air rises|warm air rises|hotter air rises|warmer air rises</phrase>
 		</concept>
 
 		<concept label="answer1_2_1" type="regex">
-			<phrase>low altitude|lower|low</phrase>
+			<phrase>cold air sinks|cool air sinks|colder air sinks|cooler air sinks</phrase>
 		</concept>
 
 		<concept label="answer1_2_2" type="regex">
-			<phrase>high altitude|higher|high</phrase>
-		</concept>
-
-		<concept label="answer2_1" type="regex">
-			<phrase>cool|cooler|cold|chilly|low|lower</phrase>
-		</concept>
-
-		<concept label="answer2_2" type="regex">
-			<phrase>warm|warmer|hot|heat|high|higher</phrase>
-		</concept>
-
-		<concept label="answer2_2_1" type="regex">
-			<phrase>cool|cooler|cold|chilly|low|lower</phrase>
-		</concept>
-
-		<concept label="answer2_2_2" type="regex">
-			<phrase>warm|warmer|hot|heat|high|higher</phrase>
+			<phrase>high altitude|higher|high|hot air rises|warm air rises|hotter air rises|warmer air rises</phrase>
 		</concept>
 
 	</concepts>
@@ -195,26 +146,6 @@
 			</step>
 
 			<step>
-				<initiation>conclusion</initiation>
-			</step>
-
-			
-			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>question2</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="response2_1">answer2_1</response>
-				<response push="elicitate2_1" say="response2_2">answer2_2</response>
-				<response push="elicitate2_2" say="response2_2">unanticipated-response</response>
-			</step>
-
-			<step>
 				<initiation>conclusion1</initiation>
 			</step>
 			
@@ -224,7 +155,7 @@
 		<goal name="elicitate1_1" difficulty="0">
 
 			<step>
-				<initiation>Low pressure centers are named after where there is a concentration of air in the atmosphere. Where in the the atmosphere is the concentration of a Low pressure system?</initiation>
+				<initiation>A low pressure center is a concentration of air which is low in altitude. Why might a low pressure center be associated with cooler temperatures?</initiation>
                 <response say="response1_2_1">answer1_2_1</response>
 				<response say="correct_response1">answer1_2_2</response>
 				<response say="correct_response1">unanticipated-response</response>
@@ -234,30 +165,10 @@
 		<goal name="elicitate1_2" difficulty="0">
 
 			<step>
-				<initiation>I did not understand your answer. Where in the the atmosphere is the concentration of a low pressure system?</initiation>
-                <response say="response1_2_1">answer1_2_1</response>
-				<response say="correct_response1">answer1_2_2</response>
+				<initiation>Sorry, I didn't understand you. Can you explain why the temperature is most likely cooler at a low pressure center?</initiation>
+                <response say="response1_1">answer1_1</response>
+				<response say="correct_response1">answer1_2</response>
 				<response say="correct_response1">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="elicitate2_1" difficulty="0">
-
-			<step>
-				<initiation>Warm air rises and cool air sinks. In a low pressure center, the temperature is most likely...?</initiation>
-                <response say="response2_2_1">answer2_2_1</response>
-				<response say="correct_response2">answer2_2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="elicitate2_2" difficulty="0">
-
-			<step>
-				<initiation>I did not understand your answer. In a low pressure center, the temperature is most likely...?</initiation>
-                <response say="response2_2_1">answer2_2_1</response>
-				<response say="correct_response2">answer2_2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
 			</step>
 		</goal>
 

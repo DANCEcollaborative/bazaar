@@ -44,29 +44,19 @@
 		
 		<!-- tutor concepts. -->
 		<concept label="introduction">
-			<phrase>Let's see how much you know about high pressure and wind direction.
+			<phrase>We can talk about high pressure and wind direction in a little more detail.
             </phrase>
 		</concept>
 
-		<concept label="conclusion">
-			<phrase>Let's move on to other question.</phrase>
-		</concept>
-
 		<concept label="conclusion1">
-			<phrase>Let's move on to other topic.</phrase>
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
 		</concept>
 		
 
 		<concept label="question1">
-			<phrase>How strong are winds around a high pressure center?
+			<phrase>Can you describe the wind speed and direction at a high pressure center? Feel free to refer to the map.
             </phrase>
 		</concept>
-
-		<concept label="question2">
-			<phrase>What direction does the wind blow around a high pressure center?
-            </phrase>
-		</concept>
-
 
 		<concept label="unrecognized">
 			<phrase>I don't know what that is.</phrase>
@@ -85,32 +75,18 @@
 
 
 		<concept label="response1_1">
-			<phrase>That is correct. Winds are mild around a high pressure center.</phrase>
+			<phrase>It sounds like you're on the right track. Wind is more mild and clockwise at a high pressure center.</phrase>
 		</concept>
 
 		<concept label="response1_2">
-			<phrase>That is incorrect.</phrase>
-		</concept>
-
-		<concept label="response2_1">
-			<phrase>That is correct. Winds blow clockwise around high pressure centers.</phrase>
-		</concept>
-
-		<concept label="response2_2">
-			<phrase>That is incorrect.</phrase>
+			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
 
 
 		<concept label="correct_response1">
-			<phrase>That is incorrect. The winds around a high pressure center are usually mild, if there are any.
+			<phrase>Let me help you out. Wind is more mild and clockwise at a high pressure center.
 			</phrase>
 		</concept>
-
-		<concept label="correct_response2">
-			<phrase>That is incorrect. Wind blows clockwise around high pressure centers
-			</phrase>
-		</concept>
-
 
 		<concept label="yes" type="annotation">
 			<phrase>AFFIRMATIVE</phrase>
@@ -122,20 +98,13 @@
 
 
 		<concept label="answer1_1" type="regex">
-			<phrase>mild|weak</phrase>
+			<phrase>weak|weaker|low|lower|clockwise|clock wise|mild|more mild</phrase>
 		</concept>
 
 		<concept label="answer1_2" type="regex">
-			<phrase>strong</phrase>
+			<phrase>strong|stronger|high|higher|counter clockwise|counter-clockwise|counterclockwise</phrase>
 		</concept>
 
-			<concept label="answer2_1" type="regex">
-			<phrase>clockwise</phrase>
-		</concept>
-
-		<concept label="answer2_2" type="regex">
-			<phrase>counter-clockwise</phrase>
-		</concept>
 
 	</concepts>
 
@@ -164,45 +133,22 @@
 			</step>
 
 			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>question2</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="response2_1">answer2_1</response>
-				<response say="correct_response2">answer2_2</response>
-				<response push="elicitate2" say="response1_2">unanticipated-response</response>
-			</step>
-
-			<step>
 				<initiation>conclusion1</initiation>
 			</step>
+
 			
 		</goal>
 
 		<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation>I did not understand your answer. How strong are winds around a high pressure center?</initiation>
-                <response say="response1_2_1">answer1_1</response>
+				<initiation>Sorry, I didn't understand you. Can you describe the wind speed and direction at a high pressure center?</initiation>
+                <response say="response1_1">answer1_1</response>
 				<response say="correct_response1">answer1_2</response>
 				<response say="correct_response1">unanticipated-response</response>
 			</step>
 		</goal>
 
-		<goal name="elicitate2" difficulty="0">
-
-			<step>
-				<initiation>I did not understand your answer. What direction does the wind blow around a high pressure center?</initiation>
-                <response say="response2_1">answer2_1</response>
-				<response say="correct_response2">answer2_2</response>
-				<response say="correct_response2">unanticipated-response</response>
-			</step>
-		</goal>
 
 	</script>
 
