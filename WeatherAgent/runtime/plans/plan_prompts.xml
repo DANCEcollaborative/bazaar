@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
-    <prompt strategy="task" id="SETUP">
-        <text>While I may not tell how to develop the desired app directly, I can help/guide you planning its development.</text>
-    </prompt>
     
-    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
-        <text>Okay! Let's begin with planning/designing an android app of your choice.</text>
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
     </prompt>
     
     <prompt strategy="task" id="INTRODUCE">
         <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>Okay! We'll be discussing factors affecting weather.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
@@ -51,27 +59,27 @@
     	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
     </prompt>
      
-    <prompt strategy="task" id="QUESTION1">
+    <prompt strategy="task" id="DISCUSS_COOLEST_TEMP">
         <text>Also discuss among yourselves where all of you would expect to find the coolest temperatures over the area of the map on right of your screen.</text>
     </prompt>
     
-    <prompt strategy="task" id="QUESTION2">
+    <prompt strategy="task" id="DISCUSS_HIGHEST_PRESSURE">
         <text>Also discuss among yourselves where all of you would expect to find the highest atmospheric pressure over the area of the map on right of your screen.</text>
     </prompt>
     
-    <prompt strategy="task" id="QUESTION3">
+    <prompt strategy="task" id="DISCUSS_LOWEST_PRESSURE">
         <text>Also discuss among yourselves where all of you would expect to find the lowest atmospheric pressure over the area of the map on right of your screen.</text>
     </prompt>
     
-     <prompt strategy="task" id="QUESTION4">
+     <prompt strategy="task" id="DISCUSS_PRECIP_WARM_FRONT">
         <text>Also discuss among yourselves where all of you would expect precipitation to occur in regards to the warm front over the area of the map on right of your screen.</text>
     </prompt>
     
-    <prompt strategy="task" id="QUESTION5">
+    <prompt strategy="task" id="DISCUSS_PRECIP_COLD_FRONT">
         <text>Also discuss among yourselves where all of you would expect precipitation to occur in regards to the cold front over the area of the map on right of your screen.</text>
     </prompt>
     
-    <prompt strategy="task" id="QUESTION6">
+    <prompt strategy="task" id="DISCUSS_HIGH_WIND">
         <text>Also discuss among yourselves where all of you would expect expect the highest wind speeds to occur over the area of the map on right of your screen.</text>
     </prompt>
  
