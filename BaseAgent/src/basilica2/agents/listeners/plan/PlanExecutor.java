@@ -259,7 +259,7 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 		else if (id != null && ((currentPlan.currentStage != null && id.equals(currentPlan.currentStage.nextStage)) || currentPlan.stages.containsKey(id)))
 		{
 			clearHelpers();
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: activiating next stage: " + id);
+			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: activating next stage: " + id);
 			activateStage(id);
 		}
 		else
