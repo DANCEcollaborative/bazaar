@@ -27,61 +27,6 @@
 			<tphrase> moving on... </tphrase>
 		</transition>
 	</transitions>
-
-	
-	<script>
-		<goal name="start" difficulty="1">
-			
-			<step>
-				<!-- deliver a statement from the concept named "t_introduction"  -->
-				<initiation>t_introduction</initiation>
-			</step>
-			
-			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>t_question1</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="t_response1_correct">s_answer1_correct</response>
-				<response push="t_elicitate1_1_incorrect" say="t_response1_incorrect">s_answer1_incorrect</response>
-				<response push="t_elicitate1_2_unanticipated" say="t_response1_incorrect">unanticipated-response</response>
-			</step>
-			
-			<step>
-				<initiation>t_conclusion1</initiation>
-			</step>
-			
-		</goal>
-		
-
-		<goal name="t_elicitate1_1_incorrect" difficulty="0">
-
-			<step>
-				<initiation>In a low pressure center, the air is pushed upwards. Why do you think the chance of precipitation is higher at a low pressure center?</initiation>
-                <response say="t_response1_1_correct">s_answer1_1_correct</response>
-				<response say="t_bottom_out">s_answer1_1_incorrect</response>
-				<response say="t_bottom_out">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="t_elicitate1_2_unanticipated" difficulty="0">
-
-			<step>
-				<initiation>Sorry, I didn't understand you. In a low pressure center, the air is pushed upwards. Why do you think the chance of precipitation is higher at a low pressure center?</initiation>
-                <response say="t_response1_2_correct">s_answer1_2_correct</response>
-				<response say="t_bottom_out">s_answer1_2_incorrect</response>
-				<response say="t_bottom_out">unanticipated-response</response>
-			</step>
-		</goal>
-
-	</script>
-
-
 	
 	<!-- 'Concepts' define things that students might say,
 	     AND things that the tutor might say back. 
@@ -98,18 +43,18 @@
 		
 		
 		<!-- tutor concepts. -->
-		<concept label="t_introduction">
+		<concept label="introduction">
 			<phrase>We can talk about low pressure and precipitation in a little more detail.
             </phrase>
 		</concept>
+	
+		<concept label="conclusion1">
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
+		</concept>
 					
-		<concept label="t_question1">
+		<concept label="question1">
 			<phrase>Can you explain why the chance of precipitation is most likely higher at a low pressure center?
             </phrase>
-		</concept>
-	
-		<concept label="t_conclusion1">
-			<phrase>Please feel free to continue discussing among yourselves.</phrase>
 		</concept>
 		
 		<!-- the tutor will choose randomly between multiple phrases for a concept. -->
@@ -128,25 +73,28 @@
 		<concept label="ok">
 			<phrase>Ok</phrase>
 		</concept>
-	
-		<concept label="t_response1_correct">
+
+		
+		<concept label="response1_1">
 			<phrase>It sounds like you're on the right track. In a low pressure center, the air is pushed upwards and condenses, so there is more moisture and clouds. This increases the chance of precipitation.</phrase>
 		</concept>
 
-		<concept label="t_response1_incorrect">
+		<concept label="response1_2">
 			<phrase>It sounds like you could use some help.
 			</phrase>
 		</concept>
 
-		<concept label="t_response1_1_correct">
+		<concept label="response1_2_1">
 			<phrase>It sounds like you're on the right track. In a low pressure center, the air is pushed upwards and condenses, so there is more moisture and clouds. This increases the chance of precipitation.</phrase>
 		</concept>
 
-		<concept label="t_response1_2_correct">
-			<phrase>It sounds like you're on the right track. In a low pressure center, the air is pushed upwards and condenses, so there is more moisture and clouds. This increases the chance of precipitation.</phrase>
+		<concept label="response1_2_2">
+			<phrase>It sounds like you could use some help.
+			</phrase>
 		</concept>
-	
-		<concept label="t_bottom_out">
+
+		
+		<concept label="correct_response1">
 			<phrase>Let me help you out. In a low pressure center, the air is pushed upwards and condenses, so there is more moisture and clouds. This increases the chance of precipitation.
 			</phrase>
 		</concept>
@@ -167,36 +115,79 @@
 		
 		<!-- these match against regular expressions. -->
 
-		<concept label="s_answer1_correct" type="regex">
+		<concept label="answer1_1" type="regex">
 			<phrase>air pushed up|air pushed upward|air pushed high|air pushed higher|pushed up|pushed upward|condenses|air condenses|gets heavier|more dense|more moisture|more clouds
 			</phrase>
 		</concept>
 		
-	    <concept label="s_answer1_incorrect" type="regex">
+	    <concept label="answer1_2" type="regex">
 			<phrase>air pushed down|air pushed downward|air pushed low|air pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
 			</phrase>
 		</concept>
 
-		<concept label="s_answer1_1_correct" type="regex">
+		<concept label="answer1_2_1" type="regex">
 			<phrase>condenses|air condenses|gets heavier|more dense|more moisture|more clouds
 			</phrase>
 		</concept>
 		
-	    <concept label="s_answer1_1_incorrect" type="regex">
-			<phrase>air pushed down|air pushed downward|air pushed low|air pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
-			</phrase>
-		</concept>		
-
-		<concept label="s_answer1_2_correct" type="regex">
-			<phrase>condenses|air condenses|gets heavier|more dense|more moisture|more clouds
-			</phrase>
-		</concept>
-		
-	    <concept label="s_answer1_2_incorrect" type="regex">
+	    <concept label="answer1_2_2" type="regex">
 			<phrase>air pushed down|air pushed downward|air pushed low|air pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
 			</phrase>
 		</concept>		
 
 	</concepts>
 	
+	
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "introduction"  -->
+				<initiation>introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question1</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="response1_1">answer1_1</response>
+				<response push="elicitate1_1" say="response1_2">answer1_2</response>
+				<response push="elicitate1_2" say="response1_2">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
+			
+		</goal>
+		
+
+		<goal name="elicitate1_1" difficulty="0">
+
+			<step>
+				<initiation>In a low pressure center, the air is pushed upwards. Why do you think the chance of precipitation is higher at a low pressure center?</initiation>
+                <response say="response1_2_1">answer1_2_1</response>
+				<response say="correct_response1">answer1_2_2</response>
+				<response say="correct_response1">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate1_2" difficulty="0">
+
+			<step>
+				<initiation>Sorry, I didn't understand you. In a low pressure center, the air is pushed upwards. Why do you think the chance of precipitation is higher at a low pressure center?</initiation>
+                <response say="response1_2_1">answer1_2_1</response>
+				<response say="correct_response1">answer1_2_2</response>
+				<response say="correct_response1">unanticipated-response</response>
+			</step>
+		</goal>
+
+	</script>
+
 </scenario>
