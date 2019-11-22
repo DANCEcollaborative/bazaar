@@ -15,24 +15,27 @@
         -->
         <step type="prompt" delay="5" prompt="INTRODUCE" >INTRODUCE</step>
         <!--  <step type="prompt" delay="10" prompt="GREET" >GREET</step>  -->
-        <step type="greet" timeout="60" delay="10">GREETINGS</step>
+        <step type="greet" timeout="45" delay="10">GREETINGS</step>
+        <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step>
+        <step type="prompt" delay="10" prompt="WEATHER_TOPIC_SPECIFICS" >CONTNUE_WEATHER_TOPICS</step>
         
     </stage>
     <stage name="body" type="other" delay="30">
-    	<step type="dialogue" delay="30" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step>
+    	<step type="dialogue" delay="15" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step>
     	<!-- <step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="30" prompt="DISCUSS_LOWEST_PRESSURE" >DISCUSS_LOWEST_PRESSUR</step>
-    	<step type="dialogue" delay="30" dialogue="HP_PRECIPITATION">HP_PRECIPITATION</step>
+        <step type="prompt" delay="10" prompt="DISCUSS_LOWEST_PRESSURE" >DISCUSS_LOWEST_PRESSURE</step>
+        <step type="prompt" delay="10" prompt="CONTINUE_WEATHER_TOPICS" >CONTNUE_WEATHER_TOPICS</step>
+    	<!-- <step type="dialogue" delay="30" dialogue="HP_PRECIPITATION">HP_PRECIPITATION</step> -->
     	<!-- <step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="30" prompt="DISCUSS_HIGHEST_PRESSURE" >DISCUSS_HIGHEST_PRESSURE</step>
-    	<step type="dialogue" delay="30" dialogue="WF_PRECIPITATION">WF_PRECIPITATION</step>
+        <!-- <step type="prompt" delay="30" prompt="DISCUSS_HIGHEST_PRESSURE" >DISCUSS_HIGHEST_PRESSURE</step> -->
+    	<!-- <step type="dialogue" delay="30" dialogue="WF_PRECIPITATION">WF_PRECIPITATION</step> -->
     	<!-- <step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="30" prompt="DISCUSS_PRECIP_WARM_FRONT" >DISCUSS_PRECIP_WARM_FRONT</step>
-    	<step type="dialogue" delay="30" dialogue="WF_TEMPERATURE">WF_TEMPERATURE</step>
+        <!-- <step type="prompt" delay="30" prompt="DISCUSS_PRECIP_WARM_FRONT" >DISCUSS_PRECIP_WARM_FRONT</step> -->
+    	<!-- <step type="dialogue" delay="30" dialogue="WF_TEMPERATURE">WF_TEMPERATURE</step> -->
     	<!-- <step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="30" prompt="DISCUSS_COOLEST_TEMP" >DISCUSS_COOLEST_TEMP</step>
-    	<step type="dialogue" delay="30" dialogue="CF_WINDDIRECTION">WF_TEMPERATURE</step>
+        <!-- <step type="prompt" delay="30" prompt="DISCUSS_COOLEST_TEMP" >DISCUSS_COOLEST_TEMP</step> -->
+    	<!-- <step type="dialogue" delay="30" dialogue="CF_WINDDIRECTION">WF_TEMPERATURE</step> -->
     	<!-- <step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="30" prompt="DISCUSS_HIGH_WIND" >DISCUSS_HIGH_WIND</step>
+        <!-- step type="prompt" delay="30" prompt="DISCUSS_HIGH_WIND" >DISCUSS_HIGH_WIND</step> -->
     </stage>
 </plan>

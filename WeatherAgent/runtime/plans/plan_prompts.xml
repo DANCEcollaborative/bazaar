@@ -16,6 +16,14 @@
         <text>Okay! We'll be discussing factors affecting weather.</text>
     </prompt>
     
+    <prompt strategy="task" id="WEATHER_TOPIC_SPECIFICS">
+        <text>I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts, and related to low or high pressure.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="CONTINUE_WEATHER_TOPICS">
+        <text>Continue discussing relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts, and related to low or high pressure.</text>
+    </prompt>
+    
     <prompt strategy="task" id="SETUP">
         <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
     </prompt>
