@@ -15,14 +15,14 @@
         -->
         <step type="prompt" delay="5" prompt="INTRODUCE" >INTRODUCE</step>
         <!--  <step type="prompt" delay="10" prompt="GREET" >GREET</step>  -->
-        <step type="greet" timeout="45" delay="10">GREETINGS</step>
-        <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step>
-        <step type="prompt" delay="10" prompt="WEATHER_TOPIC_SPECIFICS" >CONTNUE_WEATHER_TOPICS</step>
+        <step type="greet" timeout="25" delay="10">GREETINGS</step>
+        <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step> 
+        <step type="prompt" delay="10" prompt="WEATHER_TOPIC_SPECIFICS" >CONTNUE_WEATHER_TOPICS</step> 
         
     </stage>
     <stage name="body" type="other" delay="30">
-    	<step type="dialogue" delay="15" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step>
-    	<!-- <step type="whiteboard" delay="5" path="http://i59.tinypic.com/5ap2co.png">SHOW_IMAGE</step> -->
+    	<step type="dialogue" delay="15" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step> 
+    	<step type="whiteboard" delay="5" path="https://github.com/DANCEcollaborative/bazaar/blob/master/WeatherAgent/runtime/images/US_weather_map.png">SHOW_IMAGE</step>
         <step type="prompt" delay="10" prompt="DISCUSS_LOWEST_PRESSURE" >DISCUSS_LOWEST_PRESSURE</step>
         <step type="prompt" delay="10" prompt="CONTINUE_WEATHER_TOPICS" >CONTNUE_WEATHER_TOPICS</step>
     	<!-- <step type="dialogue" delay="30" dialogue="HP_PRECIPITATION">HP_PRECIPITATION</step> -->
