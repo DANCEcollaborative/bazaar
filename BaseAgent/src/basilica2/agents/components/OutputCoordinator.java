@@ -19,6 +19,8 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 
+import VHjava.VHSender;
+
 /**
  * @author dadamson
  */
@@ -36,6 +38,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double MEDIUM_PRIORITY = 0.5;
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
+	
+	private VHSender vhSender = new VHSender();
+	private Boolean outputToVHT = false; 
 
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
@@ -43,6 +48,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		super(agent, s1, s2);
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
+		
+		if(myProperties!=null)
+			try{outputToVHT = Boolean.parseBoolean(myProperties.getProperty("output_to_VHT", "false"));}
+			catch(Exception e) {e.printStackTrace();}
 	}
 
 	public void addAll(Collection<PriorityEvent> events)
@@ -177,6 +186,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if (!me.getText().contains("|"))
 		{
 			broadcast(me);
+			if (outputToVHT)
+				vhSender.sendMessage(me.getText());		
 			MessageEventLogger.logMessageEvent(me);
 		}
 
@@ -207,8 +218,21 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					}
 				}
 				newme.setReference(me.getReference());
-				broadcast(newme);
+				broadcast(newme);			
 				MessageEventLogger.logMessageEvent(newme);
+				if (outputToVHT)
+					vhSender.sendMessage(newme.getText());
+					MessageEventLogger.logMessageEvent(newme);			
+					try       											// Don't send message parts too quickly
+					{
+						Thread.sleep(6000);
+						tick();
+					}
+					catch (Exception e)
+					{
+						log(Logger.LOG_WARNING, "<warning>Throttling problem</warning>");
+						e.printStackTrace();
+					}		
 			}
 		}
 	}
