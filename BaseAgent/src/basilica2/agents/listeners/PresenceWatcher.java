@@ -104,6 +104,28 @@ public class PresenceWatcher extends BasilicaAdapter
 				StateMemory.commitSharedState(updateState, agent);
 			}
 		}
+		// Start as soon as agent is present if not waiting for students
+		else if ((source.isAgentName(pe.getUsername())) && expected_number_of_students == 0)
+		{
+			State olds = StateMemory.getSharedState(agent);
+			State news;
+			if (pe.getType().equals(PresenceEvent.PRESENT))
+			{
+				if (olds != null)
+				{
+					news = State.copy(olds);
+				}
+				else
+				{
+					news = new State();
+				}
+				news.addStudent(pe.getUsername());
+				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
+				StateMemory.commitSharedState(news, agent);
+				initiate(source, news);
+
+			}
+		}
 	}
 
 	public void initiate(final InputCoordinator source, State news)
