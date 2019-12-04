@@ -9,7 +9,6 @@
     <property name="AccountableTalkAgent.location" value="../AccountableTalkAgent"/>
     <property name="MoodleTalkAgent.location" value="../MoodleTalkAgent"/>
     <property name="SocialAgent.location" value="../SocialAgent"/>
-    <property name="SocketIOClient.location" value="../SocketIOClient"/>
     <property name="SocketTalkit.location" value="../SocketTalkit"/>
     <property name="TutorAgent.location" value="../TutorAgent"/>
     <property name="ECLIPSE_HOME" value="../../../../Applications/eclipse"/>
@@ -138,12 +137,6 @@
         </ant>
         <ant antfile="build.xml" dir="${SocialAgent.location}" inheritAll="false" target="clean"/>
         <ant antfile="build.xml" dir="${SocialAgent.location}" inheritAll="false" target="build">
-            <propertyset>
-                <propertyref name="build.compiler"/>
-            </propertyset>
-        </ant>
-        <ant antfile="build.xml" dir="${SocketIOClient.location}" inheritAll="false" target="clean"/>
-        <ant antfile="build.xml" dir="${SocketIOClient.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>

@@ -7,7 +7,6 @@
     <property environment="env"/>
     <property name="BaseAgent.location" value="../BaseAgent"/>
     <property name="MoodleTalkAgent.location" value="../MoodleTalkAgent"/>
-    <property name="SocketIOClient.location" value="../SocketIOClient"/>
     <property name="SocketTalkit.location" value="../SocketTalkit"/>
     <property name="ECLIPSE_HOME" value="../../../../Applications/eclipse"/>
     <property name="debuglevel" value="source,lines,vars"/>
@@ -74,12 +73,6 @@
         </ant>
         <ant antfile="build.xml" dir="${MoodleTalkAgent.location}" inheritAll="false" target="clean"/>
         <ant antfile="build.xml" dir="${MoodleTalkAgent.location}" inheritAll="false" target="build">
-            <propertyset>
-                <propertyref name="build.compiler"/>
-            </propertyset>
-        </ant>
-        <ant antfile="build.xml" dir="${SocketIOClient.location}" inheritAll="false" target="clean"/>
-        <ant antfile="build.xml" dir="${SocketIOClient.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
