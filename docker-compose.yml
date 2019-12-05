@@ -1,0 +1,32 @@
+version: '3'
+volumes:
+  mysql_data:
+ 
+services:
+  nodechat:
+    build:
+       context: ./
+       dockerfile: Dockerfile.mysql
+    container_name: nodechat
+    volumes:    
+     - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: smoot
+      MYSQL_USER: "local"
+      MYSQL_PASSWORD: "local"
+    networks:
+    - bazaar-net
+  bazaar:
+    build: 
+       context: ./
+       dockerfile: Dockerfile
+    container_name: bazaar
+    depends_on:
+     - nodechat
+    ports:
+     - "8119:80"  # let outside world see 8119
+    networks:
+    - bazaar-net
+networks:
+  bazaar-net:
+    driver: bridge
