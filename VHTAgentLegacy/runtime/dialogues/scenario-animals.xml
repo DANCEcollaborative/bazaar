@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="animal_example">
+	<configuration>
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+		<!-- this is a special kind of concept for catching unexpected student responses -->
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+		
+		<!-- tutor concepts. -->
+		<concept label="introduction">
+			<phrase>There are three kinds of animals - birds, fish, and mammals.</phrase>
+		</concept>
+		
+		<concept label="animal_question">
+			<phrase>Can you tell me something about some kind of animal?</phrase>
+		</concept>
+		
+		<!-- the tutor will choose randomly between multiple phrases for a concept. -->
+		<concept label="facts">
+			<phrase>A chicken is a bird that doesn't fly very well.</phrase>
+			<phrase>A cow is a mammal that gives lots of milk.</phrase>
+			<phrase>Trout are fish that swim in streams.</phrase>
+		</concept>
+		
+		<concept label="unrecognized">
+			<phrase>I don't know what that is.</phrase>
+			<phrase>That doesn't make sense to me.</phrase>
+		</concept>
+		
+		<concept label="correct">
+			<phrase>Well done!</phrase>
+			<phrase>Okeydoke.</phrase>
+			<phrase>Sounds good...</phrase>
+		</concept>
+		
+		<concept label="incorrect_birth">
+			<phrase>Fish and birds lay eggs. Mammals give birth to live young, and give their babies milk!</phrase>
+		</concept>
+		
+		<concept label="recognize_fish">
+			<phrase>...that's a fish!</phrase>
+		</concept>
+		
+		<concept label="recognize_mammal">
+			<phrase>...that's a mammal!</phrase>
+		</concept>
+		
+		<concept label="recognize_bird">
+			<phrase>...that's a bird!</phrase>
+		</concept>
+		
+		<concept label="congrats">
+			<phrase>You're ready to be a zoologist!</phrase>
+		</concept>
+		
+		<concept label="dont_be_clever">
+			<phrase>Aren't you clever?</phrase>
+		</concept>
+		<!-- ent tutor concepts. -->
+		
+		
+		<!-- student concepts. -->
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+		
+		<!-- these match against regular expressions. -->
+		
+		<concept label="fish" type="regex">
+			<phrase>fish|salmon|eel|trout|guppy|shark</phrase>
+			<phrase>scales|swim|water|nemo|sea|ocean|lake|stream</phrase>
+		</concept>
+		
+		
+		<concept label="bird" type="regex">
+			<phrase>swan|dinosaur|parrot|flamingo|hawk|crow|eagle|bird</phrase>
+			<phrase>air|fly|feather</phrase>
+		</concept>
+		
+		<concept label="mammal" type="regex">
+			<phrase>mammal|cow|dog|cat|human|gerbil|whale|elephant</phrase>
+			<phrase>fur|hair|milk|warm</phrase>
+		</concept>
+		
+		<!-- end student concepts. -->
+		
+	</concepts>
+
+	
+	<!-- This is the meat of the hierarchical dialogue - 
+		 one main goal with multiple steps, and subgoals that it may reference. -->
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "introduction"  -->
+				<initiation>introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initating concept or literal phrase -->
+				<initiation>animal_question</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="recognize_fish">fish</response>
+				<response say="recognize_bird">bird</response>
+				<response say="recognize_mammal">mammal</response>
+				<response push="remediate" say="dont_be_clever">yes</response>
+				<response push="remediate" say="dont_be_clever">no</response>
+				
+				<!-- unanticipated-response is special: it's anything that doesn't match one of the above. -->
+				<response push="remediate" say="unrecognized">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<!-- for your convenience, you can insert static phrases instead of defining concepts. -->
+				<initiation>Let's try something harder - what kind of animal gives birth to live young?</initiation>
+				<response say="incorrect_birth">fish</response>
+				<response say="incorrect_birth">bird</response>
+				<response say="incorrect_birth">unanticipated-response</response>
+				<response say="correct">mammal</response>
+			</step>
+			
+			<step>
+				<initiation>congrats</initiation>
+			</step>
+		</goal>
+		
+		<!-- Goals are referenced by their names. "difficulty" is meaningless for now. -->
+		<goal name="remediate" difficulty="0">
+			<step>
+				<initiation>Maybe this will help:</initiation>
+			</step>
+			<step>
+				<!-- deliver a statement from the concept named "facts"  -->
+				<initiation>facts</initiation>
+			</step>
+			<step>
+				<!-- for your convenience, you can insert static phrases instead of defining concepts. -->
+				<initiation>Let's try again!</initiation>
+			</step>
+			<step>
+				<initiation>animal_question</initiation>
+				<response say="recognize_fish">fish</response>
+				<response say="recognize_bird">bird</response>
+				<response say="recognize_mammal">mammal</response>
+				<response say="unrecognized">unanticipated-response</response>
+			</step>
+		</goal>
+	</script>
+
+</scenario>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't answer your questions directly, I can help guide your group discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>Okay! Let's begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>Okay, that's all I've got planned. I'll stick around, but it's up to yinz to lead the discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_ACCOUNTABLE_TALK">
+    	<text>The agent is listening for several kinds of triggers to start supporting students. | For example, David cares a lot about "Accountable Talk" style facilitation these days. | The provided AT example is configured for college chemistry. | If you've turned on any of the revoice, agree, say_more, or explain conditions, try saying something like "boiling point increases with dipole moment." | (and then wait a little while, this behavior waits for other students to follow up before offering support.)</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.|Even if you disable tutorial triggers, you can still have dialogues in your macro-script.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FINISH_TUTORIALS">
+    	<text>(You can trigger the same tutorial dynamically by talking about animals. | See dialouges/dialogues-example.xml and dictionaries/animals.txt for details)</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+     
+</prompts>
