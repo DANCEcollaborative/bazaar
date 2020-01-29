@@ -30,13 +30,13 @@
 
 	
 	<script>
-		<goal name="start" difficulty="1">
-			
+		<goal name="start" difficulty="1"> 
+ 					
 			<step>
 				<!-- deliver a statement from the concept named "t_introduction"  -->
 				<initiation>t_introduction</initiation>
 			</step>
-			
+					
 			<step>
 				<!-- Every step begins with an initiating concept or literal phrase -->
 				<initiation>t_question1</initiation>
@@ -168,32 +168,32 @@
 		<!-- these match against regular expressions. -->
 
 		<concept label="s_answer1_correct" type="regex">
-			<phrase>air pushed up|air pushed upward|air pushed high|air pushed higher|pushed up|pushed upward|condenses|air condenses|gets heavier|more dense|more moisture|more clouds
+			<phrase>air is pushed up|air is pushed upward|air is pushed high|air is pushed higher|pushed up|pushed upward|condenses|air condenses|gets heavier|more dense|more moisture|more clouds
 			</phrase>
 		</concept>
 		
 	    <concept label="s_answer1_incorrect" type="regex">
-			<phrase>air pushed down|air pushed downward|air pushed low|air pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
+			<phrase>air is pushed down|air is pushed downward|air is pushed low|air is pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
 			</phrase>
 		</concept>
 
 		<concept label="s_answer1_1_correct" type="regex">
-			<phrase>condenses|air condenses|gets heavier|more dense|more moisture|more clouds
+			<phrase>air is pushed up|air is pushed upward|air is pushed high|air is pushed higher|pushed up|pushed upward|condenses|air condenses|gets heavier|more dense|more moisture|more clouds
 			</phrase>
 		</concept>
 		
 	    <concept label="s_answer1_1_incorrect" type="regex">
-			<phrase>air pushed down|air pushed downward|air pushed low|air pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
+			<phrase>air is pushed down|air is pushed downward|air is pushed low|air is pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
 			</phrase>
 		</concept>		
 
 		<concept label="s_answer1_2_correct" type="regex">
-			<phrase>condenses|air condenses|gets heavier|more dense|more moisture|more clouds
+			<phrase>air is pushed up|air is pushed upward|air is pushed high|air is pushed higher|pushed up|pushed upward|condenses|air condenses|gets heavier|more dense|more moisture|more clouds
 			</phrase>
 		</concept>
 		
 	    <concept label="s_answer1_2_incorrect" type="regex">
-			<phrase>air pushed down|air pushed downward|air pushed low|air pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
+			<phrase>air is pushed down|air is pushed downward|air is pushed low|air is pushed lower|pushed down|pushed downward|expands|air expands|gets lighter|less dense|less moisture|less clouds
 			</phrase>
 		</concept>		
 
