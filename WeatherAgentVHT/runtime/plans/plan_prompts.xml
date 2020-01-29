@@ -2,39 +2,38 @@
 <prompts>
     
     <prompt strategy="task" id="GREET">
-        <text>Hi, [NAME].</text>
-        <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME]!</text>
-        <text>Hello, [NAME]!</text>
     </prompt>
     
-    <prompt strategy="task" id="INTRODUCE">
-        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
-        <text>Okay! We'll be discussing factors affecting weather.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="WEATHER_TOPIC_SPECIFICS">
-        <text>I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="CONTINUE_WEATHER_TOPICS">
-        <text>Continue discussing relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts, and related to low or high pressure.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="SETUP">
-        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
-    </prompt>
-    
+<!--    
     <prompt strategy="task" id="GREET">
         <text>Hi, [NAME].</text>
         <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME]!</text>
         <text>Hello, [NAME]!</text>
     </prompt>
+ -->  
     
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>Okay! Today, we'll be discussing weather. | I can help you discuss relations between weather factors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WEATHER_TOPIC_SPECIFICS">
+        <text>I can help you discuss relations between weather factors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="CONTINUE_WEATHER_TOPICS">
+        <text>Continue discussing relations between pairs of weather factors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
+    </prompt>
+  
     <prompt strategy="task" id="INSTRUCTIONS">
     	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
     </prompt>
