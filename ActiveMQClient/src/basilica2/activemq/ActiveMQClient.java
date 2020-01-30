@@ -26,13 +26,14 @@ public class ActiveMQClient extends Component implements ChatClient
     private Connection connection = null;
     private String uri;
     private Session session;
+    private psiTextSubscriber textSubscriber; 
 
     private ArrayList<MessageConsumer> consumers;
     
     @Override
 	public void disconnect()
 	{
-		System.out.println("ActiveMQ client disconnecting...");
+		System.out.println("*** ActiveMQ client disconnecting... ***");
 		
 	}
 
@@ -52,6 +53,10 @@ public class ActiveMQClient extends Component implements ChatClient
         System.out.println("*** ActiveMQServer: initializing ***");
         initActiveMQServer();
         System.out.println("*** ActiveMQServer: initialization complete ***");
+        textSubscriber = new psiTextSubscriber("psiSubscriber"); 
+        System.out.println("*** ActiveMQServer: subscribing to 'test' ***");
+        subscribe(textSubscriber, "test");
+        System.out.println("*** ActiveMQServer: subscribe to 'test' complete ***");
     }
 
     private void initActiveMQServer() {
