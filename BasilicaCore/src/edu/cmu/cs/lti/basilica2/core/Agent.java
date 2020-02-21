@@ -56,6 +56,7 @@ public abstract class Agent implements LogUser
 	protected List<AgentObserver> myObservers;
 	private String userName;
 	private String roomName;
+	protected double location;
 
 	public Agent(String n)
 	{
