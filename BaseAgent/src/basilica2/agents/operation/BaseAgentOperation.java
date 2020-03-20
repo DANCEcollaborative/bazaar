@@ -77,6 +77,7 @@ public class BaseAgentOperation extends AgentOperation
 	protected String env_actor_name;
 	protected String agent_definition_file;
 	protected boolean use_debug_ui = true;
+	protected boolean no_condition_ui = false;
 	protected BaseAgentUI myUI;
 	protected AgentFactory myAgentFactory = new AgentFactory();
 	protected Map<String, AgentUI> myAgentUIs;
@@ -115,6 +116,7 @@ public class BaseAgentOperation extends AgentOperation
 			env_actor_name = properties.getProperty("operation.envactor");
 			agent_definition_file = properties.getProperty("operation.agentdefinition");
 			use_debug_ui = Boolean.parseBoolean(properties.getProperty("operation.hasdebugui"));
+			no_condition_ui = Boolean.parseBoolean(properties.getProperty("operation.noconditionui"));
 			preprocessors = getClasses(properties.getProperty("operation.preprocessors"));
 			processors = getClasses(properties.getProperty("operation.listeners"));
 		}
