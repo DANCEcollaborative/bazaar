@@ -4,10 +4,6 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 import java.util.ArrayList;
 import java.util.Map;
-// import java.sql.Connection;
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,6 +23,7 @@ public class ActiveMQClient extends Component implements ChatClient
     private String uri;
     private Session session;
     private psiTextSubscriber textSubscriber; 
+    public Agent psiAgent;
 
     private ArrayList<MessageConsumer> consumers;
     
@@ -48,15 +45,16 @@ public class ActiveMQClient extends Component implements ChatClient
 
     public ActiveMQClient(Agent a, String n, String pf, String uri) {
 		super(a, n, pf);
+		this.psiAgent = a;
         this.uri = uri;
         this.consumers = new ArrayList<>();
-        System.out.println("*** ActiveMQServer: initializing ***");
+        // System.out.println("*** ActiveMQServer: initializing ***");
         initActiveMQServer();
-        System.out.println("*** ActiveMQServer: initialization complete ***");
-        textSubscriber = new psiTextSubscriber("psiSubscriber"); 
-        System.out.println("*** ActiveMQServer: subscribing to 'test' ***");
+        // System.out.println("*** ActiveMQServer: initialization complete ***");
+        textSubscriber = new psiTextSubscriber("psiSubscriber",this,psiAgent); 
+        // System.out.println("*** ActiveMQServer: subscribing to 'test' ***");
         subscribe(textSubscriber, "test");
-        System.out.println("*** ActiveMQServer: subscribe to 'test' complete ***");
+        // System.out.println("*** ActiveMQServer: subscribe to 'test' complete ***");
     }
 
     private void initActiveMQServer() {
@@ -66,6 +64,11 @@ public class ActiveMQClient extends Component implements ChatClient
             //connection.setClientID("Customer");
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            System.out.println("*** ActiveMQServer: about to create PRESENCE EVENT ***");
+            PresenceEvent e = new PresenceEvent(this,"psiAgent",PresenceEvent.PRESENT); 
+            this.broadcast(e);
+            System.out.println("*** ActiveMQServer: PRESENCE EVENT created ***");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,6 +107,20 @@ public class ActiveMQClient extends Component implements ChatClient
             }
         }
     }
+    
+    @Override
+	protected void broadcast(Event e)
+	{
+		if (e.getSender() == null || !e.getSender().equals(this)) e.setSender(this);
+
+		log(Logger.LOG_LOW, "<broadcasting>" + e.getName() + " on " + myOutgoingConnections.size() + " connections</broadcasting>");
+		
+		for (int i = 0; i < myOutgoingConnections.size(); i++)
+		{
+			myOutgoingConnections.get(i).communicate(e);
+		}
+		informObserversOfSending(e);
+	}
 
 	@Override
 	public String getType()

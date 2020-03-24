@@ -12,7 +12,9 @@
 
     </components>
     <connections>
-        <connection from="client" to="inputCoordinator"/>
+    	<!-- This gets PSI input to system but on console it looks like it's coming from Tutor -->
+        <connection from="client" to="inputCoordinator"/> 
+        
         <connection from="psiClient" to="inputCoordinator"/>
         <connection from="inputCoordinator" to="inputCoordinator"></connection><connection from="inputCoordinator" to="outputCoordinator"></connection>
         <connection from="outputCoordinator" to="client"/>

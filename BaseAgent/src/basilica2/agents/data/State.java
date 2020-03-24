@@ -51,6 +51,12 @@ public class State
 		public String name;
 		public String role;
 		public boolean isPresent;
+		public String speech;
+		public String identity;
+		public String location;
+		public String facialExp;
+		public String bodyPos;
+		public String emotion;
 
 		@Override
 		public String toString()
@@ -172,6 +178,32 @@ public class State
 		setName(sid, name);
 	}
 
+	public String getStudentLocation(String sid)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			Student s = students.get(i);
+			if (s.isPresent)
+			{
+				// System.out.println("@@@@@ Get location - sid/chatId: " + sid + " - Location: " + s.location + " @@@@@");
+				if (s.chatId.equalsIgnoreCase(sid)) { return s.location; }
+			}
+		}
+		return null;
+	}
+
+	public void setLocation(String sid, String location)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				students.get(i).location = location;
+				// System.out.println("@@@@@ Set location - sid/chatId: " + sid + " - Location: " + location + " @@@@@");
+			}
+		}
+	}
+
 	public void setRole(String sid, String role)
 	{
 		for (int i = 0; i < students.size(); i++)
@@ -182,7 +214,7 @@ public class State
 			}
 		}
 	}
-
+	
 	public int getStudentCount()
 	{
 		int c = 0;

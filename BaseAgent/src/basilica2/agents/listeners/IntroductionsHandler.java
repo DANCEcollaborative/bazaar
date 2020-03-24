@@ -16,6 +16,7 @@ import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -175,8 +176,8 @@ public class IntroductionsHandler extends BasilicaAdapter
         HashMap<String, String> slots = new HashMap<String, String>();
         slots.put("[NAME]", name);
         MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GREET", slots), "GREET");
+        me.setDestinationUser(username);
         source.addProposal(new PriorityEvent(source, me, 0.3, prioritySource));
-
     }
 
     public static String toProperCase(String name) 
