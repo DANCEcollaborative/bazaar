@@ -9,8 +9,11 @@ import java.util.Map;
 import org.jivesoftware.smack.packet.Message;
 
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.AbstractPrioritySource;
 import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.State;
 import basilica2.util.MessageEventLogger;
 import basilica2.util.Timer;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -19,7 +22,14 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 
-import VHjava.VHSender;
+// import VHjava.VHSender;
+// import VHjava.VHReceiver;
+// import VHjava.VHjava.*;
+// import VHjava.VHJava.MessageProcessor;
+// import MessageProcessor;
+// import VHjava.MessageProcessor; 
+// import VHjava.RendererController;
+import VHjava.*; 
 
 /**
  * @author dadamson
@@ -40,11 +50,14 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGHEST_PRIORITY = 1.0;
 	
 	private VHSender vhSender = new VHSender();
+//	private VHReceiver vhReceiver = new VHReceiver();
+// 	private MessageProcessor vhProcessor = new MessageProcessor();
+//	private RendererController vhController = new RendererController();
 	private Boolean outputToVHT = false; 
-
+	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
-		// I have no idea what these strings are for.
+		// s1 = name; s2 = properties file name
 		super(agent, s1, s2);
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
@@ -187,7 +200,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		{
 			broadcast(me);
 			if (outputToVHT)
-				vhSender.sendMessage(me.getText());		
+				publishMessageToVHT(me);	
 			MessageEventLogger.logMessageEvent(me);
 		}
 
@@ -221,8 +234,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				broadcast(newme);			
 				MessageEventLogger.logMessageEvent(newme);
 				if (outputToVHT)
-					vhSender.sendMessage(newme.getText());
-					MessageEventLogger.logMessageEvent(newme);			
+					publishMessageToVHT(newme);			
 					try       											// Don't send message parts too quickly
 					{
 						Thread.sleep(6000);
@@ -237,6 +249,26 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
+	private void publishMessageToVHT(MessageEvent me)
+	{
+		String text = me.getText();
+		String to = me.getDestinationUser();
+		if (to != null) {
+			State state = StateMemory.getSharedState(this.getAgent());
+			String location = state.getStudentLocation(to);
+			if (location != null) {
+				text = me.getText() + " --- location: " + location;
+				// new PrivateMessageEvent(this, to, me.getFrom(), text, pme.getAllAnnotations());
+			}
+		}	
+
+		System.out.println("publishMessagetoVHT, text: " + text);
+		// vhSender.setChar(vhController.getCharacter());
+		// vhSender.setChar("Brad");
+		// vhSender.sendMessage(vhProcessor.processMessage(text));
+		vhSender.sendMessage(text);
+	}
+	
 	public void log(String from, String level, String msg)
 	{
 		log(level, msg);

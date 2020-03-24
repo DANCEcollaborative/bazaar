@@ -2,12 +2,15 @@ package basilica2.activemq;
 
 import org.w3c.dom.Text;
 
+import basilica2.agents.events.MessageEvent;
+
 import javax.jms.*;
 
 public class TopicListener implements MessageListener {
     private ActiveMQClient manager;
     private ISLSubscriber subscriber;
     private Topic topic;
+    private String text;
 
     TopicListener(ISLSubscriber subscriber, Topic topic) {
         this.subscriber = subscriber;

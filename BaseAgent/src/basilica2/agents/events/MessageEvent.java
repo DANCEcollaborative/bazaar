@@ -57,6 +57,7 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 
 	public static String GENERIC_NAME = "MESSAGE_EVENT";
 	protected String from;
+	protected String toUser;
 	protected String text;
 	protected Map<String, List<String>> annotations;
 	protected boolean ackExpected = false;
@@ -85,9 +86,24 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 		
 	}
 
+	public void setFrom(String newFrom)
+	{
+		from = newFrom;
+	}
+
 	public String getFrom()
 	{
 		return from;
+	}
+
+	public String getDestinationUser()
+	{
+		return toUser;
+	}
+
+	public void setDestinationUser(String toUser)
+	{
+		this.toUser = toUser;
 	}
 
 	public String getText()
