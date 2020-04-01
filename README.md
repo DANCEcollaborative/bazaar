@@ -6,7 +6,7 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
   - [Creating an agent on the Bazaar server](https://docs.google.com/document/d/e/2PACX-1vR-TeY4mhtRzsnyaeqqcvdefTPrI5RyxDteibIqlhec0lZJLx5X6Ap_Pw61mpYJWUNYOPZSC3LFaC12/pub)
   - [Bazaar video tutorials and slides](http://dance.cs.cmu.edu/talks/talk12.html)
   - [Architecture Overview](http://ankara.lti.cs.cmu.edu/bazaar/Bazaar%20Overview.pdf)
-  - [Atlas of the Bazaar](http://ankara.lti.cs.cmu.edu/bazaar/Bazaar%2520Overview.pdf) - Explanations about many of the customizable Bazaar files.
+  - [Atlas of the Bazaar](http://ankara.lti.cs.cmu.edu/bazaar/AtlasOfTheBazaar.pdf) - Explanations about many of the customizable Bazaar files.
   - [Viktoria's notes](https://docs.google.com/document/d/1EoVPrCCcJ1aBVRTRRx64QQ5GzfZdXd8eId-3o1XZWLE/edit#heading=h.u0d1fv8qf6f7) about running Bazaar.
   - [More links and publications](http://ankara.lti.cs.cmu.edu/bazaar/)
   - Most of the dialog files that you'll want to edit are in the runtime directory – e.g., …/WeatherAgent/runtime/.
@@ -15,7 +15,7 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
 Java 1.8 is recommended for running Bazaar. Older and newer versions may not work. Following are instructions for installing Java 1.8 in addition to any other Javas you may have installed. Some of these instructions are specific to Mac but can be generalized to Windows, etc.
 - [Install 'brew'](https://brew.sh) if not already installed. This tool makes it easy to install a lot of other things.
 - [Install jenv](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
-- [Install Java JDK 1.8](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
+- [Install Java JDK 1.8](https://installvirtual.com/install-openjdk-8-on-mac-using-brew-adoptopenjdk/).
 - Set your environment to JDK 1.8.
  - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
 
