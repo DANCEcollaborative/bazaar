@@ -14,11 +14,14 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
 
 # Install Java JDK 1.8
 Java 1.8 is recommended for running Bazaar. Older and newer versions may not work. Following are instructions for installing Java 1.8 in addition to any other Javas you may have installed. Some of these instructions are specific to Mac but can be generalized to Windows, etc.
-- [Install 'brew'](https://brew.sh) if not already installed. This tool makes it easy to install a lot of other things.
-- [Install jenv](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
-- [Install Java JDK 1.8](https://installvirtual.com/install-openjdk-8-on-mac-using-brew-adoptopenjdk/).
-- Set your environment to JDK 1.8.
-  - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
+- On Mac:
+  - [Install 'brew'](https://brew.sh) if not already installed. This tool makes it easy to install a lot of other things.
+  - [Install jenv](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
+  - [Install Java JDK 1.8](https://installvirtual.com/install-openjdk-8-on-mac-using-brew-adoptopenjdk/).
+  - Set your environment to JDK 1.8.
+    - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
+- On PC:
+  - Follow [these instructions](https://adoptopenjdk.net/installation.html). 
 
 # Installing and running the canonical DANCEcollaborative Docker version
 - Installing
