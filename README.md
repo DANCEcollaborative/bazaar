@@ -17,12 +17,11 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 - [Install jenv](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
 - [Install Java JDK 1.8](https://installvirtual.com/install-openjdk-8-on-mac-using-brew-adoptopenjdk/).
 - Set your environment to JDK 1.8.
- - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
+  - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
 
 # Installing and running the canonical DANCEcollaborative Docker version
 - Installing
- - Install a Java JDK. OpenJDK’s 1.8 is recommended.
-   - E.g., using ‘brew’ on Mac: brew cask install adoptopenjdk/openjdk/adoptopenjdk8
+ - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
  - Install Eclipse Java Enterprise or another IDE.
  - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
  - [Install and run Docker Desktop](https://docs.docker.com)
@@ -45,8 +44,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 # Installing and running the legacy version
 A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherAgentLegacy and MTurkAgentLegacy.
 - Installing
- - Install a Java JDK. OpenJDK’s 1.8 is recommended.
-   - E.g., using ‘brew’ on Mac: brew cask install adoptopenjdk/openjdk/adoptopenjdk8
+ - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above.)
  - Install Eclipse Java Enterprise or another IDE.
  - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
  - [Install and run Docker Desktop](https://docs.docker.com)
