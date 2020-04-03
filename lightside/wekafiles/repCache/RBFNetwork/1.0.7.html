@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<table summary="Package RBFNetwork:  summary">
+<tr><td valign=top>Author:</td><td width=50></td><td>Eibe Frank</td></tr>
+<tr><td valign=top>Category:</td><td width=50></td><td>Classification/regression</td></tr>
+<tr><td valign=top>Changes:</td><td width=50></td><td>RBFClassifier and RBFRegressor now also work when only one basis function is used</td></tr>
+<tr><td valign=top>Date:</td><td width=50></td><td>2014-18-07</td></tr>
+<tr><td valign=top>Depends:</td><td width=50></td><td>weka (&#62;=3.7.6)</td></tr>
+<tr><td valign=top>Description:</td><td width=50></td><td>There are currently three classes in this package: RBFNetwork, which trains the hidden layer in an unsupervised manner, and RBFRegressor and RBFClassifier, which are fully supervised. RBFNetwork implements a normalized Gaussian radial basis function network. It uses the k-means clustering algorithm to provide the basis functions and learns either a logistic regression (discrete class problems) or linear regression (numeric class problems) on top of that. Symmetric multivariate Gaussians are fit to the data from each cluster. If the class is nominal it uses the given number of clusters per class. It standardizes all numeric attributes to zero mean and unit variance. RBFRegressor implements Gaussian radial basis function networks for regression, trained in a fully supervised manner using WEKA's Optimization class by minimizing squared error with the BFGS method. It is possible to use conjugate gradient descent rather than BFGS updates, which is faster for cases with many parameters, and normalized basis functions instead of unnormalized ones. RBFClassifier is the equivalent of RBFRegressor for classification problems.</td></tr>
+<tr><td valign=top>License:</td><td width=50></td><td>GPL 3.0</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Weka team &#60;wekalist{[at]}list.scms.waikato.ac.nz&#62;</td></tr>
+<tr><td valign=top>PackageURL:</td><td width=50></td><td><a href="http://prdownloads.sourceforge.net/weka/RBFNetwork1.0.7.zip?download">http://prdownloads.sourceforge.net/weka/RBFNetwork1.0.7.zip?download</a></td></tr>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://weka.sourceforge.net/doc.packages/RBFNetwork">http://weka.sourceforge.net/doc.packages/RBFNetwork</a></td></tr>
+<tr><td valign=top>Version:</td><td width=50></td><td>1.0.7</td></tr>
+</table>
+</body>
+</html>

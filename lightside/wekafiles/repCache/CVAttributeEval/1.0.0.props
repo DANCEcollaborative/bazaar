@@ -1,0 +1,47 @@
+# Template Description file for a Weka package
+# 
+#
+
+# Package name (required)
+PackageName=CVAttributeEval
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2014-03-01
+
+# Title (required)
+Title= An Variation degree Algorithm to explore the space of attributes.
+
+# Category (recommended)
+Category=Attribute selection
+
+# Author (required)
+Author=Simon and Justin
+
+# Maintainer (required)
+Maintainer= Justin <ppchongboy@gmail.com>
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=Variation Clustering looks for a good subset of attributes in order to improve the classification accuracy of supervised learning techniques in classification problems with a huge number of attributes involved. It first creates a ranking of attributes based on the Variation value, then divide into two groups, last using Verification method to select the best group.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/fsvc/CVAttributeEval1.0.0.zip?download
+
+# URL for further information
+URL=https://sourceforge.net/projects/fsvc/
+
+# Enhances various other packages ?
+Enhances= 
+
+# Related to other packages?
+Related= attributeSelectionSearchMethods
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.4)
+
+
+

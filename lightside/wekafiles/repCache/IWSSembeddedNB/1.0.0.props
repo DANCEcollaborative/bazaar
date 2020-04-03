@@ -1,0 +1,41 @@
+# Description file for IWSSembeddedNB  attribute selection #algorithm
+ 
+
+# Package name (required)
+PackageName=IWSSembeddedNB
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2013-12-03
+
+# Title (required)
+Title=Incremental Wrapper Subset Selection with embedded NB classifier
+
+# Category (recommended)
+Category=Attribute selection
+
+
+# Author (required)
+Author=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+# Maintainer (required)
+Maintainer=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=Class which implements the IWSS search algorithm. This is a wrapper algorithm, but the Naive Bayes classifier is embedded in it, so this presents the advantages of a wrapper search, with the time complexity of a filter algorithm.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.dsi.uclm.es/personal/PabloBermejo/downloads/IWSSembeddedNB1.0.0.zip
+
+# Enhances various other packages ?
+Enhances=weka.attributeSelection
+
+# Dependencies 
+Depends=weka (>=3.7.1)
+

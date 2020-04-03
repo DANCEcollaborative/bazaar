@@ -1,0 +1,40 @@
+# Template Description file for a Weka package
+# 
+#
+
+# Package name (required)
+PackageName=SparseGenerativeModel
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2012-07-13
+
+# Title (required)
+Title=Sparse Generative Model
+
+# Category (recommended)
+Category=Text classification
+
+# Author (required)
+Author=Antti Puurula<asp12@cms.waikato.ac.nz>
+
+# Maintainer (required)
+Maintainer=Antti Puurula<asp12@cms.waikato.ac.nz>
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=A wrapper for Sparse Generative Model toolkit for generative modelling with sparse matrix representations.
+Comparable to Multinomial Naive Bayes but has more options and lower time and space complexities due to use of sparsity.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/sgmweka/SparseGenerativeModel.zip?download
+
+# URL for further information
+URL=http://sourceforge.net/projects/sgmweka/
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.1)

@@ -1,0 +1,46 @@
+# Description file for hiveJDBC
+#
+# 
+
+# Package name (required)
+PackageName=hiveJDBC
+
+# Version (required)
+Version=1.0.0
+
+#Date
+Date=2011-11-17
+
+# Title (required)
+Title=A package containing the JDBC driver and dependencies for the Apache Hive database, along with a DatabaseUtils.props file for use with Weka.
+
+Category=Misc
+
+# Author (required)
+Author=Mark Hall
+
+# Maintainer (required)
+Maintainer=Mark Hall <mhall@pentaho.com>
+
+# License (required)
+License=LGPL 2.0
+
+# Description (required)
+Description=A package containing the JDBC driver and dependencies for the Apache Hive database, along with a DatabaseUtils.props file for use with Weka. The driver supports reading from Hive but not writing.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/weka/hiveJDBC1.0.0.zip?download
+
+# URL for further information
+URL=https://github.com/pentaho/hive
+
+# Related to other packages?
+#Related=
+
+# Dependencies
+Depends=weka (>=3.7.2)
+
+MessageToDisplayOnInstallation=This package provides the Hive JDBC driver and\n\
+ a DatabaseUtils.props file configured for Hive. To use it you need to copy\n\
+ ${WEKA_HOME}/packages/hiveJDBC/DatabaseUtils.props to\n\
+ ${WEKA_HOME}/props
