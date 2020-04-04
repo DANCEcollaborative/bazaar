@@ -44,7 +44,8 @@ public class Predictor
 
 	// File name/location is defined in parameter map
 	Recipe recipe;
-	private boolean quiet = true;
+	// private boolean quiet = true;
+	private boolean quiet = false;
 	protected static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	StatusUpdater textUpdater = new StatusUpdater()
@@ -73,13 +74,16 @@ public class Predictor
 	{
 		this.recipe = r;
 		this.predictionAnnotation = p;
-		System.err.println("======== In Predictor.java ========");
+		System.err.println("======== In Predictor(r,p) ========");
+		String javaVersion = System.getProperty("java.version");
+		System.err.println("======== Java version: " + javaVersion);
 		/** setQuiet(true); */
 	}
 
 	public Predictor(Map<String, String> params) throws IOException, FileNotFoundException
 	{
 
+		System.err.println("======== In Predictor(<S,S>) ========");
 		if (!isQuiet()) logger.info(params.toString());
 
 		this.modelPath = params.get("path");
@@ -90,6 +94,7 @@ public class Predictor
 
 	public Predictor(String modelPath, String annotationName) throws IOException, FileNotFoundException
 	{
+		System.err.println("======== In Predictor(m,S) ========");
 		this.modelPath = modelPath;
 		this.predictionAnnotation = "predicted";
 		this.corpusCurrentAnnot = annotationName;
@@ -348,7 +353,7 @@ public class Predictor
 	{
 		System.err.println("======== Top_Level lightside: In Predictor.main ===========");
 		String modelPath = "saved/bayes.model.side";
-		/**
+		
 		if (args.length < 1 || args.length == 2)
 		{
 			printUsage();
@@ -356,23 +361,25 @@ public class Predictor
 		}
 		else
 			modelPath = args[0];
-		*/
-		modelPath = args[0];
+		
+		// modelPath = args[0];
 		System.err.println("======== modelPath: " + modelPath);
 		
 		String annotation = "predicted";
 
 		// to swallow all output except for the classifications
-		// System.err.println("======== before actualOut ===========");
+		System.err.println("======== before actualOut ===========");
 		PrintStream actualOut = System.out;
-		// System.err.println("======== after actualOut ===========");
+		System.err.println("======== after actualOut ===========");
 
 		try
 		{
+			System.err.println("======== creating predict.log ===========");
 			String outLogFilename = "predict.log";
 			PrintStream logPrintStream = new PrintStream(outLogFilename);
 			System.setOut(logPrintStream);
 			System.setErr(logPrintStream);
+			System.err.println("======== create predict.log complete ===========");
 		}
 		catch (FileNotFoundException e)
 		{
@@ -382,10 +389,13 @@ public class Predictor
 		try
 		{
 		logger.info("loading predictor from " + modelPath);
+		System.err.println("======== creating Predictor(m,a) ===========");
 		Predictor predictor = new Predictor(modelPath, annotation);
+		System.err.println("======== Predictor(m,a) created  ===========");
 
 		if (args.length > 2)
 		{
+			System.err.println("======== args.length > 2 ===========");
 			Set<String> corpusFiles = new HashSet<String>();
 
 			corpusFiles.add(args[2]);
@@ -420,7 +430,10 @@ public class Predictor
 		}
 		else
 		{
+			System.err.println("======== args.length <= 2 ===========");
+			System.err.println("======== creating input Scanner ===========");
 			Scanner input = new Scanner(System.in);
+			System.err.println("======== create input Scanner complete ===========");
 
 			while (input.hasNextLine())
 			{

@@ -67,7 +67,7 @@ public class ConverterControl
 			try
 			{
 				Recipe loadedRecipe = ConverterControl.loadRecipe(recipePath, format);
-				//System.out.println("ConverterControl: "+recipePath+" is "+format);
+				System.err.println("ConverterControl: "+recipePath+" is "+format);
 				return loadedRecipe;
 			}
 			catch(IOException e)

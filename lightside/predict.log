@@ -1,12 +1,15 @@
-Apr 03, 2020 1:51:51 PM edu.cmu.side.recipe.Predictor main
-INFO: loading predictor from models/negative.simple.model.xml
+======== create predict.log complete ===========
+Apr 04, 2020 9:14:28 AM edu.cmu.side.recipe.Predictor main
+INFO: loading predictor from /Users/rcmurray/git/DANCEcollaborative/bazaar/lightside/models/pos.predict.xml
+======== creating Predictor(m,a) ===========
+======== In Predictor(m,S) ========
 Predictor: loadModel()
-Apr 03, 2020 1:51:52 PM com.github.fommil.netlib.ARPACK <clinit>
+Apr 04, 2020 9:14:29 AM com.github.fommil.netlib.ARPACK <clinit>
 WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
-Apr 03, 2020 1:51:52 PM com.github.fommil.netlib.ARPACK <clinit>
+Apr 04, 2020 9:14:29 AM com.github.fommil.netlib.ARPACK <clinit>
 WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
-Predictor: prettyPredict()
-followRecipe took 0.096 seconds
-getTrainingTable took 0.0 seconds
-getLearner() took 0.0 seconds
-learner.predict took 0.1 seconds
+ConverterControl: /Users/rcmurray/git/DANCEcollaborative/bazaar/lightside/models/pos.predict.xml is XML
+======== Predictor(m,a) created  ===========
+======== args.length <= 2 ===========
+======== creating input Scanner ===========
+======== create input Scanner complete ===========

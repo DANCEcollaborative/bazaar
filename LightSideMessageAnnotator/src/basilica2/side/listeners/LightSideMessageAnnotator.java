@@ -51,7 +51,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		
 		try
 		{
-			// File lightSideLocation = new File(pathToLightSide);
+			File lightSideLocation = new File(pathToLightSide);
 			// process = Runtime.getRuntime().exec(new String[] { predictionCommand, pathToModel }, null, lightSideLocation); // ORIG
 			// process = Runtime.getRuntime().exec(predictionCommand, null, lightSideLocation); 
 			// process=Runtime.getRuntime().exec(predictionCommand);
@@ -59,7 +59,9 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 			/// test replacement for "process = ..." line above /// >>> getting Instantiation exception
 			try {
 				// process=Runtime.getRuntime().exec(predictionCommand);
-				ProcessBuilder pb = new ProcessBuilder(predictionCommand);
+				// ProcessBuilder pb = new ProcessBuilder(predictionCommand);
+				ProcessBuilder pb = new ProcessBuilder(predictionCommand,pathToModel);
+				pb.directory(lightSideLocation);
 				pb.inheritIO(); 
 				process = pb.start();
 				// process.waitFor();
@@ -109,14 +111,16 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		}
 
 
-		// stdin = process.getOutputStream();
-		// stderr = process.getErrorStream();
-		// stdout = process.getInputStream();
+		stdin = process.getOutputStream();
+		stderr = process.getErrorStream();
+		stdout = process.getInputStream();
+		
+		System.err.println("LightSideMessageAnnotator, creating reader & writer");
 
 		reader = new BufferedReader(new InputStreamReader(stdout));
 		writer = new BufferedWriter(new OutputStreamWriter(stdin));
 		
-		
+		System.err.println("LightSideMessageAnnotator, reader & writer creation complete");
 		
 		try {
 			Boolean readerStatus = reader.ready();
