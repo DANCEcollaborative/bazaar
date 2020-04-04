@@ -13,6 +13,15 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
 
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
+
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
 import edu.cmu.side.model.Recipe;
@@ -31,7 +40,7 @@ import edu.cmu.side.view.util.DocumentListTableModel;
  * 
  * @author dadamson
  */
-public class Predictor
+public class Predictor 
 {
 	/**
 	 * 
@@ -41,6 +50,8 @@ public class Predictor
 	String modelPath;
 	String predictionAnnotation = "predicted";
 	String corpusCurrentAnnot = "class";
+	// InputStream stdin = this.getInputStream();
+	// reader = new BufferedReader(new InputStreamReader(stdin));
 
 	// File name/location is defined in parameter map
 	Recipe recipe;
@@ -433,10 +444,18 @@ public class Predictor
 			System.err.println("======== args.length <= 2 ===========");
 			System.err.println("======== creating input Scanner ===========");
 			Scanner input = new Scanner(System.in);
+			// Scanner input = new Scanner(stdin);
 			System.err.println("======== create input Scanner complete ===========");
 
-			while (input.hasNextLine())
+			if (input.hasNextLine())
+				System.err.println("LightSide Predictor main: input.hasNextLine() = true");
+			else
+				System.err.println("LightSide Predictor main: input.hasNextLine() = false");
+			// while (input.hasNextLine())
+			while (true)
 			{
+				System.err.println("Predictor main, input scanner: Getting next line");
+				// String sentence = input.next();
 				String sentence = input.nextLine();
 				String answer = predictor.prettyPredict(sentence);
 				actualOut.println(answer);

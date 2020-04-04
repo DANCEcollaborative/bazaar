@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Scanner;
 
 import basilica2.agents.components.InputCoordinator;
@@ -63,6 +64,8 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 				ProcessBuilder pb = new ProcessBuilder(predictionCommand,pathToModel);
 				pb.directory(lightSideLocation);
 				pb.inheritIO(); 
+				// pb.redirectInput(Redirect.PIPE);
+				// pb.redirectOutput(Redirect.PIPE);
 				process = pb.start();
 				// process.waitFor();
 				
@@ -110,16 +113,20 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 			e.printStackTrace();
 		}
 
-
-		stdin = process.getOutputStream();
-		stderr = process.getErrorStream();
-		stdout = process.getInputStream();
 		
 		System.err.println("LightSideMessageAnnotator, creating reader & writer");
 
-		reader = new BufferedReader(new InputStreamReader(stdout));
-		writer = new BufferedWriter(new OutputStreamWriter(stdin));
-		
+		stdin = process.getOutputStream();  // this stdin is the output stream connected to the subprocess's input
+		stderr = process.getErrorStream();
+		stdout = process.getInputStream();  // this stdout is the input stream connected to the subprocess's output
+
+		reader = new BufferedReader(new InputStreamReader(stdout));   // buffered reader for subprocess's output
+		writer = new BufferedWriter(new OutputStreamWriter(stdin));   // buffered writer to the subprocess's input
+
+/**
+		reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+*/		
 		System.err.println("LightSideMessageAnnotator, reader & writer creation complete");
 		
 		try {
@@ -171,9 +178,9 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 			// ============== UPDATE ATTEMPT ==============
 			try { 
 				// System.err.println("LightSideMessageAnnotator, write text: " + text);  // TEMP
-				// writer.write(text + "\n");
-				writer.write(text);
-				writer.newLine();
+				writer.write(text + "\n");
+				// writer.write(text);
+				// writer.newLine();
 				// writer.flush();
 			}
 			catch (Exception e)
