@@ -53,7 +53,7 @@ public class ActiveMQClient extends Component implements ChatClient
         // System.out.println("*** ActiveMQServer: initialization complete ***");
         textSubscriber = new psiTextSubscriber("psiSubscriber",this,psiAgent); 
         // System.out.println("*** ActiveMQServer: subscribing to 'test' ***");
-        subscribe(textSubscriber, "test");
+        subscribe(textSubscriber, "PSI_Bazaar_Text");
         // System.out.println("*** ActiveMQServer: subscribe to 'test' complete ***");
     }
 
