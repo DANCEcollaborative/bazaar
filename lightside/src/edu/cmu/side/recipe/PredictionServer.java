@@ -26,6 +26,7 @@ import org.simpleframework.http.Part;
 import org.simpleframework.http.Query;
 import org.simpleframework.http.Request;
 import org.simpleframework.http.Response;
+import org.simpleframework.http.Path;
 import org.simpleframework.http.core.Container;
 import org.simpleframework.http.core.ContainerServer;
 import org.simpleframework.transport.Server;
@@ -78,13 +79,15 @@ public class PredictionServer implements Container
 
 	public void handleRequest(Request request, Response response)
 	{
+		System.err.println("PredictionServer, entering handleRequest");
 		try
 		{
 			PrintStream body = response.getPrintStream();
+			System.err.println("handleRequest 'body': " + body.toString());
 			long time = System.currentTimeMillis();
 
 			String target = request.getTarget();
-			System.out.println(request.getMethod() + ": " + target);
+			System.err.println("Request method:target >>> " + request.getMethod() + ":" + target);
 
 			String answer = null;
 
@@ -97,16 +100,30 @@ public class PredictionServer implements Container
 			{
 				if (request.getMethod().equals("POST"))
 				{
+					System.err.println("PredictionServer, calling handleUpload");
 					answer = handleUpload(request, response);
 				}
 				else
 				{
+					System.err.println("PredictionServer, calling handleGetUpload");
 					answer = handleGetUpload(request, response);
 				}
 
 			}
 
 			else if (target.startsWith("/try"))
+			{
+				if (request.getMethod().equals("POST"))
+				{
+					answer = handleEvaluate(request, response);
+				}
+				else
+				{
+					answer = handleGetEvaluate(request, response, "<h1>Try it out!</h2>");
+				}
+			}
+
+			else if (target.startsWith("/evaluate"))
 			{
 				if (request.getMethod().equals("POST"))
 				{
@@ -217,8 +234,15 @@ public class PredictionServer implements Container
 	{
 		Part part = request.getPart("sample");
 		String sample = part.getContent();
-			
-
+		System.err.println("PredictionServer, handleEvaluate - sample: " + sample);
+		
+		// TEMP ===============================
+		Path modelPath = request.getPath();  
+		System.err.println("PredictionServer, handleEvaluate - request.getPath(): " + modelPath.toString());
+		System.err.println("PredictionServer, handleEvaluate - request.getPath().getPath(1): " + modelPath.getPath(1).toString());
+		System.err.println("PredictionServer, handleEvaluate - request.getPath().getPath(1).substring(1);: " + request.getPath().getPath(1).substring(1));
+		// ====================================
+		
 		String modelName = request.getPath().getPath(1).substring(1);
 		String answer = checkModel(response, modelName);
 		if(!answer.equals("OK"))
@@ -247,9 +271,18 @@ public class PredictionServer implements Container
 	 */
 	protected String handleUpload(Request request, Response response) throws IOException, FileNotFoundException
 	{
+		// System.err.println("PredictionServer, handleUpload: Before request.getPart"); 
 		Part part = request.getPart("model");
-		String nick = request.getPart("modelNick").getContent();
+		// System.err.println("PredictionServer, handleUpload: After request.getPart(\"model\")"); 
+		// String nick = request.getPart("modelNick").getContent();   // >>> NPE here
+		
+		Part nickPart = request.getPart("modelNick");
+		System.err.println("PredictionServer, handleUpload: After request.getPart(\"modelNick\")"); 
+		String nick = nickPart.getContent(); // NPE here 	
+		
+		System.err.println("PredictionServer, handleUpload: After nickPart.getContent() >> nick = " + nick); 
 		String path = part.getFileName();
+		System.err.println("PredictionServer, handleUpload: path/model = " + path + " -- nickname = " + nick);
 		// TODO: use threaded tasks.
 
 		if (part != null && part.getFileName() != null)
@@ -356,6 +389,7 @@ public class PredictionServer implements Container
 
 	protected String checkModel(Response response, String model)
 	{
+		System.err.println("PredictionServer, checkModel -- model = " + model);
 		if (!predictors.containsKey(model))
 		{
 			// attempt to attach a local model
