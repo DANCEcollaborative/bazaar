@@ -263,8 +263,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}	
 
 		System.out.println("publishMessagetoVHT, text: " + text);
-		vhSender.setChar(vhController.getCharacter());
-		vhSender.setChar("Brad");
+		// vhSender.setChar(vhController.getCharacter());
+		// vhSender.setChar("Brad");
 		// vhSender.sendMessage(vhProcessor.processMessage(text));
 		vhSender.sendMessage(text);
 	}
