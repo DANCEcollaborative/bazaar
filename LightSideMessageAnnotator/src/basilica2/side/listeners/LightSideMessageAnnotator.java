@@ -14,6 +14,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 {
 	String pathToModel; 
 	String modelName; 
+	String modelNickname;
 	String predictionCommand; 
 	String host = "http://localhost:8000";
     String charset = "UTF-8";
@@ -23,7 +24,8 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 	{
 		super(a);
 		pathToModel = getProperties().getProperty("pathToModel", pathToModel);
-		modelName = getProperties().getProperty("modelName", modelName);
+		modelName = getProperties().getProperty("modelName", modelName);        
+		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
 	}
 
