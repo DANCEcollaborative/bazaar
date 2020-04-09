@@ -1,13 +1,14 @@
 package basilica2.side.listeners;
 import java.io.IOException;
-import java.util.List;
+// import java.util.List;
+import java.util.*;
 import java.util.Scanner;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
-import basilica2.side.util.MultipartUtility;;
+import basilica2.side.util.MultipartUtility;
 
 
 public class LightSideMessageAnnotator extends BasilicaAdapter
@@ -16,9 +17,12 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 	String modelName; 
 	String modelNickname;
 	String predictionCommand; 
+	String classificationString; 
+	
 	String host = "http://localhost:8000";
     String charset = "UTF-8";
     MultipartUtility mUtil; 
+    Hashtable<String, Integer> classify_dict = new Hashtable<String, Integer>();
 	
 	public LightSideMessageAnnotator(Agent a)
 	{
@@ -27,6 +31,15 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		modelName = getProperties().getProperty("modelName", modelName);        
 		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
+		classificationString = getProperties().getProperty("classifications", classificationString);
+		String[] classificationList = classificationString.split(","); 
+		int listLength = classificationList.length; 
+		for (int i=0; i<listLength; i+=2) {
+			classify_dict.put(classificationList[i],Integer.parseInt(classificationList[i+1]));
+		}
+		// System.err.println(">>> detected %: " + classify_dict.get("detected")); 
+		// System.err.println(">>> notdetected %: " + classify_dict.get("notdetected")); 		
+		
 	}
 
 	/**
@@ -73,13 +86,46 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
                 response.append('\r');
             }
             // return Response.status(Response.Status.OK).entity(response.toString()).type(MediaType.TEXT_PLAIN_TYPE).build();
-            System.err.println(">>>> LightSide response: "+ response.toString());
-            return response.toString(); 
+            String classifications = parseLightSideResponse(response);
+            System.err.println(">>>> LightSide response: "+ classifications);
+            return classifications; 
 	    } catch (IOException e) {
 	    	e.printStackTrace();
 	    	return "LightSide returned null"; 
 	    }	
-
+	}
+	
+	public String parseLightSideResponse(StringBuilder response)
+	{
+		String startFlag = "<h3>";
+		String endFlag = "</h3>";
+		String classSplit = "%<br>";
+		String withinClassSplit = ": ";
+		String[] classificationSpec;
+		String classification; 
+		Double classificationPercent; 
+		Integer classificationThreshold;
+		String plus = ""; 
+		
+		int start = response.indexOf(startFlag);
+		int end = response.indexOf(endFlag,start);
+		String classifications = response.substring((start+4),end);
+		// example: "detected: 57.4%<br>notdetected: 42.6%<br>"
+		String[] classificationList = classifications.split(classSplit); 
+		int listLength = classificationList.length; 
+		for (int i=0; i < listLength; i++) {
+			// example: "detected: 57.4"
+			classificationSpec = classificationList[i].split(withinClassSplit);
+			classification = classificationSpec[0];
+			classificationPercent = Double.parseDouble(classificationSpec[1]);
+			System.err.println(">>> classification: " + classification + " " + classificationPercent.toString() + "%");
+			try 
+		}
+		
+		// UPPER CASE RESPONSES DETECTED
+		
+		return classifications;   // TEMP
+		
 	}
 
 	/**
