@@ -22,7 +22,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 	String host = "http://localhost:8000";
     String charset = "UTF-8";
     MultipartUtility mUtil; 
-    Hashtable<String, Integer> classify_dict = new Hashtable<String, Integer>();
+    Hashtable<String, Double> classify_dict = new Hashtable<String, Double>();
 	
 	public LightSideMessageAnnotator(Agent a)
 	{
@@ -35,10 +35,10 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		String[] classificationList = classificationString.split(","); 
 		int listLength = classificationList.length; 
 		for (int i=0; i<listLength; i+=2) {
-			classify_dict.put(classificationList[i],Integer.parseInt(classificationList[i+1]));
+			classify_dict.put(classificationList[i],Double.parseDouble(classificationList[i+1]));
 		}
-		// System.err.println(">>> detected %: " + classify_dict.get("detected")); 
-		// System.err.println(">>> notdetected %: " + classify_dict.get("notdetected")); 		
+		System.err.println(">>> DICTIONARY detected %: " + classify_dict.get("detected")); 
+		System.err.println(">>> DICTIONARY notdetected %: " + classify_dict.get("notdetected")); 		
 		
 	}
 
@@ -104,7 +104,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		String[] classificationSpec;
 		String classification; 
 		Double classificationPercent; 
-		Integer classificationThreshold;
+		Double classificationThreshold;
 		String plus = ""; 
 		
 		int start = response.indexOf(startFlag);
@@ -119,7 +119,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 			classification = classificationSpec[0];
 			classificationPercent = Double.parseDouble(classificationSpec[1]);
 			System.err.println(">>> classification: " + classification + " " + classificationPercent.toString() + "%");
-			try 
+			// try 
 		}
 		
 		// UPPER CASE RESPONSES DETECTED
