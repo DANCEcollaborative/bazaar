@@ -37,8 +37,6 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		for (int i=0; i<listLength; i+=2) {
 			classify_dict.put(classificationList[i],Double.parseDouble(classificationList[i+1]));
 		}
-		System.err.println(">>> DICTIONARY detected %: " + classify_dict.get("detected")); 
-		System.err.println(">>> DICTIONARY notdetected %: " + classify_dict.get("notdetected")); 		
 		
 	}
 
@@ -85,9 +83,8 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
                 response.append(line);
                 response.append('\r');
             }
-            // return Response.status(Response.Status.OK).entity(response.toString()).type(MediaType.TEXT_PLAIN_TYPE).build();
             String classifications = parseLightSideResponse(response);
-            System.err.println(">>>> LightSide response: "+ classifications);
+            // System.out.println("LightSide response: "+ classifications);
             return classifications; 
 	    } catch (IOException e) {
 	    	e.printStackTrace();
@@ -105,27 +102,36 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		String classification; 
 		Double classificationPercent; 
 		Double classificationThreshold;
+		StringBuilder annotation = new StringBuilder(""); 
 		String plus = ""; 
 		
 		int start = response.indexOf(startFlag);
 		int end = response.indexOf(endFlag,start);
 		String classifications = response.substring((start+4),end);
-		// example: "detected: 57.4%<br>notdetected: 42.6%<br>"
+		
+		// example: "detected: 57.4%<br>notdetected: 42.6%<br>"		
 		String[] classificationList = classifications.split(classSplit); 
 		int listLength = classificationList.length; 
 		for (int i=0; i < listLength; i++) {
+			
 			// example: "detected: 57.4"
 			classificationSpec = classificationList[i].split(withinClassSplit);
 			classification = classificationSpec[0];
 			classificationPercent = Double.parseDouble(classificationSpec[1]);
-			System.err.println(">>> classification: " + classification + " " + classificationPercent.toString() + "%");
-			// try 
+			
+			// System.err.println(">>> classification: " + classification + " " + classificationPercent.toString() + "%");
+			try {
+				classificationThreshold = classify_dict.get(classification);
+				if (classificationPercent >= classificationThreshold) {
+					annotation.append(plus + classification.toUpperCase());
+					plus = "+"; 					
+				}
+			}
+			catch (Exception e) {
+		    	System.out.println("LightSide classification \"" + classification + "\" not used"); 
+			}			
 		}
-		
-		// UPPER CASE RESPONSES DETECTED
-		
-		return classifications;   // TEMP
-		
+		return annotation.toString(); 	
 	}
 
 	/**
