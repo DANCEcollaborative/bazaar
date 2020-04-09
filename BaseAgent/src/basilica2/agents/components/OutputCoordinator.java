@@ -49,10 +49,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
 	
-//	private VHSender vhSender = new VHSender();
-//	private VHReceiver vhReceiver = new VHReceiver();
+	private VHSender vhSender = new VHSender();
+	private VHReceiver vhReceiver = new VHReceiver();
 // 	private MessageProcessor vhProcessor = new MessageProcessor();
-//	private RendererController vhController = new RendererController();
+	private RendererController vhController = new RendererController();
 	private Boolean outputToVHT = false; 
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
@@ -199,8 +199,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if (!me.getText().contains("|"))
 		{
 			broadcast(me);
-			// if (outputToVHT)
-				// publishMessageToVHT(me);	
+			if (outputToVHT)
+				publishMessageToVHT(me);	
 			MessageEventLogger.logMessageEvent(me);
 		}
 
@@ -234,7 +234,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				broadcast(newme);			
 				MessageEventLogger.logMessageEvent(newme);
 				if (outputToVHT)
-					// publishMessageToVHT(newme);			
+					publishMessageToVHT(newme);			
 					try       											// Don't send message parts too quickly
 					{
 						Thread.sleep(6000);
@@ -249,25 +249,25 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
-//	private void publishMessageToVHT(MessageEvent me)
-	//	{
-	//		String text = me.getText();
-	//		String to = me.getDestinationUser();
-	//		if (to != null) {
-	//			State state = StateMemory.getSharedState(this.getAgent());
-	//			String location = state.getStudentLocation(to);
-	//			if (location != null) {
-	//				text = me.getText() + " --- location: " + location;
-	//				// new PrivateMessageEvent(this, to, me.getFrom(), text, pme.getAllAnnotations());
-	//			}
-	//		}	
-	//
-	//		System.out.println("publishMessagetoVHT, text: " + text);
-	//		// vhSender.setChar(vhController.getCharacter());
-	//		// vhSender.setChar("Brad");
-	//		// vhSender.sendMessage(vhProcessor.processMessage(text));
-	//		vhSender.sendMessage(text);
-	//	}
+	private void publishMessageToVHT(MessageEvent me)
+	{
+		String text = me.getText();
+		String to = me.getDestinationUser();
+		if (to != null) {
+			State state = StateMemory.getSharedState(this.getAgent());
+			String location = state.getStudentLocation(to);
+			if (location != null) {
+				text = me.getText() + " --- location: " + location;
+				// new PrivateMessageEvent(this, to, me.getFrom(), text, pme.getAllAnnotations());
+			}
+		}	
+
+		System.out.println("publishMessagetoVHT, text: " + text);
+		// vhSender.setChar(vhController.getCharacter());
+		// vhSender.setChar("Brad");
+		// vhSender.sendMessage(vhProcessor.processMessage(text));
+		vhSender.sendMessage(text);
+	}
 	
 	public void log(String from, String level, String msg)
 	{

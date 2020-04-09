@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<prompts>
-  
-    <prompt strategy="task" id="GREET">
+<prompts>	
+
+	<prompt strategy="task" id="GREET">
+       <text>&lt;speech>Hello, [NAME]&lt;/speech> &lt; <gaze sbm:target-pos="-45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Nice to meet you, [NAME]&lt;/speech> &lt; <gaze sbm:target-pos="0 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Howdy, [NAME]&lt;/speech> &lt; <gaze sbm:target-pos="45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+   </prompt>
+
+	<prompt strategy="task" id="GREET-2">
+       <text>&lt;speech>Hello, [NAME]&lt;/speech> &lt;gaze sbm:target-pos="-45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Nice to meet you, [NAME]&lt;/speech> &lt;gaze sbm:target-pos="0 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Howdy, [NAME]&lt;/speech> &lt;gaze sbm:target-pos="45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+   </prompt>
+    
+    <prompt strategy="task" id="GREET-NO-SBM">
         <text>Hi, [NAME].</text>
         <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME]!</text>
