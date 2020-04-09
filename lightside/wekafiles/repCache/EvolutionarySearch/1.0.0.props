@@ -1,0 +1,44 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=EvolutionarySearch
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2012-09-05
+
+# Title (required)
+Title=An Evolutionary Algorithm (EA) to explore the space of attributes.
+
+# Category (recommended)
+Category=Attribute selection
+
+# Author (required)
+Author=Sebastian Luna Valero <sebastian@uma.es>
+
+# Maintainer (required)
+Maintainer=Sebastian Luna Valero <sebastian@uma.es>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=EvolutionarySearch looks for a good subset of attributes in order to improve the classification accuracy of supervised learning techniques in classification problems with a huge number of attributes involved. It implements a (mu, lambda)-EA (Evolutionary Algorithm) with the following operators: uniform random initialization, binary tournament selection, single point crossover, bit flip mutation and generational replacement with elitism (i.e., the best individual is always kept). This package is properly designed to easily add new operators. Please, see the document entitled developers-guide.pdf available within this package.<br/><br/>For more information about similar algorithms see: <a href="http://neo.lcc.uma.es">the NEO Group website</a>
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.sebastianlunavalero.es/weka/EvolutionarySearch1.0.0.zip
+
+# URL for further information
+URL=http://neo.lcc.uma.es/
+
+# Enhances various other packages ?
+# Enhances=
+
+# Related to other packages?
+Related=attributeSelectionSearchMethods
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.5)

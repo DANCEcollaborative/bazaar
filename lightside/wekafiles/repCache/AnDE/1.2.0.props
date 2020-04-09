@@ -1,0 +1,38 @@
+# Description file for a Weka package AnDE (AODE and A2DE) 
+
+# Package name (required)
+PackageName=AnDE
+
+# Version (required)
+Version=1.2.0
+
+#Date (year-month-day)
+Date=2012-6-11
+
+# Title (required)
+Title=Averaged N-Dependence Estimators (includes A1DE and A2DE)
+
+# Category (recommended)
+Category=Classification
+
+# Author (required)
+Author=Nayyar Zaidi <nayyar.zaidi@monash.edu>
+
+# Maintainer (required)
+Maintainer=Nayyar Zaidi <nayyar.zaidi@monash.edu>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=Averaged N-Dependence Estimators (A1DE and A2DE) achieves highly accurate classification by averaging over all of a small space of alternative naive-Bayes-like models that have weaker (and hence less detrimental) independence assumptions than naive Bayes. The resulting algorithm is computationally efficient while delivering highly accurate classification on many learning  tasks. For more information, see, G. Webb, J. Boughton, Z. Wang (2005). Not So Naive Bayes: Aggregating One-Dependence Estimators. Machine Learning. 58(1):5-24 and G.I. Webb, J. Boughton, F. Zheng, K.M. Ting and H. Salem (2012). Learning by extrapolation from marginal to full-multivariate probability distributions: decreasingly naive {Bayesian} classification. Machine Learning. 86(2):233-272.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/averagedndepend/AnDE1.2.0.zip?download
+
+
+# URL for further information
+URL=http://www.csse.monash.edu.au/~webb/
+
+# Dependencies
+Depends=weka (>=3.7.1)

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="recorder_api">
+	<configuration>
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+		<!-- this is a special kind of concept for catching unexpected student responses -->
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+		
+		<!-- tutor concepts. -->
+		<concept label="introduction">
+			<phrase>A mouse is a small device used to point to and select items on your computer screen. 
+               Although mice come in many shapes, the typical mouse does look a bit like an actual mouse. 
+               It's small, oblong, and connected to the system unit by a long wire that resembles a tail. 
+               Some newer mice are wireless.
+            </phrase>
+		</concept>
+
+		<concept label="conclusion">
+			<phrase>Okay - you can now continue discussing other parts.</phrase>
+		</concept>
+				
+		<concept label="question1">
+			<phrase>How many buttons a mouse has?</phrase>
+		</concept>
+		
+		<!-- the tutor will choose randomly between multiple phrases for a concept. -->
+		<concept label="question2">
+			<phrase>When you move the mouse with your hand, what does appear on the screen?</phrase>
+		</concept>
+		
+		<concept label="unrecognized">
+			<phrase>I don't know what that is.</phrase>
+			<phrase>That doesn't make sense to me.</phrase>
+		</concept>
+		
+		<concept label="correct">
+			<phrase>Well done!</phrase>
+			<phrase>Okeydoke.</phrase>
+			<phrase>Sounds good...</phrase>
+		</concept>
+		
+		<concept label="ok">
+			<phrase>Ok</phrase>
+		</concept>
+		
+		<concept label="response1_1">
+			<phrase>Well done! A mouse usually has two buttons: A primary button (usually the left button) and 
+					a secondary button.
+			</phrase>
+		</concept>
+
+		<concept label="response1_2">
+			<phrase>Okeydoke. A mouse usually has two buttons: A primary button (usually the left button) and 
+					a secondary button. Many mice also have a wheel between the two buttons, 
+					which allows you to scroll smoothly through screens of information.
+			</phrase>
+		</concept>
+
+		<concept label="response2">
+			<phrase>Sounds good... When you move the mouse with your hand, 
+					a pointer on your screen moves in the same direction. 
+			</phrase>
+		</concept>
+		
+		<concept label="correct_response1">
+			<phrase>No! It's not correct. A mouse usually has two buttons: A primary button (usually the left button) and 
+					a secondary button. Many mice also have a wheel between the two buttons, 
+					which allows you to scroll smoothly through screens of information.
+			</phrase>
+		</concept>
+		
+	    <concept label="correct_response2">
+			<phrase>No! It's not correct. When you move the mouse with your hand, 
+					a pointer on your screen moves in the same direction. 
+			</phrase>
+		</concept>
+	
+		<!-- ent tutor concepts. -->
+		
+		
+		<!-- student concepts. -->
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+		
+		<!-- these match against regular expressions. -->
+
+		<concept label="answer1_1" type="regex">
+			<phrase>two|2</phrase>
+		</concept>
+					
+		<concept label="answer1_2" type="regex">
+			<phrase>three|3</phrase>
+		</concept>
+		
+	    <concept label="answer2" type="regex">
+			<phrase>pointer|arrow</phrase>
+		</concept>
+		
+		<!-- end student concepts. -->
+		
+	</concepts>
+	
+	
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "introduction"  -->
+				<initiation>introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question1</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response push="elicitate" say="response1_1">answer1_1</response>
+				<response push="elicitate" say="response1_2">answer1_2</response>
+				<response push="elicitate" say="correct_response1">unanticipated-response</response>
+			</step>
+			
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question2</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response push="elicitate" say="response2">answer2</response>
+				<response push="elicitate" say="correct_response2">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>conclusion</initiation>
+			</step>
+			
+		</goal>
+		
+
+		<goal name="elicitate" difficulty="0">
+
+			<step>
+				<initiation>Let's move on.</initiation>
+
+			</step>
+		</goal>
+	</script>
+
+</scenario>

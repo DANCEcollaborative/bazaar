@@ -1,66 +1,32 @@
 package basilica2.side.listeners;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.util.List;
 import java.util.Scanner;
-
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
-import basilica2.agents.listeners.BasilicaPreProcessor;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
+import basilica2.side.util.MultipartUtility;;
+
 
 public class LightSideMessageAnnotator extends BasilicaAdapter
 {
-	//String pathToLightSide = "/Users/researcher/Downloads/LightSide_2.3.1_20141107";
-	//String pathToModel = "saved/test.xml";
-	String pathToLightSide = "../../LightSideMessageAnnotator/runtime/LightSide_2.3.1_20141107";
-	String pathToModel = "saved/gst_reasoning_model.model.xml";
-	String predictionCommand = "scripts/predict.sh";
+	String pathToModel; 
+	String modelName; 
+	String modelNickname;
+	String predictionCommand; 
+	String host = "http://localhost:8000";
+    String charset = "UTF-8";
+    MultipartUtility mUtil; 
 	
-	OutputStream stdin;
-	InputStream stderr;
-	InputStream stdout;
-
-	BufferedReader reader;
-	BufferedWriter writer;
-
-	Process process = null;
-
 	public LightSideMessageAnnotator(Agent a)
 	{
 		super(a);
-		
-		pathToLightSide = getProperties().getProperty("pathToLightSide", pathToLightSide);
 		pathToModel = getProperties().getProperty("pathToModel", pathToModel);
+		modelName = getProperties().getProperty("modelName", modelName);        
+		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
-		
-		try
-		{
-			File lightSideLocation = new File(pathToLightSide);
-			process = Runtime.getRuntime().exec(new String[] { predictionCommand, pathToModel }, null, lightSideLocation);
-
-		}
-
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		stdin = process.getOutputStream();
-		stderr = process.getErrorStream();
-		stdout = process.getInputStream();
-
-		reader = new BufferedReader(new InputStreamReader(stdout));
-		writer = new BufferedWriter(new OutputStreamWriter(stdin));
-
 	}
 
 	/**
@@ -94,32 +60,26 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 
 	public String annotateText(String text)
 	{
-		String label = null;
+		String path = "models/";
 
-		if(process != null) try
-		{
-			writer.write(text + "\n");
-			writer.flush();
+		try {
+			MultipartUtility mUtil = new MultipartUtility(host+"/evaluate/" + modelName, charset);
+            mUtil.addFormField("sample", text);
+            mUtil.addFormField("model", path + modelName );
+            List<String> finish = mUtil.finish();
+            StringBuilder response = new StringBuilder();
+            for (String line : finish) {
+                response.append(line);
+                response.append('\r');
+            }
+            // return Response.status(Response.Status.OK).entity(response.toString()).type(MediaType.TEXT_PLAIN_TYPE).build();
+            System.err.println(">>>> LightSide response: "+ response.toString());
+            return response.toString(); 
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    	return "LightSide returned null"; 
+	    }	
 
-			String line = reader.readLine();
-			if (line != null)
-			{
-				System.out.println(line);
-				String[] response = line.split("\\s+");
-				label = response[0];
-			}
-			else
-			{
-				System.err.println("response from LightSide is null!");
-			}
-
-		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return label;
 	}
 
 	/**
@@ -158,5 +118,6 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 	{
 		//we do nothing
 	}
+	
 
 }

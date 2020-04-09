@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<table summary="Package gridSearch:  summary">
+<tr><td valign=top>Author:</td><td width=50></td><td>Bernhard Pfahringer, Geoff Holmes and Peter Reutemann</td></tr>
+<tr><td valign=top>Category:</td><td width=50></td><td>Classification</td></tr>
+<tr><td valign=top>Changes:</td><td width=50></td><td>Capabilities now allow unary class data sets.</td></tr>
+<tr><td valign=top>Date:</td><td width=50></td><td>2013-05-29</td></tr>
+<tr><td valign=top>Depends:</td><td width=50></td><td>weka (&#62;=3.7.1), partialLeastSquares (&#62;=1.0.0)</td></tr>
+<tr><td valign=top>Description:</td><td width=50></td><td>Performs a grid search of parameter pairs for the a classifier (Y-axis, default is LinearRegression with the "Ridge" parameter) and the PLSFilter (X-axis, "# of Components") and chooses the best pair found for the actual predicting.<br/><br/>The initial grid is worked on with 2-fold CV to determine the values of the parameter pairs for the selected type of evaluation (e.g., accuracy). The best point in the grid is then taken and a 10-fold CV is performed with the adjacent parameter pairs. If a better pair is found, then this will act as new center and another 10-fold CV will be performed (kind of hill-climbing). This process is repeated until no better pair is found or the best pair is on the border of the grid.<br/>In case the best pair is on the border, one can let GridSearch automatically extend the grid and continue the search. Check out the properties 'gridIsExtendable' (option '-extend-grid') and 'maxGridExtensions' (option '-max-grid-extensions &lt;num&gt;').<br/><br/>GridSearch can handle doubles, integers (values are just cast to int) and booleans (0 is false, otherwise true). float, char and long are supported as well.<br/><br/>The best filter/classifier setup can be accessed after the buildClassifier call via the getBestFilter/getBestClassifier methods.<br/>Note on the implementation: after the data has been passed through the filter, a default NumericCleaner filter is applied to the data in order to avoid numbers that are getting too small and might produce NaNs in other schemes.</td></tr>
+<tr><td valign=top>License:</td><td width=50></td><td>GPL 3.0</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Weka team &#60;wekalist{[at]}list.scms.waikato.ac.nz&#62;</td></tr>
+<tr><td valign=top>PackageURL:</td><td width=50></td><td><a href="http://prdownloads.sourceforge.net/weka/gridSearch1.0.7.zip?download">http://prdownloads.sourceforge.net/weka/gridSearch1.0.7.zip?download</a></td></tr>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://weka.sourceforge.net/doc.packages/gridSearch">http://weka.sourceforge.net/doc.packages/gridSearch</a></td></tr>
+<tr><td valign=top>Version:</td><td width=50></td><td>1.0.7</td></tr>
+</table>
+</body>
+</html>

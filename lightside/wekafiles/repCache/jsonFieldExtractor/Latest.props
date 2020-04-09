@@ -1,0 +1,64 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=jsonFieldExtractor
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2012-01-22
+
+# Title (required)
+Title=Extract fields from repeating JSON structures.
+
+# Category (recommended)
+Category=Knowledge Flow
+
+# Author (required)
+Author=Mark Hall <mhall@pentaho.com>
+
+# Maintainer (required)
+Maintainer=Mark Hall <mhall@pentaho.com>
+
+# License (required)
+License=LGPL 2.1
+
+# Description (required)
+Description=Provides a Knowledge Flow component that can be used to extract one or more fields from repeating blocks of JSON formatted text contained in the values of String attributes.The value of each string attribute in each instance is assumed to contain JSON blocks of the same structure. The user can specify a "path" to use for finding the field to extract. Each field extracted becomes a new attribute in the outgoing instances structure. The type of each attribute and its legal values (if nominal) can also be specified. Given the following "Alias" JSON structure: <br><br><code>{alias: [{firstname: "bob", lastname: "smith"}, {firstname: "fred", lastname: "jones"}]}</code><br><br> one would extract the lastname of the second element of the array with a path like:<br><br><code>$.alias[1].lastname</code><br><br>
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/weka/jsonFieldExtractor1.0.0.zip?download
+
+# URL for further information
+URL=http://wiki.pentaho.com/display/DATAMINING
+
+# Changes in this release
+#Changes=
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+# Related=packageName1,packageName2,...
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.5)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstall=Funky package requires some extra\n\
+# stuff to be installed after installing this package. You will\n\
+# need to blah, blah, blah in order to blah, blah, blah...
+
+# Prevent package from being loaded by Weka if the named
+# files/directories are not present (relative to the package's
+# root directory). Useful for packages that require the user
+# to manually install some third-party library(s). (optional)
+DoNotLoadIfFileNotPresent=lib/json-simple-1.1.jar
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+DoNotLoadIfFileNotPresentMessage=jsonFieldExtractor can't be loaded because json-simple-1.1.jar is missing from the lib directory

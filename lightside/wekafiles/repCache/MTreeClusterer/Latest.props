@@ -1,0 +1,43 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=MTreeClusterer
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2014-06-02
+
+# Title (required)
+Title=MTree Clusterer
+
+# Category (recommended)
+Category=Clustering
+
+# Author (required)
+Author=Marian Cristian Mihaescu <mihaescu@software.ucv.ro>, Cosmin Genoiu <genoiu@yahoo.com>
+
+# Maintainer (required)
+Maintainer=Marian Cristian Mihaescu <mihaescu@software.ucv.ro>
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=The package contains a new clustering algorithm based on MTree, witch also uses EM to determine when and how a node will be split. The main improvement this new clusterer brings is the possibility to use MTree specific methods like RangeQuery and KNN that are theoretically superior to those already implemented for weka clusterers. The package also contains a Test class.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/wekamtreeclusterer/MTree.zip
+
+Depends=weka (>=3.7.1)
+
+# URL for further information
+URL=http://google.com
+
+# Enhances various other packages ?
+#Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+#Related=packageName1,packageName2,...

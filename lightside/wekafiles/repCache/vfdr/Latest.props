@@ -1,0 +1,77 @@
+# Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=vfdr
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2017-04-03
+
+# Title (required)
+Title=VFDR algorithm
+
+# Category (recommended)
+Category=Classification, Online learning
+
+# Author (required)
+Author=Clément Fournier <cl-fournier@live.com>
+
+# Maintainer (required)
+Maintainer=Clément Fournier <cl-fournier@live.com>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Implementation of the VFDR algorithm. The algorithm performs on-line classification on numeric or nominal attributes. It learns decision rules, can perform multiclass classification, and needs only one pass on the data to build its model. However, this version does not support concept drift.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/Oowekyala/vfdr-weka/releases/download/v1.0.0/vfdr-1.0.0.zip
+
+# URL for further information
+URL=https://github.com/Oowekyala/vfdr-weka
+
+# Enhances various other packages ?
+Enhances=
+
+# Related to other packages?
+Related=
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.8.0)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstallation=
+
+# Prevent package from being loaded by Weka if the named
+# files/directories are not present (relative to the package's
+# root directory). Useful for packages that require the user
+# to manually install some third-party library(s). (optional)
+#DoNotLoadIfFileNotPresent=
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+#DoNotLoadIfFileNotPresentMessage=
+
+# Prevent package from being loaded by Weka if the named
+# classes can't be instantiated. Useful for packages that rely
+# on stuff that has to be installed manually (an example is
+# Java3D, which installs itself into the system JRE/JDK. (optional)
+#DoNotLoadIfClassNotPresent=
+
+# Log message to be displayed if package can't be loaded due to 
+# missing classes. (optional).
+#DoNotLoadIfClassNotPresentMessage=
+
+# Prevent package from being loaded by Weka if one or more (comma-separated)
+# environment variables or java properties are not set. (optional).
+#DoNotLoadIfEnvVarNotSet=
+
+# Log message to be displayed if package can't be loaded due to unset
+# environment variables or java properties.
+#DoNotLoadIfEnvVarNotSetMessage=

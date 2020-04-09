@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<h2>denormalize: An instance filter that collapses instances with a common grouping ID value into a single instance.</h2>
+
+
+<table>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://weka.sourceforge.net/doc.packages/denormalize">http://weka.sourceforge.net/doc.packages/denormalize</a></td></tr>
+<tr><td valign=top>Author:</td><td width=50></td><td>Mark Hall</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Weka team &#60;wekalist{[at]}list.scms.waikato.ac.nz&#62;</td></tr>
+</table>
+<p>
+<p>An instance filter that collapses instances with a common grouping ID value into a single instance. Useful for converting transactional data into a format that Weka's association rule learners can handle. IMPORTANT: assumes that the incoming batch of instances has been sorted on the grouping attribute. The values of nominal attributes are converted to indicator attributes. These can be either binary (with f and t values) or unary with missing values used to indicate absence. The later is Weka's old market basket format, which is useful for Apriori. Numeric attributes can be aggregated within groups by computing the average, sum, minimum or maximum.</p>
+
+<p>All available versions:<br>
+<a href="Latest.html">Latest</a><br>
+<a href="1.0.3.html">1.0.3</a><br>
+<a href="1.0.1.html">1.0.1</a><br>
+<a href="1.0.0.html">1.0.0</a><br>
+</body>
+</html>
