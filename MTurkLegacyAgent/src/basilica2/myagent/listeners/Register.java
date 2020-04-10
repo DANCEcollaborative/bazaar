@@ -206,10 +206,21 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 			User user = getUser(me.getFrom());
 			if(user == null) return;
 			
-			if(me.hasAnnotations("DETECTED")) {
+			if((me.hasAnnotations("DETECTED")) && (me.hasAnnotations("NOTDETECTED"))) {
 				String prompt_message_="";
-				prompt_message_="I'm glad that you feel positive! :-)";
-			
+				prompt_message_="I'm glad that you feel positive, but I'm sorry that you also feel negative.";			
+				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
+				source.queueNewEvent(prompt);
+			}
+			else if (me.hasAnnotations("DETECTED")) {
+				String prompt_message_="";
+				prompt_message_="I'm glad that you feel positive! :-)";			
+				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
+				source.queueNewEvent(prompt);
+			}
+			else if (me.hasAnnotations("NOTDETECTED")) {
+				String prompt_message_="";
+				prompt_message_="I'm sorry that you feel negative. :-(";			
 				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
 				source.queueNewEvent(prompt);
 			}
