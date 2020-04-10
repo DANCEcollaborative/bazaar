@@ -206,6 +206,15 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 			User user = getUser(me.getFrom());
 			if(user == null) return;
 			
+			if(me.hasAnnotations("DETECTED")) {
+				String prompt_message_="";
+				prompt_message_="I'm glad that you feel positive! :-)";
+			
+				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
+				source.queueNewEvent(prompt);
+			}
+			
+			
 			if(me.hasAnnotations("pos"))
 			{
 				if(userList.size() > 1)
