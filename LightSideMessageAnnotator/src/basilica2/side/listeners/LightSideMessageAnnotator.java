@@ -1,7 +1,7 @@
 package basilica2.side.listeners;
 import java.io.IOException;
-// import java.util.List;
 import java.util.*;
+import java.io.File;
 import java.util.Scanner;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
@@ -13,6 +13,7 @@ import basilica2.side.util.MultipartUtility;
 
 public class LightSideMessageAnnotator extends BasilicaAdapter
 {
+	String pathToLightSide; 
 	String pathToModel; 
 	String modelName; 
 	String modelNickname;
@@ -27,15 +28,40 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 	public LightSideMessageAnnotator(Agent a)
 	{
 		super(a);
+		pathToLightSide = getProperties().getProperty("pathToLightSide", pathToLightSide);
 		pathToModel = getProperties().getProperty("pathToModel", pathToModel);
 		modelName = getProperties().getProperty("modelName", modelName);        
 		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
+		Process process;
+		File lightSideLocation = new File(pathToLightSide);
+		
 		classificationString = getProperties().getProperty("classifications", classificationString);
 		String[] classificationList = classificationString.split(","); 
 		int listLength = classificationList.length; 
 		for (int i=0; i<listLength; i+=2) {
 			classify_dict.put(classificationList[i],Double.parseDouble(classificationList[i+1]));
+		}
+		
+		try {
+			ProcessBuilder pb = new ProcessBuilder(predictionCommand,pathToModel);
+			pb.directory(lightSideLocation);
+			pb.inheritIO(); 
+			process = pb.start(); 
+						
+			Boolean isAlive = process.isAlive();
+			if (isAlive) {
+				System.err.println("LightSide process is alive");
+			}
+			else {
+				System.err.println("LightSide process is NOT alive");			
+			}
+			
+		} 
+		catch (Exception e)
+		{
+			System.err.println("LightSideMessageAnnotator, error starting LightSide");
+			e.printStackTrace();
 		}
 		
 	}
