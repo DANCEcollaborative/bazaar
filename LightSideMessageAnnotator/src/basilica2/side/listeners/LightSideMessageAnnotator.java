@@ -84,7 +84,6 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
                 response.append('\r');
             }
             String classifications = parseLightSideResponse(response);
-            // System.out.println("LightSide response: "+ classifications);
             return classifications; 
 	    } catch (IOException e) {
 	    	e.printStackTrace();
@@ -108,18 +107,12 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		int start = response.indexOf(startFlag);
 		int end = response.indexOf(endFlag,start);
 		String classifications = response.substring((start+4),end);
-		
-		// example: "detected: 57.4%<br>notdetected: 42.6%<br>"		
 		String[] classificationList = classifications.split(classSplit); 
 		int listLength = classificationList.length; 
 		for (int i=0; i < listLength; i++) {
-			
-			// example: "detected: 57.4"
 			classificationSpec = classificationList[i].split(withinClassSplit);
 			classification = classificationSpec[0];
 			classificationPercent = Double.parseDouble(classificationSpec[1]);
-			
-			// System.err.println(">>> classification: " + classification + " " + classificationPercent.toString() + "%");
 			try {
 				classificationThreshold = classify_dict.get(classification);
 				if (classificationPercent >= classificationThreshold) {
