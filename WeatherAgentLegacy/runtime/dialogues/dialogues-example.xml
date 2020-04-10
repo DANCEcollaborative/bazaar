@@ -7,9 +7,10 @@
         <intro>
                Would you like to answer some questions related to low pressure and precipitation ?
         </intro>
-        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
-        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
-        
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>  
+        <accept annotation="DETECTED">I'm glad that you feel positive! :-)</accept> 
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>    
+        <cancel annotation="NOTDETECTED">I'm sorry that you feel negative :-(</cancel>       
     </dialog>
     <dialog concept="LP_TEMPERATURE" scenario="scenario-lp_temperature" description="low pressure temperature">
     	<trigger annotation="LOW-PRESSURE_TEMPERATURE"/>
