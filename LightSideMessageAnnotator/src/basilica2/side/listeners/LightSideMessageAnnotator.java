@@ -47,7 +47,15 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 			ProcessBuilder pb = new ProcessBuilder(predictionCommand,pathToModel);
 			pb.directory(lightSideLocation);
 			pb.inheritIO(); 
-			process = pb.start();   
+			process = pb.start(); 
+						
+			Boolean isAlive = process.isAlive();
+			if (isAlive) {
+				System.err.println("LightSide process is alive");
+			}
+			else {
+				System.err.println("LightSide process is NOT alive");			
+			}
 			
 		} 
 		catch (Exception e)
