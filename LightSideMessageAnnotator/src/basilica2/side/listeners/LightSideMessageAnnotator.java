@@ -14,22 +14,24 @@ import basilica2.side.util.MultipartUtility;
 public class LightSideMessageAnnotator extends BasilicaAdapter
 {
 	String pathToLightSide; 
-	String pathToModel; 
 	String modelName; 
 	String modelNickname;
 	String predictionCommand; 
 	String classificationString; 
 	
-	String host = "http://localhost:8000";
+	String host = "http://localhost";
+	String port = "8000"; 
     String charset = "UTF-8";
+	String modelPath = "models/";
     MultipartUtility mUtil; 
     Hashtable<String, Double> classify_dict = new Hashtable<String, Double>();
 	
 	public LightSideMessageAnnotator(Agent a)
 	{
 		super(a);
+		port = getProperties().getProperty("port", port);
 		pathToLightSide = getProperties().getProperty("pathToLightSide", pathToLightSide);
-		pathToModel = getProperties().getProperty("pathToModel", pathToModel);
+		modelPath = getProperties().getProperty("modelPath", modelPath);
 		modelName = getProperties().getProperty("modelName", modelName);        
 		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
@@ -44,7 +46,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		}
 		
 		try {
-			ProcessBuilder pb = new ProcessBuilder(predictionCommand,pathToModel);
+			ProcessBuilder pb = new ProcessBuilder(predictionCommand,port,modelNickname + ":" + modelPath + modelName);
 			pb.directory(lightSideLocation);
 			pb.inheritIO(); 
 			process = pb.start(); 
@@ -97,12 +99,11 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 
 	public String annotateText(String text)
 	{
-		String path = "models/";
 
 		try {
-			MultipartUtility mUtil = new MultipartUtility(host+"/evaluate/" + modelName, charset);
+			MultipartUtility mUtil = new MultipartUtility(host + ":" + port + "/evaluate/" + modelName, charset);
             mUtil.addFormField("sample", text);
-            mUtil.addFormField("model", path + modelName );
+            mUtil.addFormField("model", modelPath + modelName );
             List<String> finish = mUtil.finish();
             StringBuilder response = new StringBuilder();
             for (String line : finish) {
