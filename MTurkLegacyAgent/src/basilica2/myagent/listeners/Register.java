@@ -24,6 +24,7 @@ import basilica2.social.events.DormantGroupEvent;
 import basilica2.social.events.DormantStudentEvent;
 import basilica2.socketchat.WebsocketChatClientLegacy;
 import basilica2.tutor.events.DoTutoringEvent;
+import basilica2.agents.data.PromptTable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xerces.parsers.DOMParser;
@@ -90,7 +91,8 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
     	planList.add("PLAN2");
     	planList.add("PLAN3");
     	planList.add("PLAN4");
-    	
+    	  	
+    	lightSidePrompts = new PromptTable(lightSidePromptsPath);   	
     	
 		String dialogueConfigFile="dialogues/dialogues-example.xml";
     	loadconfiguration(dialogueConfigFile);
@@ -121,6 +123,9 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
          
     public int bazaarstate=1;//bazaarstate= 1, prompt, bazaarstate=0, not prompt, after 10 minutes.
     public int totalseconds= 600;// countdown of 10 minutes;
+   
+    String lightSidePromptsPath="dialogues/lightside-prompts.xml";
+	private PromptTable lightSidePrompts;
     
 	private void loadconfiguration(String f)
 	{
@@ -205,26 +210,28 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 			
 			User user = getUser(me.getFrom());
 			if(user == null) return;
-			
-			if((me.hasAnnotations("DETECTED")) && (me.hasAnnotations("NOTDETECTED"))) {
-				String prompt_message_="";
-				prompt_message_="I'm glad that you feel positive, but I'm sorry that you also feel negative.";			
-				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
-				source.queueNewEvent(prompt);
-			}
-			else if (me.hasAnnotations("DETECTED")) {
-				String prompt_message_="";
-				prompt_message_="I'm glad that you feel positive! :-)";			
-				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
-				source.queueNewEvent(prompt);
+
+			if (me.hasAnnotations("DETECTED")) {
+				String prompt_message=lightSidePrompts.lookup("DETECTED");
+				if (prompt_message != "DETECTED") {
+					PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
+					source.queueNewEvent(prompt);
+				}
+				else {
+					System.err.println("Prompt for DETECTED not found");
+				}
+					
 			}
 			else if (me.hasAnnotations("NOTDETECTED")) {
-				String prompt_message_="";
-				prompt_message_="I'm sorry that you feel negative. :-(";			
-				PromptEvent prompt = new PromptEvent(source,prompt_message_,"plan_reasoning");
-				source.queueNewEvent(prompt);
-			}
-			
+				String prompt_message=lightSidePrompts.lookup("NOTDETECTED");
+				if (prompt_message != "NOTDETECTED") {
+					PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
+					source.queueNewEvent(prompt);
+				}
+				else {
+					System.err.println("Prompt for _NOT_DETECTED not found");
+				}
+			}			
 			
 			if(me.hasAnnotations("pos"))
 			{
