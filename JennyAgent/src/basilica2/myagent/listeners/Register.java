@@ -92,7 +92,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
     	planList.add("PLAN3");
     	planList.add("PLAN4");
     	  	
-    	lightSidePrompts = new PromptTable(lightSidePromptsPath);   	
+    	lightSidePrompts = new PromptTable(lightSidePromptsPath);
     	
 		String dialogueConfigFile="dialogues/dialogues-example.xml";
     	loadconfiguration(dialogueConfigFile);
@@ -211,11 +211,12 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 			User user = getUser(me.getFrom());
 			if(user == null) return;
 
+			Boolean promptFound = false; 
+			String promptRaw = ""; 
 			if (me.hasAnnotations("DETECTED")) {
-				String prompt_message=lightSidePrompts.lookup("DETECTED");
-				if (prompt_message != "DETECTED") {
-					PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
-					source.queueNewEvent(prompt);
+				promptRaw=lightSidePrompts.lookup("DETECTED");
+				if (promptRaw != "DETECTED") {
+					promptFound = true; 
 				}
 				else {
 					System.err.println("Prompt for DETECTED not found");
@@ -223,15 +224,46 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 					
 			}
 			else if (me.hasAnnotations("NOTDETECTED")) {
-				String prompt_message=lightSidePrompts.lookup("NOTDETECTED");
-				if (prompt_message != "NOTDETECTED") {
-					PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
-					source.queueNewEvent(prompt);
+				promptRaw=lightSidePrompts.lookup("NOTDETECTED");
+				if (promptRaw != "NOTDETECTED") {
+					promptFound = true; 
 				}
 				else {
 					System.err.println("Prompt for _NOT_DETECTED not found");
 				}
-			}			
+			}	
+			if (promptFound) {
+
+				
+				int plan = 0; 
+				if (me.hasAnnotations("PLAN1"))
+				{
+					plan = 1;
+				}
+				else if (me.hasAnnotations("PLAN2"))
+				{
+					plan = 2;
+				}
+				else if (me.hasAnnotations("PLAN3"))
+				{
+					plan = 3;
+				}						
+				else if (me.hasAnnotations("PLAN4"))
+				{
+					plan = 4;
+				}
+
+				Map<String, String> lightSidePromptVariables = new HashMap<String, String>();
+				lightSidePromptVariables.put("%this_student%",me.getFrom());
+				lightSidePromptVariables.put("%this_student_plan%",String.valueOf(plan));
+				String prompt_message = promptRaw;
+				for (Map.Entry<String, String> entry : lightSidePromptVariables.entrySet())
+				    prompt_message = prompt_message.replace(entry.getKey(), entry.getValue().toString());
+				System.err.println("=== prompt_message: " + prompt_message); 
+				
+				PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
+				source.queueNewEvent(prompt);
+			}
 			
 			if(me.hasAnnotations("pos"))
 			{

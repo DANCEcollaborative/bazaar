@@ -2,7 +2,7 @@
 <prompts>
 
     <prompt strategy="task" id="DETECTED">
-        <text>"Student " + userwithplan.name + ", can you expand on other reasons for supporting that plan?"</text>
+        <text>%this_student%, can you expand on other reasons for supporting that plan?</text>
         <text>It looks like people are in agreement. What kind of objections might someone raise against the agreed-upon plan?</text>
         <text>Can you put yourself in the shoes of a possible supporter of another plan? What might they say?</text>
     </prompt>
