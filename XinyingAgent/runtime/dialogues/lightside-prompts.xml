@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="DETECTED">
+        <text>"Hi " + userwithplan.name + ", can you elaborate on the reason you agreed or disagreed with " + me.getFrom() + "’s choice about plan " + plan + "? Or the reason why you choose plan " + userwithplan.plan + "?"</text>
+        <text>Hi everyone, before coming to the final decision session, please reflect on your choice and the reason behind it.</text>
+    </prompt>
+
+    <prompt strategy="task" id="NOTDETECTED">
+    </prompt>
+ 
+</prompts>

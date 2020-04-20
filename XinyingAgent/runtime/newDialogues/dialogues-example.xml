@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+
+    <!-- <dialog concept="RECORDER_API" scenario="scenario-recorder_api">
+    	
+        <intro>We need to create a new instance/object for recorder and choose a recorder api to use.</intro>
+        <accept annotation="QUESTION">It seems you have a question regarding recorder instance.</accept>
+        <cancel annotation="TYPE_RECORDER">Move on and decide other steps.</cancel>                
+        
+    </dialog>    
+
+    <dialog concept="AUDIO_SOURCE" scenario="scenario-audio_source">
+    	
+        <intro>We need to set an audio source for the recorder object.</intro>
+        <accept annotation="QUESTION">It seems you have a question regarding audio sources or how to set them.</accept>
+        <cancel annotation="TYPE_AUDIO_SOURCE">Move on and decide other steps.</cancel>                
+        
+    </dialog>
+
+    <dialog concept="AUDIO_ENCODER" scenario="scenario-audio_encoding">
+    	
+        <intro>We need to set an audio encoder for the recorder object.</intro>
+        <accept annotation="QUESTION">It seems you have a question regarding audio encoding.</accept>
+        <cancel annotation="TYPE_AUDIO_ENCODER">Move on and decide other steps.</cancel>                
+        
+    </dialog>
+  
+    <dialog concept="OUTPUT_FORMAT" scenario="scenario-output_format">
+    	
+        <intro>We need to set an output format type on recorder object.</intro>
+        <accept annotation="QUESTION">It seems you have a question regarding output format.</accept>
+        <cancel annotation="TYPE_OUTPUT_FORMAT">Move on and decide other steps.</cancel>                
+        
+    </dialog>
+
+    <dialog concept="PREPARE" scenario="scenario-donothing">
+    	
+        <intro>We need to prepare the recorder instance before starting it.</intro>
+        <accept annotation="QUESTION">Call recorder_obj.prepare() on the Recorder instance.</accept>
+        <cancel annotation="PREPARE_SYNTAX">Move on and decide other steps.</cancel>                
+        
+    </dialog>
+
+    <dialog concept="RELEASE" scenario="scenario-donothing">
+
+        <intro>When you are done with the Recorder instance, call release on recorder. It is always recommended to free the resource immediately.</intro>
+        <accept annotation="QUESTION">Call recorder_obj.release() on the Recorder instance.</accept>
+        <cancel annotation="RELEASE_SYNTAX">Move on and decide other steps.</cancel>                
+        
+    </dialog>
+
+    <dialog concept="START" scenario="scenario-donothing">
+    	
+        <intro>You need to Start audio recording</intro>
+        <accept annotation="QUESTION">To start audio capture, call Recorder_obj.start().</accept>
+        <cancel annotation="START_SYNTAX">Move on and decide other steps.</cancel>                
+        
+    </dialog>
+
+    <dialog concept="STOP" scenario="scenario-donothing">
+    	
+        <intro>You need to Stop audio recording</intro>
+        <accept annotation="QUESTION">To stop audio capture, call Recorder_obj.start().</accept>
+        <cancel annotation="STOP_SYNTAX">Move on and decide other steps.</cancel>                
+        
+    </dialog>    -->
+    
+    <!--   <dialog concept="MOUSE" scenario="scenario-mouse">
+    	
+        <intro>Will you like to discuss more on mouse?</intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other parts.</cancel>                
+        
+    </dialog>
+    
+    <dialog concept="KEYBOARD" scenario="scenario-keyboard">
+    	
+        <intro>Will you like to discuss more on keyboard?</intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other parts.</cancel>                
+        
+    </dialog>
+    
+    <dialog concept="MONITOR" scenario="scenario-monitor">
+    	
+        <intro>
+               Will you like to discuss more on monitor?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other parts.</cancel>                
+        
+    </dialog>
+    
+    <dialog concept="CPU" scenario="scenario-cpu">
+    	
+        <intro>
+               Will you like to discuss more on system unit?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other parts.</cancel>                
+        
+    </dialog> -->
+    
+    <dialog concept="LP_PRECIPITATION" scenario="scenario-lp_precipitation" description="low pressure precipitation">
+    	
+        <intro>
+               Will you like to answer some questions related to low pressure and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="LP_TEMPERATURE" scenario="scenario-lp_temperature" description="low pressure temperature">
+    	
+        <intro>
+               Will you like to answer some questions related to low pressure and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="HP_PRECIPITATION" scenario="scenario-hp_precipitation" description="high pressure precipitation">
+    	
+        <intro>
+               Will you like to answer some questions related to high pressure and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="LP_WINDDIRECTION" scenario="scenario-lp_winddirection" description="low pressure wind direction">
+    	
+        <intro>
+               Will you like to answer some questions related to low pressure and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="HP_TEMPERATURE" scenario="scenario-hp_temperature" description="high pressure temperature">
+    	
+        <intro>
+               Will you like to answer some questions related to high pressure and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="HP_WINDDIRECTION" scenario="scenario-hp_winddirection" description="high pressure wind direction">
+    	
+        <intro>
+               Will you like to answer some questions related to high pressure and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="CF_PRECIPITATION" scenario="scenario-cf_precipitation" description="cold front precipitation">
+    	
+        <intro>
+               Will you like to answer some questions related to cold front and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="CF_TEMPERATURE" scenario="scenario-cf_temperature" description="cold front temperature">
+    	
+        <intro>
+               Will you like to answer some questions related to cold front and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="CF_WINDDIRECTION" scenario="scenario-cf_winddirection" description="cold front wind direction">
+    	
+        <intro>
+               Will you like to answer some questions related to cold front and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="WF_WINDDIRECTION" scenario="scenario-cf_winddirection" description="warm front wind direction">
+    	
+        <intro>
+               Will you like to answer some questions related to warm front and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="WF_PRECIPITATION" scenario="scenario-wf_precipitation" description="warm front precipitation">
+    	
+        <intro>
+               Will you like to answer some questions related to warm front and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="WF_TEMPERATURE" scenario="scenario-wf_temperature" description="warm front temperature">
+    	
+        <intro>
+               Will you like to answer some questions related to warm front and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>    
+</dialogs>

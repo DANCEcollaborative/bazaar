@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-wf_precipitation">
+	<configuration>
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+		<!-- this is a special kind of concept for catching unexpected student responses -->
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+		
+		<!-- tutor concepts. -->
+		<concept label="introduction">
+			<phrase>We can talk about cold fronts and precipitation in a little more detail.
+            </phrase>
+		</concept>
+
+
+		<concept label="question1">
+			<phrase>Why do you think the chance of precipitation is lower behind a warm front? Feel free to refer to points on the map.
+            </phrase>
+		</concept>
+
+		<concept label="conclusion1">
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
+		</concept>
+
+		<concept label="unrecognized">
+			<phrase>I don't know what that is.</phrase>
+			<phrase>That doesn't make sense to me.</phrase>
+		</concept>
+		
+		<concept label="correct">
+			<phrase>Well done!</phrase>
+			<phrase>Okeydoke.</phrase>
+			<phrase>Sounds good...</phrase>
+		</concept>
+		
+		<concept label="ok">
+			<phrase>Ok</phrase>
+		</concept>
+
+
+		<concept label="response1_1">
+			<phrase>It sounds like you're on the right track. When a warm front moves in, the air warms up and expands, so there is less moisture and clouds. This decreases the chance of precipitation.</phrase>
+		</concept>
+
+		<concept label="response1_2">
+			<phrase>It sounds like you could use some help.</phrase>
+		</concept>
+
+		<concept label="response1_2_1">
+			<phrase>It sounds like you're on the right track. When a warm front moves in, the air warms up and expands, so there is less moisture and clouds. This decreases the chance of precipitation.</phrase>
+		</concept>
+
+		<concept label="response1_2_2">
+			<phrase>It sounds like you could use some help.</phrase>
+		</concept>
+
+
+		<concept label="correct_response1">
+			<phrase>Let me help you out. When a warm front moves in, the air warms up and expands, so there is less moisture and clouds. This decreases the chance of precipitation.
+			</phrase>
+		</concept>
+
+
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+
+
+		<concept label="answer1_1" type="regex">
+			<phrase>air warms up|air expands|less moisture|less clouds|gets lighter|less dense|gets hotter|gets warmer|warms up|expands</phrase>
+		</concept>
+
+		<concept label="answer1_2" type="regex">
+			<phrase>air cools down|air condenses|air creates moisture|air creates clouds|gets denser|gets colder|gets cooler|cools down|condenses</phrase>
+		</concept>
+
+		<concept label="answer1_2_1" type="regex">
+			<phrase>air expands|less moisture|less clouds|gets lighter|less dense|expands</phrase>
+		</concept>
+
+		<concept label="answer1_2_2" type="regex">
+			<phrase>air cools down|air condenses|air creates moisture|air creates clouds|gets denser|gets colder|gets cooler|cools down|condenses</phrase>
+		</concept>
+
+	</concepts>
+
+
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "introduction"  -->
+				<initiation>introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question1</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="response1_1">answer1_1</response>
+				<response push="elicitate1_1" say="response1_2">answer1_2</response>
+				<response push="elicitate1_2" say="response1_2">unanticipated-response</response>
+			</step>
+
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
+
+			
+		</goal>
+
+
+		<goal name="elicitate1_1" difficulty="0">
+
+			<step>
+				<initiation>When a warm front moves in, the air cools warms up behind it. Why do you think this decreases the chance of precipitation?</initiation>
+                <response say="response1_2_1">answer1_2_1</response>
+				<response say="correct_response1">answer1_2_2</response>
+				<response say="correct_response1">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate1_2" difficulty="0">
+
+			<step>
+				<initiation>Sorry, I didn't understand you. Why do you think the chance of precipitation is lower behind a warm front? Feel free to refer to points on the map.</initiation>
+                <response say="response1_2_1">answer1_2_1</response>
+				<response say="correct_response1">answer1_2_2</response>
+				<response say="correct_response1">unanticipated-response</response>
+			</step>
+		</goal>
+
+
+	</script>
+
+</scenario>

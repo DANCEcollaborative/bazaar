@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt id="SAY_MORE">
+        <text>Can you say more about that, [STUDENT]?</text>
+        <text>Okay, [STUDENT]. Can you say a little more about that?</text>
+        <text>Tell us more, [STUDENT].</text>
+        <text>Okay, [STUDENT]. Can you explain that a bit more?</text>
+    </prompt>
+        <prompt id="EXPLAIN_OTHER">
+        <text>Thanks, [STUDENT]. Can anyone explain that another way?</text>
+        <text>What do you think about [STUDENT]'s idea? Can you explain it?</text>
+    </prompt>
+   
+    <prompt id="RESTATE_OTHER">
+        <text>Thanks, [STUDENT]. Can anyone say that another way?</text>
+        <text>Could one of you tell me what [STUDENT] said, in your own words?</text>
+        <text>Let's think about [STUDENT]'s idea - can someone restate it for me?</text>
+    </prompt>
+   
+    <prompt id="PRESS_REASONING">
+        <text>Okay, [STUDENT]. Can you explain your reasoning in more detail?</text>
+        <text>[STUDENT], that's an interesting idea - tell us more about your reasoning.</text>
+        <text>[STUDENT], can you tell us why you think that? How did you arrive at that conclusion?</text>
+    </prompt> 
+      
+    <prompt id="AGREE_DISAGREE">
+        <text>Do you agree or disagree with [STUDENT]? Why, or why not?</text>
+        <text>Can you weigh in on what [STUDENT] said? Do you agree or disagree? Why?</text>
+        <text>Thanks, [STUDENT]. Do the rest of you agree or disagree with that idea? Why, or why not? </text>
+        <text>What do you think about [STUDENT]'s idea? Can you say why you agree with it, or why you don't?</text>
+    </prompt>
+    <prompt id="AGREE_DISAGREE_TWO">
+        <text>What do you think about [STUDENT]'s idea? Do you agree or disagree?</text>
+        <text>[OTHERSTUDENT] - do you agree or disagree with [STUDENT]?</text>
+        <text>Do you agree or disagree with [STUDENT]'s idea?</text>
+        <text>Thanks, [STUDENT]. [OTHERSTUDENT], what do you think about that?</text>
+    </prompt>
+    <prompt id="REQUEST_EXPLANATION">
+        <text>[STUDENT], can you explain why?</text>
+        <text>[STUDENT], please explain.</text>
+        <text>Can you add an explanation, [STUDENT]?</text>
+    </prompt>
+    
+    <prompt id="REQUEST_DISAGREE_EXPLANATION">
+        <text>[STUDENT], can you explain why you disagree?</text>
+        <text>Explain why you disagree...</text>
+        <text>Please explain, [STUDENT] - what's the alternative?</text>
+    </prompt>
+    
+    <prompt id="REVOICE">
+        <text>So, [STUDENT] - are you telling us that [CONCEPT]?</text>
+        <text>So [STUDENT], what I hear you saying is [CONCEPT]. Is that what you meant?</text>
+        <text>Let me make sure I understand you - are you saying [CONCEPT]?</text>
+        <text>What I hear [STUDENT] saying is [CONCEPT]. [STUDENT], is that what you meant?</text>
+        <text>So are you telling us that [CONCEPT]?</text>
+    </prompt>
+</prompts>

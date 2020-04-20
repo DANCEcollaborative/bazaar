@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="DETECTED">
+        <text>userwithplan.name + ", good point. Do others have something to follow up with?"</text>
+        <text>userwithplan.name + ", good point. What does everyone else think, considering your individual perspectives?"</text>
+        <text>userwithplan.name + " made a good point. What other points can be made to support or refute it?"</text>
+    </prompt>
+
+    <prompt strategy="task" id="NOTDETECTED">
+        <text>userwithplan.name + ", can you elaborate on your assertion with some reasoning?"</text>
+        <text>userwithplan.name + ", can you give me an example or explain why?"</text>
+        <text>userwithplan.name + ", why do you think that is the case?"</text>
+    </prompt>
+ 
+</prompts>

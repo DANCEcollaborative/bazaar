@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="DETECTED">
+        <text>"Hey" + userwithplan.name + ", can you elaborate on the reason you chose that plan?"</text>
+        <text>"Hey" + userwithplan.name + ", can you explain why you choose " + userwithplan.plan +", not " + plan + "?/ what's the reason for your disagreement?"</text>
+        <text>Thank you for participating in the discussion. You now have just 5 minutes to finalize a joint argument in favor of one plan and complete your proposal on the left. Keep in mind that you will be evaluated solely based on the quality of your proposal (i.e., the thoroughness of the reasoning displayed).</text>
+    	<text>Use this space to discuss the relative merits and demerits of each plan from your assigned perspective in step 2. That was the step where you were asked to write an individual proposal and post it to the discussion forum. Work towards a consensus on which plan you think is the best as a group. Wherever possible, supplement plan suggestions, agreements and disagreements with reasons, and try to refer to or build upon your teammates' ideas.</text>
+    	<text>"Hey" + userwithplan.name + ", can you elaborate more on the trade off."</text>
+    </prompt>
+
+    <prompt strategy="task" id="NOTDETECTED">
+    </prompt>
+ 
+</prompts>

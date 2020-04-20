@@ -140,6 +140,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 			classificationSpec = classificationList[i].split(withinClassSplit);
 			classification = classificationSpec[0];
 			classificationPercent = Double.parseDouble(classificationSpec[1]);
+			System.err.println("=== LightSideMessageAnnotator - classification " + classification + " " + Double.toString(classificationPercent) + "%");
 			try {
 				classificationThreshold = classify_dict.get(classification);
 				if (classificationPercent >= classificationThreshold) {

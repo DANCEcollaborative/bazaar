@@ -1,0 +1,446 @@
+?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-hp_precipitation">
+	<configuration>
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+		<!-- this is a special kind of concept for catching unexpected student responses -->
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+		
+		<!-- tutor concepts. -->
+		<concept label="introduction">
+			<phrase>Let's see how much you know about high pressure and precipitation.
+            </phrase>
+		</concept>
+
+		<concept label="conclusion">
+			<phrase>Let's move on to other question.</phrase>
+		</concept>
+			
+					<concept label="conclusion1">
+			<phrase>Let's move on to other topic.</phrase>
+		</concept>
+			
+		<concept label="question1">
+			<phrase>Where does the air move in a high pressure center?
+            </phrase>
+		</concept>
+		
+		<!-- the tutor will choose randomly between multiple phrases for a concept. -->
+		<concept label="question2">
+			<phrase>When air is pushed downward, how does it change in density?
+</phrase>
+		</concept>
+
+		<concept label="question3">
+			<phrase>What is the result of air expanding on moisture and clouds?
+            </phrase>
+		</concept>
+
+		<concept label="question4">
+			<phrase>Since there is less moisture and clouds, the chance of precipitation in a high pressure center is...?
+            </phrase>
+		</concept>
+		
+		<concept label="unrecognized">
+			<phrase>I don't know what that is.</phrase>
+			<phrase>That doesn't make sense to me.</phrase>
+		</concept>
+		
+		<concept label="correct">
+			<phrase>Well done!</phrase>
+			<phrase>Okeydoke.</phrase>
+			<phrase>Sounds good...</phrase>
+		</concept>
+		
+		<concept label="ok">
+			<phrase>Ok</phrase>
+		</concept>
+
+		
+		<concept label="response1_1">
+			<phrase>That is correct. Air moves downward in a high pressure center.</phrase>
+		</concept>
+
+		<concept label="response1_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+
+		<concept label="response1_2_1">
+			<phrase>That is correct. When the air pressure is at a higher level in the atmosphere, air is pushed downward. </phrase>
+		</concept>
+
+		<concept label="response1_2_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+
+		
+		<concept label="response2_1">
+			<phrase>That is correct. When air is pushed downward it is exposed to lower pressures and warmer temperatures, causing it to expand.
+			</phrase>
+		</concept>
+
+		<concept label="response2_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+		
+	    <concept label="response2_2_1">
+			<phrase>That is correct. Air expands under lower pressures and warmer temperatures.
+			</phrase>
+		</concept>
+
+		<concept label="response2_2_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+
+
+		<concept label="response3_1">
+			<phrase>That is correct. Air expanding results in less moisture and clouds.
+			</phrase>
+		</concept>
+
+		<concept label="response3_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+		
+	    <concept label="response3_2_1">
+			<phrase>That is correct. Air expanding results in less moisture and clouds.
+			</phrase>
+		</concept>
+
+		<concept label="response3_2_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+
+
+		<concept label="response4_1">
+			<phrase>That is correct. Since there is less moisture and clouds, the chance of precipitation in a high pressure center is higher.
+			</phrase>
+		</concept>
+
+		<concept label="response4_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+		
+	    <concept label="response4_2_1">
+			<phrase>That is correct. Since there is less moisture and clouds, the chance of precipitation in a high pressure center is higher.
+			</phrase>
+		</concept>
+
+		<concept label="response4_2_2">
+			<phrase>That is incorrect.
+			</phrase>
+		</concept>
+
+
+		
+		<concept label="correct_response1">
+			<phrase>That is incorrect. When the air pressure is at a higher level in the atmosphere, the air will be pushed downward.
+			
+			</phrase>
+		</concept>
+		
+	    <concept label="correct_response2">
+			<phrase>That is incorrect. When air sinks and it is introduced to lower pressure and warmer temperatures, it expands.
+			</phrase>
+		</concept>
+
+		<concept label="correct_response3">
+			<phrase>That is incorrect. When air expands, the result is less moisture and clouds.
+			</phrase>
+		</concept>
+
+		<concept label="correct_response4">
+			<phrase>That is incorrect. Since there is less moisture and clouds, the chance of precipitation in a high pressure center is low.
+			</phrase>
+		</concept>
+	
+		<!-- ent tutor concepts. -->
+		
+		
+		<!-- student concepts. -->
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+		
+		<!-- these match against regular expressions. -->
+
+		<concept label="answer1_1" type="regex">
+			<phrase>downward</phrase>
+		</concept>
+		
+	    <concept label="answer1_2" type="regex">
+			<phrase>upward</phrase>
+		</concept>
+
+		<concept label="answer1_2_1" type="regex">
+			<phrase>downward</phrase>
+		</concept>
+		
+	    <concept label="answer1_2_2" type="regex">
+			<phrase>upward</phrase>
+		</concept>		
+		
+		
+		<concept label="answer2_1" type="regex">
+			<phrase>expand|expands</phrase>
+		</concept>
+		
+	    <concept label="answer2_2" type="regex">
+			<phrase>condenses|condense</phrase>
+		</concept>
+
+		 <concept label="answer2_2_1" type="regex">
+			<phrase>expand|expands</phrase>
+		</concept>
+
+		 <concept label="answer2_2_2" type="regex">
+			<phrase>condenses|condense</phrase>
+		</concept>
+
+
+		<concept label="answer3_1" type="regex">
+			<phrase>less</phrase>
+		</concept>
+		
+	    <concept label="answer3_2" type="regex">
+			<phrase>more</phrase>
+		</concept>
+
+		 <concept label="answer3_2_1" type="regex">
+			<phrase>less</phrase>
+		</concept>
+
+		 <concept label="answer3_2_2" type="regex">
+			<phrase>more</phrase>
+		</concept>
+
+
+		<concept label="answer4_1" type="regex">
+			<phrase>lower|low|decreased|decrease|unlikely</phrase>
+		</concept>
+		
+	    <concept label="answer4_2" type="regex">
+			<phrase>higher|high|increased|increase|likely</phrase>
+		</concept>
+
+		 <concept label="answer4_2_1" type="regex">
+			<phrase>lower|low|decreased|decrease|unlikely</phrase>
+		</concept>
+
+		 <concept label="answer4_2_2" type="regex">
+			<phrase>higher|high|increased|increase|likely</phrase>
+		</concept>
+		
+	</concepts>
+	
+	
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "introduction"  -->
+				<initiation>introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question1</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="response1_1">answer1_1</response>
+				<response push="elicitate1_1" say="response1_2">answer1_2</response>
+				<response push="elicitate1_2" say="response1_2">unanticipated-response</response>
+			</step>
+			
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question2</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="response2_1">answer2_1</response>
+				<response push="elicitate2_1" say="response2_2">answer2_2</response>
+				<response push="elicitate2_2" say="response2_2">unanticipated-response</response>
+			</step>
+
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question3</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="response3_1">answer3_1</response>
+				<response push="elicitate3_1" say="response3_2">answer3_2</response>
+				<response push="elicitate3_2" say="response3_2">unanticipated-response</response>
+			</step>
+
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>question4</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="response4_1">answer4_1</response>
+				<response push="elicitate4_1" say="response4_2">answer4_2</response>
+				<response push="elicitate4_2" say="response4_2">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
+			
+		</goal>
+		
+
+		<goal name="elicitate1_1" difficulty="0">
+
+			<step>
+				<initiation>When the air pressure is at a higher level in the atmosphere, where 
+       would the air be pushed?</initiation>
+                <response say="response1_2_1">answer1_2_1</response>
+				<response say="correct_response1">answer1_2_2</response>
+				<response say="correct_response1">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate1_2" difficulty="0">
+
+			<step>
+				<initiation>I did not understand your answer. Where does the air move in a high pressure center?</initiation>
+                <response say="response1_2_1">answer1_2_1</response>
+				<response say="correct_response1">answer1_2_2</response>
+				<response say="correct_response1">unanticipated-response</response>
+			</step>
+		</goal>
+		
+		<goal name="elicitate2_1" difficulty="0">
+
+			<step>
+				<initiation>When air sinks, it is introduced to lower pressure and warmer 
+           temperatures. What happens to air under low pressure and warmer temperatures?</initiation>
+                <response say="response2_2_1">answer2_2_1</response>
+				<response say="correct_response2">answer2_2_2</response>
+				<response say="correct_response2">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate2_2" difficulty="0">
+
+			<step>
+				<initiation>I did not understand your answer. When air is pushed downward, how does it change in density?</initiation>
+                <response say="response2_2_1">answer2_2_1</response>
+				<response say="correct_response2">answer2_2_2</response>
+				<response say="correct_response2">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate3_1" difficulty="0">
+
+			<step>
+				<initiation>When water expands, it goes from being a liquid to being a gas. What is the result of air expanding in high pressure centers?</initiation>
+                <response say="response3_2_1">answer3_2_1</response>
+				<response say="correct_response3">answer3_2_2</response>
+				<response say="correct_response3">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate3_2" difficulty="0">
+
+			<step>
+				<initiation>I did not understand your answer. What is the result of air expanding on moisture and clouds?</initiation>
+                <response say="response3_2_1">answer3_2_1</response>
+				<response say="correct_response3">answer3_2_2</response>
+				<response say="correct_response3">unanticipated-response</response>
+			</step>
+		</goal>
+		
+		<goal name="elicitate4_1" difficulty="0">
+
+			<step>
+				<initiation>Rain is the result of air condensing into clouds. When there is less moisture and clouds, the chance of precipitation in a high pressure center is...?</initiation>
+                <response say="response4_2_1">answer4_2_1</response>
+				<response say="correct_response4">answer4_2_2</response>
+				<response say="correct_response4">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="elicitate4_2" difficulty="0">
+
+			<step>
+				<initiation>I did not understand your answer. When there is less moisture and clouds, the chance of precipitation in a high pressure center is...?</initiation>
+                <response say="response4_2_1">answer4_2_1</response>
+				<response say="correct_response4">answer4_2_2</response>
+				<response say="correct_response4">unanticipated-response</response>
+			</step>
+		</goal>
+
+	</script>
+
+</scenario>
