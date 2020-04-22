@@ -21,6 +21,7 @@ import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
+import smartlab.communication.CommunicationManager; 
 
 // import VHjava.VHSender;
 // import VHjava.VHReceiver;
@@ -29,7 +30,7 @@ import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 // import MessageProcessor;
 // import VHjava.MessageProcessor; 
 // import VHjava.RendererController;
-import VHjava.*; 
+// import VHjava.*; 
 
 /**
  * @author dadamson
@@ -49,21 +50,24 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
 	
-	private VHSender vhSender = new VHSender();
-	private VHReceiver vhReceiver = new VHReceiver();
+//	private VHSender vhSender = new VHSender();
+//	private VHReceiver vhReceiver = new VHReceiver();
 // 	private MessageProcessor vhProcessor = new MessageProcessor();
-	private RendererController vhController = new RendererController();
-	private Boolean outputToVHT = false; 
+//	private RendererController vhController = new RendererController();
+	private Boolean outputToPSI = false; 
+	CommunicationManager psiCommunicationManager = new CommunicationManager();
+	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
 		// s1 = name; s2 = properties file name
 		super(agent, s1, s2);
+		CommunicationManager psiCommunicationManager = new CommunicationManager();
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
 		
 		if(myProperties!=null)
-			try{outputToVHT = Boolean.parseBoolean(myProperties.getProperty("output_to_VHT", "false"));}
+			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 	}
 
@@ -199,8 +203,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if (!me.getText().contains("|"))
 		{
 			broadcast(me);
-			if (outputToVHT)
-				publishMessageToVHT(me);	
+			if (outputToPSI)
+				publishMessageToPSI(me);	
 			MessageEventLogger.logMessageEvent(me);
 		}
 
@@ -233,8 +237,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				newme.setReference(me.getReference());
 				broadcast(newme);			
 				MessageEventLogger.logMessageEvent(newme);
-				if (outputToVHT)
-					publishMessageToVHT(newme);			
+				if (outputToPSI)
+					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
 						Thread.sleep(6000);
@@ -249,8 +253,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
-	private void publishMessageToVHT(MessageEvent me)
+	private void publishMessageToPSI(MessageEvent me)
 	{
+		
 		String text = me.getText();
 		String to = me.getDestinationUser();
 		if (to != null) {
@@ -262,11 +267,11 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 		}	
 
-		System.out.println("publishMessagetoVHT, text: " + text);
+		System.err.println(">>> publishMessagetoPSI, text: " + text);
 		// vhSender.setChar(vhController.getCharacter());
 		// vhSender.setChar("Brad");
 		// vhSender.sendMessage(vhProcessor.processMessage(text));
-		vhSender.sendMessage(text);
+		psiCommunicationManager.msgSender(bazaarToPSITopic,text);
 	}
 	
 	public void log(String from, String level, String msg)
