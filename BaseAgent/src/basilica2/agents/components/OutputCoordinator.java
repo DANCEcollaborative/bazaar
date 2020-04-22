@@ -267,7 +267,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 		}	
 
-		System.err.println(">>> publishMessagetoPSI, text: " + text);
+		System.out.println("OutputCoordinator, publishMessagetoPSI - text: " + text);
 		// vhSender.setChar(vhController.getCharacter());
 		// vhSender.setChar("Brad");
 		// vhSender.sendMessage(vhProcessor.processMessage(text));
