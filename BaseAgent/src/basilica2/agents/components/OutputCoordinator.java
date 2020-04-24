@@ -55,20 +55,27 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 // 	private MessageProcessor vhProcessor = new MessageProcessor();
 //	private RendererController vhController = new RendererController();
 	private Boolean outputToPSI = false; 
-	CommunicationManager psiCommunicationManager = new CommunicationManager();
+	CommunicationManager psiCommunicationManager; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
 		// s1 = name; s2 = properties file name
 		super(agent, s1, s2);
-		CommunicationManager psiCommunicationManager = new CommunicationManager();
+		// CommunicationManager psiCommunicationManager = new CommunicationManager();
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
 		
 		if(myProperties!=null)
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
+		if (outputToPSI) {
+			initializePSI(); 
+		}
+	}
+	
+	private void initializePSI() {
+		psiCommunicationManager = new CommunicationManager();
 	}
 
 	public void addAll(Collection<PriorityEvent> events)
