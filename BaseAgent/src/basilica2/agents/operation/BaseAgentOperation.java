@@ -310,7 +310,7 @@ public class BaseAgentOperation extends AgentOperation
 			}
 		}
 		else
-			System.err.println("BaseAgentOperation: no system properties at " + pf);
+			System.out.println("BaseAgentOperation: no system properties at " + pf);
 	}
 //	protected static Point getUILocationFromArgs(String[] args)
 //	{
@@ -394,13 +394,18 @@ public class BaseAgentOperation extends AgentOperation
 		parser.accepts("room").withRequiredArg().defaultsTo(roomname);
 		parser.accepts("outdir").withRequiredArg();
 		parser.accepts("condition").withRequiredArg();
+		parser.accepts("hasUI").withRequiredArg().ofType(Boolean.class).defaultsTo(true);
 		parser.accepts("launch");
 		
 		OptionSet options = parser.parse(args);
 
 		String room = (String)options.valueOf("room");
-		myUI.setRoomName(room);
-		myUI.setLocation(new Point((Integer)options.valueOf("x"), (Integer)options.valueOf("y")));
+		Boolean hasUI = (Boolean)options.valueOf("hasUI");
+		
+		if (hasUI) {
+			myUI.setRoomName(room);
+			myUI.setLocation(new Point((Integer)options.valueOf("x"), (Integer)options.valueOf("y")));
+		}
 		
 		if(options.has("outdir"))
 		{
