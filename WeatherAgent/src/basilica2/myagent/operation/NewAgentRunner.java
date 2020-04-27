@@ -18,7 +18,6 @@ public class NewAgentRunner extends BaseAgentOperation {
 		parser.accepts("room").withRequiredArg().defaultsTo("Test01");
 		parser.accepts("outdir").withRequiredArg();
 		parser.accepts("condition").withRequiredArg();
-		parser.accepts("hasUI").withRequiredArg().ofType(Boolean.class).defaultsTo(true);
 		parser.accepts("launch");
 		OptionSet options = parser.parse(args);
 				
@@ -27,20 +26,27 @@ public class NewAgentRunner extends BaseAgentOperation {
 			@Override
 			public void run() {
 				NewAgentRunner thisOperation = new NewAgentRunner();
-				if (options.has("launch")) {
-					thisOperation.processArgs(args);
+				
+				// Launch from command line without UI
+				if (options.has("launch")) {				
+					thisOperation.processArgsNoUI(args);   
 				}
+				
 				else {
 					String[] conditions = thisOperation.getProperties().getProperty("operation.conditions", "")
 							.split("[\\s,]+");
-					String room_name = thisOperation.getProperties().getProperty("operation.room", "Try");
+					String room_name = thisOperation.getProperties().getProperty("operation.room", "Test01");
+					
+					// Launch from IDE or command line with no UI and conditions set in agent parameters
 					if (thisOperation.no_condition_ui) {
 						String conditionString = getConditionString(conditions);
 						System.setProperty("basilica2.agents.condition", conditionString);
 						Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
 						// thisOperation.startOperation();
-						thisOperation.launchAgent(room_name);
+						thisOperation.launchAgent(room_name,false);
 					} 
+					
+					// Launch from command line or IDE with UI
 					else {
 						BaseAgentUI thisUI = new ConditionAgentUI(thisOperation, room_name, conditions);
 						thisOperation.setUI(thisUI);

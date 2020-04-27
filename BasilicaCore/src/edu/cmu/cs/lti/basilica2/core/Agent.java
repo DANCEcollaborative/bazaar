@@ -60,6 +60,7 @@ public abstract class Agent implements LogUser
 	protected String facialExp;		// TODO: Convert to enum
 	protected String bodyPos; 		// TODO: Convert to enum
 	protected String emotion;		// TODO: Convert to enum
+	public Boolean hasUI = true;    // default
 	
 	
 

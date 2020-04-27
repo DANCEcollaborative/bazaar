@@ -148,6 +148,11 @@ public class BaseAgentOperation extends AgentOperation
 
 	public void launchAgent(String room_name)
 	{
+		launchAgent(room_name, true);
+	}
+
+	public void launchAgent(String room_name, Boolean hasUI)
+	{
 		log(Logger.LOG_NORMAL, "setting basilica2.agents.room_name to " + room_name);
 		System.setProperty("basilica2.agents.room_name", room_name);
 
@@ -158,6 +163,7 @@ public class BaseAgentOperation extends AgentOperation
 		roomnameQueue.add(room_name);
 
 		Agent a = myAgentFactory.makeAgentFromXML(agent_definition_file, room_name);
+		a.hasUI = hasUI; 
 		this.addAgent(a);
 	}
 
@@ -213,9 +219,12 @@ public class BaseAgentOperation extends AgentOperation
 		log(Logger.LOG_LOW, "Starting new Agent");
 		a.start();
 
-		myUI.addAgentWidget(a.getName(), new AgentWidget(input));
-		myUI.agentLaunched(a.getName());
-		log(Logger.LOG_NORMAL, "notified UI of agent launch for "+a.getName());
+		if (a.hasUI) {
+			myUI.addAgentWidget(a.getName(), new AgentWidget(input));
+			myUI.agentLaunched(a.getName());
+			log(Logger.LOG_NORMAL, "notified UI of agent launch for "+a.getName());			
+		}
+
 	}
 	
 	public void stopOperation()
@@ -250,8 +259,9 @@ public class BaseAgentOperation extends AgentOperation
 				aui.dispose();
 			}
 		}
-
-		myUI.agentStopped(a.getName());
+		if (a.hasUI) {
+			myUI.agentStopped(a.getName());			
+		}
 		log(Logger.LOG_LOW, "Removed. " + myAgents.size() + " agents now working");
 	}
 
@@ -381,12 +391,17 @@ public class BaseAgentOperation extends AgentOperation
 		});
 	}
 	
-	protected void processArgs(String[] args)
-	{
-		processArgs(args, "Test01");
+	protected void processArgsNoUI(String[] args)
+	{	
+		processArgs(args, "Test01", false);
 	}
 	
-	protected void processArgs(String[] args, String roomname)
+	protected void processArgs(String[] args)
+	{
+		processArgs(args, "Test01", true);
+	}
+	
+	protected void processArgs(String[] args, String roomname, Boolean hasUI)
 	{
 		OptionParser parser = new OptionParser();
 		parser.accepts("x").withRequiredArg().ofType(Integer.class).defaultsTo(0);
@@ -394,13 +409,11 @@ public class BaseAgentOperation extends AgentOperation
 		parser.accepts("room").withRequiredArg().defaultsTo(roomname);
 		parser.accepts("outdir").withRequiredArg();
 		parser.accepts("condition").withRequiredArg();
-		parser.accepts("hasUI").withRequiredArg().ofType(Boolean.class).defaultsTo(true);
 		parser.accepts("launch");
 		
 		OptionSet options = parser.parse(args);
 
 		String room = (String)options.valueOf("room");
-		Boolean hasUI = (Boolean)options.valueOf("hasUI");
 		
 		if (hasUI) {
 			myUI.setRoomName(room);
@@ -426,7 +439,7 @@ public class BaseAgentOperation extends AgentOperation
 			System.out.println("launching...");
 			log(Logger.LOG_NORMAL, "launching hands-free!");
 			System.setProperty("basilica2.handsfree", "true");
-			this.launchAgent(room);
+			this.launchAgent(room,hasUI);
 		}
 	}
 
