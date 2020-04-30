@@ -181,7 +181,7 @@ public class BaseAgentOperation extends AgentOperation
 		log(Logger.LOG_LOW, "Initializing new agent");
 		a.initialize();
 
-		if (use_debug_ui)
+		if ((use_debug_ui) && (a.hasUI)) 
 		{
 			AgentUI aui = new AgentUI(a);
 			myAgentUIs.put(a.getName(), aui);
