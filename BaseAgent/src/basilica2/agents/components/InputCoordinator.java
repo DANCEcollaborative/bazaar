@@ -152,6 +152,14 @@ public class InputCoordinator extends Component
     public void processEvent(Event event)
     {
 		log(Logger.LOG_NORMAL, "InputCoordinator received event: "+event);
+        /**
+        if (messageSender.equals("psiClient")) {
+        	System.err.println("InputCoordinator, about to echo event from psiClient");
+        	event = new EchoEvent(this, (MessageEvent)event);
+        	preprocessedEvents.add(event);
+        	System.err.println("InputCoordinator, echoed event from psiClient");
+        }
+        */
         if(event instanceof MessageEvent && isAgentName(((MessageEvent) event).getFrom())) 
         {
             event = new EchoEvent(this, (MessageEvent)event);
