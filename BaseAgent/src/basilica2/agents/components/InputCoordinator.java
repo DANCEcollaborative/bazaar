@@ -151,8 +151,11 @@ public class InputCoordinator extends Component
     @Override /*from Component*/
     public void processEvent(Event event)
     {
-		log(Logger.LOG_NORMAL, "InputCoordinator received event: "+event);
-        /**
+    	log(Logger.LOG_NORMAL, "InputCoordinator received event: "+event);
+    	
+    	/**
+        String messageSender = event.getSender().getName();
+        System.err.println("InputCoordinator, message from: '" + messageSender + "'");
         if (messageSender.equals("psiClient")) {
         	System.err.println("InputCoordinator, about to echo event from psiClient");
         	event = new EchoEvent(this, (MessageEvent)event);
@@ -160,6 +163,7 @@ public class InputCoordinator extends Component
         	System.err.println("InputCoordinator, echoed event from psiClient");
         }
         */
+
         if(event instanceof MessageEvent && isAgentName(((MessageEvent) event).getFrom())) 
         {
             event = new EchoEvent(this, (MessageEvent)event);
