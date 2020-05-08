@@ -212,17 +212,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 			if(user == null) return;
 
 			if (me.hasAnnotations("WHAT_NORMAL_DISTRIB")) {
-				prompt_message = "A normal distribution is a symmetric distribution where most of the observations cluster around the central peak and the probabilities for values further away from the mean taper off equally in both directions.";
-				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
-				source.queueNewEvent(prompt);
-				
-			} else if (me.hasAnnotations("SIMILARITY")) {
-				prompt_message = "Yes, the miniums, maximums, and modes are the same. Can you find a difference?";
-				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
-				source.queueNewEvent(prompt);
-			
-			} else if (me.hasAnnotations("DIFFERENCE")) {
-				prompt_message = "Yes, the skewness is quite different. Can you find any similarities?";
+				prompt_message = "A normal distribution is a symmetric distribution where most of the observations cluster around the central peak and the probabilities for values further away from the mean taper off equally in both directions. Click on the Sharing Space tab to the left to see an illustration.";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
@@ -231,65 +221,53 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
-			} else if (me.hasAnnotations("SYMMETRY")) {
-				prompt_message = "Yes. Finger lengths tend to cluster around the same size but some are much longer.";
+			} else if (me.hasAnnotations("SIMILARITY")) {
+				prompt_message = "Yes, the miniums, medians, maximums, and modes are all the same. Can you find a difference?";
+				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
+				source.queueNewEvent(prompt);
+			
+			} else if (me.hasAnnotations("DIFFERENCE")) {
+				prompt_message = "Yes, the standard deviations are different.";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("SYMMETRY")) {
-				prompt_message = "Yes. Finger lengths tend to cluster around the same size but some are much longer.";
+				prompt_message = "Yes. Finger lengths tend to cluster around the same size but some are much longer. | Ernie, we haven't heard from you. What does this say about people’s finger length?";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("STD_DEV_CHANGE")) {
-				prompt_message = "Yes, there is more variability in the combined sample, which is larger.";
+				prompt_message = "Yes, there is more variability in the combined sample. Why do you think that is the case?";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("STD_DEV_INTERVAL")) {
-				prompt_message = "Good job!";
+				prompt_message = "That's close enough.|Good job!";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("STD_DEV_PERCENT")) {
-				prompt_message = "Yes! Would it be the same if for a perfect normal distribution?";
+				prompt_message = "Yes, that's approximately correct. Would it be the same if for a perfect normal distribution?";
+				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
+				source.queueNewEvent(prompt);
+				
+			} else if (me.hasAnnotations("STD_DEV_NORMAL_DISTRIB_WRONG")) {
+				prompt_message = "No, that's the percentage for plus or minus three standard deviations from the mean. For two standard deviations, it's 95%.";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("STD_DEV_NORMAL_DISTRIB")) {
-				prompt_message = "Yes! That is true by definition";
+				prompt_message = "Yes. True by definition.";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("NORMAL_DISTRIB_APPROX")) {
-				prompt_message = "That's close enough. It is rare for a small sample to have a perfect normal distribtion.";
+				prompt_message = "It is rare for a small sample to have a perfect normal distribtion.";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 			}
 			
 	    }
-		else if (event instanceof DormantGroupEvent)
-		{
-			
-			User selected_user_dormant = choose_user_dormant();
-			if(selected_user_dormant!=null){
-			
-		//	String prompt_message = "It looks like no one is using the chat. Use this space to discuss and come to a consensus about which plan you prefer while writing the proposal.";
-			if(dormantGroupCount%2==0)
-			{
-			 prompt_message = "Hey " + selected_user_dormant.name + ", which of the plans seems to be the best from your perspective of " + 
-					perspective_map.get(selected_user_dormant.perspective) + " ?";
-			dormantGroupCount++;
-			}
-			else{
-			 prompt_message = "Hey " + selected_user_dormant.name + ", which plan do you recommend from your perspective of "+
-					perspective_map.get(selected_user_dormant.perspective) + " ?";
-			dormantGroupCount++;
-			}
-			PromptEvent prompt = new PromptEvent(source, prompt_message , "POKING");
-			source.queueNewEvent(prompt);
-			}			
-		}
 		else if (event instanceof PresenceEvent)
 		{
 			PresenceEvent pe = (PresenceEvent) event;

@@ -17,11 +17,11 @@
         <cancel annotation="NEGATIVE">Okay - I'm here when you need me.</cancel>
     </dialog>
   
-    <dialog concept="GET_A_HUG" scenario="scenario-hugs">
+    <dialog concept="HELP" scenario="scenario-help">
     	<trigger annotation="CONFUSION"/>
     	<trigger annotation="QUESTION"/>
-        <intro>It sounds like you're confused. Would you like some help?</intro>
-        <accept annotation="AFFIRMATIVE">Great!</accept>
-        <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
+        <intro>Would you like some help?</intro>
+        <accept annotation="AFFIRMATIVE">Okay.</accept>
+        <cancel annotation="NEGATIVE">Okay.</cancel>
     </dialog>
 </dialogs>
