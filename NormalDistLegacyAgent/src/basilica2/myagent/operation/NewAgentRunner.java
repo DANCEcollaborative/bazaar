@@ -1,5 +1,7 @@
 package basilica2.myagent.operation;
 
+import java.awt.Point;
+
 import basilica2.agents.operation.BaseAgentOperation;
 import basilica2.agents.operation.BaseAgentUI;
 import basilica2.agents.operation.ConditionAgentUI;
@@ -27,9 +29,15 @@ public class NewAgentRunner extends BaseAgentOperation {
 			public void run() {
 				NewAgentRunner thisOperation = new NewAgentRunner();
 				
-				// Launch from command line without UI
-				if (options.has("launch")) {				
-					thisOperation.processArgsNoUI(args);   
+				// Launch from command line without UI; conditions set in operation.properties 
+				// }
+				if (options.has("launch")) {
+					String[] conditions = thisOperation.getProperties().getProperty("operation.conditions", "")
+							.split("[\\s,]+");
+					String conditionString = getConditionString(conditions);
+					System.setProperty("basilica2.agents.condition", conditionString);
+					System.out.println("Launching without dialog -" + "Conditions set to " + conditionString);
+					thisOperation.processArgsLaunch(args,"Test01");  
 				}
 				
 				else {
@@ -42,7 +50,6 @@ public class NewAgentRunner extends BaseAgentOperation {
 						String conditionString = getConditionString(conditions);
 						System.setProperty("basilica2.agents.condition", conditionString);
 						Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
-						// thisOperation.startOperation();
 						thisOperation.launchAgent(room_name,false);
 					} 
 					
@@ -70,4 +77,35 @@ public class NewAgentRunner extends BaseAgentOperation {
 		else return conditionString.trim();
 	}
 	
+	
+
+	
+	protected void processArgsLaunch(String[] args, String roomname)
+	{
+		OptionParser parser = new OptionParser();
+		parser.accepts("x").withRequiredArg().ofType(Integer.class).defaultsTo(0);
+		parser.accepts("y").withRequiredArg().ofType(Integer.class).defaultsTo(0);
+		parser.accepts("room").withRequiredArg().defaultsTo(roomname);
+		parser.accepts("outdir").withRequiredArg();
+		parser.accepts("condition").withRequiredArg();
+		parser.accepts("launch");
+		
+		OptionSet options = parser.parse(args);
+
+		String room = (String)options.valueOf("room");
+		
+		if(options.has("outdir"))
+		{
+			this.setSystemOutput((String)options.valueOf("outdir"), room);
+		}
+		
+		System.out.println("launching...");
+		log(Logger.LOG_NORMAL, "launching hands-free!");
+		System.setProperty("basilica2.handsfree", "true");
+		this.launchAgent(room,false);
+	}
+	
 }
+
+
+
