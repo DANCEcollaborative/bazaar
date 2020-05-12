@@ -50,10 +50,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
 	
-//	private VHSender vhSender = new VHSender();
-//	private VHReceiver vhReceiver = new VHReceiver();
-// 	private MessageProcessor vhProcessor = new MessageProcessor();
-//	private RendererController vhController = new RendererController();
 	private Boolean outputToPSI = false; 
 	CommunicationManager psiCommunicationManager; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
@@ -62,7 +58,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	{
 		// s1 = name; s2 = properties file name
 		super(agent, s1, s2);
-		// CommunicationManager psiCommunicationManager = new CommunicationManager();
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
 		
@@ -260,26 +255,47 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
+	// Designed for multiple fields. Currently only location and message text are supported.
 	private void publishMessageToPSI(MessageEvent me)
 	{
+		Boolean multimodalMessage = false; 
+		String multiModalField = "multimodal"; 
+		String speechField = "speech";
+		String locationField = "location";
+	    String multiModalDelim = ";%;";
+		String withinModeDelim = ":";	
+		String location = null; 
+		String messageString; 
 		
 		String text = me.getText();
+		
+		// Get location if it is known
 		String to = me.getDestinationUser();
 		if (to != null) {
 			State state = StateMemory.getSharedState(this.getAgent());
-			String location = state.getStudentLocation(to);
+			location = state.getStudentLocation(to);
 			if (location != null) {
-				text = me.getText() + " --- location: " + location;
-				// new PrivateMessageEvent(this, to, me.getFrom(), text, pme.getAllAnnotations());
+				multimodalMessage = true; 
 			}
 		}	
-
-		System.out.println("OutputCoordinator, publishMessagetoPSI - text: " + text);
-		// vhSender.setChar(vhController.getCharacter());
-		// vhSender.setChar("Brad");
-		// vhSender.sendMessage(vhProcessor.processMessage(text));
-		psiCommunicationManager.msgSender(bazaarToPSITopic,text);
+		
+		// Format multimodal message if appropriate
+		if (multimodalMessage) {
+			StringBuilder messageBuilder = new StringBuilder(""); 
+			messageBuilder.append(multiModalField);  
+			messageBuilder.append(multiModalDelim + speechField + withinModeDelim + text);  
+			if (location != null) {
+				messageBuilder.append(multiModalDelim + locationField + withinModeDelim + location); 					
+			}
+			messageString = messageBuilder.toString(); 			
+		} 
+		else {
+			messageString = text; 
+		}
+		System.out.println("OutputCoordinator, publishMessagetoPSI: " + messageString);
+		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 	}
+
 	
 	public void log(String from, String level, String msg)
 	{
