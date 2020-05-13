@@ -36,7 +36,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	private String multiModalDelim = ";%;";
 	private String withinModeDelim = ":";	
 	private Map<String, String> locations;
-	private boolean shouldTrackLocation = true;
+	private boolean trackLocation = true;
 	private InputCoordinator source;
 	private String status = "";
 	private boolean isTrackingLocation = false;
@@ -44,12 +44,16 @@ public class MultiModalFilter extends BasilicaAdapter
 	public MultiModalFilter(Agent a) 
 	{
 		super(a);
-		locations = new Hashtable<String,String>();
+		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}
+		catch(Exception e) {e.printStackTrace();}
+		if (trackLocation) {
+			locations = new Hashtable<String,String>();			
+		}
 	}
 
 	public void setTrackMode(boolean m)
 	{
-		shouldTrackLocation = m;
+		trackLocation = m;
 	}
 
 	public String getStatus()
@@ -71,43 +75,58 @@ public class MultiModalFilter extends BasilicaAdapter
 		}
 	}
 
+	// Handles multimodal messages 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
 		if (multiModalMessage.length > 1) {
+			multiModalTag tag; 
+			String [] messagePart; 
 
+			// First check for identity since all updates would be for that identity
+			Boolean identityFound = false;
+			for (int i = 0; i < multiModalMessage.length && !identityFound; i++) {
+				messagePart = multiModalMessage[i].split(withinModeDelim,2);
+				tag = multiModalTag.valueOf(messagePart[0]);
+				if (tag == (multiModalTag.identity)) {
+					identityFound = true; 
+					me.setFrom(messagePart[1]);
+					checkPresence(source,me);					
+				}
+			}
+			
+			// Update the message sender's properties based on multimodal updates
 			for (int i = 0; i < multiModalMessage.length; i++) {
 				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
-				String[] messagePart = multiModalMessage[i].split(withinModeDelim,2);
+				messagePart = multiModalMessage[i].split(withinModeDelim,2);
 				
-				multiModalTag tag = multiModalTag.valueOf(messagePart[0]);
+				tag = multiModalTag.valueOf(messagePart[0]);
 				
 				switch (tag) {
 				case multimodal:
+					System.out.println("=========== multimodal message ===========");
 					break;
-				case identity:
-					// System.out.println("Identity: " + messagePart[1]);
-					me.setFrom(messagePart[1]);
-					checkPresence(source,me);
+				case identity:  // already handled above
+					System.out.println("Identity: " + messagePart[1]);
 					break;
 				case speech:
-					// System.out.println("Speech: " + messagePart[1]);
+					System.out.println("Speech: " + messagePart[1]);
 					me.setText(messagePart[1]);
 					break;
 				case location:
-					// System.out.println("Location: " + messagePart[1]);
-					if (shouldTrackLocation)
+					System.out.println("Location: " + messagePart[1]);
+					if (trackLocation)
 						updateLocation(me,messagePart[1]);
 					break;
 				case facialExp:
-					// System.out.println("Facial expression: " + messagePart[1]);
+					System.out.println("Facial expression: " + messagePart[1]);
 					break;
 				case bodyPos:
-					// System.out.println("Body position: " + messagePart[1]);
+					System.out.println("Body position: " + messagePart[1]);
 					break;
 				case emotion:
-					// System.out.println("Emotion: " + messagePart[1]);
+					System.out.println("Emotion: " + messagePart[1]);
 					break;
 				default:
 					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
