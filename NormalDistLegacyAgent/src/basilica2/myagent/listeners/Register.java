@@ -222,7 +222,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("SIMILARITY")) {
-				prompt_message = "Yes, the miniums, medians, maximums, and modes are all the same. Can you find a difference?";
+				prompt_message = "Yes, the minimums, medians, maximums, and modes are all the same. Can you find a difference?";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 			

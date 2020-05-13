@@ -73,7 +73,7 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
 
 # Converting a Docker agent to a legacy agent
 In case you don't want to run Docker.
-- Replace the agent's file '…/runtime/properties/WebSocketChatClient.properties' with a copy of (e.g.) the file 'WeatherAgentLegacy/runtime/properties/WebSocketChatClientLegacy.properties'
-- In the agent's file '…/runtime/agent.xml' replace both instances of "WebSocketChatClient" with "WebSocketChatClientLegacy".
+- Replace the agent's file '…/runtime/properties/WebsocketChatClient.properties' with a copy of (e.g.) the file 'WeatherAgentLegacy/runtime/properties/WebsocketChatClientLegacy.properties'
+- In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClient" with "WebsocketChatClientLegacy".
 - If any src files include the line 'import basilica2.socketchat.WebsocketChatClient', change those lines to 'import basilica2.socketchat.WebsocketChatClientLegacy'.
 - In the .classpath file, replace ‘SocketIOClient’ with ‘SocketIOClientLegacy’.
