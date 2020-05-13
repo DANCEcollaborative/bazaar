@@ -22,6 +22,7 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.lang.Math; 
 
 
 public class MultiModalFilter extends BasilicaAdapter
@@ -35,8 +36,9 @@ public class MultiModalFilter extends BasilicaAdapter
 	}
 	private String multiModalDelim = ";%;";
 	private String withinModeDelim = ":";	
-	private Map<String, String> locations;
 	private boolean trackLocation = true;
+	private boolean checkDistances = true;
+	private boolean minDistanceApart = true;
 	private InputCoordinator source;
 	private String status = "";
 	private boolean isTrackingLocation = false;
@@ -44,11 +46,14 @@ public class MultiModalFilter extends BasilicaAdapter
 	public MultiModalFilter(Agent a) 
 	{
 		super(a);
+		
+		// get location-related properties
 		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}
 		catch(Exception e) {e.printStackTrace();}
-		if (trackLocation) {
-			locations = new Hashtable<String,String>();			
-		}
+		try{checkDistances = Boolean.parseBoolean(getProperties().getProperty("check_distances", "true"));}
+		catch(Exception e) {e.printStackTrace();}
+		try{minDistanceApart = Boolean.parseBoolean(getProperties().getProperty("minimum_distance_apart", "183"));}
+		catch(Exception e) {e.printStackTrace();}
 	}
 
 	public void setTrackMode(boolean m)
@@ -115,7 +120,7 @@ public class MultiModalFilter extends BasilicaAdapter
 					me.setText(messagePart[1]);
 					break;
 				case location:
-					System.out.println("Location: " + messagePart[1]);
+					System.out.println("Location: " + "x - " + messagePart[1] + "y - " + messagePart[2] + "z - " + messagePart[3]);
 					if (trackLocation)
 						updateLocation(me,messagePart[1]);
 					break;
@@ -173,13 +178,53 @@ public class MultiModalFilter extends BasilicaAdapter
 	}
 
 	private void updateLocation(MessageEvent me, String location)
-	{
-		
+	{		
 		String identity = me.getFrom();
-
         State s = State.copy(StateMemory.getSharedState(agent));
         s.setLocation(identity, location);
         StateMemory.commitSharedState(s, agent);
+        if (checkDistances) {
+            checkDistances(identity);            	
+        }   
+	}
+	
+	private void checkDistances (String identity) {
+		Double[] myCoordinates = getLocationCoordinates(identity);	
+		Double[] otherCoordinates; 
+		State s = StateMemory.getSharedState(agent);
+		String[] studentIDs = s.getStudentIds(); 
+		String otherStudentID; 
+		Double distance; 
+		
+		for (int i = 0; i < studentIDs.length; i++)  {
+            otherStudentID = studentIDs[i];
+            if (!otherStudentID.equals(identity)) {
+                otherCoordinates = getLocationCoordinates(otherStudentID);
+                distance = calculateDistance(myCoordinates,otherCoordinates); 
+                System.out.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
+            }
+		}
+		
+	}
+	
+	private Double[] getLocationCoordinates (String identity) {
+		Double[] locationCoordinates = new Double[3]; 
+		String[] locationStrings = new String[3];
+        State s = StateMemory.getSharedState(agent);
+		String rawLocation = s.getLocation(identity); 
+		if (rawLocation != null) {
+			locationStrings = rawLocation.split(withinModeDelim,3);
+			for (int i=0; i<3; i++)
+				locationCoordinates[i] = Double.valueOf(locationStrings[i]);
+			return locationCoordinates; 
+		}
+		else return null;		
+	}
+	
+	private Double calculateDistance (Double[] coordinatesA, Double[] coordinatesB ) {
+		Double xDistance = coordinatesA[0] - coordinatesB[0];
+		Double yDistance = coordinatesA[1] - coordinatesB[1];
+		return Math.sqrt(xDistance*xDistance + yDistance*yDistance);
 	}
 	
 

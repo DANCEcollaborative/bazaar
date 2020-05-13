@@ -273,7 +273,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		String to = me.getDestinationUser();
 		if (to != null) {
 			State state = StateMemory.getSharedState(this.getAgent());
-			location = state.getStudentLocation(to);
+			location = state.getLocation(to);
 			if (location != null) {
 				multimodalMessage = true; 
 			}

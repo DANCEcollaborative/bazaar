@@ -53,7 +53,7 @@ public class State
 		public boolean isPresent;
 		public String speech;
 		public String identity;
-		public String location;
+		public String location = null;
 		public String facialExp;
 		public String bodyPos;
 		public String emotion;
@@ -178,14 +178,14 @@ public class State
 		setName(sid, name);
 	}
 
-	public String getStudentLocation(String sid)
+	public String getLocation(String sid)
 	{
 		for (int i = 0; i < students.size(); i++)
 		{
 			Student s = students.get(i);
 			if (s.isPresent)
 			{
-				// System.out.println("@@@@@ Get location - sid/chatId: " + sid + " - Location: " + s.location + " @@@@@");
+				System.out.println("State.java, getLocation - sid/chatId: " + sid + " - Location: " + s.location);
 				if (s.chatId.equalsIgnoreCase(sid)) { return s.location; }
 			}
 		}
@@ -199,7 +199,7 @@ public class State
 			if (sid.startsWith(students.get(i).chatId))
 			{
 				students.get(i).location = location;
-				// System.out.println("@@@@@ Set location - sid/chatId: " + sid + " - Location: " + location + " @@@@@");
+				System.out.println("State.java, setLocation - sid/chatId: " + sid + " - Location: " + location);
 			}
 		}
 	}
