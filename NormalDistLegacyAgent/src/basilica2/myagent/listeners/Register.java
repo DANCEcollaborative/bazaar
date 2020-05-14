@@ -232,7 +232,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 				source.queueNewEvent(prompt);
 				
 			} else if (me.hasAnnotations("SYMMETRY")) {
-				prompt_message = "Yes. Finger lengths tend to cluster around the same size but some are much longer. | What does this say more generally about people’s finger lengths?";
+				prompt_message = "Yes. Finger lengths tend to cluster around the same size but some are much longer. | What does this say about the distribution of people’s finger lengths?";
 				PromptEvent prompt = new PromptEvent(source, prompt_message , "reasoning");
 				source.queueNewEvent(prompt);
 				
