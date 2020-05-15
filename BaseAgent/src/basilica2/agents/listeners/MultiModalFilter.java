@@ -9,8 +9,10 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
+import basilica2.agents.events.PromptEvent;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.events.priority.PriorityEvent.Callback;
 import basilica2.agents.listeners.PresenceWatcher;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -101,6 +103,7 @@ public class MultiModalFilter extends BasilicaAdapter
 				tag = multiModalTag.valueOf(messagePart[0]);
 				if (tag == (multiModalTag.identity)) {
 					identityFound = true; 
+					System.err.println("identify found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					checkPresence(source,me);					
 				}
@@ -125,9 +128,9 @@ public class MultiModalFilter extends BasilicaAdapter
 					me.setText(messagePart[1]);
 					break;
 				case location:
-					System.out.println("Location: " + "x - " + messagePart[1] + "y - " + messagePart[2] + "z - " + messagePart[3]);
+					System.out.println("Location: " + messagePart[1]);
 					if (trackLocation)
-						updateLocation(me,messagePart[1]);
+						updateLocation(source,me,messagePart[1]);
 					break;
 				case facialExp:
 					System.out.println("Facial expression: " + messagePart[1]);
@@ -141,7 +144,8 @@ public class MultiModalFilter extends BasilicaAdapter
 				default:
 					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
 				}
-			}}    // Don't know why two "}" are required here 
+			}
+		}  
     }
 		
 
@@ -182,19 +186,28 @@ public class MultiModalFilter extends BasilicaAdapter
 		}
 	}
 
-	private void updateLocation(MessageEvent me, String location)
+	private void updateLocation(InputCoordinator source, MessageEvent me, String location)
 	{		
+		System.err.print("Updating location for " + me.getFrom() + ": " + location);
 		String identity = me.getFrom();
         State s = State.copy(StateMemory.getSharedState(agent));
         s.setLocation(identity, location);
         StateMemory.commitSharedState(s, agent);
         if (checkDistances) {
-            checkDistances(identity, me);            	
+            checkDistances(source, me, identity);            	
         }   
 	}
 	
-	private void checkDistances (String identity, MessageEvent me) {
+	private void checkDistances (InputCoordinator source, MessageEvent me, String identity) {
+		System.err.print("===== Checking distances ======");
 		Double[] myCoordinates = getLocationCoordinates(identity);	
+		
+		StringBuilder myCoordinatesString = new StringBuilder("");
+		myCoordinatesString.append("x: " + Double.toString(myCoordinates[0]));
+		myCoordinatesString.append("  --  y: " + Double.toString(myCoordinates[1]));
+		myCoordinatesString.append("  --  z: " + Double.toString(myCoordinates[2]));
+		System.err.println("checkDistances, myCoordinates  --  " + myCoordinatesString.toString());
+		
 		Double[] otherCoordinates; 
 		State s = StateMemory.getSharedState(agent);
 		String[] studentIDs = s.getStudentIds(); 
@@ -206,12 +219,21 @@ public class MultiModalFilter extends BasilicaAdapter
             otherStudentID = studentIDs[i];
             if (!otherStudentID.equals(identity)) {
                 otherCoordinates = getLocationCoordinates(otherStudentID);
-                distance = calculateDistance(myCoordinates,otherCoordinates); 
-                System.out.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
-                if (distance > minDistanceApart) {
-                	System.out.println("Issuing distance warning"); 
-                	issueDistanceWarning(identity,otherStudentID,me);
-                }
+        		if (otherCoordinates != null) {
+            		StringBuilder otherCoordinatesString = new StringBuilder("");
+            		otherCoordinatesString.append("x: " + Double.toString(otherCoordinates[0]));
+            		otherCoordinatesString.append("  --  y: " + Double.toString(otherCoordinates[1]));
+            		otherCoordinatesString.append("  --  z: " + Double.toString(otherCoordinates[2]));
+            		System.err.println("checkDistances, otherCoordinates for " + otherStudentID + ", student " + Integer.toString(i) + "  --  " + otherCoordinatesString.toString());
+            		
+                    distance = calculateDistance(myCoordinates,otherCoordinates); 
+                    System.err.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
+                    if (distance > minDistanceApart) {
+                    	System.err.println("Issuing distance warning"); 
+                    	issueDistanceWarning(source,me,identity,otherStudentID);
+                    }        			
+        		}
+
             }
 		}
 		
@@ -223,6 +245,7 @@ public class MultiModalFilter extends BasilicaAdapter
         State s = StateMemory.getSharedState(agent);
 		String rawLocation = s.getLocation(identity); 
 		if (rawLocation != null) {
+			System.err.print("raw location coordinates for " + identity + ": " + rawLocation);
 			locationStrings = rawLocation.split(withinModeDelim,3);
 			for (int i=0; i<3; i++)
 				locationCoordinates[i] = Double.valueOf(locationStrings[i]);
@@ -237,14 +260,19 @@ public class MultiModalFilter extends BasilicaAdapter
 		return Math.sqrt(xDistance*xDistance + yDistance*yDistance);
 	}
 	
-	private void issueDistanceWarning (String identity1, String identity2, MessageEvent me) {
+	private void issueDistanceWarning (InputCoordinator source, MessageEvent me, String identity1, String identity2) {
         State s = StateMemory.getSharedState(agent);
 		String prompt = s.getStudentName(identity1) + " and " + s.getStudentName(identity2) + ", remember to keep social-distancing in mind."; 
-		final MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
-		final BlacklistSource blacklistSource = new BlacklistSource(sourceName, sourceName, ""); // block messages from ourselves and everybody
-		PriorityEvent peMe = new PriorityEvent(source,me,1.0,blacklistSource,5);
-		// Have to establish callback here? 
-		source.pushProposal(peMe);		
+		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
+		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(sourceName, newMe, 1.0, 5, 5);
+		blackout.addCallback(new Callback()
+		{
+			@Override
+			public void accepted(PriorityEvent p) {}
+			@Override
+			public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
+		});
+		source.addProposal(blackout);
 	}
 	
 	/**
