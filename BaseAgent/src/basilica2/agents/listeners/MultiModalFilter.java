@@ -269,7 +269,7 @@ public class MultiModalFilter extends BasilicaAdapter
         State s = StateMemory.getSharedState(agent);
 		String prompt = s.getStudentName(identity1) + " and " + s.getStudentName(identity2) + ", remember to social-distance!"; 
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
-		newMe.setDestinationUser(identity1);
+		newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(sourceName, newMe, 1.0, 5, 5);
 		blackout.addCallback(new Callback()
 		{

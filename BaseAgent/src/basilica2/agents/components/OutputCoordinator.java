@@ -249,7 +249,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	// Designed for multiple fields. Currently only location and message text are supported.
 	private void publishMessageToPSI(MessageEvent me)
 	{
-		Boolean multimodalMessage = false; 
+		Boolean multimodalMessage = true; 
 		String multiModalField = "multimodal"; 
 		String speechField = "speech";
 		String identityField = "identity";
@@ -257,31 +257,17 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// String location = null; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":";	
+		String identityAllUsers = "all";
 		String messageString; 
 		
-		String text = me.getText();
-		
-		// Multimodal message if user is known.
+		String text = me.getText();		
+		// To specific user if known.
 		String to = me.getDestinationUser();
-		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
-		if (to != null) {
-			multimodalMessage = true; 
+		if (to == null) {
+			to = identityAllUsers; 
 		}	
-		
-		// Format multimodal message if appropriate
-		if (multimodalMessage) {
-			System.err.println("OutputCoordinator, publishMessageToPSI: multimodal message");
-			StringBuilder messageBuilder = new StringBuilder(""); 
-			messageBuilder.append(multiModalField);  
-			messageBuilder.append(multiModalDelim + speechField + withinModeDelim + text); 
-			if (to != null) {
-				messageBuilder.append(multiModalDelim + identityField + withinModeDelim + to); 	
-			}
-			messageString = messageBuilder.toString(); 			
-		} 
-		else {
-			messageString = text; 
-		}
+		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
+		messageString = multiModalField + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 	}
