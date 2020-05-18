@@ -263,12 +263,14 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		
 		// Multimodal message if user is known.
 		String to = me.getDestinationUser();
+		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		if (to != null) {
 			multimodalMessage = true; 
 		}	
 		
 		// Format multimodal message if appropriate
 		if (multimodalMessage) {
+			System.err.println("OutputCoordinator, publishMessageToPSI: multimodal message");
 			StringBuilder messageBuilder = new StringBuilder(""); 
 			messageBuilder.append(multiModalField);  
 			messageBuilder.append(multiModalDelim + speechField + withinModeDelim + text); 
@@ -280,7 +282,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		else {
 			messageString = text; 
 		}
-		System.out.println("OutputCoordinator, publishMessagetoPSI: " + messageString);
+		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 	}
 

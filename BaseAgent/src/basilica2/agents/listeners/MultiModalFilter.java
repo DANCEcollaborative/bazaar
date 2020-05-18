@@ -267,7 +267,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	
 	private void issueDistanceWarning (InputCoordinator source, MessageEvent me, String identity1, String identity2) {
         State s = StateMemory.getSharedState(agent);
-		String prompt = s.getStudentName(identity1) + " and " + s.getStudentName(identity2) + ", remember to keep social-distancing in mind."; 
+		String prompt = s.getStudentName(identity1) + " and " + s.getStudentName(identity2) + ", remember to social-distance!"; 
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(sourceName, newMe, 1.0, 5, 5);
 		blackout.addCallback(new Callback()
