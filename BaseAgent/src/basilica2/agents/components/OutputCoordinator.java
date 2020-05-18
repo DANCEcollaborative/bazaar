@@ -267,7 +267,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			to = identityAllUsers; 
 		}	
 		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
-		messageString = multiModalField + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
+		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 	}
