@@ -56,10 +56,6 @@ public abstract class Agent implements LogUser
 	protected List<AgentObserver> myObservers;
 	private String userName;
 	private String roomName;
-	protected double location;
-	protected String facialExp;		// TODO: Convert to enum
-	protected String bodyPos; 		// TODO: Convert to enum
-	protected String emotion;		// TODO: Convert to enum
 	public Boolean hasUI = true;    // default
 	
 	
@@ -311,16 +307,5 @@ public abstract class Agent implements LogUser
 	public String getRoomName()
 	{
 		return roomName;
-	}
-
-	public void setLocation(double loc)
-	{
-		location = loc;
-		System.out.println("Agent: location set to " + String.valueOf(loc));
-	}
-
-	public Double getLocation()
-	{
-		return location;
 	}
 }

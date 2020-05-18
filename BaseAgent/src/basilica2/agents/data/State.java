@@ -183,10 +183,10 @@ public class State
 		for (int i = 0; i < students.size(); i++)
 		{
 			Student s = students.get(i);
-			if (s.isPresent)
+			if (s.chatId.equalsIgnoreCase(sid))
 			{
 				System.out.println("State.java, getLocation - sid/chatId: " + sid + " - Location: " + s.location);
-				if (s.chatId.equalsIgnoreCase(sid)) { return s.location; }
+				return s.location;
 			}
 		}
 		return null;

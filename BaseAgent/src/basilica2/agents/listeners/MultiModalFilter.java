@@ -130,7 +130,7 @@ public class MultiModalFilter extends BasilicaAdapter
 				case location:
 					System.out.println("Location: " + messagePart[1]);
 					if (trackLocation)
-						updateLocation(source,me,messagePart[1]);
+						locationUpdate(source,me,messagePart[1]);
 					break;
 				case facialExp:
 					System.out.println("Facial expression: " + messagePart[1]);
@@ -186,20 +186,25 @@ public class MultiModalFilter extends BasilicaAdapter
 		}
 	}
 
-	private void updateLocation(InputCoordinator source, MessageEvent me, String location)
+	private void locationUpdate(InputCoordinator source, MessageEvent me, String location)
 	{		
-		System.err.print("Updating location for " + me.getFrom() + ": " + location);
 		String identity = me.getFrom();
-        State s = State.copy(StateMemory.getSharedState(agent));
-        s.setLocation(identity, location);
-        StateMemory.commitSharedState(s, agent);
-        if (checkDistances) {
-            checkDistances(source, me, identity);            	
-        }   
+		System.err.println("locationUpdate for " + identity + ": " + location);
+		String prevLocation = StateMemory.getSharedState(agent).getLocation(identity); 
+		if (!location.equals(prevLocation)) {
+			System.err.println("Updating location for " + me.getFrom() + ":  was - " + prevLocation + " --  now - " + location);
+			State s = State.copy(StateMemory.getSharedState(agent));
+	        s.setLocation(identity, location);
+	        StateMemory.commitSharedState(s, agent);
+	        if (checkDistances) {
+	            checkDistances(source, me, identity);            	
+	        }   			
+		}
+
 	}
 	
 	private void checkDistances (InputCoordinator source, MessageEvent me, String identity) {
-		System.err.print("===== Checking distances ======");
+		System.err.println("===== Checking distances ======");
 		Double[] myCoordinates = getLocationCoordinates(identity);	
 		
 		StringBuilder myCoordinatesString = new StringBuilder("");
@@ -245,7 +250,7 @@ public class MultiModalFilter extends BasilicaAdapter
         State s = StateMemory.getSharedState(agent);
 		String rawLocation = s.getLocation(identity); 
 		if (rawLocation != null) {
-			System.err.print("raw location coordinates for " + identity + ": " + rawLocation);
+			System.err.println("raw location coordinates for " + identity + ": " + rawLocation);
 			locationStrings = rawLocation.split(withinModeDelim,3);
 			for (int i=0; i<3; i++)
 				locationCoordinates[i] = Double.valueOf(locationStrings[i]);
