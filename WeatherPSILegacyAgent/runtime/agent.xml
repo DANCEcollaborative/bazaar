@@ -16,7 +16,7 @@
         <connection from="psiClient" to="inputCoordinator"/>
 
     	<!-- This gets PSI input to system but on console it looks like it's coming from Tutor -->
-        <connection from="psiClient" to="client"/>
+        <!-- <connection from="psiClient" to="client"/> -->
 
         <connection from="inputCoordinator" to="inputCoordinator"></connection>
         <connection from="inputCoordinator" to="outputCoordinator"></connection>
