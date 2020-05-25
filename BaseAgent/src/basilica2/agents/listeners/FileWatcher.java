@@ -36,8 +36,10 @@ public class FileWatcher extends BasilicaAdapter
 	private InputCoordinator source;
 	private String status = "";
 	String filePath; 
+	String fileSuffix;
 	String[] fileNames; 
 	Boolean[] fileCompleted; 
+	String roomName; 
 
 	public FileWatcher(Agent a) 
 	{
@@ -46,19 +48,15 @@ public class FileWatcher extends BasilicaAdapter
 		{
 			try{filePath = getProperties().getProperty("filePath", "./");}
 			catch(Exception e) {e.printStackTrace();}
-			
+			try{fileSuffix = getProperties().getProperty("fileSuffix", ".txt");}
+			catch(Exception e) {e.printStackTrace();}			
 			fileNames = properties.getProperty("filenames", "").split("[\\s,]+");
-/*			
-			for (String name : fileNames) {
-				File tempFile = new File(filePath + name);
-				System.err.println("FileWatcher watching file: " + tempFile.getPath());
-			}
-*/			
 			fileCompleted = new Boolean[fileNames.length]; 
 			for (int i=0; i < fileCompleted.length; i++) {
 				fileCompleted[i] = false; 
 			}				
 		}
+		roomName = a.getRoomName();
 	}
 
 	public String getStatus()
@@ -72,7 +70,7 @@ public class FileWatcher extends BasilicaAdapter
 		File file; 
 		for (int i=0; i < fileCompleted.length; i++) {
 			if (!fileCompleted[i]) {
-				file = new File(filePath + fileNames[i]);
+				file = new File(filePath + "room-" + roomName + "-" + fileNames[i] + fileSuffix);
 				// System.err.println("Checking file: " + file.getPath()); 
 				if (file.exists()) {
 					fileCompleted[i] = true;
