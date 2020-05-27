@@ -13,6 +13,7 @@ import basilica2.agents.events.PromptEvent;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
+import basilica2.agents.events.FileEvent;
 import basilica2.agents.listeners.PresenceWatcher;
 import basilica2.agents.listeners.plan.StepHandler;
 import edu.cmu.cs.lti.basilica2.core.Component;
@@ -68,35 +69,20 @@ public class FileWatcher extends BasilicaAdapter
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
 		File file; 
+		FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 		for (int i=0; i < fileCompleted.length; i++) {
 			if (!fileCompleted[i]) {
 				file = new File(filePath + "room-" + roomName + "-" + fileNames[i] + fileSuffix);
-				// System.err.println("Checking file: " + file.getPath()); 
+				System.err.println("Checking file: " + file.getPath()); 
 				if (file.exists()) {
 					fileCompleted[i] = true;
-					System.err.println("File newly exists: " + file.getPath()); 					
+					System.err.println("File newly exists: " + file.getPath()); 
+					FileEvent fEvent = new FileEvent(source,fileNames[i],eventType);
+					source.pushEvent(fEvent);
 				}				
 			}
 		}
 	}
-	
-/*	
-	private void issueDistanceWarning (InputCoordinator source, MessageEvent me, String identity1, String identity2) {
-        State s = StateMemory.getSharedState(agent);
-		String prompt = s.getStudentName(identity1) + " and " + s.getStudentName(identity2) + ", remember to social-distance!"; 
-		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
-		newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
-		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(sourceName, newMe, 1.0, 5, 5);
-		blackout.addCallback(new Callback()
-		{
-			@Override
-			public void accepted(PriorityEvent p) {}
-			@Override
-			public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
-		});
-		source.pushProposal(blackout);
-	}
-*/ 
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
