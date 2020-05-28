@@ -10,6 +10,9 @@ import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PromptEvent;
+import basilica2.agents.events.TypingEvent;
+import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
@@ -90,8 +93,7 @@ public class FileWatcher extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		//only MessageEvents will be delivered to this watcher.
-		return new Class[]{MessageEvent.class};
+		return new Class[]{MessageEvent.class, ReadyEvent.class, PresenceEvent.class, WhiteboardEvent.class, TypingEvent.class};
 	}
 
 

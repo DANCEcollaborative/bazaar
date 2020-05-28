@@ -55,11 +55,11 @@ public class FileEvent extends Event {
         System.err.println("FileEvent created: file: " + n + " -- event type:" + t);
     }
 
-    public String getfileName() {
+    public String getFileName() {
         return fileName;
     }
 
-    public fileEventType getfileEventType() {
+    public fileEventType getFileEventType() {
         return eventType;
     }
 
