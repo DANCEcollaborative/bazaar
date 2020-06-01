@@ -8,12 +8,45 @@
         <text>Hello, [NAME]!</text>
     </prompt>
     
+    <prompt strategy="task" id="WELCOME">
+        <text>Welcome! We'll be starting shortly.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WELCOME_MULTI">
+        <text>Welcome! We'll be starting in just a moment.</text>
+        <text>Welcome to the Diamond Kata exercise! We'll be starting shortly.</text>
+        <text>Hi! Nice to see you. We're going to do the Diamond Kata exercise.</text>
+    </prompt>
+    
     <prompt strategy="task" id="INTRODUCE">
-        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
+        <text>Nice to see you! I'm [AGENT NAME]. Please take a moment to introduce yourselves.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE_MULTI">
+        <text>Again, welcome! Please take a minute to introduce yourselves.</text>
+        <text>Hello again, you two! Do you know each other?</text>
+        <text>Greetings! Please share your names and one thing you like about this course.</text>
+        <text>I'm [AGENT NAME]. Please share your names.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="INTRODUCE_ACTIVITY">
+        <text>Today, we'll practice pair programming as you collaborate on the Diamond Kata exercise. We'll use test-driven development.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="ASSIGN_ROLES">
+        <text>For the first test case, why don't you start as the Driver, [NAME1], and [NAME2], why don't you start as the Navigator?</text>
+    </prompt>
+  
+    <prompt strategy="task" id="ASSIGN_ROLES_MULTI">
+        <text>For the first test case, why don't you start as the Driver, [NAME1], and [NAME2], why don't you start as the Navigator? |Remember to stay at least 6 feet apart for social-distancing as you move to your seats.</text>
     </prompt>
   
     <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
-        <text>Okay! Today, we'll be discussing weather. | I can help you discuss relations between weather factors.</text>
+        <text>Remember to stay at least 6 feet apart for social-distancing as you move to your seats.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE_AFTER">
+        <text>First, please take a minute to introduce yourselves.</text>
     </prompt>
     
     <prompt strategy="task" id="WEATHER_TOPIC_SPECIFICS">
