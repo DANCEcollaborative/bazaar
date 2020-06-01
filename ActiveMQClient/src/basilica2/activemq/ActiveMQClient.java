@@ -140,10 +140,15 @@ public class ActiveMQClient extends Component implements ChatClient
 	{
 		if(e instanceof MessageEvent)
 		{
+
 			MessageEvent me = (MessageEvent) e;
-			EchoEvent ee = new EchoEvent(e.getSender(), me);
+			getAgent().getComponent("inputCoordinator").receiveEvent(me);
 			
-			getAgent().getComponent("inputCoordinator").receiveEvent(ee);
+			// getAgent().getComponent("inputCoordinator").receiveEvent(e);
+
+			// MessageEvent me = (MessageEvent) e;
+			// EchoEvent ee = new EchoEvent(e.getSender(), me);
+			// getAgent().getComponent("inputCoordinator").receiveEvent(ee);
 		}
 
 	}
