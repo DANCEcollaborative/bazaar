@@ -12,9 +12,11 @@
         <step type="prompt" delay="5" prompt="WHITEBOARD_INSTRUCTIONS">WHITEBOARD_INSTRUCTIONS</step>
         <step type="whiteboard" delay="5" path="http://blogs.adobe.com/digitalpublishing/files/2011/02/android_logo.gif">SHOW_IMAGE</step>
         -->      
-        <step type="prompt" timeout="30" delay="20" prompt="WELCOME">WELCOME</step>
-        <step type="greet" timeout="30" delay="10">GREETINGS</step>
+        <step type="prompt" timeout="30" delay="2" prompt="WELCOME">WELCOME</step>
         <step type="prompt" delay="10" prompt="INTRODUCE_ACTIVITY" >INTRODUCE_ACTIVITY</step> 
+        <step type="greet" timeout="30" delay="2">GREETINGS</step>
+        <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step> 
+        <!--  <step type="prompt" delay="10" prompt="INTRODUCE_ACTIVITY" >INTRODUCE_ACTIVITY</step>  -->
         
     </stage>
     <stage name="body" type="other" delay="30">
