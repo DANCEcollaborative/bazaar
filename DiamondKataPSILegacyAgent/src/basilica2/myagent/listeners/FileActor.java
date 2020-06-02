@@ -74,7 +74,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestA(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestA()"); 
-		String prompt = "You've completed Test A!"; 
+		String prompt = "You've passed a test case for the number of lines your program will output. Can you think of reasons why this contributes more to an iterative solution or to a recursive solution?"; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
