@@ -10,6 +10,9 @@ import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PromptEvent;
+import basilica2.agents.events.PoseEvent.poseEventType;
+import basilica2.agents.events.FileEvent;
+import basilica2.agents.events.PoseEvent;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
@@ -36,7 +39,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	public static String GENERIC_TYPE = "Filter";
 	protected enum multiModalTag  
 	{
-		multimodal, identity, speech, location, facialExp, bodyPos, emotion;
+		multimodal, identity, speech, location, facialExp, pose, emotion;
 	}
 	private String multiModalDelim = ";%;";
 	private String withinModeDelim = ":";	
@@ -105,7 +108,9 @@ public class MultiModalFilter extends BasilicaAdapter
 					identityFound = true; 
 					System.err.println("identify found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
-					checkPresence(source,me);					
+					if (messagePart[1] != "group") {     // Message from "group" is not a new presence
+						checkPresence(source,me);	
+					}									
 				}
 			}
 			
@@ -135,8 +140,9 @@ public class MultiModalFilter extends BasilicaAdapter
 				case facialExp:
 					System.out.println("Facial expression: " + messagePart[1]);
 					break;
-				case bodyPos:
-					System.out.println("Body position: " + messagePart[1]);
+				case pose:
+					System.err.println("MultimodalFilter, Pose: " + poseEventType.valueOf(messagePart[1]));
+					poseUpdate(source,me,poseEventType.valueOf(messagePart[1])); 
 					break;
 				case emotion:
 					System.out.println("Emotion: " + messagePart[1]);
@@ -184,6 +190,13 @@ public class MultiModalFilter extends BasilicaAdapter
 			updateState.removeStudent(pe.getUsername());
 			StateMemory.commitSharedState(updateState, agent);
 		}
+	}
+	
+	private void poseUpdate(final InputCoordinator source, MessageEvent me, poseEventType poseType)
+	{
+		System.err.println("MultiModalFilter pose update -- from: " + me.getFrom() + " -- pose: " + poseType.toString()); 
+		PoseEvent poseE = new PoseEvent(source,me.getFrom(),poseType);
+		source.pushEvent(poseE);
 	}
 
 	private void locationUpdate(InputCoordinator source, MessageEvent me, String location)
