@@ -91,7 +91,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestB(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestB()"); 
-		String prompt = "You've completed Test B!"; 
+		String prompt = "Now that you're ready to begin working on passing the next test case, it's time to switch roles."; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);

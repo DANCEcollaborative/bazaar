@@ -28,6 +28,7 @@ public class PoseActor extends BasilicaAdapter
 	private static final String SOURCE_NAME = "PoseActor";
 	InputCoordinator source;
 	private String status = "";
+	private String identityAllUsers = "group";
 	
 	public PoseActor(Agent a)
 	{
@@ -52,7 +53,7 @@ public class PoseActor extends BasilicaAdapter
 	private void poseEventResponse(InputCoordinator source, PoseEvent poseEvent)
 	{
 		String identity = poseEvent.getIdentity();	
-		if (identity.equals("all")) {
+		if (identity.equals(identityAllUsers)) {
 			poseEventResponseGroup(source, poseEvent);
 		}
 		else {
@@ -66,7 +67,7 @@ public class PoseActor extends BasilicaAdapter
 		poseEventType poseType = poseEvent.getPoseEventType();
 		System.err.println("PoseActor, poseEventResponseGroup -- prevPose: " + prevPose.toString() + " -- newPose: " + poseType.toString());
 		if (prevPose == poseEventType.too_close && poseType == poseEventType.seated) {
-			issueDistanceWarning(source,poseEvent,"all");
+			issueDistanceWarning(source,poseEvent,identityAllUsers);
 		}
 		State s = State.copy(StateMemory.getSharedState(agent));
         s.setGroupPose(poseType);
@@ -100,7 +101,7 @@ public class PoseActor extends BasilicaAdapter
 					}
 				}
 				if (allStudentsSeated) {
-					issueDistanceWarning(source,poseEvent,"all"); 
+					issueDistanceWarning(source,poseEvent,identityAllUsers); 
 				}
 			}
 		}

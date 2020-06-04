@@ -257,7 +257,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// String location = null; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":";	
-		String identityAllUsers = "all";
+		String identityAllUsers = "group";
 		String messageString; 
 		
 		String text = me.getText();		
