@@ -161,56 +161,10 @@ public class MultiModalFilter extends BasilicaAdapter
         State.Student user = state.getStudentById(identity);
         if (user == null) {
         	PresenceEvent pe = new PresenceEvent(source,identity,PresenceEvent.PRESENT);
-        	
-        	// source.pushEventProposal(pe, 1, 10);
-        	// source.addEventProposal(pe, 1, 10);
-        	// source.addPreprocessedEvent(pe);
         	source.processEvent(pe);
-        	
-        	// handlePresenceEvent(source,pe);
- /* *     	
-    		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(sourceName, pe, 1.0, 5, 5);
-    		blackout.addCallback(new Callback()
-    		{
-    			@Override
-    			public void accepted(PriorityEvent p) {}
-    			@Override
-    			public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
-    		});
-    		source.addProposal(blackout); 
-*/
         }     	
 	}
             
-/**	
-	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
-	{
-		State olds = StateMemory.getSharedState(agent);
-		State news;
-		if (pe.getType().equals(PresenceEvent.PRESENT))
-		{
-			if (olds != null)
-			{
-				news = State.copy(olds);
-			}
-			else
-			{
-				news = new State();
-			}
-			news.addStudent(pe.getUsername());
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MultiModalFilter handlePresenceEvent -- STUDENTS COUNT: " + news.getStudentCount());
-			StateMemory.commitSharedState(news, agent);
-			initiate(source, news);
-
-		}
-		else if (pe.getType().equals(PresenceEvent.ABSENT))
-		{
-			State updateState = State.copy(olds);
-			updateState.removeStudent(pe.getUsername());
-			StateMemory.commitSharedState(updateState, agent);
-		}
-	}
-*/
 	
 	private void poseUpdate(final InputCoordinator source, MessageEvent me, poseEventType poseType)
 	{
