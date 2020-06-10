@@ -66,9 +66,19 @@ public class PoseActor extends BasilicaAdapter
 		poseEventType prevPose = StateMemory.getSharedState(agent).getGroupPose(); 
 		poseEventType poseType = poseEvent.getPoseEventType();
 		System.err.println("PoseActor, poseEventResponseGroup -- prevPose: " + prevPose.toString() + " -- newPose: " + poseType.toString());
+
+		// TEMPORARY CHANGE UNTIL VISUAL DETECTOR SENDS poseEventType.seated
+		/**
 		if (prevPose == poseEventType.too_close && poseType == poseEventType.seated) {
 			issueDistanceWarning(source,poseEvent,identityAllUsers);
 		}
+		*/ 
+		if (poseType == poseEventType.too_close) {
+			issueDistanceWarning(source,poseEvent,identityAllUsers);
+		}
+		// END OF TEMPORARY CHANGE
+		
+		
 		State s = State.copy(StateMemory.getSharedState(agent));
         s.setGroupPose(poseType);
         StateMemory.commitSharedState(s, agent);
