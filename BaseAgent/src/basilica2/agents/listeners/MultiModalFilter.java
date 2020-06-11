@@ -50,6 +50,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	private String status = "";
 	private boolean isTrackingLocation = false;
 	private String sourceName; 
+	private String identityAllUsers = "group";
 
 	public MultiModalFilter(Agent a) 
 	{
@@ -108,7 +109,7 @@ public class MultiModalFilter extends BasilicaAdapter
 					identityFound = true; 
 					System.err.println("identify found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
-					if (messagePart[1] != "group") {     // Message from "group" is not a new presence
+					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
 						checkPresence(source,me);	
 					}									
 				}
@@ -157,12 +158,15 @@ public class MultiModalFilter extends BasilicaAdapter
 
 	private void checkPresence(InputCoordinator source, MessageEvent me) {
 		String identity = me.getFrom();
-        State state = State.copy(StateMemory.getSharedState(agent));
-        State.Student user = state.getStudentById(identity);
-        if (user == null) {
-        	PresenceEvent pe = new PresenceEvent(source,identity,PresenceEvent.PRESENT);
-        	source.processEvent(pe);
-        }     	
+		if (identity != identityAllUsers)
+		{
+	        State state = State.copy(StateMemory.getSharedState(agent));
+	        State.Student user = state.getStudentById(identity);
+	        if (user == null) {
+	        	PresenceEvent pe = new PresenceEvent(source,identity,PresenceEvent.PRESENT);
+	        	source.processEvent(pe);
+	        }  
+		}
 	}
             
 	

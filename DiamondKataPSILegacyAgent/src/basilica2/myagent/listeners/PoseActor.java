@@ -68,50 +68,50 @@ public class PoseActor extends BasilicaAdapter
 		System.err.println("PoseActor, poseEventResponseGroup -- prevPose: " + prevPose.toString() + " -- newPose: " + poseType.toString());
 
 		// TEMPORARY CHANGE UNTIL VISUAL DETECTOR SENDS poseEventType.seated
-		/**
-		if (prevPose == poseEventType.too_close && poseType == poseEventType.seated) {
-			issueDistanceWarning(source,poseEvent,identityAllUsers);
-		}
-		*/ 
+		// if (prevPose == poseEventType.too_close && poseType == poseEventType.seated) {
 		if (poseType == poseEventType.too_close) {
 			issueDistanceWarning(source,poseEvent,identityAllUsers);
 		}
-		// END OF TEMPORARY CHANGE
-		
 		
 		State s = State.copy(StateMemory.getSharedState(agent));
         s.setGroupPose(poseType);
-        StateMemory.commitSharedState(s, agent);
-		
+        StateMemory.commitSharedState(s, agent);		
 	}
 	
 	private void poseEventResponseIndividual(InputCoordinator source, PoseEvent poseEvent, String identity)
 	{
 		if (poseEvent.getPoseEventType() == poseEventType.seated) {
 			poseEventResponseIndividualSeated(source, poseEvent, identity); 
-		}
+		}	
+		State s = State.copy(StateMemory.getSharedState(agent));
+        s.setStudentPose(identity,poseEvent.getPoseEventType());
+        StateMemory.commitSharedState(s, agent);
 	}
 	
-	private void poseEventResponseIndividualSeated(InputCoordinator source, PoseEvent poseEvent, String identity)
+	private void poseEventResponseIndividualSeated(InputCoordinator source, PoseEvent poseEvent, String thisIdentity)
 	{
-		poseEventType prevGroupPose = StateMemory.getSharedState(agent).getGroupPose(); 
-
+		poseEventType prevGroupPose = StateMemory.getSharedState(agent).getGroupPose(); 	
 		if (poseEvent.getPoseEventType() == poseEventType.seated) {
-
 			if (prevGroupPose == poseEventType.too_close) {		// Check if users were too close and now are all seated
 				State s = StateMemory.getSharedState(agent);
 				String[] studentIDs = s.getStudentIds(); 
 				poseEventType poseType; 
 				Boolean allStudentsSeated = true; 
+				System.err.println("poseEventResponseIndividualSeated: checking if all students seated"); 
 				for (int i = 0; i < studentIDs.length; i++)  {
-					System.err.println("poseEventResponseIndividualSeated: checking if all students seated"); 
-					poseType = s.getStudentPose(identity); 
-					if (poseType != poseEventType.seated) {
-						allStudentsSeated = false; 
+					String otherIdentity = studentIDs[i]; 
+					if (otherIdentity != thisIdentity) {
+						poseType = s.getStudentPose(otherIdentity); 
+						if (poseType != poseEventType.seated) {
+							allStudentsSeated = false; 
+						}						
 					}
 				}
 				if (allStudentsSeated) {
 					issueDistanceWarning(source,poseEvent,identityAllUsers); 
+					State sCopy = State.copy(StateMemory.getSharedState(agent));
+			        sCopy.setGroupPose(poseEventType.seated);
+			        StateMemory.commitSharedState(sCopy, agent);		
 				}
 			}
 		}
@@ -119,9 +119,7 @@ public class PoseActor extends BasilicaAdapter
 	
 	private void issueDistanceWarning(InputCoordinator source, PoseEvent poseEvent, String to) {
 		System.err.println("====== PoseActor: ISSUING DISTANCE WARNING ===");
-        State s = StateMemory.getSharedState(agent);
 		String prompt = "In the future, please be more careful about social distancing when you rotate roles."; 
-		String messageText = createMultiModalDistancingText(to,prompt); 
 		MessageEvent newMe = new MessageEvent(source, agent.getName(), prompt);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, newMe, 1.0, 5, 5);
 		blackout.addCallback(new Callback()
@@ -132,10 +130,6 @@ public class PoseActor extends BasilicaAdapter
 			public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
 		});
 		source.pushProposal(blackout);
-	}	
-	
-	private String createMultiModalDistancingText(String to, String prompt) {
-		return "multimodal:true;%;speech:" + prompt + ";%;identity:" + to; 
 	}
 	
 	@Override
