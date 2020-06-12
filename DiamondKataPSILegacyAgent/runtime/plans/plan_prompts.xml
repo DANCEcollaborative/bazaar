@@ -19,6 +19,10 @@
     </prompt>
     
     <prompt strategy="task" id="INTRODUCE">
+        <text>Nice to see you! I'm Agent Rachel. Please take a moment to introduce yourselves.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE_NOT_HARDCODED">
         <text>Nice to see you! I'm [AGENT NAME]. Please take a moment to introduce yourselves.</text>
     </prompt>
     
@@ -46,7 +50,7 @@
     </prompt>
   
     <prompt strategy="task" id="SOCIAL_DISTANCE_CAUTION">
-        <text>Remember to stay at least 6 feet apart for social-distancing as you move about the room.</text>
+        <text>>As you move about the room, remember to stay at least 6 feet apart for social-distancing.</text>
     </prompt>
   
     <prompt strategy="task" id="NEXT_TESTCASE_WHEN_SEATED">
