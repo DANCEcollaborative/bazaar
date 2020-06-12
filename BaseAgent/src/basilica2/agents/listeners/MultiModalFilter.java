@@ -94,6 +94,10 @@ public class MultiModalFilter extends BasilicaAdapter
 	// Handles multimodal messages 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
+		// TEMP for DEBUGGING
+		State s = StateMemory.getSharedState(agent);
+		System.err.println("MultiModalFilter, current number of students: " + s.getStudentCount());
+		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
 		if (multiModalMessage.length > 1) {

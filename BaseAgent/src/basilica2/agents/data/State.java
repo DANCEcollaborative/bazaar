@@ -73,6 +73,7 @@ public class State
 	private String stepName = null;
 	private String stepType = null;
 	private poseEventType groupPose = poseEventType.none;
+	private String identityAllUsers = "group";
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -122,24 +123,27 @@ public class State
 
 	public void addStudent(String sid)
 	{
-		Student s = new Student();
-		boolean found = false;
-		for (int i = 0; i < students.size(); i++)
-		{
-			if (sid.startsWith(students.get(i).chatId))
+		System.err.println("===== State,addStudent - sid: " + sid); 
+		if (!sid.contentEquals(identityAllUsers)) {
+			Student s = new Student();
+			boolean found = false;
+			for (int i = 0; i < students.size(); i++)
 			{
-				found = true;
-				s = students.get(i);
+				if (sid.startsWith(students.get(i).chatId))
+				{
+					found = true;
+					s = students.get(i);
+				}
 			}
+			if (!found)
+			{
+				s.chatId = sid;
+				s.name = sid;
+				s.role = "UNASSIGNED";
+				students.add(s);
+			}
+			s.isPresent = true;			
 		}
-		if (!found)
-		{
-			s.chatId = sid;
-			s.name = sid;
-			s.role = "UNASSIGNED";
-			students.add(s);
-		}
-		s.isPresent = true;
 	}
 
 	public void removeStudent(String sid)
@@ -169,16 +173,19 @@ public class State
 
 	public void setName(String sid, String name)
 	{
-		for (int i = 0; i < students.size(); i++)
-		{
-			if (sid.startsWith(students.get(i).chatId))
+		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
+		if (!sid.equals(identityAllUsers)) {
+			for (int i = 0; i < students.size(); i++)
 			{
-				students.get(i).name = name;
-				return;
+				if (sid.startsWith(students.get(i).chatId))
+				{
+					students.get(i).name = name;
+					return;
+				}
 			}
+			addStudent(sid);
+			setName(sid, name);			
 		}
-		addStudent(sid);
-		setName(sid, name);
 	}
 	
 	public void setStudentPose(String sid, poseEventType pose) {
