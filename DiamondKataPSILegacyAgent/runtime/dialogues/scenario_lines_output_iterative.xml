@@ -104,7 +104,7 @@
 		</concept>
 					
 		<concept label="t_question1">
-			<phrase>Do you think you'll need to calculate the number of lines to output for an iterative solution?
+			<phrase>Why do you need the number of lines to output for an iterative solution?
             </phrase>
 		</concept>
 	
@@ -130,22 +130,22 @@
 		</concept>
 	
 		<concept label="t_response1_correct">
-			<phrase>It sounds like you're on the right track. You don't strictly need to calculate the number of lines to output in an iterative solution, but you could use the count to iterate over the number of lines to write. You don't have to calculate the number of lines to output for a recursive solution either.</phrase>
+			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
 		</concept>
 		<concept label="t_response1_incorrect">
 			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
 
 		<concept label="t_response1_1_correct">
-			<phrase>It sounds like you're on the right track. You don't strictly need to calculate the number of lines to output in an iterative solution, but you could use the count to iterate over the number of lines to write. You don't have to calculate the number of lines to output for a recursive solution either.</phrase>
+			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
 		</concept>
 
 		<concept label="t_response1_2_correct">
-			<phrase>It sounds like you're on the right track. You don't strictly need to calculate the number of lines to output in an iterative solution, but you could use the count to iterate over the number of lines to write. You don't have to calculate the number of lines to output forn a recursive solution either.</phrase>
+			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
 		</concept>
 	
 		<concept label="t_bottom_out">
-			<phrase>Let me help you out. You don't strictly need to calculate the number of lines to output in an iterative solution, but you could use the count to iterate over the number of lines to write. You don't have to calculate the number of lines to output for a recursive solution either.</phrase>
+			<phrase>Let me help you out. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
 		</concept>
 	
 		<!-- end tutor concepts. -->
@@ -170,27 +170,27 @@
 		</concept>
 		
 	    <concept label="s_answer1_incorrect" type="regex">
-			<phrase>do need|will need|you need|I need|would need|should need|'ll need
+			<phrase>do need|will need|you need|I need|would need|should need|'ll need|yes|yeah|yep
 			</phrase>
 		</concept>
 
 		<concept label="s_answer1_1_correct" type="regex">
-			<phrase>don't need|do not need|won't need|will not need|wouldn't need|would not need|should not need|shouldn't need|don't|do not|won't|will not|wouldn't|would not|shouldn't|should not|not
+			<phrase>don't need|do not need|won't need|will not need|wouldn't need|would not need|should not need|shouldn't need|don't|do not|won't|will not|wouldn't|would not|shouldn't|should not|not|no|nah|nope|don't think so
 			</phrase>
 		</concept>
 		
 	    <concept label="s_answer1_1_incorrect" type="regex">
-			<phrase>do need|will need|you need|I need|would need|should need|'ll need
+			<phrase>do need|will need|you need|I need|would need|should need|'ll needd|yes|yeah|yep
 			</phrase>
 		</concept>
 
 		<concept label="s_answer1_2_correct" type="regex">
-			<phrase>on't need|do not need|won't need|will not need|wouldn't need|would not need|should not need|shouldn't need|don't|do not|won't|will not|wouldn't|would not|shouldn't|should not|not
+			<phrase>on't need|do not need|won't need|will not need|wouldn't need|would not need|should not need|shouldn't need|don't|do not|won't|will not|wouldn't|would not|shouldn't|should not|not|no|nah|nope|don't think so
 			</phrase>
 		</concept>
 		
 	    <concept label="s_answer1_2_incorrect" type="regex">
-			<phrase>do need|will need|you need|I need|would need|should need|'ll need
+			<phrase>do need|will need|you need|I need|would need|should need|'ll need|yes|yeah|yep
 			</phrase>
 		</concept>
 

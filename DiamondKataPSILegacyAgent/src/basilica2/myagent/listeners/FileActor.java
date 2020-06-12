@@ -74,7 +74,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestA(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestA()"); 
-		String prompt = "You've passed a test case for the number of lines your program will output. Can you think of reasons why this contributes more to an iterative solution or to a recursive solution?"; 
+		String prompt = "You've passed a test case for the number of lines your program will output. Do you need to know the number of output lines for an iterative or a recursive solution?"; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
@@ -91,7 +91,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestB(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestB()"); 
-		String prompt = "Now that you're ready to begin working on passing the next test case, it's time to switch roles."; 
+		String prompt = "Now that you're ready to begin working on passing the next test case, it's time to switch the Driver and Navigator roles."; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
@@ -108,7 +108,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestC(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestC()"); 
-		String prompt = "You've completed Test C!"; 
+		String prompt = "You've passed another test case. For the next text case, we'll work on producing the upper half of the diamond."; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
@@ -125,7 +125,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestD(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestD()"); 
-		String prompt = "You've completed Test D!"; 
+		String prompt = "You've passed yet another test case. For the final case, we'll work on producing a complete diamond."; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
