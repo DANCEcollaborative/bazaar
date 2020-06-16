@@ -62,7 +62,7 @@
 		<goal name="t_elicitate1_1_incorrect" difficulty="0">
 
 			<step>
-				<initiation>Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
+				<initiation>Navigator::Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
                 <response say="t_response1_1_correct">s_answer1_1_correct</response>
 				<response say="t_bottom_out">s_answer1_1_incorrect</response>
 				<response say="t_bottom_out">unanticipated-response</response>
@@ -99,12 +99,12 @@
 		
 		<!-- tutor concepts. -->
 		<concept label="t_introduction">
-			<phrase>Let's talk about it. 
+			<phrase>Driver::Let's talk about it. 
             </phrase>
 		</concept>
 					
 		<concept label="t_question1">
-			<phrase>Have you thought about a recursive solution? How would you use the number of lines to output?
+			<phrase>Driver::Have you thought about a recursive solution? How would you use the number of lines to output?
             </phrase>
 		</concept>
 	
@@ -130,22 +130,22 @@
 		</concept>
 	
 		<concept label="t_response1_correct">
-			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+			<phrase>Driver::It sounds like you're on the right track.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
 		</concept>
 		<concept label="t_response1_incorrect">
-			<phrase>It sounds like you could use some help.</phrase>
+			<phrase>Navigator::It sounds like you could use some help.</phrase>
 		</concept>
 
 		<concept label="t_response1_1_correct">
-			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+			<phrase>Driver::It sounds like you're on the right track.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
 		</concept>
 
 		<concept label="t_response1_2_correct">
-			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+			<phrase>Driver::It sounds like you're on the right track.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
 		</concept>
 	
 		<concept label="t_bottom_out">
-			<phrase>Let me help you out. You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+			<phrase>Driver::Let me help you out.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
 		</concept>
 	
 		<!-- end tutor concepts. -->

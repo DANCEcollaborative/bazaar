@@ -260,12 +260,38 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		String identityAllUsers = "group";
 		String messageString; 
 		
-		String text = me.getText();		
-		// To specific user if known.
-		String to = me.getDestinationUser();
-		if (to == null) {
-			to = identityAllUsers; 
-		}	
+		String text; 
+		String to; 
+		String textOrig = me.getText();	
+		if (textOrig.contains("Navigator::"))
+		{
+			text = textOrig.substring(11);
+			to = "navigator";
+		} else if (textOrig.contains("Driver::"))
+		{
+			text = textOrig.substring(8);
+			to = "driver";
+		} else if (textOrig.contains("Group::"))
+		{
+			text = textOrig.substring(8);
+			to = "group";
+		} else {
+			text = textOrig; 
+			// To specific user if known.
+			to = me.getDestinationUser();
+			if (to == null) {
+				to = identityAllUsers; 
+			}	
+			else if (to.equals("Eric")) {
+				to = "driver"; 
+			}	
+			else if (to.equals("Joe")) {
+				to = "navigator"; 
+			} else {
+				to = identityAllUsers;
+			}
+				
+		}
 		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
