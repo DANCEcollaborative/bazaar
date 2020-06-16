@@ -72,7 +72,7 @@
 		<goal name="t_elicitate1_2_unanticipated" difficulty="0">
 
 			<step>
-				<initiation>Sorry, I didn't understand you. Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
+				<initiation>Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
                 <response say="t_response1_2_correct">s_answer1_2_correct</response>
 				<response say="t_bottom_out">s_answer1_2_incorrect</response>
 				<response say="t_bottom_out">unanticipated-response</response>
@@ -104,7 +104,7 @@
 		</concept>
 					
 		<concept label="t_question1">
-			<phrase>Why do you need the number of lines to output for an iterative solution?
+			<phrase>Have you thought about a recursive solution? How would you use the number of lines to output?
             </phrase>
 		</concept>
 	
@@ -130,22 +130,22 @@
 		</concept>
 	
 		<concept label="t_response1_correct">
-			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
+			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that’s not strictly necessary for either an iterative or a recursive solution.</phrase>
 		</concept>
 		<concept label="t_response1_incorrect">
 			<phrase>It sounds like you could use some help.</phrase>
 		</concept>
 
 		<concept label="t_response1_1_correct">
-			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
+			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that’s not strictly necessary for either an iterative or a recursive solution.</phrase>
 		</concept>
 
 		<concept label="t_response1_2_correct">
-			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
+			<phrase>It sounds like you're on the right track. You could use the count to iterate over the number of lines to write, but that’s not strictly necessary for either an iterative or a recursive solution.</phrase>
 		</concept>
 	
 		<concept label="t_bottom_out">
-			<phrase>Let me help you out. You could use the count to iterate over the number of lines to write, but that's not strictly necessary. It's not necessary for a recursive solution either.</phrase>
+			<phrase>Let me help you out. You could use the count to iterate over the number of lines to write, but that’s not strictly necessary for either an iterative or a recursive solution.</phrase>
 		</concept>
 	
 		<!-- end tutor concepts. -->
