@@ -119,7 +119,7 @@ public class PoseActor extends BasilicaAdapter
 	
 	private void issueDistanceWarning(InputCoordinator source, PoseEvent poseEvent, String to) {
 		System.err.println("====== PoseActor: ISSUING DISTANCE WARNING ===");
-		String prompt = "In the future, please be more careful about social distancing when you rotate roles."; 
+		String prompt = "In the future, please be more careful about social distancing."; 
 		MessageEvent newMe = new MessageEvent(source, agent.getName(), prompt);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, newMe, 1.0, 5, 5);
 		blackout.addCallback(new Callback()
