@@ -91,7 +91,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestB(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestB()"); 
-		String prompt = "Now that you're ready to begin working on passing the next test case, it's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
+		String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
@@ -108,7 +108,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestC(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestC()"); 
-		String prompt = "You've passed another test case. For the next text case, we'll work on producing the upper half of the diamond."; 
+		String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator.";  
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
@@ -125,7 +125,7 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestD(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestD()"); 
-		String prompt = "You've passed yet another test case. For the final case, we'll work on producing a complete diamond."; 
+		String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);

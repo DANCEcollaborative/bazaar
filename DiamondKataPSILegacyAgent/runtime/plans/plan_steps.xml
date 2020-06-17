@@ -4,14 +4,13 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
     <stage name="initiate" type="other" delay="0">  	    
-        <step type="prompt" timeout="30" delay="10" prompt="WELCOME">WELCOME</step>
-        <step type="greet" timeout="35" delay="5">GREETINGS</step>
+        <step type="prompt" timeout="15" delay="10" prompt="WELCOME">WELCOME</step>
+        <step type="greet" timeout="25" delay="5">GREETINGS</step>
         <step type="prompt" delay="5" prompt="INTRODUCE_ACTIVITY" >INTRODUCE_ACTIVITY</step>  
     </stage>
     
     <stage name="body" type="other" delay="30">
         <step type="prompt" delay="1" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step> 
-        <!-- <step type="prompt" delay="0" prompt="SOCIAL_DISTANCE_CAUTION" >SOCIAL_DISTANCE_CAUTION</step>     -->
         <step type="prompt" delay="0" prompt="NEXT_TESTCASE_WHEN_SEATED" >NEXT_TESTCASE_WHEN_SEATED</step>
     </stage>
     

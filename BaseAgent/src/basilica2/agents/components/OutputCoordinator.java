@@ -289,7 +289,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				to = "navigator"; 
 //			} else {
 //				to = identityAllUsers;
-s			}
+			}
 				
 		}
 		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
