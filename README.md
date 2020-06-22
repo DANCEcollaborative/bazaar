@@ -79,6 +79,15 @@ In case you don't want to run Docker.
 # Installing and running on a Linux server
 NOTE: This has been tested only with “legacy” agents — i.e., agents that don’t use the newer Docker sockets method. If the agent you want to deploy uses Docker, you can convert it to use the legacy sockets method using the instructions within this README.
 
+
+- Install the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
+  - runAll
+  - runBazaar
+  - server_bdemooc_legacy.js (Node.js)
+  - launch_agent.sh
+  - Execute the bash script runAll. 
+
+
 - Install a Bazaar agent on the server
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
@@ -86,16 +95,18 @@ NOTE: This has been tested only with “legacy” agents — i.e., agents that d
      - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
      - Runnable JAR File Specification
         - Launch configuration: Select one from the dropdown. If you’ve created the agent like most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
-        - Export destination: Browse to select '<your agent directory name>/runtime/<your agent name>.jar’. For ‘<your agent name>.jar’, I’ve always entered the name in all lower case, but that probably doesn’t matter.
+        - Export destination: Browse to select '<your agent directory name>/runtime/<your agent name>.jar’.
         - Select “Finish.”
       - You’ll get some warnings that you can ignore, so just press “OK.”
         - “This operation repacks referenced libraries. …”
         - "JAR export finished with warnings. …”
-    - Login to the Linux server.
-      - Create a subdirectory within your user space, '/usr0/home/mriggs/‘, with the name of your agent — e.g., ‘weatherlegacyagent’.
-      - Copy *all* of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to your new subdirectory on bazaar.
-- URL format to run the agent
-     - The basic format, which we intend to simplify further, is
+    - On the Linux server.
+      - Create a subdirectory for the agent — e.g., ‘weatherlegacyagent’.
+      - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
+
+
+- URL format to run the agents
+    - The basic format, which we intend to simplify further, is
 http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME&perspective=PERSPECTIVE_NUM&html=HTML_FILE_NAME
       - SERVER_ADDRESS: The address of your Linux server.
       - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
