@@ -83,9 +83,9 @@ NOTE: This has been tested only with “legacy” agents — i.e., agents that d
 - Install the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
   - runAll
   - runBazaar
-  - server_bdemooc_legacy.js (Node.js)
+  - server_bdemooc_legacy.js -- for running a Node.js server. 
   - launch_agent.sh
-  - Execute the bash script runAll. 
+  - Execute the bash script runAll.
 
 
 - Install a Bazaar agent on the server
