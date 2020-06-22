@@ -77,13 +77,16 @@ public class FileWatcher extends BasilicaAdapter
 			if (!fileCompleted[i]) {
 				file = new File(filePath + "room-" + roomName + "-" + fileNames[i] + fileSuffix);
 				System.err.println("Checking file: " + file.getPath()); 
-				if (file.exists()) {
-					fileCompleted[i] = true;
-					System.err.println("File newly exists: " + file.getPath()); 
-					FileEvent fEvent = new FileEvent(source,fileNames[i],eventType);
-					source.pushEvent(fEvent);
-				}				
+				synchronized(source) {
+					if (file.exists()) {
+						fileCompleted[i] = true;
+						System.err.println("File newly exists: " + file.getPath()); 
+						FileEvent fEvent = new FileEvent(source,fileNames[i],eventType);
+						source.pushEvent(fEvent);
+					}				
+				}					
 			}
+
 		}
 	}
 	
