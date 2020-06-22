@@ -24,12 +24,12 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
   - Follow [these instructions](https://adoptopenjdk.net/installation.html).
 
 # Installing and running the canonical DANCEcollaborative Docker version
-Installing
+- Installing
  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
  - Install Eclipse Java Enterprise or another IDE.
  - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
  - [Install and run Docker Desktop](https://docs.docker.com)
-Running
+- Running
  - In a terminal window
    - cd to the directory where DANCEcollaborative/bazaar is installed
      - E.g., cd ~/git/bazaar
@@ -68,8 +68,6 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
          - .../1/STUDENT1/1/…
          - .../2/STUDENT2/2/...
          - .../3/STUDENT3/3/…
-   - You can also use a URL address that includes an Etherpad panel with the same URL customizations specified above.
-       - http://bazaar.lti.cs.cmu.edu/chat/ROOM/1/STUDENT/1/?html=xu2
 
 # Converting a Docker agent to a legacy agent
 In case you don't want to run Docker.
@@ -81,9 +79,9 @@ In case you don't want to run Docker.
 # Installing and running on a Linux server
 NOTE: This has been tested only with “legacy” agents — i.e., agents that don’t use the newer Docker sockets method. If the agent you want to deploy uses Docker, you can convert it to use the legacy sockets method using the instructions within this README.
 
-Installing
-- The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
-- Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
+- Installing
+ - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
+ - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
    - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherLegacyAgent’) and select “Export.”
    - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
    - Runnable JAR File Specification
@@ -92,11 +90,12 @@ Installing
      - Select “Finish.”
    - You’ll get some warnings that you can ignore, so just press “OK.”
      - “This operation repacks referenced libraries. …”
-     - "JAR export finished with warnings. …”\
-- Login to the Linux server.
-
-URL format
-- The basic format, which we intend to simplify further, is
+     - "JAR export finished with warnings. …”
+ - Login to the Linux server.
+   - Create a subdirectory within your user space, '/usr0/home/mriggs/‘, with the name of your agent — e.g., ‘weatherlegacyagent’.
+   - Copy *all* of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to your new subdirectory on bazaar.
+- URL format
+ - The basic format, which we intend to simplify further, is
 http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME&perspective=PERSPECTIVE_NUM&html=HTML_FILE_NAME
    - SERVER_ADDRESS: The address of your Linux server.
    - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
@@ -105,4 +104,4 @@ http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&usernam
    - USER_NAME: a particular user’s name.
    - PERSPECTIVE_NUM: You can probably just hardcode ‘0’. It is used, for example, by the MTurkAgent to assign different users to different point-of-view perspectives for its activity — things like cost, sustainability, reliability, etc.
    - The particular HTML format to display. You can use this to include various panes besides the agent chat.
-- To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME. 
+ - To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME.
