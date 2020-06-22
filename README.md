@@ -80,12 +80,14 @@ In case you don't want to run Docker.
 NOTE: This has been tested only with “legacy” agents — i.e., agents that don’t use the newer Docker sockets method. If the agent you want to deploy uses Docker, you can convert it to use the legacy sockets method using the instructions within this README.
 
 
-- Install the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
-  - runAll
-  - runBazaar
-  - server_bdemooc_legacy.js -- for running a Node.js server. 
-  - launch_agent.sh
+- Install and execute the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
+  - The files
+      - runAll
+      - runBazaar
+      - server_bdemooc_legacy.js -- for running a Node.js server.
+      - launch_agent.sh
   - Execute the bash script runAll.
+     - runAll executes runBazaar using a screen command, which executes server_bdemooc_legacy.js, which will executes launch_agent.sh for each agent URL it receives.
 
 
 - Install a Bazaar agent on the server
@@ -105,7 +107,7 @@ NOTE: This has been tested only with “legacy” agents — i.e., agents that d
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 
 
-- URL format to run the agents
+- URL format for agents
     - The basic format, which we intend to simplify further, is
 http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME&perspective=PERSPECTIVE_NUM&html=HTML_FILE_NAME
       - SERVER_ADDRESS: The address of your Linux server.
