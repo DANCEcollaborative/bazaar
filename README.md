@@ -48,26 +48,26 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 # Installing and running the legacy version
 A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherAgentLegacy and MTurkAgentLegacy.
 - Installing
- - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above.)
- - Install Eclipse Java Enterprise or another IDE.
- - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
- - [Install and run Docker Desktop](https://docs.docker.com)
+  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above.)
+  - Install Eclipse Java Enterprise or another IDE.
+  - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
+  - [Install and run Docker Desktop](https://docs.docker.com)
 - Running
- - A chat room startup window will be displayed.
-   - Select the agent’s behavior conditions.
-   - Set a “Room Name”.
-   - Press ’Start Agent’
- - To join the chat room: In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names. http://bazaar.lti.cs.cmu.edu/chat/ROOM/1/STUDENT/1/?html=index&forum=undefined#
-   - Use the ROOM you selected in the chat room window.
-   - Use your choice for STUDENT. For multiple students:
-     - Use a unique STUDENT name for each.
-     - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
-       - The first number is {the student ID}, and must be unique.
-       - The second number is {the student perspective}.
-       - E.g., for multiple students, :
-         - .../1/STUDENT1/1/…
-         - .../2/STUDENT2/2/...
-         - .../3/STUDENT3/3/…
+  - A chat room startup window will be displayed.
+     - Select the agent’s behavior conditions.
+     - Set a “Room Name”.
+     - Press ’Start Agent’
+  - To join the chat room: In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names. http://bazaar.lti.cs.cmu.edu/chat/ROOM/1/STUDENT/1/?html=index&forum=undefined#
+     - Use the ROOM you selected in the chat room window.
+     - Use your choice for STUDENT. For multiple students:
+       - Use a unique STUDENT name for each.
+       - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
+         - The first number is {the student ID}, and must be unique.
+         - The second number is {the student perspective}.
+         - E.g., for multiple students, :
+           - .../1/STUDENT1/1/…
+           - .../2/STUDENT2/2/...
+           - .../3/STUDENT3/3/…
 
 # Converting a Docker agent to a legacy agent
 In case you don't want to run Docker.
@@ -79,29 +79,29 @@ In case you don't want to run Docker.
 # Installing and running on a Linux server
 NOTE: This has been tested only with “legacy” agents — i.e., agents that don’t use the newer Docker sockets method. If the agent you want to deploy uses Docker, you can convert it to use the legacy sockets method using the instructions within this README.
 
-- Installing
- - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
- - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
-   - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherLegacyAgent’) and select “Export.”
-   - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
-   - Runnable JAR File Specification
-     - Launch configuration: Select one from the dropdown. If you’ve created the agent like most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
-     - Export destination: Browse to select '<your agent directory name>/runtime/<your agent name>.jar’. For ‘<your agent name>.jar’, I’ve always entered the name in all lower case, but that probably doesn’t matter.
-     - Select “Finish.”
-   - You’ll get some warnings that you can ignore, so just press “OK.”
-     - “This operation repacks referenced libraries. …”
-     - "JAR export finished with warnings. …”
- - Login to the Linux server.
-   - Create a subdirectory within your user space, '/usr0/home/mriggs/‘, with the name of your agent — e.g., ‘weatherlegacyagent’.
-   - Copy *all* of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to your new subdirectory on bazaar.
-- URL format
- - The basic format, which we intend to simplify further, is
+- Install a Bazaar agent on the server
+   - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
+   - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
+     - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherLegacyAgent’) and select “Export.”
+     - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
+     - Runnable JAR File Specification
+        - Launch configuration: Select one from the dropdown. If you’ve created the agent like most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
+        - Export destination: Browse to select '<your agent directory name>/runtime/<your agent name>.jar’. For ‘<your agent name>.jar’, I’ve always entered the name in all lower case, but that probably doesn’t matter.
+        - Select “Finish.”
+      - You’ll get some warnings that you can ignore, so just press “OK.”
+        - “This operation repacks referenced libraries. …”
+        - "JAR export finished with warnings. …”
+    - Login to the Linux server.
+      - Create a subdirectory within your user space, '/usr0/home/mriggs/‘, with the name of your agent — e.g., ‘weatherlegacyagent’.
+      - Copy *all* of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to your new subdirectory on bazaar.
+- URL format to run the agent
+     - The basic format, which we intend to simplify further, is
 http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME&perspective=PERSPECTIVE_NUM&html=HTML_FILE_NAME
-   - SERVER_ADDRESS: The address of your Linux server.
-   - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
-   - ROOM_NUM: a unique number of not more than 5 digits (I always use 5 digits). If you re-use a number, users will see the previous chat.
-   - ID_NUM: ***unique per user***. I’ve always used a 1-digit number.
-   - USER_NAME: a particular user’s name.
-   - PERSPECTIVE_NUM: You can probably just hardcode ‘0’. It is used, for example, by the MTurkAgent to assign different users to different point-of-view perspectives for its activity — things like cost, sustainability, reliability, etc.
-   - The particular HTML format to display. You can use this to include various panes besides the agent chat.
- - To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME.
+      - SERVER_ADDRESS: The address of your Linux server.
+      - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
+      - ROOM_NUM: a unique number of not more than 5 digits (I always use 5 digits). If you re-use a number, users will see the previous chat.
+      - ID_NUM: ***unique per user***. I’ve always used a 1-digit number.
+      - USER_NAME: a particular user’s name.
+      - PERSPECTIVE_NUM: You can probably just hardcode ‘0’. It is used, for example, by the MTurkAgent to assign different users to different point-of-view perspectives for its activity — things like cost, sustainability, reliability, etc.
+      - The particular HTML format to display. You can use this to include various panes besides the agent chat.
+    - To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME.
