@@ -80,16 +80,6 @@ In case you don't want to run Docker.
 NOTE: This has been tested only with “legacy” agents — i.e., agents that don’t use the newer Docker sockets method. If the agent you want to deploy uses Docker, you can convert it to use the legacy sockets method using the instructions within this README.
 
 
-- Install and execute the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
-  - The files
-      - runAll
-      - runBazaar
-      - server_bdemooc_legacy.js -- for running a Node.js server.
-      - launch_agent.sh
-  - Execute the bash script runAll.
-     - runAll executes runBazaar using a screen command, which executes server_bdemooc_legacy.js, which will executes launch_agent.sh for each agent URL it receives.
-
-
 - Install a Bazaar agent on the server
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
@@ -105,6 +95,22 @@ NOTE: This has been tested only with “legacy” agents — i.e., agents that d
     - On the Linux server.
       - Create a subdirectory for the agent — e.g., ‘weatherlegacyagent’.
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
+
+
+- Install MySQL on the server.
+   - We are currently running MySQL v5.6.33
+
+
+ - Install and execute the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
+   - The files
+       - runAll
+       - runBazaar
+       - server_bdemooc_legacy.js -- for running a Node.js server.
+           - At the beginning of this file, customize var 'mysql_auth' for your MySQL installation with host address, user, password, and socket path.
+       - launch_agent.sh
+   - Execute the bash script runAll.
+      - runAll executes runBazaar using a screen command, which executes server_bdemooc_legacy.js, which will executes launch_agent.sh for each agent URL it receives.
+
 
 
 - URL format for agents
