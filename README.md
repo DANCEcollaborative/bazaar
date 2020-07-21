@@ -35,8 +35,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
      - E.g., cd ~/git/bazaar
    - Enter: docker-compose -f docker-compose-dev.yml build
      - This command will take longer the first time it is executed as it downloads several things.
-   - Enter: docker-compose -f docker-compose-dev.yml up
-     - Wait until the terminal output quiesces. (The terminal command prompt won’t return until you stop the process – e.g., with ctrl-c.)
+   - Enter: docker-compose -f docker-compose-dev.yml up -d
  - Within the IDE, run an agent that uses the SocketIOClient project, such as WeatherAgent or MturkAgent.
  - A chat room startup window will be displayed.
    - Select the agent’s behavior conditions.
