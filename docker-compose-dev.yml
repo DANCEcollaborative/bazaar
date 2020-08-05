@@ -15,7 +15,7 @@ services:
       MYSQL_USER: "local"
       MYSQL_PASSWORD: "local"
     ports:
-     - "8089:3306"  # let outside world see 8083
+     - "8089:3306"  # let outside world see 8089
     networks:
     - bazaar-net
   bazaar:
