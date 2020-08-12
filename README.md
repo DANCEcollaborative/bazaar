@@ -123,3 +123,35 @@ http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&usernam
       - PERSPECTIVE_NUM: You can probably just hardcode ‘0’. It is used, for example, by the MTurkAgent to assign different users to different point-of-view perspectives for its activity — things like cost, sustainability, reliability, etc.
       - The particular HTML format to display. You can use this to include various panes besides the agent chat.
     - To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME.
+
+
+# Adding LightSide Machine-Learning Annotations
+
+- Create a LightSide model. Download from http://ankara.lti.cs.cmu.edu/side/. Select the "Cutting Edge" version. A LightSide manual and installation instructions are included in the download. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
+
+- Configure Bazaar. A worked example is provided as agent 'MTurkLightSideLegacyAgent' - file names below are specified relative to that agent.
+   - Agent classpath: Add
+      - LightSideMessageAnnotator
+      - lightside
+   - File runtime/properties/operation.properties: Include the following line among the list of 'operation.preprocessors': basilica2.side.listeners.LightSideMessageAnnotator,\
+      - (The \ at the end of the line above is a continuation symbol, used if other preprocessors are listed after LightSideMessageAnnotator.)
+   - Include file runtime/properties/LightSideMessageAnnotator.properties with the following settings.
+      - pathToLightSide: Path to the LightSide project code relative to the current agent's code.
+         - For running Bazaar locally, this value is typically, '../../lightside/'.
+         - For running Bazaar on a server, this is the path to LightSide on the server. E.g., '/usr0/lightside/'.
+      - predictionCommand: Typically, 'scripts/prediction_server.sh',
+      - modelPath: The path to the location of the model within pathToLightSide. Typically 'saved/' or 'models/'.
+      - modelNickname: This is the developer's or the user's choice.
+      - classifications: A comma-separated list in format classification1, classification1-probability-threshold, classification2, classification2-probability-threshold, ..., ...
+         - Example: 'classifications=detected,70,notdetected,50'
+             - Classification 'detected', upper-cased as 'DETECTED', will be returned if LightSide indicates that the probability that 'detected' is true is 70% or greater.
+             - Classification 'notdetected', upper-cased as 'NOTDETECTED',  will be returned if LightSide indicates that the probability that 'notdetected' is true is 50% or greater.
+         - More than two classification alternatives may be provided (with any classification names), and zero, one, or more classifications may be returned.
+      - port: The port on which this LightSideMessageAnnotator will query a particular LightSide model. Bazaar tells LightSide which port to use when it starts LightSide.
+         - More than one LightSideMessageAnnotator can be configured (with different names), querying different LightSide models which are listening on different ports.
+   - There is more than one way to use LightSide annotations within the agent.
+      - Use the annotations just like annotations that are created from dictionaries. A silly example is provided for the first dialog entry in runtime/dialogues/dialogues-example.xml, in which responses are provided for both (1) LightSide classifications 'DETECTED' and 'NOTDETECTED' for a toy student attitude positivity detector, and (2) for dictionary-based classifications 'AFFIRMATIVE' and 'NEGATIVE'.
+      - Use the annotations in a Java-based listener. Example:
+         - File src/basilica2/myagent/listeners/Register.java is listed as a listener in file runtime/properties/operation.properties.
+            - This file references a table of LightSide prompts, which is provided in runtime/dialogues/lightside-prompts.xml. The table can list more than one prompt alternative for each possible classification. If more than one alternative is provided, the prompt will be selected at random from among the alternatives.
+            - The file checks for the existence of the LightSide classifications that it is listening for (in this case, "DETECTED" or "NOTDETECTED"), and if it finds such a classification, it proposes one of the associated prompts to return to the student.
