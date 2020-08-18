@@ -1,0 +1,373 @@
+<html>
+
+<head>
+<title id="title_el">Discussion Room</title>
+
+</head>
+
+<body>
+
+<link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
+<link property='stylesheet' href='/bazaar/discussionnew.css' rel='stylesheet' id='filecss' type='text/css' />
+<!--<link property='stylesheet' href='style_ccc.css' rel='stylesheet' id='filecss' type='text/css' />-->
+<script src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
+<script src="/bazsocket/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
+<script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+
+<script>
+    var windowHasFocus = true;
+    var unreadMessages = 0;
+    var lastDate = null;
+    
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+        "/": "&#x2F;",
+      };
+
+      function escapeHTML(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+          return entityMap[s];
+        });
+      }
+	
+    function showConvText()
+    {
+        res = "";
+        conv = document.getElementById("conversation");
+        for (var i = 0; i < conv.childNodes.length; i++) {
+            if (conv.childNodes[i].className.indexOf("message_line") == -1) continue;
+            var user = conv.childNodes[i].getElementsByClassName("user");
+            var timestamp = conv.childNodes[i].getElementsByClassName("date");
+            var message = conv.childNodes[i].getElementsByClassName("message");
+            for (var j = 0; j < user.length; j++) res += user[j].textContent + " ";
+            if (timestamp.length > 0) res += "("+timestamp[0].textContent+")";
+            if (message.length > 0) res += ": "+message[0].textContent.replace("\n"," ");
+            res += "\n";
+        }
+        document.getElementById("conversation_text").value = res;
+
+        // Highlight
+        if (document.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById("conversation_text"));
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();        
+            range = document.createRange();
+            range.selectNodeContents(document.getElementById("conversation_text"));
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+
+        document.getElementById("conversation_text_div").style.display = "block";
+    }
+
+    function hideConvText()
+    {
+        document.getElementById("conversation_text_div").style.display = "none";
+    }
+		
+    function appendMessage(timestamp, username, text, color) 
+    {
+        
+	   if(!color)
+	   {
+	      color = getUserColor(username);
+	   }
+    
+		$('#conversation').append(
+		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
+		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
+		+'<div class="user">'+ username + '</div>'
+		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+		+'</div>'
+		+'<div class="message">' +  text +'</div>'
+                //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+                //+'</div>'
+		+'</div><br/>');
+      noticeNewMessage()
+      if(lastDate > timestamp)
+        lastDate = timestamp;
+    }
+    
+    function appendNote(timestamp, username, text, color) 
+    {
+        
+	   if(!color)
+	   {
+	      color = getUserColor(username);
+	   }
+    
+		$('#conversation').append(
+		 '<div class="message_line">'
+		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
+		+'<div class="user">'+ username +'</div>'
+		+'<div class="user" style="padding-left:5px">'+ text +'</div>'
+		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+		+'</div>'
+		+'</div><br/>');
+      noticeNewMessage()
+      if(lastDate > timestamp)
+        lastDate = timestamp;
+    }
+    
+    var anchorID = 0;
+    
+
+	// var socket = io.connect(chatserver_url, {
+    //     path: '/bazaar'
+    // });
+    const socket = io({
+        path: '/bazsocket'
+    });
+
+	var users = {};
+	var user = 'You'
+	var room = 'Here'
+        var id  = 'NA'
+
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('connect', function(){
+        // call the server-side function 'adduser' and send one parameter (value of prompt)
+	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
+		
+        live_chat = groups[1] == "chat";
+		  
+        if(live_chat)
+        {
+            temp = groups[2] && groups[2].length > 0;
+            room = groups[3];
+            user = groups[5];
+            id = groups[4];
+            perspective = groups[6];
+            if(!user)
+                user = prompt("Hi! please enter your name (first name and last initial) to continue..", "");
+            //prompt(room + " " + user + " " + temp + " " + id);
+            socket.emit('adduser', room, user, false, id, perspective);
+        }
+        else
+	{
+            socket.emit('snoop', room, id);
+            $('input,textarea').prop('disabled', true);
+	}
+        $('#roomname').text(room);
+        });
+	
+
+	// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('updatechat', function (username, data) 
+	{
+        appendMessage(new Date(), username, data);
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+	});
+	
+	socket.on('dump_history', function (backlog) 
+	{
+	    for(i = 0; i < backlog.length; i++)
+	    {
+	       entry = backlog[i];
+	       stamp = new Date(entry["timestamp"]);
+               if(stamp < lastDate)
+			  continue;
+            else if(entry.type == "presence")
+                appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));	 
+            else if(entry.type == "ready")
+                    ;
+                    //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
+            else if(entry.type == "private")
+                appendMessage(new Date(entry["timestamp"]), entry.username+" (Private Message)", entry["content"], getUserColor(entry.username));	 	 
+            else
+                appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);	 
+        }
+
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+
+			   lastDate = new Date();
+	});
+	
+	    // listener, whenever the server emits 'updaterooms', this updates the room list
+	socket.on('updaterooms', function (rooms, my_room) 
+	{
+		$('#roomname').text(my_room);
+	});
+	
+		    // listener, whenever the server emits 'updateimage', this updates the user list
+	socket.on('updateusers', function (my_users) 
+	{
+	   users = my_users;
+	   console.log(users);
+	});
+	
+
+
+	    // listener, whenever the server emits 'updatepresence', this updates the image list
+	socket.on('updatepresence', function (username, data) 
+	{
+        appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	 
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+	});
+	
+    // listen for other user's ready events. We'll leave this off for now.
+	/*socket.on('updateready', function (username, ready_state) 
+	{
+        appendNote(new Date(), username, (ready_state == "ready")?"thinks the team is ready.":"isn't ready yet.");
+	});*/
+	
+    // listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('update_global_ready', function (ready_state) 
+	{
+	   if(ready_state == 'unready')
+	   {
+            $('#ready_button').removeClass("toggled");
+           }
+	});
+	
+		// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('update_private_chat', function (username, data) 
+	{
+        appendMessage(new Date(), username+' (Private Message)', data, getUserColor(username));
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+	});
+	
+	
+	function switchRoom(room)
+	{
+		socket.emit('switchRoom', room);
+	}
+
+    function sendReady(is_ready)
+    {
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
+        
+    }
+    
+    function sendMessage()
+    {
+            var message = $('#data').val();
+			//$('#data').val('');
+			// tell server to execute 'sendchat' and send along one parameter
+			
+			$('#data').val('');
+			
+			message = escapeHTML(message)
+			
+			if(message && message.length > 0)
+			{
+    			socket.emit('sendchat', message);
+		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+		}
+    }
+
+
+	// on load of page
+	$(function(){
+		// when the client clicks SEND
+		$('#datasend').click( function() 
+		{
+            sendMessage();
+		});
+		
+		
+		// when the client clicks READY
+		$('#ready_button').click( function() 
+		{
+            $('#ready_button').toggleClass("toggled");
+            sendReady($('#ready_button').hasClass("toggled"));
+            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
+		});
+
+		// when the client hits ENTER on their keyboard
+		$('#data').keypress(function(e) {
+			if(e.which == 13 && !(e.altKey || e.shiftKey)) 
+			{
+				e.preventDefault();
+				sendMessage();
+			}
+		});
+		
+	});
+	
+    $(window).focus(function() 
+    {
+
+        windowHasFocus = true;
+        unreadMessages = 0;
+        updateTitle();
+    });
+  
+    //listen for browser events so we know to update the document title
+    $(window).blur(function() 
+    {
+
+        windowHasFocus = false;
+        updateTitle();
+    });
+
+    //we want to show a count of unread messages when the window does not have focus
+    function updateTitle()
+    {
+      if (unreadMessages) 
+      {
+        document.title = "(" + unreadMessages.toString() + ") Discussion Room "+room;
+      }
+      else 
+      {
+        document.title = "Discussion Room "+room;
+      }
+    }
+    
+    function noticeNewMessage()
+    {
+
+
+	if(!windowHasFocus)
+        {
+            unreadMessages++;
+	    
+            updateTitle();
+        }
+    }
+
+    function blinker() {
+        $('.blinker').fadeIn(2000);
+        setTimeout(function() {$('.blinker').fadeOut(2000);}, 10000);
+    }
+    setInterval(blinker,30000);
+
+</script>
+
+
+
+    <div id="conversation_column">
+        <h2 id="conversation_header" class="header">Discussion</h2>
+        <h2 id="roomname">Room</h2>
+        <div id="conversation_container" class="container">
+            <div id="conversation" class="scrollable"></div>
+        </div>
+        <div id="controls" class="control">
+            <div id="message_div"> <textarea id="data"></textarea></div>
+            <div id="messagebutton_div">
+                <input class="button" type="button" id="datasend" value="Send Message" />
+                <input class="button" type="button" id="ready_button" value="I'm Ready"/>
+            </div>
+            <div class="blinker">Click the "I'm Ready" button when you are ready to move on to the next step.</div>
+            <div><input class="button" type="button" id="conv_message" value="Download Discussion Log" onClick="showConvText();"/></div>
+        </div>
+    </div>
+
+
+
+<div id="conversation_text_div">
+    <button type="button" onclick="hideConvText();">X</button>
+    <h3>You can copy and paste this log to a separate file to save.</h3>
+    <textarea id="conversation_text" disabled></textarea>
+</div>
+
+</body>
+</html>

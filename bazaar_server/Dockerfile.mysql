@@ -1,0 +1,4 @@
+FROM mysql:5
+ENV MYSQL_DATABASE nodechat
+COPY ./bazaar/nodechat.sql /docker-entrypoint-initdb.d/
+
