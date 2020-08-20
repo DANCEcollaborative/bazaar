@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 var lti = require('ims-lti');
 var consumer_key = "BazaarLTI";
 var consumer_secret = "BLTI";
-var localPort = 8000;
+var localPort = 80;
 var localHost = '0.0.0.0';
 var localURL = "/bazaar";
 
@@ -66,7 +66,7 @@ var numUsers = {};
 var teamNumber = 0;
 
 var csv = require('csv');
-var sys = require('sys')
+var util = require('util')
 var exec = require('child_process').exec;
 
 var logger;
@@ -74,10 +74,10 @@ var logger;
 var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server, {path: '/bazsocket'});
+var path = require('path'); 
 
-
-// server.listen(localPort);
-server.listen(localPort,localHost); 
+server.listen(localPort);
+// server.listen(localPort,localHost); 
 // routing
 
 
@@ -89,7 +89,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src 'self'");
+    res.setHeader("Content-Security-Policy", "default-src * 'unsafe-inline'; style-src * 'unsafe-inline'; script-src * 'unsafe-inline'");
     return next();
 });
 
@@ -140,7 +140,7 @@ app.get('/bazaar/room_status*', function (req, res)
 app.get('/bazaar/welcome*', function (req, res)
 {
     console.log("Welcome");
-    res.sendfile("welcome.html");
+    res.sendFile(__dirname + '/welcome.html');
 });
 
 
@@ -320,17 +320,17 @@ app.get('/bazaar/chat*', function (req, res)
 	var html_page = 'index';
         if(req.query.html != undefined) html_page = req.query.html;
 
-	res.sendfile(html_page + '.html');
+	res.sendFile(__dirname + '/' + html_page + '.html');
 });
 
 app.get('/bazaar/discussionnew.css', function (req,res) 
 {
-    res.sendfile('discussionnew.css')
+    res.sendFile(__dirname + '/discussionnew.css')
 });
 
 app.get('/bazaar/observe/*', function (req, res)
 {
-    res.sendfile('index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 

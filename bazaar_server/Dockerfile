@@ -13,6 +13,6 @@ COPY . ./
 
 RUN cd bazaar && npm install && cd ..
 
-EXPOSE 8000
+EXPOSE 80
 
 CMD ["sh","-c","while ! nc -z nodechat 3306; do echo sleeping; sleep 1; done; bash ./runBazaarDocker"]

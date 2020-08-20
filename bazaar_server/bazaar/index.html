@@ -1,13 +1,13 @@
 <html>
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src *">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src * 'unsafe-inline'; script-src * 'unsafe-inline'">
 <title id="title_el">Discussion Room</title>
 </head>
 <body>
 
 <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 <link href='https://rawgit.com/gtomar/help-button-javascript/master/discussion.css' rel='stylesheet' type='text/css'>
-<script src="socket.io/socket.io.js"></script>
+<script src="http://localhost:80/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
 <script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
