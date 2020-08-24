@@ -94,9 +94,9 @@ app.use(function(req, res, next) {
 });
 
 
-app.get('/bazaar/room_status_all', function (req, res)
+app.get('/room_status_all', function (req, res)
 {
-    console.log("app.get('/bazaar/room_status_all')");
+    console.log("app.get('/room_status_all')");
     var connection = mysql.createConnection(mysql_auth);
     var query = 'SELECT name from nodechat.room where name like "normaldist%"';
     console.log(query);
@@ -115,9 +115,9 @@ app.get('/bazaar/room_status_all', function (req, res)
     });
 });
 
-app.get('/bazaar/room_status*', function (req, res)
+app.get('/room_status*', function (req, res)
 {
-    console.log("app.get('/bazaar/room_status*')");
+    console.log("app.get('/room_status*')");
     var connection = mysql.createConnection(mysql_auth);
     var query = 'SELECT name from nodechat.room where name='+mysql.escape("normaldist"+req.query.roomId);
     console.log(query);
@@ -137,7 +137,7 @@ app.get('/bazaar/room_status*', function (req, res)
     });
 });
 
-app.get('/bazaar/welcome*', function (req, res)
+app.get('/welcome*', function (req, res)
 {
     console.log("Welcome");
     res.sendFile(__dirname + '/welcome.html');
@@ -145,7 +145,7 @@ app.get('/bazaar/welcome*', function (req, res)
 
 
 
-app.get('/bazaar/login*', function (req, res)
+app.get('/login*', function (req, res)
 {
     console.log("Hi");
     //console.log(req);
@@ -174,7 +174,7 @@ app.get('/bazaar/login*', function (req, res)
    }
 });
 
-app.post('/bazaar/login*', function (req, res)
+app.post('/login*', function (req, res)
 {
     console.log("Hi");
     var connection = mysql.createConnection(mysql_auth);
@@ -297,7 +297,7 @@ function setTeam(teamNumber,req,provider,logger,res)
         var html_page = 'index';
         if(req.query.html != undefined) html_page = req.query.html;
         var roomname = req.query.roomName + pad(teamNumber, 2);
-        var url = localURl + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
+        var url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
 
     	res.writeHead(301,{Location: url});
     	res.end();
@@ -314,7 +314,7 @@ function setTeam(teamNumber,req,provider,logger,res)
         
 }
 
-app.get('/bazaar/chat*', function (req, res)
+app.get('/chat*', function (req, res)
 {
 
 	var html_page = 'index';
@@ -323,18 +323,18 @@ app.get('/bazaar/chat*', function (req, res)
 	res.sendFile(__dirname + '/' + html_page + '.html');
 });
 
-app.get('/bazaar/discussionnew.css', function (req,res) 
+app.get('/discussionnew.css', function (req,res) 
 {
     res.sendFile(__dirname + '/discussionnew.css')
 });
 
-app.get('/bazaar/observe/*', function (req, res)
+app.get('/observe/*', function (req, res)
 {
     res.sendFile(__dirname + '/index.html');
 });
 
 
-app.get('/bazaar/data/*', function (req, res)
+app.get('/data/*', function (req, res)
 {
     groups = /\/data\/([^\/]+)/.exec(req.url)	  
     room = groups[1];

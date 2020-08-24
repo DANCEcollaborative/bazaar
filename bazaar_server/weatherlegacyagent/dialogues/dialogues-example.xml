@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+    
+    <dialog concept="LP_PRECIPITATION" scenario="scenario-lp_precipitation" description="low pressure precipitation">
+    	<trigger annotation="LOW-PRESSURE_PRECIPITATION"/>
+    	
+        <intro>
+               Would you like to answer some questions related to low pressure and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>  
+        <accept annotation="DETECTED">I'm glad that you feel positive! :-)</accept> 
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>    
+        <cancel annotation="NOTDETECTED">I'm sorry that you feel negative :-(</cancel>       
+    </dialog>
+    <dialog concept="LP_TEMPERATURE" scenario="scenario-lp_temperature" description="low pressure temperature">
+    	<trigger annotation="LOW-PRESSURE_TEMPERATURE"/>
+    	
+        <intro>
+               Would you like to answer some questions related to low pressure and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="HP_PRECIPITATION" scenario="scenario-hp_precipitation" description="high pressure precipitation">
+    	<trigger annotation="HIGH-PRESSURE_PRECIPITATION"/>
+    	
+        <intro>
+               Would you like to answer some questions related to high pressure and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="LP_WINDDIRECTION" scenario="scenario-lp_winddirection" description="low pressure wind direction">
+    	<trigger annotation="LOW-PRESSURE_WIND"/>
+    	
+        <intro>
+               Would you like to answer some questions related to low pressure and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="HP_TEMPERATURE" scenario="scenario-hp_temperature" description="high pressure temperature">
+    	<trigger annotation="HIGH-PRESSURE_TEMPERATURE"/>
+    	
+        <intro>
+               Would you like to answer some questions related to high pressure and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="HP_WINDDIRECTION" scenario="scenario-hp_winddirection" description="high pressure wind direction">
+    	<trigger annotation="HIGH-PRESSURE_WIND"/>
+    	
+        <intro>
+               Would you like to answer some questions related to high pressure and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="CF_PRECIPITATION" scenario="scenario-cf_precipitation" description="cold front precipitation">
+    	<trigger annotation="COLD-FRONT_PRECIPITATION"/>
+    	
+        <intro>
+               Would you like to answer some questions related to cold front and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="CF_TEMPERATURE" scenario="scenario-cf_temperature" description="cold front temperature">
+    	<trigger annotation="COLD-FRONT_TEMPERATURE"/>
+    	
+        <intro>
+               Would you like to answer some questions related to cold front and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="CF_WINDDIRECTION" scenario="scenario-cf_winddirection" description="cold front wind direction">
+    	<trigger annotation="COLD-FRONT_WIND"/>
+    	
+        <intro>
+               Would you like to answer some questions related to cold front and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="WF_WINDDIRECTION" scenario="scenario-cf_winddirection" description="warm front wind direction">
+    	<trigger annotation="WARM-FRONT_WIND"/>
+    	
+        <intro>
+               Would you like to answer some questions related to warm front and wind direction ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="WF_PRECIPITATION" scenario="scenario-wf_precipitation" description="warm front precipitation">
+    	<trigger annotation="WARM-FRONT_PRECIPITATION"/>
+    	
+        <intro>
+               Would you like to answer some questions related to warm front and precipitation ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>
+    <dialog concept="WF_TEMPERATURE" scenario="scenario-wf_temperature" description="warm front temperature">
+    	<trigger annotation="WARM-FRONT_TEMPERATURE"/>
+    	
+        <intro>
+               Would you like to answer some questions related to warm front and temperature ?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - you can continue discussing other topics.</cancel>                
+        
+    </dialog>    
+  
+    <dialog concept="GET_A_HUG" scenario="scenario-hugs">
+    	<trigger annotation="HUG"/>
+        <intro>Would you like a hug?</intro>
+        <accept annotation="AFFIRMATIVE">Great!</accept>
+        <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
+    </dialog>
+     
+</dialogs>
