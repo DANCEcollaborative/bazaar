@@ -1,0 +1,40 @@
+﻿# Template Description file for a Weka package
+#
+
+# Package name (required)
+PackageName=MultiObjectiveEvolutionaryFuzzyClassifier
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2016-7-11
+
+# Title (required)
+Title=MultiObjectiveEvolutionaryFuzzyClassifier
+
+# Category (recommended)
+Category=Classification
+
+# Author (required)
+Author=Carlos Martinez Cortes<carlos.martinez6@um.es>
+
+# Maintainer (required)
+Maintainer=Carlos Martinez Cortes<carlos.martinez6@um.es>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=MultiObjectiveEvolutionaryFuzzyClassifier constructs a fuzzy rule based classifier by using the ENORA Multi-objective Evolutionary Algorithm. Two objectives are optimized. The first one can be configured to maximize accuracy, to maximize area under ROC curve, or to minimize root mean squared error. The second one is to minimize the number of fuzzy rules of the classifier. The non-dominated solutions in the last population with the best fitness for the first objective is shown as output.<br/><br/>ENORA is an elitist Pareto-based multi-objective evolutionary algorithm that uses a (mu+lambda) survival with the following operators:<br/>- Uniform random initialization.<br/>- Binary tournament selection.<br/>- Ranking based on local non-domination level with crowding distance.<br/>- Self-adaptive crossover with three operators: 1: Fuzzy set crossover 2: Rule crossover 3: Rule incremental crossover.<br/>- Self-adaptive mutation whit five operators: 1: Gaussian set center mutation 2: Gaussian set variance mutation 3: Fuzzy set mutation 4: Rule incremental mutation 5: Integer mutation.<br/><br/>For more information see:<br/>Jimenez, F., Sanchez, G. & Juarez, J.M. (2014). Multi-objective evolutionary algorithms for fuzzy classification in survival prediction. Artificial Intelligence in Medicine, 60(3), 197-219.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/moefc/MultiObjectiveEvolutionaryFuzzyClassifier1.0.0.zip?download
+
+# Related to other packages?
+Related=MultiObjectiveEvolutionarySearch
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.5)
+
+

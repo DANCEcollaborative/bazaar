@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="torsion_assigment">
+
+    <stage name="initiate" type="other" delay="0">
+        <step type="prompt" delay="0" prompt="AGENT_INTRODUCE">AGENT_INTRODUCE</step>
+        <step type="prompt" delay="0" prompt="INTRO">INTRO</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="WAIT_FOR_CHECKIN">INTRO_DISCUSSION</step>
+    </stage>
+
+    <stage name="part2" type="other" delay="5">
+        <step type="prompt" delay="10" prompt="DISCUSS_2">DISCUSS_2</step>
+	<step type="prompt" delay="0" prompt="DISCUSS_2a">DISCUSS_2a</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_1</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_2b">DISCUSS_2b</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_2</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_2c">DISCUSS_2c</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_3</step>
+    </stage>
+
+    <stage name="part3" type="other" delay="5">
+        <step type="prompt" delay="10" prompt="DISCUSS_3_BACKGROUND">DISCUSS_3_BACKGROUND</step>
+	<step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_4</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_3">DISCUSS_3</step>
+	<step type="whiteboard" delay="5" path="http://erebor.lti.cs.cmu.edu/bazaar/Picture1.png">SHOW_IMAGE</step>
+	<step type="prompt" delay="0" prompt="DISCUSS_3a">DISCUSS_3a</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_5</step>
+        <step type="prompt" delay="10" prompt="DISCUSS_3b">DISCUSS_3b</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_3bi">DISCUSS_3bi</step>
+        <step type="gated" gated_type="listen" timeout="1200" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_6</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_3bii">DISCUSS_3bii</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_6</step>
+    </stage>
+
+    <stage name="finish" type="other" delay="5">
+        <step type="prompt" delay="5" prompt="FINISH">FINISH_STEP</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+
+</plan>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>	
+
+	<prompt strategy="task" id="GREET-SBM-1">
+       <text>&lt;speech>Hello, [NAME]&lt;/speech> &lt; <gaze sbm:target-pos="-45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Nice to meet you, [NAME]&lt;/speech> &lt; <gaze sbm:target-pos="0 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Howdy, [NAME]&lt;/speech> &lt; <gaze sbm:target-pos="45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+   </prompt>
+
+	<prompt strategy="task" id="GREET-SBM-2">
+       <text>&lt;speech>Hello, [NAME]&lt;/speech> &lt;gaze sbm:target-pos="-45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Nice to meet you, [NAME]&lt;/speech> &lt;gaze sbm:target-pos="0 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+       <text>&lt;speech>Howdy, [NAME]&lt;/speech> &lt;gaze sbm:target-pos="45 0 90" sbm:joint-range="EYES NECK CHEST"/></text>
+   </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE-SBM-1">
+		<text>&lt;speech>Hello, I'm [AGENT NAME]. Take a minute to introduce yourselves.&lt;/speech> &lt; <face type="FACS" au="1" side="both" amount="1"/>&lt;head type="NOD"/></text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE-SBM-2">
+        <text>&lt;speech>Hello, I'm [AGENT NAME]. Take a minute to introduce yourselves.&lt;/speech> &lt;face type="FACS" au="1" side="both" amount="1"/>&lt;head type="NOD"/></text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>Okay! Today, we'll be discussing weather. | I can help you discuss relations between weather factors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WEATHER_TOPIC_SPECIFICS">
+        <text>I can help you discuss relations between weather factors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="CONTINUE_WEATHER_TOPICS">
+        <text>Continue discussing relations between pairs of weather factors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_ACCOUNTABLE_TALK">
+    	<text>The agent is listening for several kinds of triggers to start supporting students. |For example, David cares a lot about "Accountable Talk" style facilitation these days. | The provided AT example is configured for college chemistry. If you've turned on any of the revoice, agree, say_more, or explain conditions, try saying something like "boiling point increases with dipole moment."|(and then wait a little while, this behavior waits for other students to follow up before offering support.)</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FINISH_TUTORIALS">
+    	<text>(You can trigger the same tutorial dynamically by talking about animals - see dialogues/dialogues-example.xml and dictionaries/animals.txt for details)</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="DISCUSS_COOLEST_TEMP">
+        <text>Also discuss among yourselves where all of you would expect to find the coolest temperatures over the area of the map on right of your screen.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_HIGHEST_PRESSURE">
+        <text>Also discuss among yourselves where all of you would expect to find the highest atmospheric pressure over the area of the map on right of your screen.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_LOWEST_PRESSURE">
+        <text>Also discuss among yourselves where all of you would expect to find the lowest atmospheric pressure over the area of the map on right of your screen.</text>
+    </prompt>
+    
+     <prompt strategy="task" id="DISCUSS_PRECIP_WARM_FRONT">
+        <text>Also discuss among yourselves where all of you would expect precipitation to occur in regards to the warm front over the area of the map on right of your screen.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_PRECIP_COLD_FRONT">
+        <text>Also discuss among yourselves where all of you would expect precipitation to occur in regards to the cold front over the area of the map on right of your screen.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_HIGH_WIND">
+        <text>Also discuss among yourselves where all of you would expect expect the highest wind speeds to occur over the area of the map on right of your screen.</text>
+    </prompt>
+ 
+</prompts>

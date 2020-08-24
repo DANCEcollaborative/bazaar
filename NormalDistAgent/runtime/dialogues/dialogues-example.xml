@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+	
+	<!-- the ANIMAL_IDENTIFICATION dialogue is specified 
+	in the file "scenario-animals.xml" in the dialogues folder. -->
+    <dialog concept="ANIMAL_IDENTIFICATION" scenario="scenario-animals">
+    	
+    	<!-- messages that receive the annotation ANIMALS will trigger an offer for this dialogue.
+    	  automatic annotations are defined by lists of words 
+    	  and regular expressions in the dictionaries/ folder. -->
+    	<trigger annotation="ANIMALS"/>
+    	
+    	<!-- The intro prompt is offered to students. 
+    	If they respond in the affirmative, the dialogue begins.-->
+        <intro>We can work on your basic zoology. Are you ready?</intro>
+        <accept annotation="AFFIRMATIVE">Let's get started.</accept>
+        <cancel annotation="NEGATIVE">Okay - I'm here when you need me.</cancel>
+    </dialog>
+  
+    <dialog concept="HELP" scenario="scenario-help">
+    	<trigger annotation="CONFUSION"/>
+    	<trigger annotation="QUESTION"/>
+        <intro>Would you like some help?</intro>
+        <accept annotation="AFFIRMATIVE">Okay.</accept>
+        <cancel annotation="NEGATIVE">Okay.</cancel>
+    </dialog>
+</dialogs>

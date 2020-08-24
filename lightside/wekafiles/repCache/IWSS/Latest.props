@@ -1,0 +1,41 @@
+# Description file for IWSS  attribute selection #algorithm
+ 
+
+# Package name (required)
+PackageName=IWSS
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2013-06-06
+
+# Title (required)
+Title=Incremental Wrapper Subset Selection
+
+# Category (recommended)
+Category=Attribute selection
+
+
+# Author (required)
+Author=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+# Maintainer (required)
+Maintainer=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=This attribute selector is specially designed to handle high-dimensional datasets. It first creates a ranking of attributes based on the selected metric, and then it runs an Incremental Wrapper Subset Selection over the ranking (linear complexity) by selecting attributes (using the WrapperSubsetEval class) which improve the performance for a given minimum number of folds out of the folds of the the wrapper cross-validation.  It contains the theta option which permits to tune an early stopping (sublinear complexity). It contains the replaceSelection option, which tests at each step of the incremental search swapping a selected attribute by the current candidate, this reduces the mean number of selected attributes without decreasing performance but it increases the linear complexity to quadratic.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.dsi.uclm.es/personal/PabloBermejo/downloads/IWSS1.0.0.zip
+
+# Enhances various other packages ?
+Enhances=weka.attributeSelection
+
+# Dependencies 
+Depends=weka (>=3.7.1)
+

@@ -1,66 +1,71 @@
 package basilica2.side.listeners;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.util.*;
+import java.io.File;
 import java.util.Scanner;
-
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
-import basilica2.agents.listeners.BasilicaPreProcessor;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
+import basilica2.side.util.MultipartUtility;
+
 
 public class LightSideMessageAnnotator extends BasilicaAdapter
 {
-	//String pathToLightSide = "/Users/researcher/Downloads/LightSide_2.3.1_20141107";
-	//String pathToModel = "saved/test.xml";
-	String pathToLightSide = "../../LightSideMessageAnnotator/runtime/LightSide_2.3.1_20141107";
-	String pathToModel = "saved/gst_reasoning_model.model.xml";
-	String predictionCommand = "scripts/predict.sh";
+	String pathToLightSide; 
+	String modelName; 
+	String modelNickname;
+	String predictionCommand; 
+	String classificationString; 
 	
-	OutputStream stdin;
-	InputStream stderr;
-	InputStream stdout;
-
-	BufferedReader reader;
-	BufferedWriter writer;
-
-	Process process = null;
-
+	String host = "http://localhost";
+	String port = "8000"; 
+    String charset = "UTF-8";
+	String modelPath = "models/";
+    MultipartUtility mUtil; 
+    Hashtable<String, Double> classify_dict = new Hashtable<String, Double>();
+	
 	public LightSideMessageAnnotator(Agent a)
 	{
 		super(a);
-		
+		port = getProperties().getProperty("port", port);
 		pathToLightSide = getProperties().getProperty("pathToLightSide", pathToLightSide);
-		pathToModel = getProperties().getProperty("pathToModel", pathToModel);
+		modelPath = getProperties().getProperty("modelPath", modelPath);
+		modelName = getProperties().getProperty("modelName", modelName);        
+		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
+		Process process;
+		File lightSideLocation = new File(pathToLightSide);
 		
-		try
-		{
-			File lightSideLocation = new File(pathToLightSide);
-			process = Runtime.getRuntime().exec(new String[] { predictionCommand, pathToModel }, null, lightSideLocation);
-
+		classificationString = getProperties().getProperty("classifications", classificationString);
+		String[] classificationList = classificationString.split(","); 
+		int listLength = classificationList.length; 
+		for (int i=0; i<listLength; i+=2) {
+			classify_dict.put(classificationList[i],Double.parseDouble(classificationList[i+1]));
 		}
-
-		catch (IOException e)
+		
+		try {
+			ProcessBuilder pb = new ProcessBuilder(predictionCommand,port,modelNickname + ":" + modelPath + modelName);
+			pb.directory(lightSideLocation);
+			pb.inheritIO(); 
+			process = pb.start(); 
+						
+			Boolean isAlive = process.isAlive();
+			if (isAlive) {
+				System.err.println("LightSide process is alive");
+			}
+			else {
+				System.err.println("LightSide process is NOT alive");			
+			}
+			
+		} 
+		catch (Exception e)
 		{
+			System.err.println("LightSideMessageAnnotator, error starting LightSide");
 			e.printStackTrace();
 		}
-
-		stdin = process.getOutputStream();
-		stderr = process.getErrorStream();
-		stdout = process.getInputStream();
-
-		reader = new BufferedReader(new InputStreamReader(stdout));
-		writer = new BufferedWriter(new OutputStreamWriter(stdin));
-
+		
 	}
 
 	/**
@@ -94,32 +99,60 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 
 	public String annotateText(String text)
 	{
-		String label = null;
 
-		if(process != null) try
-		{
-			writer.write(text + "\n");
-			writer.flush();
-
-			String line = reader.readLine();
-			if (line != null)
-			{
-				System.out.println(line);
-				String[] response = line.split("\\s+");
-				label = response[0];
+		try {
+			MultipartUtility mUtil = new MultipartUtility(host + ":" + port + "/evaluate/" + modelName, charset);
+            mUtil.addFormField("sample", text);
+            mUtil.addFormField("model", modelPath + modelName );
+            List<String> finish = mUtil.finish();
+            StringBuilder response = new StringBuilder();
+            for (String line : finish) {
+                response.append(line);
+                response.append('\r');
+            }
+            String classifications = parseLightSideResponse(response);
+            return classifications; 
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    	return "LightSide returned null"; 
+	    }	
+	}
+	
+	public String parseLightSideResponse(StringBuilder response)
+	{
+		String startFlag = "<h3>";
+		String endFlag = "</h3>";
+		String classSplit = "%<br>";
+		String withinClassSplit = ": ";
+		String[] classificationSpec;
+		String classification; 
+		Double classificationPercent; 
+		Double classificationThreshold;
+		StringBuilder annotation = new StringBuilder(""); 
+		String plus = ""; 
+		
+		int start = response.indexOf(startFlag);
+		int end = response.indexOf(endFlag,start);
+		String classifications = response.substring((start+4),end);
+		String[] classificationList = classifications.split(classSplit); 
+		int listLength = classificationList.length; 
+		for (int i=0; i < listLength; i++) {
+			classificationSpec = classificationList[i].split(withinClassSplit);
+			classification = classificationSpec[0];
+			classificationPercent = Double.parseDouble(classificationSpec[1]);
+			System.err.println("=== LightSideMessageAnnotator - classification " + classification + " " + Double.toString(classificationPercent) + "%");
+			try {
+				classificationThreshold = classify_dict.get(classification);
+				if (classificationPercent >= classificationThreshold) {
+					annotation.append(plus + classification.toUpperCase());
+					plus = "+"; 					
+				}
 			}
-			else
-			{
-				System.err.println("response from LightSide is null!");
-			}
-
+			catch (Exception e) {
+		    	System.out.println("LightSide classification \"" + classification + "\" not used"); 
+			}			
 		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return label;
+		return annotation.toString(); 	
 	}
 
 	/**
@@ -158,5 +191,6 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 	{
 		//we do nothing
 	}
+	
 
 }

@@ -1,0 +1,42 @@
+# Template Description file for a Weka package
+ 
+# Package name (required)
+PackageName=anonymizationPackage
+ 
+# Version (required)
+Version=1.0.0
+ 
+#Date (year-month-day)
+Date=2012-06-13
+ 
+# Title (required)
+Title=A Filter to apply k-anonymization and l-diversity
+ 
+# Category (recommended)
+Category=Preprocessing
+ 
+# Author (required)
+Author=Matthias Niemann <matthias.niemann@fu-berlin.de>,Daniel Rotar <daniel.rotar@fu-berlin.de>,Maximilian Schröder <schroedm@zedat.fu-berlin.de>
+ 
+# Maintainer (required)
+Maintainer=Matthias Niemann <matthias.niemann@fu-berlin.de>,Daniel Rotar <daniel.rotar@fu-berlin.de>,Maximilian Schröder <schroedm@zedat.fu-berlin.de>
+ 
+# License (required)
+License=GPL 3.0
+ 
+# Description (required)
+Description=This package contains an anonymization-filter, that is used as a preprocessing-tool. To make \
+sure, no human being can be identified by the quasi-identifiers that occur in the data, \
+one can perform an anonymization. The kind of anonymization is variable, as well as the strength. \
+Therefore the datafly-algorithm is used. Mostly, it will not find the optimal solution, but it is the fastest. \
+For l-diversity, there is a modified datafly-algorithm applied, that generalizes data as long as the \
+l-diversity-criterion is not fulfilled.
+ 
+# Package URL for obtaining the package archive (required)
+PackageURL=http://mniemann.de/downloads/anonymization1.0.0.zip
+ 
+# URL for further information
+URL=http://weka.mniemann.de
+ 
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.6)

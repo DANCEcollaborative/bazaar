@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import basilica2.agents.events.PoseEvent.poseEventType;
 
 /**
  * 
@@ -53,9 +54,9 @@ public class State
 		public boolean isPresent;
 		public String speech;
 		public String identity;
-		public String location;
+		public String location = null;
 		public String facialExp;
-		public String bodyPos;
+		public poseEventType pose;
 		public String emotion;
 
 		@Override
@@ -71,6 +72,7 @@ public class State
 	private String stageType = null;
 	private String stepName = null;
 	private String stepType = null;
+	private poseEventType groupPose = poseEventType.none;
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -85,6 +87,7 @@ public class State
 		news.stageType = s.stageType;
 		news.stepName = s.stepName;
 		news.stepType = s.stepType;
+		news.groupPose = s.groupPose;
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
 			news.stateMap.put(k, map.get(k));
@@ -177,16 +180,41 @@ public class State
 		addStudent(sid);
 		setName(sid, name);
 	}
+	
+	public void setStudentPose(String sid, poseEventType pose) {
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				students.get(i).pose = pose;
+				return;
+			}
+		}
+	}
 
-	public String getStudentLocation(String sid)
+	public poseEventType getStudentPose(String sid)
 	{
 		for (int i = 0; i < students.size(); i++)
 		{
 			Student s = students.get(i);
-			if (s.isPresent)
+			if (s.chatId.equalsIgnoreCase(sid))
 			{
-				// System.out.println("@@@@@ Get location - sid/chatId: " + sid + " - Location: " + s.location + " @@@@@");
-				if (s.chatId.equalsIgnoreCase(sid)) { return s.location; }
+				System.out.println("State.java, getPose - sid/chatId: " + sid + " - pose: " + s.pose.toString());
+				return s.pose;
+			}
+		}
+		return null;
+	}
+
+	public String getLocation(String sid)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			Student s = students.get(i);
+			if (s.chatId.equalsIgnoreCase(sid))
+			{
+				System.out.println("State.java, getLocation - sid/chatId: " + sid + " - Location: " + s.location);
+				return s.location;
 			}
 		}
 		return null;
@@ -199,7 +227,7 @@ public class State
 			if (sid.startsWith(students.get(i).chatId))
 			{
 				students.get(i).location = location;
-				// System.out.println("@@@@@ Set location - sid/chatId: " + sid + " - Location: " + location + " @@@@@");
+				System.out.println("State.java, setLocation - sid/chatId: " + sid + " - Location: " + location);
 			}
 		}
 	}
@@ -307,6 +335,16 @@ public class State
 	{
 		if (stageType == null) { return ""; }
 		return stageType;
+	}
+
+	public poseEventType getGroupPose()
+	{
+		return groupPose;
+	}
+
+	public void setGroupPose(poseEventType pose)
+	{
+		this.groupPose = pose;
 	}
 
 	@Override

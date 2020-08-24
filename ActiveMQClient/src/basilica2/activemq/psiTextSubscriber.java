@@ -23,11 +23,11 @@ public class psiTextSubscriber implements ISLTextSubscriber {
     @Override
     public void onReceive(String topic, String content) {
         System.out.println("********* psiTextSubscriber received message. Subscriber:" + this.name + "\tTopic: " + topic + "\tContent:" + content);
-    	System.out.println("********* psiTextSubscriber: About to CREATE message >>>   " + content);
+    	// System.out.println("********* psiTextSubscriber: About to CREATE message >>>   " + content);
     	// MessageEvent me = new MessageEvent(m, a.getUsername(), content);     // worked
     	MessageEvent me = new MessageEvent(m, "psiAgent", content);
-    	System.out.println("********* psiTextSubscriber: About to BROADCAST message >>>   " + content);
-    	System.out.println("********* psiTextSubscriber: MessageEvent               >>>   " + me);
+    	// System.out.println("********* psiTextSubscriber: About to BROADCAST message >>>   " + content);
+    	// System.out.println("********* psiTextSubscriber: MessageEvent               >>>   " + me);
     	m.broadcast(me);
     	System.out.println("********* psiTextSubscriber: MessageEvent sent          >>>   " + me);
     }

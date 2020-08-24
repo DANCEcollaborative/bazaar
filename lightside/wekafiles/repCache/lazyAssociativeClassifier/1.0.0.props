@@ -1,0 +1,44 @@
+# Template Description file for a Weka package
+#
+# 
+
+# Package name (required)
+PackageName=lazyAssociativeClassifier
+
+# Version (required)
+Version=1.0.0
+
+#Date
+Date=2012-08-21
+
+# Title (required)
+Title=Lazy Associative Classifier
+
+Category=Classification
+
+# Author (required)
+Author=Gesse Dafe, Adriano Veloso
+
+# Maintainer (required)
+Maintainer=gessedafe@gmail.com, gdafe@dcc.ufmg.br, adrianov@dcc.ufmg.br
+
+# License (required)
+License=Apache License 2.0
+
+# Description (required)
+Description=Implements the LAC (Lazy Associative Classifier) algorithm, which uses associative rules to execute classifications. Unlike other Apriori-based classifiers, LAC algorithm computes association rules in a demand-driven basis. For each instance to be classified, it filters the training set and produces only useful rules for that instance, outperforming traditional associative classifiers in both time and accuracy. For more information: [Adriano Veloso, Wagner Meira Jr., Mohammed Zaki. Lazy Associative Classification. ICDM '06 Proceedings of the Sixth International Conference on Data Mining, Pages 645-654, IEEE Computer Society Washington, DC, USA]. 
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/machine-learning-dcc-ufmg/lazy-associative-classifier-1.0.0.zip
+
+# URL for further information
+URL=http://code.google.com/p/machine-learning-dcc-ufmg/
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+#Related=
+
+# Dependencies
+Depends=weka (>=3.7.2)

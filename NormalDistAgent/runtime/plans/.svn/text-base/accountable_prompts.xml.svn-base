@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt id="REVOICE">
+        <text>So is [STUDENT] saying "[CONCEPT]?"</text>
+        <text>[STUDENT], is this similar to "[CONCEPT]?"</text>
+        <text>Would another way to say that be "[CONCEPT]?"</text>
+        <text>Maybe you could state that as "[CONCEPT]."</text>
+        <text>Would that be the same as saying "[CONCEPT]?"</text>
+    </prompt>
+    <prompt id="AGREE_DISAGREE">
+        <text>Do you concur with [STUDENT]? Why, or why not?</text>
+        <text>Can you weigh in on what [STUDENT] said?</text>
+        <text>Thanks, [STUDENT]. How does that sound to the rest of you?</text>
+        <text>What do you think about [STUDENT]'s idea? Do you agree or disagree?</text>
+    </prompt>
+    <prompt id="AGREE_DISAGREE_TWO">
+        <text>What do you think about [STUDENT]'s idea? Do you agree or disagree?</text>
+        <text>[OTHERSTUDENT] - do you agree or disagree with [STUDENT]?</text>
+        <text>Do you agree or disagree with [STUDENT]'s idea?</text>
+        <text>Thanks, [STUDENT]. [OTHERSTUDENT], what do you think about that?</text>
+    </prompt>
+    <prompt id="REQUEST_EXPLANATION">
+        <text>[STUDENT], can you explain why?</text>
+        <text>[STUDENT], please explain.</text>
+        <text>Can you add an explanation, [STUDENT]?</text>
+    </prompt>
+    
+    <prompt id="REQUEST_DISAGREE_EXPLANATION">
+        <text>[STUDENT], can you explain why you disagree?</text>
+        <text>Explain why you disagree...</text>
+        <text>Please explain, [STUDENT] - what's the alternative?</text>
+    </prompt>
+    
+    <prompt id="REVOICE">
+        <text>So, [STUDENT] - are you telling us that [CONCEPT]?</text>
+        <text>So [STUDENT], what I hear you saying is [CONCEPT].</text>
+        <text>Let me make sure I understand you - are you saying [CONCEPT]?</text>
+        <text>What I hear [STUDENT] saying is [CONCEPT]. [STUDENT], is that what you meant?</text>
+        <text>So are you telling us that [CONCEPT]?</text>
+    </prompt>
+</prompts>

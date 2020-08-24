@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="AGENT_INTRODUCE">
+        <text>Welcome, all! I'm [AGENT NAME]. Throughout this activity, I will be facilitating your discussion about this Normal Distribution lab.</text>
+    </prompt>
+
+    <prompt strategy="task" id="INTRO">
+        <text>Start by introducing yourselves. Give your name and your favorite topic in this course so far.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_4_BACKGROUND">
+        <text>We will look at the two sets of data that you have prepared in Parts 1, 2, and 3 of the assignment. Select the SPREADSHEET tab to the left of the discussion board. Notice that this spreadsheet is the one whose URL you entered on the Welcome Page. It has three sheet tabs at the bottom named "Combined," "Team A," and "Team B." Now you will be able to discuss the results. You will be prompted to answer several questions. If you're ready to move on to the next question before I prompt you, EVERYONE in your group must select the "I'm Ready" button.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_4a">
+	<text>Compare and contrast the statistics and histogram from the two teams. Each person should type into the DISCUSSION board either 1 similarity or 1 difference or both.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4b_ORIG">
+	<text>NOTE: We are now moving to Part 4 in the instructions which is about analyzing the combined data (n=60 size data set). Now select the "Combined" tab. When finished, every team member must select the "I'm Ready" button in the DISCUSSION board to continue.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4b">
+	<text>We are now moving to the part in the instructions about analyzing the combined data (n=60 size data set). When you're ready, every team member must select the "I'm Ready" button in the DISCUSSION board to continue.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4b1">
+	<text>Open the "Combined" tab. Discuss the symmetry of the histogram including comparisons of the mean and the median. What does this say about people’s finger length?</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4b2">
+	<text>Question XXX: Discuss the symmetry of the histogram including comparisons of the mean and the median. What does this say about people’s finger length?</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4c">
+	<text>How did the standard deviations change when you combined the data? Why do you think this might be?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_4d">
+	<text>Find and post the interval that contains the pinkie length within two standard deviations of your mean. If all teammates do not agree on the answer, discuss it and convince each other you are correct.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DISCUSS_4e">
+	<text>What percent of the data are within two standard deviations of the mean?  Round to two decimal places. If all teammates do not agree on the answer, discuss it and try to convince your partners that you are correct.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4f">
+	<text>According to the Normal Distribution, what percent of the data would you expect to be within two standard deviations of the mean? Why?</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4g">
+	<text>Discuss whether the combined data that you collected gives a close approximation to the Normal distribution. Explain why or why not. Each person should contribute to the discussion.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_4h">
+	<text>Open the <b>Collaborative Notes</b> tab. Write a summary of your results, making sure to include references to the Normal distribution.</text>
+    </prompt>
+
+    <prompt strategy="task" id="FINISH">
+	<text>Download a copy of this <b>Discussion Log</b> and your <b>Collaborative Notes</b> (locate the corresponing download buttons) to refer to when writing your final report. Now this activity has come to an end. Thanks for a great chat!</text>
+    </prompt>
+
+</prompts>

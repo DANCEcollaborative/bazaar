@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="DETECTED">
+        <text>Good job, %this_student%, on synthesizing the group’s opinions. After evaluating the different perspectives, what does it seem that your group should focus discussion on moving forward, in order to solve the task at hand!</text>
+        <text>Thank you for summarizing the main discussion points and perspectives, %this_student%! Other students, would you agree with %this_student%’s representation of the discussion, or are there still any points of contention?</text>
+    </prompt>
+
+    <prompt strategy="task" id="NOTDETECTED">
+        <text>It seems like there is an active discussion going! %this_student%, what opinions have already been shared and discussed, and where does the group stand on the important aspects from this conversation?</text>
+        <text>%this_student%, what are the most important takeaways from the conversation thus far? Has a consensus been reached on any subtopic that can help us solve the problem at hand?</text>
+    </prompt>
+ 
+</prompts>

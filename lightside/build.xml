@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="compile" name="lightside">
+    <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <property name="lightside.location" value="."/>
+    <!--<property name="ECLIPSE_HOME" value="/Applications/eclipse"/>-->
+	<!-- ECLIPSE_HOME is only used to reference where the junit JARs live - if your JUnit is elsewhere, you don't need this variable. -->
+    <path id="junit.classpath">
+        <!--<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>-->
+        <!--<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>-->
+    </path>
+    <path id="lightside.classpath">
+        <pathelement location="bin"/>
+        
+        <fileset dir="lib">
+          <include name="**/*.jar"/>
+        </fileset>
+    	
+        <fileset dir="wekafiles/packages/">
+          <include name="**/*.jar"/>
+        </fileset>
+    	
+    </path>
+
+    <path id="lightside.buildpath">
+        <path refid="lightside.classpath"/>
+        <path refid="junit.classpath"/>
+    </path>
+
+	<!-- note: several tests do expect a compiled genesis.jar, 
+	        	because the actual models built with lightside reference such plugins.
+	        	Not required to *build*, but required to run the tests.-->
+    <path id="lightside.testpath">
+        <path refid="lightside.classpath"/>
+        <path refid="junit.classpath"/>
+        <pathelement location="plugins/genesis.jar"/>
+    </path>
+	       
+	
+    <target name="init">
+        <mkdir dir="bin"/>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+	
+
+	<target name="build-intl" depends="clean,compile-intl,test"/>
+	<target name="build" depends="clean,compile,test"/>
+
+	<target name="compile-intl" depends="get-stanford-chinese,compile-lightside,compile-tests"/>
+	<target name="compile" depends="compile-lightside,compile-tests">
+            <copy file="plugins/config-english.xml" tofile="plugins/config.xml" overwrite="true"/>
+        </target>
+	
+    <target name="get-stanford-chinese">
+        <copy file="plugins/config-intl.xml" tofile="plugins/config.xml" overwrite="true"/>
+        <get src="https://nlp.stanford.edu/software/stanford-segmenter-2018-10-16.zip"
+             skipexisting="true" dest = "." />
+        <unzip src="stanford-segmenter-2018-10-16.zip" dest="." />
+        <move todir="lib">
+           <fileset dir="stanford-segmenter-2018-10-16">
+             <include name="stanford-segmenter*.jar"/>
+           </fileset>
+        </move>
+        <move file="stanford-segmenter-2018-10-16/data" tofile="toolkits/segmentation"/>
+    </target>
+
+    <target depends="init" name="compile-lightside">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+        	
+            <classpath refid="lightside.buildpath"/>
+        </javac>
+    </target>
+
+    <target depends="compile-lightside" name="lightside-jar">
+       <jar destfile="${lightside.location}/lightside.jar" basedir="bin">
+            <manifest>
+                <attribute name="Built-By" value="${builder}" />
+                <attribute name="Built-On" value="${build-info.current-date}" />
+                <attribute name="Built-At" value="${build-info.current-time}" />
+            </manifest>
+       </jar>
+    </target>
+	
+    <target depends="init" name="compile-tests">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="tests"/>
+        	
+            <classpath refid="lightside.testpath"/>
+        </javac>
+    </target>
+	
+    <target depends="compile" name="run">
+        <java classname="edu.cmu.side.Workbench" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx8G -Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide -splash:toolkits/icons/logo.png -XX:+UseConcMarkSweepGC" />
+            <classpath refid="lightside.classpath"/>
+        </java>
+    </target>
+	
+	<!--<target name="test" depends="run-tests,report-tests"/>-->
+	<target name="test" depends="run-tests"/>
+	
+    <target name="run-tests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="true" haltonerror="true" haltonfailure="true" showoutput="true" dir="${lightside.location}">
+           <!-- <formatter type="xml"/> -->
+        	
+            <formatter type="plain" usefile="false"/>
+            <classpath refid="lightside.testpath"/>
+
+        	<batchtest fork="yes" todir="${junit.output.dir}">
+        	    <fileset dir="tests">
+        	      <include name="**/*Test*.java"/>
+        	      <exclude name="**/AllTests.java"/>
+        	    </fileset>
+        	  </batchtest>
+        	    	
+            <jvmarg line="-Xmx4G -XX:+UseConcMarkSweepGC  -Djava.awt.headless=true"/>
+
+
+        </junit>
+    </target>
+
+    <target name="report-tests">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>

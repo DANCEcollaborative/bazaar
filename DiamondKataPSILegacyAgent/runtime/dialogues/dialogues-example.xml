@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+    
+    <dialog concept="LINES_OUTPUT_ITERATIVE" scenario="scenario_lines_output_iterative" description="lines of output for iterative solution">
+    	<trigger annotation="LINES_OUTPUT_ITERATIVE"/>
+    	
+        <intro>
+               Would you like to discuss whether you'll need to calculate the number of lines to output for an iterative solution?
+        </intro>
+        <accept annotation="AFFIRMATIVE">Good topic.</accept>
+        <cancel annotation="NEGATIVE">Okay. You can continue with working on the next test case and discussing other topics.</cancel>                
+        
+    </dialog>
+     
+</dialogs>

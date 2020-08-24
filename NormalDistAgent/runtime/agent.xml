@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent name="VirtualProfessor">
+    <components>
+        <component name="stateMemory" type="Memory" class="basilica2.agents.components.StateMemory" properties=""/>
+        
+        <component name="client" type="Filter" class="basilica2.socketchat.WebsocketChatClient" properties="WebsocketChatClient.properties"/>
+		<!-- <component name="client" type="Filter" class="basilica2.agents.components.MoodleChatClient" properties="MoodleChatClient.properties"/> -->
+		<component name="ccActor" type="Actor" class="basilica2.agents.components.WhiteboardActor" properties=""/>        
+        <component name="inputCoordinator" type="Coordinator" class="basilica2.agents.components.InputCoordinator" properties=""/>
+        <component name="outputCoordinator" type="Coordinator" class="basilica2.agents.components.OutputCoordinator" properties=""/>
+
+    </components>
+    <connections>
+        <connection from="client" to="inputCoordinator"/>
+        <connection from="inputCoordinator" to="inputCoordinator"></connection>
+        	
+        <connection from="inputCoordinator" to="outputCoordinator"></connection>
+        <connection from="outputCoordinator" to="client"/>
+        <!--
+        <connection from="myCCListener" to="myOutputCordinator"/>
+        <connection from="myOutputCordinator" to="myCCActor"/>
+        -->
+    </connections>
+</agent>

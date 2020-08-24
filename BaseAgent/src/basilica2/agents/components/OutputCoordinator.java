@@ -21,15 +21,7 @@ import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
-
-// import VHjava.VHSender;
-// import VHjava.VHReceiver;
-// import VHjava.VHjava.*;
-// import VHjava.VHJava.MessageProcessor;
-// import MessageProcessor;
-// import VHjava.MessageProcessor; 
-// import VHjava.RendererController;
-import VHjava.*; 
+import smartlab.communication.CommunicationManager; 
 
 /**
  * @author dadamson
@@ -49,11 +41,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
 	
-	private VHSender vhSender = new VHSender();
-	private VHReceiver vhReceiver = new VHReceiver();
-// 	private MessageProcessor vhProcessor = new MessageProcessor();
-	private RendererController vhController = new RendererController();
-	private Boolean outputToVHT = false; 
+	private Boolean outputToPSI = false; 
+	CommunicationManager psiCommunicationManager; 
+	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
@@ -63,8 +53,15 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		timer.start();
 		
 		if(myProperties!=null)
-			try{outputToVHT = Boolean.parseBoolean(myProperties.getProperty("output_to_VHT", "false"));}
+			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
+		if (outputToPSI) {
+			initializePSI(); 
+		}
+	}
+	
+	private void initializePSI() {
+		psiCommunicationManager = new CommunicationManager();
 	}
 
 	public void addAll(Collection<PriorityEvent> events)
@@ -199,8 +196,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if (!me.getText().contains("|"))
 		{
 			broadcast(me);
-			if (outputToVHT)
-				publishMessageToVHT(me);	
+			if (outputToPSI)
+				publishMessageToPSI(me);	
 			MessageEventLogger.logMessageEvent(me);
 		}
 
@@ -233,8 +230,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				newme.setReference(me.getReference());
 				broadcast(newme);			
 				MessageEventLogger.logMessageEvent(newme);
-				if (outputToVHT)
-					publishMessageToVHT(newme);			
+				if (outputToPSI)
+					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
 						Thread.sleep(6000);
@@ -249,25 +246,32 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
-	private void publishMessageToVHT(MessageEvent me)
+	// Designed for multiple fields. Currently only location and message text are supported.
+	private void publishMessageToPSI(MessageEvent me)
 	{
-		String text = me.getText();
+		Boolean multimodalMessage = true; 
+		String multiModalField = "multimodal"; 
+		String speechField = "speech";
+		String identityField = "identity";
+		// String locationField = "location";
+		// String location = null; 
+	    String multiModalDelim = ";%;";
+		String withinModeDelim = ":";	
+		String identityAllUsers = "group";
+		String messageString; 
+		
+		String text = me.getText();		
+		// To specific user if known.
 		String to = me.getDestinationUser();
-		if (to != null) {
-			State state = StateMemory.getSharedState(this.getAgent());
-			String location = state.getStudentLocation(to);
-			if (location != null) {
-				text = me.getText() + " --- location: " + location;
-				// new PrivateMessageEvent(this, to, me.getFrom(), text, pme.getAllAnnotations());
-			}
+		if (to == null) {
+			to = identityAllUsers; 
 		}	
-
-		System.out.println("publishMessagetoVHT, text: " + text);
-		// vhSender.setChar(vhController.getCharacter());
-		// vhSender.setChar("Brad");
-		// vhSender.sendMessage(vhProcessor.processMessage(text));
-		vhSender.sendMessage(text);
+		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
+		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
+		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
+		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 	}
+
 	
 	public void log(String from, String level, String msg)
 	{

@@ -1,0 +1,41 @@
+# Package name (required)
+PackageName=MODLEM
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2013-07-22
+
+# Title (required)
+Title=MODLEM rule algorithm
+
+# Category (recommended)
+Category=Classification, Ensemble learning
+
+# Author (required)
+Author=Szymon Wojciechowski <sw10 interiaDOTpl>
+
+# Maintainer (required)
+Maintainer=Szymon Wojciechowski <sw10 interiaDOTpl>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=This project is a WEKA (Waikato Environment for Knowledge Analysis) compatible implementation of MODLEM - a Machine Learning algorithm which induces minimum set of rules. These rules can be adopted as a classifier (in terms of ML). It is a sequential covering algorithm, which was invented to cope with numeric data without discretization. Actually the nominal and numeric attributes are treated in the same way: attribute's space is being searched to find the best rule condition during rule induction. In result numeric attribute's conditions are more precise and closely describe the class. This algorithm contains some aspects of Rough Set Theory: the class definition can be described accordingly to its lower or upper approximation. For more information, see: Stefanowski, Jerzy. The rough set based rule induction technique for classification problems. In: Proc. 6th European Congress on Intelligent Techniques and Soft Computing, vol. 1. Aachen, 1998. s. 109-113.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/modlem/package-modlem1.0.0.zip?download
+
+# URL for further information
+URL=https://sourceforge.net/projects/modlem/
+
+# Enhances various other packages ?
+# Enhances=
+
+# Related to other packages?
+# Related=
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.1)
