@@ -27,8 +27,6 @@ services:
      - "8000:80"
     networks:
     - bazaar-net
-    environment:
-      - DEBUG=*,engine,socket.io* node server_docker.js
 networks:
   bazaar-net:
     driver: bridge
