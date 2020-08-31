@@ -128,7 +128,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
                 - All files within subdirectory 'bazaar_docker_server/lobby'.
       - If you didn't use port '8000' for the step above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
 
-- Install a Bazaar Docker agent on the server
+- Install and start a Bazaar Docker agent on the server
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
      - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherAgent’) and select “Export.”
@@ -144,7 +144,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
       - Create a subdirectory for the agent — e.g., ‘weatheragent’.
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 
-- In a browser, start an agent using the following URL format:
+ - In a browser, start the agent using the following URL format:
      -
 http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME
       - SERVER: The name or IP address of your Linux server.
