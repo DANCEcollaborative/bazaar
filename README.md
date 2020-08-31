@@ -12,6 +12,21 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
   - [More links and publications](http://ankara.lti.cs.cmu.edu/bazaar/)
   - Most of the dialog files that you'll want to edit are in the runtime directory – e.g., …/WeatherAgent/runtime/.
 
+# Docker agents vs. Legacy agents
+- Legacy agents are deprecated. They
+    - Often have "Legacy" in their name.
+    - Use an older socket.io method.
+        - Include Java project 'SocketIOClientLegacy'.
+            - Includes Java program 'WebsocketChatClientLegacy.java'.
+        - Include file 'AGENT_NAME/runtime/properties/WebsocketChatClientLegacy.properties'.
+- Docker agents are current. They
+    - Never have "Legacy" in their name.
+    - Run in a Docker container.
+    - Use a newer socket.io method.
+    - Include Java project 'SocketIOClient'.
+        - Includes Java program 'WebsocketChatClient.java'.
+    - Include file 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties'.
+
 # Install Java JDK 1.8
 Java 1.8 is recommended for running Bazaar. Older and newer versions may not work. Following are instructions for installing Java 1.8 in addition to any other Javas you may have installed. Some of these instructions are specific to Mac but can be generalized to Windows, etc.
 - On Mac:
@@ -23,7 +38,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 - On PC:
   - Follow [these instructions](https://adoptopenjdk.net/installation.html).
 
-# Installing and running the canonical DANCEcollaborative Docker version
+# Installing and running the canonical Docker version in an IDE
 - Installing
  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
  - Install Eclipse Java Enterprise or another IDE.
@@ -36,21 +51,31 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
    - Enter: docker-compose -f docker-compose-dev.yml build
      - This command will take longer the first time it is executed as it downloads several things.
    - Enter: docker-compose -f docker-compose-dev.yml up -d
- - Within the IDE, run an agent that uses the SocketIOClient project, such as WeatherAgent or MturkAgent.
+     - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
+ - Within the IDE, run a Docker agent, such as WeatherAgent or MturkAgent.
  - A chat room startup window will be displayed.
    - Select the agent’s behavior conditions.
    - Set a “Room Name”.
    - Press ’Start Agent’
  - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
-   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=index_ccc&forum=undefined
+   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=index&forum=undefined
+   - Use the ROOM you selected in the chat room window.
+        - Use your choice for STUDENT. For multiple students:
+          - Use a unique STUDENT name for each.
+          - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
+            - The first number is the student ID, and must be unique.
+            - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
+            - E.g., for multiple students, :
+              - .../1/STUDENTA/1/…
+              - .../2/STUDENTB/2/...
+              - .../3/STUDENTC/3/…
 
-# Installing and running the legacy version
-A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherAgentLegacy and MTurkAgentLegacy.
+# Installing and running the legacy version in an IDE
+A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherLegacyAgent and MTurkLegacyAgent.
 - Installing
   - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above.)
   - Install Eclipse Java Enterprise or another IDE.
   - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
-  - [Install and run Docker Desktop](https://docs.docker.com)
 - Running
   - A chat room startup window will be displayed.
      - Select the agent’s behavior conditions.
@@ -61,67 +86,73 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
      - Use your choice for STUDENT. For multiple students:
        - Use a unique STUDENT name for each.
        - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
-         - The first number is {the student ID}, and must be unique.
-         - The second number is {the student perspective}.
+       - The first number is the student ID, and must be unique.
+       - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
          - E.g., for multiple students, :
-           - .../1/STUDENT1/1/…
-           - .../2/STUDENT2/2/...
-           - .../3/STUDENT3/3/…
+           - .../1/STUDENTA/1/…
+           - .../2/STUDENTB/2/...
+           - .../3/STUDENTC/3/…
 
-# Converting a Docker agent to a legacy agent
-In case you don't want to run Docker.
-- Replace the agent's file '…/runtime/properties/WebsocketChatClient.properties' with a copy of (e.g.) the file 'WeatherAgentLegacy/runtime/properties/WebsocketChatClientLegacy.properties'
-- In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClient" with "WebsocketChatClientLegacy".
-- If any src files include the line 'import basilica2.socketchat.WebsocketChatClient', change those lines to 'import basilica2.socketchat.WebsocketChatClientLegacy'.
-- In the .classpath file, replace ‘SocketIOClient’ with ‘SocketIOClientLegacy’.
+# Converting a legacy agent to a Docker agent
+- Replace the agent's file '…/runtime/properties/WebsocketChatClientLegacy.properties' with a copy of (e.g.) the file 'WeatherAgentLegacy/runtime/properties/WebsocketChatClient.properties'
+- In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClientLegacy" with "WebsocketChatClient".
+- If any src files include the line 'import basilica2.socketchat.WebsocketChatClientLegacy', change those lines to 'import basilica2.socketchat.WebsocketChatClient'.
+- In the .classpath file, replace ‘SocketIOClientLegacy’ with ‘SocketIOClient’.
 
-# Installing and running on a Linux server
-NOTE: This has been tested only with “legacy” agents — i.e., agents that don’t use the newer Docker sockets method. If the agent you want to deploy uses Docker, you can convert it to use the legacy sockets method using the instructions within this README.
+# Installing and running Docker agents on a Linux server
+NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
 
+- Server installation
+   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/'.
 
-- Install a Bazaar agent on the server
-   - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherLegacyAgent”.
+   - Install MySQL on the server.
+      - This has been tested with MySQL version 5.7.31.
+      - A copy of the MySQL database structure without content is available in [this repository](https://github.com/DANCEcollaborative/bazaar), 'bazaar_docker_server/mysql/msql-structure-only.sql'.
+
+  - Install and start Docker.
+      - Install [Docker for Linux](https://docs.docker.com/engine/install/).
+      - Start Docker: 'sudo systemctl start docker'}
+
+  - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000'. Sample files for doing this using 'apache2' as your web server are included in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/apache2':
+      - 'apache2.conf', which is normally installed within directory '/etc/apache2/'.
+      - 'sites-available/bazaar-docker.conf', which is normally installed within directory '/etc/apache2/sites-available'. You will need to execute 'sudo a2ensite bazaar-docker.conf' to activate it.
+
+ - Install the following files from [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/' on the server.
+      - Structure:
+          - YOUR_BASE_DIRECTORY
+             - Dockerfile
+             - docker-compose.yml
+             - bazaar
+                - All files within subdirectory 'bazaar_docker_server/bazaar'.
+             - lobby
+                - All files within subdirectory 'bazaar_docker_server/lobby'.
+      - If you didn't use port '8000' for the step above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
+
+- Install a Bazaar Docker agent on the server
+   - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
-     - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherLegacyAgent’) and select “Export.”
+     - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherAgent’) and select “Export.”
      - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
      - Runnable JAR File Specification
-        - Launch configuration: Select one from the dropdown. If you’ve created the agent like most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
+        - Launch configuration: Select one from the dropdown. If you’ve created the agent l- ike most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
         - Export destination: Browse to select '<your agent directory name>/runtime/<your agent name>.jar’.
         - Select “Finish.”
       - You’ll get some warnings that you can ignore, so just press “OK.”
         - “This operation repacks referenced libraries. …”
         - "JAR export finished with warnings. …”
     - On the Linux server.
-      - Create a subdirectory for the agent — e.g., ‘weatherlegacyagent’.
+      - Create a subdirectory for the agent — e.g., ‘weatheragent’.
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 
 
-- Install MySQL on the server.
-   - We are currently running MySQL v5.6.33
-
-
- - Install and execute the following files from this repository's bazaar subdirectory on the server, adapting the paths within them to your Linux directory structure.
-   - The files
-       - runAll
-       - runBazaar
-       - server_bdemooc_legacy.js -- for running a Node.js server.
-           - At the beginning of this file, customize var 'mysql_auth' for your MySQL installation with host address, user, password, and socket path.
-       - launch_agent.sh
-   - Execute the bash script runAll.
-      - runAll executes runBazaar using a screen command, which executes server_bdemooc_legacy.js, which will executes launch_agent.sh for each agent URL it receives.
-
-
-
-- URL format for agents
-    - The basic format, which we intend to simplify further, is
-http://SERVER_ADDRESS/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME&perspective=PERSPECTIVE_NUM&html=HTML_FILE_NAME
-      - SERVER_ADDRESS: The address of your Linux server.
+- In a browser, start an agent using the following URL format:
+   -
+http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME
+      - SERVER: The name or IP address of your Linux server.
       - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
-      - ROOM_NUM: a unique number of not more than 5 digits (I always use 5 digits). If you re-use a number, users will see the previous chat.
-      - ID_NUM: ***unique per user***. I’ve always used a 1-digit number.
+      - ROOM_NUM: a unique number of not more than 5 digits. If you re-use a number, users will see the previous chat.
+      - ID_NUM: Unique per user. E.g., 1, 2, 3, ...
       - USER_NAME: a particular user’s name.
-      - PERSPECTIVE_NUM: You can probably just hardcode ‘0’. It is used, for example, by the MTurkAgent to assign different users to different point-of-view perspectives for its activity — things like cost, sustainability, reliability, etc.
-      - The particular HTML format to display. You can use this to include various panes besides the agent chat.
     - To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME.
 
 
