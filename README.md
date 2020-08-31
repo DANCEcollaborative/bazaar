@@ -147,9 +147,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
 
 # Run a Bazaar Docker agent on a Linux server.
   - Install a Bazaar Docker agent on a server as described above.
-  - In a browser, start the agent using the following URL format:
-     -
-'http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME'
+  - In a browser, start the agent using the following URL format: http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME
       - SERVER: The name or IP address of your Linux server.
       - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
       - ROOM_NUM: a unique number of not more than 5 digits. If you re-use a number, users will see the previous chat.
