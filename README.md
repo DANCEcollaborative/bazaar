@@ -38,7 +38,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 - On PC:
   - Follow [these instructions](https://adoptopenjdk.net/installation.html).
 
-# Installing and running the canonical Docker version in an IDE
+# Install and run the canonical Docker version in an IDE
 - Installing
  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
  - Install Eclipse Java Enterprise or another IDE.
@@ -70,7 +70,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
               - .../2/STUDENTB/2/...
               - .../3/STUDENTC/3/…
 
-# Installing and running the legacy version in an IDE
+# Install and run the legacy version in an IDE
 A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherLegacyAgent and MTurkLegacyAgent.
 - Installing
   - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above.)
@@ -93,13 +93,13 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
            - .../2/STUDENTB/2/...
            - .../3/STUDENTC/3/…
 
-# Converting a legacy agent to a Docker agent
+# Convert a legacy agent to a Docker agent
 - Replace the agent's file '…/runtime/properties/WebsocketChatClientLegacy.properties' with a copy of (e.g.) the file 'WeatherAgentLegacy/runtime/properties/WebsocketChatClient.properties'
 - In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClientLegacy" with "WebsocketChatClient".
 - If any src files include the line 'import basilica2.socketchat.WebsocketChatClientLegacy', change those lines to 'import basilica2.socketchat.WebsocketChatClient'.
 - In the .classpath file, replace ‘SocketIOClientLegacy’ with ‘SocketIOClient’.
 
-# Installing and running Docker agents on a Linux server
+# Install a Bazaar Docker agent on a Linux server
 NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
 
 - Server installation
@@ -128,7 +128,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
                 - All files within subdirectory 'bazaar_docker_server/lobby'.
       - If you didn't use port '8000' for the step above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
 
-- Install and start a Bazaar Docker agent on the server
+- Install a Bazaar Docker agent on the server
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
      - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherAgent’) and select “Export.”
@@ -144,9 +144,12 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
       - Create a subdirectory for the agent — e.g., ‘weatheragent’.
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 
- - In a browser, start the agent using the following URL format:
+
+# Run a Bazaar Docker agent on a Linux server.
+  - Install a Bazaar Docker agent on a server as described above.
+  - In a browser, start the agent using the following URL format:
      -
-http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME
+'http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME'
       - SERVER: The name or IP address of your Linux server.
       - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
       - ROOM_NUM: a unique number of not more than 5 digits. If you re-use a number, users will see the previous chat.
