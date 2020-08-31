@@ -145,8 +145,8 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 
 
-- In a browser, start an agent using the following URL format:
-   -
+  - In a browser, start an agent using the following URL format:
+     -
 http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME
       - SERVER: The name or IP address of your Linux server.
       - ROOM_NAME: your agent’s name without the ‘agent’ at the end.
