@@ -113,9 +113,20 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
       - Install [Docker for Linux](https://docs.docker.com/engine/install/).
       - Start Docker: 'sudo systemctl start docker'}
 
-  - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000'. Sample files for doing this using 'apache2' as your web server are included in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/apache2':
-      - 'apache2.conf', which is normally installed within directory '/etc/apache2/'.
-      - 'sites-available/bazaar-docker.conf', which is normally installed within directory '/etc/apache2/sites-available'. You will need to execute 'sudo a2ensite bazaar-docker.conf' to activate it.
+  - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000'. Sample files for doing this using 'apache2' as your web server are included in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/apache2'.
+      - To use apache2:
+          - Install the 'apache2.conf' file in directory '/etc/apache2/', or else update your 'apache2.conf' file with the following lines:
+               - <Directory /bazaar>
+                    - Options Indexes FollowSymLinks
+                    - AllowOverride All
+                    - Require all granted
+               - </Directory\>
+          - Install file 'sites-available/bazaar-docker.conf' in directory '/etc/apache2/sites-available'.
+          - Execute 'sudo a2ensite bazaar-docker.conf'.
+          - Depending on your apache2 configuration, you may need to execute the following:
+              - sudo a2enmod rewrite
+              - sudo a2enmod proxy
+          - Execute: sudo systemctl reload apache2
 
  - Install the following files from [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/' on the server.
       - Structure:
