@@ -122,11 +122,15 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
                     - Require all granted
                - </Directory\>
           - Install file 'sites-available/bazaar-docker.conf' in directory '/etc/apache2/sites-available'.
+              - Change 'brandy.lti.cs.cmu.edu' to your server name.
+              - If port '8000' isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' to your port number everywhere in this file.
           - Execute 'sudo a2ensite bazaar-docker.conf'.
           - Depending on your apache2 configuration, you may need to execute the following:
               - sudo a2enmod rewrite
               - sudo a2enmod proxy
-          - Execute: sudo systemctl reload apache2
+              - sudo a2enmod proxy_http
+              - sudo a2enmod proxy_wstunnel
+          - Execute: sudo systemctl restart apache2
 
  - Install and run the following files from [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/' on the server.
       - Structure:
@@ -139,9 +143,10 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
              - lobby
                 - All files within subdirectory 'bazaar_docker_server/lobby'.
 
+      - In file 'bazaar/server_docker.js', within the 'Content-Security-Policy' specification, change every instance of 'brandy.lti.cs.cmu.edu' to your server name.
       - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
-      - If you didn't use port '8000' for the step above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
-      - Start Docker: 
+      - If you didn't use port '8000' when setting up your web server above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
+      - Start Docker:
            - cd YOUR_BASE_DIRECTORY
            - sudo docker-compose build
            - sudo docker-compose up -d
