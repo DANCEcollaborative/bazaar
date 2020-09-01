@@ -111,7 +111,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
 
   - Install and start Docker.
       - Install [Docker for Linux](https://docs.docker.com/engine/install/).
-      - Start Docker: 'sudo systemctl start docker'}
+      - Start Docker: sudo systemctl start docker
 
   - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000'. Sample files for doing this using 'apache2' as your web server are included in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/apache2'.
       - To use apache2:
@@ -128,16 +128,23 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
               - sudo a2enmod proxy
           - Execute: sudo systemctl reload apache2
 
- - Install the following files from [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/' on the server.
+ - Install and run the following files from [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/' on the server.
       - Structure:
           - YOUR_BASE_DIRECTORY
              - Dockerfile
+             - Dockerfile.mysql
              - docker-compose.yml
              - bazaar
                 - All files within subdirectory 'bazaar_docker_server/bazaar'.
              - lobby
                 - All files within subdirectory 'bazaar_docker_server/lobby'.
+
+      - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
       - If you didn't use port '8000' for the step above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
+      - Start Docker: 
+           - cd YOUR_BASE_DIRECTORY
+           - sudo docker-compose build
+           - sudo docker-compose up -d
 
 - Install a Bazaar Docker agent on the server
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
