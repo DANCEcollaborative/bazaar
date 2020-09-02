@@ -138,6 +138,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
              - Dockerfile
              - Dockerfile.mysql
              - docker-compose.yml
+             - runBazaarDocker
              - bazaar
                 - All files within subdirectory 'bazaar_docker_server/bazaar'.
              - lobby
