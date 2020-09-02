@@ -149,8 +149,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
       - If you didn't use port '8000' when setting up your web server above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
       - Start Docker:
            - cd YOUR_BASE_DIRECTORY
-           - sudo docker-compose build
-           - sudo docker-compose up -d
+           - sudo docker-compose up --build
 
 - Install a Bazaar Docker agent on the server
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
