@@ -151,7 +151,10 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
          - </Directory\>
     - Install the file in subdirectory 'apache2/sites-available/' (either bazaar-docker-http.conf or bazaar-docker-https.conf) in directory '/etc/apache2/sites-available'.
         - Change 'misty.lti.cs.cmu.edu' to your server name.
-        - If port '8000' (in bazaar_docker-http.conf) or '8200' (in bazaar_docker-https.conf) isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' or '8200' to your port number everywhere in this file.
+        - If port '8000' (in bazaar_docker-http.conf) or '8200' (in bazaar_docker-https.conf) isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' or '8200' to your port number everywhere in your *.conf file.
+        - If you're installing the https version (bazaar-docker-https.conf), change the following lines to point to your security certificate.
+            - SSLCertificateFile    /etc/ssl/certs/apache.crt
+            - SSLCertificateKeyFile /etc/ssl/certs/apache.key
     - Execute the appropriate command(s) below for your http and/or https version:
         - sudo a2ensite bazaar-docker-http.conf
         - sudo a2ensite bazaar-docker-https.conf
