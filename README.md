@@ -102,64 +102,13 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
 # Install a Bazaar Docker agent on a Linux server
 NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
 
-- Server installation
-   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_server/'. There are two versions with only minor differences. They are supplied as distinct versions for ease of installation but since they are so similar installation instructions are combined below with differences pointed out as necessary.
-      - 'bazaar_server/bazaar_server_http' is for an http server.
-      - 'bazaar_server/bazaar_server_https' is for an https server.
-      - File that are different for the two versions are listed here:
-         - In apache2/sites-available: bazaar-docker-http.conf vs. bazaar-docker-https.conf.
-         - docker-compose.yml
-         - Dockerfile
-         - bazaar/server_docker.js
-
-   - Install MySQL on the server.
-      - This has been tested with MySQL version 5.7.31.
-      - A copy of the MySQL database structure without content is available in [this repository](https://github.com/DANCEcollaborative/bazaar), 'bazaar_docker_server/mysql/msql-structure-only.sql'.
-
-  - Install and start Docker.
-      - Install [Docker for Linux](https://docs.docker.com/engine/install/).
-      - Start Docker: sudo systemctl start docker
-
-  - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000'. Sample files for doing this using 'apache2' as your web server are included in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/apache2'.
-      - To use apache2:
-          - Install the 'apache2.conf' file in directory '/etc/apache2/', or else update your 'apache2.conf' file with the following lines:
-               - <Directory /bazaar>
-                    - Options Indexes FollowSymLinks
-                    - AllowOverride All
-                    - Require all granted
-               - </Directory\>
-          - Install the file in subdirectory 'apache2/sites-available/' (either bazaar_docker-http.conf or bazaar_docker_https.conf) in directory '/etc/apache2/sites-available'.
-              - Change 'brandy.lti.cs.cmu.edu' to your server name.
-              - If port '8000' isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' to your port number everywhere in this file.
-          - Execute 'sudo a2ensite bazaar-docker.conf'.
-          - Depending on your apache2 configuration, you may need to execute the following:
-              - sudo a2enmod rewrite
-              - sudo a2enmod proxy
-              - sudo a2enmod proxy_http
-              - sudo a2enmod proxy_wstunnel
-          - Execute: sudo systemctl restart apache2
-
- - Install and run the following files from [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/' on the server.
-      - Structure:
-          - YOUR_BASE_DIRECTORY
-             - Dockerfile
-             - Dockerfile.mysql
-             - docker-compose.yml
-             - runBazaarDocker
-             - bazaar
-                - All files within subdirectory 'bazaar_docker_server/bazaar'.
-             - lobby
-                - All files within subdirectory 'bazaar_docker_server/lobby'.
-
-      - In file 'bazaar/server_docker.js', within the 'Content-Security-Policy' specification, change every instance of 'brandy.lti.cs.cmu.edu' to your server name.
-      - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
-      - If you didn't use port '8000' when setting up your web server above, modify the line in file docker-compose.yml from ''- 8000:80' to '- YOUR_PORT:80'.
-      - Start Docker:
-           - cd YOUR_BASE_DIRECTORY
-           - sudo docker-compose up --build
-
-- Install a Bazaar Docker agent on the server
+- Install a Bazaar Docker agent
    - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
+   - Customize the agent's 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties file. Two sample versions are provided for WeatherAgent in [this location](https://github.com/DANCEcollaborative/bazaar/tree/master/WeatherAgent/runtime/properties). The only difference in the two versions is the 'socket_url=...' line.
+      - For an http server, this should be
+        - socket_url=http://127.0.0.1
+      - For an https server, customize the following line in file WebsocketChatClient.properties with your server name and the port number you configured above.
+        - socket_url=http://misty.lti.cs.cmu.edu:8200
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
      - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherAgent’) and select “Export.”
      - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
@@ -173,6 +122,67 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
     - On the Linux server.
       - Create a subdirectory for the agent — e.g., ‘weatheragent’.
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
+
+- Install the server
+   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), within subdirectory 'bazaar_server/'. There are two versions with only minor differences. They are supplied as distinct versions for ease of installation but since they are so similar installation instructions are combined below with differences pointed out as necessary.
+      - 'bazaar_server/bazaar_server_http' is for an http server.
+      - 'bazaar_server/bazaar_server_https' is for an https server.
+      - The two versions may be installed together on the same server so long as they use different port numbers as described below.
+      - File that are different within the two versions are listed here:
+         - In apache2/sites-available: bazaar-docker-http.conf vs. bazaar-docker-https.conf.
+         - docker-compose.yml
+         - Dockerfile
+         - bazaar/server_docker.js
+
+   - Install MySQL on the server.
+      - This has been tested with MySQL version 5.7.31.
+      - A copy of the MySQL database structure without content is available in [this repository](https://github.com/DANCEcollaborative/bazaar), 'bazaar_docker_server/mysql/msql-structure-only.sql'.
+
+  - Install and start Docker.
+      - Install [Docker for Linux](https://docs.docker.com/engine/install/).
+      - Start Docker: sudo systemctl start docker
+
+  - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000' or '8200'. Sample files for doing this using 'apache2' on a Linux Ubuntu system are included in your bazaar server directory (http or https version), subdirectory 'apache2/'.
+    - Install the 'apache2.conf' file in directory '/etc/apache2/', or else update your 'apache2.conf' file with the following lines:
+         - <Directory /bazaar>
+              - Options Indexes FollowSymLinks
+              - AllowOverride All
+              - Require all granted
+         - </Directory\>
+    - Install the file in subdirectory 'apache2/sites-available/' (either bazaar-docker-http.conf or bazaar-docker-https.conf) in directory '/etc/apache2/sites-available'.
+        - Change 'misty.lti.cs.cmu.edu' to your server name.
+        - If port '8000' (in bazaar_docker-http.conf) or '8200' (in bazaar_docker-https.conf) isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' or '8200' to your port number everywhere in this file.
+    - Execute the appropriate command(s) below for your http and/or https version:
+        - sudo a2ensite bazaar-docker-http.conf
+        - sudo a2ensite bazaar-docker-https.conf
+    - Depending on your apache2 configuration, you may need to execute the following:
+        - sudo a2enmod rewrite
+        - sudo a2enmod proxy
+        - sudo a2enmod proxy_http
+        - sudo a2enmod proxy_wstunnel
+        - sudo a2enmod rewrite
+    - For the https version, you may also need to execute the following:
+        - sudo a2enmod ssl
+    - Execute: sudo systemctl restart apache2
+
+ - Install and run the files from subdirectory 'bazaar_server_http' or 'bazaar_server_https' on the server.
+      - Structure:
+          - YOUR_BASE_DIRECTORY
+             - Dockerfile
+             - Dockerfile.mysql
+             - docker-compose.yml
+             - runBazaarDocker
+             - bazaar
+                - All files within subdirectory 'bazaar'.
+             - lobby
+                - All files within subdirectory 'lobby'.
+
+      - In file 'bazaar/server_docker.js', within the 'Content-Security-Policy' specification, change every instance of 'misty.lti.cs.cmu.edu' to your server name.
+      - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
+      - In file docker-compose.yml, customize port '8000' or '8200' to the port you used when setting up your web server above (if necessary).
+      - Start Docker:
+           - cd YOUR_BASE_DIRECTORY
+           - sudo docker-compose up --build
 
 
 # Run a Bazaar Docker agent on a Linux server.
