@@ -1,0 +1,451 @@
+<html>
+<head>
+<title id="title_el">Discussion Room</title>
+</head>
+<body>
+
+<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+<link href='https://rawgit.com/gtomar/help-button-javascript/master/discussion.css' rel='stylesheet' type='text/css'>
+<script src="/bazsocket/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
+<script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+
+
+
+<script>
+    var windowHasFocus = true;
+    var unreadMessages = 0;
+    var lastDate = null;
+    
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+        "/": "&#x2F;",
+      };
+
+      function escapeHTML(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+          return entityMap[s];
+        });
+      }
+	
+		
+    function appendMessage(timestamp, username, text, color) 
+    {
+        
+	   if(!color)
+	   {
+	      color = getUserColor(username);
+	   }
+    
+		$('#conversation').append(
+		 '<div class="message_line">'
+		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
+		+'<div class="user">'+ username + '</div>'
+		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+		+'</div>'
+		+'<div class="message">' +  text +'</div>'
+                //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+                //+'</div>'
+		+'</div><br/>');
+      noticeNewMessage()
+      if(lastDate > timestamp)
+        lastDate = timestamp;
+    }
+    
+    function appendNote(timestamp, username, text, color) 
+    {
+        
+	   if(!color)
+	   {
+	      color = getUserColor(username);
+	   }
+    
+		$('#conversation').append(
+		 '<div class="message_line">'
+		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
+		+'<div class="user">'+ username +'</div>'
+		+'<div class="user" style="padding-left:5px">'+ text +'</div>'
+		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+		+'</div>'
+		+'</div><br/>');
+      noticeNewMessage()
+      if(lastDate > timestamp)
+        lastDate = timestamp;
+    }
+    
+    var anchorID = 0;
+    function appendImage(timestamp, username, image_url, color) 
+	{
+	   if(!color)
+	   {
+	      color = getUserColor(username);
+	   }
+	    anchor = 'sharedItem'+(anchorID++)
+	    
+		$('#images').append(
+		 '<a id='+anchor+'/>'
+		+'<div class="image_line">'
+		+'<div class="image_info" '+(color?'style="background-color:'+color+'"':'')+'>'
+		+'<div class="user">'+ username + '</div>'
+		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+		+'</div>'
+		+'<div><a href="'+image_url+'" target="blank"><img class="shared_image" src="' + image_url + '"></img></a></div>'
+		+'</div><br/>');
+      noticeNewMessage()
+      if(lastDate > timestamp)
+        lastDate = timestamp;
+		
+		return anchor;
+
+    }
+    
+    function appendHTML(timestamp, username, html, color) 
+	{
+	   if(!color)
+	   {
+	      color = getUserColor(username);
+	   }
+	    anchor = 'sharedItem'+(anchorID++)
+	    
+		$('#images').append(
+		 '<a id='+anchor+'/>'
+		+'<div class="image_line">'
+		+'<div class="image_info" '+(color?'style="background-color:'+color+'"':'')+'>'
+		+'<div class="user">'+ username + '</div>'
+		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+		+'</div>'
+		+html
+		+'</div><br/>');
+		
+		
+        $('.sortable').sortable();			
+        $('.exclude').sortable({
+				items: ':not(.disabled)'
+			});
+      noticeNewMessage()
+      if(lastDate > timestamp)
+        lastDate = timestamp;
+		return anchor;
+    }
+    
+
+    
+    
+
+	// var socket = io.connect(chatserver_url);
+    const socket = io({
+        path: '/bazsocket'
+    });
+	var users = {};
+	var user = 'You'
+	var room = 'Here'
+        var id  = 'NA'
+
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('connect', function(){
+        // call the server-side function 'adduser' and send one parameter (value of prompt)
+	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
+		
+        live_chat = groups[1] == "chat";
+		  
+        if(live_chat)
+        {
+            temp = groups[2] && groups[2].length > 0;
+            room = groups[3];
+            user = groups[5];
+            id = groups[4];
+            if(!user)
+                user = prompt("Hi! please enter your edX username to continue..", "");
+            //prompt(room + " " + user + " " + temp + " " + id);
+            socket.emit('adduser', room, user, false, id);
+        }
+        else
+	{
+            socket.emit('snoop', room, id);
+            $('input,textarea').prop('disabled', true);
+	}
+        $('#roomname').text(room);
+        });
+	
+
+	// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('updatechat', function (username, data) 
+	{
+        appendMessage(new Date(), username, data);
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+	});
+	
+    // listener, whenever the server emits 'updateimage', this updates the image list
+	socket.on('updatehtml', function (username, html) 
+	{
+        anchor = appendHTML(new Date(), username, html);
+        appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">item.</a>');
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+	});
+	
+	
+    // listener, whenever the server emits 'updateimage', this updates the image list
+	socket.on('updateimage', function (username, image_url) 
+	{
+        anchor = appendImage(new Date(), username, image_url);
+        appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">image.</a>');
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+	});
+	
+	socket.on('dump_history', function (backlog) 
+	{
+	    for(i = 0; i < backlog.length; i++)
+	    {
+	       entry = backlog[i];
+	       stamp = new Date(entry["timestamp"]);
+               if(stamp < lastDate)
+			  continue;
+	       if(entry["type"] == "image")
+	       {
+                anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
+                appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">image.</a>');
+            }
+	       else if(entry["type"] == "html")
+	       {
+                anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
+                appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">item.</a>');
+            }
+            else if(entry.type == "presence")
+                appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));	 
+            else if(entry.type == "ready")
+                    ;
+                    //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
+            else if(entry.type == "private")
+                appendMessage(new Date(entry["timestamp"]), entry.username+" (Private Message)", entry["content"], getUserColor(entry.username));	 	 
+            else
+                appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);	 
+        }
+        
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
+			   lastDate = new Date();
+	});
+	
+	    // listener, whenever the server emits 'updaterooms', this updates the room list
+	socket.on('updaterooms', function (rooms, my_room) 
+	{
+		$('#roomname').text(my_room);
+	});
+	
+		    // listener, whenever the server emits 'updateimage', this updates the user list
+	socket.on('updateusers', function (my_users) 
+	{
+	   users = my_users;
+	   console.log(users);
+	});
+	
+
+
+	    // listener, whenever the server emits 'updatepresence', this updates the image list
+	socket.on('updatepresence', function (username, data) 
+	{
+        appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	 
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+	});
+	
+    // listen for other user's ready events. We'll leave this off for now.
+	/*socket.on('updateready', function (username, ready_state) 
+	{
+        appendNote(new Date(), username, (ready_state == "ready")?"thinks the team is ready.":"isn't ready yet.");
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+	});*/
+	
+    // listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('update_global_ready', function (ready_state) 
+	{
+	   if(ready_state == 'unready')
+	   {
+            $('#ready_button').removeClass("toggled");
+           }
+	});
+	
+		// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('update_private_chat', function (username, data) 
+	{
+        appendMessage(new Date(), username+' (Private Message)', data, getUserColor(username));
+		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+	});
+	
+	
+	function switchRoom(room)
+	{
+		socket.emit('switchRoom', room);
+	}
+
+    function sendReady(is_ready)
+    {
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
+        
+    }
+    
+    function sendMessage()
+    {
+            var message = $('#data').val();
+			//$('#data').val('');
+			// tell server to execute 'sendchat' and send along one parameter
+			
+			$('#data').val('');
+			
+			message = escapeHTML(message)
+			
+			if(message && message.length > 0)
+			{
+    			socket.emit('sendchat', message);
+		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+		}
+    }
+
+    function shareImage()
+    {
+         var imageurl = $('#image_url_input').val();
+         
+         $('#image_url_input').val('');
+         
+         if(imageurl && imageurl.length > 0)
+         {
+            match = /http(s)?:\/\//.exec(imageurl)
+            console.log(match)
+            if(match == null || match.index != 0)
+            {
+                imageurl = "https://"+imageurl;
+            }
+            socket.emit('sendimage', imageurl);  
+		    $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+		    $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
+         }
+    }
+
+	// on load of page
+	$(function(){
+		// when the client clicks SEND
+		$('#datasend').click( function() 
+		{
+            sendMessage();
+		});
+		
+		
+		// when the client clicks READY
+		$('#ready_button').click( function() 
+		{
+            $('#ready_button').toggleClass("toggled");
+            sendReady($('#ready_button').hasClass("toggled"));
+            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
+		});
+
+		// when the client hits ENTER on their keyboard
+		$('#data').keypress(function(e) {
+			if(e.which == 13 && !(e.altKey || e.shiftKey)) 
+			{
+				e.preventDefault();
+				sendMessage();
+			}
+		});
+		
+		// when the client hits ENTER on their keyboard
+		$('#image_url_input').keypress(function(e) {
+			if(e.which == 13) 
+			{
+				e.preventDefault();
+				shareImage();			
+			}
+		});
+		
+		
+		// when the client clicks SEND IMAGE
+		$('#imagesend').click( function() 
+		{
+				shareImage();
+		});
+	});
+	
+    $(window).focus(function() 
+    {
+
+        windowHasFocus = true;
+        unreadMessages = 0;
+        updateTitle();
+    });
+  
+    //listen for browser events so we know to update the document title
+    $(window).blur(function() 
+    {
+
+        windowHasFocus = false;
+        updateTitle();
+    });
+
+    //we want to show a count of unread messages when the window does not have focus
+    function updateTitle()
+    {
+      if (unreadMessages) 
+      {
+        document.title = "(" + unreadMessages.toString() + ") Discussion Room "+room;
+      }
+      else 
+      {
+        document.title = "Discussion Room "+room;
+      }
+    }
+    
+    function noticeNewMessage()
+    {
+
+
+	if(!windowHasFocus)
+        {
+            unreadMessages++;
+	    
+            updateTitle();
+        }
+    }
+
+</script>
+
+
+
+
+
+<div id="everything">
+    <div id="conversation_column">
+        <h2 id="conversation_header" class="header">Discussion</h2>
+        <div id="conversation_container" class="container">
+            <div id="conversation" class="scrollable"></div>
+        </div>
+        <div id="controls" class="control">
+            <div id="message_div"> <textarea id="data" /></textarea></div>
+            <div id="messagebutton_div">
+                <input class="button" type="button" id="datasend" value="Send Message" />
+            
+             <!--<input class="button" type="button" id="ready_button" value="We're Ready"/>-->
+            </div>
+    </div>
+    </div>
+    
+    <div id="image_column">
+        <h2 id="image_header"  class="header">Information</h2>
+        
+        <div id="image_container" class="container">
+            <div id="images" class="scrollable"></div>
+        </div>
+        
+        <div id="image_controls" class="control">
+            <div id="image_url_input_div">
+                <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
+            </div>
+            <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
+        </div>
+    </div>
+    <h2 id="roomname">Room</h2>
+</div>
+</body>
+</html>
