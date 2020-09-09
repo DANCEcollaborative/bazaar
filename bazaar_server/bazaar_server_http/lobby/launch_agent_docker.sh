@@ -25,6 +25,8 @@ y=$(( ((($num-1) / $cols)%rows)*$height ))
 
 echo $cols across, $width x $height at $x, $y;
 
-echo nohup xvfb-run -a -e /dev/null java -Xmx128M -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &
+# echo nohup xvfb-run -a -e /dev/null java -Xmx128M -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &
+
+echo nohup java -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &
 
 nohup java -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &

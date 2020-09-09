@@ -169,9 +169,12 @@ app.get('/login*', function (req, res)
 
     if(1){
         teamNumber = req.query.roomId;
-        //console.log(teamNumber);
+        console.log("apt.get('/login*) teamNumber: " + teamNumber);
         setTeam_(teamNumber,req,provider,logger,res);
-   }
+    }
+    else {
+        console.log("apt.get('/login*) error");
+    }
 });
 
 app.post('/login*', function (req, res)
@@ -273,7 +276,7 @@ function setTeam_(teamNumber,req,provider,logger,res)
         var roomname = req.query.roomName + teamNumber;
         var url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
                                                              req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
-
+        console.log("setTeam_, url: " + url);
         res.writeHead(301,{Location: url});
         res.end();
 
@@ -320,7 +323,10 @@ app.get('/chat*', function (req, res)
 	var html_page = 'index';
         if(req.query.html != undefined) html_page = req.query.html;
 
-	res.sendFile(__dirname + '/' + html_page + '.html');
+	var fileName = __dirname + '/' + html_page + '.html';
+        console.log("get /chat, sendFile, fileName = " + fileName);
+	res.sendFile(fileName);
+	// res.sendFile(__dirname + '/' + html_page + '.html');
 });
 
 app.get('/discussionnew.css', function (req,res) 
