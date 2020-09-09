@@ -103,7 +103,14 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
 NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
 
 - Server installation
-   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_docker_server/'.
+   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), subdirectory 'bazaar_server/'. There are two versions with only minor differences. They are supplied as distinct versions for ease of installation but since they are so similar installation instructions are combined below with differences pointed out as necessary.
+      - 'bazaar_server/bazaar_server_http' is for an http server.
+      - 'bazaar_server/bazaar_server_https' is for an https server.
+      - File that are different for the two versions are listed here:
+         - In apache2/sites-available: bazaar-docker-http.conf vs. bazaar-docker-https.conf.
+         - docker-compose.yml
+         - Dockerfile
+         - bazaar/server_docker.js
 
    - Install MySQL on the server.
       - This has been tested with MySQL version 5.7.31.
@@ -121,7 +128,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
                     - AllowOverride All
                     - Require all granted
                - </Directory\>
-          - Install file 'sites-available/bazaar-docker.conf' in directory '/etc/apache2/sites-available'.
+          - Install the file in subdirectory 'apache2/sites-available/' (either bazaar_docker-http.conf or bazaar_docker_https.conf) in directory '/etc/apache2/sites-available'.
               - Change 'brandy.lti.cs.cmu.edu' to your server name.
               - If port '8000' isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' to your port number everywhere in this file.
           - Execute 'sudo a2ensite bazaar-docker.conf'.
