@@ -40,8 +40,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double MEDIUM_PRIORITY = 0.5;
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
-	
+
 	private Boolean outputToPSI = false; 
+	private Boolean separateOutputToPSI = false; 
 	CommunicationManager psiCommunicationManager; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
@@ -55,7 +56,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if(myProperties!=null)
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
-		if (outputToPSI) {
+			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+		if (separateOutputToPSI) {
 			initializePSI(); 
 		}
 	}
@@ -190,14 +193,17 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// When a message comes in, tell the Actor to start typing
 		// (Future) If other messages pile up while still typing, run some rules
 		// to delete/re-order certain messages
-		// Might be a better idea to merge output cordinator and actor, or
+		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
 
 		if (!me.getText().contains("|"))
 		{
-			broadcast(me);
-			if (outputToPSI)
-				publishMessageToPSI(me);	
+			if ((!outputToPSI) || (separateOutputToPSI)) {
+				broadcast(me);
+			}		
+			if (outputToPSI) {
+				publishMessageToPSI(me);
+			}
 			MessageEventLogger.logMessageEvent(me);
 		}
 
@@ -228,8 +234,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					}
 				}
 				newme.setReference(me.getReference());
-				broadcast(newme);			
-				MessageEventLogger.logMessageEvent(newme);
+				if ((!outputToPSI) || (separateOutputToPSI)) {
+					broadcast(newme);			
+					MessageEventLogger.logMessageEvent(newme);					
+				}
 				if (outputToPSI)
 					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
@@ -286,7 +294,25 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
-		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		if (!separateOutputToPSI) {
+			MessageEvent newme;
+			String[] allAnnotations = me.getAllAnnotations();
+			try
+			{
+				newme = me.cloneMessage(messageString);
+			}
+			catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
+			}
+			broadcast(newme);
+			MessageEventLogger.logMessageEvent(newme);
+		} else {
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		}
+		
 	}
 
 	

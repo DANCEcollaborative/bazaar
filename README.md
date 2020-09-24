@@ -46,8 +46,8 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
  - [Install and run Docker Desktop](https://docs.docker.com)
 - Running
  - In a terminal window
-   - cd to the directory where DANCEcollaborative/bazaar is installed
-     - E.g., cd ~/git/bazaar
+   - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
+     - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_legacy
    - Enter: docker-compose -f docker-compose-dev.yml build
      - This command will take longer the first time it is executed as it downloads several things.
    - Enter: docker-compose -f docker-compose-dev.yml up -d
@@ -58,7 +58,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
    - Set a “Room Name”.
    - Press ’Start Agent’
  - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
-   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=index&forum=undefined
+   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=index_ccc&forum=undefined
    - Use the ROOM you selected in the chat room window.
         - Use your choice for STUDENT. For multiple students:
           - Use a unique STUDENT name for each.
@@ -98,6 +98,8 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
 - In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClientLegacy" with "WebsocketChatClient".
 - If any src files include the line 'import basilica2.socketchat.WebsocketChatClientLegacy', change those lines to 'import basilica2.socketchat.WebsocketChatClient'.
 - In the .classpath file, replace ‘SocketIOClientLegacy’ with ‘SocketIOClient’.
+- If you are using a project file, remove 'Legacy' from the agent name.
+- If you are using a .launch file, remove 'Legacy' from the agent name.
 
 # Install a Bazaar Docker agent on a Linux server
 NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
