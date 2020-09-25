@@ -181,6 +181,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
                 - All files within subdirectory 'bazaar'.
              - lobby
                 - All files within subdirectory 'lobby'.
+             - Directory(ies) for Bazaar Docker agent(s) created above -- e.g., weatheragent/
 
       - In file 'bazaar/server_docker.js', within the 'Content-Security-Policy' specification, change every instance of 'misty.lti.cs.cmu.edu' to your server name.
       - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
