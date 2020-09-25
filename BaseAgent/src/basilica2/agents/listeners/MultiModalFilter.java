@@ -228,6 +228,7 @@ public class MultiModalFilter extends BasilicaAdapter
             		
                     distance = calculateDistance(myCoordinates,otherCoordinates); 
                     System.err.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
+                    System.err.println("Minimum distance apart: " + Double.toString(minDistanceApart));
                     if (distance > minDistanceApart) {
                     	System.err.println("Issuing distance warning"); 
                     	issueDistanceWarning(source,me,identity,otherStudentID);
