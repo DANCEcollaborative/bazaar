@@ -369,6 +369,8 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 										t.delay = Integer.parseInt(stepNode.getAttribute("delay"));
 								if (stepNode.hasAttribute("timeout")) 
 										t.timeout = Integer.parseInt(stepNode.getAttribute("timeout"));
+								if (stepNode.hasAttribute("checkin_interval")) 
+									t.checkin_interval = Integer.parseInt(stepNode.getAttribute("checkin_interval"));
 								t.name = stepNode.getTextContent();
 								s.steps.add(t);
 

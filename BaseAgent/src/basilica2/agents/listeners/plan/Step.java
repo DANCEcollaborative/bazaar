@@ -48,6 +48,9 @@ public class Step {
 	
 	/**seconds until step is forcefully abandoned. 0 means never.**/
 	public int timeout = 0;
+	
+	/**seconds for interval at which to check-in for a gated step. 0 means never.**/
+	public int checkin_interval = 0;
 
     public void executeStep(InputCoordinator source) 
     {

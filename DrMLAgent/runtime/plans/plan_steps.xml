@@ -15,14 +15,14 @@
     
     <stage name="body" type="other" delay="0">
         <step type="prompt" delay="0" prompt="PROMPT_STEP_1" >Prompt_Step_1</step>
-        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="WAIT_FOR_SPREADSHEET_COPIES">WAIT_STEP_1</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_interval="15" checkin_prompt="WAIT_FOR_SPREADSHEET_COPIES">WAIT_STEP_1</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_2" >Prompt_Step_2</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="DECIDE_PROBLEMATIC_FEATURES">WAIT_STEP_2</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_3" >Prompt_Step_3</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="LIST_FEATURES_AND_JUSTIFICATIONS">WAIT_STEP_3</step>
         <step type="prompt" timeout="180" delay="0" prompt="PROMPT_STEP_4" >Prompt_Step_4</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_5" >Prompt_Step_5</step>
-        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="FEATURE_1_SUMMARY">WAIT_STEP_5</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="FEATURE_1_MISCLASSIFICATION_SUMMARY">WAIT_STEP_5</step>
         <step type="prompt" timeout="120" delay="0" prompt="PROMPT_STEP_6" >Prompt_Step_6</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_7" >Prompt_Step_7</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="FEATURE_1_CORRECT_CLASSIFICATION_SUMMARY">WAIT_STEP_7</step>
