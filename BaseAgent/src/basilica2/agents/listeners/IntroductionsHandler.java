@@ -115,8 +115,18 @@ public class IntroductionsHandler extends BasilicaAdapter
     {
         super.startListening(source);
         
-        
-        MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("INTRODUCE", slots), "INTRODUCE");
+        // Variable introduction message depending upon a single student vs. multiple students
+        int numStudents = StateMemory.getSharedState(agent).getStudentCount(); 
+        String introduceText;
+        if (numStudents > 1) {
+        	introduceText = prompter.lookup("INTRODUCE", slots); 
+        }
+        else {
+        	introduceText = prompter.lookup("INTRODUCE_1", slots); 
+        }
+        // System.err.println("=====  numStudents: " + numStudents + "  ====="); 
+        	      
+        MessageEvent me = new MessageEvent(source, agent.getUsername(), introduceText, "INTRODUCE");
         source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));
         
         TimeoutReceiver tim = new TimeoutReceiver()

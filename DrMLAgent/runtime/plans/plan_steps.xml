@@ -9,7 +9,7 @@
 		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->        
         <!--  <step type="greet" timeout="60" delay="10">GREETINGS</step> -->
-        <step type="prompt" delay="0" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
+        <step type="prompt" timeout="30" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
         <step type="greet" timeout="30" delay="0">GREETINGS</step>
     </stage>
     

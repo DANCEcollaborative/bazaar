@@ -14,9 +14,14 @@
         <text>Hello, [NAME]!</text>
     </prompt>
 
-	<!-- This prompt is said automatically for step-type="greet" -->    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
     <prompt strategy="task" id="INTRODUCE">
         <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
     </prompt>
     
     <prompt strategy="task" id="INTRODUCE_ASSIGNMENT">
