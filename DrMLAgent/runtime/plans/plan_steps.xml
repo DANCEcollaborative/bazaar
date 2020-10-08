@@ -9,11 +9,12 @@
 		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->        
         <!--  <step type="greet" timeout="60" delay="10">GREETINGS</step> -->
-        <step type="prompt" timeout="30" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
+        <step type="prompt" timeout="40" delay="5" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
         <step type="greet" timeout="30" delay="0">GREETINGS</step>
     </stage>
     
     <stage name="body" type="other" delay="0">
+        <step type="prompt" delay="5" prompt="INTRODUCE_ASSIGNMENT" >INTRODUCE_ASSIGNMENT</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_1" >Prompt_Step_1</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_interval="15" checkin_prompt="WAIT_FOR_SPREADSHEET_COPIES">WAIT_STEP_1</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_2" >Prompt_Step_2</step>

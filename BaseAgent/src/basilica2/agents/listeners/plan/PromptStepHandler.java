@@ -89,8 +89,25 @@ class PromptStepHandler implements StepHandler
 		{
 			promptKey = step.attributes.get("prompt");
 		}
+
 		
-		String promptText = prompter.lookup(promptKey, slots);
+        // Variable prompt message, if available, depending upon a single student vs. multiple students
+		String promptText; 
+        int numStudents = StateMemory.getSharedState(overmind.getAgent()).getStudentCount(); 
+        String adjustedPromptKey = promptKey; 
+        if (numStudents == 1) {
+        	adjustedPromptKey = promptKey + "_1"; 
+        	String adjustedPromptText = prompter.lookup(adjustedPromptKey, slots);
+        	if (adjustedPromptText == adjustedPromptKey) {
+        		promptText = prompter.lookup(promptKey, slots);
+        	}
+        	else {
+        		promptText = adjustedPromptText; 
+        	}
+        } else {
+        	promptText = prompter.lookup(promptKey, slots);
+        }
+		
 		final double delay = constantDelay + (rateLimited?(promptText.split(" ").length/wordsPerSecond):0);
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
