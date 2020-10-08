@@ -276,6 +276,19 @@ public class State
 		return ids.toArray(new String[0]);
 	}
 
+	public List<String> getStudentIdList()
+	{
+		List<String> ids = new ArrayList<String>();
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (students.get(i).isPresent)
+			{
+				ids.add(students.get(i).chatId);
+			}
+		}
+		return ids;
+	}
+
 	public List<String> getStudentNames()
 	{
 		List<String> ids = new ArrayList<String>();

@@ -28,11 +28,11 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_2">
-        <text>Decide together on 4 problematic features. 2 of these features should be based on a horizontal comparison and the other 2 should be based on a vertical comparison.  You will each have a slightly different pair of tables. You can decide on the 4 together by looking through both sets of tables.|Say "We have decided" when you are both ready.</text>
+        <text>Decide together on 4 problematic features. 2 of these features should be based on a horizontal comparison and the other 2 should be based on a vertical comparison.  You will each have a slightly different pair of tables. You can decide on the 4 together by looking through both sets of tables.|Press the "I'm Ready" button when you have decided.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_3">
-        <text>OK, now that you have picked 4 problematic features to focus on, enter these into the Notes tab. For now, just list each feature name and a justification for thinking it is problematic.|Say "We have decided" when you are both ready.</text>
+        <text>OK, now that you have picked 4 problematic features to focus on, enter these into the Notes tab. For now, just list each feature name and a justification for thinking it is problematic.|Press the "I'm Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_4">
@@ -40,7 +40,7 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_5">
-        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the misclassifications that are happening.|Say "We are ready" when you are both ready.</text>
+        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the misclassifications that are happening.|Press the "I'm Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_6">
@@ -48,7 +48,7 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_7">
-        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the correct classifications that are happening.|Say "We are ready" when you are both ready.</text>
+        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the correct classifications that are happening.|Press the "I'm Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_8">
@@ -64,10 +64,6 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_11">
-        <text>OK, now it's time to run the final experiment. You should each run the experiment on your own computer.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="PROMPT_STEP_12">
         <text>OK, now it's time to run the final experiment. You should each run the experiment on your own computer.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter that in the Notes as well.</text>
     </prompt>
     

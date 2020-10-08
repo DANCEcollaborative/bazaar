@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>When you've finished introducing yourself, press the "I'm Ready" button or type "ready" to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up this step. Get ready to move on.</text>
+       <text>Okay, let's get ready to finish up this step.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>Take your time to discuss this - we'll move on when everyone is ready.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_SPREADSHEET_COPIES">
+       <text>When you are satisfied with the copies of your data in the spreadsheets, we'll continue.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="DECIDE_PROBLEMATIC_FEATURES">
+       <text>We'll continue when you have decided on 4 problematic features.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="LIST_FEATURES_AND_JUSTIFICATIONS">
+       <text>When you listed your features and justifications, we'll move on.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="FEATURE_1_MISCLASSIFICATION_SUMMARY">
+       <text>We'll move on when you are finished with your summary about the misclassification examples you found.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="FEATURE_1_CORRECT_CLASSIFICATION_SUMMARY">
+       <text>When you have finished with your summary about the correct classification examples you found, we'll continue.</text>
+    </prompt>
+	   
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, press the "I'm Ready" button.</text>
+       <text>When everyone is comfortable with this material, press Ready.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>Take your time to discuss this - we'll move on when everyone is ready.</text>
+       <text>When you've reached consensus in your group, press the Ready button.</text>
+       <text>Make sure your team agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until the rest of your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until everyone else is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay...</text>
+       <text>Okay, everyone. Let's move on...</text>
+       <text>Looks like everyone's together - let's move on!</text>
+       <text>I think we're all ready.</text>
+       <text>Moving on...</text>
+       <text>Looks like we're ready.</text>
+       <text>Onward!</text>
+    </prompt>
+    
+</prompts>
+

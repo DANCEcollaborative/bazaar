@@ -38,7 +38,7 @@ public class Gatekeeper extends BasilicaAdapter
 	public Gatekeeper(Agent a)
 	{
 		super(a);
-		keymasters = StateMemory.getSharedState(a).getStudentNames();
+		keymasters = StateMemory.getSharedState(a).getStudentIdList();
 		prompter = new PromptTable("plans/gatekeeper_prompts.xml");
 		slots = new HashMap<String, String>();
 	}
@@ -57,7 +57,8 @@ public class Gatekeeper extends BasilicaAdapter
 
 	public void resetGateForAllStudents()
 	{
-		keymasters = StateMemory.getSharedState(getAgent()).getStudentNames();
+		// keymasters = StateMemory.getSharedState(getAgent()).getStudentNames();
+		keymasters = StateMemory.getSharedState(getAgent()).getStudentIdList();
 
 		log(Logger.LOG_NORMAL, "waiting for responses from " + keymasters);
 		resetGate();
