@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
+
     <prompt strategy="task" id="WAIT_FOR_CHECKIN">
-       <text>When you've finished introducing yourself, press the "I'm Ready" button or type "ready" to begin.</text>
+       <text>Okay, we're about to begin.</text>
     </prompt>
     
     <prompt strategy="task" id="TIMEOUT_WARNING">
@@ -46,10 +47,10 @@
     </prompt>
     
     <prompt strategy="task" id="ACKNOWLEDGE">
-       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
-       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
-       <text>Hang on until the rest of your team is ready, [STUDENT].</text>
-       <text>Thanks, [STUDENT]. Hang on until everyone else is ready...</text>
+       <text>Thanks, [STUDENT]. Make sure your partner is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your partner agrees.</text>
+       <text>Hang on until the rest of your partner is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your partner is ready...</text>
     </prompt>
     
     <prompt strategy="task" id="ALL_READY">

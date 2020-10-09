@@ -2,8 +2,6 @@
 <prompts>
     
     <prompt strategy="task" id="INTRODUCE_SESSION">
-        <!-- <text>Hi! We will start soon.|Make sure you have LightSIDE open as we discussed in class and have the User's Manual ready. You should also have your horizontal.csv and vertical.csv files ready. Refer to the instruction sheet for Assignment 3 for clarification.</text>
-         -->
         <text>Hi! We will start soon.|As we discussed in class, make sure you have LightSIDE open and the User's Manual ready. Also, have your horizontal.csv and vertical.csv files ready. Refer to the Assignment 3 instruction sheet for clarification.</text>
     </prompt>
     
@@ -13,6 +11,10 @@
         <text>Howdy, [NAME]!</text>
         <text>Hello, [NAME]!</text>
     </prompt>
+    
+    <prompt strategy="task" id="END_GREETINGS">
+        <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
+    </prompt>
 
 	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
     <prompt strategy="task" id="INTRODUCE">
@@ -21,7 +23,7 @@
     
 	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
     <prompt strategy="task" id="INTRODUCE_1">
-        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.|When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
     </prompt>
     
     <prompt strategy="task" id="INTRODUCE_ASSIGNMENT">
@@ -33,19 +35,23 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_1">
-        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files.  There should be 4 spreadsheet tabs in the upper left.  Find an empty one labeled Horizontal and copy in the data from horizontal.csv.  Then find an empty one labeled Vertical and copy in the data from vertical.csv.</text>
+        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There should be 4 spreadsheet tabs in the upper left. Find an empty one labeled Horizontal Sheet and copy in the data from horizontal.csv. Then find an empty one labeled Vertical Sheet and copy in the data from vertical.csv.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_1_1">
+        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There should be 4 spreadsheet tabs in the upper left but you will use only 2 of them. Find one labeled Horizontal Sheet and copy in the data from horizontal.csv. Find one labeled Vertical Sheet and copy in the data from vertical.csv.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_2">
-        <text>Decide together on 4 problematic features. 2 of these features should be based on a horizontal comparison and the other 2 should be based on a vertical comparison.  You will each have a slightly different pair of tables. You can decide on the 4 together by looking through both sets of tables.|Press the "I'm Ready" button when you have decided.</text>
+        <text>Decide together on 4 problematic features. 2 of these features should be based on a horizontal comparison and the other 2 should be based on a vertical comparison.  You will each have a slightly different pair of tables. You can decide on the 4 together by looking through both sets of tables.|Type "I'm Ready" or press the "I'm Ready" button when you have decided.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_2_1">
-        <text>Decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and the other 2 should be based on a vertical comparison.|Press the "I'm Ready" button when you have decided.</text>
+        <text>Decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison.|Submit "I'm Ready" when you have decided.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_3">
-        <text>OK, now that you have picked 4 problematic features to focus on, enter these into the Notes tab. For now, just list each feature name and a justification for thinking it is problematic.|Press the "I'm Ready" button when you are ready.</text>
+        <text>OK, now that you have picked 4 problematic features to focus on, enter these into the Notes tab. For now, just list each feature name and a justification for thinking it is problematic.|Submit "I'm Ready" when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_4">
@@ -57,7 +63,7 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_5">
-        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the misclassifications that are happening.|Press the "I'm Ready" button when you are ready.</text>
+        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the misclassifications that are happening.|Submit "I'm Ready" when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_6">
@@ -69,7 +75,7 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_7">
-        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the correct classifications that are happening.|Press the "I'm Ready" button when you are ready.</text>
+        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the correct classifications that are happening.|Submit "I'm Ready" when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_8">
@@ -89,12 +95,17 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_11">
-        <text>OK, now it's time to run the final experiment. You should each run the experiment on your own computer.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter that in the Notes as well.</text>
+        <text>OK, now it's time to run the final experiment. You should each run the experiment on your own computer.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter your finding in the Notes.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_11_1">
-        <text>OK, now it's time to run the final experiment.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter that in the Notes as well.</text>
+        <text>OK, now it's time to run the final experiment.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter your finding in the Notes.</text>
     </prompt>
+ 
+ 
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
     
     <prompt strategy="task" id="SETUP">
         <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
@@ -112,20 +123,12 @@
     	<text>...</text>
     </prompt>
     
-    <prompt strategy="task" id="ABOUT_ACCOUNTABLE_TALK">
-    	<text>The agent is listening for several kinds of triggers to start supporting students. |For example, David cares a lot about "Accountable Talk" style facilitation these days. | The provided AT example is configured for college chemistry. If you've turned on any of the revoice, agree, say_more, or explain conditions, try saying something like "boiling point increases with dipole moment."|(and then wait a little while, this behavior waits for other students to follow up before offering support.)</text>
-    </prompt>
-    
     <prompt strategy="task" id="ABOUT_TUTORIALS">
     	<text>Now I'll start an interactive dialogue.</text>
     </prompt>
     
     <prompt strategy="task" id="INTRO_SHORT">
     	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="FINISH_TUTORIALS">
-    	<text>(You can trigger the same tutorial dynamically by talking about animals - see dialogues/dialogues-example.xml and dictionaries/animals.txt for details)</text>
     </prompt>
    
     <prompt strategy="task" id="ABOUT_LISTENING">

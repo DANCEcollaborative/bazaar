@@ -117,7 +117,8 @@ public class Gatekeeper extends BasilicaAdapter
 				}
 				else
 				{
-					unreadyUser(username);
+					readyUser(source, username);
+					// unreadyUser(username);         // TEMP: quit toggling ready off
 				}
 			}
 		}
