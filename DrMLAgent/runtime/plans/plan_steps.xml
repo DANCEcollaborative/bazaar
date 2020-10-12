@@ -45,7 +45,8 @@
         <step type="prompt" delay="0" prompt="PROMPT_STEP_9" >Prompt_Step_9</step>
         <step type="gated" gated_type="listen" timeout="90" delay="0" checkin_prompt="POTENTIAL_SOLUTION_DISCUSSION">WAIT_STEP_9</step>
         
-        <step type="prompt" timeout="120" delay="0" prompt="PROMPT_STEP_10" >Prompt_Step_10</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_10" >Prompt_Step_10</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="ALL_FEATURES_FINISHED">WAIT_STEP_10</step>
     </stage>
     
     <stage name="conclusion" type="other" timeout="1200" delay="0">

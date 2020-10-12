@@ -89,7 +89,11 @@ public class Gatekeeper extends BasilicaAdapter
 
 			if (keyPattern.matcher(me.getText()).matches())// me.getText().toLowerCase().matches(keyPhrase))
 			{
+				System.err.println("===== Matched ready phrase ====="); 
 				readyUser(source, username);
+			}
+			else {
+				System.err.println("===== Did not match ready phrase ====="); 
 			}
 		}
 		else if (event instanceof ReadyEvent)
@@ -113,10 +117,12 @@ public class Gatekeeper extends BasilicaAdapter
 				String username = re.getUsername();
 				if (re.isReady())
 				{
+					System.err.println("===== Received 'isReady' ====="); 
 					readyUser(source, username);
 				}
 				else
 				{
+					System.err.println("===== Received NOT 'isReady'; calling readyUser() ====="); 
 					readyUser(source, username);
 					// unreadyUser(username);         // TEMP: quit toggling ready off
 				}
