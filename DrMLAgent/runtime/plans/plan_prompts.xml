@@ -11,11 +11,11 @@
         <text>Howdy, [NAME]!</text>
         <text>Hello, [NAME]!</text>
     </prompt>
-    
+<!--     
     <prompt strategy="task" id="END_GREETINGS">
         <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
     </prompt>
-
+ -->    
 	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
     <prompt strategy="task" id="INTRODUCE">
         <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
