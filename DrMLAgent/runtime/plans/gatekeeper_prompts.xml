@@ -39,7 +39,7 @@
         
     <!-- for PROMPT_STEP_7 -->    
     <prompt strategy="task" id="FEATURE_1_CORRECT_CLASSIFICATION_SUMMARY">
-       <text>When you have finished with your summary about the correct classification examples you found, we'll continue.</text>
+       <text>When you have finished your summary about the correct classification examples you found, we'll continue.</text>
     </prompt>    
         
     <!-- for PROMPT_STEP_8 -->    
@@ -62,15 +62,14 @@
     <prompt strategy="task" id="ACKNOWLEDGE">
        <text>Thanks, [STUDENT]. Make sure your partner is in agreement.</text>
        <text>Okay, [STUDENT]. Make sure your partner agrees.</text>
-       <text>Hang on until the rest of your partner is ready, [STUDENT].</text>
+       <text>Hang on until your partner is ready, [STUDENT].</text>
        <text>Thanks, [STUDENT]. Hang on until your partner is ready...</text>
     </prompt>
     
     <prompt strategy="task" id="ALL_READY">
        <text>Okay...</text>
-       <text>Okay, everyone. Let's move on...</text>
-       <text>Looks like everyone's together - let's move on!</text>
-       <text>I think we're all ready.</text>
+       <text>Okay, let's move on...</text>
+       <text>I think we're ready.</text>
        <text>Moving on...</text>
        <text>Looks like we're ready.</text>
        <text>Onward!</text>
