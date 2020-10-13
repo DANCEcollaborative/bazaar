@@ -31,19 +31,19 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_1">
-        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There are 4 spreadsheet tabs to the left. Find an empty one labeled Horizontal Sheet. Then open your horizontal.csv file in a spreadsheet program like Excel and copy its cells into the Horizontal Sheet tab. Similarly, copy the cells from your vertical.csv file into an open Vertical Sheet tab.|Press the "Ready" button or type "ready" when you are ready.</text>
+        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There are 4 spreadsheet tabs to the left. Find an empty one labeled Horizontal Sheet. Then open your horizontal.csv file in a spreadsheet program like Excel and copy its cells into the Horizontal Sheet tab. Similarly, copy the cells from your vertical.csv file into an open Vertical Sheet tab.|Type "ready" or press the "Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_1_1">
-        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There should be 4 spreadsheet tabs in the upper left but you will use only 2 of them. Open one labeled Horizontal Sheet. Then open your horizontal.csv file in a spreadsheet program like Excel and copy its cells into the Horizontal Sheet tab. Similarly, copy the cells from your vertical.csv file into one of the Vertical Sheet tabs.|Press the "Ready" button or type "Ready" when you are ready.</text>
+        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There should be 4 spreadsheet tabs in the upper left but you will use only 2 of them. Open one labeled Horizontal Sheet. Then open your horizontal.csv file in a spreadsheet program like Excel and copy its cells into the Horizontal Sheet tab. Similarly, copy the cells from your vertical.csv file into one of the Vertical Sheet tabs.|Type "ready" or press the "Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_2">
-        <text>Decide together on 4 problematic features. 2 of these features should be based on a horizontal comparison and the other 2 should be based on a vertical comparison.  You will each have a slightly different pair of tables. You can decide on the 4 together by looking through both sets of tables.|Submit "Ready" when you have decided.</text>
+        <text>Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison.|Type "ready" or press the "Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_2_1">
-        <text>Decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison.|Submit "Ready" when you have decided.</text>
+        <text>Examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison.|Type "ready" or press the "Ready" button when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_3">
@@ -76,6 +76,10 @@
     
     <prompt strategy="task" id="PROMPT_STEP_8">
         <text>Now discuss what you think the model is missing that leads to it making an incorrect prediction sometimes and a correct prediction sometimes. Enter your reasoning in the Notes.|Submit "Ready" when you are ready.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_8_1">
+        <text>Now think about what the model is missing that leads to it making an incorrect prediction sometimes and a correct prediction sometimes. Enter your reasoning in the Notes.|Submit "Ready" when you are ready.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_9">
