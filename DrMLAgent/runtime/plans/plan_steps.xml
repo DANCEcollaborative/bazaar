@@ -23,7 +23,7 @@
         <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="LIST_FEATURES_AND_JUSTIFICATIONS">WAIT_STEP_3</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_4" >Prompt_Step_4</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="SHARE_EXAMPLES">WAIT_STEP_4</step>
+        <step type="gated" gated_type="listen" timeout="195" delay="0" checkin_prompt="SHARE_EXAMPLES">WAIT_STEP_4</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_5" >Prompt_Step_5</step>
         <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="FEATURE_1_MISCLASSIFICATION_SUMMARY">WAIT_STEP_5</step>
