@@ -267,10 +267,9 @@ ul.tab li a:focus, .active {
 	}
         $('#roomname').text(room);
         document.getElementById('iframeNotes').src =  "https://erebor.lti.cs.cmu.edu:9001/p/" +  room + "?showChat=false&noColors=false";        
-        document.getElementById('iframeSheetHorizontal1').src =  "https://erebor.lti.cs.cmu.edu:9002/" +  room + "Horizontal1";   
-        document.getElementById('iframeSheetHorizontal2').src =  "https://erebor.lti.cs.cmu.edu:9002/" +  room + "Horizontal2";   
-        document.getElementById('iframeSheetVertical1').src =  "https://erebor.lti.cs.cmu.edu:9002/" +  room + "Vertical1";
-        document.getElementById('iframeSheetVertical2').src =  "https://erebor.lti.cs.cmu.edu:9002/" +  room + "Vertical2";
+        // document.getElementById('iframeSheetHorizontal').src =  "https://erebor.lti.cs.cmu.edu:9002/" +  room + "Horizontal";          
+        document.getElementById('iframeHorizontalPDF').src =  "/bazaar/static/horizontal.pdf";    
+        document.getElementById('iframeVerticalPDF').src =  "/bazaar/static/vertical.pdf";
         });
 	
 
@@ -386,7 +385,8 @@ ul.tab li a:focus, .active {
 
     function sendReady(is_ready)
     {
-        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
+        // socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'        
+        socket.emit('ready', is_ready?'ready':'ready'); // ONLY 'ready'
         
     }
     
@@ -526,12 +526,9 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <!-- <li><a href="#" class="tablinks" onclick="openTab(event, 'Sharing Space')">Sharing Space</a></li>  -->
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Notes1')">Notes</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'HorizontalSheet1')">Horizontal Sheet 1</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'HorizontalSheet2')">Horizontal Sheet 2</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'VerticalSheet1')">Vertical Sheet 1</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'VerticalSheet2')">Vertical Sheet 2</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Notes')">Notes</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Horizontal')">Horizontal</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Vertical')">Vertical</a></li>
     </ul>
 
 
@@ -548,33 +545,21 @@ ul.tab li a:focus, .active {
       </div>
     </div>
 
-   <div id="Notes1" class="tabcontent">
+   <div id="Notes" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id= "iframeNotes" width="100%" height="100%"></iframe></div>
       </div>
     </div>
 
-    <div id="HorizontalSheet1" class="tabcontent">
+    <div id="Horizontal" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "iframeSheetHorizontal1" width="100%" height="100%" style="color:white"></iframe></div>
+        <div id="images" class="scrollable"><iframe id= "iframeHorizontalPDF" width="100%" height="100%" style="color:white"></iframe></div>
       </div>
     </div>
 
-    <div id="HorizontalSheet2" class="tabcontent">
+    <div id="Vertical" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "iframeSheetHorizontal2" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-    <div id="VerticalSheet1" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "iframeSheetVertical1" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-    <div id="VerticalSheet2" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "iframeSheetVertical2" width="100%" height="100%"></iframe></div>
+        <div id="images" class="scrollable"><iframe id= "iframeVerticalPDF" width="100%" height="100%"></iframe></div>
       </div>
     </div>
 
@@ -605,11 +590,11 @@ ul.tab li a:focus, .active {
         </div>
         <div id="controls" class="control">
             <div id="message_div"> <textarea id="data"></textarea></div>
-            <div id="messagebutton_div">
-                <input class="button" type="button" id="datasend" value="Send Message" />
-                <input class="button" type="button" id="ready_button" value="Ready"/>
-            </div>
-            <div class="blinker">Click the "Ready" button when you are ready to move on to the next step.</div>
+            <!--  <div id="messagebutton_div"> -->
+               <!--  <input class="button" type="button" id="datasend" value="Send Message" /> -->
+                <!--  <input class="button" type="button" id="ready_button" value="Ready"/> -->
+            <!--  </div> -->
+            <!--  <div class="blinker">Click the "Ready" button when you are ready to move on to the next step.</div> -->
             <div><input class="button" type="button" id="conv_message" value="Download Discussion Log" onClick="showConvText();"/></div>
         </div>
     </div>
