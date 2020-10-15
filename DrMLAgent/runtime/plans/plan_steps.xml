@@ -17,7 +17,7 @@
         <step type="prompt" delay="5" prompt="INTRODUCE_ASSIGNMENT" >INTRODUCE_ASSIGNMENT</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_2" >Prompt_Step_2</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="DECIDE_PROBLEMATIC_FEATURES">WAIT_STEP_2</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="165" checkin_prompt="DECIDE_PROBLEMATIC_FEATURES">WAIT_STEP_2</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_3" >Prompt_Step_3</step>
         <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="LIST_FEATURES_AND_JUSTIFICATIONS">WAIT_STEP_3</step>

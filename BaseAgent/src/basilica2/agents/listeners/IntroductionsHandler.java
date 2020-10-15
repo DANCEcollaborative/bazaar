@@ -147,8 +147,8 @@ public class IntroductionsHandler extends BasilicaAdapter
                     slots.put("[NAMES]", StateMemory.getSharedState(agent).getStudentNamesString(users));
                     slots.putAll(IntroductionsHandler.this.slots);
                     
-                    MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GIVE_UP_ON_INTRODUCTIONS", slots),"GIVE_UP_ON_INTRODUCTIONS");
-                    source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));
+                    // MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GIVE_UP_ON_INTRODUCTIONS", slots),"GIVE_UP_ON_INTRODUCTIONS");
+                    // source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));
                     
                     //assign remaining names
                     //uninstall:
