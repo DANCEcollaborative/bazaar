@@ -385,9 +385,7 @@ ul.tab li a:focus, .active {
 
     function sendReady(is_ready)
     {
-        // socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'        
-        socket.emit('ready', is_ready?'ready':'ready'); // ONLY 'ready'
-        
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'         
     }
     
     function sendMessage()
