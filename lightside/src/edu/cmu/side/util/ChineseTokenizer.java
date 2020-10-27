@@ -23,21 +23,20 @@ public class ChineseTokenizer<T extends HasWord> extends AbstractTokenizer<T>  {
 
 	  private static final Properties segmenterOptions = new Properties();
 	  private static final CRFClassifier<CoreLabel> segmenter;
-	  
 	  private final LexedTokenFactory<T> theTokenFactory;
-	  private static SeqClassifierFlags flags;
 	    
+	  private static SeqClassifierFlags flags;
 	  static {
-	          segmenterOptions.setProperty("sighanCorporaDict", "toolkits/segmentation");
+		  Properties props = new Properties();
+		  segmenterOptions.setProperty("sighanCorporaDict", "toolkits/segmentation");
 		  segmenterOptions.setProperty("serDictionary", "toolkits/segmentation/dict-chris6.ser.gz");
-			    
+		    
 		  segmenterOptions.setProperty("inputEncoding", "UTF-8");
 		  segmenterOptions.setProperty("sighanPostProcessing", "true");
 		  segmenterOptions.setProperty("kBest", "0");
 		  flags = new SeqClassifierFlags(segmenterOptions);
 		  segmenter = new CRFClassifier<CoreLabel>(flags);
 		  segmenter.loadClassifierNoExceptions("toolkits/segmentation/ctb.gz", segmenterOptions);
-	  	
 	  }
 
 	  public static ChineseTokenizer<CoreLabel> newChineseTokenizer(Reader r, LexedTokenFactory<CoreLabel> tokenFactory) {

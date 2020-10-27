@@ -59,7 +59,8 @@ public class ConverterControl
 		if (!recipeFile.exists())
 		{
 			throw new FileNotFoundException("No model file at " + recipeFile.getPath());
-		}
+		}				//System.out.println("ConverterControl: "+recipePath+" is "+format);
+
 		
 		IOException ex = null;
 		for(RecipeFileFormat format : RecipeFileFormat.values())
@@ -67,7 +68,6 @@ public class ConverterControl
 			try
 			{
 				Recipe loadedRecipe = ConverterControl.loadRecipe(recipePath, format);
-				System.err.println("ConverterControl: "+recipePath+" is "+format);
 				return loadedRecipe;
 			}
 			catch(IOException e)

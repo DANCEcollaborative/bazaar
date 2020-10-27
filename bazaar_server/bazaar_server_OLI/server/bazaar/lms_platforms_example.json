@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://moodle.example.edu",
+    "name": "Example Moodle",
+    "clientId": "xxxxxxxx",
+    "authenticationEndpoint": "https://moodle.example.edu/mod/lti/auth.php",
+    "accesstokenEndpoint": "https://moodle.example.edu/mod/lti/token.php",
+    "authConfig": {
+      "method": "JWK_SET",
+      "key": "https://moodle.example.edu/mod/lti/certs.php"
+    }
+  },
+  {
+    "url": "https://canvas.example.edu",
+    "name": "Example Canvas",
+    "clientId": "xxxxxxxxx",
+    "authenticationEndpoint": "https://canvas.example.edu/api/lti/authorize_redirect",
+    "accesstokenEndpoint": "https://canvas.example.edu/login/oauth2/token",
+    "authConfig": {
+      "method": "JWK_SET",
+      "key": "https://canvas.example.edu/api/lti/security/jwks"
+    }
+  }
+]

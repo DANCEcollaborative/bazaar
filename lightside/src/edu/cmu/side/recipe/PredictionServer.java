@@ -85,6 +85,7 @@ public class PredictionServer implements Container
 			long time = System.currentTimeMillis();
 
 			String target = request.getTarget();
+			System.out.println(request.getMethod() + ": " + target);
 
 			String answer = null;
 
@@ -260,10 +261,7 @@ public class PredictionServer implements Container
 	protected String handleUpload(Request request, Response response) throws IOException, FileNotFoundException
 	{
 		Part part = request.getPart("model");
-		
-		Part nickPart = request.getPart("modelNick");
-		String nick = nickPart.getContent(); 
-		
+		String nick = request.getPart("modelNick").getContent();
 		String path = part.getFileName();
 		// TODO: use threaded tasks.
 

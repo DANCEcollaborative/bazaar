@@ -1,0 +1,54 @@
+version: '3'
+#volumes:
+#  mysql_data:
+#  mongo_data:
+ 
+services:
+  mongo:
+    image: mongo
+    env_file:
+      - ./server/bazaar/.env
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+    networks:
+      - bazaar-net
+  nodechat:
+    build:
+       context: ./mysql
+    container_name: nodechat
+    volumes:    
+     - ./mysql_data:/var/lib/mysql
+     - ./misc:/bazaar/misc
+    env_file:
+      - ./server/bazaar/.env
+    ports:
+     - "8089:3306"  # let outside world see 8083
+    networks:
+    - bazaar-net
+  bazaar:
+    build: 
+       context: ./
+    container_name: bazaar
+    volumes:
+      - ./agents:/usr/agents
+      - ./server:/usr/bazaar
+    depends_on:
+     - nodechat
+    networks:
+    - bazaar-net
+  front:
+    build: ./ha-proxy
+    image: bazaar/haproxy
+    container_name: bazaar-haproxy
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - bazaar
+    networks:
+      - bazaar-net
+networks:
+  bazaar-net:
+    driver: bridge

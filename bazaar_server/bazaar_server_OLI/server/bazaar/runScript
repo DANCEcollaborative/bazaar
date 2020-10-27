@@ -1,0 +1,3 @@
+#!/bin/sh
+#export STOP=0; while [ $STOP -eq 0 ]; do DEBUG='provider:*' node server_bdemooc_xu.js; done
+export STOP=0; while [ $STOP -eq 0 ]; do node server_bdemooc_xu.js; done

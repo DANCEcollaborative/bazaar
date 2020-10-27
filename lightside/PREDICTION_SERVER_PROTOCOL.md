@@ -1,3 +1,5 @@
+Besides its workbench function, the LightSide code also contains a simple web service that can apply a model to a string and immediately return a classification.  Develop one or more models using the workbench, save the model(s) to .xml or .ser files, and this web service can make use of those saved models.
+
 Startup
 ======
 Start by running from the same jar file as the Lightside workbench, just with a different main class (edu.cmu.side.recipe.PredictionServer).  You can (optionally) specify any number of model files and their "nicknames" on the command line to preload, in the form  nickname:model_path nickname:model_path ...  
@@ -5,14 +7,15 @@ Start by running from the same jar file as the Lightside workbench, just with a 
 If you don't list any models, you can load them live by posting to the /upload endpoint.
 
 This mini server serves the following endpoints on port 8000.  There is no security; it's just simple http.
+The best way to start testing it out is to run it on a laptop then point your browser to http://localhost:8000/upload
 
 Endpoints
 ========
 /upload    GET
    -> displays an html form for uploading (with post enctype="multipart/form-data")
             The form collects variables: 
-               model -> a model (*.ser or *xml file, saved after configuring Lighside through the UI)
-               modelNick  -> a nickname for the model
+               model -> a model (a *.ser or *xml file, saved from the LightSide workbench)
+               modelNick  -> choose a nickname for the model
 
 /upload     POST 
    -> expects model and modelNick variables; simply remembers the model by that name
