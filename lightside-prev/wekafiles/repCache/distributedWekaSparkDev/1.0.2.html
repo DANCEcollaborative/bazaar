@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<table summary="Package distributedWekaSparkDev:  summary">
+<tr><td valign=top>Author:</td><td width=50></td><td>Mark Hall &#60;mhall{[at]}pentaho.com&#62;</td></tr>
+<tr><td valign=top>Category:</td><td width=50></td><td>Distributed</td></tr>
+<tr><td valign=top>Changes:</td><td width=50></td><td>Now replaces the arpack_combined_all.jar that Spark includes with the 'clean' version from Weka that does not contain the core java CJFormat class in org.j_paine.formatter which is not usable for commercial purposes</td></tr>
+<tr><td valign=top>Date:</td><td width=50></td><td>2018-02-28</td></tr>
+<tr><td valign=top>Depends:</td><td width=50></td><td>weka (&#62;=3.8.1-SNAPSHOT|&#60;3.9.0), distributedWekaBase (&#62;=1.0.17)</td></tr>
+<tr><td valign=top>Description:</td><td width=50></td><td>Development continuation of distributedWekaSpark. Adds access to source files (CSV, Parquet and Avro) via Spark DataFrames, and adds support for both desktop and distributed execution of MLlib algorithms. Provides Spark wrappers for the classes in distributedWekaBase. Includes generic Spark 1.6.3 libraries - To run against Hadoop/HDFS, it is necessary to delete all the libraries in ${user.home}/wekafiles/distributedWekaSpark/lib and copy in the spark-assembly-A.B.C-hadoopX.Y-Z.jar file that is bundled with the distribution of Spark compiled for your version of Hadoop.</td></tr>
+<tr><td valign=top>License:</td><td width=50></td><td>GPL 3</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Mark Hall &#60;mhall{[at]}pentaho.com&#62;</td></tr>
+<tr><td valign=top>MessageToDisplayOnInstall:</td><td width=50></td><td>Includes generic Spark 1.6.3 libraries, which are sufficent for running local mode on the local filesystem out of the box. To run against Hadoop/HDFS, it is necessary to delete all the libraries in ${WEKA_HOME}/distributedWekaSpark/lib and copy in the spark-assembly-a.b.c-hadoopX.Y-Z.jar file that is bundled with the distribution of Spark compiled for your version of Hadoop.</td></tr>
+<tr><td valign=top>PackageURL:</td><td width=50></td><td><a href="http://downloads.sourceforge.net/weka/weka-packages/distributedWekaSparkDev1.0.2.zip">http://downloads.sourceforge.net/weka/weka-packages/distributedWekaSparkDev1.0.2.zip</a></td></tr>
+<tr><td valign=top>Precludes:</td><td width=50></td><td>distributedWekaSpark</td></tr>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://markahall.blogspot.co.nz/2017/07/integrating-spark-mllib-into-weka.html">http://markahall.blogspot.co.nz/2017/07/integrating-spark-mllib-into-weka.html</a></td></tr>
+<tr><td valign=top>Version:</td><td width=50></td><td>1.0.2</td></tr>
+</table>
+</body>
+</html>

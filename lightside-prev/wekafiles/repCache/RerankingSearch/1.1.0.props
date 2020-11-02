@@ -1,0 +1,41 @@
+# Description file for RerankingSearch attribute selection #algorithm
+ 
+
+# Package name (required)
+PackageName=RerankingSearch
+
+# Version (required)
+Version=1.1.0
+
+#Date (year-month-day)
+Date=2013-04-16
+
+# Title (required)
+Title=Meta-Search algorithm which performs a Hybrid feature selection based on re-ranking
+
+# Category (recommended)
+Category=Attribute selection
+
+
+# Author (required)
+Author=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+# Maintainer (required)
+Maintainer=Pablo Bermejo <Pablo.Bermejo@uclm.es>
+
+
+# License (required)
+License=GPL 2.0|Mozilla
+
+# Description (required)
+Description=A meta-search algorithm which performs the selected search algorithm over attributes ranked in decreasing order given a selected uni-variate information-based metric. After a block of attributes is processed through the search algorithm, each of the remaining attributes Xi in the ranking are re-ranked based on approximation of the conditional IG(Xi;C|S), where S is the subset of selected attributes so far. Algorithm stops when no attribute is selected in current block. This dramatically reduces the execution time of the selected search algorithm without decreasing performance.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.dsi.uclm.es/personal/PabloBermejo/downloads/RerankingSearch1.1.0.zip
+
+# Enhances various other packages ?
+Enhances=weka.attributeSelection
+
+# Dependencies 
+Depends=weka (>=3.7.1)
+

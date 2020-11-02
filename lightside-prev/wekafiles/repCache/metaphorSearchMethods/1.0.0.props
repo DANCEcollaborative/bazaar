@@ -1,0 +1,41 @@
+# Package name (required)
+PackageName=metaphorSearchMethods
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2016-09-14
+
+# Title (required)
+Title=An implementation of metaphor search methods to explore the space of attributes.
+
+# Category (recommended)
+Category=Attribute selection
+
+# Author (required)
+Author=Kou <mb45467@connect.umac.mo>
+
+# Maintainer (required)
+Maintainer=Kou <mb45467@connect.umac.mo>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=Metaphor Search explores the attribute space using the metaphor search methods. The package includes AntSearch, BatSearch, BeeSearch, CuckooSearch, ElephantSearch, FireFlySearch, FlowerSearch, HarmonySearch and WolfSearch.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/geneticsearch-weka/metaphorSearchMethods.zip?download
+
+# URL for further information
+URL=
+
+# Enhances various other packages ?
+# Enhances=
+
+# Related to other packages?
+Related=attributeSelectionSearchMethods
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.4)

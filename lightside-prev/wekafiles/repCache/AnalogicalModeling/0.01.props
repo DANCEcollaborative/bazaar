@@ -1,0 +1,33 @@
+# Analogical Modeling Weka package description
+
+PackageName=AnalogicalModeling
+
+Version=0.01
+
+Date=04/17/2016
+
+Title=Analogical Modeling
+
+Category=Classification
+
+Author=Nathan Glenn <garfieldnate@gmail.com>
+
+Maintainer=Nathan Glenn <garfieldnate@gmail.com>
+
+License=Apache 2.0
+
+Description=Analogical Modeling (or AM) was developed by Royal Skousen as an exemplar-based approach to modeling language usage, and has also been found useful in modeling other "sticky" phenomena. AM is especially suited to this because it predicts probabilistic occurrences instead of assigning static labels for instances. AM was not designed to be a classifier, but as a cognitive theory explaining variation in human behavior. As such, though in practice it is often used like any other machine learning classifier, there are fine theoretical points in which it differs. As a theory of human behavior, much of the value in its predictions lies in matching observed human behavior, including non-determinism and degradations in accuracy caused by paucity of data. The AM algorithm could be called a probabilistic, instance-based classifier. However, the probabilities given for each classification are not degrees of certainty, but actual probabilities of occurring in real usage. AM models "sticky" phenomena as being intrinsically sticky, not as deterministic phenomena that just require more data to be predicted perfectly. Though it is possible to choose an outcome probabilistically, in practice users are generally interested in either the full predicted probability distribution or the outcome with the highest probability. Due to the exponential nature of AM, vectors of 50 or more features will be classified using an approximate method.
+
+PackageURL=https://github.com/garfieldnate/Weka_AnalogicalModeling/releases/download/0.01/Weka_AnalogicalModeling-0.01.zip
+
+URL=https://github.com/garfieldnate/Weka_AnalogicalModeling
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.5.2)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstallation=Funky package requires some extra\n\
+ stuff to be installed after installing this package. You will\n\
+ need to blah, blah, blah in order to blah, blah, blah...

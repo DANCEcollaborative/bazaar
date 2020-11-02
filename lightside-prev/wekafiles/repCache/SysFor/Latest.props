@@ -1,0 +1,38 @@
+# Template Description file for a Weka package
+#
+#
+
+# Package name (required)
+PackageName=SysFor
+
+# Version (required)
+Version=1.0
+
+#Date
+Date=2017-11-06
+
+# Title (required)
+Title=SysFor: Systematically Developed Forest of Multiple Decision Trees.
+
+Category=Classification
+
+# Author (required)
+Author=Michael J. Siers and Michael Furner
+
+# Maintainer (required)
+Maintainer=Michael Furner <mfurner@csu.edu.au>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Class implementing decision forest algorithm SysFor, a systematically developed forest of multiple decision trees. <br/>For more information, see:<br/> Islam, M. Z. and Giggins, H. (2011): Knowledge Discovery through SysFor: A Systematically Developed Forest of Multiple Decision Trees, In Proc. of the Ninth Australasian Data Mining Conference (AusDM 11).
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://csusap.csu.edu.au/~zislam/code/SysForWeka.zip
+
+# URL for further information
+URL=http://csusap.csu.edu.au/~zislam/
+
+# Dependencies
+Depends=weka (>=3.7.1)

@@ -1,0 +1,38 @@
+# Template Description file for a Weka package
+#
+
+# Package name (required)
+PackageName=IPCP
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2017-02-08
+
+# Title (required)
+Title=Interative Parallel Coordinates Plot
+
+# Category (recommended)
+Category=Visualization
+
+# Author (required)
+Author=Glauber Cini <glaubercini@gmail.com>
+
+# Maintainer (required)
+Maintainer=Glauber Cini <glaubercini@gmail.com>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=The IPCP plugin is a visualization that presents the Parallel Coordinates in an interactive way, where it is able to swap, hide and present the axes, besides allowing the filtering of samples through filters found in each one of them. All interactions performed over the presented samples can still be exported in the ARFF format.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/glaubercini/ipcp/raw/master/packages/IPCP_1_0_0.zip
+
+# URL for further information
+URL=https://github.com/glaubercini/ipcp/
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.12)

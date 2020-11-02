@@ -1,0 +1,37 @@
+# Package name (required)
+PackageName=MultiObjectiveEvolutionarySearch
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2015-03-27
+
+# Title (required)
+Title=An Multi-objective Evolutionary Algorithm (MOEA) to explore the attribute space.
+
+# Category (recommended)
+Category=Attribute selection
+
+# Author (required)
+Author=Carlos Martinez Cortes<carlos.martinez6@um.es>, Fernando Jimenez Barrionuevo<fernan@um.es>, Gracia Sanchez Carpena <gracia@um.es>
+
+# Maintainer (required)
+Maintainer=Carlos Martinez Cortes<carlos.martinez6@um.es>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=MultiobjectiveEvolutionarySearch explores the attribute space using the ENORA Multi-objective Evolutionary Algorithm. Two objectives are optimized. The first one is to be maximized and it is chosen by the evaluator. The second one is to minimize the subset cardinality.The non-dominated solution in the last population with the best fitness for the first objective is shown as output.<br/><br/>ENORA is an elitist Pareto-based multi-objective evolutionary algorithm that uses a(mu+lambda) survival with the following operators:<br/><br/> - Uniform random initialization. <br/> - Binary tournament selection. <br/> - Ranking based on local non-domination level with crowding distance. <br/> - Self-adaptive uniform crossover. <br/> - Self-adaptive one-bit flip mutation. <br/><br/>For more information about ENORA see: <br/><br/>F. Jimenez, G. Sanchez, J.M. Garcia, G. Sciavicco, L. Miralles (2016). Multi-objective evolutionary feature selection for online sales forecasting. http://dx.doi.org/10.1016/j.neucom.2016.12.045. <br/><br/>
+
+Changes=Spelling correction in package name.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://downloads.sourceforge.net/project/moea/MultiObjectiveEvolutionarySearch1.0.0.zip
+
+# Related to other packages?
+Related=MultiObjectiveEvolutionaryFuzzyClassifier
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.12)

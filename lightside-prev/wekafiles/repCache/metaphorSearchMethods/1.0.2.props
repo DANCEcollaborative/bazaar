@@ -1,0 +1,41 @@
+# Package name (required)
+PackageName=metaphorSearchMethods
+
+# Version (required)
+Version=1.0.2
+
+#Date (year-month-day)
+Date=2018-05-21
+
+# Title (required)
+Title=An implementation of metaphor search methods to explore the space of attributes.
+
+# Category (recommended)
+Category=Attribute selection
+
+# Author (required)
+Author=DACC <mb45467@connect.umac.mo>, Silvia CHEN <yeding525@gmail.com>
+
+# Maintainer (required)
+Maintainer=DACC <mb45467@connect.umac.mo>, Silvia CHEN <yeding525@gmail.com>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=Metaphor Search explores the attribute space using the metaphor search methods. The package includes AntSearch, BatSearch, BeeSearch, CuckooSearch, ElephantSearch, FireFlySearch, FlowerSearch, HarmonySearch and WolfSearch.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://bitbucket.org/umprogramming/attribute-selection/raw/master/metaphorSearchMethods.zip
+
+# URL for further information
+URL=
+
+# Enhances various other packages ?
+# Enhances=
+
+# Related to other packages?
+Related=attributeSelectionSearchMethods
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.4)
