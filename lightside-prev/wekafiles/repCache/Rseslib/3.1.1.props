@@ -1,0 +1,43 @@
+# Description file of Rseslib package for Weka
+#
+#
+
+# Package name (required)
+PackageName=Rseslib
+
+# Version (required)
+Version=3.1.1
+
+#Date
+Date=2017-04-11
+
+# Title (required)
+Title=Rough Sets and Analogy-Based Reasoning
+
+Category=Classification
+
+# Author (required)
+Author=Arkadiusz Wojna,Grzegorz Gora,Marcin Jalmuzna,Michal Kurzydlowski,Rafal Latkowski,Dariusz Ogorek,Marcin Piliszczuk,Beata Zielosko
+
+# Maintainer (required)
+Maintainer=Arkadiusz Wojna <wojna@mimuw.edu.pl>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=The package provides 3 classifiers. Rule classifier based on rough sets uses the concepts of discernibility matrix, reducts and rules generated from reducts. \
+It provides variety of algorithms generating reducts including faster for larger data sets local reducts and has modes to work with incomplete data and inconsistent data. \
+K nearest neighbours classifier provides variety of distance measures that can work also for data with both numeric and nominal attributes and has built-in k optimization. \
+It implements fast neighbours searching algorithm making the classifier work for very large data sets. The classifier has also the mode to work as RIONA algorithm. \
+The third classifier is the extension of k nearest neighbours method that induces local metric for each classified object. \
+It is dedicated rather to large data sets (2000+ training instances) and improves accuracy particularly in case of data containing nominal attributes.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://rseslib.mimuw.edu.pl/weka/Rseslib3.1.1.zip
+
+# URL for further information
+URL=http://rseslib.mimuw.edu.pl
+
+# Dependencies
+Depends=weka (>=3.8.0)

@@ -1,0 +1,39 @@
+# Template Description file for a Weka package
+# 
+#
+
+# Package name (required)
+PackageName=SparseGenerativeModel
+
+# Version (required)
+Version=1.4.9
+
+#Date (year-month-day)
+Date=2015-09-23
+
+# Title (required)
+Title=Sparse Generative Model
+
+# Category (recommended)
+Category=Text classification
+
+# Author (required)
+Author=Antti Puurula<asp12@students.waikato.ac.nz>
+
+# Maintainer (required)
+Maintainer=Antti Puurula<asp12@students.waikato.ac.nz>
+
+# License (required)
+License=Apache 2.0
+
+# Description (required)
+Description=A wrapper for the SGM toolkit for generative modeling with sparse matrix representations. Implements Multinomial Naive Bayes and Multinomial Kernel Density classifiers, and modifications such as TF-IDF transforms, different types of smoothing, pruning and model based feedback. Default classifier is a Multinomial Naive Bayes model with TF-IDF term weighting and smoothing with a uniform background model. Restart Weka after package installation. Multi-label classification, ranked retrieval and other functions are available through both command-line calls and class inclusion. 
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/sgmweka/SparseGenerativeModel.zip?download
+
+# URL for further information
+URL=http://sourceforge.net/projects/sgmweka/
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>3.7.1)

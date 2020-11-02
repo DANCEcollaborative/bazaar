@@ -1,0 +1,51 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=CAAR
+
+# Version (required)
+Version=1.0
+
+#Date (year-month-day)
+Date=2014-10-24
+
+# Title (required)
+Title=Context Aware Case-Based Regression Learner
+
+# Category (recommended)
+Category=Regression, Ensemble learning
+
+# Author (required)
+Author=Vahid Jalali <vjalalib@cs.indiana.edu>
+
+# Maintainer (required)
+Maintainer=Vahid Jalali <vjalalib@cs.indiana.edu>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=This package contains CAAR learner CAAR predicts the target value of an input query by retrieving its top nearest neighbors, adjusting their values by applying ensemble of adaptation rules, and combining the adjusted values for building the final solution. CAAR utilizes context for retrieving adaptation rules used for adjusting the nearest neighbors' values. Context id defined as the rate of changes in the target values based on the changed in the input features. For more information refer to: A Context-Aware Approach to Selecting Adaptations for Case-Based Reasoning: V Jalali, D Leake, Modeling and Using Context, 101-114 (2013)
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://downloads.sourceforge.net/project/caar/CAAR.zip
+
+# URL for further information
+URL=https://sourceforge.net/projects/caar/
+
+# Enhances various other packages ?
+Enhances=IBk
+
+# Related to other packages?
+Related=IBk, EAR4, LinearRegression, LWL
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.1)
+
+# Disabled because package structure is not correct
+Disabled=true
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+#DoNotLoadIfFileNotPresentMessage=EAR4 can't be loaded 
