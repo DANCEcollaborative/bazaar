@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="compile" name="lightside-plugins">
+    <property environment="env"/>
+    <property name="lightside.location" value="../lightside"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+	
+    <path id="junit.classpath">
+    </path>
+	
+    <path id="lightside-plugins.classpath">
+        <pathelement location="${lightside.location}/bin"/>
+        <pathelement location="bin"/>
+        
+        <fileset dir="${lightside.location}/lib">
+          <include name="**/*.jar"/>
+        </fileset>
+    	
+        <fileset dir="${lightside.location}/wekafiles/packages/">
+          <include name="**/*.jar"/>
+        </fileset>
+    	
+    </path>
+
+    <path id="lightside-plugins.buildpath">
+        <path refid="lightside-plugins.classpath"/>
+        <path refid="junit.classpath"/>
+    </path>
+
+    <path id="lightside-plugins.testpath">
+        <path refid="lightside-plugins.classpath"/>
+        <path refid="junit.classpath"/>
+    </path>
+	       
+    <target name="init">
+        <mkdir dir="bin"/>
+    </target>
+	
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+
+	<target name="build" depends="clean,compile,test,jar"/>
+    <target depends="init" name="compile">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <classpath refid="lightside-plugins.buildpath"/>
+            <src path="src"/>
+            <src path="tests"/>
+        	
+        </javac>
+    </target>
+	
+	
+	<target name="test" depends="run-tests,report-tests"/>
+	
+    <target name="run-tests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="true" haltonerror="true" haltonfailure="true" showoutput="true" dir="${lightside.location}">
+
+            <formatter type="xml"/>
+        	
+            <classpath refid="lightside-plugins.testpath"/>
+        	
+        	<batchtest fork="yes" todir="${junit.output.dir}">
+        	    <fileset dir="tests">
+        	      <include name="**/*Test*.java"/>
+        	      <exclude name="**/AllTests.java"/>
+        	    </fileset>
+        	  </batchtest>
+            <jvmarg line="-Xmx4G -XX:+UseConcMarkSweepGC -Djava.awt.headless=true"/>
+
+
+        </junit>
+    </target>
+    
+    <target name="report-tests">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+	
+
+	<target name="jar">
+	  <jar destfile="${lightside.location}/plugins/genesis.jar" basedir="bin/" />
+	</target>  
+</project>
