@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Usage: scripts/predict-test.sh path/to/saved/model.xml [{data-encoding} path/to/unlabeled/data.csv...]
+# Usage: scripts/predict.sh path/to/saved/model.xml [{data-encoding} path/to/unlabeled/data.csv...]
 # Outputs tab-separated predictions for new instances, using the given model. (instance number, prediction, text)
 # If no new data file is given, instances are read from the standard input.
 # Common tab encodings are UTF-8, windows-1252, and MacRoman.
 # (Make sure that the text columns and any columns used as features 
 #  have the same names in the new data as they did in the training set.)
 
-# echo "lightside/scripts/predict-test.sh is executing"
+# echo "lightside/scripts/predict.sh is executing"
 
 MAXHEAP="4g"
 OS_ARGS=""
@@ -28,8 +28,8 @@ CLASSPATH="/Users/rcmurray/git/DANCEcollaborative/bazaar/lightside/bin:/Users/rc
 # echo "Current path: ..."
 # echo $PWD
 
-# echo java -version >> predict-test.sh.log
-# echo env >> predict-test.sh.log
+# echo java -version >> predict.sh.log
+# echo env >> predict.sh.log
 
 # /usr/local/bin/jenv global openjdk64-1.8.0.222
         
