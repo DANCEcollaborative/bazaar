@@ -51,10 +51,8 @@ ul.tab li a:focus, .active {
 
 <body>
 
-<link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
-<!-- <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' /> -->
+<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
-<!-- <link property='stylesheet' href='../discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' /> -->
 <script type="text/javascript" src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" ></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -266,10 +264,9 @@ ul.tab li a:focus, .active {
             $('input,textarea').prop('disabled', true);
 	}
         $('#roomname').text(room);
-        document.getElementById('iframeNotes').src =  "https://erebor.lti.cs.cmu.edu:9001/p/" +  room + "?showChat=false&noColors=false";        
-        // document.getElementById('iframeSheetHorizontal').src =  "https://erebor.lti.cs.cmu.edu:9002/" +  room + "Horizontal";          
-        document.getElementById('iframeHorizontalPDF').src =  "/bazaar/static/horizontal.pdf";    
-        document.getElementById('iframeVerticalPDF').src =  "/bazaar/static/vertical.pdf";
+        document.getElementById('iframeNotes').src =  "https://erebor.lti.cs.cmu.edu:9001/p/" +  room + "?showChat=false&noColors=false";     
+        document.getElementById('iframeHorizontalPDF').src =  "bazaar/horizontal.pdf";    
+        document.getElementById('iframeVerticalPDF').src =  "bazaar/vertical.pdf";
         });
 	
 
