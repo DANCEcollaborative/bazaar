@@ -34,7 +34,8 @@
     </stage>
     
     <stage name="stageC" type="other" delay="0">
-        <step type="prompt" delay="30" prompt="PROMPT_STEP_C1" >PROMPT_STEP_C1</step>
+        <step type="prompt" delay="60" prompt="PROMPT_STEP_C1" >PROMPT_STEP_C1</step>
+        <step type="logout" delay="0">LOGOUT</step>
     </stage>
     
 </plan>
