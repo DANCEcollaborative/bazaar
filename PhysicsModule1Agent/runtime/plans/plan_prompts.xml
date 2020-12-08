@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Bonjour, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>Click on the Sharing Space to the left to examine a photo which shows a “1 FEET DEEP” sign on the side of a children’s pool. Discuss the following questions:|Why do some of the letters in “FEET DEEP” look different even though they are all painted the same size?|Why do you see multiple letters, even though each word is painted once?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>Use ray diagrams to account for all the effects in this image. Upload your images for discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>Transparent prism foil is part of a backlight system in LCD monitors that are widely used today. The upper figure on the left shows a magnified cross section of such a foil (the foil is about 0.15 mm thick). The foil consists of prismatic ridges with angles at their peaks. The index of refraction of the foil is 1.58. This foil has very interesting optical properties. When you shine a light beam perpendicular to one side of the foil, the beam splits in two symmetrical beams (see photo (a)). Do you see the two symmetrical beams?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>When you turn the foil around and repeat the experiment, the light beam reflects from the foil and no light passes through (see figure (b)).</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>Your task is to determine which side of the foil (the flat or prism side) was facing the flashlight in experiment (a) and which in experiment (b). Upload ray diagrams to justify your answer.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B4">
+        <text>How will the performance of the foil change if you cover the prism side of the foil with a layer of water (thick enough to fill and flatten the grooves)?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C1">
+        <text>The activity is complete now. Please upload your results to … and remember to complete the peer marking assignment by ….|Have a great day!</text>
+    </prompt>
+ 
+</prompts>

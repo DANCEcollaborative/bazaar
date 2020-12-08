@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Bonjour, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>Click on the "Sharing Space" at the left to see an image of a Morpho butterfly.|A reflection grating reflects light from adjacent lines in the grating instead of allowing the light to pass through slits, as is the case with the so-called transmission gratings we have been studying. Interference between the reflected light waves produces reflection maxima. The angular deflection of bright bands, assuming perpendicular incidence, is calculated using the same equation as the angular deflection of transmitted light through a regular grating. White light is incident on the wing of a Morpho butterfly (whose wings act as a reflection grating).|Why do you see different color bands coming from the wings of the butterfly when white light shines on the wings?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>Red light of wavelength 660 nm is deflected in first order (n = 1) at an angle of 1.2 degrees. Determine the distance between the adjacent reflecting lines on the butterfly's wing.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A4">
+        <text>As you work, remember to respond to one another and show each step in Problem-Solving Strategy 24.1 (“sketch and translate”, “simplify and diagram”, “represent mathematically”, “solve and evaluate”).</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A5">
+        <text>Determine the angular deflection in first order (n = 1) of blue light (460 nm).</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>An image of stars is displayed in the Sharing Space.|You may have noticed that stars have different colors—some are white, some are yellowish, and some are reddish. Does this mean that stars of a red color do not emit any blue light?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>Astronomers use an instrument called a spectrograph to analyze the color composition of starlight. The central mechanism of a spectrograph is a grating. Working with your group, design a simple version of a spectrograph, an apparatus that will allow you to separate different colors of light emitted by a lamp on your desk (that emits light very similar to the light emitted by many stars) and will also allow you to measure the wavelengths of these different colors.|Draw a picture of the apparatus and explain how it works.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C1">
+        <text>The activity is complete now. If you are curious to learn more about the colour of the wings of a morpho butterfly (beyond this class), please see the “introduction” section of this article: https://aapt-scitation-org.myaccess.library.utoronto.ca/doi/10.1119/1.3192768.|Please upload your results to … and remember to complete the peer marking assignment by ….|Have a great day!</text>
+    </prompt>
+ 
+</prompts>

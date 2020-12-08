@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Bonjour, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>Your textbook’s authors video-recorded two experiments, both using the same concave mirror. Watch the video of Experiment 1 in the "Video 1" tab to the left. When you have completed watching the video, describe what you observed.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>Draw a ray diagram to explain why, when the screen and the source are at a particular distance from the mirror, you see a sharp inverted image of the candle. Upload and discuss your diagrams.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>Use the ray diagram to determine the focal distance of the mirror. Include the experimental uncertainty in your value.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>Watch the video of Experiment 2 in the "Video 2" tab to the left. The light bulb (serving as a point-like source in this experiment) is positioned on the principal axis of the mirror. Briefly describe what you observed.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>Explain why, when the point-like light source is at a certain distance from the mirror, there is a circle on the screen that matches the size of the mirror.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>Use a ray diagram to determine the focal distance of the mirror based on Experiment 2. Include the experimental uncertainty in your value.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B4">
+        <text>Compare the values you found in parts b and d. Are they the same or different?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C1">
+        <text>Watch the video with a candle, a lens, and a screen in the "Video 3" tab to the left. When you have completed watching the video type "ready".</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C2">
+        <text>Why does the sharp image of the candle appear twice during the experiment in the video? Draw ray diagrams to support your explanation.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C3">
+        <text>Use the video to collect data to determine the focal distance of the lens used in the experiment. Note that you can pause the video and press the period key to advance the video frame by frame.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_D1">
+        <text>The activity is complete now. Please upload your results to … and remember to complete the peer marking assignment by ….|Have a great day!</text>
+    </prompt>
+ 
+</prompts>
