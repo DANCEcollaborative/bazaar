@@ -48,7 +48,7 @@
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C3</step>
     </stage>
     
-    <stage name="stageC" type="other" delay="0">
+    <stage name="stageD" type="other" delay="0">
         <step type="prompt" delay="30" prompt="PROMPT_STEP_D1" >PROMPT_STEP_D1</step>
     </stage>
     
