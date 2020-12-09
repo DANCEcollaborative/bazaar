@@ -136,6 +136,14 @@ app.get('/bazaar/welcome*', function (req, res)
 
 
 
+app.get('/bazaar/wgu-jeopardy*', function (req, res)
+{
+    console.log("Jeopardy!");
+    res.sendfile("wgu-jeopardy.html");
+});
+
+
+
 app.get('/bazaar/login*', function (req, res)
 {
     console.log("Hi");
