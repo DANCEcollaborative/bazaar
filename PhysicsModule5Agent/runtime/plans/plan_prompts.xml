@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Bonjour, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>You have a circuit consisting of a variety of elements including a 9-V battery (measured as 9 V when you put a voltmeter across it without an external circuit), a switch, and several resistors. You measure current through different circuit elements and the potential difference across them (each element has corresponding voltmeter and ammeter numbers). Click on "Sharing Space" at the left to see the results.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>Draw and upload a picture of the circuit for which these measurements could have been taken.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>Did you include voltmeters and ammeters in your circuit? If not, where would they be added?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A4">
+        <text>Which circuit elements are in series and which are in parallel?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A5">
+        <text>Determine the values of as many resistances as you can.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>A figure of a "chair" is shown in the Sharing Space. The chair is made of 11 identical metal rods, each rod having a resistance of 10 Ω  The legs of the chair are connected to a 9-V battery of negligible internal resistance with wires that have negligible resistance.|Do you all understand the diagram?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>Compare the potential differences between different pairs of connected nodes that are labeled with the letters. Are there any pairs of connected nodes for which the potential difference is zero? Explain.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>Your friend says: “When the potential difference between two nodes is zero, removing the wire between those two nodes from the circuit will not cause any changes in the currents in the remaining circuit.” Are they correct?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B4">
+        <text>How can you convince others that they are correct?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B5">
+        <text>Apply the rule invented by your friend to reduce the initial circuit by removing all rods across which the potential difference is zero. Draw and upload an equivalent “flat” circuit diagram of the reduced circuit.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B6">
+        <text>Determine the current through the battery for your circuit.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C1">
+        <text>The activity is complete now. Please upload your results to … and remember to complete the peer marking assignment by ….|Have a great day!</text>
+    </prompt>
+ 
+</prompts>
