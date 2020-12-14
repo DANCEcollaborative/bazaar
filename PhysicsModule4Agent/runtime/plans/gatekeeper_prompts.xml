@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>Okay, we're about to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up this step. Get ready to move on.</text>
+       <text>Okay, let's get ready to finish up this step.</text>
+    </prompt>
+        
+    <!-- for MOVE_ON_GENERIC -->    
+    <prompt strategy="task" id="MOVE_ON_GENERIC">
+       <text>We will move on soon. Type "ready" when you are ready to move on.</text>
+    </prompt>
+        
+    <!-- for PROMPT_STEP_A2 -->    
+    <prompt strategy="task" id="MOVE_ON_PROMPT_A2">
+       <text>Have you read this background information and are you ready for your task? Type "ready" to let me know when you are ready.</text>
+    </prompt>
+        
+    <!-- for PROMPT_STEP_B1 -->    
+    <prompt strategy="task" id="MOVE_ON_PROMPT_A4">
+       <text>Type "ready" to let me know when you are ready to move on to the second activity.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="MOVE_ON_GENERIC_NO_READY">
+       <text>We will move on soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your partner is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your partner agrees.</text>
+       <text>Hang on until your partner is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your partner is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay...</text>
+       <text>Okay, let's move on...</text>
+       <text>I think we're ready.</text>
+       <text>Moving on...</text>
+       <text>Looks like we're ready.</text>
+       <text>Onward!</text>
+    </prompt>
+  
+  
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+      
+    <!-- for PROMPT_STEP_1 -->    
+    <prompt strategy="task" id="WAIT_FOR_SPREADSHEET_COPIES">
+       <text>When you have copied your data into the spreadsheets, we'll continue.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>We'll move on when everyone is ready.</text>
+    </prompt>
+       
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, type "ready".</text>
+       <text>When everyone is comfortable with this material, type "ready".</text>
+    </prompt>
+    
+</prompts>
+

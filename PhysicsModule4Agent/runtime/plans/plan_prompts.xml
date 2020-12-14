@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Bonjour, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>To cleanse the air of dust and pollen, some homes have electrostatic precipitators in their heating and air-conditioning systems. These units work by moving particle-laden air through an ionizing area, in which the particles acquire a charge, and then into an area in which an electric field is present. Have you heard of this before?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>Because the particles are charged, they experience a force and are attracted to a collector that homeowners need to clean from time to time. Such units are also used on a larger scale as industrial scrubbers in smokestacks, where particle-laden air rises through the stack, acquires a charge by an industrial ionizing source, and is filtered via electrostatic attraction.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>Imagine that you are a member of a team from Environment and Climate Change Canada that is trying to determine whether a school’s heating smokestack is effective in removing most particulate matter. You find that the smoke particles move up the 20-m-high stack at a constant 5-m/s speed. By checking the ionizing equipment, you deduce that the specific charge (charge per unit mass) imparted to each particle is 1 x 105  C/kg. Most particles have a mass of 1㎍ (10-6 g), but some are as large as 100 mg. You see that two plates separated by 0.30 m are on opposite sides of the chimney, with a 3000-V/m E-field between them. Will you recommend that the operating license for the smokestack be renewed?|Support your ruling with a careful analysis.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A4">
+        <text>Could such a system also work to help prevent the spread of COVID-19 via aerosols? Justify your answer.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>Click on the "Video" tab to the left. In the video, you will see two metal plates connected to a device called a voltmeter that allows you to measure the potential difference between two points. Watch the video and explain what you observe.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>How is it possible for the voltmeter to read positive potential difference if the experimenter only charged one plate?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>Would you like a hint?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B4">
+        <text>Note that the yellow wire in the experiment is connected to Earth.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B5">
+        <text>Why does the experimenter move the plate using a plastic holder?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B6">
+        <text>Why does the reading of the voltmeter increase as the plate is moved to the right although no more charges were added to it? Use an energy bar chart for help, and upload your bar chart. Consider the system to be the two plates and the hand to be a part of the environment. Draw the bar chart and explain the outcome of the experiment.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B7">
+        <text>What is another way to explain the outcome of the experiment using the relationship between the E-> field and the V field?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C1">
+        <text>The activity is complete now. Please upload your results to … and remember to complete the peer marking assignment by ….|Have a great day!</text>
+    </prompt>
+ 
+</prompts>
