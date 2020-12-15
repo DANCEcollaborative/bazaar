@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plan name="Physics Module 2">
+<plan name="Physics Module 4">
 	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
@@ -25,10 +25,10 @@
     </stage>
     
     <stage name="stageB" type="other" delay="0">
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
-        <step type="gated" gated_type="listen" timeout="60" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B1</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B1</step>
         
-        <step type="prompt" delay="20" prompt="PROMPT_STEP_B2" >Prompt_Step_B2</step>
+        <step type="prompt" delay="15" prompt="PROMPT_STEP_B2" >Prompt_Step_B2</step>
         <step type="prompt" delay="7" prompt="PROMPT_STEP_B3" >Prompt_Step_B3</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B4" >Prompt_Step_B4</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>

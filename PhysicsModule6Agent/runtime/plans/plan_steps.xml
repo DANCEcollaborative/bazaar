@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Physics Module 6">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+    <stage name="initiate" type="other" delay="0">  	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.--> 
+        <step type="prompt" delay="5" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
+        <step type="greet" timeout="30" delay="5">GREETINGS</step>
+    </stage>
+    
+    <stage name="stageA" type="other" delay="0">
+    	<step type="whiteboard" delay="0" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module6_pic1.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="15" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A3" >Prompt_Step_A3</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A3</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A4</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A5" >Prompt_Step_A5</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A5</step>
+    </stage>
+    
+    <stage name="stageB" type="other" delay="0">
+    	<step type="whiteboard" delay="0" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module6_pic2.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B2" >PROMPT_STEP_B2</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B3" >PROMPT_STEP_B3</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B3</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B4" >Prompt_Step_B4</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B4</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B5" >Prompt_Step_B4</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B5</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B6" >Prompt_Step_B4</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B6</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B7" >Prompt_Step_B4</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B7</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B8" >Prompt_Step_B4</step>
+        <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B8</step>
+    </stage>
+    
+    <stage name="stageC" type="other" delay="0">
+        <step type="prompt" delay="60" prompt="PROMPT_STEP_C1" >PROMPT_STEP_C1</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>

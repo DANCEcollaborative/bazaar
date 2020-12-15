@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Bonjour, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>Click on the Sharing Space to the left. The image shows a metal bar of length L that moves at constant velocity v-> through a magnetic field B-> that points into the paper (as shown by the crosses in the figure).</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>Redraw the bar, and indicate how the charges in the bar are redistributed due to the force that the magnetic field exerts on them. Upload your image.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>This charge redistribution (that you just drew) produces an electric field inside the bar that prevents further charge redistribution. Draw the E-> field lines inside the bar. Upload your image.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A4">
+        <text>Apply Newton’s second law to a charge in the middle of the bar—now it is in an electric field and in a magnetic field, and it is in equilibrium. Draw and upload a force diagram and your mathematical representation.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A5">   
+        <text>Use the expression that relates the E-> field magnitude component E_y (direction perpendicular to the velocity of the bar) and the potential difference over a distance ∆V/L with the previous results to determine an expression for the potential difference between the ends of the bar.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>Let’s apply this result to a real-life application. Refer to the new image in the Sharing Space.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>A major artery has a diameter d of 1 cm. A magnetic flow meter clamped around the artery sets up a region of magnetic field B = 0.20 T. The flow meter measures a potential difference of 2 x 10^-3 V  between opposite sides of the artery. Positive and negative ions flow through the artery at a speed v as shown in the diagram.|Discuss and make sure you understand the diagram.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>You want to estimate the speed of the blood flowing through the artery. As a first step, draw the force exerted on a + ion and on a – ion flowing in the blood by the external magnetic field. Do you agree on the direction of each force?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B4">
+        <text>Next, draw a charge diagram showing how the + and – ions accumulate on the walls of the artery.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B5">
+        <text>Draw a force diagram for a + ion that travels straight through the middle of the artery because F_(E on q) balances F_(B on q).</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B6">
+        <text>Use your equation relating F_(E on q) and F_(B on q) to solve for the electric field magnitude E.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B7">
+        <text>Use the expression that relates the E-> field magnitude E and the potential difference over the diameter of the artery ∆V/d with your previous results to determine an expression for the speed v of the ions in the artery.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B8">
+        <text>What is the speed of the ions?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_C1">
+        <text>The activity is complete now. Please upload your results to … and remember to complete the peer marking assignment by ….|Have a great day!</text>
+    </prompt>
+ 
+</prompts>

@@ -13,8 +13,8 @@
     </stage>
     
     <stage name="stageA" type="other" delay="0">
-    	<step type="whiteboard" delay="5" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module1_pic1.jpg">SHOW_IMAGE</step>
-        <step type="prompt" delay="5" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
+    	<step type="whiteboard" delay="0" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module1_pic1.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A1</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
@@ -22,10 +22,10 @@
     </stage>
     
     <stage name="stageB" type="other" delay="0">
-    	<step type="whiteboard" delay="5" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module1_pic2.png">SHOW_IMAGE</step>
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_B2" >PROMPT_STEP_B2</step>
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_B3" >PROMPT_STEP_B3</step>
+    	<step type="whiteboard" delay="0" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module1_pic2.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_B2" >PROMPT_STEP_B2</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B3" >PROMPT_STEP_B3</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B1</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B4" >Prompt_Step_B4</step>
