@@ -518,8 +518,23 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Sharing Space')">Sharing Space</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Video')">Video</a></li> 
     </ul>
+
+
+    <div id="Sharing Space" class="tabcontent">
+      <div id="image_container" class="container">
+          <div id="images" class="scrollable"></div>
+      </div>
+
+      <div id="image_controls" class="control">
+          <div id="image_url_input_div">
+              <input id="image_url_input" value=""  placeholder="Want to share a file? Paste its URL here."/>
+          </div>
+          <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Upload URL" /></div>
+      </div>
+    </div>
 
    <div id="Video" class="tabcontent">
       <div id="image_container" class="container">
