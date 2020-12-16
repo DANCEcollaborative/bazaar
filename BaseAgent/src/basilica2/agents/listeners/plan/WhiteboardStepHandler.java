@@ -58,6 +58,7 @@ public class WhiteboardStepHandler implements StepHandler
 		
 		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+label+":"+currentStep.name);
 		
+		System.err.println("WhiteboardStepHandler: pushing Whiteboard event"); 
 		source.pushProposal(new PriorityEvent(source, WhiteboardEvent.makeWhiteboardImage(path, label, loc, source, currentStep.attributes.containsKey("delete")), 
 				1.0, new PrioritySource("Whiteboard", false), 60.0));
 		

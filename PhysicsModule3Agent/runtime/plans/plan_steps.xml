@@ -8,7 +8,7 @@
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.--> 
-    	<step type="whiteboard" delay="0" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module3_pic1.jpg">SHOW_IMAGE</step>
+    	<step type="whiteboard" delay="0" path="https://erebor.lti.cs.cmu.edu/images/Physics_Module3_pic1.jpg">SHOW_IMAGE</step>
         <step type="prompt" delay="5" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
         <step type="greet" timeout="30" delay="5">GREETINGS</step>
     </stage>
@@ -27,7 +27,7 @@
     </stage>
     
     <stage name="stageB" type="other" delay="0">
-    	<step type="whiteboard" delay="0" path="http://ankara.lti.cs.cmu.edu/images/Physics_Module3_pic2.jpg">SHOW_IMAGE</step>
+    	<step type="whiteboard" delay="0" path="https://erebor.lti.cs.cmu.edu/images/Physics_Module3_pic2.jpg">SHOW_IMAGE</step>
         <step type="prompt" delay="15" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B2" >PROMPT_STEP_B2</step>
         <step type="gated" gated_type="listen" timeout="45" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
