@@ -10,6 +10,16 @@
        <text>Okay, let's get ready to finish up this step.</text>
     </prompt>
         
+    <!-- for MOVE_AT_START -->    
+    <prompt strategy="task" id="MOVE_AT_START">
+       <text>We will start the activity soon. Type "ready" when you are ready to move on.</text>
+    </prompt>
+        
+    <!-- for READY_AFTER_READING -->    
+    <prompt strategy="task" id="READY_AFTER_READING">
+       <text>Type "ready" when you have read the above.</text>
+    </prompt>
+        
     <!-- for MOVE_ON_GENERIC -->    
     <prompt strategy="task" id="MOVE_ON_GENERIC">
        <text>Type "ready" when you are ready to move on.</text>
@@ -24,7 +34,7 @@
     </prompt>
            
     <prompt strategy="task" id="CHECK_FINAL_ANSWER_PHOTO">
-       <text>When you think you have come to a final answer, make sure it is consistent with the photo.</text>
+       <text>When you think you have come to a final answer, make sure it is consistent with the photo. Type "ready" when you are ready to move on.</text>
     </prompt>
     
     <prompt strategy="task" id="WAIT_FOR_CONSENSUS">

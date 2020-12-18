@@ -10,6 +10,11 @@
        <text>Okay, let's get ready to finish up this step.</text>
     </prompt>
         
+    <!-- for MOVE_AT_START -->    
+    <prompt strategy="task" id="MOVE_AT_START">
+       <text>We will start the activity soon. Type "ready" when you are ready to move on.</text>
+    </prompt>
+        
     <!-- for MOVE_ON_GENERIC -->    
     <prompt strategy="task" id="MOVE_ON_GENERIC">
        <text>Type "ready" when you are ready to move on.</text>

@@ -26,8 +26,20 @@
         <text>...</text>
     </prompt>
     
+    <prompt strategy="task" id="PROMPT_STEP_A0">
+        <text>Share something about yourself, such as, what is something that made you smile yesterday or today?</text>
+    </prompt>
+    
     <prompt strategy="task" id="PROMPT_STEP_A1">
-        <text>Click on the "Sharing Space" at the left to see an image of a Morpho butterfly.|A reflection grating reflects light from adjacent lines in the grating instead of allowing the light to pass through slits, as is the case with the so-called transmission gratings we have been studying. Interference between the reflected light waves produces reflection maxima. The angular deflection of bright bands, assuming perpendicular incidence, is calculated using the same equation as the angular deflection of transmitted light through a regular grating. White light is incident on the wing of a Morpho butterfly (whose wings act as a reflection grating).|Why do you see different color bands coming from the wings of the butterfly when white light shines on the wings?</text>
+        <text>Click on the "Sharing Space" at the left to see an image of a Morpho butterfly.|A reflection grating reflects light from adjacent lines in the grating instead of allowing the light to pass through slits, as is the case with the so-called transmission gratings we have been studying. Interference between the reflected light waves produces reflection maxima.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>The angular deflection of bright bands, assuming perpendicular incidence, is calculated using the same equation as the angular deflection of transmitted light through a regular grating.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2a">
+        <text>White light is incident on the wing of a Morpho butterfly (whose wings act as a reflection grating). Why do you see different color bands coming from the wings of the butterfly when white light shines on the wings?</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_A3">
@@ -39,19 +51,23 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_A5">
-        <text>Determine the angular deflection in first order (n = 1) of blue light (460 nm).</text>
+        <text>Now determine the angular deflection in first order (n = 1) of blue light (460 nm) incident on the butterfly’s wing.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_B1">
-        <text>An image of stars is displayed in the Sharing Space.|You may have noticed that stars have different colors—-some are white, some are yellowish, and some are reddish. Does this mean that stars of a red color do not emit any blue light?</text>
+        <text>We will now move on to an application. An image of stars is displayed in the Sharing Space.|You may have noticed that stars have different colors—-some are white, some are yellowish, and some are reddish. Does this mean that stars of a red color do not emit any blue light?</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_B2">
-        <text>Astronomers use an instrument called a spectrograph to analyze the color composition of starlight. The central mechanism of a spectrograph is a grating. Working with your group, design a simple version of a spectrograph, an apparatus that will allow you to separate different colors of light emitted by a lamp on your desk (that emits light very similar to the light emitted by many stars) and will also allow you to measure the wavelengths of these different colors.|Draw a picture of the apparatus and explain how it works.</text>
+        <text>Astronomers use an instrument called a spectrograph to analyze the color composition of starlight. The central mechanism of a spectrograph is a grating. Working with your group, design a simple version of a spectrograph, an apparatus that will allow you to separate different colors of light emitted by a lamp on your desk (that emits light very similar to the light emitted by many stars) and will also allow you to measure the wavelengths of these different colors.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>Draw a picture of the apparatus you’re designing, upload its URL into the Sharing Space, and explain how it works.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_C1">
-        <text>The activity is complete now. If you are curious to learn more about the colour of the wings of a morpho butterfly (beyond this class), please see the “introduction” section of this article: https://aapt-scitation-org.myaccess.library.utoronto.ca/doi/10.1119/1.3192768.|Please paste URL(s) for your results into the Sharing Space and remember to complete the peer marking assignment by ….|Have a great day!</text>
+        <text>The activity is complete now. If you are curious to learn more about the colour of the wings of a morpho butterfly (beyond this class), please see the “introduction” section of <a href="https://aapt-scitation-org.myaccess.library.utoronto.ca/doi/10.1119/1.3192768">this article</a>.|Note that you may save your discussion for future studying using the “Download Discussion Log” button. If you have further questions about this activity, please post on Piazza.|Have a great day!</text>
     </prompt>
  
 </prompts>

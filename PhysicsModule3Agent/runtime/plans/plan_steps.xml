@@ -13,24 +13,41 @@
         <step type="greet" timeout="30" delay="5">GREETINGS</step>
     </stage>
     
+    <stage name="stageA0" type="other" delay="0">
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_A0" >PROMPT_STEP_A0</step>
+        <step type="gated" gated_type="listen" timeout="90" delay="0" checkin_prompt="MOVE_AT_START">WAIT_STEP_A1</step>
+    </stage>
+    
     <stage name="stageA" type="other" delay="0">
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A1</step>
+        <step type="gated" gated_type="listen" timeout="60" delay="0" checkin_prompt="READY_AFTER_READING">WAIT_STEP_A1</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A2" >PROMPT_STEP_A2</step>
+        <step type="gated" gated_type="listen" timeout="60" delay="0" checkin_prompt="READY_AFTER_READING">WAIT_STEP_A1</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A2a" >PROMPT_STEP_A2a</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A1</step>
         
         <step type="prompt" delay="15" prompt="PROMPT_STEP_A3" >PROMPT_STEP_A3</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step>
-        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="CHECK_FINAL_ANSWER_REASONABLE">WAIT_STEP_A3</step>
+        <step type="gated" gated_type="listen" timeout="840" delay="0" checkin_prompt="CHECK_FINAL_ANSWER_REASONABLE">WAIT_STEP_A3</step>
         
         <step type="prompt" delay="15" prompt="PROMPT_STEP_A5" >PROMPT_STEP_A5</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step>
-        <step type="gated" gated_type="listen" timeout="780" delay="0" checkin_prompt="CHECK_FINAL_ANSWER_PHOTO">WAIT_STEP_A5</step>
+        <step type="gated" gated_type="listen" timeout="540" delay="0" checkin_prompt="CHECK_FINAL_ANSWER_PHOTO">WAIT_STEP_A5</step>
     </stage>
     
     <stage name="stageB" type="other" delay="0">
     	<step type="whiteboard" delay="0" path="https://erebor.lti.cs.cmu.edu/images/Physics_Module3_pic2.jpg">SHOW_IMAGE</step>
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B1</step>
+        
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B2" >PROMPT_STEP_B2</step>
-        <step type="gated" gated_type="listen" timeout="1800" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B3" >PROMPT_STEP_B2</step>
+        <step type="gated" gated_type="listen" timeout="1200" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B3</step>
+
     </stage>
     
     <stage name="stageC" type="other" delay="0">

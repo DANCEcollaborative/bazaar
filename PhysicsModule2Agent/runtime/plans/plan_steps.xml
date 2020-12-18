@@ -12,12 +12,17 @@
         <step type="greet" timeout="30" delay="5">GREETINGS</step>
     </stage>
     
+    <stage name="stageA0" type="other" delay="0">
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_A0" >PROMPT_STEP_A0</step>
+        <step type="gated" gated_type="listen" timeout="90" delay="0" checkin_prompt="MOVE_AT_START">WAIT_STEP_A1</step>
+    </stage>
+    
     <stage name="stageA" type="other" delay="0">
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
         <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A1</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
-        <step type="gated" gated_type="listen" timeout="480" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A3" >Prompt_Step_A3</step>
         <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A3</step>
@@ -25,24 +30,24 @@
     
     <stage name="stageB" type="other" delay="0">
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B1</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B1</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B2" >Prompt_Step_B2</step>
-        <step type="gated" gated_type="listen" timeout="420" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>
+        <step type="gated" gated_type="listen" timeout="480" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B3" >Prompt_Step_B3</step>
         <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B3</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B4" >Prompt_Step_B4</step>
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B4</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B4</step>
     </stage>
     
     <stage name="stageC" type="other" delay="0">
         <step type="prompt" delay="0" prompt="PROMPT_STEP_C1" >PROMPT_STEP_C1</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C1</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C1</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_C2" >Prompt_Step_C2</step>
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C2</step>
+        <step type="gated" gated_type="listen" timeout="360" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C2</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_C3" >Prompt_Step_C3</step>
         <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C3</step>
