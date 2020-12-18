@@ -287,7 +287,8 @@ ul.tab li a:focus, .active {
 	socket.on('updateimage', function (username, image_url) 
 	{
         anchor = appendImage(new Date(), username, image_url);
-        appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">image/URL.</a>');
+        // appendNote(new Date(), username, 'has shared an <a href="'+image_url+'">image/URL.</a>');  // Link works; doesn't show URL in message.
+        appendNote(new Date(), username, 'has shared an image/URL: <a href="'+image_url+'">'+image_url);   // Shows URL in message.
 		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
 	});
 	
