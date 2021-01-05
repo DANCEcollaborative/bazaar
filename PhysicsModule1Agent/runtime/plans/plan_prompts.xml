@@ -26,32 +26,88 @@
         <text>...</text>
     </prompt>
     
+    <prompt strategy="task" id="PROMPT_INTRO_1">
+        <text>Share something about yourself, such as your program of study or a hobby you have.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_INTRO_2">
+        <text>You will need paper and a pen or pencil (or a good drawing program on your computer) to practice drawing ray diagrams in this activity. A ruler or straight edge will also be helpful. If you have these materials but need to fetch them, please do so now.|We will begin in a couple of minutes, or you can type ‘ready’ when you are ready to begin.</text>
+    </prompt>
+    
     <prompt strategy="task" id="PROMPT_STEP_A1">
-        <text>Click on the Sharing Space to the left to examine a photo which shows a “1 FEET DEEP” sign on the side of a children’s pool. Discuss the following questions:|Why do some of the letters in “FEET DEEP” look different even though they are all painted the same size?|Why do you see multiple letters, even though each word is painted once?</text>
+        <text>You will find images and instructions for this activity in the "Activity Plan" tab to the left. In case you'd like your own link to the plan, it's at https://erebor.lti.cs.cmu.edu/images/Physics_Module1_Activity_Plan.pdf</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_A2">
-        <text>Use ray diagrams to account for all the effects in this image. Paste URL(s) for your images into the Sharing Space for discussion.</text>
+        <text>Examine the image of a swimming pool in the Activity Plan tab. It shows a “1 FEET DEEP” sign on the side of a children’s pool. Discuss the following questions:|Why do some of the letters in “FEET DEEP” look different even though they are all painted the same size?|Why do you see multiple letters, even though each word is painted once?|Take five minutes to discuss possible explanations.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>Now based on your discussion, use ray diagrams to account for all the effects in this image. Take up to five minutes for each of you to draw your own ray diagrams on paper or using a drawing program on your computer. I encourage you to use a ruler or straight edge. If feasible, if you can create a public URL for your image, you may share your images for discussion by pasting the URL for your images into the Sharing Space tab at the left.|Type ‘ready’ when you have drawn your diagram.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A4">
+        <text>I will now share one of my ray diagrams with you in the Sharing Space tab at the left. Which feature does this diagram correspond to, and how does it account for this feature? What does the black vertical arrow represent?|Discuss for up to 3 minutes, or type “ready” when you all agree.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A5">
+        <text>Compare this diagram to your diagram(s). Resolve any discrepancies. Why does my ray diagram include multiple rays coming from the top and the bottom of each “letter”? Take a couple of minutes to compare and discuss.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A6">
+        <text>I will share another ray diagram in the Sharing Space tab. Take up to 4 minutes to discuss my diagram and to compare and contrast my diagram to yours. What feature does it correspond to, and how does it account for this feature? What ideas did I need to apply to draw this diagram?.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A7">
+        <text>I will now share my last ray diagram with you in the Sharing Space. Take up to 4 minutes to discuss my diagram and to compare and contrast my diagram to yours. What feature does it correspond to, and how does it account for this feature? What ideas did I need to apply to draw this diagram?</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_B1">
-        <text>Transparent prism foil is part of a backlight system in LCD monitors that are widely used today. The upper figure on the left shows a magnified cross section of such a foil (the foil is about 0.15 mm thick). The foil consists of prismatic ridges with angles at their peaks. The index of refraction of the foil is 1.58. This foil has very interesting optical properties. When you shine a light beam perpendicular to one side of the foil, the beam splits in two symmetrical beams (see photo (a)). Do you see the two symmetrical beams?</text>
+        <text>We will now move on to Activity 2 in the Activity Plan. Examine the figures at the beginning of the activity, and read their descriptions.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_B2">
-        <text>When you turn the foil around and repeat the experiment, the light beam reflects from the foil and no light passes through (see figure (b)).</text>
+        <text>Your task is to determine which side of the foil (the flat or prism side) was facing the flashlight in experiment (a) and which in experiment (b). Discuss for up to ten minutes. Use ray diagrams and calculations to justify your answer.|If feasible, if you can create a public URL for your image, you may share your image by pasting the URL for your images into the Sharing Space for discussion. Remember it will help your learning if you can each draw your own diagram, even if you cannot share it now.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_B3">
-        <text>Your task is to determine which side of the foil (the flat or prism side) was facing the flashlight in experiment (a) and which in experiment (b). Use ray diagrams to justify your answer.</text>
+        <text>Check that you agree on the incident angles from air into the foil, and from the foil back into the air, for case (a) and case (b).</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_B4">
-        <text>How will the performance of the foil change if you cover the prism side of the foil with a layer of water (thick enough to fill and flatten the grooves)?</text>
+        <text>Do you agree on the refracted angles at each surface in case (a)?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B5">
+        <text>I will now share one of my diagrams with you in the Sharing Space. Did you draw a similar diagram? Which case, (a) or (b), does this diagram correspond to? Does this diagram support your argument?|Take 2-3 minutes to discuss and type "ready" when you are ready to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B6">
+        <text> I will share my diagram with you for the other case in the Sharing Space. Is this diagram consistent with your diagram(s)?|Take up to two minutes to discuss and type "ready" when you are ready to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B7">
+        <text>We will move on now to the last question. How will the performance of the foil change if you cover the prism side of the foil with a layer of water (thick enough to fill and flatten the grooves)? Take five minutes to discuss.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B8">
+        <text>If you don’t remember the index of refraction of water, remember you can look it up online.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B9">
+        <text>Can you use ray diagrams to support your arguments?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B10">
+        <text>Ok, now I will share my ray diagrams with you in the Sharing Space. Do my ray diagrams agree with yours? Do they support your arguments?|Discuss for 2-3 minutes and describe any discrepancies. Type "ready" when you are done.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_C1">
-        <text>The activity is complete now. Please paste URL(s) for your results into the Sharing Space and remember to complete the peer marking assignment by ….|Have a great day!</text>
+        <text>We will wrap up soon. Take two minutes to reflect. What, if anything, did you learn from this activity?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_D1">
+        <text>It is time for us to wrap up now. It has been a pleasure working with you.|The activity is now over.|Note you may save your discussion for future studying using the “Download Discussion Log” button. If you ran out of time for any part of the activity, you may work on it independently or with your study group at another time. Please post any questions you have on Piazza.</text>
     </prompt>
  
 </prompts>
