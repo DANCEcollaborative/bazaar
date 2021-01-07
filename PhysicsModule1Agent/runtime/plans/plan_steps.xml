@@ -28,7 +28,8 @@
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step>
     	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picA1.jpg">SHOW_IMAGE</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_A4</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A4a" >Prompt_Step_A4a</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_A4a</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A5" >Prompt_Step_A5</step>
         <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A5</step>
@@ -55,11 +56,13 @@
 
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B5" >Prompt_Step_B5</step>
     	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picB1.jpg">SHOW_IMAGE</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_B5</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B5a" >Prompt_Step_B5a</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_B5a</step>
 
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B6" >Prompt_Step_B6</step>
     	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picB2.jpg">SHOW_IMAGE</step>
-        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_B6</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B6a" >Prompt_Step_B6a</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_B6a</step>
 
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B7" >Prompt_Step_B7</step>
         <step type="prompt" delay="120" prompt="PROMPT_STEP_B8" >Prompt_Step_B9</step>
@@ -68,7 +71,8 @@
 
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B10" >Prompt_Step_B10</step>
     	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picB3.jpg">SHOW_IMAGE</step>
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_B10</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B10a" >Prompt_Step_B10a</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_STEP_B10a</step>
         
     </stage>
     
