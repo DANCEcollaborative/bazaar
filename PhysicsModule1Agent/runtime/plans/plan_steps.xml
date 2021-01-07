@@ -8,8 +8,8 @@
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.--> 
-        <step type="prompt" delay="30" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
-        <step type="greet" timeout="30" delay="0">GREETINGS</step>
+        <step type="prompt" delay="45" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
+        <!-- <step type="greet" timeout="30" delay="0">GREETINGS</step>   -->
         
         <step type="prompt" delay="0" prompt="PROMPT_INTRO_1" >PROMPT_INTRO_1</step>
         <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC_NO_READY">WAIT_INTRO_1</step>

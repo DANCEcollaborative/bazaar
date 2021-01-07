@@ -27,7 +27,11 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_INTRO_1">
-        <text>Share something about yourself, such as your program of study or a hobby you have.|We will start in a couple of minutes. Type ‘ready’ when you are ready to start.</text>
+        <text>I'm [AGENT NAME]. Tell the group your name and share something about yourself, such as your program of study or a hobby you have.|We will start in a couple of minutes. Type ‘ready’ when you are ready to start.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_INTRO_1_1">
+        <text>I'm [AGENT NAME]. Share your name and something about yourself, such as your program of study or a hobby you have.|We will start in a couple of minutes. Type ‘ready’ when you are ready to start.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_INTRO_2">
