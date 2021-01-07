@@ -17,7 +17,7 @@
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A0" >Prompt_Step_A0</step>
         <step type="gated" gated_type="listen" timeout="60" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A0</step>
     
-    	<step type="whiteboard" delay="0" path="https://erebor.lti.cs.cmu.edu/images/Physics_Module6_pic1.jpg">SHOW_IMAGE</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module6_pic1.jpg">SHOW_IMAGE</step>
         <step type="prompt" delay="15" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
         <step type="gated" gated_type="listen" timeout="480" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
@@ -33,7 +33,7 @@
     </stage>
     
     <stage name="stageB" type="other" delay="0">
-    	<step type="whiteboard" delay="0" path="https://erebor.lti.cs.cmu.edu/images/Physics_Module6_pic2-w-descrip.png">SHOW_IMAGE</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module6_pic2-w-descrip.png">SHOW_IMAGE</step>
         <step type="prompt" delay="10" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
         <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>
         
