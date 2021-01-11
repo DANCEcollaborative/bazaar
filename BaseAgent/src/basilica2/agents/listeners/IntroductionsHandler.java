@@ -122,7 +122,7 @@ public class IntroductionsHandler extends BasilicaAdapter
         	introduceText = prompter.lookup("INTRODUCE", slots); 
         }
         else {
-        	introduceText = prompter.lookup("INTRODUCE_1", slots); 
+        	introduceText = prompter.lookup("INTRODUCE", slots); 
         }
         // System.err.println("=====  numStudents: " + numStudents + "  ====="); 
         	      
