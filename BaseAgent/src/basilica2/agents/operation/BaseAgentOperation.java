@@ -442,6 +442,41 @@ public class BaseAgentOperation extends AgentOperation
 			this.launchAgent(room,hasUI);
 		}
 	}
+	
+	protected void processArgsNoUIConstantConditions(String[] args, String roomname, String conditionString)
+	{
+		OptionParser parser = new OptionParser();
+		parser.accepts("x").withRequiredArg().ofType(Integer.class).defaultsTo(0);
+		parser.accepts("y").withRequiredArg().ofType(Integer.class).defaultsTo(0);
+		parser.accepts("room").withRequiredArg().defaultsTo(roomname);
+		parser.accepts("outdir").withRequiredArg();
+		parser.accepts("condition").withRequiredArg();
+		parser.accepts("launch");
+		
+		OptionSet options = parser.parse(args);
+
+		String room = (String)options.valueOf("room");
+		
+		if(options.has("outdir"))
+		{
+			this.setSystemOutput((String)options.valueOf("outdir"), room);
+		}
+
+		// Set constant conditions
+		System.out.println("setting basilica2.agents.condition to '"+conditionString+"'");
+		log(Logger.LOG_NORMAL, "setting basilica2.agents.condition to '"+conditionString+"'");
+		System.setProperty("basilica2.agents.condition", conditionString);
+
+		
+		if(options.has("launch"))
+		{
+			System.out.println("launching...");
+			log(Logger.LOG_NORMAL, "launching hands-free!");
+			System.setProperty("basilica2.handsfree", "true");
+			this.launchAgent(room,false);
+		}
+	}
+
 
 	public Properties getProperties()
 	{
