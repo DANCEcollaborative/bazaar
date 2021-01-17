@@ -85,5 +85,39 @@
     <prompt strategy="task" id="PROMPT_STEP_C1">
         <text>The activity is complete now. Please paste URL(s) for your results into the Sharing Space and remember to complete the peer marking assignment by ….|Have a great day!</text>
     </prompt>
+       
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+    
+<!--     
+    <prompt strategy="task" id="END_GREETINGS">
+        <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
+    </prompt>
+ -->
  
 </prompts>

@@ -141,5 +141,39 @@
     <prompt strategy="task" id="PROMPT_STEP_D1">
         <text>It is time for us to wrap up now. It has been a pleasure working with you. The activity is now over.|Note you may save your discussion for future studying using the “Download Discussion Log” button. If you ran out of time for any part of the activity, you may work on it independently or with your study group at another time. Please post any questions you have on Piazza.|Have a nice day!</text>
     </prompt>
- 
+       
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+    
+<!--     
+    <prompt strategy="task" id="END_GREETINGS">
+        <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
+    </prompt>
+ -->    
+
 </prompts>
