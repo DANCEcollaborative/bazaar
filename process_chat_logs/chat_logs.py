@@ -15,6 +15,7 @@ import csv
 import datetime
 from datetime import timedelta
 import operator
+import os
 
 UTC_offset = 5
 row_list = []
@@ -23,6 +24,22 @@ room_name_prefix = ""
 
 # users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
 users_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
+
+def create_filename (prefix, suffix):
+    # suffix includes the period, if any -- e.g., '.csv
+    filename = prefix + suffix
+    if os.path.isfile(filename):
+        extra = 1
+        while True:
+            extra += 1
+            new_filename = filename.split(suffix)[0] + "-" + str(extra) + ".txt"
+            if os.path.isfile(new_filename):
+                continue
+            else:
+                filename = new_filename
+                break
+    return filename
+
 
 
 # Process one chat_log room. Called with a valid start_index.
@@ -50,11 +67,11 @@ def process_room (chat_list, start_index):
 
     # If room has any non-excluded users, write out the chat log entries to a file named by room_name_prefix plus all non-excluded user IDs
     if len(user_list) > 0:
-        filename = room_name_prefix
+        file_prefix = room_name_prefix
         for i in range(len(user_list)):
-            filename += "_"
-            filename += user_list[i]
-        filename += ".csv"
+            file_prefix += "_"
+            file_prefix += user_list[i]
+        filename = create_filename(file_prefix,".csv")
         out_file = open(filename, 'w')
         writer = csv.writer(out_file)
         row_list=["timestamp","username","type","content"]
