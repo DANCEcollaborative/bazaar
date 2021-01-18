@@ -28,12 +28,8 @@ public class NewAgentRunner extends BaseAgentOperation {
 				NewAgentRunner thisOperation = new NewAgentRunner();
 				
 				// Launch from command line without UI
-				if (options.has("launch")) {
-					// Set conditions from agent's operations.properties file
-					String[] conditions = thisOperation.getProperties().getProperty("operation.conditions", "")
-							.split("[\\s,]+");
-					String conditionString = getConditionString(conditions);
-					thisOperation.processArgsNoUIConstantConditions(args,"Test01",conditionString);   
+				if (options.has("launch")) {				
+					thisOperation.processArgsNoUI(args);   
 				}
 				
 				else {
