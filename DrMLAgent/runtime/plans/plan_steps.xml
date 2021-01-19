@@ -46,4 +46,9 @@
         <step type="prompt" timeout="660" delay="0" prompt="PROMPT_STEP_11" >Prompt_Step_11</step>
     </stage>
     
+    <stage name="finish" type="other" delay="0">
+        <step type="prompt" delay="30" prompt="PROMPT_FINISH" >PROMPT_STEP_D1</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
 </plan>
