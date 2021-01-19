@@ -20,6 +20,7 @@ import os
 UTC_offset = 5
 row_list = []
 user_list = []
+user_count = 0;
 room_name_prefix = ""
 
 # users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
@@ -44,6 +45,7 @@ def create_filename (prefix, suffix):
 
 # Process one chat_log room. Called with a valid start_index.
 def process_room (chat_list, start_index):
+    global user_count
     user_list.clear()
     room_name = chat_list[start_index][5]
     next_room_name = room_name
@@ -67,6 +69,7 @@ def process_room (chat_list, start_index):
 
     # If room has any non-excluded users, write out the chat log entries to a file named by room_name_prefix plus all non-excluded user IDs
     if len(user_list) > 0:
+        user_count += len(user_list)
         file_prefix = room_name_prefix
         for i in range(len(user_list)):
             file_prefix += "_"
@@ -147,6 +150,8 @@ try:
     next_index = 0
     while next_index < len(sort):
         next_index = process_room(sort,next_index)
+
+    print(str(user_count) + " users")
 
 except NameError:
     print("Usage: python chat_logs.py <Bazaar_chat_log_file> <room_name_prefix> <target_start_mm/dd/yy> <target_start_hour> <target_end_mm/dd/yy> <target_end_hour>")
