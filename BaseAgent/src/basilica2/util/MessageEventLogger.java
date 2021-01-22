@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
-
 import org.apache.commons.lang3.StringEscapeUtils;
-
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import basilica2.agents.events.MessageEvent;
 
@@ -18,6 +16,7 @@ public class MessageEventLogger
 	private static HashMap<String, PrintWriter> agentLogs = new HashMap<String, PrintWriter>();
 	private static String defaultAgentName = "Agent";
 	private static boolean stampTime;
+	private static boolean logMessageEvents = false; 
 
 	public static void logMessageEvent(MessageEvent me)
 	{
@@ -44,18 +43,20 @@ public class MessageEventLogger
 
 	public static void logMessageEvent(MessageEvent me, Date now, String agentName, String comment)
 	{
-		PrintWriter agentLog = getLogger(agentName);
-		if(agentLog != null)
-		{
-			String text = sanitize(me.getText());
-			//System.out.printf("%1$td.%1$tm.%1$tY,%1$tH.%1$tM.%1$tS,%2$s,%3$s,%4$s\n", 
-			//		now, me.getFrom(), text, me.getAnnotationString());
-			agentLog.printf("%1$tY-%1$tm-%1$td,%1$tH:%1$tM:%1$tS,%2$d,%3$s,%4$s,%5$s,%6$s\n", 
-					now, me.getTypingDuration(), me.getFrom(), comment, text, me.getAnnotationString());
-			System.out.printf("%1$tY-%1$tm-%1$td,%1$tH:%1$tM:%1$tS,%2$d,%3$s,%4$s,%5$s,%6$s\n", 
-					now, me.getTypingDuration(), me.getFrom(), comment, text, me.getAnnotationString());
-			agentLog.flush();
-		}
+		if (logMessageEvents) {
+			PrintWriter agentLog = getLogger(agentName);
+			if(agentLog != null)
+			{
+				String text = sanitize(me.getText());
+				//System.out.printf("%1$td.%1$tm.%1$tY,%1$tH.%1$tM.%1$tS,%2$s,%3$s,%4$s\n", 
+				//		now, me.getFrom(), text, me.getAnnotationString());
+				agentLog.printf("%1$tY-%1$tm-%1$td,%1$tH:%1$tM:%1$tS,%2$d,%3$s,%4$s,%5$s,%6$s\n", 
+						now, me.getTypingDuration(), me.getFrom(), comment, text, me.getAnnotationString());
+				System.out.printf("%1$tY-%1$tm-%1$td,%1$tH:%1$tM:%1$tS,%2$d,%3$s,%4$s,%5$s,%6$s\n", 
+						now, me.getTypingDuration(), me.getFrom(), comment, text, me.getAnnotationString());
+				agentLog.flush();
+			}		
+		}		
 	}
 
 	private static PrintWriter getLogger(String agentName)
