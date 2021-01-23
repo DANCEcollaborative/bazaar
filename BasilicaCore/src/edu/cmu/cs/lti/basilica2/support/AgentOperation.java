@@ -71,10 +71,10 @@ public abstract class AgentOperation implements Runnable, LogUser, AgentObserver
             log(Logger.LOG_ERROR, "Cannot start when not ready");
             throw new UnsupportedOperationException("Attempt to start operation when not ready");
         }
-        log(Logger.LOG_NORMAL, "Starting operation");
+        // log(Logger.LOG_NORMAL, "Starting operation");
         myThread = new Thread(this);
         myThread.start();
-        log(Logger.LOG_NORMAL, "Operation started");
+        // log(Logger.LOG_NORMAL, "Operation started");
     }
 
     public void stopOperation() {

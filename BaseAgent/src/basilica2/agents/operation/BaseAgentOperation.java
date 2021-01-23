@@ -57,6 +57,7 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.JabberClient;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
+import basilica2.util.NullPrintStream;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.factory.AgentFactory;
@@ -119,6 +120,7 @@ public class BaseAgentOperation extends AgentOperation
 			no_condition_ui = Boolean.parseBoolean(properties.getProperty("operation.noconditionui"));
 			preprocessors = getClasses(properties.getProperty("operation.preprocessors"));
 			processors = getClasses(properties.getProperty("operation.listeners"));
+
 		}
 		catch (IOException ex)
 		{
@@ -319,8 +321,9 @@ public class BaseAgentOperation extends AgentOperation
 				System.setProperty(key, properties.getProperty(key));
 			}
 		}
-		else
-			System.out.println("BaseAgentOperation: no system properties at " + pf);
+		else {
+			// System.out.println("BaseAgentOperation: no system properties at " + pf);
+		}
 	}
 //	protected static Point getUILocationFromArgs(String[] args)
 //	{
@@ -343,6 +346,7 @@ public class BaseAgentOperation extends AgentOperation
 
 	protected void setSystemOutput(String outLogDirectory, final String roomName)
 	{
+		
     	DateFormat timeFormat = new SimpleDateFormat("yyyyMMdd-HHmm-ss");
 		File outDir = new File(outLogDirectory);
     	if(!outDir.exists())
@@ -370,6 +374,14 @@ public class BaseAgentOperation extends AgentOperation
     	}
     	
 	}
+	
+
+	protected void setSystemOutputToNull()
+	{
+		System.setOut(new NullPrintStream());
+		System.setErr(new NullPrintStream());
+	}
+	
 	public static void main(final String[] args)
 	{
 		
