@@ -92,7 +92,7 @@ public class PresenceWatcher extends BasilicaAdapter
 					news = new State();
 				}
 				news.addStudent(pe.getUsername());
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
 				StateMemory.commitSharedState(news, agent);
 				initiate(source, news);
 
@@ -120,7 +120,7 @@ public class PresenceWatcher extends BasilicaAdapter
 					news = new State();
 				}
 				news.addStudent(pe.getUsername());
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
 				StateMemory.commitSharedState(news, agent);
 				initiate(source, news);
 

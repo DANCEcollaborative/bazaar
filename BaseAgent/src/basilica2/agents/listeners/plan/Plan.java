@@ -18,23 +18,23 @@ class Plan
 
 	public boolean removeStep(String s)
 	{
-		Logger.commonLog("Plan", Logger.LOG_NORMAL, "removing '"+s+"' according to the plan status file");
+		// Logger.commonLog("Plan", Logger.LOG_NORMAL, "removing '"+s+"' according to the plan status file");
 		Iterator<String> stageIt = stages.keySet().iterator();
 		while(stageIt.hasNext())
 		{
 			String stageName = stageIt.next();
-			Logger.commonLog("Plan", Logger.LOG_NORMAL, "looking at stage "+stageName);
+			// Logger.commonLog("Plan", Logger.LOG_NORMAL, "looking at stage "+stageName);
 			
 			Stage stage = stages.get(stageName);
 			if(stageName.equals(s))
 			{
-				Logger.commonLog("Plan", Logger.LOG_NORMAL, "removing stage "+stageName);
+				// Logger.commonLog("Plan", Logger.LOG_NORMAL, "removing stage "+stageName);
 				stageIt.remove();
 				if(stages.containsKey(stage.nextStage))
 				{
 					timedone = Math.max(timedone, stages.get(stage.nextStage).timeout);
 					stages.get(stage.nextStage).timeout = 1;
-					Logger.commonLog("Plan", Logger.LOG_NORMAL, "setting timedone to "+timedone);
+					// Logger.commonLog("Plan", Logger.LOG_NORMAL, "setting timedone to "+timedone);
 				}
 				
 				return true;
@@ -46,17 +46,17 @@ class Plan
 				Step step = stage.steps.get(j);
 				if (step.name.equalsIgnoreCase(s))
 				{
-					Logger.commonLog("Plan", Logger.LOG_NORMAL, "removing step "+s);
+					// Logger.commonLog("Plan", Logger.LOG_NORMAL, "removing step "+s);
 					stage.steps.remove(j);
 					if (stage.steps.size() == 0)
 					{
-						Logger.commonLog("Plan", Logger.LOG_NORMAL, "clearing stage "+stageName);
+						// Logger.commonLog("Plan", Logger.LOG_NORMAL, "clearing stage "+stageName);
 						stageIt.remove();
 						if(stages.containsKey(stage.nextStage))
 						{
 							timedone = Math.max(timedone, stages.get(stage.nextStage).timeout);
 							stages.get(stage.nextStage).timeout = 1;
-							Logger.commonLog("Plan", Logger.LOG_NORMAL, "setting timedone to "+timedone);
+							// Logger.commonLog("Plan", Logger.LOG_NORMAL, "setting timedone to "+timedone);
 						}
 					}
 

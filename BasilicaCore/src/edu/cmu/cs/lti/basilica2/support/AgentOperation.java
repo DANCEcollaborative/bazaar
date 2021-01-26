@@ -52,14 +52,16 @@ public abstract class AgentOperation implements Runnable, LogUser, AgentObserver
     protected Logger myLogger;
     protected boolean ready = false,  running = false,  stopSignalled = false;
     private Thread myThread;
+	public Boolean noLogging = true;
+    
 
     public AgentOperation(String n) 
     {
     	if(n == null)
     		n = getClass().getSimpleName();
         myName = n;
-        myLogger = new Logger(this, myName);
-        myLogger.setConfiguration(true, true, true, false, false, false);
+        if (!noLogging) myLogger = new Logger(this, myName);
+        if (!noLogging) myLogger.setConfiguration(true, true, true, false, false, false);
         log(Logger.LOG_LOW, "Logger initialized");
         myAgents = new HashMap<String, Agent>();
         ready = true;
@@ -172,11 +174,11 @@ public abstract class AgentOperation implements Runnable, LogUser, AgentObserver
     }
 
     public void log(String level, String message) {
-        myLogger.log(myName, level, message);
+    	if (!noLogging) myLogger.log(myName, level, message);
     }
 
     public void log(String from, String level, String message) {
-        myLogger.log(from, level, message);
+    	if (!noLogging) myLogger.log(from, level, message);
     }
 
     public void agentInitialized(Agent a) {

@@ -40,7 +40,7 @@ public class ConditionalListenStepHandler implements StepHandler
 	@Override
 	public void execute(Step currentStep, final PlanExecutor overmind, InputCoordinator source)
 	{
-		Logger.commonLog("ConditionalListenStep", Logger.LOG_NORMAL, "starting facilitation step with condition "+condition);
+		// Logger.commonLog("ConditionalListenStep", Logger.LOG_NORMAL, "starting facilitation step with condition "+condition);
 
 		Agent a = overmind.getAgent();
 		if (doSocial && socializer == null)

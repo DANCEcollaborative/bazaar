@@ -102,7 +102,7 @@ public class BaseAgentOperation extends AgentOperation
 		myAgentUIs = new HashMap<String, AgentUI>();
 		roomnameQueue = new ArrayList<String>();
 
-		myLogger.setConfiguration(true, true, true, true, false, true);
+		if (!noLogging) myLogger.setConfiguration(true, true, true, true, false, true);
 	}
 
 	private void loadProperties(String pf)
@@ -144,7 +144,7 @@ public class BaseAgentOperation extends AgentOperation
 				log(Logger.LOG_ERROR, "Couldn't find class " + name);
 			}
 		}
-		Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "Classes: " + Arrays.toString(classes));
+		// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "Classes: " + Arrays.toString(classes));
 		return classes;
 	}
 

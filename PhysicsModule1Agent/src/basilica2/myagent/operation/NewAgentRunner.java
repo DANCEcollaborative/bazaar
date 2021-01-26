@@ -48,7 +48,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 					if (thisOperation.no_condition_ui) {
 						String conditionString = getConditionString(conditions);
 						System.setProperty("basilica2.agents.condition", conditionString);
-						Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
+						// Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
 						// thisOperation.startOperation();
 						thisOperation.launchAgent(room_name,false);
 					} 
@@ -151,8 +151,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 			myUI.setRoomName(room);
 			myUI.setLocation(new Point((Integer)options.valueOf("x"), (Integer)options.valueOf("y")));
 		}
-		
-		
+			
 		this.setSystemOutputToNull();
 		
 		if(options.has("condition"))

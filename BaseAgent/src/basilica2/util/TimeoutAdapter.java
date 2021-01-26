@@ -8,7 +8,7 @@ public abstract class TimeoutAdapter implements TimeoutReceiver
 	@Override
 	public void log(String from, String level, String msg)
 	{
-		Logger.commonLog(from, level, msg);
+		// Logger.commonLog(from, level, msg);
 	}
 
 }

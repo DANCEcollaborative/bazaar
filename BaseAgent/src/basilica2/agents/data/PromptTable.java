@@ -114,7 +114,7 @@ public class PromptTable
 		{
 			// log
 
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Unable to load prompts (" + e.toString() + ")");
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Unable to load prompts (" + e.toString() + ")");
 			e.printStackTrace();
 		}
 	}

@@ -27,6 +27,8 @@ services:
      - nodechat
     networks:
     - bazaar-net
+    environment:
+    - DEBUG=*
   front:
     build: ./ha-proxy
     image: bazaar/haproxy

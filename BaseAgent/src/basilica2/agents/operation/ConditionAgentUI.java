@@ -59,7 +59,7 @@ public class ConditionAgentUI extends BaseAgentUI
 			{
 				String conditions = getConditionString();
 				System.setProperty(conditionKey, conditions);
-				Logger.commonLog("ConditionAgentUI", Logger.LOG_NORMAL, "Conditions set to " + conditions);
+				// Logger.commonLog("ConditionAgentUI", Logger.LOG_NORMAL, "Conditions set to " + conditions);
 			}
 
 		};

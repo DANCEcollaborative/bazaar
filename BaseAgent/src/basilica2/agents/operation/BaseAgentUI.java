@@ -303,7 +303,7 @@ public class BaseAgentUI extends javax.swing.JFrame
 		// Logger.commonLog(agentName, Logger.LOG_NORMAL, "selected!");
 		if (widgets.containsKey(agentName))
 		{
-			Logger.commonLog(agentName + " Wizard", Logger.LOG_LOW, "displaying wizard UI for " + agentName);
+			// Logger.commonLog(agentName + " Wizard", Logger.LOG_LOW, "displaying wizard UI for " + agentName);
 			widgets.get(agentName).setVisible(true);
 		}
 	}

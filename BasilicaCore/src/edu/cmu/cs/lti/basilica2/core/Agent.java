@@ -57,6 +57,7 @@ public abstract class Agent implements LogUser
 	private String userName;
 	private String roomName;
 	public Boolean hasUI = true;    // default
+	public Boolean noLogging = true;
 	
 	
 
@@ -69,8 +70,8 @@ public abstract class Agent implements LogUser
 	{
 		setName(n);
 		syncMode = mode;
-		myLogger = new Logger(this, agentName);
-		myLogger.setConfiguration(true, true, true, true, false, true);
+		if (!noLogging) myLogger = new Logger(this, agentName);
+		if (!noLogging) myLogger.setConfiguration(true, true, true, true, false, true);
 
 		log(getClass().getSimpleName(),Logger.LOG_NORMAL,"CONFIGURING AGENT "+agentName);
 
@@ -273,15 +274,19 @@ public abstract class Agent implements LogUser
 	// log(Logger.LOG_LOW, "");
 	protected void log(String level, String message)
 	{
-		if (!(level.equals(Logger.LOG_LOW))) // ||level.equals(Logger.LOG_NORMAL)))
-			myLogger.log(agentName + ".AGENT", level, message);
+		if (!noLogging) {
+			if (!(level.equals(Logger.LOG_LOW))) // ||level.equals(Logger.LOG_NORMAL)))
+				myLogger.log(agentName + ".AGENT", level, message);
+		}
 	}
 
 	// For use by the components and connections
 	public void log(String from, String level, String message)
 	{
-		//if (!(level.equals(Logger.LOG_LOW))) // ||level.equals(Logger.LOG_NORMAL)))
-		myLogger.log(from, level, message);
+		if (!noLogging) {
+			//if (!(level.equals(Logger.LOG_LOW))) // ||level.equals(Logger.LOG_NORMAL)))
+			myLogger.log(from, level, message);
+		}
 	}
 
 	public void setLogging(boolean logging)

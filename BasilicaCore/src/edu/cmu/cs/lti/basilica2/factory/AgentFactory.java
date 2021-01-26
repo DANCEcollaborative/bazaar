@@ -102,6 +102,6 @@ public class AgentFactory {
 
     private void log(String m) 
     {
-    	Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,m);
+    	// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,m);
     }
 }

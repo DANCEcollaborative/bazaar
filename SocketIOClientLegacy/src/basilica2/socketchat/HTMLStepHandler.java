@@ -48,7 +48,7 @@ public class HTMLStepHandler implements StepHandler
 		{
 			String id = currentStep.attributes.get("id");
 		
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+id+":"+currentStep.name);
+			// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+id+":"+currentStep.name);
 			
 			Elements selection = soup.select("#"+id);
 			if(selection.size() > 0)
@@ -66,7 +66,7 @@ public class HTMLStepHandler implements StepHandler
 		
 //		String path = currentStep.attributes.get("path");
 //		
-//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+path+":"+currentStep.name);
+//		// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+path+":"+currentStep.name);
 //		
 //		try
 //		{

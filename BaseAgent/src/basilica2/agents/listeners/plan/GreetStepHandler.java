@@ -26,7 +26,7 @@ public class GreetStepHandler implements StepHandler
 		{
 			introducer = new IntroductionsHandler(overmind.getAgent());
 		}
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting greet step...");
+		// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting greet step...");
 		 
 		//when the introducer de-registers itself as a listener, end this step.
 		//alternatively, the introducer could queue a new StepDoneEvent to progress the plan.

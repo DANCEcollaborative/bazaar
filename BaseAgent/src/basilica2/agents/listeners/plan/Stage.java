@@ -47,14 +47,14 @@ class Stage
 				}
 				else if (nextStage == null || planExecutor.currentPlan.stages.get(nextStage).timeout == 0) //this stage has completed all of its steps and the next stage is not waiting on a timeout
 				{
-					Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL,"finished stage "+this.name);
+					// Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL,"finished stage "+this.name);
 					if (nextStage != null)
 					{
 						if (delay == 0)
 							planExecutor.activateStage(nextStage);
 						else
 						{
-							Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, delay+" second delay before next stage = "+nextStage);
+							// Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, delay+" second delay before next stage = "+nextStage);
 							new Timer(delay, nextStage, planExecutor).start();
 						}
 					}

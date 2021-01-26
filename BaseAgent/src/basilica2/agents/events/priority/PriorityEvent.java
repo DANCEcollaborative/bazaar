@@ -78,12 +78,12 @@ public class PriorityEvent extends Event
         {
             public void accepted(PriorityEvent p)
             {
-            	Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ACCEPTED! "+p);
+            	// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ACCEPTED! "+p);
             }
             
             public void rejected(PriorityEvent p)
             {
-            	Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"REJECTED!" + p);
+            	// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"REJECTED!" + p);
             }
         };
         this.source = source;
@@ -159,12 +159,12 @@ public class PriorityEvent extends Event
 		{
 			public void rejected(PriorityEvent p)
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"rejected! "+p);
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"rejected! "+p);
 			}
 			
 			public void accepted(PriorityEvent p)
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"accepted. "+p+".\nStarting blockout countdown... ");
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"accepted. "+p+".\nStarting blockout countdown... ");
 				ps.setTimeout(blockout);
 			}
 		});
@@ -191,12 +191,12 @@ public class PriorityEvent extends Event
 		{
 			public void rejected(PriorityEvent p)
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"rejected! "+p);
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"rejected! "+p);
 			}
 			
 			public void accepted(PriorityEvent p)
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"accepted. "+p+".\nStarting blockout countdown... ");
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"accepted. "+p+".\nStarting blockout countdown... ");
 				ps.setTimeout(blockout);
 			}
 		});

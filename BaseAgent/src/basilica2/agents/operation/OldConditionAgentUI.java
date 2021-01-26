@@ -53,7 +53,7 @@ public class OldConditionAgentUI extends BaseAgentUI
 						+ (socialBox.isSelected() ? "social " : "");
 				if (conditions.isEmpty()) conditions = "none";
 				System.setProperty(conditionKey, conditions);
-				Logger.commonLog("ConditionAgentUI", Logger.LOG_NORMAL, "Conditions set to " + conditions);
+				// Logger.commonLog("ConditionAgentUI", Logger.LOG_NORMAL, "Conditions set to " + conditions);
 			}
 
 		};

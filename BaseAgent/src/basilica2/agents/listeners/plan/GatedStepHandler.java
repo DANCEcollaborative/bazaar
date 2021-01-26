@@ -19,7 +19,7 @@ public class GatedStepHandler implements StepHandler
 	@Override
 	public void execute(final Step currentStep, final PlanExecutor overmind, final InputCoordinator source)
 	{
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting gated step...");
+		// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting gated step...");
 		if(gatekeeper == null)
 		{
 			Agent a = overmind.getAgent();

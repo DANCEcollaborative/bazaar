@@ -58,8 +58,8 @@ class PromptStepHandler implements StepHandler
 		catch (Exception e){}
 		
 		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
-		Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
-		+(rateLimited?", +"+wordsPerSecond+" wps":""));
+		// Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
+		// +(rateLimited?", +"+wordsPerSecond+" wps":""));
 	}
 
 	public PromptStepHandler(String promptsPath)
@@ -112,7 +112,7 @@ class PromptStepHandler implements StepHandler
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
 		makePromptProposal(source, delay, me, step.attributes);
-		Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
+		// Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
 		
 		new Timer(delay, new TimeoutReceiver()
 		{
@@ -120,7 +120,7 @@ class PromptStepHandler implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
-				Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+				// Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
 				overmind.stepDone();
 			}
 

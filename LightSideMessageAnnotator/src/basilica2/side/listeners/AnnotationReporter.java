@@ -21,7 +21,7 @@ public class AnnotationReporter  implements BasilicaListener
     {
         MessageEvent me = (MessageEvent)event;
        
-        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "repsonding to "+me.getFrom());
+        // Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "repsonding to "+me.getFrom());
         String agentName = source.getAgent().getUsername();
         
         MessageEvent report;

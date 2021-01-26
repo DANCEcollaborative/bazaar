@@ -151,7 +151,7 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 
 	void activateStage(String id)
 	{
-		Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "Firing Stage '" + id + "'");
+		// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "Firing Stage '" + id + "'");
 
 		if (currentPlan.currentStage != null)
 		{
@@ -233,8 +233,8 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 			String currentStep = currentPlan.getCurrentStep();
 			if(currentStep != null)
 			{
-				Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL,
-						"starting " + interstepDelay + " second delay timer for " + currentStep);
+				// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL,
+				//		"starting " + interstepDelay + " second delay timer for " + currentStep);
 				interStepTimer = new Timer(interstepDelay, currentStep, this);
 				interStepTimer.start();
 			}
@@ -252,19 +252,19 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 				|| (currentPlan != null && currentPlan.currentStage != null && id.equals(currentPlan.currentStage.currentStep.name)))
 		{
 			clearHelpers();
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: current step done: " + id);
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: current step done: " + id);
 			currentPlan.currentStage.progressStage(source);
 
 		}
 		else if (id != null && ((currentPlan.currentStage != null && id.equals(currentPlan.currentStage.nextStage)) || currentPlan.stages.containsKey(id)))
 		{
 			clearHelpers();
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: activating next stage: " + id);
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: activating next stage: " + id);
 			activateStage(id);
 		}
 		else
 		{
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING, "PLAN: no idea what to do with timeout key " + id);
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING, "PLAN: no idea what to do with timeout key " + id);
 		}
 	}
 

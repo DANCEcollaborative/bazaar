@@ -295,7 +295,7 @@ public class ConcertChatClient extends WhiteboardActor  implements ChannelListen
 
 	void initApplication()
 	{
-		Logger.commonLog("CCListener", Logger.LOG_NORMAL, "initializing CC application...");
+		// Logger.commonLog("CCListener", Logger.LOG_NORMAL, "initializing CC application...");
 		this.application = (IChatApplication) ImplementationsFactory.createObject(application_class);
 		application.setSession(this.session);
 		this.session.getChannel().addChannelListener(this);
@@ -308,7 +308,7 @@ public class ConcertChatClient extends WhiteboardActor  implements ChannelListen
 			IUser u = UserManager.getUserForUID(users.getValueAt(i, 0));
 			PresenceEvent e = new PresenceEvent(this, u.getHandleName(), PresenceEvent.PRESENT);
 
-			Logger.commonLog("CCListener", Logger.LOG_NORMAL, "sending presence event for extant user "+u.getHandleName());
+			// Logger.commonLog("CCListener", Logger.LOG_NORMAL, "sending presence event for extant user "+u.getHandleName());
 			this.broadcast(e);
 		}
 	}
@@ -336,7 +336,7 @@ public class ConcertChatClient extends WhiteboardActor  implements ChannelListen
 			 this.broadcast(typing);
 		 }
 
-		 Logger.commonLog("CCListener", Logger.LOG_NORMAL, "AWARENESS: "+user.getHandleName()+" "+type+": "+param);
+		 // Logger.commonLog("CCListener", Logger.LOG_NORMAL, "AWARENESS: "+user.getHandleName()+" "+type+": "+param);
 		
 	}
 

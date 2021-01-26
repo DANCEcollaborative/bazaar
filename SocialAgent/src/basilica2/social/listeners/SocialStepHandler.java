@@ -20,7 +20,7 @@ public class SocialStepHandler implements StepHandler
 	@Override
 	public void execute(Step currentStep, PlanExecutor overmind, InputCoordinator source)
 	{
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting social step...");
+		// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting social step...");
 		if(socializer == null)
 		{
 			Agent a = overmind.getAgent();

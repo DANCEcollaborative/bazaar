@@ -62,7 +62,7 @@ public class Step {
 
         if(timeout > 0)
         {
-        	Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting "+timeout+" second timeout for "+name);
+        	// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting "+timeout+" second timeout for "+name);
         	new Timer(timeout, this.name, planExecutor).start();
         }
         
@@ -78,7 +78,7 @@ public class Step {
 	{
 
         Collection<StepHandler> handlers = planExecutor.getHandlers(stepType);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Handlers for "+this.name+"("+stepType+"): "+handlers);
+        // Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Handlers for "+this.name+"("+stepType+"): "+handlers);
         
 		if(handlers != null && !handlers.isEmpty())
 	        for(StepHandler mrHandy : handlers)
@@ -86,7 +86,7 @@ public class Step {
 	        	mrHandy.execute(this, planExecutor, planExecutor.source);
 	        }
 		else
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING, "No step handlers for step type "+stepType+" ("+this.name+")");
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING, "No step handlers for step type "+stepType+" ("+this.name+")");
 
         planExecutor.updatePlanStatusFile(name);
 		

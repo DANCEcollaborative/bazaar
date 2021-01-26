@@ -33,7 +33,7 @@ public class WhiteboardStepHandler implements StepHandler
 			}
 			catch(NumberFormatException e)
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_ERROR,currentStep.attributes.get("loc")+" could not be parsed as a Point.");
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_ERROR,currentStep.attributes.get("loc")+" could not be parsed as a Point.");
 			}
 		}
 		
@@ -45,7 +45,7 @@ public class WhiteboardStepHandler implements StepHandler
 			}
 			catch(NumberFormatException e)
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_ERROR,currentStep.attributes.get("scale")+" could not be parsed as a Double.");
+				// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_ERROR,currentStep.attributes.get("scale")+" could not be parsed as a Double.");
 			}
 		}
 		
@@ -56,7 +56,7 @@ public class WhiteboardStepHandler implements StepHandler
 			path = currentStep.attributes.get("path");
 		}
 		
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+label+":"+currentStep.name);
+		// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,currentStep.type+" "+label+":"+currentStep.name);
 		
 		System.err.println("WhiteboardStepHandler: pushing Whiteboard event"); 
 		source.pushProposal(new PriorityEvent(source, WhiteboardEvent.makeWhiteboardImage(path, label, loc, source, currentStep.attributes.containsKey("delete")), 

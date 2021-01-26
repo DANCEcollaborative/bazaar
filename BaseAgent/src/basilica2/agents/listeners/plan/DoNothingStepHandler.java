@@ -33,7 +33,7 @@ class DoNothingStepHandler implements StepHandler
 
 	public void execute(Step step, PlanExecutor overmind, InputCoordinator source)
 	{
-		Logger.commonLog("DoNothingStepHandler", Logger.LOG_NORMAL, "DoNothingStepHandler does nothing.");
+		// Logger.commonLog("DoNothingStepHandler", Logger.LOG_NORMAL, "DoNothingStepHandler does nothing.");
 		overmind.stepDone();
 	}
 }

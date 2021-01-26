@@ -25,7 +25,7 @@ public final class EndStepOnStopListeningDelegate implements ListenerListener
 	 {
 	     if(overmind.currentPlan.getCurrentStep().equals(myStep))
 	     {
-	    	 Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ending step "+myStep+"...");
+	    	 // Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ending step "+myStep+"...");
 	    	 overmind.stepDone();
 	     }
 	 }

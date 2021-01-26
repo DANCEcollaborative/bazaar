@@ -20,7 +20,7 @@ public class PropertiesLoader
 					propertiesFile = new File("properties"+File.separator+path);
 					if(!propertiesFile.exists())
 					{
-						Logger.commonLog("PropertiesLoader",Logger.LOG_ERROR,"no properties file at "+path);
+						// Logger.commonLog("PropertiesLoader",Logger.LOG_ERROR,"no properties file at "+path);
 						return properties;
 					}
 				}

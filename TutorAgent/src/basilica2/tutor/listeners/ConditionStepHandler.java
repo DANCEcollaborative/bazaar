@@ -21,7 +21,7 @@ public class ConditionStepHandler implements StepHandler
 		String condition = System.getProperty("basilica2.agents.condition", "inactive");
 		if(condition.equals("active")||condition.equals("target"))
 		{
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting conditionalized step... "+currentStep.name);
+			// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting conditionalized step... "+currentStep.name);
 			String type = "prompt";
 			if(currentStep.attributes.containsKey("gated_type"))
 			{
@@ -32,7 +32,7 @@ public class ConditionStepHandler implements StepHandler
 		}
 		else
 		{
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"skipping conditionalized step "+currentStep.name);
+			// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"skipping conditionalized step "+currentStep.name);
 			overmind.stepDone();
 		}
 	}

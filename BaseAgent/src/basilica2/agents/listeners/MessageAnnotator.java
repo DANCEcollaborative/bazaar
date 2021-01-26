@@ -93,7 +93,7 @@ public class MessageAnnotator implements BasilicaPreProcessor
 		}
 		catch (Exception e)
 		{
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error while updating Status File (" + e.toString() + ")");
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error while updating Status File (" + e.toString() + ")");
 		}
 	}
 
@@ -118,7 +118,7 @@ public class MessageAnnotator implements BasilicaPreProcessor
 		}
 		catch (Exception e)
 		{
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error while reading Dictionary: " + dict.getName() + " (" + e.toString() + ")");
+			// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error while reading Dictionary: " + dict.getName() + " (" + e.toString() + ")");
 		}
 		return dictionary;
 	}
@@ -149,7 +149,7 @@ public class MessageAnnotator implements BasilicaPreProcessor
 			}
 			catch (Exception e)
 			{
-				Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "problem matching against line " + j + ": " + entry);
+				// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "problem matching against line " + j + ": " + entry);
 			}
 
 		}
@@ -188,7 +188,7 @@ public class MessageAnnotator implements BasilicaPreProcessor
 		//old rohitk
 //		updateAnnotations(me.getFrom(), me.getText(), newme.getAnnotationString(), source.getAgent().getName());
 
-		//Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "annotations:" + newme.getAnnotationString());
+		//// Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "annotations:" + newme.getAnnotationString());
 		// source.addPreProcessingEvent(newme);
 	}
 
