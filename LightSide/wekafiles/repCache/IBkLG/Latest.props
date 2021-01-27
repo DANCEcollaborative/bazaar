@@ -1,0 +1,38 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=IBkLG
+
+# Version (required)
+Version=1.0.1
+
+#Date (year-month-day)
+Date=2015-01-15
+
+# Title (required)
+Title=Log and Gaussian kernel for K-NN
+
+# Category (recommended)
+Category=Classification
+
+# Author (required)
+Author=Shesha Sreenivasamurthy <ssreeniv@ucsc.edu>
+
+# Maintainer (required)
+Maintainer=Shesha Sreenivasamurthy <ssreeniv@ucsc.edu>
+
+# License (required)
+License=The MIT License (MIT)
+
+# Description (required)
+Description=In K-NN distance can be weighted distance such as Inverse of the distance or based on similarity. Similarly, here one can associate weights based on the negative logarithm or another intuitive way is to associate a gaussian. A gaussian is assumed around each and every K-Nearest neighbor and weights are associated relative to the distance of the neighbor from the mean in the gaussian. This package extents the base IBk class to add these two kernels to K-NN algorithm.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/sheshas/IBkLG/blob/master/IBkLG.zip?raw=true
+
+# URL for further information
+URL=https://github.com/sheshas/IBkLG
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.11)

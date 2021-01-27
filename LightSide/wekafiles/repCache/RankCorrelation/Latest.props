@@ -1,0 +1,37 @@
+# Package name (required)
+PackageName=RankCorrelation
+
+# Version (required)
+Version=1.0.0
+
+#Date
+Date=2016-10-09
+
+# Title (required)
+Title=Rank Correlation Evaluation Metrics
+
+Category=Metrics
+
+# Author (required)
+Author=Quan Sun <quan.sun.nz@gmail.com>
+
+# Maintainer (required)
+Maintainer=felipebravom <fjb11@students.waikato.ac.nz>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Provides rank correlation coefficient metrics Kendall tau and Spearman rho for evaluating regression schemes in WEKA. 
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/felipebravom/RankCorrelation/releases/download/v1.0.0/RankCorrelation1.0.0.zip
+
+# URL for further information
+URL=https://github.com/felipebravom/RankCorrelation
+
+# Related to other packages?
+#Related=
+
+# Dependencies
+Depends=weka (>=3.7.1)

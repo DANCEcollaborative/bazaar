@@ -1,0 +1,38 @@
+# Template Description file for a Weka package
+#
+# 
+
+# Package name (required)
+PackageName=DMI
+
+# Version (required)
+Version=1.1
+
+#Date
+Date=2018-08-18
+
+# Title (required)
+Title=DMI
+
+Category=Preprocessing
+
+# Author (required)
+Author=Michael Furner
+
+# Maintainer (required)
+Maintainer=Michael Furner <mfurner@csu.edu.au>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Class that implements the DMI imputation algorithm for imputing missing values in a dataset. DMI splits the dataset into horizontal segments using a C4.5 (J48) decision tree in order to  increase the correlation between attributes for EMI. EMI is performed to impute missing numerical attribute values and mean/mode (within a leaf) imputation is used to perform missing categorical attribute values. Uses Amri Napolitano's EMI implementation for Weka.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://csusap.csu.edu.au/~zislam/code/DMI.zip
+
+# URL for further information
+URL=http://csusap.csu.edu.au/~zislam/
+
+# Dependencies
+Depends=weka (>=3.7.1), EMImputation (>=1.0.1)

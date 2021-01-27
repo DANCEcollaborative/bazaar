@@ -1,0 +1,48 @@
+# Package name (required)
+PackageName=WekaPyScript
+
+# Version (required)
+Version=0.5.0
+
+#Date
+Date=22-04-2016
+
+# Title (required)
+Title=WekaPyScript
+
+Category=Classification
+
+# Author (required)
+Author=Christopher Beckham
+
+# Maintainer (required)
+Maintainer=Christopher Beckham <christopher dot j dot beckham at gmail dot com>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Classifiers (classification and regression) and filters that are able to call arbitrary Python scripts that conform to the structure expected by this package.
+
+# Changes=
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/christopher-beckham/weka-pyscript/releases/download/0.5.0/WekaPyScript.zip
+
+# URL for further information
+URL=http://github.com/christopher-beckham/weka-pyscript
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+#Related=
+
+# Dependencies
+Depends=weka (>=3.7.13-SNAPSHOT), wekaPython (>=1.0.0)
+
+MessageToDisplayOnInstallation=This package depends on wekaPython, and therefore requires Python to be installed,\n\
+ and it must be in the $PATH variable as well. It also requires that numpy, pandas, and scikit-learn to be installed.\n\
+ The easiest way to accomplish this is to download the Anaconda distribution Python (either 2.7 or 3.4).\n\
+ Also, ensure that after this package is installed, you install the PyScript module located in\n\
+ ${WEKA_HOME}/PyScriptClassifier, by running: python setup.py install

@@ -1,0 +1,36 @@
+# Package name (required)
+PackageName=BANGFile
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2018-03-11
+
+# Title (required)
+Title=BANG-File Clustering
+
+# Category (recommended)
+Category=Clustering
+
+# Author (required)
+Author=Florian Fritz <florian.fritzi@gmail.com>
+
+# Maintainer (required)
+Maintainer=Florian Fritz <florian.fritzi@gmail.com>
+
+# License (required)
+License=GPLv3
+
+# Description (required)
+Description=The BANG file is a multidimensional structure of the grid file type.<br/>It organizes the value space surrounding the data values, instead of comparing the data values themselves.<br/>Its tree structured directory partitions the data space into block regions with successive binary divisions on dimensions.<br/>The clustering algorithm identifies densely populated regions as cluster centers and expands those with neighboring blocks.<br/><br/>Inserted data has to be normalized to an interval [0, 1].
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/fritziF/BANGFile-WekaPackage/releases/download/v1.0/BANGFile.zip
+
+# URL for further information
+URL=https://github.com/fritziF/BANGFile-WekaPackage
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.1)
+
