@@ -38,11 +38,20 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 - On PC:
   - Follow [these instructions](https://adoptopenjdk.net/installation.html).
 
+
+# Install this repository
+  - Commands:
+    - git clone https://github.com/DANCEcollaborative/bazaar.git bazaar
+    - cd bazaar/LightSide
+    - ant build
+    - cd ../Genesis-Plugins
+    - ant build
+
 # Install and run the canonical Docker version in an IDE
 - Installing
  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
+ - [Install this repository](https://github.com/DANCEcollaborative/bazaar/tree/master).
  - Install Eclipse Java Enterprise or another IDE.
- - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
  - [Install and run Docker Desktop](https://docs.docker.com)
 - Running
  - In a terminal window
