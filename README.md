@@ -38,7 +38,6 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 - On PC:
   - Follow [these instructions](https://adoptopenjdk.net/installation.html).
 
-
 # Install this repository
   - Commands:
     - git clone https://github.com/DANCEcollaborative/bazaar.git bazaar
@@ -46,6 +45,15 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
     - ant build
     - cd ../Genesis-Plugins
     - ant build
+
+# Install in Eclipse
+(For other IDEs, use an equivalent procedure)
+  - From Welcome window, select "Import existing projects."
+  - Select root directory: Select the directory into which installed this repository -- e.g., 'bazaar'.
+  - Select "Search for nested projects."
+  - Unselect project 'lightside'.
+    - Explanation (optional): The LightSide project is imported as a subtree directly from the [LightSideWorkBench/LightSide repo](https://github.com/LightSideWorkbench/LightSide), where it has a .project file for use as a stand-alone project. Within Bazaar, the LightSide code needs to be referenced within the Genesis-Plugins project (that's part of what the 'ant build's were for during repository installation) rather than as a stand-alone project.
+  - Click "Finish."
 
 # Install and run the canonical Docker version in an IDE
 - Installing
