@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins>
+    <!--FileParser-->
+	<plugin>
+		<name>CSV Parser</name>
+		<author>Andrew Latterner</author>
+		<version>1.0</version>
+		<description>Build DocumentList From CSV file></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.input.CSVParser</classname>
+	</plugin>
+	<plugin>
+		<name>ARFF Parser</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>Build DocumentList From ARFF file></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.input.ARFFParser</classname>
+	</plugin>
+	
+    <!--FeaturePlugin-->
+    <!--     <plugin>
+		<name>Example Features</name>
+		<author>Your Fine Self</author>
+		<version>0.1</version>
+		<description>Example of a FeaturePlugin</description>
+		<jarfile>example.jar</jarfile>
+		<classname>example.features.WordMatchingExamplePlugin</classname>
+	</plugin> -->
+	
+	<plugin>
+		<name>Basic Features</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic TagHelper-like Features</description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.BasicFeatures</classname>
+	</plugin> 
+	 <plugin>
+        <name>Language Selection</name>
+        <author>Elijah Mayfield</author>
+        <version>1.0</version>
+        <description>Tokenizer and POS tagger choice that other features rely on</description>
+        <jarfile>genesis.jar</jarfile>
+        <classname>plugins.features.InternationalTokenSettings</classname>
+    </plugin>
+
+	<plugin>
+		<name>Column Features</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic Metadata from Columns</description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.ColumnFeatures</classname>
+	</plugin>
+
+	<plugin>
+		<name>Stretchy Patterns</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>Stretchy Pattern Features</description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.StretchPatterns</classname>
+	</plugin>
+
+	<plugin>
+		<name>Regular Expression Features</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>Regular Expressions From Text</description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.RegexFeatures</classname>
+	</plugin>
+	
+	<plugin>
+		<name>English Parse Features</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>features from parsing</description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.ParseFeatures</classname>
+	</plugin>
+	
+	<plugin>
+		<name>Character N-Grams</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>character-level subsequences</description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.CharacterNGrams</classname>
+	</plugin>
+
+	<!-- <plugin> 
+	   <name>Predicted Annotation Feature</name> 
+	   <author>David Adamson</author> 
+		<version>1.0</version> 
+		<description>Extraction of (Predicted) Class 
+		Label from Previous Turns (for sequential data)></description> 
+		<jarfile>genesis.jar</jarfile> 
+		<classname>plugins.features.PredictedAnnotationFeatures</classname>
+     </plugin> -->
+
+	<!-- <plugin> 
+	   <name>Sequential Features</name> 
+	   <author>David Adamson</author> 
+		<version>1.0</version> 
+		<description>Extraction of Features from 
+		Previous Turns (for sequential data)></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.features.SequentialFeatures</classname> 
+    </plugin> -->
+
+    <!--RestructurePlugin-->
+	<plugin>
+		<name>GrowthModel</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Growth Model filter></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.restructure.GrowthModel</classname>
+	</plugin>
+
+<!-- 	<plugin>
+		<name>Regroup Features</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Regroup instances by column></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.restructure.RegroupPlugin</classname>
+	</plugin> -->
+
+	<plugin>
+		<name>Filter Feature Values</name>
+		<author>David Adamson</author>
+		<version>0.5</version>
+		<description>Filter Instances By Feature Value></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.restructure.filter.FeatureValueFilter</classname>
+	</plugin>
+
+	<plugin>
+		<name>Combine Features</name>
+		<author>David Adamson</author>
+		<version>0.5</version>
+		<description>Combine Features></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.restructure.combine.FeatureCombinerPlugin
+		</classname>
+	</plugin>
+	
+	<plugin>
+        <name>Combine Feature Tables</name>
+        <author>David Adamson</author>
+        <version>0.1</version>
+        <description>Combine Feature Tables</description>
+        <jarfile>genesis.jar</jarfile>
+        <classname>plugins.restructure.CombineFeatureTablesPlugin</classname>
+    </plugin>
+
+	<plugin>
+        <name>Change Feature Table Class</name>
+        <author>David Adamson</author>
+        <version>0.1</version>
+        <description>Change Feature Table Class</description>
+        <jarfile>genesis.jar</jarfile>
+        <classname>plugins.restructure.ChangeFeatureTableClassPlugin</classname>
+    </plugin>
+
+    <!--FeatureMetricPlugins-->
+	<plugin>
+		<name>Basic Feature Evaluations</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic Fscore evaluations></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.metrics.features.tables.BasicFeatureEvaluations
+		</classname>
+	</plugin>
+
+	<plugin>
+		<name>Model Feature Evaluations</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic evaluations of confusion in a matrix></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.metrics.features.models.ErrorAnalysisFeatureMetrics
+		</classname>
+	</plugin>
+
+	<plugin>
+		<name>Feature Influence Evaluations</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>Prediction-powered evaluations of confusion in a matrix></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.metrics.features.models.TrainedModelFeatureEvaluations
+		</classname>
+	</plugin>
+
+    <!--ModelMetricPlugin-->
+
+	<plugin>
+		<name>Basic Model Evaluation Plugins</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic model accuracy evaluations></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.metrics.models.BasicModelEvaluations</classname>
+	</plugin>
+	
+    <!-- <plugin>
+        <name>Advanced Model Evaluations</name>
+        <author>Elijah Mayfield</author>
+        <version>1.0</version>
+        <description><![CDATA[Basic Fscore evaluations]]></description>
+        <jarfile>warpcore.jar</jarfile>
+        <classname>com.lightsidelabs.plugins.metrics.models.AdvancedModelEvaluations
+        </classname>
+    </plugin> -->
+
+    <!--EvaluateOneModelPlugin-->
+
+	<plugin>
+		<name>Basic Model Analysis Plugins</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic error analysis></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.analysis.one.metric.FeatureMetricAnalysis
+		</classname>
+	</plugin>
+
+	<plugin>
+		<name>Document Display Plugins</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic document display for error analysis></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.analysis.one.display.DocumentsDisplay</classname>
+	</plugin>
+
+
+
+	<plugin>
+		<name>Label Distributions</name>
+		<author>David Adamson</author>
+		<version>1.0</version>
+		<description>Ensemble Learning for ACL 2013></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.analysis.one.metric.ExploreModelDistributions
+		</classname>
+	</plugin>
+
+	<plugin>
+		<name>Model Text Output</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Model text output (from weka right now)></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.analysis.one.text.ModelTextOutput</classname>
+	</plugin>
+
+
+    <!--EvaluateOneModelPlugin-->
+
+	<plugin>
+		<name>Basic Model Comparison Plugins</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Basic model comparisons></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.analysis.two.BasicModelComparison</classname>
+	</plugin>
+
+	<plugin>
+		<name>Difference Matrix Plugin</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Difference matrix comparisons></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.analysis.two.matrix.DifferenceMatrixPlugin
+		</classname>
+	</plugin>
+
+    <!--WrapperPlugin-->
+
+	<plugin>
+		<name>Feature Selection</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Chi squared feature selection></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.wrappers.FeatureSelection</classname>
+	</plugin>
+
+    <!-- <plugin> 
+	    <name>Discount Majority</name> 
+	    <author>David Adamson</author> 
+		<version>0.1</version> 
+		<description>Favor the weak></description> 
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.wrappers.RecallWrapper</classname> 
+    </plugin> -->
+
+
+    <!--LearningPlugin-->
+
+	<plugin>
+		<name>Weka Logit</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Logistic regression classification></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.learning.WekaLogit</classname>
+	</plugin>
+
+	<plugin>
+		<name>Weka SVM</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Support Vector Machine classification></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.learning.WekaSVM</classname>
+	</plugin>
+
+	<plugin>
+		<name>Weka Bayes</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Naive Bayes classification></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.learning.WekaBayes</classname>
+	</plugin>
+
+	<plugin>
+		<name>Weka Trees</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Decision tree classification></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.learning.WekaTrees</classname>
+	</plugin>
+
+	<plugin>
+		<name>Weka Regression</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Linear regression></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.learning.WekaRegression</classname>
+	</plugin>
+
+	<plugin>
+		<name>Weka Generic</name>
+		<author>Elijah Mayfield</author>
+		<version>1.0</version>
+		<description>Weka's generic interface></description>
+		<jarfile>genesis.jar</jarfile>
+		<classname>plugins.learning.WekaGeneric</classname>
+	</plugin>
+</plugins>

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<table summary="Package cassandraConverters:  summary">
+<tr><td valign=top>Author:</td><td width=50></td><td>Mark Hall &#60;mhall{[at]}pentaho.com&#62;</td></tr>
+<tr><td valign=top>Category:</td><td width=50></td><td>Converters</td></tr>
+<tr><td valign=top>Changes:</td><td width=50></td><td>Was not encoding key values correctly. Also needed to check that there is at least one non-missing value apart from the key before adding an instance to the BATCH INSERT statement because Cassandra chokes if an INSERT has only a key value</td></tr>
+<tr><td valign=top>Date:</td><td width=50></td><td>2011-12-17</td></tr>
+<tr><td valign=top>Depends:</td><td width=50></td><td>weka (&#62;=3.7.5)</td></tr>
+<tr><td valign=top>Description:</td><td width=50></td><td>Provides a loader and saver for reading and writing from/to a Cassandra column family (table)</td></tr>
+<tr><td valign=top>DoNotLoadIfFileNotPresent:</td><td width=50></td><td>lib/apache-cassandra-1.0.0.jar,lib/apache-cassandra-1.0.0.jar,lib/commons-codec-1.3.jar,lib/commons-lang-2.4.jar,lib/guava-r08.jar,lib/libthrift-0.6.jar,lib/log4j-1.2.14.jar,lib/slf4j-api-1.6.1.jar,lib/slf4j-log4j12-1.6.1.jar</td></tr>
+<tr><td valign=top>License:</td><td width=50></td><td>GPL 2</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Mark Hall &#60;mhall{[at]}pentaho.com&#62;</td></tr>
+<tr><td valign=top>PackageURL:</td><td width=50></td><td><a href="http://prdownloads.sourceforge.net/weka/cassandraConverters1.0.1.zip?download">http://prdownloads.sourceforge.net/weka/cassandraConverters1.0.1.zip?download</a></td></tr>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://wiki.pentaho.com/display/DATAMINING/Cassandra+Source+and+Sink+in+Weka">http://wiki.pentaho.com/display/DATAMINING/Cassandra+Source+and+Sink+in+Weka</a></td></tr>
+<tr><td valign=top>Version:</td><td width=50></td><td>1.0.1</td></tr>
+</table>
+</body>
+</html>
