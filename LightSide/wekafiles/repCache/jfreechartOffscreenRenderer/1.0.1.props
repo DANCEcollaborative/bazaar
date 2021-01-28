@@ -1,0 +1,64 @@
+# Description file for jfreechartOffscreenRenderer
+# 
+
+# Package name (required)
+PackageName=jfreechartOffscreenRenderer
+
+# Version (required)
+Version=1.0.1
+
+#Date (year-month-day)
+Date=2011-12-01
+
+# Title (required)
+Title=Offscreen chart renderer plugin for the Knowledge Flow that uses JFreeChart
+
+# Category (recommended)
+Category=KnowledgeFlow
+
+# Author (required)
+Author=Mark Hall <mhall@pentaho.com>
+
+# Maintainer (required)
+Maintainer=Mark Hall <mhall@pentaho.com>
+
+# License (required)
+License=GPL 2
+
+# Description (required)
+Description=Provides a chart renderer for the KnowledgeFlow that uses the JFreeChart library
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/weka/jfreechartOffscreenRenderer1.0.1.zip?download
+
+# URL for further information
+URL=http://weka.wikispaces.com/Exporting+Charts+from+the+Knowledge+Flow
+
+# Changes in this release
+Changes=This release adds the ability to plot a Pareto chart for a nominal attribute histogram. Adding the -pareto flag to the renderer options turns this on.
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+# Related=packageName1,packageName2,...
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.5)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstall=Funky package requires some extra\n\
+# stuff to be installed after installing this package. You will\n\
+# need to blah, blah, blah in order to blah, blah, blah...
+
+# Prevent package from being loaded by Weka if the named
+# files/directories are not present (relative to the package's
+# root directory). Useful for packages that require the user
+# to manually install some third-party library(s). (optional)
+DoNotLoadIfFileNotPresent=lib/jfreechart-1.0.13.jar,lib/jcommon-1.0.14.jar
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+DoNotLoadIfFileNotPresentMessage=jfreechartOffscreenRenderer can't be loaded because some some libraries are missing from the lib directory. Needed are jfreechart-1.0.13.jar and jcommon-1.0.14.jar.

@@ -1,0 +1,45 @@
+# Template Description file for a Weka package
+#
+# 
+
+# Package name (required)
+PackageName=classificationViaClustering
+
+# Version (required)
+Version=1.0.7
+
+#Date
+Date=2017-06-06
+
+# Title (required)
+Title=A simple meta-classifier that uses a clusterer for classification.
+
+Category=Classification
+
+# Author (required)
+Author=Peter Reutemann
+
+# Maintainer (required)
+Maintainer=Weka team <wekalist@list.scms.waikato.ac.nz>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=A simple meta-classifier that uses a clusterer for classification. By default, the best single cluster for each class is found using the method Weka applies for classes-to-clusters evaluation. All other clusters are left without class labels and a test instance assigned to one of the unlabeled clusters is left unclassified. Optionally, this behaviour can be changed so that each cluster is labeled based on the proportion of training instances in each class that is assigned to it. If the cluster is a probabilistic ones, cluster membership probabilities are used instead of counts to establish class probability estimates.
+Changes=Now enables optional probabilistic classification of all instances.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/weka/classificationViaClustering1.0.7.zip?download
+
+# URL for further information
+URL=http://weka.sourceforge.net/doc.packages/classificationViaClustering
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+#Related=WrapperSubsetEval
+
+# Dependencies
+Depends=weka (>=3.7.11)

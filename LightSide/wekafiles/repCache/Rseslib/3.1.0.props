@@ -1,0 +1,39 @@
+# Description file of Rseslib package for Weka
+#
+#
+
+# Package name (required)
+PackageName=Rseslib
+
+# Version (required)
+Version=3.1.0
+
+#Date
+Date=2017-03-20
+
+# Title (required)
+Title=Rseslib classifiers
+
+Category=Classification
+
+# Author (required)
+Author=Arkadiusz Wojna,Grzegorz Gora,Marcin Jalmuzna,Michal Kurzydlowski,Rafal Latkowski,Dariusz Ogorek,Marcin Piliszczuk,Beata Zielosko
+
+# Maintainer (required)
+Maintainer=Arkadiusz Wojna <wojna@mimuw.edu.pl>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Rseslib package for Weka provides 3 classifiers from its collection:\
+ rough set based rule classifier, K-NN / RIONA and K-NN with local metric induction.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://rseslib.mimuw.edu.pl/weka/Rseslib3.1.0.zip
+
+# URL for further information
+URL=http://rseslib.mimuw.edu.pl
+
+# Dependencies
+Depends=weka (>=3.8.0)

@@ -1,0 +1,44 @@
+# Description file for CHIRP
+# 
+
+# Package name (required)
+PackageName=CHIRP
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2011-08-21
+
+# Title (required)
+Title=CHIRP: A new classifier based on Composite Hypercubes on Iterated Random Projections
+
+# Category (recommended)
+Category=Classification
+
+# Author (required)
+Author=Leland Wilkinson <leland.wilkinson@systat.com>
+
+# Maintainer (required)
+Maintainer=Tuan Dang <nhontuan@gmail.com>
+
+# License (required)
+License=MPL 2.0
+
+# Description (required)
+Description=CHIRP classifies with a set cover on iterated random projections. For more information, see L. Wilkinson, A. Anand, T. N. Dang. CHIRP: A New Classifier Based on Composite Hypercubes on Iterated Random Projections.ACM KDD 2011.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.cs.uic.edu/~tdang/file/CHIRP.zip
+
+# URL for further information
+URL=http://www.cs.uic.edu/~tdang/file/CHIRP-KDD.pdf
+
+# Enhances various other packages ?
+# Enhances=
+
+# Related to other packages?
+# Related=
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.2)

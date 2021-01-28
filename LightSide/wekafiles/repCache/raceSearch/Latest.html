@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<table summary="Package raceSearch:  summary">
+<tr><td valign=top>Author:</td><td width=50></td><td>Mark Hall</td></tr>
+<tr><td valign=top>Category:</td><td width=50></td><td>Attribute Selection</td></tr>
+<tr><td valign=top>Date:</td><td width=50></td><td>2012-03-20</td></tr>
+<tr><td valign=top>Depends:</td><td width=50></td><td>weka (&#62;=3.7.1), classifierBasedAttributeSelection (&#62;=1.0.0)</td></tr>
+<tr><td valign=top>Description:</td><td width=50></td><td>Races the cross validation error of competing attribute subsets. Use in conjuction with a ClassifierSubsetEval. RaceSearch has four modes:<br/><br/>forward selection races all single attribute additions to a base set (initially  no attributes), selects the winner to become the new base set and then iterates until there is no improvement over the base set. <br/><br/>Backward elimination is similar but the initial base set has all attributes included and races all single attribute deletions. <br/><br/>Schemata search is a bit different. Each iteration a series of races are run in parallel. Each race in a set determines whether a particular attribute should be included or not---ie the race is between the attribute being "in" or "out". The other attributes for this race are included or excluded randomly at each point in the evaluation. As soon as one race has a clear winner (ie it has been decided whether a particular attribute should be inor not) then the next set of races begins, using the result of the winning race from the previous iteration as new base set.<br/><br/>Rank race first ranks the attributes using an attribute evaluator and then races the ranking. The race includes no attributes, the top ranked attribute, the top two attributes, the top three attributes, etc.<br/><br/>It is also possible to generate a raked list of attributes through the forward racing process. If generateRanking is set to true then a complete forward race will be run---that is, racing continues until all attributes have been selected. The order that they are added in determines a complete ranking of all the attributes.<br/><br/>Racing uses paired and unpaired t-tests on cross-validation errors of competing subsets. When there is a significant difference between the means of the errors of two competing subsets then the poorer of the two can be eliminated from the race. Similarly, if there is no significant difference between the mean errors of two competing subsets and they are within some threshold of each other, then one can be eliminated from the race.</td></tr>
+<tr><td valign=top>License:</td><td width=50></td><td>GPL 3.0</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Weka team &#60;wekalist{[at]}list.scms.waikato.ac.nz&#62;</td></tr>
+<tr><td valign=top>PackageURL:</td><td width=50></td><td><a href="http://prdownloads.sourceforge.net/weka/raceSearch1.0.1.zip?download">http://prdownloads.sourceforge.net/weka/raceSearch1.0.1.zip?download</a></td></tr>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://weka.sourceforge.net/doc.packages/raceSearch">http://weka.sourceforge.net/doc.packages/raceSearch</a></td></tr>
+<tr><td valign=top>Version:</td><td width=50></td><td>1.0.1</td></tr>
+</table>
+</body>
+</html>
