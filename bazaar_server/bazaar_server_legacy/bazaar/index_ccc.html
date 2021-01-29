@@ -51,17 +51,15 @@ ul.tab li a:focus, .active {
 
 <body>
 
-<link property='stylesheet' href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
-<link property='stylesheet' href='http://rawgit.com/marinawang/bazaar/master/discussionnew.css' rel='stylesheet' id='filecss' type='text/css' />
-<!--<link property='stylesheet' href='style_ccc.css' rel='stylesheet' id='filecss' type='text/css' />-->
-<script src="http://rawgit.com/marinawang/bazaar/master/client.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
-<script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+<link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
+<link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
+<script type="text/javascript" src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" ></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
+<script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
 
 <script>
-    var chatserver_url = 'http://bazaar.lti.cs.cmu.edu:80/'
     var windowHasFocus = true;
     var unreadMessages = 0;
     var lastDate = null;
@@ -224,7 +222,18 @@ ul.tab li a:focus, .active {
     
     
 
-	var socket = io.connect(chatserver_url);
+	// var socket = io.connect(chatserver_url, {
+    //     path: '/bazaar'
+    // });
+    const urlParams = new URLSearchParams(location.search);
+    // const socketPath =
+    const socket = io({
+        path: '/bazsocket',
+        query: {
+          ltik: urlParams.get('ltik')
+        }
+    });
+
 	var users = {};
 	var user = 'You'
 	var room = 'Here'
@@ -371,8 +380,7 @@ ul.tab li a:focus, .active {
 
     function sendReady(is_ready)
     {
-        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
-        
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'         
     }
     
     function sendMessage()
