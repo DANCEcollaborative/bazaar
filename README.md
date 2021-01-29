@@ -75,7 +75,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
    - Set a “Room Name”.
    - Press ’Start Agent’
  - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
-   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=index_ccc&forum=undefined
+   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=share_chat&forum=undefined
    - Use the ROOM you selected in the chat room window.
         - Use your choice for STUDENT. For multiple students:
           - Use a unique STUDENT name for each.
