@@ -136,14 +136,6 @@ app.get('/bazaar/welcome*', function (req, res)
 
 
 
-app.get('/bazaar/wgu-jeopardy*', function (req, res)
-{
-    console.log("Jeopardy!");
-    res.sendfile("wgu-jeopardy.html");
-});
-
-
-
 app.get('/bazaar/login*', function (req, res)
 {
     console.log("Hi");
@@ -319,6 +311,7 @@ app.get('/bazaar/chat*', function (req, res)
 	var html_page = 'index';
         if(req.query.html != undefined) html_page = req.query.html;
 
+	console.log("/bazaar/chat* -- sending page " + html_page + '.html');
 	res.sendfile(html_page + '.html');
 });
 
