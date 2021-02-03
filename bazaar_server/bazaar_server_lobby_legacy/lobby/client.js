@@ -504,7 +504,6 @@ $(document).ready(function() {
     var reset = $("#resetBox").attr("checked");
     var consent = true;
     var noConsent = false;
-
     nick = jQuery.trim(nick);
 
     //dont bother the backend if we fail easy validations
@@ -529,10 +528,9 @@ $(document).ready(function() {
     }
 
     groups = /\/(chat|observe)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))?/.exec(location.pathname)
-                
-    ole.log("*************************************************");             
-                  
-        live_chat = groups[1] == "chat"
+                              
+    console.log("*************************************************");             
+    // live_chat = groups[1] == "chat"
 
     //make the actual join request to the server
     $.ajax({ cache: false
@@ -571,9 +569,9 @@ $(document).ready(function() {
 });
 
 //if we can, notify the server that we're going away.
-$(window).onBeforeUnload(function (e) {
-  jQuery.get("/part", {id: CONFIG.id}, function (data) { }, "json");
-});
+// $(window).onBeforeUnload(function (e) {
+//   jQuery.get("/part", {id: CONFIG.id}, function (data) { }, "json");
+// });
 
 
 //if we can, notify the server that we're going away.

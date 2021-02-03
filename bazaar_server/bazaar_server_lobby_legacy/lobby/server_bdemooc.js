@@ -343,11 +343,15 @@ var sessions = {};
 //when a user joins the lobby
 function createSession (nick,consent,reset) 
 {
-    winston.log('info', nick + " trying to join: consent="+consent + "reset="+reset);
+  winston.log('info',"server_bdemooc.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
   if (nick.length > 50) return null;
    
   //rejects invalid nicknames
-  if (/[^\w_\-^! ]/.exec(nick)) return null;
+  if (/[^\w_\-^! ]/.exec(nick)) 
+  {
+	winston.log('info',"server_bdemooc.js, createSession -- invalid nickname: " + nick);
+	return null;
+  }
 
   for (var i in sessions) 
   {
@@ -570,8 +574,9 @@ fu.get("/who", function (req, res) {
 fu.get("/join", function (req, res) 
 {
   var parsed = qs.parse(url.parse(req.url).query);
-  var id = parsed.id;
-  var nick = parsed.nick + "#" + id;
+  var id = parsed.id; 
+  // var nick = parsed.nick + "#" + id;
+  var nick = parsed.nick;
   var consent = parsed.consent;
 //  var reset = parsed.reset;
   // hyeju changed this part
