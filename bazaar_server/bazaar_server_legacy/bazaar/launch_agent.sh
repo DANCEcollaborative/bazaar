@@ -10,7 +10,7 @@ height=${6:-180};
 rows=4;
 
 jar_name= "talk"
-agentdir="AGENT_DIRECTORY/${roomname}agent/"
+agentdir="/usr0/bazaar/oneport_bazaar/${roomname}agent/"
 
 echo $agentdir
 echo hello
