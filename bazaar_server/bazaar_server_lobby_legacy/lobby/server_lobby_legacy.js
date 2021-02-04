@@ -136,9 +136,9 @@ var MESSAGE_BACKLOG = 200,
 	
 var LOCKDOWN_TIME = 0;
 var START_TIME = new Date().getTime();
-var chat_url = "http://erebor.lti.cs.cmu.edu:8007/chat/";
-var roomname_prefix = "week0-";
-var create_script = "../../scripts/create-cc-rooms.sh"
+var chat_url = "http://bazaar.lti.cs.cmu.edu/chat/";
+var roomname_prefix = "normaldist";
+// var create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started
 var starttime = (new Date()).getTime();
@@ -484,8 +484,10 @@ setInterval(function ()
 		//exec(create_script+" "+roomname_prefix+" "+teamNumber, puts);
 
                 //launch agent!
+                paddedTeamNumber = pad(teamNumber,2);
 		
-                exec("./launch_agent.sh "+roomname_prefix+" "+teamNumber+' "'+condition+'"', puts);
+                // exec("./launch_agent.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);		
+                exec("./launch_agent.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
                 //break;
             }
             else team = [];
@@ -521,9 +523,12 @@ setInterval(function ()
         {
          
             var member = team[i];
-	    
+            
+            var memberID = i + 1; 
+            var html = "index_ccc"
+	
             var roomname = roomname_prefix+pad(teamNumber, 2);
-            var url = chat_url+roomname+"/"+member.nick;
+            var url = chat_url + roomname + "/" + memberID + "/" + member.nick + "/undefined/?html=" + html + "&forum=undefined";
             
 	    var instructions = getUserInstructionText(member.nick, i, condition);
 
