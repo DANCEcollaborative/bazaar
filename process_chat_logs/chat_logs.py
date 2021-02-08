@@ -33,7 +33,7 @@ def create_filename (prefix, suffix):
         extra = 1
         while True:
             extra += 1
-            new_filename = filename.split(suffix)[0] + "-" + str(extra) + ".txt"
+            new_filename = filename.split(suffix)[0] + "-" + str(extra) + ".csv"
             if os.path.isfile(new_filename):
                 continue
             else:
