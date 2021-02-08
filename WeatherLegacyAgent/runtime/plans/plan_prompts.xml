@@ -7,15 +7,27 @@
         <text>Howdy, [NAME]!</text>
         <text>Hello, [NAME]!</text>
     </prompt>
-    
+     
     <prompt strategy="task" id="INTRODUCE">
         <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves.</text>
+    </prompt>
+
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourself.</text>
     </prompt>
     
     <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
         <text>Okay! We'll be discussing factors affecting weather.</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="WEATHER_LINK">
+        <text>Say, try clicking on this <a href="https://ocean.weather.gov/unified_analysis.php">link</a>.</text>
     </prompt>
     
+    <prompt strategy="task" id="WEATHER_LINK_BELOW">
+        <text>Click on the link below for the nex weather activity.</text>
+    </prompt>
+
     <prompt strategy="task" id="WEATHER_TOPIC_SPECIFICS">
         <text>I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure.</text>
     </prompt>
