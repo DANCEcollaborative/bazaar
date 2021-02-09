@@ -41,4 +41,9 @@
     	<!-- <step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step> -->
         <!-- step type="prompt" delay="30" prompt="DISCUSS_HIGH_WIND" >DISCUSS_HIGH_WIND</step> -->
     </stage>
+    
+    <stage name="EndStage" type="other" delay="0" timeout="1200">
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
 </plan>
