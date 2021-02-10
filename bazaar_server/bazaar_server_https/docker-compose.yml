@@ -11,9 +11,9 @@ services:
     volumes:    
      - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ******
-      MYSQL_USER: "******"
-      MYSQL_PASSWORD: "******"
+      MYSQL_ROOT_PASSWORD: smoot
+      MYSQL_USER: "local"
+      MYSQL_PASSWORD: "local"
     networks:
     - bazaar-net
   bazaar:
