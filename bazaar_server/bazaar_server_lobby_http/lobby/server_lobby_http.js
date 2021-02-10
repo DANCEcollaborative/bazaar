@@ -119,7 +119,7 @@ console.log("server is running on 8006");
 //David's Code
 
 HOST = null; // localhost
-PORT = 8084; 
+PORT = 80; 
 
 //var CONDITIONS = ["revoice", "press_reasoning", "agree"];
 var CONDITIONS = ["none"]; // hyeju changed this value
@@ -483,11 +483,10 @@ setInterval(function ()
 		//create room if it's not there
 		//exec(create_script+" "+roomname_prefix+" "+teamNumber, puts);
 
-                //launch agent!
+                 //launch agent!
                 paddedTeamNumber = pad(teamNumber,2);
-		
-                // exec("./launch_agent.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);		
-                exec("./launch_agent.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
+
+                exec("./launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
                 //break;
             }
             else team = [];
