@@ -22,7 +22,7 @@ import basilica2.agents.listeners.BasilicaPreProcessor;
 import basilica2.agents.listeners.MessageAnnotator;
 import basilica2.social.events.DormantGroupEvent;
 import basilica2.social.events.DormantStudentEvent;
-import basilica2.socketchat.WebsocketChatClientLegacy;
+import basilica2.socketchat.WebsocketChatClient;
 import basilica2.tutor.events.DoTutoringEvent;
 import basilica2.agents.data.PromptTable;
 

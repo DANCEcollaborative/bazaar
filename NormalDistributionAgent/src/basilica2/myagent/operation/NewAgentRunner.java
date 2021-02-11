@@ -5,6 +5,7 @@ import java.awt.Point;
 import basilica2.agents.operation.BaseAgentOperation;
 import basilica2.agents.operation.BaseAgentUI;
 import basilica2.agents.operation.ConditionAgentUI;
+import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -29,15 +30,13 @@ public class NewAgentRunner extends BaseAgentOperation {
 			public void run() {
 				NewAgentRunner thisOperation = new NewAgentRunner();
 				
-				// Launch from command line without UI; conditions set in operation.properties 
-				// }
+				// Launch from command line without UI
 				if (options.has("launch")) {
+					// Set conditions from agent's operations.properties file
 					String[] conditions = thisOperation.getProperties().getProperty("operation.conditions", "")
 							.split("[\\s,]+");
 					String conditionString = getConditionString(conditions);
-					System.setProperty("basilica2.agents.condition", conditionString);
-					System.out.println("Launching without dialog -" + "Conditions set to " + conditionString);
-					thisOperation.processArgsLaunch(args,"Test01");  
+					thisOperation.processArgsNoUIConstantConditions(args,"Test01",conditionString);   
 				}
 				
 				else {
@@ -50,6 +49,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 						String conditionString = getConditionString(conditions);
 						System.setProperty("basilica2.agents.condition", conditionString);
 						Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
+						// thisOperation.startOperation();
 						thisOperation.launchAgent(room_name,false);
 					} 
 					
@@ -77,10 +77,63 @@ public class NewAgentRunner extends BaseAgentOperation {
 		else return conditionString.trim();
 	}
 	
+	protected void processArgsNoUIConstantConditions(String[] args, String roomname, String conditionString)
+	{
+		OptionParser parser = new OptionParser();
+		parser.accepts("x").withRequiredArg().ofType(Integer.class).defaultsTo(0);
+		parser.accepts("y").withRequiredArg().ofType(Integer.class).defaultsTo(0);
+		parser.accepts("room").withRequiredArg().defaultsTo(roomname);
+		parser.accepts("outdir").withRequiredArg();
+		parser.accepts("condition").withRequiredArg();
+		parser.accepts("launch");
+		
+		OptionSet options = parser.parse(args);
+
+		String room = (String)options.valueOf("room");
+				
+		// this.setSystemOutputToNull();
+
+		// Set constant conditions
+		System.out.println("setting basilica2.agents.condition to '"+conditionString+"'");
+		log(Logger.LOG_NORMAL, "setting basilica2.agents.condition to '"+conditionString+"'");
+		System.setProperty("basilica2.agents.condition", conditionString);
+
+		
+		if(options.has("launch"))
+		{
+			System.out.println("launching...");
+			log(Logger.LOG_NORMAL, "launching hands-free!");
+			System.setProperty("basilica2.handsfree", "true");
+			this.launchAgent(room,false);
+		}
+	}
+	
+
+	public void launchAgent(String room_name, Boolean hasUI)
+	{
+		// this.setSystemOutputToNull();
+		// log(Logger.LOG_NORMAL, "setting basilica2.agents.room_name to " + room_name);
+		System.setProperty("basilica2.agents.room_name", room_name);
+
+		// log(Logger.LOG_NORMAL, "<launching room=" + room_name + "/>");
+		
+		//TODO: verify that this sanitization isn't needed - it breaks VMT
+		//room_name = room_name.replaceAll(":", "_").replaceAll(" ", "_").replaceAll(",", "_");
+		roomnameQueue.add(room_name);
+
+		Agent a = myAgentFactory.makeAgentFromXML(agent_definition_file, room_name);
+		a.hasUI = hasUI; 
+		this.addAgent(a);
+	}
 	
 
 	
-	protected void processArgsLaunch(String[] args, String roomname)
+	protected void processArgs(String[] args)
+	{
+		processArgs(args, "Test01", true);
+	}
+	
+	protected void processArgs(String[] args, String roomname, Boolean hasUI)
 	{
 		OptionParser parser = new OptionParser();
 		parser.accepts("x").withRequiredArg().ofType(Integer.class).defaultsTo(0);
@@ -94,18 +147,29 @@ public class NewAgentRunner extends BaseAgentOperation {
 
 		String room = (String)options.valueOf("room");
 		
-		if(options.has("outdir"))
+		if (hasUI) {
+			myUI.setRoomName(room);
+			myUI.setLocation(new Point((Integer)options.valueOf("x"), (Integer)options.valueOf("y")));
+		}
+			
+		// this.setSystemOutputToNull();
+		
+		if(options.has("condition"))
 		{
-			this.setSystemOutput((String)options.valueOf("outdir"), room);
+			String condition = (String)options.valueOf("condition");
+			System.out.println("setting basilica2.agents.condition to '"+condition+"'");
+			log(Logger.LOG_NORMAL, "setting basilica2.agents.condition to '"+condition+"'");
+			System.setProperty("basilica2.agents.condition", condition);
 		}
 		
-		System.out.println("launching...");
-		log(Logger.LOG_NORMAL, "launching hands-free!");
-		System.setProperty("basilica2.handsfree", "true");
-		this.launchAgent(room,false);
+		if(options.has("launch"))
+		{
+			System.out.println("launching...");
+			log(Logger.LOG_NORMAL, "launching hands-free!");
+			System.setProperty("basilica2.handsfree", "true");
+			this.launchAgent(room,hasUI);
+		}
 	}
 	
+	
 }
-
-
-
