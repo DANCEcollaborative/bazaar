@@ -1,5 +1,5 @@
 #!/bin/bash
-#usage: ./run.sh roomname num condition [numcols [width height]]
+#usage: ./launch_agent_docker.sh roomname num condition [numcols [width height]]
 
 roomname=${1:-"Week_"};
 num=${2:-1};

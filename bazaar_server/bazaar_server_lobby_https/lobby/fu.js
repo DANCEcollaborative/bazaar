@@ -45,7 +45,7 @@ var server = createServer(function (req, res) {
 
 fu.listen = function (port, host) {
   server.listen(port, host);
-  sys.puts("Server at http://" + (host || "127.0.0.1") + ":" + port.toString() + "/");
+  console.log("Server at http://" + (host || "127.0.0.1") + ":" + port.toString() + "/");
 };
 
 fu.close = function () { server.close(); };
@@ -65,17 +65,17 @@ fu.staticHandler = function (filename) {
       return;
     }
 
-    sys.puts("loading " + filename + "...");
+    console.log("loading " + filename + "...");
     readFile(filename, function (err, data) {
       if (err) {
-        sys.puts("Error loading " + filename);
+        console.log("Error loading " + filename);
       } else {
         body = data;
         headers = { "Content-Type": content_type
                   , "Content-Length": body.length
                   };
         if (!DEBUG) headers["Cache-Control"] = "public";
-        sys.puts("static file " + filename + " loaded");
+        console.log("static file " + filename + " loaded");
         callback();
       }
     });

@@ -65,7 +65,7 @@ app.post('/',function(req, res) {
     });
     if(isValidG){
         console.log(provider.userId);
-        res.writeHead(301,{Location: 'http://erebor.lti.cs.cmu.edu:8007/team?userId='+provider.userId});
+        // res.writeHead(301,{Location: 'http://erebor.lti.cs.cmu.edu:8007/team?userId='+provider.userId});
         res.end();
 
         //grading
@@ -119,7 +119,7 @@ console.log("server is running on 8006");
 //David's Code
 
 HOST = null; // localhost
-PORT = 80; 
+PORT = 443; 
 
 //var CONDITIONS = ["revoice", "press_reasoning", "agree"];
 var CONDITIONS = ["none"]; // hyeju changed this value
@@ -167,7 +167,7 @@ var winston = require('winston');
 
 var sys = require('sys')
 var exec = require('child_process').exec;
-function puts(error, stdout, stderr) { sys.puts(stdout) }
+function puts(error, stdout, stderr) { console.log(stdout) }
 
 var fu = require("./fu"),
     sys = require("util"),
@@ -199,7 +199,7 @@ function parseTime(start_minutes, base_time)
 }
 
 //when lockdown_time == 0, server stays open forever
-sys.puts("node server.js [room_prefix] [first_team_num] [team_start_time | minutes_until_start] lockdown_time");
+console.log("node server.js [room_prefix] [first_team_num] [team_start_time | minutes_until_start] lockdown_time");
 if(process.argv.length > 2)
 {
     winston.log('info', process.argv);
@@ -236,14 +236,15 @@ if(LOCKDOWN_TIMEOUT > 0)
 }
 
 //logs team information -- who's on what team
-var teamLogger = new (winston.Logger)({
+var teamLogger = winston.createLogger({
   transports: [
     new (winston.transports.Console)(),
     new (winston.transports.File)({ filename: 'logs/teams.log' })
   ]
 });
 
-winston.add(winston.transports.File, { filename: 'logs/server.log'});
+// winston.add(winston.transports.File, { filename: 'logs/server.log'});
+winston.add(new winston.transports.File({ filename: 'logs/server.log' }));
 
 winston.log('info', "The room prefix is "+roomname_prefix+". The first condition will be '"+CONDITIONS[numTeams+conditionOffset+1]+"'");
 winston.log('info', "Teams will be assigned starting at "+new Date(START_TIME));
@@ -516,7 +517,7 @@ setInterval(function ()
 	winston.log('info', "putting "+team.length+" new users on team "+teamNumber);
 	var theTeam = teams[teamNumber-1];
 	var condition = CONDITIONS[0];//condition];        
-	sys.puts("condition: "+condition);
+	console.log("condition: "+condition);
 
 	for(var i = 0; i < team.length; i++)
         {

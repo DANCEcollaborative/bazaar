@@ -326,7 +326,7 @@ function notQuiteLongPoll (data) {
       //make another request
       $.ajax({ cache: false
              , type: "GET"
-             , url: "/recv"
+             , url: "/lobby/recv"
              , dataType: "json"
              , data: { since: CONFIG.last_message_time, id: CONFIG.id, timestamp:new Date() }
              , error: function () {
@@ -458,7 +458,7 @@ function onConnect (session) {
   {
     if(alive)
     {
-        jQuery.get("/alive", {id: CONFIG.id}, function (data) { }, "json");
+        jQuery.get("/lobby/alive", {id: CONFIG.id}, function (data) { }, "json");
     }
     else
     {
@@ -477,7 +477,7 @@ function outputUsers () {
 
 //get a list of the users presently in the room, and add it to the stream
 function who () {
-  jQuery.get("/who", {}, function (data, status) {
+  jQuery.get("/lobby/who", {}, function (data, status) {
     if (status != "success") return;
     nicks = data.nicks;
     outputUsers();
@@ -504,7 +504,6 @@ $(document).ready(function() {
     var reset = $("#resetBox").attr("checked");
     var consent = true;
     var noConsent = false;
-
     nick = jQuery.trim(nick);
 
     //dont bother the backend if we fail easy validations
@@ -529,16 +528,15 @@ $(document).ready(function() {
     }
 
     groups = /\/(chat|observe)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))?/.exec(location.pathname)
-                
-    ole.log("*************************************************");             
-                  
-        live_chat = groups[1] == "chat"
+                              
+    console.log("*************************************************");             
+    // live_chat = groups[1] == "chat"
 
     //make the actual join request to the server
     $.ajax({ cache: false
            , type: "GET" // XXX should be POST
            , dataType: "json"
-           , url: "/join"
+           , url: "/lobby/join"
 		, data: { nick: nick, consent:consent, reset:reset ,id:"10000"}
            , error: function () {
                alert("error connecting to server");
@@ -571,9 +569,9 @@ $(document).ready(function() {
 });
 
 //if we can, notify the server that we're going away.
-$(window).onBeforeUnload(function (e) {
-  jQuery.get("/part", {id: CONFIG.id}, function (data) { }, "json");
-});
+// $(window).onBeforeUnload(function (e) {
+//   jQuery.get("/part", {id: CONFIG.id}, function (data) { }, "json");
+// });
 
 
 //if we can, notify the server that we're going away.

@@ -14,6 +14,8 @@ services:
       MYSQL_ROOT_PASSWORD: smoot
       MYSQL_USER: "local"
       MYSQL_PASSWORD: "local"
+    ports:
+     - "8089:3306"  # let outside world see 8089
     networks:
     - bazaar-net
   bazaar:
@@ -23,10 +25,19 @@ services:
     container_name: bazaar_lobby_https
     depends_on:
      - nodechat
-    ports:
-     - "8300:443"
     networks:
     - bazaar-net
+  front:
+    build: ./ha-proxy
+    image: bazaar/haproxy
+    container_name: bazaar-haproxy_lobby_https
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - bazaar
+    networks:
+      - bazaar-net
 networks:
   bazaar-net:
     driver: bridge

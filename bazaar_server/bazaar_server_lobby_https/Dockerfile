@@ -15,4 +15,4 @@ RUN cd bazaar && npm install && cd ..
 
 EXPOSE 443
 
-CMD ["sh","-c","while ! nc -z nodechat 3306; do echo sleeping; sleep 1; done; bash ./runBazaarDocker"]
+CMD ["sh","-c","while ! nc -z nodechat 3306; do echo sleeping; sleep 1; done; bash ./runLobby"]
