@@ -10,7 +10,7 @@ height=${6:-180};
 rows=4;
 
 jar_name= "talk"
-agentdir="../${roomname}agent/"
+agentdir="../agents/${roomname}agent/"
 
 echo $agentdir
 echo hello

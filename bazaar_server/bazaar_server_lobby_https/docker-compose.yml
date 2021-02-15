@@ -25,6 +25,7 @@ services:
      - nodechat
     ports:
      - "8300:443"
+     - "8400:444"
     networks:
     - bazaar-net
 networks:

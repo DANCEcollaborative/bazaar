@@ -11,7 +11,7 @@ WORKDIR /usr/bazaar/
 
 COPY . ./
 
-RUN cd bazaar && npm install && cd ..
+RUN cd lobby && npm install && cd ..
 
 EXPOSE 443
 
