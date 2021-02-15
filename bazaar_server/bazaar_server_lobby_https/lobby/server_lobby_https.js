@@ -1,6 +1,5 @@
-var express = require('express');
+// var express = require('express');
 // var app = express();
-var app = require('express')();
 
 var winston    = require('winston');
 var mysql      = require('mysql');
@@ -16,9 +15,9 @@ var bodyParser = require('body-parser');
 var lti = require('ims-lti');
 var consumer_key = "BazaarLTI";
 var consumer_secret = "BLTI";
-var localPort = 443;
+var localPort = 444;
 var localHost = '0.0.0.0';
-var localURL = "/lobby/bazaar";
+var localURL = "/bazaar";
 
 //variables for grading
 var url = require('url');
@@ -26,6 +25,7 @@ var request = require('request');
 var OAuth   = require('oauth-1.0a');
 var Crypto = require("crypto");
 
+var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server, {path: '/bazsocket'});
 var path = require('path'); 
@@ -456,7 +456,7 @@ var MESSAGE_BACKLOG = 200,
 	
 var LOCKDOWN_TIME = 0;
 var START_TIME = new Date().getTime();
-var chat_url = "https://misty.lti.cs.cmu.edu/lobby/chat/";
+var chat_url = "https://misty.lti.cs.cmu.edu/bazaar/chat/";
 var roomname_prefix = "normaldistribution";
 // var create_script = "../../scripts/create-cc-rooms.sh"
 
@@ -485,6 +485,9 @@ var teams = [];
 var supplicants = [];
 var winston = require('winston');
 
+
+var numUsers = {};
+var teamNumber = 0;
 
 var csv = require('csv');
 var util = require('util')
@@ -670,13 +673,13 @@ var sessions = {};
 //when a user joins the lobby
 function createSession (nick,consent,reset) 
 {
-  winston.log('info',"server_bdemooc.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
+  winston.log('info',"server_lobby_https.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
   if (nick.length > 50) return null;
    
   //rejects invalid nicknames
   if (/[^\w_\-^! ]/.exec(nick)) 
   {
-	winston.log('info',"server_bdemooc.js, createSession -- invalid nickname: " + nick);
+	winston.log('info',"server_lobby_https.js, createSession -- invalid nickname: " + nick);
 	return null;
   }
 
