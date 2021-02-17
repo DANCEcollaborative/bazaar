@@ -1,73 +1,22 @@
 <html>
-<!-- Tab Edits -->
-<style>
-ul.tab {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
-
-/* Float the list items side by side */
-ul.tab li {float: left;}
-
-/* Style the links inside the list items */
-ul.tab li a {
-    display: inline-block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-}
-
-/* Change background color of links on hover */
-ul.tab li a:hover {
-    background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-ul.tab li a:focus, .active {
-    background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-</style>
-<!-- End of additions for tab edits -->
-
 <head>
-<meta http-equiv="Content-Security-Policy" content ='default-src *'">
 <title id="title_el">Discussion Room</title>
-
 </head>
-
 <body>
 
-<link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
-<link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
-<!--<link property='stylesheet' href='style_ccc.css' rel='stylesheet' id='filecss' type='text/css' />-->
-<script src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+<link href='https://rawgit.com/gtomar/help-button-javascript/master/discussion.css' rel='stylesheet' type='text/css'>
 <script src="/bazsocket/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
+<script src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
 <script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+
+
 
 <script>
     var windowHasFocus = true;
     var unreadMessages = 0;
     var lastDate = null;
-    var spreadsheet = /spreadsheet=([a-zA-Z0-9_\\-]+)/g.exec(location.search);
-    //if (!spreadsheet) alert("Spreadsheet is not loaded properly: "+location.search);
-    //else spreadsheet = spreadsheet[1];
     
     var entityMap = {
         "&": "&amp;",
@@ -84,42 +33,6 @@ ul.tab li a:focus, .active {
         });
       }
 	
-    function showConvText()
-    {
-        res = "";
-        conv = document.getElementById("conversation");
-        for (var i = 0; i < conv.childNodes.length; i++) {
-            if (conv.childNodes[i].className.indexOf("message_line") == -1) continue;
-            var user = conv.childNodes[i].getElementsByClassName("user");
-            var timestamp = conv.childNodes[i].getElementsByClassName("date");
-            var message = conv.childNodes[i].getElementsByClassName("message");
-            for (var j = 0; j < user.length; j++) res += user[j].textContent + " ";
-            if (timestamp.length > 0) res += "("+timestamp[0].textContent+")";
-            if (message.length > 0) res += ": "+message[0].textContent.replace("\n"," ");
-            res += "\n";
-        }
-        document.getElementById("conversation_text").value = res;
-
-        // Highlight
-        if (document.body.createTextRange) {
-            range = document.body.createTextRange();
-            range.moveToElementText(document.getElementById("conversation_text"));
-            range.select();
-        } else if (window.getSelection) {
-            selection = window.getSelection();        
-            range = document.createRange();
-            range.selectNodeContents(document.getElementById("conversation_text"));
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-
-        document.getElementById("conversation_text_div").style.display = "block";
-    }
-
-    function hideConvText()
-    {
-        document.getElementById("conversation_text_div").style.display = "none";
-    }
 		
     function appendMessage(timestamp, username, text, color) 
     {
@@ -130,7 +43,7 @@ ul.tab li a:focus, .active {
 	   }
     
 		$('#conversation').append(
-		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
+		 '<div class="message_line">'
 		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
 		+'<div class="user">'+ username + '</div>'
 		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
@@ -224,13 +137,10 @@ ul.tab li a:focus, .active {
     
     
 
-	// var socket = io.connect(chatserver_url, {
-    //     path: '/bazaar'
-    // });
+	// var socket = io.connect(chatserver_url);
     const socket = io({
         path: '/bazsocket'
     });
-
 	var users = {};
 	var user = 'You'
 	var room = 'Here'
@@ -239,7 +149,7 @@ ul.tab li a:focus, .active {
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
         // call the server-side function 'adduser' and send one parameter (value of prompt)
-	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
+	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
 		
         live_chat = groups[1] == "chat";
 		  
@@ -249,11 +159,10 @@ ul.tab li a:focus, .active {
             room = groups[3];
             user = groups[5];
             id = groups[4];
-            perspective = groups[6];
             if(!user)
-                user = prompt("Hi! please enter your name (first name and last initial) to continue..", "");
+                user = prompt("Hi! please enter your edX username to continue..", "");
             //prompt(room + " " + user + " " + temp + " " + id);
-            socket.emit('adduser', room, user, false, id, perspective);
+            socket.emit('adduser', room, user, false, id);
         }
         else
 	{
@@ -261,7 +170,6 @@ ul.tab li a:focus, .active {
             $('input,textarea').prop('disabled', true);
 	}
         $('#roomname').text(room);
-        document.getElementById('myIframe').src =  "https://docs.google.com/document/d/1uONLY0NEAMBN5d-4NKNkqVrxU_LfQQORFEO5E9rkg0M/edit?usp=sharing";
         });
 	
 
@@ -285,7 +193,7 @@ ul.tab li a:focus, .active {
 	socket.on('updateimage', function (username, image_url) 
 	{
         anchor = appendImage(new Date(), username, image_url);
-        appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">image/URL.</a>');
+        appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">image.</a>');
 		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
 	});
 	
@@ -300,7 +208,7 @@ ul.tab li a:focus, .active {
 	       if(entry["type"] == "image")
 	       {
                 anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
-                appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">image/URL.</a>');
+                appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">image.</a>');
             }
 	       else if(entry["type"] == "html")
 	       {
@@ -317,10 +225,9 @@ ul.tab li a:focus, .active {
             else
                 appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);	 
         }
-
+        
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
-        $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
-
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 			   lastDate = new Date();
 	});
 	
@@ -410,12 +317,11 @@ ul.tab li a:focus, .active {
             console.log(match)
             if(match == null || match.index != 0)
             {
-                imageurl = "http://"+imageurl;
+                imageurl = "https://"+imageurl;
             }
             socket.emit('sendimage', imageurl);  
-
-            $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
-            $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
+		    $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
+		    $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
          }
     }
 
@@ -503,100 +409,43 @@ ul.tab li a:focus, .active {
         }
     }
 
-    function blinker() {
-        $('.blinker').fadeIn(2000);
-        setTimeout(function() {$('.blinker').fadeOut(2000);}, 10000);
-    }
-    setInterval(blinker,30000);
-
 </script>
 
 
+
+
+
 <div id="everything">
-
-    <div id="image_column">
-<!-- Edits by @sreechas for multiple tabs -->
-    <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Sharing Space')">Sharing Space</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Collaborative Notes')">Collaborative Notes</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Spreadsheet')">Spreadsheet</a></li>
-    </ul>
-
-
-    <div id="Sharing Space" class="tabcontent">
-      <div id="image_container" class="container">
-          <div id="images" class="scrollable"></div>
-      </div>
-
-      <div id="image_controls" class="control">
-          <div id="image_url_input_div">
-              <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
-          </div>
-          <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
-      </div>
-    </div>
-
-   <div id="Collaborative Notes" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "myIframe" src="https://docs.google.com/document/d/e/2PACX-1vRw6K3tHR5iNAmqnLU3WCcaygQcs0aq9MWBRWy-RfmYoy78bDVrmnumqC4aw1x83B4xCyalEAdc1W3M/pub" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-
-    <div id="Spreadsheet" class="tabcontent">
-      <div id="image_container" class="container">
-        <!--<div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/1ZRP9_ypVZOEQ_hASea2sR8e52MkendyR1YHBlBYWrvg/edit#gid=0" width="100%" height="100%"></iframe></div>-->
-        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/1OoLD9dZaVfLJz-0X-OQ3WnrI97G9syUKGEJWDR2Mxdg/edit?ts=57c83646#gid=298683489" width="100%" height="100%"></iframe></div>
-        <!--<div id="images" class="scrollable"><iframe id="spreadsheet" src="" width="100%" height="100%"></iframe></div>-->
-      </div>
-    </div>
-
-    <script>
-    function openTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-    if (cityName=="Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/"+spreadsheet;
-    }
-    </script>
-<!-- End of tab edits -->
-
-    </div>
-
     <div id="conversation_column">
         <h2 id="conversation_header" class="header">Discussion</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>
         <div id="controls" class="control">
-            <div id="message_div"> <textarea id="data"></textarea></div>
+            <div id="message_div"> <textarea id="data" /></textarea></div>
             <div id="messagebutton_div">
                 <input class="button" type="button" id="datasend" value="Send Message" />
-                <input class="button" type="button" id="ready_button" value="I'm Ready"/>
+            
+             <!--<input class="button" type="button" id="ready_button" value="We're Ready"/>-->
             </div>
-            <div class="blinker">Click the "I'm Ready" button when you are ready to move on to the next step.</div>
-            <div><input class="button" type="button" id="conv_message" value="Download Discussion Log" onClick="showConvText();"/></div>
-        </div>
+    </div>
     </div>
     
+    <div id="image_column">
+        <h2 id="image_header"  class="header">Information</h2>
+        
+        <div id="image_container" class="container">
+            <div id="images" class="scrollable"></div>
+        </div>
+        
+        <div id="image_controls" class="control">
+            <div id="image_url_input_div">
+                <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
+            </div>
+            <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
+        </div>
+    </div>
     <h2 id="roomname">Room</h2>
-
-
 </div>
-
-<div id="conversation_text_div">
-    <button type="button" onclick="hideConvText();">X</button>
-    <h3>You can copy and paste this log to a separate file to save.</h3>
-    <textarea id="conversation_text" disabled></textarea>
-</div>
-
 </body>
 </html>

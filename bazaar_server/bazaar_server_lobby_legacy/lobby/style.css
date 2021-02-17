@@ -1,0 +1,194 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  background: #66bbff;
+  color: #111111;
+  font-family:Oxygen,sans-serif; 
+  #font-size: 14pt;
+}
+#connect p
+{
+    padding-bottom:15px;
+    max-width:600px;
+}
+#connect .text
+{
+    margin-bottom:15px;
+    height:30px;
+    #font-size:14pt;
+}
+
+#entry {
+  background: #FFF;
+  color: #222;
+}
+body, table, input {
+  #line-height: 120%;
+}
+
+input[type='radio'],input[type='checkbox']
+{  
+   float: left;
+   height: 15px;
+}
+label.inline 
+{
+    display: table-cell;
+   padding-bottom:20px;  
+}
+
+td {
+  padding: 0;
+  margin: 0;
+  outline-width: 0;
+  border-width: 0;
+}
+table, tr {
+  border-collapse: collapse;
+  border-spacing: 0
+  padding:30px;}
+
+h2
+{
+    color:white;
+}
+
+.button {
+        background-color:#fc9b14;
+        -moz-border-radius:10px;
+        -webkit-border-radius:10px;
+        border-radius:0px;
+        border:0px solid #ff8400;
+        display:inline-block;
+        cursor:pointer;
+        color:#fffaf0;
+        font-family:Oxygen;
+        font-size:16px;
+        font-style:bold;
+        padding:5px 10px;
+        text-decoration:none;
+        margin-top:10px
+    }
+    .button:hover {
+        background-color:#ffaa00;
+    }
+    .button:active {
+        position:relative;
+        top:1px;
+    }
+
+
+input.button, input.submit { height: 50;}
+
+a { text-decoration: underline; color: #36F; }
+a:hover { text-decoration: underline; color: #36A; }
+
+#loading, #connect {
+  top: 0;
+  left: 0;
+  max-width: 50em;
+
+  padding: 1em;
+}
+
+#loading { z-index: 10000000; }
+#connect { z-index: 10000001; }
+
+#loading p, #connect fieldset  
+{
+  max-width: 600px;
+  border: 0;
+}
+
+fieldset
+{
+    background-color:white;
+}
+
+#toolbar {
+  position: fixed;
+  color: white;
+  width: 100%; 
+  bottom: 0;
+  background: #4499dd;;
+  vertical-align:bottom;
+}
+
+#entry {
+  width: 100%;
+  #font-size: inherit;
+  padding: 1em;
+  margin: 0;
+  border-width: 0;
+  outline-width: 0;
+  clear: both;
+}
+
+#log {
+  display: block;
+  /* enough padding to clear the toolbar.. is there a better way to do this? */
+  padding-bottom: 300px; 
+  background: inherit;
+  overflow: scroll;
+  position:relative;
+  /*z-index:1;*/
+  width:100%;
+}
+
+/* not very important info */
+.notice td, .join td, .part td, { color:#CCC; }
+.error .msg-text { color: #950; }
+nick, .notice .nick { color: #CCC; }
+.message {
+  
+  margin-left:10px;
+  margin-top:10px;
+}
+
+.nick {
+  vertical-align: top;
+  background-color:#fa0;
+  color:#fff;
+  width:200px;
+  padding:10px;
+}
+.date {
+  vertical-align: top;
+  background-color:#fa0;
+  color:#fff;
+  width:40px;
+  padding:10px;
+}
+
+.msg-text {
+  vertical-align: top;
+  background-color:#fff;
+  width:600px;
+  max-width:600px;
+  padding:10px;
+}
+
+.personal .date, .personal .nick
+{ background-color:#DA7; }
+
+
+.nick a 
+{
+  color: #36F;
+}
+
+#toolbar ul {
+  margin:20px;
+  padding:10px;
+  list-style: none;
+}
+
+#toolbar li {
+  display: block; 
+  float: left;
+}
+
+#usersLink 
+{
+  color:#fff;
+}
