@@ -1,0 +1,43 @@
+# Description.props file for TPP package
+
+# Package name (required)
+PackageName=TPP
+
+# Current version number is set by ant build
+Version=1.0.4
+
+# Date is is set by ant build
+Date=June 24 2011
+
+# Title (required)
+Title=Targeted Projection Pursuit
+
+# Category (recommended)
+Category=Visualization
+
+# Author (required)
+Author=Joe Faith <joedotfaith@gmail.com>
+
+# Maintainer (required)
+Maintainer=Joe Faith <joedotfaith@gmail.com>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=This package allows the user to explore their data, and select attributes, using Targeted Projection Pursuit (TPP). TPP Targeted Projection Pursuit allows the user to explore very high dimensional data, including seeing the effect of classification and clustering, in an intuitive and transparent way. \
+<br/><br/>For more information see:\
+<br/><ul>\
+<li>J.Faith, "Targeted Projection Pursuit for Interactive Exploration of High-Dimensional Data Sets",  Proceedings of 11th International Conference on Information Visualisation, Zurich, 2007.\
+<li>J.Faith, R.Mintram and M.Angelova, "Targeted Projection Pursuit for Visualising Gene Expression Data Classifications", BioInformatics, 22(21):2667, 2006.\
+<li>J.Faith and M. Brockway, "Targeted Projection Pursuit Tool for Gene Expression Visualisation", Journal of Integrative Bioinformatics, 3(2):43, 2006.\
+</ul>\
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://targeted-projection-pursuit.googlecode.com/files/TPP-1.0.4.zip
+
+# URL for further information
+URL=http://code.google.com/p/targeted-projection-pursuit/
+
+# Dependencies
+Depends=weka (>=3.7.1)

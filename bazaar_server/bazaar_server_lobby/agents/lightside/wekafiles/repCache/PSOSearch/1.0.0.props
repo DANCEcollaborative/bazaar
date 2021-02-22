@@ -1,0 +1,44 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=PSOSearch
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2011-08-31
+
+# Title (required)
+Title=PSOSearch: An implementation of the Particle Swarm Optimization (PSO) algorithm to explore the space of attributes.
+
+# Category (recommended)
+Category=Attribute selection
+
+# Author (required)
+Author=Sebastian Luna Valero <sebastian@uma.es>
+
+# Maintainer (required)
+Maintainer=Sebastian Luna Valero <sebastian@uma.es>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=PSOSearch explores the attribute space using the Particle Swarm Optimization (PSO) algorithm described in:<br/><br/> Moraglio, A., Di Chio, C., and Poli, R. <br/> Geometric Particle Swarm Optimisation. <br/> EuroGP 2007, LNCS 445, pp. 125-135. <br/><br/> For an application to gene expression data classification, see:<br/><br/> García-Nieto, J.M., Alba, E., Jourdan, L., and Talbi, E.-G.<br/>  Sensitivity and specificity based multiobjective approach for feature selection: Application to cancer diagnosis. <br/> Information Processing Letters, 109(16):887-896, July 2009.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.sebastianlunavalero.es/weka/PSOSearch1.0.0.zip
+
+# URL for further information
+URL=http://neo.lcc.uma.es/
+
+# Enhances various other packages ?
+# Enhances=
+
+# Related to other packages?
+Related=attributeSelectionSearchMethods
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.4)

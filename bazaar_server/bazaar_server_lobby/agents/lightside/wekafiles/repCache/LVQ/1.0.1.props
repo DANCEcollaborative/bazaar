@@ -1,0 +1,44 @@
+# Template Description file for a Weka package
+#
+# 
+
+# Package name (required)
+PackageName=LVQ
+
+# Version (required)
+Version=1.0.1
+
+#Date
+Date=2012-01-05
+
+# Title (required)
+Title=Cluster data using the Learning Vector Quantization algorithm.
+
+Category=Clustering
+
+# Author (required)
+Author=John Salatas
+
+# Maintainer (required)
+Maintainer=John Salatas <jsalatas@gmail.com>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=A Clusterer that implements Learning Vector Quantization algorithm for unsupervised clustering. For more details, see:<br/><br/> T. Kohonen, "Learning Vector Quantization", The Handbook of Brain Theory and Neural Networks, 2nd Edition, MIT Press, 2003, pp. 631-634.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://prdownloads.sourceforge.net/wekann/LVQ1.0.1.zip?download
+
+# URL for further information
+URL=http://wekann.sourceforge.net/doc/LVQ
+
+# Enhances various other packages ?
+# Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+#Related=
+
+# Dependencies
+Depends=weka (>=3.7.2)

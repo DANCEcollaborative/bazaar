@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Waikato Environment for Knowledge Analysis (WEKA)</title>
+<!-- CSS Stylesheet -->
+<style>body
+{
+background: #ededed;
+color: #666666;
+font: 14px Tahoma, Helvetica, sans-serif;;
+margin: 5px 10px 5px 10px;
+padding: 0px;
+}
+</style>
+
+</head>
+<body bgcolor="#ededed" text="#666666">
+
+
+<h2>jsonFieldExtractor: Extract fields from repeating JSON structures.</h2>
+
+
+<table>
+<tr><td valign=top>URL:</td><td width=50></td><td><a href="http://wiki.pentaho.com/display/DATAMINING">http://wiki.pentaho.com/display/DATAMINING</a></td></tr>
+<tr><td valign=top>Author:</td><td width=50></td><td>Mark Hall &#60;mhall{[at]}pentaho.com&#62;</td></tr>
+<tr><td valign=top>Maintainer:</td><td width=50></td><td>Mark Hall &#60;mhall{[at]}pentaho.com&#62;</td></tr>
+</table>
+<p>
+<p>Provides a Knowledge Flow component that can be used to extract one or more fields from repeating blocks of JSON formatted text contained in the values of String attributes.The value of each string attribute in each instance is assumed to contain JSON blocks of the same structure. The user can specify a "path" to use for finding the field to extract. Each field extracted becomes a new attribute in the outgoing instances structure. The type of each attribute and its legal values (if nominal) can also be specified. Given the following "Alias" JSON structure: <br><br><code>{alias: [{firstname: "bob", lastname: "smith"}, {firstname: "fred", lastname: "jones"}]}</code><br><br> one would extract the lastname of the second element of the array with a path like:<br><br><code>$.alias[1].lastname</code><br><br></p>
+
+<p>All available versions:<br>
+<a href="Latest.html">Latest</a><br>
+<a href="1.0.0.html">1.0.0</a><br>
+</body>
+</html>

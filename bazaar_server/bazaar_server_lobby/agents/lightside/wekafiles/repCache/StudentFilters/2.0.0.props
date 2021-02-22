@@ -1,0 +1,45 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=StudentFilters
+
+# Version (required)
+Version=2.0.0
+
+#Date (year-month-day)
+Date=2018-07-31
+
+# Title (required)
+Title=Student Filters
+
+# Category (recommended)
+Category=Preprocessing
+
+# Author (required)
+Author=Chris Gearhart <cgearhart3@gatech.edu>
+
+# Maintainer (required)
+Maintainer=Chris Gearhart <cgearhart3@gatech.edu>
+
+# License (required)
+License=Unlicense
+
+# Description (required)
+Description=Student's filters is a set of unsupervised learning algorithms \
+ (initially only a port of parallel FastICA for Independent Component \
+ Analysis) that should be particularly useful for the ML classes at \
+ Georgia Tech.
+
+# Changes and/or bug fixes in this package
+Changes=Fixed a bug with the ICA filter to correctly propagate class \
+ attributes through the filter.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/cgearhart/students-filters/raw/master/StudentFilters.zip
+
+# URL for further information
+URL=https://github.com/cgearhart/students-filters/
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.8)

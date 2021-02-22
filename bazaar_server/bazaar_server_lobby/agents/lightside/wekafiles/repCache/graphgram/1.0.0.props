@@ -1,0 +1,33 @@
+# Package name (required)
+PackageName=graphgram
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2014-05-13
+
+# Title (required)
+Title=GraphGram - Visualization for Clusterings
+
+# Category (recommended)
+Category= Clustering,  Visualization
+
+# Author (required)
+Author=Johannes Schneider<johannes.schneider@alumni.ethz.ch>
+
+# Maintainer (required)
+Maintainer=Johannes Schneider<johannes.schneider@alumni.ethz.ch>
+
+# License (required)
+License=This version is freeware.
+
+# Description (required)
+Description=Visualize multiple clustering results of an algorithm for varying parameters and show relations among clusters.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://voltaic-sandbox-523.appspot.com/downloads/graphgram_weka_20140513.zip
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.1)
+

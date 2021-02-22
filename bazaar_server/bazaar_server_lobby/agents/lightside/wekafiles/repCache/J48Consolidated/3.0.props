@@ -1,0 +1,77 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=J48Consolidated
+
+# Version (required)
+Version=3.0
+
+#Date (year-month-day)
+Date=2014-07-02
+
+# Title (required)
+Title=Class for generating a pruned or unpruned C45 consolidated tree
+
+# Category (recommended)
+Category=Classification
+
+# Author (required)
+Author=Jesus M. Perez <txus.perez@ehu.es>, Igor Ibarguren <igor.ibarguren@ehu.es>
+
+# Maintainer (required)
+Maintainer=Jesus M. Perez <txus.perez@ehu.es>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=Class for generating a pruned or unpruned C4.5 consolidated tree. Uses the Consolidated Tree Construction (CTC) algorithm: a single tree is built based on a set of subsamples. New options are added to the J48 class to set the Resampling Method (RM) for the generation of samples to be used in the consolidation process. For more information, see:<br/><br/>Jes&uacute;s M. P&eacute;rez and Javier Muguerza and Olatz Arbelaitz and Ibai Gurrutxaga and Jos&eacute; I. Mart&iacute;­n. "Combining multiple class distribution modified subsamples in a single tree". Pattern Recognition Letters (2007), 28(4), pp 414-422. <a href="http://dx.doi.org/10.1016/j.patrec.2006.08.013" target="_blank">doi:10.1016/j.patrec.2006.08.013</a><br/><br/>A new way has been added to determine the number of samples to be used in the consolidation process which guarantees the minimum percentage, the coverage value, of the examples of the original sample to be contained by the set of built subsamples. For more information, see:<br/><br/>Igor Ibarguren and Jes&uacute;s M. P&eacute;rez and Javier Muguerza and Ibai Gurrutxaga and Olatz Arbelaitz. "An extensive analysis of consolidated trees' robustness using a new resampling strategy on multiple classification contexts againsts a wide set of rule induction algorithms". Knowledge Based Systems (2014), submitted.<br/>
+
+# Package URL for obtaining the package archive (required)
+PackageURL=http://www.aldapa.eus/res/weka-ctc/J48Consolidated-v2.zip
+
+# URL for further information
+URL=http://www.sc.ehu.es/aldapa
+
+# Enhances various other packages ?
+#Enhances=
+
+# Related to other packages?
+#Related=
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.11)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstallation=
+
+# Prevent package from being loaded by Weka if the named
+# files/directories are not present (relative to the package's
+# root directory). Useful for packages that require the user
+# to manually install some third-party library(s). (optional)
+#DoNotLoadIfFileNotPresent=
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+#DoNotLoadIfFileNotPresentMessage=
+
+# Prevent package from being loaded by Weka if the named
+# classes can't be instantiated. Useful for packages that rely
+# on stuff that has to be installed manually (an example is
+# Java3D, which installs itself into the system JRE/JDK. (optional)
+#DoNotLoadIfClassNotPresent=
+
+# Log message to be displayed if package can't be loaded due to 
+# missing classes. (optional).
+#DoNotLoadIfClassNotPresentMessage=
+
+# Prevent package from being loaded by Weka if one or more (comma-separated)
+# environment variables or java properties are not set. (optional).
+#DoNotLoadIfEnvVarNotSet=
+
+# Log message to be displayed if package can't be loaded due to unset
+# environment variables or java properties.
+#DoNotLoadIfEnvVarNotSetMessage=

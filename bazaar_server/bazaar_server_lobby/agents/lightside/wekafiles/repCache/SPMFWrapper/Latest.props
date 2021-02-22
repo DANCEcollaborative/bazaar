@@ -1,0 +1,44 @@
+# Template Description file for a Weka package
+# 
+
+# Package name (required)
+PackageName=SPMFWrapper
+
+# Version (required)
+Version=0.0.2
+
+#Date (year-month-day)
+Date=2015-03-30
+
+# Title (required)
+Title=SPMFWrapper
+
+# Category (recommended)
+Category=Associations
+
+# Author (required)
+Author=Christopher Beckham <cjb60 at students dot waikato dot ac dot nz>
+
+# Maintainer (required)
+Maintainer=Christopher Beckham <cjb60 at students dot waikato dot ac dot nz>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=A wrapper for SPMF
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/chrispy645/spmf-wrapper/releases/download/0.0.2/spmfWrapper.zip
+
+# URL for further information
+URL=https://github.com/chrispy645/spmf-wrapper
+
+# Enhances various other packages ?
+#Enhances=packageName1,packageName2,...
+
+# Related to other packages?
+#Related=packageName1,packageName2,...
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (>=3.7.1)

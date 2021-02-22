@@ -17,7 +17,7 @@ const {Worker, isMainThread} = require('worker_threads');
 const lti = require('ims-lti');
 const consumer_key = "BazaarLTI";
 const consumer_secret = "BLTI";
-const localPort = 444;
+const localPort = 443;
 const localHost = '0.0.0.0';
 const localURL = "/bazaar";
 
@@ -379,7 +379,7 @@ console.log("server is running on 8006");
 //David's Code
 
 HOST = null; // localhost
-PORT = 443; 
+PORT = 444; 
 
 //const CONDITIONS = ["revoice", "press_reasoning", "agree"];
 const CONDITIONS = ["none"]; // hyeju changed this value
@@ -397,7 +397,7 @@ const MESSAGE_BACKLOG = 200,
 let LOCKDOWN_TIME = 0;
 let START_TIME = new Date().getTime();
 const chat_url = "https://misty.lti.cs.cmu.edu/bazaar/chat/";
-const roomname_prefix = "normaldistribution";
+const roomname_prefix = "weather";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started

@@ -1,0 +1,35 @@
+# Package name (required)
+PackageName=arxAnonymizer
+
+# Version (required)
+Version=1.0.0
+
+#Date (year-month-day)
+Date=2015-01-30
+
+# Title (required)
+Title=ARX Anonymization Filter
+
+# Category (recommended)
+Category=Preprocessing
+
+# Author (required)
+Author=Christian Windolf <christianwindolf@web.de>, Simon Könnecke <simon.koennecke@fu-berlin.de>, Andre Breitenfeld <andre.breitenfeld@fu-berlin.de>
+
+# Maintainer (required)
+Maintainer=Christian Windolf <christianwindolf@web.de>, Simon Könnecke <simon.koennecke@fu-berlin.de>, Andre Breitenfeld <andre.breitenfeld@fu-berlin.de>
+
+# License (required)
+License=GNU GPL3
+
+# Description (required)
+Description=This package provides algorithms to apply k-Anonymity, l-Diversity and t-Closeness with traversal strategy "Flash", for an optimal transformation to an anonymized dataset with respect to minimal information loss. The algorithms originate from the ARX Data Anonymization Toolkit, please read for further information's: http://arx.deidentifier.org/development/algorithms/.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://raw.githubusercontent.com/farbtrommel/arx-weka/master/package/arxAnonymizer1.0.0.zip
+
+# URL for further information
+URL=https://github.com/farbtrommel/arx-weka
+
+# Dependencies (format: packageName (equality/inequality version_number)
+Depends=weka (<=3.8.0)

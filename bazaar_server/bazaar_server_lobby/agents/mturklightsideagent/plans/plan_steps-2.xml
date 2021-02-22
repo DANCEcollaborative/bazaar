@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Machine-learned responses">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+
+    <stage name="initiate" type="other" delay="10">
+        <step type="prompt" delay="600">This test of machine-learned responses will run for about 10 minutes.|Try typing "Teachers are amazing" for a response of "Detected."|Try "No reason" for a response of "NOT Detected."|You can guess other entries that will evoke these responses as well, although most will evoke neither response.</step>
+		<step type="prompt" delay="30">Logging off in about 30 seconds ...</step>        
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+</plan>

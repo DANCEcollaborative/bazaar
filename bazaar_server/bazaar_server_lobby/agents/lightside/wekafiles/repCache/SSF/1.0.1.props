@@ -1,0 +1,72 @@
+# Simplified Silhouette Filter - Weka Package
+# 
+
+# Package name (required)
+PackageName=SSF
+
+# Version (required)
+Version=1.0.1
+
+#Date (year-month-day)
+Date=2015-01-09
+
+# Title (required)
+Title=Simplified Silhouette Filter
+
+# Category (recommended)
+Category=Attribute Selection
+
+# Author (required)
+Author=Thiago Covoes <tcovoes@icmc.usp.br>
+
+# Maintainer (required)
+Maintainer=Thiago Covoes <tcovoes@icmc.usp.br>
+
+# License (required)
+License=GPL 2.0
+
+# Description (required)
+Description=Implements the SSF and S^3F filters for feature selection described in the paper Covões & Hruschka (2011), Towards Improving Cluster-Based Feature Selection with a Simplified Silhouette Filter, Information Sciences Volume 181, Issue 18, 15 September 2011, Pages 3766-3782.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://sites.google.com/site/covoes/SSF_Package.zip
+
+# URL for further information
+URL=https://sites.google.com/site/covoes/README_FOR_SSF.txt
+
+Changes=No real changes. Version number bumped as package has moved to a new URL.
+
+# Dependencies (format: packageName (equality/inequality version_number)
+#need to test to see if there is some requirement here
+Depends=weka (>=3.7.1)
+
+# Message to display in installation. Can be used to provide
+# special instructions (e.g. manual stuff needed to complete
+# the installation process). (optional).
+#MessageToDisplayOnInstall=Funky package requires some extra\n\
+# stuff to be installed after installing this package. You will\n\
+# need to blah, blah, blah in order to blah, blah, blah...
+
+# Prevent package from being loaded by Weka if the named
+# files/directories are not present (relative to the package's
+# root directory). Useful for packages that require the user
+# to manually install some third-party library(s). (optional)
+#DoNotLoadIfFileNotPresent=lib/someLibrary.jar,otherStuff/important,...
+
+# Log message to be displayed if package can't be loaded due to
+# missing files/directories. (optional)
+#DoNotLoadIfFileNotPresentMessage=funkyPackage can't be loaded because some \
+# funky libraries are missing. Please download funkyLibrary.jar from \
+# http://www.funky.com and install in $WEKA_HOME/packages/funkyPackage/lib
+
+# Prevent package from being loaded by Weka if the named
+# classes can't be instantiated. Useful for packages that rely
+# on stuff that has to be installed manually (an example is
+# Java3D, which installs itself into the system JRE/JDK. (optional)
+#DoNotLoadIfClassNotPresent=com.some.class.from.some.Where,org.some.other.Class,...
+
+# Log message to be displayed if package can't be loaded due to 
+# missing classes. (optional).
+#DoNotLoadIfClassNotPresentMessage=funkyPackage can't be loaded because \
+# com.funky.FunkyClass can't be instantiated. Have you downloaded and run \
+# the funky software installer for your platform?
