@@ -29,7 +29,7 @@ const Crypto = require("crypto");
 
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, {path: '/bazsocket'});
+const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true});
 const path = require('path'); 
 
 server.listen(localPort);
@@ -1119,7 +1119,8 @@ function logMessage(socket, content, type) {
 //   connection.end()    
 }
 
-io.set('log level', 1);
+// io.set('log level', 1);
+DEBUG=io*
 
 io.sockets.on('connection', async (socket) => {
         // when the client emits 'adduser', this listens and executes

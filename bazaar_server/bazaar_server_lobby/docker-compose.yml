@@ -7,7 +7,7 @@ services:
     build:
        context: ./
        dockerfile: Dockerfile.mysql
-    container_name: nodechat_lobby_https
+    container_name: nodechat_lobby
     volumes:    
      - mysql_data:/var/lib/mysql
     environment:
@@ -20,7 +20,7 @@ services:
     build: 
        context: ./
        dockerfile: Dockerfile
-    container_name: bazaar_lobby_https
+    container_name: bazaar_lobby
     depends_on:
      - nodechat
     ports:

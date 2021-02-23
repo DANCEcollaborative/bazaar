@@ -45,7 +45,6 @@ ul.tab li a:focus, .active {
 <!-- End of additions for tab edits -->
 
 <head>
-<meta http-equiv="Content-Security-Policy" content ='default-src *'">
 <title id="title_el">Discussion Room</title>
 
 </head>
@@ -54,12 +53,11 @@ ul.tab li a:focus, .active {
 
 <link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
-<!--<link property='stylesheet' href='style_ccc.css' rel='stylesheet' id='filecss' type='text/css' />-->
-<script src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
-<script src="/bazsocket/socket.io.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" ></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
-<script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+<script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
 
 <script>
     var windowHasFocus = true;
@@ -227,8 +225,13 @@ ul.tab li a:focus, .active {
 	// var socket = io.connect(chatserver_url, {
     //     path: '/bazaar'
     // });
+    const urlParams = new URLSearchParams(location.search);
+    // const socketPath =
     const socket = io({
-        path: '/bazsocket'
+        path: '/bazsocket',
+        query: {
+          ltik: urlParams.get('ltik')
+        }
     });
 
 	var users = {};
@@ -377,8 +380,7 @@ ul.tab li a:focus, .active {
 
     function sendReady(is_ready)
     {
-        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
-        
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'         
     }
     
     function sendMessage()
