@@ -15,4 +15,6 @@ RUN cd lobby && npm install && cd ..
 
 EXPOSE 443 444
 
+ENV DEBUG=*
+
 CMD ["sh","-c","while ! nc -z nodechat 3306; do echo sleeping; sleep 1; done; bash ./runLobby"]
