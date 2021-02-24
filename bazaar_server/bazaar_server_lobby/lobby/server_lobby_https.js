@@ -237,6 +237,7 @@ function setTeam_(teamNumber,req,logger,res)
         const roomname = req.query.roomName + teamNumber;
         const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
                                                              req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
+
         console.log("setTeam_, url: " + url);
         res.writeHead(301,{Location: url});
         res.end();
@@ -303,10 +304,10 @@ app.get('/bazaar/static/*', async (req, res) => {
   res.sendFile(path.join(__dirname, './static/' + file))
 });
 
+
 app.get('/observe/*', async (req, res) => {
     res.sendFile(__dirname + '/index_ccc.html');
 });
-
 
 app.get('/data/*', async (req, res) => {
     groups = /\/data\/([^\/]+)/.exec(req.url)	  
@@ -315,6 +316,14 @@ app.get('/data/*', async (req, res) => {
     exportCSV(room, res);
 
 });
+
+
+app.get('*', async (req, res) => {
+   console.log("app.get(*): ");
+});
+
+
+
 
 
 app.post('/',function(req, res) {
@@ -1123,6 +1132,9 @@ function logMessage(socket, content, type) {
 DEBUG=io*
 
 io.sockets.on('connection', async (socket) => {
+
+	console.log("info", "socket.on_connection: -- start");
+
         // when the client emits 'adduser', this listens and executes
 	socket.on('snoop', async (room, id, perspective) => {
 	
