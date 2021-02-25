@@ -1135,7 +1135,11 @@ io.sockets.on('connection', async (socket) => {
 
 	console.log("info", "socket.on_connection: -- start");
 
-	console.log("handshake.auth.token = " + socket.handshake.auth.token);
+	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
+	console.log("socket.path = " + socket.path);
+	console.log("socket.agent = " + socket.agent);
+        console.log("socket.room = " + socket.room);
+
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
