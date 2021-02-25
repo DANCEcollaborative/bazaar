@@ -1129,11 +1129,19 @@ function logMessage(socket, content, type) {
 }
 
 // io.set('log level', 1);
-DEBUG=io*
+// DEBUG=io*
 
 io.sockets.on('connection', async (socket) => {
 
 	console.log("info", "socket.on_connection: -- start");
+
+	console.log("handshake.auth.token = " + socket.handshake.auth.token);
+
+	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
+ 	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
+		console.log("token is NOT 'undefined'; issuing -join- with token");
+		socket.join(socket.handshake.auth.token);
+	}
 
         // when the client emits 'adduser', this listens and executes
 	socket.on('snoop', async (room, id, perspective) => {
@@ -1303,6 +1311,16 @@ io.sockets.on('connection', async (socket) => {
     } catch (e) {
     }
 
+
+	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
+ 	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
+		console.log("token is NOT 'undefined'; issuing -leave- with token");
+		socket.leave(socket.handshake.auth.token);
+	}
+		
+	else {
+
+
     if ((socket.username != "VirtualErland" || socket.username != "BazaarAgent") && socket.room in numUsers) {
       numUsers[socket.room] = numUsers[socket.room] - 1;
     }
@@ -1327,6 +1345,7 @@ io.sockets.on('connection', async (socket) => {
 
     if (socket.room)
       socket.leave(socket.room);
+}
 
   });
 });
