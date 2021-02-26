@@ -303,7 +303,7 @@ function setTeam_fromSocket(roomName,teamNumber,userID,userName,logger) {
 			console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
 			agentLaunch(roomName, teamNumber);
 	}
-	logger.log("info","Number of users : " + numUsers[roomName]);
+	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
     console.log("Exit setTeam_fromSocket");
 }
