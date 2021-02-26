@@ -127,13 +127,13 @@ app.get('/room_status*', async (req, res) => {
 
 app.get('/welcome*', async (req, res) => {
     console.log("Welcome");
-    res.sendFile(__dirname + '/welcome.html');
+    res.sendFile(__dirname + ath.join(__dirname, './html_pages/' + '/welcome.html'));
 });
 
 
-
+// May call setTeam_ to launch an agent 
 app.get('/login*', async (req, res) => {
-    console.log("Hi");
+  console.log("Enter app.get /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -148,14 +148,17 @@ app.get('/login*', async (req, res) => {
     console.log("error from db room insert " + err);
   }
 
-  if (1) {
+  if (1) {        								// if(1) is always true? 
     teamNumber = req.query.roomId;
     setTeam_(teamNumber, req, logger, res);
   }
+  console.log("Exit app.get /login");
 });
 
+
+// May launch an agent directly
 app.post('/login*', async (req, res) => {
-    console.log("Hi");
+  console.log("Enter app.post /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -192,6 +195,7 @@ app.post('/login*', async (req, res) => {
           throw new Error("Couldn't update count for room " + req.query.roomName);
         }
         numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
+        console.log("exec ../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"');
         exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
         sleep(5000);
         setTeam(teamNumber, req, logger, res);
@@ -204,6 +208,7 @@ app.post('/login*', async (req, res) => {
     console.log(err);
     res.send(500, header_stuff + "<body><h2>Error</h2><p>" + err.message + "':</p><pre>" + err + "</pre></body>");
   }
+  console.log("Exit app.post /login");
 
 });
 
@@ -215,6 +220,7 @@ function createWorker() {
 const worker = createWorker();
 
 const agentLaunch = async (roomName, teamNumber) => {
+  console.log("agentLaunch: Launching agent with worker.postMessage");
   worker.postMessage({
     roomName: roomName,
     teamNumber: teamNumber
@@ -222,60 +228,67 @@ const agentLaunch = async (roomName, teamNumber) => {
 }
 
 
-function setTeam_(teamNumber,req,logger,res)
-{
-        if( (!(req.query.roomName + teamNumber in numUsers)) )
-        {
-                numUsers[req.query.roomName + teamNumber] = 0;
-                console.log("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
-    			agentLaunch(req.query.roomName, teamNumber);
-        }
-        //teamNumber = req.query.roomId;
-        let html_page = 'index';
-        if(req.query.html != undefined) html_page = req.query.html;
+function setTeam_(teamNumber,req,logger,res) {
+    console.log("Enter setTeam_");
+	if( (!(req.query.roomName + teamNumber in numUsers)) )
+	{
+			numUsers[req.query.roomName + teamNumber] = 0;
+    		console.log("setTeam_: About to call agentLaunch for the following");
+			console.log("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
+			agentLaunch(req.query.roomName, teamNumber);
+	}
+	//teamNumber = req.query.roomId;
+	let html_page = 'index';
+	if(req.query.html != undefined) html_page = req.query.html;
 
-        const roomname = req.query.roomName + teamNumber;
-        const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
-                                                             req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
+	const roomname = req.query.roomName + teamNumber;
+	const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
+														 req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
 
-        console.log("setTeam_, url: " + url);
-        res.writeHead(301,{Location: url});
-        res.end();
+	console.log("setTeam_, url: " + url);
+	res.writeHead(301,{Location: url});
+	res.end();
 
-        logger.log("info","Number of users : " + numUsers[roomname]);
-        logger.log("info","Team number : " + teamNumber);
+	logger.log("info","Number of users : " + numUsers[roomname]);
+	logger.log("info","Team number : " + teamNumber);
 
-        //Replace accepts a value between 0 and 1.
-       /* provider.outcome_service.send_replace_result(1, function(err, result){
-            console.log("Grade submitted: " + result) // True or false
-        });*/
+	//Replace accepts a value between 0 and 1.
+   /* provider.outcome_service.send_replace_result(1, function(err, result){
+		console.log("Grade submitted: " + result) // True or false
+	});*/
 
+    console.log("Exit setTeam_");
 }
+
+
 function setTeam(teamNumber,req,provider,logger,res)
 {
-    	/*if( (!(req.query.roomName + pad(teamNumber, 2) in numUsers)) || numUsers[req.query.roomName + pad(teamNumber, 2)] <= 0)
-    	{
-                numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
-        	exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
-       		sleep(5000);
-    	}*/
-        let html_page = 'index';
-        if(req.query.html != undefined) html_page = req.query.html;
-        const roomname = req.query.roomName + pad(teamNumber, 2);
-        const url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
+    console.log("Enter setTeam");
+	/*if( (!(req.query.roomName + pad(teamNumber, 2) in numUsers)) || numUsers[req.query.roomName + pad(teamNumber, 2)] <= 0)
+	{
+			numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
+		exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
+		sleep(5000);
+	}*/
+	let html_page = 'index';
+	if(req.query.html != undefined) html_page = req.query.html;
+	const roomname = req.query.roomName + pad(teamNumber, 2);
+	const url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
+	console.log("setTeam, url: " + url);
 
-    	res.writeHead(301,{Location: url});
-    	res.end();
+	res.writeHead(301,{Location: url});
+	res.end();
 
-    	logger.log("info","Number of users : " + numUsers[roomname]);
-    	logger.log("info","Team number : " + teamNumber);
-        logger.log("info","provider : " + provider.username);
-        console.log(provider);
-        //console.log(provider);
-        //Replace accepts a value between 0 and 1.
-        provider.outcome_service.send_replace_result(1, function(err, result){
-            console.log("Grade submitted: " + result) // True or false
-        });
+	logger.log("info","Number of users : " + numUsers[roomname]);
+	logger.log("info","Team number : " + teamNumber);
+	logger.log("info","provider : " + provider.username);
+	console.log(provider);
+	//console.log(provider);
+	//Replace accepts a value between 0 and 1.
+	provider.outcome_service.send_replace_result(1, function(err, result){
+		console.log("Grade submitted: " + result) // True or false
+	});
+    console.log("Exit setTeam");
         
 }
 
@@ -1138,7 +1151,7 @@ io.sockets.on('connection', async (socket) => {
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 	console.log("socket.path = " + socket.path);
 	console.log("socket.agent = " + socket.agent);
-        console.log("socket.room = " + socket.room);
+    console.log("socket.room = " + socket.room);
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN

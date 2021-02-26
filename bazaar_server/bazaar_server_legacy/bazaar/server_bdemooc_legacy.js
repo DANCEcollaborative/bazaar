@@ -2,8 +2,8 @@ var winston    = require('winston');
 var mysql      = require('mysql');
 var mysql_auth = {
       host     : 'localhost',
-      user     : '********',
-      password : '********',
+      user     : 'local',
+      password : 'local',
       socketPath: '/var/run/mysqld/mysqld.sock',
     };
 var connection;
