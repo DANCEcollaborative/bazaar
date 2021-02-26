@@ -719,11 +719,11 @@ function shuffle(array)
 // interval where team formation and idle user removal happens
 setInterval(function () 
 {
-  console.log("Enter setInterval");
+  //console.log("Enter setInterval");
   const now = new Date(); 
  
   for (const id in sessions) 
-  {
+  { 
 
     if (!sessions.hasOwnProperty(id)) continue;
     const session = sessions[id];
@@ -843,7 +843,7 @@ setInterval(function ()
 	team = [];
     }
   }
-  console.log("Exit setInterval");
+  // console.log("Exit setInterval");
 }, 5*1000);
 
 
