@@ -156,7 +156,7 @@ app.get('/login*', async (req, res) => {
 });
 
 
-// May launch an agent directly
+// May launch an agent directly -- IS THIS USED? 
 app.post('/login*', async (req, res) => {
   console.log("Enter app.post /login");
   teamNumber = 0;
@@ -233,8 +233,7 @@ function setTeam_(teamNumber,req,logger,res) {
 	if( (!(req.query.roomName + teamNumber in numUsers)) )
 	{
 			numUsers[req.query.roomName + teamNumber] = 0;
-    		console.log("setTeam_: About to call agentLaunch for the following");
-			console.log("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
+			console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
 			agentLaunch(req.query.roomName, teamNumber);
 	}
 	//teamNumber = req.query.roomId;
@@ -293,6 +292,22 @@ function setTeam(teamNumber,req,provider,logger,res)
 }
 
 
+function setTeam_fromSocket(roomName,teamNumber,userID,userName,logger) {
+    console.log("Enter setTeam_fromSocket");
+    const roomNameAndNumber = roomName + teamNumber;
+    let perspective = 0;							// haodcoded for now
+    let forum = "undefined";						// hardcoded for now
+	if( (!(roomNameAndNumber in numUsers)) )
+	{
+			numUsers[roomNameAndNumber] = 0;
+			console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
+			agentLaunch(roomName, teamNumber);
+	}
+	logger.log("info","Number of users : " + numUsers[roomname]);
+	logger.log("info","Team number : " + teamNumber);
+    console.log("Exit setTeam_fromSocket");
+}
+
 
 
 function delay(ms) {
@@ -302,10 +317,12 @@ function delay(ms) {
 
 app.get('/chat*', async (req, res) => {
 
+  console.log("Enter app.get /chat");
   let html_page = 'index';
   if (req.query.html !== undefined) html_page = req.query.html;
 
   res.sendFile(path.join(__dirname, './html_pages/' + html_page + '.html'));
+  console.log("Exit app.get /chat");
 });
 
 app.get('/discussionnew.css', async (req,res) => {
@@ -1152,20 +1169,30 @@ io.sockets.on('connection', async (socket) => {
 	console.log("info", "socket.on_connection: -- start");
 
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	console.log("socket.path= " + socket.path);
-	console.log("socket.agent = " + socket.agent);
-    console.log("socket.room = " + socket.room);
+	// console.log("socket.path = " + socket.path);
+	// console.log("socket.agent = " + socket.agent);
+    // console.log("socket.room = " + socket.room);
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 		console.log("token is NOT 'undefined'; issuing -join- with token");
 		socket.join(socket.handshake.auth.token);
-		let roomname_prefix = "mturklightside";    				// hardcoding for now
-		let teamNumber = 1;     								// hardcoding for now
-		paddedTeamNumber = pad(teamNumber,2);		
-		console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
-		agentLaunch(roomname_prefix,paddedTeamNumber); 
+		
+		// At least temporarily, starting agent upon connection
+		let roomName = "mturklightside";    				// hardcoded for now
+		let teamNumber = 1;     							// hardcoded for now
+		let userID = 1;										// hardcoded for now
+		let userName = "SocketTester";						// hardcoded for now
+		paddedTeamNumber = pad(teamNumber,2);	
+		logger = winston.createLogger({
+    		transports: [
+      			new (winston.transports.Console)()]
+  		});	
+		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
+		setTeam_fromSocket(roomName,teamNumber,userID,userName,logger);
+		// console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
+		// agentLaunch(roomname_prefix,paddedTeamNumber); 
 		// exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
 	}
 
