@@ -719,6 +719,7 @@ function shuffle(array)
 // interval where team formation and idle user removal happens
 setInterval(function () 
 {
+  console.log("Enter setInterval");
   const now = new Date(); 
  
   for (const id in sessions) 
@@ -776,6 +777,7 @@ setInterval(function ()
                  //launch agent!
                 paddedTeamNumber = pad(teamNumber,2);
 
+				console.log("setInterval: about to 'exec' ../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"')
                 exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
                 //break;
             }
@@ -841,6 +843,7 @@ setInterval(function ()
 	team = [];
     }
   }
+  console.log("Exit setInterval");
 }, 5*1000);
 
 
@@ -864,7 +867,7 @@ fu.get("/who", function (req, res) {
                       });
 });
 
-//this is the incoming message from the client that triggers serssion creation.
+//this is the incoming message from the client that triggers session creation.
 fu.get("/join", function (req, res) 
 {
   let parsed = qs.parse(url.parse(req.url).query);
@@ -1158,6 +1161,12 @@ io.sockets.on('connection', async (socket) => {
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 		console.log("token is NOT 'undefined'; issuing -join- with token");
 		socket.join(socket.handshake.auth.token);
+		roomname_prefix = "mturklightside";    				// hardcoding for now
+		teamNumber = 1;     								// hardcoding for now
+		paddedTeamNumber = pad(teamNumber,2);		
+		console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix "," + paddedTeamNumber + ")");
+		agentLaunch(roomName_prefix,paddedTeamNumber); 
+		// exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
 	}
 
         // when the client emits 'adduser', this listens and executes
