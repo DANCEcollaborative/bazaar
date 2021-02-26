@@ -1136,7 +1136,10 @@ function loadHistory(socket, secret)
 }
 
 function logMessage(socket, content, type) {   
+
     if(socket.temporary) return;
+
+	console.log("Enter logMessage; NOT socket.temporary");
 
     //const connection = mysql.createConnection(mysql_auth);
     
@@ -1169,28 +1172,34 @@ io.sockets.on('connection', async (socket) => {
 	console.log("info", "socket.on_connection: -- start");
 
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	// console.log("socket.path = " + socket.path);
-	// console.log("socket.agent = " + socket.agent);
-    // console.log("socket.room = " + socket.room);
+	console.log("socket.handshake.path = " + socket.handshake.path);
+	console.log("socket.handshake.agent = " + socket.handshake.agent);
+    console.log("socket.handshake.room = " + socket.handshake.room);
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 		console.log("token is NOT 'undefined'; issuing -join- with token");
 		socket.join(socket.handshake.auth.token);
+		socket.clientName = "DCSS";    						// hardcoded for now
+		socket.roomName = "mturklightside";    				// hardcoded for now
+		let teamNumber = 1;     							// hardcoded for now
+		paddedTeamNumber = pad(teamNumber,2);	
+		socket.teamNumber = paddedTeamNumber; 
+		socket.userID = 1;     								// hardcoded for now
+		socket.userName = "SocketTester";    				// hardcoded for now
 		
 		// At least temporarily, starting agent upon connection
-		let roomName = "mturklightside";    				// hardcoded for now
-		let teamNumber = 1;     							// hardcoded for now
-		let userID = 1;										// hardcoded for now
-		let userName = "SocketTester";						// hardcoded for now
-		paddedTeamNumber = pad(teamNumber,2);	
+		// let roomName = "mturklightside";    				// hardcoded for now
+		// let userID = 1;									// hardcoded for now
+		// let userName = "SocketTester";					// hardcoded for now
 		logger = winston.createLogger({
     		transports: [
       			new (winston.transports.Console)()]
   		});	
 		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
-		setTeam_fromSocket(roomName,teamNumber,userID,userName,logger);
+		setTeam_fromSocket(socket.roomName,socket.teamNumber,socket.userID,socket.userName,logger);
+		// setTeam_fromSocket(roomName,teamNumber,userID,userName,logger);
 		// console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
 		// agentLaunch(roomname_prefix,paddedTeamNumber); 
 		// exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
@@ -1293,6 +1302,22 @@ io.sockets.on('connection', async (socket) => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
+		if (typeof socket.clientName !== 'undefined' ) {
+			if (socket.clientName == "DCSS") {
+				io.sockets.in(socket.room).emit('interjection', data); 
+			}
+		} else {		
+			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		}
+			
+	});
+
+	// when the client emits 'request', this listens and executes
+	socket.on('request', async (data)  => {
+		// we tell the client to execute 'updatechat' with 2 parameters
+		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
+		logMessage(socket, data, "text");
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	});
 	
