@@ -1152,7 +1152,7 @@ io.sockets.on('connection', async (socket) => {
 	console.log("info", "socket.on_connection: -- start");
 
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	console.log("socket.path = " + socket.path);
+	console.log("socket.path= " + socket.path);
 	console.log("socket.agent = " + socket.agent);
     console.log("socket.room = " + socket.room);
 
@@ -1161,11 +1161,11 @@ io.sockets.on('connection', async (socket) => {
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 		console.log("token is NOT 'undefined'; issuing -join- with token");
 		socket.join(socket.handshake.auth.token);
-		roomname_prefix = "mturklightside";    				// hardcoding for now
-		teamNumber = 1;     								// hardcoding for now
+		let roomname_prefix = "mturklightside";    				// hardcoding for now
+		let teamNumber = 1;     								// hardcoding for now
 		paddedTeamNumber = pad(teamNumber,2);		
-		console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix "," + paddedTeamNumber + ")");
-		agentLaunch(roomName_prefix,paddedTeamNumber); 
+		console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
+		agentLaunch(roomname_prefix,paddedTeamNumber); 
 		// exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
 	}
 
