@@ -1316,9 +1316,11 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('request', async (data)  => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
+		console.log("info", "socket.on_request: -- socket.value: " + socket.value); 
 		logMessage(socket, data, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
+		io.sockets.in(socket.room).emit('sendchat', socket.value);
 	});
 	
 
