@@ -1161,7 +1161,8 @@ function logMessage(socket, content, type) {
          if (err) 
             console.log(err);
     });   
-//   connection.end()    
+//   connection.end()  
+	console.log("Exit logMessage");  
 }
 
 // io.set('log level', 1);
@@ -1313,14 +1314,28 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 	// when the client emits 'request', this listens and executes
-	socket.on('request', async (data)  => {
-		// we tell the client to execute 'updatechat' with 2 parameters
-		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
+	socket.on('request-RENAME', async (data)  => {
 		console.log("info", "socket.on_request: -- socket.value: " + socket.value); 
 		logMessage(socket, data, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
 		io.sockets.in(socket.room).emit('sendchat', socket.value);
+	});
+
+	// when the client emits 'request', this listens and executes
+	socket.on('request', async (payload)  => {	
+		console.log("Enter socket.on_request"); 
+	    const {
+		  context,
+		  token,
+		  value,
+		} = payload;
+		console.log("socket.on_request: -- socket.value: " + value); 
+		logMessage(socket, value, "text");
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
+		io.sockets.in(socket.room).emit('sendchat', value);
+		console.log("Exit socket.on_request"); 
 	});
 	
 
