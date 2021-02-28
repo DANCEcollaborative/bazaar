@@ -1157,11 +1157,13 @@ function logMessage(socket, content, type) {
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
     		+ pool.escape(type) + ', now());';                   
 
+	 console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
          if (err) 
             console.log(err);
     });   
 //   connection.end()  
+    console.log("logMessage: conmpleted pool.query to mysql2 {by giving to worker thread}");  
 	console.log("Exit logMessage");  
 }
 
@@ -1184,9 +1186,10 @@ io.sockets.on('connection', async (socket) => {
 		socket.join(socket.handshake.auth.token);
 		socket.clientName = "DCSS";    						// hardcoded for now
 		socket.roomName = "mturklightside";    				// hardcoded for now
-		let teamNumber = 1;     							// hardcoded for now
-		paddedTeamNumber = pad(teamNumber,2);	
-		socket.teamNumber = paddedTeamNumber; 
+		// let teamNumber = 1;     							// hardcoded for now
+		// paddedTeamNumber = pad(teamNumber,2);	
+		// socket.teamNumber = paddedTeamNumber; 
+		socket.room = socket.handshake.auth.token; 
 		socket.userID = 1;     								// hardcoded for now
 		socket.userName = "SocketTester";    				// hardcoded for now
 		
@@ -1199,7 +1202,8 @@ io.sockets.on('connection', async (socket) => {
       			new (winston.transports.Console)()]
   		});	
 		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
-		setTeam_fromSocket(socket.roomName,socket.teamNumber,socket.userID,socket.userName,logger);
+		// setTeam_fromSocket(socket.roomName,socket.teamNumber,socket.userID,socket.userName,logger);	
+		setTeam_fromSocket(socket.roomName,socket.room,socket.userID,socket.userName,logger);
 		// setTeam_fromSocket(roomName,teamNumber,userID,userName,logger);
 		// console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
 		// agentLaunch(roomname_prefix,paddedTeamNumber); 
@@ -1300,6 +1304,7 @@ io.sockets.on('connection', async (socket) => {
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
+		console.log("Enter socket.on('sendchat'"); 
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
@@ -1310,6 +1315,7 @@ io.sockets.on('connection', async (socket) => {
 		} else {		
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		}
+		console.log("Exit socket.on('sendchat'"); 
 			
 	});
 
