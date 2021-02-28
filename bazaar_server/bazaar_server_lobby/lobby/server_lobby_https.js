@@ -1328,9 +1328,17 @@ io.sockets.on('connection', async (socket) => {
 	    const {
 		  context,
 		  token,
+		  key,
+		  agent,
+		  room,
 		  value,
 		} = payload;
-		console.log("socket.on_request: -- socket.value: " + value); 
+		console.log("socket.on_request: -- value: " + value); 
+		console.log("socket.on_request: -- agent: " + agent); 
+		console.log("socket.on_request: -- room: " + room); 
+		console.log("socket.on_request: -- token: " + token); 
+		console.log("socket.on_request: -- key: " + key); 
+		console.log("socket.on_request: -- context: " + context); 
 		logMessage(socket, value, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
