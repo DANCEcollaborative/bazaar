@@ -1342,7 +1342,8 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, value, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
-		io.sockets.in(socket.room).emit('sendchat', value);
+		// io.sockets.in(socket.room).emit('sendchat', value);
+		io.sockets.in(token).emit('sendchat', value);
 		console.log("Exit socket.on_request"); 
 	});
 	
