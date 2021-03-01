@@ -1187,7 +1187,7 @@ io.sockets.on('connection', async (socket) => {
  	// if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 	// 	console.log("token is NOT 'undefined'; issuing -join- with token");
 		
- 	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clienID = 'DCSS' ) {
+ 	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clientID == 'DCSS' ) {
 		console.log("client is DCSS; issuing -join- with token");
 		
 		const {
