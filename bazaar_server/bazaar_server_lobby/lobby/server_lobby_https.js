@@ -1095,6 +1095,7 @@ function exportCSV(room, res) {
 
 function loadHistory(socket, secret)
 {
+	console.log("Enter loadHistory");
     if(!socket.temporary) {
         //const connection = mysql.createConnection(mysql_auth);
         let id = null;
@@ -1134,6 +1135,7 @@ function loadHistory(socket, secret)
     {
 	io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
     }
+	console.log("Exit loadHistory");
 }
 
 function logMessage(socket, content, type) {   
