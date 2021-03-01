@@ -233,7 +233,7 @@ function setTeam_(teamNumber,req,logger,res) {
 	if( (!(req.query.roomName + teamNumber in numUsers)) )
 	{
 			numUsers[req.query.roomName + teamNumber] = 0;
-			console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
+			console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + teamNumber + ")");
 			agentLaunch(req.query.roomName, teamNumber);
 	}
 	//teamNumber = req.query.roomId;
