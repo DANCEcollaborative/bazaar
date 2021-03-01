@@ -1192,15 +1192,17 @@ io.sockets.on('connection', async (socket) => {
 		
 		  const {
 			token,
-			agent,
-			roomName,
+			agent {
+				agentName,
+				roomName
+			}
 			userID,
 			userName
 		  } = socket.handshake.auth;
 		  
 		console.log("token = " + token);
-		console.log("path = " + socket.handshake.path);
-		console.log("agent = " + agent);
+		// console.log("path = " + socket.handshake.path);
+		console.log("agent = " + agentName);
 		console.log("roomName = " + roomName);
 		console.log("userID = " + userID);
 		console.log("userName = " + userName);
