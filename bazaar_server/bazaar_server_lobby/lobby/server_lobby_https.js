@@ -1181,32 +1181,34 @@ io.sockets.on('connection', async (socket) => {
 	console.log("info", "socket.on_connection: -- start");
 
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	console.log("socket.handshake.path = " + socket.handshake.path);
-	console.log("socket.handshake.agent = " + socket.handshake.agent);
-    console.log("socket.handshake.roomName = " + socket.handshake.room);
-
+	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
- 	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
-		console.log("token is NOT 'undefined'; issuing -join- with token");
+ 	// if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
+	// 	console.log("token is NOT 'undefined'; issuing -join- with token");
 		
-		  const {
+ 	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clienID = 'DCSS' ) {
+		console.log("client is DCSS; issuing -join- with token");
+		
+		const {
 			token,
+			clientID, 
 			agent,
 			roomName, 
 			userID,
 			userName
-		  } = socket.handshake.auth;
+		} = socket.handshake.auth;
 		  
 		console.log("token = " + token);
-		// console.log("path = " + socket.handshake.path);
+		console.log("clientID = " + clientID);
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
 		console.log("userID = " + userID);
 		console.log("userName = " + userName);
 				
-		socket.join(token);  		
-		socket.agent = agent;  		
+		socket.join(token);  			
+		socket.clientID = clientID;    		
+		socket.agent = agent;  			
 		socket.roomName = roomName;  
 		socket.userID = userID;     						
 		socket.userName = userName; 
