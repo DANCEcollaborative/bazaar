@@ -1141,6 +1141,9 @@ function logMessage(socket, content, type) {
     if(socket.temporary) return;
 
 	console.log("Enter logMessage; NOT socket.temporary");
+	console.log("logMessage, socket.room = " + socket.room);
+	console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+	
 
     //const connection = mysql.createConnection(mysql_auth);
     
