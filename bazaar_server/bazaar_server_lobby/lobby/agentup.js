@@ -23,7 +23,7 @@ const looping = async () => {
     const agent = agentList.pop();
     if(agent !== undefined){   
       console.log("agentup.js launching agent: " + JSON.stringify(agent));
-      console.log("agentup.js launching agent -- agent.roomName = " + agent.roomName + " -- agent.teamNumber = " + agent.TeamNumber); 
+      console.log("agentup.js launching agent -- agent.roomName = " + agent.roomName + " -- agent.teamNumber = " + agent.teamNumber); 
       exec("../bazaar/launch_agent_docker.sh " + agent.roomName + " " + agent.teamNumber + ' "none"', puts);
     }
   }
