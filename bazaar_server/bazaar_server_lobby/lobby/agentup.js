@@ -4,7 +4,7 @@ const exec = require('child_process').exec;
 const agentList = [];
 parentPort.on("message", message => {
   agentList.push(message);
-  // console.log("This is a message from parent: " + JSON.stringify(message));
+  console.log("agentup.js, agentList.pushMessage from parent: " + JSON.stringify(message));
 });
 
 function delay(ms) {

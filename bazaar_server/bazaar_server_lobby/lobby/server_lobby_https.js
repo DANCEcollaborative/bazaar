@@ -220,7 +220,7 @@ function createWorker() {
 const worker = createWorker();
 
 const agentLaunch = async (roomName, teamNumber) => {
-  console.log("agentLaunch: Launching agent with worker.postMessage");
+  console.log("agentLaunch: Launching agent -- roomName = " + roomName + "  -- teamNumber = " + teamNumber);
   worker.postMessage({
     roomName: roomName,
     teamNumber: teamNumber
