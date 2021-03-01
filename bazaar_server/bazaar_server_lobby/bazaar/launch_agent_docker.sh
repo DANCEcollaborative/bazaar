@@ -2,7 +2,7 @@
 #usage: ./launch_agent_docker.sh roomname roomID condition [numcols [width height]]
 
 roomname=${1:-"Week_"};
-roomID=${1:"10000"};
+roomID=${2:"10000"};
 condition=${3:-""}
 cols=${4:-3};
 width=${5:-300};
