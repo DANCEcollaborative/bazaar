@@ -1182,10 +1182,6 @@ io.sockets.on('connection', async (socket) => {
 
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
-
-	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
- 	// if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
-	// 	console.log("token is NOT 'undefined'; issuing -join- with token");
 		
  	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clientID == 'DCSS' ) {
 		console.log("client is DCSS; issuing -join- with token");
@@ -1204,25 +1200,20 @@ io.sockets.on('connection', async (socket) => {
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
 		console.log("userID = " + userID);
-		console.log("userName = " + userName);
+		console.log("userName = " + userName); 
+		
+		initialRoom = agent + roomName;
+		console.log("initialRoom = " + initialRoom);
 				
-		socket.join(token);  			
+		socket.join(token);  				// DCSS wants this	
+		socket.join(initialRoom); 			// this is the room that Bazaar will also join 
+				
 		socket.clientID = clientID;    		
-		socket.agent = agent;  			
-		socket.roomName = roomName;  
+		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
+		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.userID = userID;     						
 		socket.userName = userName; 
-		// socket.join(socket.handshake.auth.token);
-		// socket.clientName = "DCSS";   
-		// let teamNumber = 1;     				
-		// paddedTeamNumber = pad(teamNumber,2);	
-		// socket.teamNumber = paddedTeamNumber; 
-		// socket.room = room;    			
 		
-		// At least temporarily, starting agent upon connection
-		// let roomName = "mturklightside";    				// hardcoded for now
-		// let userID = 1;									// hardcoded for now
-		// let userName = "SocketTester";					// hardcoded for now
 		logger = winston.createLogger({
     		transports: [
       			new (winston.transports.Console)()]
