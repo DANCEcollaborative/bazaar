@@ -1183,21 +1183,39 @@ io.sockets.on('connection', async (socket) => {
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 	console.log("socket.handshake.path = " + socket.handshake.path);
 	console.log("socket.handshake.agent = " + socket.handshake.agent);
-    console.log("socket.handshake.room = " + socket.handshake.room);
+    console.log("socket.handshake.roomName = " + socket.handshake.room);
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 		console.log("token is NOT 'undefined'; issuing -join- with token");
-		socket.join(socket.handshake.auth.token);
-		socket.clientName = "DCSS";    						// hardcoded for now
-		socket.roomName = "mturklightside";    				// hardcoded for now
-		// let teamNumber = 1;     							// hardcoded for now
+		
+		  const {
+			token,
+			agent,
+			roomName,
+			userID,
+			userName
+		  } = socket.handshake.auth;
+		  
+		console.log("token = " + token);
+		console.log("path = " + socket.handshake.path);
+		console.log("agent = " + agent);
+		console.log("roomName = " + roomName);
+		console.log("userID = " + userID);
+		console.log("userName = " + userName);
+				
+		socket.join(token);  		
+		socket.agent = agent;  		
+		socket.roomName = roomName;  
+		socket.userID = userID;     						
+		socket.userName = userName; 
+		// socket.join(socket.handshake.auth.token);
+		// socket.clientName = "DCSS";   
+		// let teamNumber = 1;     				
 		// paddedTeamNumber = pad(teamNumber,2);	
 		// socket.teamNumber = paddedTeamNumber; 
-		socket.room = socket.handshake.auth.token; 
-		socket.userID = 1;     								// hardcoded for now
-		socket.userName = "SocketTester";    				// hardcoded for now
+		// socket.room = room;    			
 		
 		// At least temporarily, starting agent upon connection
 		// let roomName = "mturklightside";    				// hardcoded for now
@@ -1209,7 +1227,7 @@ io.sockets.on('connection', async (socket) => {
   		});	
 		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
 		// setTeam_fromSocket(socket.roomName,socket.teamNumber,socket.userID,socket.userName,logger);	
-		setTeam_fromSocket(socket.roomName,socket.room,socket.userID,socket.userName,logger);
+		setTeam_fromSocket(socket.agent,socket.roomName,socket.userID,socket.userName,logger);
 		// setTeam_fromSocket(roomName,teamNumber,userID,userName,logger);
 		// console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
 		// agentLaunch(roomname_prefix,paddedTeamNumber); 
