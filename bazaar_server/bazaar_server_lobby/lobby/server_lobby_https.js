@@ -1349,12 +1349,14 @@ io.sockets.on('connection', async (socket) => {
 		console.log("socket.on_request: -- token: " + token); 
 		console.log("socket.on_request: -- key: " + key); 
 		console.log("socket.on_request: -- context: " + context); 
-		socket.room = token; 
+		socket.room = agent + token;
+		console.log("socket.on_request, socket.room = " + socket.room); 
 		logMessage(socket, value, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
 		// io.sockets.in(socket.room).emit('sendchat', value);
-		io.sockets.in(token).emit('sendchat', value);
+		// io.sockets.in(token).emit('sendchat', value);
+		io.sockets.in(socket.room).emit('sendchat', value);
 		console.log("Exit socket.on_request"); 
 	});
 	
