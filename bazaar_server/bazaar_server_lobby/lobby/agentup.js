@@ -21,8 +21,9 @@ const looping = async () => {
     await delay(400);
     // console.log("loop forever every 3 seconds")
     const agent = agentList.pop();
-    if(agent !== undefined){
-      console.log("agentup.js launching agent -- roomName = " + agent.roomName + " -- teamNumber = " + agent.TeamNumber); 
+    if(agent !== undefined){   
+      console.log("agentup.js launching agent: " + JSON.stringify(agent));
+      console.log("agentup.js launching agent -- agent.roomName = " + agent.roomName + " -- agent.teamNumber = " + agent.TeamNumber); 
       exec("../bazaar/launch_agent_docker.sh " + agent.roomName + " " + agent.teamNumber + ' "none"', puts);
     }
   }
