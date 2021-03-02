@@ -292,7 +292,7 @@ function setTeam(teamNumber,req,provider,logger,res)
 }
 
 
-function setTeam_fromSocket(roomName,teamNumber,userID,userName,logger) {
+function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
     console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = 0;							// haodcoded for now
@@ -1344,7 +1344,7 @@ io.sockets.on('connection', async (socket) => {
 			agent,				// Are most of these not needed since already in socket's data?
 			roomName, 
 			userID,
-			userName,
+			username,
 		    value
 		} = payload;
 
@@ -1354,16 +1354,16 @@ io.sockets.on('connection', async (socket) => {
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
 		console.log("userID = " + userID);
-		console.log("userName = " + userName); 
+		console.log("username = " + username); 
 		console.log("socket rooms: " + socket.rooms);
-		console.log("value = >>> " + userName + " <<<"); 
+		console.log("value = >>> " + value + " <<<"); 
 		
 		logMessage(socket, value, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
 		// io.sockets.in(socket.room).emit('sendchat', value);
 		// io.sockets.in(token).emit('sendchat', value);
-		io.sockets.in(socket.room).emit('sendchat', value);
+		io.sockets.in(socket.room).emit('sendchat', payload);
 		console.log("Exit socket.on_request"); 
 	});
 	
