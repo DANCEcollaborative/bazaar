@@ -1328,7 +1328,7 @@ io.sockets.on('connection', async (socket) => {
 		if (typeof socket.clientID !== 'undefined' ) {
 			console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
 			console.log("socket.on('sendchat'): socket.room = " + socket.room);
-			if (socket.clientID == "DCSS") {
+			// if (socket.clientID == "DCSS") {
 			if (socket.clientID == "DO_NOT_GO_HERE") {
 				io.sockets.in(socket.room).emit('interjection', data); 
 			}
