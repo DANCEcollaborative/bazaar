@@ -1139,26 +1139,36 @@ function loadHistory(socket, secret)
 }
 
 function logMessage(socket, content, type) {   
-
-    if(socket.temporary) return;
-
+	console.log("Enter logMessage");	
 	console.log("logMessage, socket.room = " + socket.room);
 	console.log("logMessage, socket.roomid = " + socket.roomid);
 	console.log("logMessage, socket.username = " + socket.username);
-	// console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
-	
+
+    if(socket.temporary) return;
 
     //const connection = mysql.createConnection(mysql_auth);
-    
-    
+       
   	pool.query('update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields) {
-         if (err) 
+         if (err) {
+         	console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
             console.log(err);
+        	}
     });
     
     endpoint = "unknown"
     if(socket.handshake)
-	endpoint = socket.handshake.address;
+		endpoint = socket.handshake.address;
+		
+	console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+	console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
+	console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
+	console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
+	console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
+	console.log("logMessage, pool.escape(content) = " + pool.escape(content));
+	console.log("logMessage, pool.escape(type) = " + pool.escape(type));
+	
+	
+	
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)' 
     		+ 'values ((select id from nodechat.room where name=' + pool.escape(socket.room) + '), '
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
@@ -1166,11 +1176,14 @@ function logMessage(socket, content, type) {
 
 	 console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
-         if (err) 
+         if (err) {
+         	console.log("Error on pool.query(query, function (err, rows, fields)")
             console.log(err);
+        }
+            
     });   
 //   connection.end()  
-    console.log("logMessage: conmpleted pool.query to mysql2 {by giving to worker thread}");  
+    console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
 	console.log("Exit logMessage");  
 }
 
