@@ -1142,9 +1142,10 @@ function logMessage(socket, content, type) {
 
     if(socket.temporary) return;
 
-	console.log("Enter logMessage; NOT socket.temporary");
 	console.log("logMessage, socket.room = " + socket.room);
-	console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+	console.log("logMessage, socket.roomid = " + socket.roomid);
+	console.log("logMessage, socket.username = " + socket.username);
+	// console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
 	
 
     //const connection = mysql.createConnection(mysql_auth);
@@ -1184,7 +1185,6 @@ io.sockets.on('connection', async (socket) => {
 	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
 		
  	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clientID == 'DCSS' ) {
-		console.log("client is DCSS; issuing -join- with token");
 		
 		const {
 			token,
@@ -1192,39 +1192,36 @@ io.sockets.on('connection', async (socket) => {
 			agent,
 			roomName, 
 			userID,
-			userName
+			username
 		} = socket.handshake.auth;
 		  
+		console.log("socket ID: " + socket.id);
 		console.log("token = " + token);
 		console.log("clientID = " + clientID);
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
 		console.log("userID = " + userID);
-		console.log("userName = " + userName); 
+		console.log("username = " + username); 
 		
-		initialRoom = agent + roomName;
-		console.log("initialRoom = " + initialRoom);
+		socket.roomid = agent + roomName;
+		console.log("socket.roomid = " + socket.roomid);
 				
 		socket.join(token);  				// DCSS wants this	
-		socket.join(initialRoom); 			// this is the room that Bazaar will also join 
+		socket.join(roomid); 			// this is the room that Bazaar will also join 
+		console.log("socket rooms: " + socket.rooms);
 				
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.userID = userID;     						
-		socket.userName = userName; 
+		socket.username = username; 
 		
 		logger = winston.createLogger({
     		transports: [
       			new (winston.transports.Console)()]
   		});	
 		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
-		// setTeam_fromSocket(socket.roomName,socket.teamNumber,socket.userID,socket.userName,logger);	
-		setTeam_fromSocket(socket.agent,socket.roomName,socket.userID,socket.userName,logger);
-		// setTeam_fromSocket(roomName,teamNumber,userID,userName,logger);
-		// console.log("socket.on_connection w/ auth token: agentLaunch(" + roomname_prefix + "," + paddedTeamNumber + ")");
-		// agentLaunch(roomname_prefix,paddedTeamNumber); 
-		// exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
+		setTeam_fromSocket(socket.agent,socket.roomName,socket.userID,socket.username,logger);
 	}
 
         // when the client emits 'adduser', this listens and executes
@@ -1321,49 +1318,46 @@ io.sockets.on('connection', async (socket) => {
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
-		console.log("Enter socket.on('sendchat'"); 
+		console.log("Enter socket.on('sendchat')'"); 
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
-		if (typeof socket.clientName !== 'undefined' ) {
-			if (socket.clientName == "DCSS") {
+		if (typeof socket.clientID !== 'undefined' ) {
+			console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
+			console.log("socket.on('sendchat'): socket.room = " + socket.room);
+			if (socket.clientID == "DCSS") {
 				io.sockets.in(socket.room).emit('interjection', data); 
 			}
 		} else {		
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		}
-		console.log("Exit socket.on('sendchat'"); 
+		console.log("Exit socket.on('sendchat')"); 
 			
-	});
-
-	// when the client emits 'request', this listens and executes
-	socket.on('request-RENAME', async (data)  => {
-		console.log("info", "socket.on_request: -- socket.value: " + socket.value); 
-		logMessage(socket, data, "text");
-		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
-		io.sockets.in(socket.room).emit('sendchat', socket.value);
 	});
 
 	// when the client emits 'request', this listens and executes
 	socket.on('request', async (payload)  => {	
 		console.log("Enter socket.on_request"); 
 	    const {
-		  context,
-		  token,
-		  key,
-		  agent,
-		  room,
-		  value,
+			token,
+			clientID, 
+			agent,
+			roomName, 
+			userID,
+			userName,
+		    value
 		} = payload;
-		console.log("socket.on_request: -- value: " + value); 
-		console.log("socket.on_request: -- agent: " + agent); 
-		console.log("socket.on_request: -- room: " + room); 
-		console.log("socket.on_request: -- token: " + token); 
-		console.log("socket.on_request: -- key: " + key); 
-		console.log("socket.on_request: -- context: " + context); 
-		socket.room = agent + token;
-		console.log("socket.on_request, socket.room = " + socket.room); 
+
+		console.log("socket ID: " + socket.id);		  
+		console.log("token = " + token);
+		console.log("clientID = " + clientID);
+		console.log("agent = " + agent);
+		console.log("roomName = " + roomName);
+		console.log("userID = " + userID);
+		console.log("userName = " + userName); 
+		console.log("socket rooms: " + socket.rooms);
+		console.log("value = >>> " + userName + " <<<"); 
+		
 		logMessage(socket, value, "text");
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
