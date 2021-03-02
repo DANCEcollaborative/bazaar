@@ -1216,6 +1216,7 @@ io.sockets.on('connection', async (socket) => {
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.roomid = roomid; 
+		socket.room = roomid; 
 		socket.userID = userID;     						
 		socket.username = username; 
 		
