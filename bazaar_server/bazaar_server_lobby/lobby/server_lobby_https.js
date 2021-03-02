@@ -1207,7 +1207,7 @@ io.sockets.on('connection', async (socket) => {
 		console.log("socket.roomid = " + socket.roomid);
 				
 		socket.join(token);  				// DCSS wants this	
-		socket.join(roomid); 			// this is the room that Bazaar will also join 
+		socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
 		console.log("socket rooms: " + socket.rooms);
 				
 		socket.clientID = clientID;    		
@@ -1338,10 +1338,10 @@ io.sockets.on('connection', async (socket) => {
 	// when the client emits 'request', this listens and executes
 	socket.on('request', async (payload)  => {	
 		console.log("Enter socket.on_request"); 
-	    const {
+	    const {	
 			token,
 			clientID, 
-			agent,
+			agent,				// Are most of these not needed since already in socket's data?
 			roomName, 
 			userID,
 			userName,
