@@ -1191,6 +1191,7 @@ io.sockets.on('connection', async (socket) => {
 			clientID, 
 			agent,
 			roomName, 
+			roomid, 
 			userID,
 			username
 		} = socket.handshake.auth;
@@ -1200,19 +1201,21 @@ io.sockets.on('connection', async (socket) => {
 		console.log("clientID = " + clientID);
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
+		console.log("roomid = " + roomid);
 		console.log("userID = " + userID);
 		console.log("username = " + username); 
 		
-		socket.roomid = agent + roomName;
-		console.log("socket.roomid = " + socket.roomid);
+		// socket.roomid = agent + roomName;
+		// console.log("socket.roomid = " + socket.roomid);
 				
 		socket.join(token);  				// DCSS wants this	
 		socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
-		console.log("socket rooms: " + socket.rooms);
+		// console.log("socket rooms: " + socket.rooms);
 				
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
+		socket.roomid = roomid; 
 		socket.userID = userID;     						
 		socket.username = username; 
 		
@@ -1343,6 +1346,7 @@ io.sockets.on('connection', async (socket) => {
 			clientID, 
 			agent,				// Are most of these not needed since already in socket's data?
 			roomName, 
+			roomid, 
 			userID,
 			username,
 		    value
@@ -1353,9 +1357,11 @@ io.sockets.on('connection', async (socket) => {
 		console.log("clientID = " + clientID);
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
+		console.log("roomid = " + roomid);
 		console.log("userID = " + userID);
 		console.log("username = " + username); 
-		console.log("socket rooms: " + socket.rooms);
+		// console.log("socket rooms: " + socket.rooms);
+		console.log("socket room: " + socket.room);
 		console.log("value = >>> " + value + " <<<"); 
 		
 		logMessage(socket, value, "text");
