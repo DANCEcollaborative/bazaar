@@ -295,9 +295,9 @@ function setTeam(teamNumber,req,provider,logger,res)
 function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
     console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
-    let perspective = 0;							// haodcoded for now
+    let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
-	if( (!(roomNameAndNumber in numUsers)) )
+	if ( (!(roomNameAndNumber in numUsers)) )
 	{
 			numUsers[roomNameAndNumber] = 0;
 			// console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
@@ -307,6 +307,53 @@ function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
 	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
     console.log("Exit setTeam_fromSocket");
+}
+
+
+function addUser(socket, room, username, temporary, id, perspective) {
+    if (username != "VirtualErland" || username != "BazaarAgent") {		// This seems intended to exclude Bazaar agents from user count but is incomplete
+        if (room in numUsers) {		
+           	numUsers[room] = numUsers[room] + 1;
+		} else {
+			numUsers[room] = 1;
+		}	
+	}
+	
+    if (isBlank(username)) {
+	    origin = socket.handshake.address
+	    username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
+	}
+	   
+   	if(isBlank(room))
+		room = "Limbo"
+	
+	socket.temporary = temporary;   // don't log anything to the db if this flag is set	
+	socket.username = username;		// store the username in the socket session for this client
+	socket.room = room;				// store the room name in the socket session for this client	
+	socket.Id = id;					// ??? I think socket.id is set automatically; why socket.Id (title case)? 	
+	
+	// add the client's username to the global list
+	if(!usernames[room])
+		usernames[room] = {};
+	usernames[room][username] = id;
+
+	// set user perspective 
+	if(!user_perspectives[room])
+	  	user_perspectives[room] = {};
+	user_perspectives[room][username] = perspective;
+
+	// Join room 
+	console.log("function addUser: Joining room " + room);
+	socket.join(room);
+	
+	// Add to user_sockets list  
+	if(!user_sockets[room])
+		user_sockets[room] = {};
+	user_sockets[room][username] = socket;
+						
+	loadHistory(socket, false);			// ??? Why is history loaded? 
+	io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
+	//socket.emit('updaterooms', [room,], room);
 }
 
 
@@ -1205,7 +1252,6 @@ io.sockets.on('connection', async (socket) => {
 			clientID, 
 			agent,
 			roomName, 
-			roomid, 
 			userID,
 			username
 		} = socket.handshake.auth;
@@ -1215,7 +1261,7 @@ io.sockets.on('connection', async (socket) => {
 		console.log("clientID = " + clientID);
 		console.log("agent = " + agent);
 		console.log("roomName = " + roomName);
-		console.log("roomid = " + roomid);
+		// console.log("roomid = " + roomid);
 		console.log("userID = " + userID);
 		console.log("username = " + username); 
 		
@@ -1223,26 +1269,32 @@ io.sockets.on('connection', async (socket) => {
 		// console.log("socket.roomid = " + socket.roomid);
 				
 		socket.join(token);  				// DCSS wants this	
-		socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
+		// socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
 		// console.log("socket rooms: " + socket.rooms);
 				
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.roomid = roomid; 
-		socket.room = roomid; 
-		socket.userID = userID;     						
-		socket.username = username; 
+		// socket.room = roomid; 
+		socket.userID = userID;  
+		room = roomName + roomid; 
+		console.log("room: " + room);    						
+		// socket.username = username; 
 		
 		logger = winston.createLogger({
     		transports: [
       			new (winston.transports.Console)()]
   		});	
 		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
-		setTeam_fromSocket(socket.agent,socket.roomName,socket.userID,socket.username,logger);
+		setTeam_fromSocket(agent,roomName,userID,username,logger);
+		
+		let temporary = false; 
+		let perspective = null; 
+		addUser(socket, room, username, temporary, userID, perspective)
 	}
 
-        // when the client emits 'adduser', this listens and executes
+        // when the client emits 'snoop', this listens and executes
 	socket.on('snoop', async (room, id, perspective) => {
 	
 	   origin = socket.handshake.address
@@ -1277,61 +1329,9 @@ io.sockets.on('connection', async (socket) => {
 
 	// when the client emits 'adduser', this listens and executes
 	socket.on('adduser', async (room, username, temporary, id, perspective) => {
-	
-	    console.log("info", "socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
-           
-           if(username != "VirtualErland" || username != "BazaarAgent")
-	   {
-                if(room in numUsers)
-		{		
-           		numUsers[room] = numUsers[room] + 1;
-		}
-		else
-		{
-			numUsers[room] = 1;
-		}	
-	   }
-           //logger.log("info",username +" connects");
-           if(isBlank(username))
-	   {
-	       origin = socket.handshake.address
-	       username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
-	   }
-	   
-	   if(isBlank(room))
-            room = "Limbo"
-	
-	    //don't log anything to the db if this flag is set
-	    socket.temporary = temporary;
-	
-	    // store the username in the socket session for this client
-	    socket.username = username;
-	    // store the room name in the socket session for this client
-	    socket.room = room;
-            //console.log(id);
-            socket.Id = id;
-	    // add the client's username to the global list
-	    if(!usernames[room])
-		usernames[room] = {};
-	    usernames[room][username] = id;
-
-            if(!user_perspectives[room])
-              user_perspectives[room] = {};
-            user_perspectives[room][username] = perspective;
-
-	    // send client to room 1
-	    socket.join(room);
-	    // echo to client they've connected
-	    
-	    if(!user_sockets[room])
-		user_sockets[room] = {};
-	    user_sockets[room][username] = socket;
-	    
-            
-	        	
-	    loadHistory(socket, false);
-	    io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
-	    //socket.emit('updaterooms', [room,], room);
+	    console.log("info", "Enter socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
+	    addUser(socket, room, username, temporary, id, perspective);
+	    console.log("info", "Exit socket.on_adduser");
 	});
 
 	// when the client emits 'sendchat', this listens and executes
