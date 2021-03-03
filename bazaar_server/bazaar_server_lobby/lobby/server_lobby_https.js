@@ -1275,10 +1275,10 @@ io.sockets.on('connection', async (socket) => {
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
-		socket.roomid = roomid; 
+		// socket.roomid = roomid; 
 		// socket.room = roomid; 
 		socket.userID = userID;  
-		room = roomName + roomid; 
+		room = agent + roomName; 
 		console.log("room: " + room);    						
 		// socket.username = username; 
 		
