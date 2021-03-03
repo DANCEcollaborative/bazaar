@@ -1346,6 +1346,8 @@ io.sockets.on('connection', async (socket) => {
 			// if (socket.clientID == "DCSS") {
 			if (socket.clientID == "DO_NOT_GO_HERE") {
 				io.sockets.in(socket.room).emit('interjection', data); 
+			} else {		
+				io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 			}
 		} else {		
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
