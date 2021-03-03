@@ -484,7 +484,7 @@ const MESSAGE_BACKLOG = 200,
 let LOCKDOWN_TIME = 0;
 let START_TIME = new Date().getTime();
 const chat_url = "https://misty.lti.cs.cmu.edu/bazaar/chat/";
-const roomname_prefix = "weather";
+const roomname_prefix = "jeopardy";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started
@@ -881,7 +881,7 @@ setInterval(function ()
             const member = team[i];
             
             const memberID = i + 1; 
-            const html = "index_ccc"
+            const html = "share_chat"
 	
             const roomname = roomname_prefix+pad(teamNumber,2);
             const url = chat_url + roomname + "/" + memberID + "/" + member.nick + "/undefined/?html=" + html + "&forum=undefined";
