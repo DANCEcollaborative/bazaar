@@ -4,7 +4,7 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
 	
-    <stage name="process messages" timeout=600 type="other" delay="0">    
+    <stage name="process messages" timeout="600" type="other" delay="0">    
         <step type="logout" delay="0">LOGOUT</step> 
     </stage>
     	

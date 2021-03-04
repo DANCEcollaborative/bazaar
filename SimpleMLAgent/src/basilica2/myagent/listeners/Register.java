@@ -203,8 +203,8 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 	{
 		src = source;
 		if(bazaarstate==1){
-			if (event instanceof MessageEvent) {
-	
+			if (event instanceof MessageEvent)
+			{
 				MessageEvent me = (MessageEvent)event;
 				String[] annotations = me.getAllAnnotations();
 				
@@ -217,15 +217,18 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 					promptRaw=lightSidePrompts.lookup("DETECTED");
 					if (promptRaw != "DETECTED") {
 						promptFound = true; 
-					} else {
+					}
+					else {
 						System.err.println("Prompt for DETECTED not found");
 					}
 						
-				} else if (me.hasAnnotations("NOTDETECTED")) {
+				}
+				else if (me.hasAnnotations("NOTDETECTED")) {
 					promptRaw=lightSidePrompts.lookup("NOTDETECTED");
 					if (promptRaw != "NOTDETECTED") {
 						promptFound = true; 
-					} else {
+					}
+					else {
 						System.err.println("Prompt for _NOT_DETECTED not found");
 					}
 				}	
@@ -235,19 +238,17 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 					lightSidePromptVariables.put("%this_student%",me.getFrom());
 					lightSidePromptVariables.put("%this_student_plan%",String.valueOf(1));
 					String prompt_message = promptRaw;
-					for (Map.Entry<String, String> entry : lightSidePromptVariables.entrySet()) {
+					for (Map.Entry<String, String> entry : lightSidePromptVariables.entrySet())
 					    prompt_message = prompt_message.replace(entry.getKey(), entry.getValue().toString());
-					}
 					
 					System.err.println("=== prompt_message: " + prompt_message); 
 					PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
-									
+					
+					
 					source.queueNewEvent(prompt);
 				}
-	
-				user.reasoning = false;
-				user.wait_duration = 0;
-			}
+				
+		    } 		
 		}
 	}
 	
@@ -423,130 +424,12 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 
 	@Override
 	public void timedOut(String arg0) {
-		for(int i =0; i< 4; i++){
-			System.out.println(planflag[i]);
-		}
-		
+
 		totalseconds-=3;
 		if (totalseconds==0){
-		bazaarstate=0;
+			bazaarstate=0;
 		}
 		// TODO Auto-generated method stub
-		
-		for (int i = 0; i < userList.size(); i++)
-		{
-			if (userList.get(i).wait_duration == 0)
-			{
-				User user = userList.get(i);
-				if(user.reasoning)
-				{
-						int plan = 0;
-						int count = 0;
-						if (plan == 0 && user.reasoning)
-						{
-							if (user.reasoning_type.contains("PLAN1"))
-							{
-								plan = 1;
-								count++;
-							}
-							if (user.reasoning_type.contains("PLAN2"))
-							{
-								plan = 2;
-								count++;
-							}
-							if (user.reasoning_type.contains("PLAN3"))
-							{
-								plan = 3;
-								count++;
-							}						
-							if (user.reasoning_type.contains("PLAN4"))
-							{
-								plan = 4;
-								count++;
-							}
-						}
-						
-						if (plan!=0 )
-						{
-							if(count==1)
-							{
-								if(planflag[plan-1]==0 && user.promptflag==false && noreasoningflag==0){
-									
-								String prompt_message_="";
-							switch(reasoningPromptCount%3){
-							case 0:
-								prompt_message_ = "Hey " + user.name + ", can you elaborate on the reason you chose plan " + Integer.toString(plan) + " from your perspective of " + 
-										perspective_map.get(user.perspective) + " ?";
-								break;
-							case 1:
-								prompt_message_ = user.name + ", can you be more specific about why you chose plan " + Integer.toString(plan) + " from your perspective of " + 
-										perspective_map.get(user.perspective) + " ?";
-								break;
-								
-							case 2: 
-								prompt_message_ = "Hey "+ user.name + ", what do you think are the pros and cons of plan " + Integer.toString(plan) + " from your perspective of " + 
-										perspective_map.get(user.perspective) + " ?";
-								break;
-								
-							}
-							    reasoningPromptCount++;
-								PromptEvent prompt = new PromptEvent(src,prompt_message_,"plan_reasoning");
-								src.queueNewEvent(prompt);
-								planflag[plan-1]=1;
-								user.promptflag=true;
-							    user.plan= plan;
-								noreasoningflag=1;
-								}
-								
-						
-								else if (planflag[plan-1]==0 && noreasoningflag==1){
-									user.plan=plan;
-									planflag[plan-1]=1;
-									User userwithplan = choose_user_with_plan_noreasoning(user.name, plan);
-									if(user.promptflag==false&&userwithplan!=null){
-										String prompt_message_="";
-										prompt_message_="Hey " + user.name+", you have proposed plan "+plan+", and "+userwithplan.name+ " has proposed plan "+userwithplan.plan+". What do"
-												+ " you think are the most important trade-offs between the two plans from your perspective of "+ perspective_map.get(user.perspective) + " ?";
-									
-										PromptEvent prompt = new PromptEvent(src,prompt_message_,"plan_reasoning");
-										src.queueNewEvent(prompt);
-	                                planflag[plan-1]=2;
-	                                planflag[userwithplan.plan-1]=2;
-	                                noreasoningflag=0;
-	                                user.promptflag=true;
-									}
-								}
-								
-								else if (planflag[plan-1]==1){
-									user.plan=plan;
-
-									User userwithplan = choose_user_with_plan_noreasoning(user.name, plan);
-									if(user.promptflag==false && userwithplan!=null){
-										String prompt_message_="";
-										prompt_message_="Hey " + user.name+", you have proposed plan "+plan+", and "+userwithplan.name+ " has proposed plan "+userwithplan.plan+". What do"
-												+ " you think are the most important trade-offs between the two plans from your perspective of "+ perspective_map.get(user.perspective) + " ?";
-									
-										PromptEvent prompt = new PromptEvent(src,prompt_message_,"plan_reasoning");
-										src.queueNewEvent(prompt);
-	                                planflag[plan-1]=2;
-	                                planflag[userwithplan.plan-1]=2;
-	                                noreasoningflag=0;
-	                                user.promptflag=true;
-									}
-									
-								}		
-							}
-						}
-				
-					user.reasoning = false;
-					user.wait_duration = 0;
-				}
-			}
-			else
-			{
-				userList.get(i).wait_duration = userList.get(i).wait_duration - 5;
-			}
-		}
 		
 		startTimer();
 		
