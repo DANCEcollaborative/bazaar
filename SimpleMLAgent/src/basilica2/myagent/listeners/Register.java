@@ -205,6 +205,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 		if(bazaarstate==1){
 			if (event instanceof MessageEvent)
 			{
+				System.err.println("SimpleMLAgent, Register.java: MessageEvent received"); 
 				MessageEvent me = (MessageEvent)event;
 				String[] annotations = me.getAllAnnotations();
 				
@@ -214,6 +215,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 				Boolean promptFound = false; 
 				String promptRaw = ""; 
 				if (me.hasAnnotations("DETECTED")) {
+					System.err.println("SimpleMLAgent, Register.java: DETECTED!"); 
 					promptRaw=lightSidePrompts.lookup("DETECTED");
 					if (promptRaw != "DETECTED") {
 						promptFound = true; 
@@ -224,6 +226,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 						
 				}
 				else if (me.hasAnnotations("NOTDETECTED")) {
+					System.err.println("SimpleMLAgent, Register.java: *NOT* DETECTED!"); 
 					promptRaw=lightSidePrompts.lookup("NOTDETECTED");
 					if (promptRaw != "NOTDETECTED") {
 						promptFound = true; 
