@@ -495,18 +495,18 @@ let teamMemberNames = {};
 function getLoginInstructionText(nick)
 {
     const now = new Date().getTime();
-    message = "Welcome to the matchmaker lobby. Hang on for a few minutes, we'll match you up with a team as soon as enough students join. "
+    message = "Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a team as soon as enough students join. "
     return message;
 }
 
 function getUserInstructionText(nick, i, condition)
 {    
-    instructions = 'After you join your team\'s discussion area, please follow VirtualCarolyn\'s instruction there.';
+    instructions = 'After you join your team\'s discussion area, please follow the virtual agent\'s instructions there.';
     return instructions;
 }
 
 let conditionOffset = -1;
-let numTeams = 0;
+let numTeams = 5;
 let nextID = 0;
 let teams = [];
 let supplicants = [];

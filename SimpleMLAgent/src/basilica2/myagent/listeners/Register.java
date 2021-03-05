@@ -249,6 +249,11 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 					
 					
 					source.queueNewEvent(prompt);
+					
+					User selected_user = choose_random_user(me.getFrom(), plan);
+					
+					User selected_user = me.getFrom();
+					
 				}
 				
 		    } 		
