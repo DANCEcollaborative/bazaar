@@ -281,6 +281,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
+					System.err.println("WebsocketChatClient, enter .on('updateusers'), call"); 
 					JSONArray names_list = ((JSONObject) args[0]).names();
 					JSONArray perspective_list = ((JSONObject) args[1]).names();
 					//System.out.println("Users: "+((JSONObject) args[0]).names() + " " + Integer.toString(names_list.length()));
@@ -311,6 +312,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 						PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, key, PresenceEvent.PRESENT, value, perspective, (String)args[2]);
 						WebsocketChatClient.this.broadcast(pe);
 					}
+					System.err.println("WebsocketChatClient, exit .on('updateusers'), call"); 
 
 				}
 			}).on("updatechat", new Emitter.Listener() { 

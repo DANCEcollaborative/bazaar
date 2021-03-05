@@ -201,6 +201,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event event)
 	{
+		System.err.println("SimpleMLAgent, Register.java: Enter"); 
 		src = source;
 		if(bazaarstate==1){
 			if (event instanceof MessageEvent)
@@ -209,8 +210,11 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 				MessageEvent me = (MessageEvent)event;
 				String[] annotations = me.getAllAnnotations();
 				
-				User user = getUser(me.getFrom());
-				if(user == null) return;
+				User user = getUser(me.getFrom()); 
+				if(user == null) {
+					System.err.println("Register, preProcessEvent: User is null"); 
+					return;
+				}
 	
 				Boolean promptFound = false; 
 				String promptRaw = ""; 
@@ -246,18 +250,14 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 					
 					System.err.println("=== prompt_message: " + prompt_message); 
 					PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
-					
-					
+
+				    user.promptflag=true;
 					source.queueNewEvent(prompt);
-					
-					User selected_user = choose_random_user(me.getFrom(), plan);
-					
-					User selected_user = me.getFrom();
-					
 				}
 				
 		    } 		
 		}
+		System.err.println("SimpleMLAgent, Register.java: Exit"); 
 	}
 	
     public String discussedTopics()
