@@ -785,7 +785,7 @@ function shuffle(array)
 // interval where team formation and idle user removal happens
 setInterval(function () 
 {
-  console.log("Enter setInterval");
+  // console.log("Enter setInterval");
   const now = new Date(); 
  
   for (const id in sessions) 
@@ -857,7 +857,7 @@ setInterval(function ()
 		member = session;
 		winston.log('info', "advising student "+member.nick+" to come back later");
 		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
-		channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Check out https:\/\/www.google.com instead.\" width=\"600\" height=\"250\">", member.nick);              
+		channel.appendMessage("System", "msg", member.nick+", it looks like there isn't a match for you right now. You can still receive payment by going to this <a href=\"https://www.google.com\">link</a> and entering your email address.\" width=\"600\" height=\"250\">", member.nick);              
 		supplicants.splice(supplicants.indexOf(member),1);
 		setTimeout(function(member)
 		{
@@ -909,7 +909,7 @@ setInterval(function ()
 	team = [];
     }
   }
-  console.log("Exit setInterval");
+  // console.log("Exit setInterval");
 }, 5*1000);
 
 
