@@ -857,7 +857,7 @@ setInterval(function ()
 		member = session;
 		winston.log('info', "advising student "+member.nick+" to come back later");
 		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
-		channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Check out https://www.google.com instead." width=\"600\" height=\"250\">", member.nick);              
+		channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Check out https:\/\/www.google.com instead.\" width=\"600\" height=\"250\">", member.nick);              
 		supplicants.splice(supplicants.indexOf(member),1);
 		setTimeout(function(member)
 		{
