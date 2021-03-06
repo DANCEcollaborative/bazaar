@@ -477,7 +477,7 @@ const MESSAGE_BACKLOG = 200,
     SESSION_TIMEOUT =   7*1000,
 //how long to wait after the most recent particpant has joined before attempting a team assignment - should be greater than session_timeout
     GROUP_DELAY = 	15*1000, // hyeju changed this value
-    LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
+    LAST_RESORT_TIMEOUT =  2*5*1000, //this is when the system tells students to come back later
 //    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
     LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
 	
