@@ -477,7 +477,8 @@ const MESSAGE_BACKLOG = 200,
     SESSION_TIMEOUT =   7*1000,
 //how long to wait after the most recent particpant has joined before attempting a team assignment - should be greater than session_timeout
     GROUP_DELAY = 	15*1000, // hyeju changed this value
-    LAST_RESORT_TIMEOUT =  2*5*1000, //this is when the system tells students to come back later
+    // LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
+    LAST_RESORT_TIMEOUT =  2*1000, //this is when the system tells students to come back later
 //    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
     LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
 	
@@ -784,7 +785,7 @@ function shuffle(array)
 // interval where team formation and idle user removal happens
 setInterval(function () 
 {
-  //console.log("Enter setInterval");
+  console.log("Enter setInterval");
   const now = new Date(); 
  
   for (const id in sessions) 
@@ -847,24 +848,24 @@ setInterval(function ()
                 //break;
             }
             else team = [];
-    }
-    else if(team.length == 0 
+    } else if(team.length == 0 
 	    && supplicants.length > 0
 	    && supplicants.indexOf(session) >= 0
-	    && now - lastJoin > LAST_RESORT_TIMEOUT)
-    {
-	member = session;
-	winston.log('info', "advising student "+member.nick+" to come back later");
-	channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);           
-        supplicants.splice(supplicants.indexOf(member),1);
-        setTimeout(function(member)
-        {
-            return function()
-            {
+	    && now - lastJoin > LAST_RESORT_TIMEOUT) { 
+	    
+		console.log("About to send timeout message");
+		member = session;
+		winston.log('info', "advising student "+member.nick+" to come back later");
+		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
+		channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Check out https://www.google.com instead." width=\"600\" height=\"250\">", member.nick);              
+		supplicants.splice(supplicants.indexOf(member),1);
+		setTimeout(function(member)
+		{
+			return function()
+			{
 		member.destroy() 
-            }
-        }(member), 10000); 
-
+			}
+		}(member), 10000); 
     }
    
     //deploy and inform!
@@ -908,7 +909,7 @@ setInterval(function ()
 	team = [];
     }
   }
-  // console.log("Exit setInterval");
+  console.log("Exit setInterval");
 }, 5*1000);
 
 
