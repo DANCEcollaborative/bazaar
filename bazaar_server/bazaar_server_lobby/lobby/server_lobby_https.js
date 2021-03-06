@@ -478,7 +478,7 @@ const MESSAGE_BACKLOG = 200,
 //how long to wait after the most recent particpant has joined before attempting a team assignment - should be greater than session_timeout
     GROUP_DELAY = 	15*1000, // hyeju changed this value
     // LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
-    LAST_RESORT_TIMEOUT =  2*1000, //this is when the system tells students to come back later
+    LAST_RESORT_TIMEOUT =  60*1000, //this is when the system tells students to come back later
 //    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
     LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
 	
@@ -853,11 +853,11 @@ setInterval(function ()
 	    && supplicants.indexOf(session) >= 0
 	    && now - lastJoin > LAST_RESORT_TIMEOUT) { 
 	    
-		console.log("About to send timeout message");
+		// console.log("About to send timeout message");
 		member = session;
 		winston.log('info', "advising student "+member.nick+" to come back later");
 		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
-		channel.appendMessage("System", "msg", member.nick+", it looks like there isn't a match for you right now. You can still receive payment by going to this <a href=\"https://www.google.com\">link</a> and entering your email address.\" width=\"600\" height=\"250\">", member.nick);              
+		channel.appendMessage("System", "msg", member.nick+", it looks like there isn't a match for you right now. You can still receive payment by going to this <a href=\"https://www.google.com\">link</a> and entering your email address.", member.nick);              
 		supplicants.splice(supplicants.indexOf(member),1);
 		setTimeout(function(member)
 		{
