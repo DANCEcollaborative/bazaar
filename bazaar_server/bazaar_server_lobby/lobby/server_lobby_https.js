@@ -1358,7 +1358,7 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 	// when the client emits 'request', this listens and executes
-	socket.on('request', async (payload)  => {	
+	socket.on('request-old', async (payload)  => {	
 		console.log("Enter socket.on_request"); 
 	    const {	
 			token,
@@ -1391,6 +1391,32 @@ io.sockets.on('connection', async (socket) => {
 		io.sockets.in(socket.room).emit('sendchat', payload);
 		console.log("Exit socket.on_request"); 
 	});
+	// when the client emits 'request', this listens and executes
+	socket.on('request', async (data)  => {	
+		console.log("Enter socket.on_request"); 
+		
+		// console.log("socket ID: " + socket.id);		  
+		// console.log("token = " + token);
+		// console.log("clientID = " + clientID);
+		// console.log("agent = " + agent);
+		// console.log("roomName = " + roomName);
+		// console.log("roomid = " + roomid);
+		// console.log("userID = " + userID);
+		// console.log("username = " + username); 
+		// console.log("socket rooms: " + socket.rooms);
+		// console.log("value = >>> " + value + " <<<"); 
+		// logMessage(socket, value, "text");	
+		console.log("socket.username: " + socket.username);
+		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, socket.value);
+		// io.sockets.in(socket.room).emit('sendchat', value);
+		// io.sockets.in(token).emit('sendchat', value);
+		// io.sockets.in(socket.room).emit('sendchat', payload);
+		console.log("Exit socket.on_request"); 
+	});
+	
 	
 
 	// when the client emits 'sendpm', this listens and executes
