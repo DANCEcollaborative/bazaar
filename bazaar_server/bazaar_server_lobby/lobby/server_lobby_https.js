@@ -1345,7 +1345,7 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "text");
 		
 		if (socket.username == "MTurkLightSideAgent") {
-			consoole.log("socket.on('sendchat'): socket.username == MTurkLightSideAgent; about to emit 'interjection'");
+			console.log("socket.on('sendchat'): socket.username == MTurkLightSideAgent; about to emit 'interjection'");
 			io.sockets.in(socket.room).emit('interjection', socket.username, data); 
 		} else {	
 			consoole.log("socket.on('sendchat'): socket.username *** NOT *** == MTurkLightSideAgent; about to emit 'updatechat'");	
