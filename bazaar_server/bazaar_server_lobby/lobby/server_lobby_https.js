@@ -1343,20 +1343,30 @@ io.sockets.on('connection', async (socket) => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
-		if (typeof socket.clientID !== 'undefined' ) {
-			console.log("socket.on('sendchat'): socket.clientID NOT undefined");
-			if (socket.clientID == "DCSS") {
-			// if (socket.clientID == "DO_NOT_GO_HERE") {
-				consoole.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
-				io.sockets.in(socket.room).emit('interjection', socket.username, data); 
-			} else {	
-				consoole.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
-				io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-			}
+		
+		if (socket.username == "MTurkLightSideAgent") {
+			consoole.log("socket.on('sendchat'): socket.username == MTurkLightSideAgent; about to emit 'interjection'");
+			io.sockets.in(socket.room).emit('interjection', socket.username, data); 
 		} else {	
-			console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");
+			consoole.log("socket.on('sendchat'): socket.username *** NOT *** == MTurkLightSideAgent; about to emit 'updatechat'");	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		}
+		
+		
+		// if (typeof socket.clientID !== 'undefined' ) {
+		// 	console.log("socket.on('sendchat'): socket.clientID NOT undefined");
+		// 	if (socket.clientID == "DCSS") {
+		// 	// if (socket.clientID == "DO_NOT_GO_HERE") {
+		// 		consoole.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
+		// 		io.sockets.in(socket.room).emit('interjection', socket.username, data); 
+		// 	} else {	
+		// 		consoole.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
+		// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+	// 		}
+	// 	} else {	
+	// 		console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
+	// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+	// 	}
 		console.log("Exit socket.on('sendchat')"); 
 			
 	});
