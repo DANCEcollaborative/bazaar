@@ -1342,11 +1342,11 @@ io.sockets.on('connection', async (socket) => {
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
 		if (typeof socket.clientID !== 'undefined' ) {
-			console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
+			console.log("socket.on('sendchat'): socket.clientID NOT undefined");
 			console.log("socket.on('sendchat'): socket.room = " + socket.room);
 			if (socket.clientID == "DCSS") {
 			// if (socket.clientID == "DO_NOT_GO_HERE") {
-				consoole.log("socket.on('sendchat'): socket.clientID = DCSS");
+				consoole.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
 				io.sockets.in(socket.room).emit('interjection', socket.username, data); 
 			} else {	
 				consoole.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
