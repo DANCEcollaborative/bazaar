@@ -1338,12 +1338,13 @@ io.sockets.on('connection', async (socket) => {
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
 		console.log("Enter socket.on('sendchat')'"); 
+		console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
+		console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
 		if (typeof socket.clientID !== 'undefined' ) {
 			console.log("socket.on('sendchat'): socket.clientID NOT undefined");
-			console.log("socket.on('sendchat'): socket.room = " + socket.room);
 			if (socket.clientID == "DCSS") {
 			// if (socket.clientID == "DO_NOT_GO_HERE") {
 				consoole.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
@@ -1352,7 +1353,8 @@ io.sockets.on('connection', async (socket) => {
 				consoole.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
 				io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 			}
-		} else {		
+		} else {	
+			console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		}
 		console.log("Exit socket.on('sendchat')"); 
