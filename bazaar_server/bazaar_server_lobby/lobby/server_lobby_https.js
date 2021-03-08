@@ -1376,9 +1376,10 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('request', async (data)  => {	
 		console.log("Enter socket.on_request"); 	
 		console.log("socket.username: " + socket.username);
-		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data);
 		console.log("Exit socket.on_request"); 
-	});
+	})
 	
 	
 
