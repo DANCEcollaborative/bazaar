@@ -1118,6 +1118,44 @@ const header_stuff = "<head>\n"+
 "\t<link href='http://ankara.lti.cs.cmu.edu/include/discussion.css' rel='stylesheet' type='text/css'>\n"+
 "</head>";
 
+
+function translateDCSSAuthToBazaar(auth) {
+  /*
+    auth looks, at minimum, like this: 
+    {
+      agent: {
+        id: int,
+        name: "dcsslightside",
+        configuration: {
+          // key value
+        }
+      },
+      chat: {
+        id: int
+      },
+      run: {
+        id: int
+      },
+      user: {
+        id: int,
+        name: string
+      }
+    }    
+  */  
+
+  return {
+    clientID: auth.agent.configuration.clientID,
+    agent: auth.agent.name,
+    roomName: auth.chat.id,
+    userID: auth.user.id,
+    username: auth.user.name
+  };
+}
+
+
+
+
+
 function exportCSV(room, res) {
 	// const connection = mysql.createConnection(mysql_auth);
 	
@@ -1249,13 +1287,13 @@ io.sockets.on('connection', async (socket) => {
  	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clientID == 'DCSS' ) {
 		
 		const {
-			token,
-			clientID, 
-			agent,
-			roomName, 
-			userID,
-			username
-		} = socket.handshake.auth;
+		  token,
+		  clientID, 
+		  agent,
+		  roomName,
+		  userID,
+		  username
+		} = translateDCSSAuthToBazaar(socket.handshake.auth);
 		  
 		console.log("socket ID: " + socket.id);
 		console.log("token = " + token);
