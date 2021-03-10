@@ -1119,6 +1119,13 @@ const header_stuff = "<head>\n"+
 "</head>";
 
 
+function isDCSSConnection(auth) {
+  // If the auth object is present, and has a "configuration" property,
+  // which is an object that itself has a "clientID" property, whose value
+  // is equal to 'DCSS', then this is a DCSS client connection.
+  return auth && auth.agent && auth.agent.configuration && auth.agent.configuration.clientID === 'DCSS';
+}
+
 function translateDCSSAuthToBazaar(auth) {
   /*
     auth looks, at minimum, like this: 
@@ -1283,9 +1290,9 @@ io.sockets.on('connection', async (socket) => {
 
 	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
-		
- 	if ( typeof socket.handshake.auth.clientID !== 'undefined' && socket.handshake.auth.clientID == 'DCSS' ) {
-		
+
+ 	if (isDCSSConnection(socket.handshake.auth)) {
+
 		const {
 		  token,
 		  clientID, 
