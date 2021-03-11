@@ -496,7 +496,7 @@ let teamMemberNames = {};
 function getLoginInstructionText(nick)
 {
     const now = new Date().getTime();
-    message = "Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a partner as soon as enough students join.\nPlease confirm that you are in the lobby during your assigned activity time (Friday at 6pm). Any participation outside the designated activity time will not count as participation in this study."
+    message = "<p>Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a partner as soon as enough students join.</p><p>Please confirm that you are in the lobby during your assigned activity time (Friday at 6pm). Any participation outside the designated activity time will not count as participation in this study.</p>"
     return message;
 }
 
