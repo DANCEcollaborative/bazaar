@@ -89,7 +89,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src 'self' https://docs.google.com/spreadsheets/d/1OoLD9dZaVfLJz-0X-OQ3WnrI97G9syUKGEJWDR2Mxdg https://erebor.lti.cs.cmu.edu:9001/p/ https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://forum.lti.cs.cmu.edu/bazsocket/ http://forum.lti.cs.cmu.edu/bazsocket/ wss://forum.lti.cs.cmu.edu/bazsocket/ https://forum.lti.cs.cmu.edu/bazsocket/ ws://forum.lti.cs.cmu.edu/bazsocket/ http://forum.lti.cs.cmu.edu/local/bazsocket/ wss://forum.lti.cs.cmu.edu/local/bazsocket/ https://forum.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif https://i.imgur.com/iiLmTRp.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/QaHL22C.png https://i.imgur.com/0vk7f0p.png https://i.imgur.com/G7vtzE8.jpg https://i.imgur.com/dWLUrxv.png https://i.imgur.com/h6IWxZ3.png https://i.imgur.com/gWrycCA.png http://forum.lti.cs.cmu.edu/favicon.ico"); 
+    res.setHeader("Content-Security-Policy", "default-src 'self' https://docs.google.com/spreadsheets/d/1OoLD9dZaVfLJz-0X-OQ3WnrI97G9syUKGEJWDR2Mxdg https://erebor.lti.cs.cmu.edu:9001/p/ https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://forum.lti.cs.cmu.edu/bazsocket/ http://forum.lti.cs.cmu.edu/bazsocket/ wss://forum.lti.cs.cmu.edu/bazsocket/ https://forum.lti.cs.cmu.edu/bazsocket/ ws://forum.lti.cs.cmu.edu/bazsocket/ http://forum.lti.cs.cmu.edu/local/bazsocket/ wss://forum.lti.cs.cmu.edu/local/bazsocket/ https://forum.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif https://i.imgur.com/iiLmTRp.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/QaHL22C.png https://i.imgur.com/0vk7f0p.png https://i.imgur.com/G7vtzE8.jpg https://i.imgur.com/dWLUrxv.png https://i.imgur.com/h6IWxZ3.png https://i.imgur.com/gWrycCA.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/QaHL22C.png https://i.imgur.com/0vk7f0p.png https://i.imgur.com/G7vtzE8.jpg https://i.imgur.com/dWLUrxv.png https://i.imgur.com/h6IWxZ3.png https://i.imgur.com/gWrycCA.png https://i.imgur.com/iWA8cSn.png https://i.imgur.com/ghKvx84.png https://i.imgur.com/l97GY5t.png https://i.imgur.com/cRq4QUF.png https://i.imgur.com/s0ArPlY.png http://forum.lti.cs.cmu.edu/favicon.ico"); 
     return next();
 });
 
@@ -478,7 +478,7 @@ const MESSAGE_BACKLOG = 200,
 //how long to wait after the most recent particpant has joined before attempting a team assignment - should be greater than session_timeout
     GROUP_DELAY = 	15*1000, // hyeju changed this value
     // LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
-    LAST_RESORT_TIMEOUT =  60*1000, //this is when the system tells students to come back later
+    LAST_RESORT_TIMEOUT =  600*1000, //this is when the system tells students to come back later
 //    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
     LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
 	
@@ -496,7 +496,7 @@ let teamMemberNames = {};
 function getLoginInstructionText(nick)
 {
     const now = new Date().getTime();
-    message = "Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a team as soon as enough students join. "
+    message = "Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a partner as soon as enough students join.\nPlease confirm that you are in the lobby during your assigned activity time (Friday at 6pm). Any participation outside the designated activity time will not count as participation in this study."
     return message;
 }
 
@@ -857,7 +857,7 @@ setInterval(function ()
 		member = session;
 		winston.log('info', "advising student "+member.nick+" to come back later");
 		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
-		channel.appendMessage("System", "msg", member.nick+", it looks like there isn't a match for you right now. You can still receive payment by going to this <a href=\"https://www.google.com\">link</a> and entering your email address.", member.nick);              
+		channel.appendMessage("System", "msg", member.nick+", it looks like there is not a match for you because no one else is present in the lobby right now for this activity. Don't worry! You are still eligible to complete the 3rd part of this study to receive your payment. *IMPORTANT*: In order to remain eligible for the rest of this study, please follow this <a href=\"https://forms.gle/HNJUWYzaLYBwL53t6\">link</a> and enter your email address to mark your attendance in the lobby today.", member.nick);              
 		supplicants.splice(supplicants.indexOf(member),1);
 		setTimeout(function(member)
 		{
