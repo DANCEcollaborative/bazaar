@@ -4,26 +4,27 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
     <stage name="initiate" type="other" delay="0">
-    
-    	
-    
-    	<step type="whiteboard" delay="5" path="https://i.imgur.com/iiLmTRp.png">SHOW_IMAGE</step>
+
+ 		
+    	<step type="whiteboard" delay="5" path="https://i.imgur.com/iWA8cSn.png">SHOW_IMAGE</step>
         <step type="greet" timeout="40" delay="20">GREET</step>
       	<!--   <step type="prompt" delay="30" prompt="ICEBREAKER" >ICEBREAKER</step> -->
         <!-- <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step>  -->
         
         <!-- WGU ACADEMY INFO -->
-        <step type="prompt" delay="5" prompt="WGU_ACADEMY_INFO" >WGU_ACADEMY_INFO</step>
+        <step type="prompt" delay="5" prompt="WGU_ACADEMY_INFO">WGU_ACADEMY_INFO</step>
         
         
         <!-- JEOPARDY GAME -->
         <!-- <step type="whiteboard" delay="10" path="https://i.imgur.com/iiLmTRp.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="7" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step>
-        <step type="prompt" delay="7" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step>
-        <step type="whiteboard" delay="10" path="https://i.imgur.com/QaHL22C.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="10" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step>
+        <step type="prompt" delay="10" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step>
+        <step type="whiteboard" delay="5" path="https://i.imgur.com/QaHL22C.png">SHOW_IMAGE</step>
         <!-- TODO: Gated Step -->
         
-        <step type="prompt" delay="60" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step> 
+        <step type="prompt" delay="420" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
+        
+        <step type="prompt" delay="60" prompt="JEOPARDY_WINNER">JEOPARDY_WINNER</step>
         
     
     	<!-- // <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="ALL_READY">WAIT_STEP_1</step>
@@ -33,9 +34,10 @@
         <!-- 
         PIECE OF A PIE -->
         <step type="prompt" delay="2" prompt="PIE_INTRO" >PIE_INTRO</step>
-        <step type="whiteboard" delay="3" path="https://i.imgur.com/OJg1DON.png">SHOW_IMAGE</step>
         
-        <step type="prompt" delay="5" prompt="PIE_PROMPT" >PIE_PROMPT</step>
+        <step type="whiteboard" delay="3" path="https://i.imgur.com/ghKvx84.png">SHOW_IMAGE</step>
+        
+        <step type="prompt" delay="8" prompt="PIE_PROMPT" >PIE_PROMPT</step>
        
        <!-- SMARTER goals  -->
        	<step type="whiteboard" delay="1" path="https://i.imgur.com/G7vtzE8.png">SHOW_IMAGE</step>
@@ -43,17 +45,22 @@
       
         <step type="prompt" delay="5" prompt="TIME_MGMT" >TIME_MGMT</step>
         <step type="whiteboard" delay="3" path="https://i.imgur.com/l97GY5t.png">SHOW_IMAGE</step>
-        <step type="prompt" delay="20" prompt="TIME_MGMT_SHARE" >TIME_MGMT_SHARE</step>
+        <step type="prompt" delay="30" prompt="TIME_MGMT_SHARE" >TIME_MGMT_SHARE</step>
        
+        <step type="whiteboard" delay="3" path="https://i.imgur.com/cRq4QUF.png">SHOW_IMAGE</step>
         
-        
-        <step type="prompt" delay="60" prompt="SMARTER_GOALS" >SMARTER_GOALS</step>
-        
+        <step type="prompt" delay="180" prompt="SMARTER_GOALS" >SMARTER_GOALS</step>
+        <step type="prompt" delay="120" prompt="SMARTER_GOALS_CONT" >SMARTER_GOALS_CONT</step>
         
         
         <!-- SOCIAL MEDIA SHARE -->
         <step type="whiteboard" delay="5" path="https://i.imgur.com/gWrycCA.png">SHOW_IMAGE</step>
-        <step type="prompt" delay="10" prompt="SOCIAL" >SOCIAL</step>
+        <step type="prompt" delay="5" prompt="SOCIAL" >SOCIAL</step>
+        
+        <step type="whiteboard" delay="1" path="https://i.imgur.com/s0ArPlY.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="1" prompt="GOOGLE_FORM" >GOOGLE_FORM</step>
+        <step type="prompt" delay="1" prompt="LINK" >LINK</step>
+        
         <step type="prompt" delay="10" prompt="WGU_GOODBYE" >WGU_GOODBYE</step>
     	
         
@@ -74,6 +81,11 @@
         
         
     </stage>
+        
+    <stage name="EndStage" type="other" delay="0" timeout="3600">
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+
    <!--  <stage name="body" type="other" delay="30"> --> -->
     	<!-- <step type="dialogue" delay="15" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step> 
     	<step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step>

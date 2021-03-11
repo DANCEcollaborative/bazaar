@@ -43,7 +43,7 @@
     <dialog concept="ACADEMY_INFO_100" scenario="scenario-academy_info_100" description="academy info 100">
     	<trigger annotation="ACADEMY_INFO_100"/>
     	<intro>
-              Academy Info for 100?
+              Academy Program Info for 100?
         </intro>
  		<accept annotation="AFFIRMATIVE">Here we go...</accept>
         <cancel annotation="NEGATIVE">Okay - pick another topic please.</cancel>    
@@ -53,7 +53,7 @@
     <dialog concept="ACADEMY_INFO_200" scenario="scenario-academy_info_200" description="academy info 200">
     	<trigger annotation="ACADEMY_INFO_200"/>
     	<intro>
-              Academy Info for 200?
+              Academy Program Info for 200?
         </intro>
  		<accept annotation="AFFIRMATIVE">Here we go...</accept>
         <cancel annotation="NEGATIVE">Okay - pick another topic please.</cancel>    
@@ -63,7 +63,7 @@
     <dialog concept="ACADEMY_INFO_300" scenario="scenario-academy_info_300" description="academy info 300">
     	<trigger annotation="ACADEMY_INFO_300"/>
     	<intro>
-              Academy Info for 300?
+              Academy Program Info for 300?
         </intro>
  		<accept annotation="AFFIRMATIVE">Here we go...</accept>
         <cancel annotation="NEGATIVE">Okay - pick another topic please.</cancel>    
@@ -73,7 +73,7 @@
     <dialog concept="ACADEMY_INFO_400" scenario="scenario-academy_info_400" description="academy info 400">
     	<trigger annotation="ACADEMY_INFO_400"/>
     	<intro>
-              Academy Info for 400?
+              Academy Program Info for 400?
         </intro>
  		<accept annotation="AFFIRMATIVE">Here we go...</accept>
         <cancel annotation="NEGATIVE">Okay - pick another topic please.</cancel>    
@@ -205,8 +205,8 @@
     	<intro>
                Find out who the winner is?
         </intro>
- 		<accept annotation="AFFIRMATIVE"> Did you learn anything new from this game? </accept>
-        <cancel annotation="NEGATIVE">Okay - pick another topic please.</cancel>    
+ 		<accept annotation="AFFIRMATIVE"> Drumroll please... </accept>
+        <cancel annotation="NEGATIVE">Okay!</cancel>    
         
     </dialog>
 
