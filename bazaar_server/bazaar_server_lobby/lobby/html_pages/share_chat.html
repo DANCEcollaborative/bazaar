@@ -1,6 +1,7 @@
 <html>
 <!-- Tab Edits -->
 <style>
+
 ul.tab {
     list-style-type: none;
     margin: 0;
@@ -126,7 +127,7 @@ ul.tab li a:focus, .active {
 	   {
 	      color = getUserColor(username);
 	   }
-    
+    	
 		$('#conversation').append(
 		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
 		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
@@ -514,66 +515,36 @@ ul.tab li a:focus, .active {
 
 
 <div id="everything">
-
-    <div id="image_column">
-<!-- Edits by @sreechas for multiple tabs -->
-    <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Sharing Space')">Sharing Space</a></li>
-    </ul>
-
-
-    <div id="Sharing Space" class="tabcontent">
-      <div id="image_container" class="container">
-          <div id="images" class="scrollable"></div>
-      </div>
-
-      <div id="image_controls" class="control">
-          <div id="image_url_input_div">
-              <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
-          </div>
-          <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
-      </div>
-    </div>
-
-    <script>
-    function openTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-    if (cityName=="Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/"+spreadsheet;
-    }
-    </script>
-<!-- End of tab edits -->
-
-    </div>
-
     <div id="conversation_column">
         <h2 id="conversation_header" class="header">Discussion</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>
         <div id="controls" class="control">
-            <div id="message_div"> <textarea id="data"></textarea></div>
-            <!--  <div id="messagebutton_div"> -->
-               <!--  <input class="button" type="button" id="datasend" value="Send Message" /> -->
-                <!--  <input class="button" type="button" id="ready_button" value="Ready"/> -->
-            <!--  </div> -->
-            <!--  <div class="blinker">Click the "Ready" button when you are ready to move on to the next step.</div> -->
-            <div><input class="button" type="button" id="conv_message" value="Download Discussion Log" onClick="showConvText();"/></div>
-        </div>
+            <div id="message_div"> <textarea id="data" /></textarea></div>
+            <div id="messagebutton_div">
+                <input class="button" type="button" id="datasend" value="Send Message" />
+            
+             <!--<input class="button" type="button" id="ready_button" value="We're Ready"/>-->
+            </div>
+    </div>
     </div>
     
+    <div id="image_column">
+        <h2 id="image_header"  class="header">Information</h2>
+        
+        <div id="image_container" class="container">
+            <div id="images" class="scrollable"></div>
+        </div>
+        
+        <div id="image_controls" class="control">
+            <div id="image_url_input_div">
+                <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
+            </div>
+            <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
+        </div>
+    </div>
     <h2 id="roomname">Room</h2>
-
-
 </div>
 
 <div id="conversation_text_div">
