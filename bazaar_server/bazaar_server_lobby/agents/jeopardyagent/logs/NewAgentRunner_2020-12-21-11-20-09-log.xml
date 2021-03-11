@@ -1,0 +1,82 @@
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, null]</entry>
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2020-12-21#11:20:09" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2020-12-21#11:20:10" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2020-12-21#11:20:10" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2020-12-21#11:20:11" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger</entry>
+<entry timestamp="2020-12-21#11:20:12" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:20:12" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:20:13" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:20:13" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:20:14" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:20:14" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="NORMAL">setting basilica2.agents.room_name to legg</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="NORMAL"><launching room=legg/></entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgentFactory" level="NORMAL">Agent build. WeatherLegacyAgent_legg</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="NORMAL">Adding agent WeatherLegacyAgent_legg</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2020-12-21#11:20:18" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for WeatherLegacyAgent_legg</entry>
+<entry timestamp="2020-12-21#11:20:18" user="NewAgentRunner" level="NORMAL">Agent added WeatherLegacyAgent_legg</entry>
+<entry timestamp="2020-12-21#11:20:24" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:20:24" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2020-12-21#11:20:24" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2020-12-21#11:20:24" user="Step" level="NORMAL">Handlers for INTRODUCE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@47d5c308]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="PromptStepHandler" level="NORMAL">starting 2.8 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:20:24" user="" level="NORMAL">accepted. Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. INTRODUCE.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:20:25" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:20:27" user="PromptStepHandler" level="NORMAL">ending 2.8 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:20:27" user="PlanExecutor" level="NORMAL">starting 5 second delay timer for INTRODUCE</entry>
+<entry timestamp="2020-12-21#11:20:32" user="PlanExecutor" level="NORMAL">PLAN: current step done: INTRODUCE</entry>
+<entry timestamp="2020-12-21#11:20:32" user="Step" level="NORMAL">starting 25 second timeout for GREETINGS</entry>
+<entry timestamp="2020-12-21#11:20:32" user="Step" level="NORMAL">Handlers for GREETINGS(greet): [basilica2.agents.listeners.plan.GreetStepHandler@1ff9740b]</entry>
+<entry timestamp="2020-12-21#11:20:32" user="GreetStepHandler" level="NORMAL">starting greet step...</entry>
+<entry timestamp="2020-12-21#11:20:32" user="" level="NORMAL">ACCEPTED! Message from WeatherLegacyAgent: INTRODUCE_1 INTRODUCE</entry>
+<entry timestamp="2020-12-21#11:20:50" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:20:51" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:20:54" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:20:55" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:20:57" user="EndStepOnStopListeningDelegate" level="NORMAL">ending step GREETINGS...</entry>
+<entry timestamp="2020-12-21#11:20:57" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GREETINGS</entry>
+<entry timestamp="2020-12-21#11:20:57" user="PlanExecutor" level="NORMAL">PLAN: current step done: GREETINGS</entry>
+<entry timestamp="2020-12-21#11:20:57" user="Step" level="NORMAL">Handlers for GIVE_UP_ON_INTRODUCTIONS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@47d5c308]</entry>
+<entry timestamp="2020-12-21#11:20:57" user="PromptStepHandler" level="NORMAL">starting 2.2 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:20:58" user="" level="NORMAL">accepted. Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:20:59" user="PromptStepHandler" level="NORMAL">ending 2.2 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:20:59" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:21:07" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key GREETINGS</entry>
+<entry timestamp="2020-12-21#11:21:09" user="PlanExecutor" level="NORMAL">PLAN: current step done: GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:21:09" user="Step" level="NORMAL">Handlers for WEATHER_TOPIC_SPECIFICS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@47d5c308]</entry>
+<entry timestamp="2020-12-21#11:21:09" user="PromptStepHandler" level="NORMAL">starting 10.899999999999999 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:21:10" user="" level="NORMAL">accepted. Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. WEATHER_TOPIC_SPECIFICS.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:21:20" user="PromptStepHandler" level="NORMAL">ending 10.899999999999999 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:21:20" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#11:21:22" user="" level="NORMAL">accepted. Message from WeatherLegacyAgent: :-) SMILE+SOCIAL.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:21:28" user="" level="NORMAL">ACCEPTED! Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:30" user="PlanExecutor" level="NORMAL">PLAN: current step done: WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#11:21:30" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>
+<entry timestamp="2020-12-21#11:21:30" user="PlanExecutor" level="NORMAL">Firing Stage 'body'</entry>
+<entry timestamp="2020-12-21#11:21:30" user="Step" level="NORMAL">Handlers for LP_PRECIPITATION(dialogue): [basilica2.tutor.listeners.DialogStepHandler@6317c6ea]</entry>
+<entry timestamp="2020-12-21#11:21:30" user="" level="NORMAL">ACCEPTED! Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:36" user="" level="NORMAL">ACCEPTED! Message from WeatherLegacyAgent: Let's get started. TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:38" user="" level="NORMAL">ACCEPTED! Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail.|Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:50" user="" level="NORMAL">REJECTED!Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS</entry>

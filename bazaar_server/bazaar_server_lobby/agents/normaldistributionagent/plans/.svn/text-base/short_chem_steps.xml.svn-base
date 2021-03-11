@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+    <stage name="initiate" type="other" delay="0" timeout="15">
+        <step type="prompt" delay="5">AGENT_INTRODUCE</step>
+        <step type="prompt" delay="5">DO_GREETING</step>
+    </stage>
+    <stage name="introduction" type="other" delay="5">
+        <step type="prompt" delay="5">INTRO_0</step>
+        <step type="whiteboard" delay="5" label="info">activity/intro/text.png</step>
+        <step type="gated" gated_type="idle" timeout="15" delay="3">WAIT</step>
+        
+        <step type="prompt" delay="5">INTRO_1</step>
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/intro/chart1.png</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_INTRO_1</step>
+        <!-- nice long timeout before moving on to next problem -->
+
+        <step type="prompt" delay="5">INTRO_2</step>
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/intro/chart2.png</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_INTRO_2</step>
+        <!-- nice long timeout before moving on to next problem -->
+        
+        <step type="prompt" delay="5">INTRO_3</step>
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/intro/chart3.png</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_INTRO_3</step>
+        <!-- nice long timeout before moving on to next problem -->
+        
+        <step type="prompt" delay="5">INTRO_TASK</step>
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/intro.png</step>
+        <step type="gated" gated_type="idle" timeout="15" delay="3">WAIT</step>
+    </stage>
+    
+    <stage name="taskA" type="other" delay="3">
+    
+        <step type="prompt" delay="3">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/task/A/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/A/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info3" loc="0,220">activity/task/A/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+    
+    <stage name="taskB" type="other" delay="5">
+        
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/task/B/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/B/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info3" loc="0,220">activity/task/B/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN_B</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+    
+     <stage name="taskC" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/task/C/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/C/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info3" loc="0,220">activity/task/C/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+    
+    <stage name="taskD" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/task/D/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/D/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info3" loc="0,220">activity/task/D/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+    
+        <stage name="taskE" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/task/E/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/E/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info3" loc="0,220">activity/task/E/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+        <stage name="taskF" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/task/F/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/F/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info3" loc="0,220">activity/task/F/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delete="" label="info3"></step>
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/F/explain2.png</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN2</step>
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/task/F/explain3.png</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN3</step>
+        
+        <step type="whiteboard" delete="" label="info"></step>
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+    </stage>
+    
+    <stage name="finalA" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/final/A/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/final/A/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+       
+        <!-- no "explain" for final task A... -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+        
+   <stage name="finalB" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/final/B/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/final/B/check.png</step>
+        <step type="prompt" delay="5">TASK_CHECK</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_CHECK</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+         <step type="whiteboard" delay="5" label="info3" loc="0,270">activity/final/B/explain.png</step>
+        <step type="prompt" delay="5">TASK_EXPLAIN</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_EXPLAIN</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+        <step type="whiteboard" delete="" label="info"></step>
+        <step type="whiteboard" delete="" label="info3"></step>
+    </stage>
+     <stage name="finalC" type="other" delay="5">
+     
+        <step type="prompt" delay="5">TASK_START</step>
+        <step type="whiteboard" delay="5" label="info">activity/final/C/predict.png</step>
+        
+        <step type="prompt" delay="5">TASK_PREDICT</step>
+        <step type="gated" gated_type="listen" timeout="15" delay="3">FACILITATE_PREDICT</step>
+        <!-- nice long timeout before moving on to next section -->
+        
+        <step type="whiteboard" delay="5" label="info" loc="0,0">activity/final/C/check.png</step>
+        <step type="prompt" delay="30">TASK_CHECK</step>
+        <!-- no "explain" or facilitation for the end of final task C... -->
+        
+        
+        <!-- no "explain" for final task C... -->
+        
+        <!--<step type="prompt" delay="0">TASK_FINISH</step> -->
+       
+    </stage>
+    <stage name="wrap" type="other" delay="5">
+     
+        <step type="prompt" delay="5">ACTIVITY_FINISH</step>
+        
+        <!-- <step type="listen">FACILITATE_END</step> -->
+        <!-- infinite timeout - stay in facilitation mode until the end -->
+        
+   </stage>
+</plan>

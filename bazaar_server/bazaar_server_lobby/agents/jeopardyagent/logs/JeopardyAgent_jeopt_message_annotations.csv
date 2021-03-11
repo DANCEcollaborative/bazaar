@@ -1,0 +1,46 @@
+2020-12-21,11:29:37,0,JeopardyAgent,1608568179407,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2020-12-21,11:29:45,0,JeopardyAgent,1608568187449,INTRODUCE_1,INTRODUCE
+2020-12-21,11:29:53,0,Meredith,1608568193509,i'm meredith,GIVING_NAME
+2020-12-21,11:29:53,0,JeopardyAgent,1608568195480,"Nice to meet you, Meredith.",GREET
+2020-12-21,11:30:10,0,JeopardyAgent,1608568211537,Okay! We'll be discussing factors affecting weather.,GIVE_UP_ON_INTRODUCTIONS
+2020-12-21,11:30:22,0,JeopardyAgent,1608568223587,"I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure.",WEATHER_TOPIC_SPECIFICS
+2020-12-21,11:30:34,0,Meredith,1608568234577,low press and wind,LOW-PRESSURE_WIND+POSITIVITY
+2020-12-21,11:30:34,0,JeopardyAgent,1608568235627,"
+               Would you like to answer some questions related to low pressure and wind direction ?
+        ",TUTOR
+2020-12-21,11:30:36,0,Meredith,1608568236705,yes,AFFIRMATIVE
+2020-12-21,11:30:36,0,JeopardyAgent,1608568237637,Let's get started.,TUTOR
+2020-12-21,11:30:36,0,JeopardyAgent,1608568239646,We can talk about low pressure and wind direction in a little more detail.,TUTOR
+2020-12-21,11:30:36,0,JeopardyAgent,1608568244650,Can you describe the wind speed and direction at a low pressure center? Feel free to refer to the map.,TUTOR
+2020-12-21,11:31:36,0,JeopardyAgent,1608568297795,It sounds like you could use some help.,TUTOR
+2020-12-21,11:31:36,0,JeopardyAgent,1608568302798,"Sorry, I didn't understand you. Can you describe the wind speed and direction at a low pressure center? Feel free to refer to the map.",TUTOR
+2020-12-21,11:32:37,0,JeopardyAgent,1608568357965,Let me help you out. Wind is stronger and counter-clockwise at a low pressure center.,TUTOR
+DATE,TIME,TYPING_DURATION,AUTHOR,NOTE,TEXT,ANNOTATIONS
+2020-12-21,11:32:52,0,JeopardyAgent,1608568373743,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2020-12-21,11:32:57,0,Meredith,1608568377623,i'm meredith,
+2020-12-21,11:32:59,0,JeopardyAgent,1608568381788,"Nice to meet you, [NAME].",GREET
+2020-12-21,11:33:11,0,JeopardyAgent,1608568391828,INTRODUCE_1,INTRODUCE
+2020-12-21,11:33:36,0,JeopardyAgent,1608568417931,Okay! We'll be discussing factors affecting weather.,GIVE_UP_ON_INTRODUCTIONS
+DATE,TIME,TYPING_DURATION,AUTHOR,NOTE,TEXT,ANNOTATIONS
+2020-12-21,11:35:30,0,JeopardyAgent,1608568530360,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2020-12-21,11:35:37,0,JeopardyAgent,1608568538402,"Nice to meet you, [NAME].",GREET
+2020-12-21,11:35:46,0,test5,1608568547110,i'm lizzo,
+2020-12-21,11:35:49,0,JeopardyAgent,1608568550443,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2020-12-21,11:35:53,0,test5,1608568553738,i'm lizzo,GIVING_NAME
+2020-12-21,11:35:53,0,JeopardyAgent,1608568554461,"Nice to meet you, Lizzo.",GREET
+2020-12-21,11:35:57,0,test5,1608568557830,i'm tammy,GIVING_NAME
+2020-12-21,11:35:57,0,JeopardyAgent,1608568558472,"Hi, Tammy.",GREET
+2020-12-21,11:36:02,0,Meredith2,1608568562787,i'm bingo,GIVING_NAME
+2020-12-21,11:36:02,0,JeopardyAgent,1608568564491,"Nice to meet you, Bingo.",GREET
+2020-12-21,11:36:09,0,Meredith,1608568569200,i'm krusty krab,GIVING_NAME
+2020-12-21,11:36:09,0,JeopardyAgent,1608568570516,"Howdy, Krusty!",GREET
+2020-12-21,11:36:14,0,JeopardyAgent,1608568576543,Okay! We'll be discussing factors affecting weather.,GIVE_UP_ON_INTRODUCTIONS
+2020-12-21,11:36:26,0,JeopardyAgent,1608568588581,"I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure.",WEATHER_TOPIC_SPECIFICS
+2020-12-21,11:36:29,0,Meredith,1608568589989,low pressure and wind,LOW-PRESSURE_WIND+POSITIVITY
+2020-12-21,11:36:47,0,JeopardyAgent,1608568608658,"
+               Would you like to answer some questions related to low pressure and precipitation ?
+        ",TUTOR
+2020-12-21,11:36:51,0,Meredith,1608568611730,no,CHALLENGE_CONTRIBUTION+NEGATIVE
+2020-12-21,11:36:51,0,JeopardyAgent,1608568612672,Okay - you can continue discussing other topics.,TUTOR
+2020-12-21,11:37:00,0,Meredith,1608568620403,high pressure and wind,POSITIVITY+HIGH-PRESSURE_WIND
+2020-12-21,11:37:28,0,test5,1608568648859,high pressure and wind,POSITIVITY+HIGH-PRESSURE_WIND

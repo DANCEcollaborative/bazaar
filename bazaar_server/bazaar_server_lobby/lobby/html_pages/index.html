@@ -342,7 +342,7 @@ ul.tab li a:focus, .active {
 	
 
 
-	    // listener, whenever the server emits 'updatepresence', this updates the image list
+	    // listener, whenever the server emits 'updatepresence', this updates the presence list
 	socket.on('updatepresence', function (username, data) 
 	{
         appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	 
@@ -356,7 +356,7 @@ ul.tab li a:focus, .active {
 		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
 	});*/
 	
-    // listener, whenever the server emits 'updatechat', this updates the chat body
+    // listener, whenever the server emits 'update_global_ready' 
 	socket.on('update_global_ready', function (ready_state) 
 	{
 	   if(ready_state == 'unready')

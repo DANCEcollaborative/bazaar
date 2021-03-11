@@ -1,0 +1,926 @@
+<entry timestamp="2020-12-21#11:20:18" user="FactoryBuiltAgent" level="NORMAL">CONFIGURING AGENT WeatherLegacyAgent_legg</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.AGENT" level="NORMAL"><created>WeatherLegacyAgent_legg</created></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="NORMAL"><created>stateMemory</created></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="NORMAL"><created>client</created></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="NORMAL">Property read: socket_url =	http://bazaar.lti.cs.cmu.edu:80</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="NORMAL"><created>ccActor</created></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="NORMAL">Property read: typingScale =	null</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><created>inputCoordinator</created></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL"><created>outputCoordinator</created></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Property read: output_to_PSI =	null</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Property read: separate_output_to_PSI =	null</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(client->inputCoordinator)" level="INFO">Connection initialized. Id=1608567618288</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="INFO">Outgoing connection added from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Inward connection added from inputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(inputCoordinator->inputCoordinator)" level="INFO">Connection initialized. Id=1608567618299</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(inputCoordinator->outputCoordinator)" level="INFO">Connection initialized. Id=1608567618310</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to outputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Inward connection added from outputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(outputCoordinator->client)" level="INFO">Connection initialized. Id=1608567618310</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Outgoing connection added from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="INFO">Inward connection added from client to outputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.AGENT" level="NORMAL"><initialized>WeatherLegacyAgent_legg</initialized></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Observer Added:stateMemory.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Observer Added:inputCoordinator.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="INFO">Observer Added:client.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Observer Added:outputCoordinator.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="INFO">Observer Added:ccActor.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(client->inputCoordinator)" level="NORMAL">Observer Added:(client->inputCoordinator).ui.edge</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(inputCoordinator->inputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->inputCoordinator).ui.edge</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(inputCoordinator->outputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->outputCoordinator).ui.edge</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(outputCoordinator->client)" level="NORMAL">Observer Added:(outputCoordinator->client).ui.edge</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Observer Added:stateMemory.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Observer Added:inputCoordinator.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="INFO">Observer Added:client.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Observer Added:outputCoordinator.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="INFO">Observer Added:ccActor.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(client->inputCoordinator)" level="NORMAL">Observer Added:(client->inputCoordinator).ui.panel</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(inputCoordinator->inputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->inputCoordinator).ui.panel</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(inputCoordinator->outputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->outputCoordinator).ui.panel</entry>
+<entry timestamp="2020-12-21#11:20:18" user="(outputCoordinator->client)" level="NORMAL">Observer Added:(outputCoordinator->client).ui.panel</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AgreeDisagreeActor" level="WARNING">agree condition: true</entry>
+<entry timestamp="2020-12-21#11:20:18" user="AskForExplanationActor" level="WARNING">explain_other condition: false</entry>
+<entry timestamp="2020-12-21#11:20:18" user="RevoiceActor" level="WARNING">revoice condition: true</entry>
+<entry timestamp="2020-12-21#11:20:18" user="SayMoreActor" level="WARNING">say_more condition: true</entry>
+<entry timestamp="2020-12-21#11:20:18" user="PlanExecutor" level="NORMAL"><configuration planfile="plans/plan_steps.xml"></entry>
+<entry timestamp="2020-12-21#11:20:18" user="PlanExecutor" level="ERROR">PlanExecutor: Can't do that...java.io.IOException: No such file or directory</entry>
+<entry timestamp="2020-12-21#11:20:18" user="PlanExecutor" level="ERROR">Error while reading Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></commit></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.AGENT" level="NORMAL"><starting>Initializing each component</starting></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.stateMemory" level="NORMAL"><initialized>stateMemory</initialized></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><initialized>inputCoordinator</initialized></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.client" level="NORMAL"><initialized>client</initialized></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL"><initialized>outputCoordinator</initialized></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.ccActor" level="NORMAL"><initialized>ccActor</initialized></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.AGENT" level="NORMAL"><starting>All components initialized</starting></entry>
+<entry timestamp="2020-12-21#11:20:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Observer Added:frame0. 3 Observers now.</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:19" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: WeatherLegacyAgent is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: WeatherLegacyAgent is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: WeatherLegacyAgent is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:19" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:24" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:24" user="PlanExecutor" level="NORMAL">Plan: <stage name="initiate" timeout="0">set</stage></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:24" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. INTRODUCE]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. INTRODUCEbelief*priority: 1.0*0.75=0.75</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:24" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. INTRODUCE</processing></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:24" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. </processing></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. </entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:24" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: Hello! I'm WeatherLegacyAgent. Take a minute to introduce yourselves. ]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:24" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:24" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:25" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:30" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from Meredith: I'm Meredith </processing></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from Meredith: I'm Meredith </entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:30" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from Meredith: I'm Meredith ]</entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:32" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: INTRODUCE_1 INTRODUCE]</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: INTRODUCE_1 INTRODUCEbelief*priority: 0.375*0.3=0.11249999999999999</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:32" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: INTRODUCE_1 INTRODUCE</processing></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:32" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: INTRODUCE_1 </processing></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: INTRODUCE_1 </entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:32" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: INTRODUCE_1 ]</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:32" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:50" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:50" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:51" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:51" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:54" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith is now ABSENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith is now ABSENT</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith is now ABSENT]</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:54" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith2 is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith2 is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith2 is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:54" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:54" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith2 is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith2 is now PRESENT</entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith2 is now PRESENT]</entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:55" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:20:57" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:57" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:57" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:57" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:57" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS]</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.5625*0.75=0.421875</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:58" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS</processing></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:20:58" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. </processing></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. </entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:20:58" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. ]</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:20:58" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:09" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GIVE_UP_ON_INTRODUCTIONS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:09" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:09" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:09" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:09" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. WEATHER_TOPIC_SPECIFICS]</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. WEATHER_TOPIC_SPECIFICSbelief*priority: 0.2109375*0.75=0.158203125</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:10" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. WEATHER_TOPIC_SPECIFICS</processing></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:10" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. </processing></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. </entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:10" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. ]</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:10" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:11" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from Meredith2: I'm hite </processing></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from Meredith2: I'm hite </entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:11" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from Meredith2: I'm hite ]</entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:11" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:18" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from Meredith2: low pressure and wind  </processing></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from Meredith2: low pressure and wind  </entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TRIGGER_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#11:21:18" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TRIGGER_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:18" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from Meredith2: low pressure and wind  LOW-PRESSURE_WIND+POSITIVITY, Do Tutoring concept=LP_WINDDIRECTION]</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"><socialtrigger from="RULES" score="1.0" /></processing></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialtrigger from="RULES" score="1.0" />]</entry>
+<entry timestamp="2020-12-21#11:21:18" user="SocialController" level="NORMAL">received social trigger event <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:18" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:20" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:20" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:20" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTORbelief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=2a Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=2b Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=2f Share=0.1</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=2g Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=4a Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=4b Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=6 Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Id=7 Share=0.0</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="INFO">Roulette: Only 2f has share</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: behaviors/tutor/WeatherLegacyAgent_legg.tutorbehaviors.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:21:20" user="SocialController" level="NORMAL">proposing social prompt: SMILE</entry>
+<entry timestamp="2020-12-21#11:21:20" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR, Message from WeatherLegacyAgent: :-) SMILE+SOCIAL]</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTORbelief*priority: 0.0791015625*0.75=0.059326171875</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: :-) SMILE+SOCIALbelief*priority: 0.0791015625*1.0=0.0791015625</entry>
+<entry timestamp="2020-12-21#11:21:22" user="SocialController" level="NORMAL">accepted social prompt: SMILE</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:22" user="SocialController" level="NORMAL">1/5 social turns = 0.2</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TURN_PERFORMED_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#11:21:22" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TURN_PERFORMED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:22" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: :-) SMILE+SOCIAL</processing></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"><socialturnperformed/></processing></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialturnperformed/></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialturnperformed/>]</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:22" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: :-) </processing></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: :-) </entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:22" user="SocialController" level="NORMAL">ratio 0.2, </entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: :-) ]</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:22" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: Social: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:24" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTORbelief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2020-12-21#11:21:26" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:26" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: Social: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:21:26" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTORbelief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTORbelief*priority: 0.0791015625*0.75=0.059326171875</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:28" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR</processing></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:28" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         </processing></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         </entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:28" user="SocialController" level="NORMAL">ratio 0.16666666666666666, </entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         ]</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:28" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:30" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">DO_TUTORING_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#11:21:30" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate DO_TUTORING_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="DO_TUTORING_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:30" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/WeatherLegacyAgent_legg.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="DO_TUTORING_EVENT" from="inputCoordinator">Do Tutoring concept=LP_PRECIPITATION</processing></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Do Tutoring concept=LP_PRECIPITATION</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Do Tutoring concept=LP_PRECIPITATION]</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="DO_TUTORING_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         TUTORbelief*priority: 0.05272119140624999*0.75=0.0395408935546875</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:30" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         TUTOR</processing></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:30" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         </processing></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         </entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:30" user="SocialController" level="NORMAL">ratio 0.14285714285714285, </entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         ]</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:30" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:32" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS]</entry>
+<entry timestamp="2020-12-21#11:21:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:21:32" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.0*0.3=0.0</entry>
+<entry timestamp="2020-12-21#11:21:34" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS]</entry>
+<entry timestamp="2020-12-21#11:21:34" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:21:34" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.0*0.3=0.0</entry>
+<entry timestamp="2020-12-21#11:21:34" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:34" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:34" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:34" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from Meredith2: yes </processing></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from Meredith2: yes </entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:35" user="SocialController" level="NORMAL">ratio 0.14285714285714285, ans=Meredith2,</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from Meredith2: yes AFFIRMATIVE]</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTORING_STARTED_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#11:21:35" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTORING_STARTED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="TUTORING_STARTED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="TUTORING_STARTED_EVENT" from="inputCoordinator">TutoringStartedEvent: scenario=scenario-lp_precipitation, concept=LP_PRECIPITATION</processing></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: TutoringStartedEvent: scenario=scenario-lp_precipitation, concept=LP_PRECIPITATION</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [TutoringStartedEvent: scenario=scenario-lp_precipitation, concept=LP_PRECIPITATION]</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTOR_TURNS_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#11:21:35" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTOR_TURNS_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="TUTOR_TURNS_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="TUTORING_STARTED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="TUTOR_TURNS_EVENT" from="inputCoordinator">Tutor Turns (2):
+{
+	We can talk about low pressure and precipitation in a little more detail.
+	Can you explain why the chance of precipitation is most likely higher at a low pressure center?
+}</processing></entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Tutor Turns (2):
+{
+	We can talk about low pressure and precipitation in a little more detail.
+	Can you explain why the chance of precipitation is most likely higher at a low pressure center?
+}</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Tutor Turns (2):
+{
+	We can talk about low pressure and precipitation in a little more detail.
+	Can you explain why the chance of precipitation is most likely higher at a low pressure center?
+}]</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:35" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="TUTOR_TURNS_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS, Message from WeatherLegacyAgent: Let's get started. TUTOR, Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail.|Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.0*0.3=0.0</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Let's get started. TUTORbelief*priority: 0.14055469628906248*0.75=0.10541602221679686</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail.|Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTORbelief*priority: 0.14055469628906248*0.75=0.10541602221679686</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:36" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: Let's get started. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:36" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: Let's get started. </processing></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: Let's get started. </entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:36" user="SocialController" level="NORMAL">ratio 0.125, </entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: Let's get started. ]</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:36" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS, Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail.|Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTOR]</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.0*0.21852000000000002=0.0</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail.|Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTORbelief*priority: 0.3747188203066406*0.75=0.2810391152299805</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:38" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:38" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail. </processing></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail. </entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:38" user="SocialController" level="NORMAL">ratio 0.1111111111111111, </entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: We can talk about low pressure and precipitation in a little more detail. ]</entry>
+<entry timestamp="2020-12-21#11:21:38" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:43" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:43" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#11:21:43" user="WeatherLegacyAgent_legg.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#11:21:43" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:43" user="WeatherLegacyAgent_legg.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from WeatherLegacyAgent: Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTOR</processing></entry>
+<entry timestamp="2020-12-21#11:21:43" user="WeatherLegacyAgent_legg.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#11:21:43" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:43" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from WeatherLegacyAgent: Can you explain why the chance of precipitation is most likely higher at a low pressure center? </processing></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from WeatherLegacyAgent: Can you explain why the chance of precipitation is most likely higher at a low pressure center? </entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:48" user="SocialController" level="NORMAL">ratio 0.1, </entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from WeatherLegacyAgent: Can you explain why the chance of precipitation is most likely higher at a low pressure center? ]</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#11:21:48" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Meredith2 is now ABSENT</processing></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Meredith2 is now ABSENT</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="LP_PRECIPITATION" type="dialogue"/>
+	<student id="Meredith" name="Meredith" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Meredith2 is now ABSENT]</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#11:21:48" user="WeatherLegacyAgent_legg.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#11:21:50" user="WeatherLegacyAgent_legg.outputCoordinator" level="INFO">Proposal Queue: [Message from WeatherLegacyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS]</entry>

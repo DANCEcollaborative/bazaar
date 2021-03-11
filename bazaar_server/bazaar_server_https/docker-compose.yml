@@ -24,7 +24,7 @@ services:
     depends_on:
      - nodechat
     ports:
-     - "8200:443"
+     - "8300:443"
     networks:
     - bazaar-net
 networks:

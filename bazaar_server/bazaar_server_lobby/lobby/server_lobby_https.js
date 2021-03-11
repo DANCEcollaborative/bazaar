@@ -89,7 +89,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src 'self' https://docs.google.com/spreadsheets/d/1OoLD9dZaVfLJz-0X-OQ3WnrI97G9syUKGEJWDR2Mxdg/edit?ts=57c83646#gid=298683489 https://erebor.lti.cs.cmu.edu:9001/p/ https://misty.lti.cs.cmu.edu/lobby/bazaar/vertical.pdf https://misty.lti.cs.cmu.edu/lobby/bazaar/horizontal.pdf; connect-src 'self' ws://misty.lti.cs.cmu.edu/bazsocket/ http://misty.lti.cs.cmu.edu/bazsocket/ wss://misty.lti.cs.cmu.edu/bazsocket/ https://misty.lti.cs.cmu.edu/bazsocket/ ws://misty.lti.cs.cmu.edu/bazsocket/ http://misty.lti.cs.cmu.edu/local/bazsocket/ wss://misty.lti.cs.cmu.edu/local/bazsocket/ https://misty.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif http://misty.lti.cs.cmu.edu/favicon.ico"); 
+    res.setHeader("Content-Security-Policy", "default-src 'self' https://docs.google.com/spreadsheets/d/1OoLD9dZaVfLJz-0X-OQ3WnrI97G9syUKGEJWDR2Mxdg https://erebor.lti.cs.cmu.edu:9001/p/ https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://misty.lti.cs.cmu.edu/bazsocket/ http://misty.lti.cs.cmu.edu/bazsocket/ wss://misty.lti.cs.cmu.edu/bazsocket/ https://misty.lti.cs.cmu.edu/bazsocket/ ws://misty.lti.cs.cmu.edu/bazsocket/ http://misty.lti.cs.cmu.edu/local/bazsocket/ wss://misty.lti.cs.cmu.edu/local/bazsocket/ https://misty.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif https://i.imgur.com/iiLmTRp.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/QaHL22C.png https://i.imgur.com/0vk7f0p.png https://i.imgur.com/G7vtzE8.jpg https://i.imgur.com/dWLUrxv.png https://i.imgur.com/h6IWxZ3.png https://i.imgur.com/gWrycCA.png http://misty.lti.cs.cmu.edu/favicon.ico"); 
     return next();
 });
 
@@ -127,13 +127,13 @@ app.get('/room_status*', async (req, res) => {
 
 app.get('/welcome*', async (req, res) => {
     console.log("Welcome");
-    res.sendFile(__dirname + '/welcome.html');
+    res.sendFile(__dirname + ath.join(__dirname, './html_pages/' + '/welcome.html'));
 });
 
 
-
+// May call setTeam_ to launch an agent 
 app.get('/login*', async (req, res) => {
-    console.log("Hi");
+  console.log("Enter app.get /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -148,14 +148,17 @@ app.get('/login*', async (req, res) => {
     console.log("error from db room insert " + err);
   }
 
-  if (1) {
+  if (1) {        								// if(1) is always true? 
     teamNumber = req.query.roomId;
     setTeam_(teamNumber, req, logger, res);
   }
+  console.log("Exit app.get /login");
 });
 
+
+// May launch an agent directly -- IS THIS USED? 
 app.post('/login*', async (req, res) => {
-    console.log("Hi");
+  console.log("Enter app.post /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -192,6 +195,7 @@ app.post('/login*', async (req, res) => {
           throw new Error("Couldn't update count for room " + req.query.roomName);
         }
         numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
+        console.log("exec ../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"');
         exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
         sleep(5000);
         setTeam(teamNumber, req, logger, res);
@@ -204,6 +208,7 @@ app.post('/login*', async (req, res) => {
     console.log(err);
     res.send(500, header_stuff + "<body><h2>Error</h2><p>" + err.message + "':</p><pre>" + err + "</pre></body>");
   }
+  console.log("Exit app.post /login");
 
 });
 
@@ -215,6 +220,7 @@ function createWorker() {
 const worker = createWorker();
 
 const agentLaunch = async (roomName, teamNumber) => {
+  console.log("agentLaunch: Launching agent -- roomName = " + roomName + "  -- teamNumber = " + teamNumber);
   worker.postMessage({
     roomName: roomName,
     teamNumber: teamNumber
@@ -222,63 +228,133 @@ const agentLaunch = async (roomName, teamNumber) => {
 }
 
 
-function setTeam_(teamNumber,req,logger,res)
-{
-        if( (!(req.query.roomName + teamNumber in numUsers)) )
-        {
-                numUsers[req.query.roomName + teamNumber] = 0;
-                console.log("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
-    			agentLaunch(req.query.roomName, teamNumber);
-        }
-        //teamNumber = req.query.roomId;
-        let html_page = 'index';
-        if(req.query.html != undefined) html_page = req.query.html;
+function setTeam_(teamNumber,req,logger,res) {
+    console.log("Enter setTeam_");
+	if( (!(req.query.roomName + teamNumber in numUsers)) )
+	{
+			numUsers[req.query.roomName + teamNumber] = 0;
+			console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + teamNumber + ")");
+			agentLaunch(req.query.roomName, teamNumber);
+	}
+	//teamNumber = req.query.roomId;
+	let html_page = 'index';
+	if(req.query.html != undefined) html_page = req.query.html;
 
-        const roomname = req.query.roomName + teamNumber;
-        const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
-                                                             req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
+	const roomname = req.query.roomName + teamNumber;
+	const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
+														 req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
 
-        console.log("setTeam_, url: " + url);
-        res.writeHead(301,{Location: url});
-        res.end();
+	console.log("setTeam_, url: " + url);
+	res.writeHead(301,{Location: url});
+	res.end();
 
-        logger.log("info","Number of users : " + numUsers[roomname]);
-        logger.log("info","Team number : " + teamNumber);
+	logger.log("info","Number of users : " + numUsers[roomname]);
+	logger.log("info","Team number : " + teamNumber);
 
-        //Replace accepts a value between 0 and 1.
-       /* provider.outcome_service.send_replace_result(1, function(err, result){
-            console.log("Grade submitted: " + result) // True or false
-        });*/
+	//Replace accepts a value between 0 and 1.
+   /* provider.outcome_service.send_replace_result(1, function(err, result){
+		console.log("Grade submitted: " + result) // True or false
+	});*/
 
+    console.log("Exit setTeam_");
 }
+
+
 function setTeam(teamNumber,req,provider,logger,res)
 {
-    	/*if( (!(req.query.roomName + pad(teamNumber, 2) in numUsers)) || numUsers[req.query.roomName + pad(teamNumber, 2)] <= 0)
-    	{
-                numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
-        	exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
-       		sleep(5000);
-    	}*/
-        let html_page = 'index';
-        if(req.query.html != undefined) html_page = req.query.html;
-        const roomname = req.query.roomName + pad(teamNumber, 2);
-        const url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
+    console.log("Enter setTeam");
+	/*if( (!(req.query.roomName + pad(teamNumber, 2) in numUsers)) || numUsers[req.query.roomName + pad(teamNumber, 2)] <= 0)
+	{
+			numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
+		exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
+		sleep(5000);
+	}*/
+	let html_page = 'index';
+	if(req.query.html != undefined) html_page = req.query.html;
+	const roomname = req.query.roomName + pad(teamNumber, 2);
+	const url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
+	console.log("setTeam, url: " + url);
 
-    	res.writeHead(301,{Location: url});
-    	res.end();
+	res.writeHead(301,{Location: url});
+	res.end();
 
-    	logger.log("info","Number of users : " + numUsers[roomname]);
-    	logger.log("info","Team number : " + teamNumber);
-        logger.log("info","provider : " + provider.username);
-        console.log(provider);
-        //console.log(provider);
-        //Replace accepts a value between 0 and 1.
-        provider.outcome_service.send_replace_result(1, function(err, result){
-            console.log("Grade submitted: " + result) // True or false
-        });
+	logger.log("info","Number of users : " + numUsers[roomname]);
+	logger.log("info","Team number : " + teamNumber);
+	logger.log("info","provider : " + provider.username);
+	console.log(provider);
+	//console.log(provider);
+	//Replace accepts a value between 0 and 1.
+	provider.outcome_service.send_replace_result(1, function(err, result){
+		console.log("Grade submitted: " + result) // True or false
+	});
+    console.log("Exit setTeam");
         
 }
 
+
+function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
+    console.log("Enter setTeam_fromSocket");
+    const roomNameAndNumber = roomName + teamNumber;
+    let perspective = null;							// hardcoded for now
+    let forum = "undefined";						// hardcoded for now
+	if ( (!(roomNameAndNumber in numUsers)) )
+	{
+			numUsers[roomNameAndNumber] = 0;
+			// console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
+			console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+			agentLaunch(roomName, teamNumber);
+	}
+	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
+	logger.log("info","Team number : " + teamNumber);
+    console.log("Exit setTeam_fromSocket");
+}
+
+
+function addUser(socket, room, username, temporary, id, perspective) {
+    if (username != "VirtualErland" || username != "BazaarAgent") {		// This seems intended to exclude Bazaar agents from user count but is incomplete
+        if (room in numUsers) {		
+           	numUsers[room] = numUsers[room] + 1;
+		} else {
+			numUsers[room] = 1;
+		}	
+	}
+	
+    if (isBlank(username)) {
+	    origin = socket.handshake.address
+	    username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
+	}
+	   
+   	if(isBlank(room))
+		room = "Limbo"
+	
+	socket.temporary = temporary;   // don't log anything to the db if this flag is set	
+	socket.username = username;		// store the username in the socket session for this client
+	socket.room = room;				// store the room name in the socket session for this client	
+	socket.Id = id;					// ??? I think socket.id is set automatically; why socket.Id (title case)? 	
+	
+	// add the client's username to the global list
+	if(!usernames[room])
+		usernames[room] = {};
+	usernames[room][username] = id;
+
+	// set user perspective 
+	if(!user_perspectives[room])
+	  	user_perspectives[room] = {};
+	user_perspectives[room][username] = perspective;
+
+	// Join room 
+	console.log("function addUser: Joining room " + room);
+	socket.join(room);
+	
+	// Add to user_sockets list  
+	if(!user_sockets[room])
+		user_sockets[room] = {};
+	user_sockets[room][username] = socket;
+						
+	loadHistory(socket, false);			// ??? Why is history loaded? 
+	io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
+	//socket.emit('updaterooms', [room,], room);
+}
 
 
 
@@ -289,10 +365,12 @@ function delay(ms) {
 
 app.get('/chat*', async (req, res) => {
 
+  console.log("Enter app.get /chat");
   let html_page = 'index';
   if (req.query.html !== undefined) html_page = req.query.html;
 
   res.sendFile(path.join(__dirname, './html_pages/' + html_page + '.html'));
+  console.log("Exit app.get /chat");
 });
 
 app.get('/discussionnew.css', async (req,res) => {
@@ -399,14 +477,15 @@ const MESSAGE_BACKLOG = 200,
     SESSION_TIMEOUT =   7*1000,
 //how long to wait after the most recent particpant has joined before attempting a team assignment - should be greater than session_timeout
     GROUP_DELAY = 	15*1000, // hyeju changed this value
-    LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
+    // LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
+    LAST_RESORT_TIMEOUT =  60*1000, //this is when the system tells students to come back later
 //    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
     LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
 	
 let LOCKDOWN_TIME = 0;
 let START_TIME = new Date().getTime();
 const chat_url = "https://misty.lti.cs.cmu.edu/bazaar/chat/";
-const roomname_prefix = "weather";
+const roomname_prefix = "jeopardy";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started
@@ -417,18 +496,18 @@ let teamMemberNames = {};
 function getLoginInstructionText(nick)
 {
     const now = new Date().getTime();
-    message = "Welcome to the matchmaker lobby. Hang on for a few minutes, we'll match you up with a team as soon as enough students join. "
+    message = "Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a team as soon as enough students join. "
     return message;
 }
 
 function getUserInstructionText(nick, i, condition)
 {    
-    instructions = 'After you join your team\'s discussion area, please follow VirtualCarolyn\'s instruction there.';
+    instructions = 'After you join your team\'s discussion area, please follow the virtual agent\'s instructions there.';
     return instructions;
 }
 
 let conditionOffset = -1;
-let numTeams = 0;
+let numTeams = 5;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
@@ -706,10 +785,11 @@ function shuffle(array)
 // interval where team formation and idle user removal happens
 setInterval(function () 
 {
+  // console.log("Enter setInterval");
   const now = new Date(); 
  
   for (const id in sessions) 
-  {
+  { 
 
     if (!sessions.hasOwnProperty(id)) continue;
     const session = sessions[id];
@@ -763,28 +843,29 @@ setInterval(function ()
                  //launch agent!
                 paddedTeamNumber = pad(teamNumber,2);
 
+				console.log("setInterval: about to 'exec' ../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"')
                 exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
                 //break;
             }
             else team = [];
-    }
-    else if(team.length == 0 
+    } else if(team.length == 0 
 	    && supplicants.length > 0
 	    && supplicants.indexOf(session) >= 0
-	    && now - lastJoin > LAST_RESORT_TIMEOUT)
-    {
-	member = session;
-	winston.log('info', "advising student "+member.nick+" to come back later");
-	channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);           
-        supplicants.splice(supplicants.indexOf(member),1);
-        setTimeout(function(member)
-        {
-            return function()
-            {
+	    && now - lastJoin > LAST_RESORT_TIMEOUT) { 
+	    
+		// console.log("About to send timeout message");
+		member = session;
+		winston.log('info', "advising student "+member.nick+" to come back later");
+		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
+		channel.appendMessage("System", "msg", member.nick+", it looks like there isn't a match for you right now. You can still receive payment by going to this <a href=\"https://www.google.com\">link</a> and entering your email address.", member.nick);              
+		supplicants.splice(supplicants.indexOf(member),1);
+		setTimeout(function(member)
+		{
+			return function()
+			{
 		member.destroy() 
-            }
-        }(member), 10000); 
-
+			}
+		}(member), 10000); 
     }
    
     //deploy and inform!
@@ -801,7 +882,7 @@ setInterval(function ()
             const member = team[i];
             
             const memberID = i + 1; 
-            const html = "index_ccc"
+            const html = "share_chat"
 	
             const roomname = roomname_prefix+pad(teamNumber,2);
             const url = chat_url + roomname + "/" + memberID + "/" + member.nick + "/undefined/?html=" + html + "&forum=undefined";
@@ -828,6 +909,7 @@ setInterval(function ()
 	team = [];
     }
   }
+  // console.log("Exit setInterval");
 }, 5*1000);
 
 
@@ -851,7 +933,7 @@ fu.get("/who", function (req, res) {
                       });
 });
 
-//this is the incoming message from the client that triggers serssion creation.
+//this is the incoming message from the client that triggers session creation.
 fu.get("/join", function (req, res) 
 {
   let parsed = qs.parse(url.parse(req.url).query);
@@ -1036,6 +1118,51 @@ const header_stuff = "<head>\n"+
 "\t<link href='http://ankara.lti.cs.cmu.edu/include/discussion.css' rel='stylesheet' type='text/css'>\n"+
 "</head>";
 
+
+function isDCSSConnection(auth) {
+  // If the auth object is present, and has a "configuration" property,
+  // which is an object that itself has a "clientID" property, whose value
+  // is equal to 'DCSS', then this is a DCSS client connection.
+  return auth && auth.agent && auth.agent.configuration && auth.agent.configuration.clientID === 'DCSS';
+}
+
+function translateDCSSAuthToBazaar(auth) {
+  /*
+    auth looks, at minimum, like this: 
+    {
+      agent: {
+        id: int,
+        name: "dcsslightside",
+        configuration: {
+          // key value
+        }
+      },
+      chat: {
+        id: int
+      },
+      run: {
+        id: int
+      },
+      user: {
+        id: int,
+        name: string
+      }
+    }    
+  */  
+
+  return {
+    clientID: auth.agent.configuration.clientID,
+    agent: auth.agent.name,
+    roomName: auth.chat.id,
+    userID: auth.user.id,
+    username: auth.user.name
+  };
+}
+
+
+
+
+
 function exportCSV(room, res) {
 	// const connection = mysql.createConnection(mysql_auth);
 	
@@ -1061,6 +1188,7 @@ function exportCSV(room, res) {
 
 function loadHistory(socket, secret)
 {
+	console.log("Enter loadHistory");
     if(!socket.temporary) {
         //const connection = mysql.createConnection(mysql_auth);
         let id = null;
@@ -1100,42 +1228,119 @@ function loadHistory(socket, secret)
     {
 	io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
     }
+	console.log("Exit loadHistory");
 }
 
 function logMessage(socket, content, type) {   
+	console.log("Enter logMessage");	
+	console.log("logMessage, socket.room = " + socket.room);
+	console.log("logMessage, socket.roomid = " + socket.roomid);
+	console.log("logMessage, socket.username = " + socket.username);
+
     if(socket.temporary) return;
 
     //const connection = mysql.createConnection(mysql_auth);
-    
-    
+       
   	pool.query('update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields) {
-         if (err) 
+         if (err) {
+         	console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
             console.log(err);
+        	}
     });
     
     endpoint = "unknown"
     if(socket.handshake)
-	endpoint = socket.handshake.address;
+		endpoint = socket.handshake.address;
+		
+	console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+	console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
+	console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
+	console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
+	console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
+	console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
+	console.log("logMessage, pool.escape(content) = " + pool.escape(content));
+	console.log("logMessage, pool.escape(type) = " + pool.escape(type));
+	
+	
+	
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)' 
     		+ 'values ((select id from nodechat.room where name=' + pool.escape(socket.room) + '), '
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
     		+ pool.escape(type) + ', now());';                   
 
+	 console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
-         if (err) 
+         if (err) {
+         	console.log("Error on pool.query(query, function (err, rows, fields)")
             console.log(err);
+        }
+            
     });   
-//   connection.end()    
+//   connection.end()  
+    console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
+	console.log("Exit logMessage");  
 }
 
 // io.set('log level', 1);
-DEBUG=io*
+// DEBUG=io*
 
 io.sockets.on('connection', async (socket) => {
 
 	console.log("info", "socket.on_connection: -- start");
 
-        // when the client emits 'adduser', this listens and executes
+	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
+	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
+
+ 	if (isDCSSConnection(socket.handshake.auth)) {
+
+		const {
+		  token,
+		  clientID, 
+		  agent,
+		  roomName,
+		  userID,
+		  username
+		} = translateDCSSAuthToBazaar(socket.handshake.auth);
+		  
+		console.log("socket ID: " + socket.id);
+		console.log("token = " + token);
+		console.log("clientID = " + clientID);
+		console.log("agent = " + agent);
+		console.log("roomName = " + roomName);
+		// console.log("roomid = " + roomid);
+		console.log("userID = " + userID);
+		console.log("username = " + username); 
+		
+		// socket.roomid = agent + roomName;
+		// console.log("socket.roomid = " + socket.roomid);
+				
+		socket.join(token);  				// DCSS wants this	
+		// socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
+		// console.log("socket rooms: " + socket.rooms);
+				
+		socket.clientID = clientID;    		
+		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
+		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
+		// socket.roomid = roomid; 
+		// socket.room = roomid; 
+		socket.userID = userID;  
+		room = agent + roomName; 
+		console.log("room: " + room);    						
+		// socket.username = username; 
+		
+		logger = winston.createLogger({
+    		transports: [
+      			new (winston.transports.Console)()]
+  		});	
+		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
+		setTeam_fromSocket(agent,roomName,userID,username,logger);
+		
+		let temporary = false; 
+		let perspective = null; 
+		addUser(socket, room, username, temporary, userID, perspective)
+	}
+
+        // when the client emits 'snoop', this listens and executes
 	socket.on('snoop', async (room, id, perspective) => {
 	
 	   origin = socket.handshake.address
@@ -1170,70 +1375,57 @@ io.sockets.on('connection', async (socket) => {
 
 	// when the client emits 'adduser', this listens and executes
 	socket.on('adduser', async (room, username, temporary, id, perspective) => {
-	
-	    console.log("info", "socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
-           
-           if(username != "VirtualErland" || username != "BazaarAgent")
-	   {
-                if(room in numUsers)
-		{		
-           		numUsers[room] = numUsers[room] + 1;
-		}
-		else
-		{
-			numUsers[room] = 1;
-		}	
-	   }
-           //logger.log("info",username +" connects");
-           if(isBlank(username))
-	   {
-	       origin = socket.handshake.address
-	       username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
-	   }
-	   
-	   if(isBlank(room))
-            room = "Limbo"
-	
-	    //don't log anything to the db if this flag is set
-	    socket.temporary = temporary;
-	
-	    // store the username in the socket session for this client
-	    socket.username = username;
-	    // store the room name in the socket session for this client
-	    socket.room = room;
-            //console.log(id);
-            socket.Id = id;
-	    // add the client's username to the global list
-	    if(!usernames[room])
-		usernames[room] = {};
-	    usernames[room][username] = id;
-
-            if(!user_perspectives[room])
-              user_perspectives[room] = {};
-            user_perspectives[room][username] = perspective;
-
-	    // send client to room 1
-	    socket.join(room);
-	    // echo to client they've connected
-	    
-	    if(!user_sockets[room])
-		user_sockets[room] = {};
-	    user_sockets[room][username] = socket;
-	    
-            
-	        	
-	    loadHistory(socket, false);
-	    io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
-	    //socket.emit('updaterooms', [room,], room);
+	    console.log("info", "Enter socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
+	    addUser(socket, room, username, temporary, id, perspective);
+	    console.log("info", "Exit socket.on_adduser");
 	});
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
+		console.log("Enter socket.on('sendchat')'"); 
+		console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
+		console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
-		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		
+		if (socket.username == "DCSSLightSideAgent") {
+			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
+			io.sockets.in(socket.room).emit('interjection', socket.username, data); 
+		} else {	
+			console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
+			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		}
+		
+		
+		// if (typeof socket.clientID !== 'undefined' ) {
+		// 	console.log("socket.on('sendchat'): socket.clientID NOT undefined");
+		// 	if (socket.clientID == "DCSS") {
+		// 	// if (socket.clientID == "DO_NOT_GO_HERE") {
+		// 		console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
+		// 		io.sockets.in(socket.room).emit('interjection', socket.username, data); 
+		// 	} else {	
+		// 		console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
+		// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+	// 		}
+	// 	} else {	
+	// 		console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
+	// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+	// 	}
+		console.log("Exit socket.on('sendchat')"); 
+			
 	});
+
+
+	// when the client emits 'request', this listens and executes
+	socket.on('request', async (data)  => {	
+		console.log("Enter socket.on_request"); 	
+		console.log("socket.username: " + socket.username);
+		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data);
+		console.log("Exit socket.on_request"); 
+	})
+	
 	
 
 	// when the client emits 'sendpm', this listens and executes
@@ -1303,6 +1495,16 @@ io.sockets.on('connection', async (socket) => {
     } catch (e) {
     }
 
+
+	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
+ 	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
+		console.log("token is NOT 'undefined'; issuing -leave- with token");
+		socket.leave(socket.handshake.auth.token);
+	}
+		
+	else {
+
+
     if ((socket.username != "VirtualErland" || socket.username != "BazaarAgent") && socket.room in numUsers) {
       numUsers[socket.room] = numUsers[socket.room] - 1;
     }
@@ -1327,6 +1529,7 @@ io.sockets.on('connection', async (socket) => {
 
     if (socket.room)
       socket.leave(socket.room);
+}
 
   });
 });

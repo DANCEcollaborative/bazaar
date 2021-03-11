@@ -1,0 +1,1217 @@
+<entry timestamp="2020-12-21#13:36:40" user="FactoryBuiltAgent" level="NORMAL">CONFIGURING AGENT JeopardyAgent_topop</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.AGENT" level="NORMAL"><created>JeopardyAgent_topop</created></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.stateMemory" level="NORMAL"><created>stateMemory</created></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.client" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.client" level="NORMAL"><created>client</created></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.client" level="NORMAL">Property read: socket_url =	http://bazaar.lti.cs.cmu.edu:80</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.ccActor" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.ccActor" level="NORMAL"><created>ccActor</created></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.ccActor" level="NORMAL">Property read: typingScale =	null</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><created>inputCoordinator</created></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL"><created>outputCoordinator</created></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Property read: output_to_PSI =	null</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Property read: separate_output_to_PSI =	null</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(client->inputCoordinator)" level="INFO">Connection initialized. Id=1608575800954</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.client" level="INFO">Outgoing connection added from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Inward connection added from inputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(inputCoordinator->inputCoordinator)" level="INFO">Connection initialized. Id=1608575800954</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(inputCoordinator->outputCoordinator)" level="INFO">Connection initialized. Id=1608575800954</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to outputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Inward connection added from outputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(outputCoordinator->client)" level="INFO">Connection initialized. Id=1608575800954</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Outgoing connection added from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.client" level="INFO">Inward connection added from client to outputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.AGENT" level="NORMAL"><initialized>JeopardyAgent_topop</initialized></entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.stateMemory" level="INFO">Observer Added:stateMemory.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Observer Added:inputCoordinator.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.client" level="INFO">Observer Added:client.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Observer Added:outputCoordinator.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:40" user="JeopardyAgent_topop.ccActor" level="INFO">Observer Added:ccActor.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(client->inputCoordinator)" level="NORMAL">Observer Added:(client->inputCoordinator).ui.edge</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(inputCoordinator->inputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->inputCoordinator).ui.edge</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(inputCoordinator->outputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->outputCoordinator).ui.edge</entry>
+<entry timestamp="2020-12-21#13:36:40" user="(outputCoordinator->client)" level="NORMAL">Observer Added:(outputCoordinator->client).ui.edge</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.stateMemory" level="INFO">Observer Added:stateMemory.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Observer Added:inputCoordinator.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.client" level="INFO">Observer Added:client.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Observer Added:outputCoordinator.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.ccActor" level="INFO">Observer Added:ccActor.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:41" user="(client->inputCoordinator)" level="NORMAL">Observer Added:(client->inputCoordinator).ui.panel</entry>
+<entry timestamp="2020-12-21#13:36:41" user="(inputCoordinator->inputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->inputCoordinator).ui.panel</entry>
+<entry timestamp="2020-12-21#13:36:41" user="(inputCoordinator->outputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->outputCoordinator).ui.panel</entry>
+<entry timestamp="2020-12-21#13:36:41" user="(outputCoordinator->client)" level="NORMAL">Observer Added:(outputCoordinator->client).ui.panel</entry>
+<entry timestamp="2020-12-21#13:36:41" user="AgreeDisagreeActor" level="WARNING">agree condition: true</entry>
+<entry timestamp="2020-12-21#13:36:41" user="AskForExplanationActor" level="WARNING">explain_other condition: false</entry>
+<entry timestamp="2020-12-21#13:36:41" user="RevoiceActor" level="WARNING">revoice condition: true</entry>
+<entry timestamp="2020-12-21#13:36:41" user="SayMoreActor" level="WARNING">say_more condition: true</entry>
+<entry timestamp="2020-12-21#13:36:41" user="PlanExecutor" level="NORMAL"><configuration planfile="plans/plan_steps.xml"></entry>
+<entry timestamp="2020-12-21#13:36:41" user="PlanExecutor" level="ERROR">PlanExecutor: Can't do that...java.io.IOException: No such file or directory</entry>
+<entry timestamp="2020-12-21#13:36:41" user="PlanExecutor" level="ERROR">Error while reading Status File (java.io.FileNotFoundException: planstatus/JeopardyAgent_topop.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></commit></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.AGENT" level="NORMAL"><starting>Initializing each component</starting></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.stateMemory" level="NORMAL"><initialized>stateMemory</initialized></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><initialized>inputCoordinator</initialized></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.client" level="NORMAL"><initialized>client</initialized></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL"><initialized>outputCoordinator</initialized></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.ccActor" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.ccActor" level="NORMAL"><initialized>ccActor</initialized></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.AGENT" level="NORMAL"><starting>All components initialized</starting></entry>
+<entry timestamp="2020-12-21#13:36:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Observer Added:frame0. 3 Observers now.</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:42" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: JeopardyAgent is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: JeopardyAgent is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: JeopardyAgent is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:42" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:47" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: mere is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: mere is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:47" user="PresenceWatcher" level="NORMAL">waiting 120 seconds for more students to join...</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: mere is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:47" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: mere is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: mere is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:47" user="PresenceWatcher" level="NORMAL">waiting 120 seconds for more students to join...</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: mere is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:47" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:51" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:51" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: corb is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: corb is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:51" user="PlanExecutor" level="NORMAL">Plan: <stage name="initiate" timeout="0">set</stage></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: corb is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: mere is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: mere is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: mere is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:51" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:51" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/JeopardyAgent_topop.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:52" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: corb is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: corb is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: corb is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Please pick a category. Format = category + value. JEOPARDY_CATEGORY]</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Please pick a category. Format = category + value. JEOPARDY_CATEGORYbelief*priority: 1.0*0.75=0.75</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:52" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Please pick a category. Format = category + value. JEOPARDY_CATEGORY</processing></entry>
+<entry timestamp="2020-12-21#13:36:52" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:53" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Please pick a category. Format = category + value. </processing></entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Please pick a category. Format = category + value. </entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:53" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Please pick a category. Format = category + value. ]</entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:58" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from corb: eng comp for 200 </processing></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from corb: eng comp for 200 </entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:58" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from corb: eng comp for 200 ENG_COMP_200, Do Tutoring concept=ENG_COMP_200]</entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:58" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: 
+               English Composition for 200?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: 
+               English Composition for 200?
+         TUTORbelief*priority: 0.375*0.75=0.28125</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:59" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: 
+               English Composition for 200?
+         TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:36:59" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: 
+               English Composition for 200?
+         </processing></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: 
+               English Composition for 200?
+         </entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:36:59" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: 
+               English Composition for 200?
+         ]</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:36:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:00" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from corb: yes </processing></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from corb: yes </entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:00" user="SocialController" level="NORMAL">ratio 0.0, ans=corb,</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from corb: yes AFFIRMATIVE]</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTORING_STARTED_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:00" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTORING_STARTED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="TUTORING_STARTED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="TUTORING_STARTED_EVENT" from="inputCoordinator">TutoringStartedEvent: scenario=scenario-eng_comp_200, concept=ENG_COMP_200</processing></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: TutoringStartedEvent: scenario=scenario-eng_comp_200, concept=ENG_COMP_200</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [TutoringStartedEvent: scenario=scenario-eng_comp_200, concept=ENG_COMP_200]</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTOR_TURNS_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:00" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTOR_TURNS_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="TUTOR_TURNS_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="TUTORING_STARTED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="TUTOR_TURNS_EVENT" from="inputCoordinator">Tutor Turns (2):
+{
+	Let's do English Composition for 200.
+	This is one of the required essays for this course and involves telling a personal story from your life.
+}</processing></entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Tutor Turns (2):
+{
+	Let's do English Composition for 200.
+	This is one of the required essays for this course and involves telling a personal story from your life.
+}</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Tutor Turns (2):
+{
+	Let's do English Composition for 200.
+	This is one of the required essays for this course and involves telling a personal story from your life.
+}]</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:00" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="TUTOR_TURNS_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Here we go... TUTOR, Message from JeopardyAgent: Let's do English Composition for 200.|This is one of the required essays for this course and involves telling a personal story from your life. TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Here we go... TUTORbelief*priority: 0.37490625*0.75=0.2811796875</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Let's do English Composition for 200.|This is one of the required essays for this course and involves telling a personal story from your life. TUTORbelief*priority: 0.37490625*0.75=0.2811796875</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:01" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Here we go... TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:01" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Here we go... </processing></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Here we go... </entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:01" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Here we go... ]</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Let's do English Composition for 200.|This is one of the required essays for this course and involves telling a personal story from your life. TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Let's do English Composition for 200.|This is one of the required essays for this course and involves telling a personal story from your life. TUTORbelief*priority: 0.3748125234375*0.75=0.281109392578125</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:03" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Let's do English Composition for 200. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:03" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Let's do English Composition for 200. </processing></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Let's do English Composition for 200. </entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:03" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Let's do English Composition for 200. ]</entry>
+<entry timestamp="2020-12-21#13:37:03" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:08" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:08" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:08" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:08" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:08" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: This is one of the required essays for this course and involves telling a personal story from your life. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:08" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:08" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:08" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:13" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: This is one of the required essays for this course and involves telling a personal story from your life. </processing></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: This is one of the required essays for this course and involves telling a personal story from your life. </entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:13" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: This is one of the required essays for this course and involves telling a personal story from your life. ]</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from corb: personal narrative </processing></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from corb: personal narrative </entry>
+<entry timestamp="2020-12-21#13:37:13" user="TutorTurnWatcher" level="ERROR">Error while updating Episode Log File (java.io.FileNotFoundException: behaviors/episodes/JeopardyAgent_topop.episodes.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:13" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from corb: personal narrative NEGATIVE]</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:13" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:14" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/JeopardyAgent_topop.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:37:14" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="WEATHER_TOPIC_SPECIFICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:14" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:14" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:14" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:14" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/JeopardyAgent_topop.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:37:15" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES]</entry>
+<entry timestamp="2020-12-21#13:37:15" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:15" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTOR_TURNS_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:16" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTOR_TURNS_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="TUTOR_TURNS_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="TUTOR_TURNS_EVENT" from="inputCoordinator">Tutor Turns (2):
+{
+	Personal narrative is correct!
+	Please feel free to continue discussing among yourselves.
+}</processing></entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Tutor Turns (2):
+{
+	Personal narrative is correct!
+	Please feel free to continue discussing among yourselves.
+}</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Tutor Turns (2):
+{
+	Personal narrative is correct!
+	Please feel free to continue discussing among yourselves.
+}]</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:16" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="TUTOR_TURNS_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES, Message from JeopardyAgent: Personal narrative is correct!|Please feel free to continue discussing among yourselves. TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Personal narrative is correct!|Please feel free to continue discussing among yourselves. TUTORbelief*priority: 0.3747188203066406*0.75=0.2810391152299805</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">DONE_TUTORING_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:17" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate DONE_TUTORING_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="DONE_TUTORING_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:17" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="DONE_TUTORING_EVENT" from="inputCoordinator">Done Tutoring concept ENG_COMP_200</processing></entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Done Tutoring concept ENG_COMP_200</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Done Tutoring concept ENG_COMP_200]</entry>
+<entry timestamp="2020-12-21#13:37:17" user="PlanExecutor" level="NORMAL">received step done event for DONE_TUTORING_EVENT</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Personal narrative is correct! TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:17" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:17" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:22" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:22" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:22" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:22" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:22" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Please feel free to continue discussing among yourselves. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:22" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="DONE_TUTORING_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:27" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Personal narrative is correct! </processing></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Personal narrative is correct! </entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:27" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Personal narrative is correct! ]</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Please feel free to continue discussing among yourselves. </processing></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Please feel free to continue discussing among yourselves. </entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:27" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Please feel free to continue discussing among yourselves. ]</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:27" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:28" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from corb: eng comp for 100 </processing></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from corb: eng comp for 100 </entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:28" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Do Tutoring concept=ENG_COMP_100, Message from corb: eng comp for 100 ENG_COMP_100]</entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:28" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES, Message from JeopardyAgent: 
+               English Composition for 100?
+         TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: 
+               English Composition for 100?
+         TUTORbelief*priority: 0.9990003749375035*0.75=0.7492502812031276</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:29" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: 
+               English Composition for 100?
+         TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:29" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: 
+               English Composition for 100?
+         </processing></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: 
+               English Composition for 100?
+         </entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:29" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: 
+               English Composition for 100?
+         ]</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:29" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:30" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from corb: yes </processing></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from corb: yes </entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:30" user="SocialController" level="NORMAL">ratio 0.0, ans=corb,</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from corb: yes AFFIRMATIVE]</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTORING_STARTED_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:30" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTORING_STARTED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="TUTORING_STARTED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="TUTORING_STARTED_EVENT" from="inputCoordinator">TutoringStartedEvent: scenario=scenario-eng_comp_100, concept=ENG_COMP_100</processing></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: TutoringStartedEvent: scenario=scenario-eng_comp_100, concept=ENG_COMP_100</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [TutoringStartedEvent: scenario=scenario-eng_comp_100, concept=ENG_COMP_100]</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTOR_TURNS_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:30" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTOR_TURNS_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="TUTOR_TURNS_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="TUTORING_STARTED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="TUTOR_TURNS_EVENT" from="inputCoordinator">Tutor Turns (1):
+{
+	This word represents a form of cheating that involves copying someone else's work.
+}</processing></entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Tutor Turns (1):
+{
+	This word represents a form of cheating that involves copying someone else's work.
+}</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Tutor Turns (1):
+{
+	This word represents a form of cheating that involves copying someone else's work.
+}]</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:30" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="TUTOR_TURNS_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES, Message from JeopardyAgent: Here we go... TUTOR, Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.66775=0.0</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Here we go... TUTORbelief*priority: 0.9990003749375035*0.75=0.7492502812031276</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTORbelief*priority: 0.9990003749375035*0.75=0.7492502812031276</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:31" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Here we go... TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:31" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Here we go... </processing></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Here we go... </entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:31" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Here we go... ]</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:31" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES, Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.5672999999999999=0.0</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTORbelief*priority: 0.9990003749375035*0.75=0.7492502812031276</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:33" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:33" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. </processing></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. </entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:33" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. ]</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:33" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:35" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES]</entry>
+<entry timestamp="2020-12-21#13:37:35" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:35" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.46685=0.0</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES]</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.36655000000000004=0.0</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:37" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from corb: plagiarism </processing></entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from corb: plagiarism </entry>
+<entry timestamp="2020-12-21#13:37:37" user="TutorTurnWatcher" level="ERROR">Error while updating Episode Log File (java.io.FileNotFoundException: behaviors/episodes/JeopardyAgent_topop.episodes.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:37" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from corb: plagiarism ]</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:37" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:39" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES]</entry>
+<entry timestamp="2020-12-21#13:37:39" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:39" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.26620000000000005=0.0</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES]</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.16565000000000002=0.0</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">TUTOR_TURNS_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:41" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate TUTOR_TURNS_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="TUTOR_TURNS_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="TUTOR_TURNS_EVENT" from="inputCoordinator">Tutor Turns (2):
+{
+	Plagiarism is correct. For more information about plagiarism, visit: insert weblink s
+	Please feel free to continue discussing among yourselves.
+}</processing></entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Tutor Turns (2):
+{
+	Plagiarism is correct. For more information about plagiarism, visit: insert weblink s
+	Please feel free to continue discussing among yourselves.
+}</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Tutor Turns (2):
+{
+	Plagiarism is correct. For more information about plagiarism, visit: insert weblink s
+	Please feel free to continue discussing among yourselves.
+}]</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:41" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="TUTOR_TURNS_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES, Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s|Please feel free to continue discussing among yourselves. TUTOR]</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal not allowed by Source: TUTOR_DIALOG: Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIESbelief*priority: 0.0*0.06525=0.0</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s|Please feel free to continue discussing among yourselves. TUTORbelief*priority: 0.9990003749375035*0.75=0.7492502812031276</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">DONE_TUTORING_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:37:43" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate DONE_TUTORING_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="DONE_TUTORING_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:43" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:43" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="DONE_TUTORING_EVENT" from="inputCoordinator">Done Tutoring concept ENG_COMP_100</processing></entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Done Tutoring concept ENG_COMP_100</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Done Tutoring concept ENG_COMP_100]</entry>
+<entry timestamp="2020-12-21#13:37:43" user="PlanExecutor" level="NORMAL">received step done event for DONE_TUTORING_EVENT</entry>
+<entry timestamp="2020-12-21#13:37:43" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:48" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:48" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:37:48" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:37:48" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:48" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Please feel free to continue discussing among yourselves. TUTOR</processing></entry>
+<entry timestamp="2020-12-21#13:37:48" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:48" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:37:48" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="DONE_TUTORING_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s </processing></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s </entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:53" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s ]</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Please feel free to continue discussing among yourselves. </processing></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Please feel free to continue discussing among yourselves. </entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:37:53" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Please feel free to continue discussing among yourselves. ]</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:37:53" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:37:55" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES]</entry>
+<entry timestamp="2020-12-21#13:38:59" user="TutorActor" level="NORMAL">Timeout for ENG_COMP_200:null</entry>
+<entry timestamp="2020-12-21#13:39:28" user="TutorActor" level="NORMAL">Timeout for ENG_COMP_100:null</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">DORMANT_STUDENT_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:39:59" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate DORMANT_STUDENT_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="DORMANT_STUDENT_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:39:59" user="ActivityTracker" level="NORMAL">mere is dormant (0 turns vs student max 6)</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="DORMANT_STUDENT_EVENT" from="inputCoordinator"><dormantStudent name="mere"/></processing></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: <dormantStudent name="mere"/></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TRIGGER_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:39:59" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TRIGGER_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [<dormantStudent name="mere"/>]</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="DORMANT_STUDENT_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"><socialtrigger from="RULES" score="1.0" /></processing></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialtrigger from="RULES" score="1.0" />]</entry>
+<entry timestamp="2020-12-21#13:39:59" user="SocialController" level="NORMAL">received social trigger event <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:39:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:40:01" user="SocialController" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: behaviors/tutor/JeopardyAgent_topop.tutorbehaviors.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:40:01" user="SocialController" level="NORMAL">proposing social prompt: ENCOURAGE_INDIVIDUAL</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: What do you think, mere? ENCOURAGE_INDIVIDUAL+SOCIAL]</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: What do you think, mere? ENCOURAGE_INDIVIDUAL+SOCIALbelief*priority: 0.019775390625*1.0=0.019775390625</entry>
+<entry timestamp="2020-12-21#13:40:01" user="SocialController" level="NORMAL">accepted social prompt: ENCOURAGE_INDIVIDUAL</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:40:01" user="SocialController" level="NORMAL">1/13 social turns = 0.07692307692307693</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TURN_PERFORMED_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:40:01" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TURN_PERFORMED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:40:01" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: What do you think, mere? ENCOURAGE_INDIVIDUAL+SOCIAL</processing></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"><socialturnperformed/></processing></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialturnperformed/></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialturnperformed/>]</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:40:01" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: What do you think, mere? </processing></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: What do you think, mere? </entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:40:01" user="SocialController" level="NORMAL">ratio 0.07692307692307693, </entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: What do you think, mere? ]</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:40:01" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:41:32" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:41:32" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: mere is now PRESENT</processing></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: mere is now PRESENT</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: mere is now PRESENT]</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: corb is now ABSENT</processing></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: corb is now ABSENT</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: corb is now ABSENT]</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:41:32" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:41:38" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: mere is now ABSENT</processing></entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: mere is now ABSENT</entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="true" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: mere is now ABSENT]</entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:41:38" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">DORMANT_GROUP_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:42:59" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate DORMANT_GROUP_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="DORMANT_GROUP_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="DORMANT_GROUP_EVENT" from="inputCoordinator"><dormantGroup/></processing></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: <dormantGroup/></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TRIGGER_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:42:59" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TRIGGER_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [<dormantGroup/>]</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="DORMANT_GROUP_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"><socialtrigger from="RULES" score="1.0" /></processing></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialtrigger from="RULES" score="1.0" />]</entry>
+<entry timestamp="2020-12-21#13:42:59" user="SocialController" level="NORMAL">received social trigger event <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:42:59" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:43:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:43:01" user="SocialController" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: behaviors/tutor/JeopardyAgent_topop.tutorbehaviors.txt (No such file or directory))</entry>
+<entry timestamp="2020-12-21#13:43:01" user="SocialController" level="NORMAL">proposing social prompt: ENCOURAGE_GROUP</entry>
+<entry timestamp="2020-12-21#13:43:01" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Queue: [Message from JeopardyAgent: Team -- I need to see more contributions from all of you! SOCIAL+ENCOURAGE_GROUP]</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Proposal Message from JeopardyAgent: Team -- I need to see more contributions from all of you! SOCIAL+ENCOURAGE_GROUPbelief*priority: 0.019775390625*1.0=0.019775390625</entry>
+<entry timestamp="2020-12-21#13:43:02" user="SocialController" level="NORMAL">accepted social prompt: ENCOURAGE_GROUP</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:43:02" user="SocialController" level="NORMAL">2/14 social turns = 0.14285714285714285</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TURN_PERFORMED_EVENT</dispatching></entry>
+<entry timestamp="2020-12-21#13:43:02" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TURN_PERFORMED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:43:02" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from JeopardyAgent: Team -- I need to see more contributions from all of you! SOCIAL+ENCOURAGE_GROUP</processing></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2020-12-21#13:43:02" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"><socialturnperformed/></processing></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialturnperformed/></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialturnperformed/>]</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from JeopardyAgent: Team -- I need to see more contributions from all of you! </processing></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from JeopardyAgent: Team -- I need to see more contributions from all of you! </entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2020-12-21#13:43:02" user="SocialController" level="NORMAL">ratio 0.14285714285714285, </entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="2" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="CONTNUE_WEATHER_TOPICS" type="prompt"/>
+	<student id="mere" name="mere" role="UNASSIGNED" present="false" />	<student id="corb" name="corb" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from JeopardyAgent: Team -- I need to see more contributions from all of you! ]</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2020-12-21#13:43:02" user="JeopardyAgent_topop.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>

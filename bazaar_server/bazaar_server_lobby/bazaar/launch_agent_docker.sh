@@ -1,8 +1,8 @@
 #!/bin/bash
-#usage: ./launch_agent_docker.sh roomname num condition [numcols [width height]]
+#usage: ./launch_agent_docker.sh roomname roomID condition [numcols [width height]]
 
 roomname=${1:-"Week_"};
-num=${2:-1};
+roomID=$2;
 condition=${3:-""}
 cols=${4:-3};
 width=${5:-300};
@@ -17,7 +17,7 @@ echo hello
 echo $jar_name
 echo bye
 cd $agentdir
-echo loading room $roomname$(printf '%02d' $num);
+echo loading room $roomname$roomID;
 echo condition:$condition;
 
 x=$(( (($num-1) % $cols)*$width ))
@@ -27,6 +27,6 @@ echo $cols across, $width x $height at $x, $y;
 
 # echo nohup xvfb-run -a -e /dev/null java -Xmx128M -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &
 
-echo nohup java -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &
+echo nohup java -jar "${roomname}agent.jar" -room $roomname$roomID -out logs -x$x -y$y -condition "$condition" -launch &
 
-nohup java -jar "${roomname}agent.jar" -room $roomname$(printf '%02d' $num) -out logs -x$x -y$y -condition "$condition" -launch &
+nohup java -jar "${roomname}agent.jar" -room $roomname$roomID -out logs -x$x -y$y -condition "$condition" -launch &

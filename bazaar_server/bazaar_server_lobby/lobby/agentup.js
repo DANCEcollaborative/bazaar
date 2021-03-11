@@ -4,7 +4,7 @@ const exec = require('child_process').exec;
 const agentList = [];
 parentPort.on("message", message => {
   agentList.push(message);
-  // console.log("This is a message from parent: " + JSON.stringify(message));
+  console.log("agentup.js, agentList.pushMessage from parent: " + JSON.stringify(message));
 });
 
 function delay(ms) {
@@ -21,7 +21,9 @@ const looping = async () => {
     await delay(400);
     // console.log("loop forever every 3 seconds")
     const agent = agentList.pop();
-    if(agent !== undefined){
+    if(agent !== undefined){   
+      console.log("agentup.js launching agent: " + JSON.stringify(agent));
+      console.log("agentup.js launching agent -- agent.roomName = " + agent.roomName + " -- agent.teamNumber = " + agent.teamNumber); 
       exec("../bazaar/launch_agent_docker.sh " + agent.roomName + " " + agent.teamNumber + ' "none"', puts);
     }
   }

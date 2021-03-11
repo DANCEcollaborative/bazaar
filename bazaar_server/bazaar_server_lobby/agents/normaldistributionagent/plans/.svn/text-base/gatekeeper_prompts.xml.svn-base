@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>We'll move on once all of you are ready.</text>
+       <text>Type 'ready' when everyone agrees to move on.</text>
+       <text>We'll start the next part once everyone is set - type 'ready' to let me know.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>We'll move on once you've had a chance to read and discuss this - type 'ready' to let me know.</text>
+       <text>Type 'ready' when you've finished reading and discussing this.</text>
+       <text>We'll start the next part once everyone gets this - type 'ready' when you're set.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>Take your time to discuss this - we'll move on when you're ready.</text>
+       <text>Type 'ready' when you've reached consensus.</text>
+       <text>Type 'ready' when you've finished discussing this.</text>
+       <text>We'll move to the next part once everyone is in agreement - type 'ready' to let me know.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT].</text>
+       <text>Okay, [STUDENT].</text>
+       <text>Got it, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until everyone else is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay, everyone. Let's move on...</text>
+       <text>That's all [NUM_READY] of you. Let's move on!</text>
+       <text>Thanks! Let's continue.</text>
+       <text>Let's continue.</text>
+       <text>Moving on...</text>
+       <text>Moving on!</text>
+       <text>...</text>
+       <text>Onward...</text>
+       <text>Thanks. Moving on...</text>
+    </prompt>
+    
+</prompts>

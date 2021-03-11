@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="stress_test">
+    <stage name="initiate" type="other" delay="5">
+        <!-- "delay" on a step is the delay *after* the step completes. do not be decieved!-->
+        <step type="prompt" delay="15">FRONT_MATTER</step>
+        <step type="greet" delay="5">INTRODUCE</step>
+        <step type="prompt" delay="15">DO_GREETING</step>
+    </stage>
+    <stage name="task" type="other" delay="5">
+        <step type="prompt" delay="400">START_INSTRUCTIONS</step>
+        <step type="prompt" delay="600">READING_REMINDER</step>
+        <step type="prompt" delay="10">PART_1A</step>
+        <step type="prompt" delay="25">PART_1B</step>
+        <step type="prompt" delay="15">PART_2</step>
+        <step type="prompt" delay="3000">FINISH</step>
+        <step type="prompt" delay="3200">PART_2_CHECKIN</step>
+        <step type="prompt" delay="20">LAST_CALL</step>
+        <step type="prompt" delay="0">FINISH</step>
+    </stage>
+</plan>
