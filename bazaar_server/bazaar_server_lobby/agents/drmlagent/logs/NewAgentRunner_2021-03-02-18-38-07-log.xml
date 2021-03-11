@@ -1,0 +1,68 @@
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.RuleBasedTriggerComputer, null]</entry>
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2021-03-02#18:38:07" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2021-03-02#18:38:08" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-03-02#18:38:08" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-03-02#18:38:14" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more</entry>
+<entry timestamp="2021-03-02#18:38:14" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more agree</entry>
+<entry timestamp="2021-03-02#18:38:15" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2021-03-02#18:38:16" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more tutorial_trigger agree</entry>
+<entry timestamp="2021-03-02#18:38:17" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-03-02#18:38:18" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2021-03-02#18:38:18" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2021-03-02#18:38:19" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-03-02#18:38:20" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-03-02#18:38:20" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-03-02#18:38:20" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-03-02#18:38:20" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-03-02#18:38:20" user="AgentFactory" level="NORMAL">Agent build. DrML_FH11</entry>
+<entry timestamp="2021-03-02#18:38:20" user="NewAgentRunner" level="NORMAL">Adding agent DrML_FH11</entry>
+<entry timestamp="2021-03-02#18:38:20" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-03-02#18:38:20" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-03-02#18:38:20" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-03-02#18:38:20" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-03-02#18:38:20" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for DrML_FH11</entry>
+<entry timestamp="2021-03-02#18:38:20" user="NewAgentRunner" level="NORMAL">Agent added DrML_FH11</entry>
+<entry timestamp="2021-03-02#18:38:47" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-03-02#18:38:47" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-03-02#18:38:47" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-03-02#18:38:47" user="Step" level="NORMAL">starting 45 second timeout for INTRODUCE_SESSION</entry>
+<entry timestamp="2021-03-02#18:38:47" user="Step" level="NORMAL">Handlers for INTRODUCE_SESSION(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7be7ed43]</entry>
+<entry timestamp="2021-03-02#18:38:47" user="PromptStepHandler" level="NORMAL">starting 28.0 second prompt delay</entry>
+<entry timestamp="2021-03-02#18:38:47" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-03-02#18:38:48" user="" level="NORMAL">accepted. Message from DrML: Hi! We will start soon.|If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. INTRODUCE_SESSION.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-03-02#18:39:15" user="PromptStepHandler" level="NORMAL">ending 28.0 second prompt delay</entry>
+<entry timestamp="2021-03-02#18:39:15" user="PlanExecutor" level="NORMAL">starting 5 second delay timer for INTRODUCE_SESSION</entry>
+<entry timestamp="2021-03-02#18:39:20" user="PlanExecutor" level="NORMAL">PLAN: current step done: INTRODUCE_SESSION</entry>
+<entry timestamp="2021-03-02#18:39:20" user="Step" level="NORMAL">starting 30 second timeout for GREETINGS</entry>
+<entry timestamp="2021-03-02#18:39:20" user="Step" level="NORMAL">Handlers for GREETINGS(greet): [basilica2.agents.listeners.plan.GreetStepHandler@13c0b146]</entry>
+<entry timestamp="2021-03-02#18:39:20" user="GreetStepHandler" level="NORMAL">starting greet step...</entry>
+<entry timestamp="2021-03-02#18:39:22" user="" level="NORMAL">ACCEPTED! Message from DrML: I'm DrML. Take a moment to introduce yourselves. INTRODUCE</entry>
+<entry timestamp="2021-03-02#18:39:28" user="" level="NORMAL">ACCEPTED! Message from DrML: Howdy, Chas! GREET</entry>
+<entry timestamp="2021-03-02#18:39:32" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key INTRODUCE_SESSION</entry>
+<entry timestamp="2021-03-02#18:39:50" user="EndStepOnStopListeningDelegate" level="NORMAL">ending step GREETINGS...</entry>
+<entry timestamp="2021-03-02#18:39:50" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>
+<entry timestamp="2021-03-02#18:39:50" user="PlanExecutor" level="NORMAL">Firing Stage 'body'</entry>
+<entry timestamp="2021-03-02#18:39:50" user="Step" level="NORMAL">Handlers for INTRODUCE_ASSIGNMENT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7be7ed43]</entry>
+<entry timestamp="2021-03-02#18:39:50" user="PromptStepHandler" level="NORMAL">starting 11.2 second prompt delay</entry>
+<entry timestamp="2021-03-02#18:39:50" user="PlanExecutor" level="NORMAL">PLAN: current step done: GREETINGS</entry>
+<entry timestamp="2021-03-02#18:39:50" user="Step" level="NORMAL">Handlers for Prompt_Step_2(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7be7ed43]</entry>
+<entry timestamp="2021-03-02#18:39:50" user="PromptStepHandler" level="NORMAL">starting 13.299999999999999 second prompt delay</entry>
+<entry timestamp="2021-03-02#18:39:52" user="" level="NORMAL">accepted. Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. If you need substantive help, you can ask the instructor. But try to refer to course materials as resources first. INTRODUCE_ASSIGNMENT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-03-02#18:40:02" user="PromptStepHandler" level="NORMAL">ending 11.2 second prompt delay</entry>
+<entry timestamp="2021-03-02#18:40:02" user="Step" level="NORMAL">starting 180 second timeout for WAIT_STEP_2</entry>
+<entry timestamp="2021-03-02#18:40:02" user="Step" level="NORMAL">Handlers for WAIT_STEP_2(gated): [basilica2.agents.listeners.plan.GatedStepHandler@482cda4d]</entry>
+<entry timestamp="2021-03-02#18:40:02" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-03-02#18:40:02" user="Step" level="NORMAL">Handlers for WAIT_STEP_2(listen): [basilica2.accountable.listeners.ListenStepHandler@5e700a44]</entry>
+<entry timestamp="2021-03-02#18:40:04" user="PromptStepHandler" level="NORMAL">ending 13.299999999999999 second prompt delay</entry>
+<entry timestamp="2021-03-02#18:40:04" user="PlanExecutor" level="NORMAL">starting 165 second delay timer for WAIT_STEP_2</entry>
+<entry timestamp="2021-03-02#18:40:04" user="" level="NORMAL">accepted. Message from DrML: Examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-03-02#18:40:12" user="" level="NORMAL">REJECTED!Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-03-02#18:42:18" user="" level="NORMAL">ACCEPTED! Message from DrML: We need to start wrapping up this step. Get ready to move on. TIMEOUT_WARNING</entry>

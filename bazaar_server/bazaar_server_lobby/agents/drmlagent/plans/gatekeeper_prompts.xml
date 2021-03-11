@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>Okay, we're about to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up this step. Get ready to move on.</text>
+       <text>Okay, let's get ready to finish up this step.</text>
+    </prompt>
+        
+    <!-- for PROMPT_STEP_2 -->    
+    <prompt strategy="task" id="DECIDE_PROBLEMATIC_FEATURES">
+       <text>We'll continue when you have decided upon and entered 4 problematic features.</text>
+    </prompt>
+        
+    <!-- for PROMPT_STEP_3 -->    
+    <prompt strategy="task" id="LIST_FEATURES_AND_JUSTIFICATIONS">
+       <text>When you have listed your features and justifications, we'll move on.</text>
+    </prompt>
+        
+    <!-- for PROMPT_STEP_4 and PROMPT_STEP_6 -->    
+    <prompt strategy="task" id="SHARE_EXAMPLES">
+       <text>We'll continue when you have shared, discussed, and entered your examples.</text>
+    </prompt>
+     
+    <!-- for PROMPT_STEP_5 -->       
+    <prompt strategy="task" id="FEATURE_1_MISCLASSIFICATION_SUMMARY">
+       <text>We'll move on when you have finished your summary about the misclassification examples you found.</text>
+    </prompt>
+    
+    <!-- for PROMPT_STEP_6: See above for PROMPT_STEP_4 -->   
+        
+    <!-- for PROMPT_STEP_7 -->    
+    <prompt strategy="task" id="FEATURE_1_CORRECT_CLASSIFICATION_SUMMARY">
+       <text>When you have finished your summary about the correct classification examples you found, we'll continue.</text>
+    </prompt>    
+        
+    <!-- for PROMPT_STEP_8 -->    
+    <prompt strategy="task" id="MODEL_MISSING_DISCUSSION">
+       <text>We'll continue when you have finished considering and entering what you think the model is missing.</text>
+    </prompt>  
+        
+    <!-- for PROMPT_STEP_9 -->    
+    <prompt strategy="task" id="POTENTIAL_SOLUTION_DISCUSSION">
+       <text>When you have finished considering and entering what a potential solution might be, we'll move on.</text>
+    </prompt>
+        
+    <!-- for PROMPT_STEP_10 -->    
+    <prompt strategy="task" id="ALL_FEATURES_FINISHED">
+       <text>When you have finished working on all 4 features, we'll continue to the last step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your partner is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your partner agrees.</text>
+       <text>Hang on until your partner is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your partner is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay...</text>
+       <text>Okay, let's move on...</text>
+       <text>I think we're ready.</text>
+       <text>Moving on...</text>
+       <text>Looks like we're ready.</text>
+       <text>Onward!</text>
+    </prompt>
+  
+  
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+      
+    <!-- for PROMPT_STEP_1 -->    
+    <prompt strategy="task" id="WAIT_FOR_SPREADSHEET_COPIES">
+       <text>When you have copied your data into the spreadsheets, we'll continue.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>We'll move on when everyone is ready.</text>
+    </prompt>
+       
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, type "ready".</text>
+       <text>When everyone is comfortable with this material, type "ready".</text>
+    </prompt>
+    
+</prompts>
+

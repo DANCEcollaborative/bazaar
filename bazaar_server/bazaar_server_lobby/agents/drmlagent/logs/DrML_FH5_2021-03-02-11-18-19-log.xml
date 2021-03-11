@@ -1,0 +1,755 @@
+<entry timestamp="2021-03-02#11:18:19" user="FactoryBuiltAgent" level="NORMAL">CONFIGURING AGENT DrML_FH5</entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.AGENT" level="NORMAL"><created>DrML_FH5</created></entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.stateMemory" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.stateMemory" level="NORMAL"><created>stateMemory</created></entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.client" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.client" level="NORMAL"><created>client</created></entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.client" level="NORMAL">Property read: socket_url =	http://127.0.0.1</entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.client" level="NORMAL">Property read: socket_suburl =	/bazsocket/socket.io</entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.ccActor" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.ccActor" level="NORMAL"><created>ccActor</created></entry>
+<entry timestamp="2021-03-02#11:18:19" user="DrML_FH5.ccActor" level="NORMAL">Property read: typingScale =	null</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="NORMAL"><created>inputCoordinator</created></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="NORMAL"><created>outputCoordinator</created></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="NORMAL">Property read: output_to_PSI =	null</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="NORMAL">Property read: separate_output_to_PSI =	null</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(client->inputCoordinator)" level="INFO">Connection initialized. Id=1614701900006</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO">Outgoing connection added from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Inward connection added from inputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(inputCoordinator->inputCoordinator)" level="INFO">Connection initialized. Id=1614701900017</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(inputCoordinator->outputCoordinator)" level="INFO">Connection initialized. Id=1614701900029</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to outputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="INFO">Inward connection added from outputCoordinator to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(outputCoordinator->client)" level="INFO">Connection initialized. Id=1614701900040</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="INFO">Outgoing connection added from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO">Inward connection added from client to outputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.AGENT" level="NORMAL"><initialized>DrML_FH5</initialized></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.stateMemory" level="INFO">Observer Added:stateMemory.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Observer Added:inputCoordinator.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO">Observer Added:client.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="INFO">Observer Added:outputCoordinator.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.ccActor" level="INFO">Observer Added:ccActor.ui.cell. 1 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(client->inputCoordinator)" level="NORMAL">Observer Added:(client->inputCoordinator).ui.edge</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(inputCoordinator->inputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->inputCoordinator).ui.edge</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(inputCoordinator->outputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->outputCoordinator).ui.edge</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(outputCoordinator->client)" level="NORMAL">Observer Added:(outputCoordinator->client).ui.edge</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.stateMemory" level="INFO">Observer Added:stateMemory.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Observer Added:inputCoordinator.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO">Observer Added:client.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="INFO">Observer Added:outputCoordinator.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.ccActor" level="INFO">Observer Added:ccActor.ui.panel. 2 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(client->inputCoordinator)" level="NORMAL">Observer Added:(client->inputCoordinator).ui.panel</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(inputCoordinator->inputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->inputCoordinator).ui.panel</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(inputCoordinator->outputCoordinator)" level="NORMAL">Observer Added:(inputCoordinator->outputCoordinator).ui.panel</entry>
+<entry timestamp="2021-03-02#11:18:20" user="(outputCoordinator->client)" level="NORMAL">Observer Added:(outputCoordinator->client).ui.panel</entry>
+<entry timestamp="2021-03-02#11:18:20" user="PlanExecutor" level="NORMAL"><configuration planfile="plans/plan_steps.xml"></entry>
+<entry timestamp="2021-03-02#11:18:20" user="PlanExecutor" level="ERROR">PlanExecutor: Can't do that...java.io.IOException: No such file or directory</entry>
+<entry timestamp="2021-03-02#11:18:20" user="PlanExecutor" level="ERROR">Error while reading Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></commit></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.AGENT" level="NORMAL"><starting>Initializing each component</starting></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.stateMemory" level="NORMAL"><initialized>stateMemory</initialized></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="NORMAL"><initialized>inputCoordinator</initialized></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="NORMAL"><initialized>client</initialized></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="NORMAL"><initialized>outputCoordinator</initialized></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.ccActor" level="INFO">Informing 2 Observers of STARTED</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.ccActor" level="NORMAL"><initialized>ccActor</initialized></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.AGENT" level="NORMAL"><starting>All components initialized</starting></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO">Observer Added:frame0. 3 Observers now.</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:20" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: DrML is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: DrML is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: DrML is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:18:20" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:28" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></retrieve></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:18:28" user="PlanExecutor" level="NORMAL">Plan: <stage name="initiate" timeout="0">set</stage></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE_SESSION" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE_SESSION" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE_SESSION" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:18:28" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:28" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE_SESSION" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE_SESSION" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:18:28" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Hi! We will start soon.|If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. INTRODUCE_SESSION]</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Hi! We will start soon.|If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. INTRODUCE_SESSIONbelief*priority: 1.0*0.75=0.75</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:30" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Hi! We will start soon. INTRODUCE_SESSION</processing></entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:30" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: Hi! We will start soon. </processing></entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: Hi! We will start soon. </entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: Hi! We will start soon. ]</entry>
+<entry timestamp="2021-03-02#11:18:30" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:18:35" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:35" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:18:35" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:18:35" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:35" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. INTRODUCE_SESSION</processing></entry>
+<entry timestamp="2021-03-02#11:18:35" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:18:35" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:18:35" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. </processing></entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. </entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis. ]</entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:18:40" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="INTRODUCE_SESSION" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:01" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: I'm DrML. Take a moment to introduce yourselves. INTRODUCE]</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: I'm DrML. Take a moment to introduce yourselves. INTRODUCEbelief*priority: 0.375*0.3=0.11249999999999999</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:02" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: I'm DrML. Take a moment to introduce yourselves. INTRODUCE</processing></entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:02" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: I'm DrML. Take a moment to introduce yourselves. </processing></entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: I'm DrML. Take a moment to introduce yourselves. </entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: I'm DrML. Take a moment to introduce yourselves. ]</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:02" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:06" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:06" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:06" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:23" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now ABSENT</processing></entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now ABSENT</entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now ABSENT]</entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:23" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:31" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="INTRODUCE_ASSIGNMENT" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="INTRODUCE_ASSIGNMENT" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="INTRODUCE_ASSIGNMENT" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:31" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="INTRODUCE_ASSIGNMENT" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:31" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:31" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources. INTRODUCE_ASSIGNMENT, Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources. INTRODUCE_ASSIGNMENTbelief*priority: 0.5625*0.75=0.421875</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.5625*0.75=0.421875</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:32" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources. INTRODUCE_ASSIGNMENT</processing></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:32" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources. </processing></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources. </entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources. ]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:32" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:32" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:32" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:34" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2]</entry>
+<entry timestamp="2021-03-02#11:19:34" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:34" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2021-03-02#11:19:36" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2]</entry>
+<entry timestamp="2021-03-02#11:19:36" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:36" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2021-03-02#11:19:38" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2]</entry>
+<entry timestamp="2021-03-02#11:19:38" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:38" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2021-03-02#11:19:40" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2]</entry>
+<entry timestamp="2021-03-02#11:19:40" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:40" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:41" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from Jie: help </processing></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from Jie: help </entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TRIGGER_EVENT</dispatching></entry>
+<entry timestamp="2021-03-02#11:19:41" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TRIGGER_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Message from Jie: help CONFUSION+HELP_REQUEST+HELP]</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"><socialtrigger from="RULES" score="1.0" /></processing></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialtrigger from="RULES" score="1.0" />]</entry>
+<entry timestamp="2021-03-02#11:19:41" user="SocialController" level="NORMAL">received social trigger event <socialtrigger from="RULES" score="1.0" /></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="SOCIAL_TRIGGER_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_2" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:41" user="Gatekeeper" level="NORMAL">waiting for responses from [Jie]</entry>
+<entry timestamp="2021-03-02#11:19:41" user="RevoiceActor" level="WARNING">revoice condition: true</entry>
+<entry timestamp="2021-03-02#11:19:41" user="AgreeDisagreeActor" level="WARNING">agree condition: true</entry>
+<entry timestamp="2021-03-02#11:19:41" user="AskForExplanationActor" level="WARNING">explain_other condition: false</entry>
+<entry timestamp="2021-03-02#11:19:41" user="SayMoreActor" level="WARNING">say_more condition: true</entry>
+<entry timestamp="2021-03-02#11:19:41" user="AskForRestateActor" level="WARNING">accountable_talk condition: false</entry>
+<entry timestamp="2021-03-02#11:19:41" user="PressForReasoningActor" level="WARNING">accountable_talk condition: false</entry>
+<entry timestamp="2021-03-02#11:19:41" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:41" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:42" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2, Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:19:42" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:42" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2021-03-02#11:19:42" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-03-02#11:19:42" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKINbelief*priority: 0.0*0.25=0.0</entry>
+<entry timestamp="2021-03-02#11:19:43" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:43" user="SocialController" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: behaviors/tutor/DrML_FH5.tutorbehaviors.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:19:43" user="SocialController" level="NORMAL">proposing social prompt: RANDOM_SOCIAL</entry>
+<entry timestamp="2021-03-02#11:19:43" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2, Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN, Message from DrML: Let's keep going. RANDOM_SOCIAL+SOCIAL]</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.2109375*0.75=0.158203125</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKINbelief*priority: 0.2109375*0.25=0.052734375</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Let's keep going. RANDOM_SOCIAL+SOCIALbelief*priority: 0.2109375*1.0=0.2109375</entry>
+<entry timestamp="2021-03-02#11:19:44" user="SocialController" level="NORMAL">accepted social prompt: RANDOM_SOCIAL</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:19:44" user="SocialController" level="WARNING">Turn Count is undefined. Instantiating...</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:19:44" user="SocialController" level="NORMAL">1/1 social turns = 1.0</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">SOCIAL_TURN_PERFORMED_EVENT</dispatching></entry>
+<entry timestamp="2021-03-02#11:19:44" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate SOCIAL_TURN_PERFORMED_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:44" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Let's keep going. RANDOM_SOCIAL+SOCIAL</processing></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:44" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"><socialturnperformed/></processing></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: <socialturnperformed/></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [<socialturnperformed/>]</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="SOCIAL_TURN_PERFORMED_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: Let's keep going. </processing></entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: Let's keep going. </entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: Let's keep going. ]</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:44" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2, Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:19:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: Social: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.75=0.0</entry>
+<entry timestamp="2021-03-02#11:19:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: Social: Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-03-02#11:19:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKINbelief*priority: 0.0*0.25=0.0</entry>
+<entry timestamp="2021-03-02#11:19:48" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2, Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:19:48" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: Social: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</entry>
+<entry timestamp="2021-03-02#11:19:48" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0*0.6538=0.0</entry>
+<entry timestamp="2021-03-02#11:19:48" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: Social: Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-03-02#11:19:48" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKINbelief*priority: 0.0*0.16999999999999998=0.0</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2, Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2belief*priority: 0.0791015625*0.55335=0.043770849609375</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKINbelief*priority: 0.0791015625*0.06955=0.005501513671875</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:50" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. PROMPT_STEP_2</processing></entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:19:50" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. </processing></entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. </entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated. ]</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:19:50" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:19:52" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: We'll continue when you have decided upon and entered 4 problematic features. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:20:01" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now ABSENT</processing></entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now ABSENT</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now ABSENT]</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:20:01" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:20:02" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: GIVE_UP_ON_INTRODUCTIONS GIVE_UP_ON_INTRODUCTIONS]</entry>
+<entry timestamp="2021-03-02#11:20:02" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: GIVE_UP_ON_INTRODUCTIONS GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2021-03-02#11:20:02" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: GIVE_UP_ON_INTRODUCTIONS GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.0*0.3=0.0</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: GIVE_UP_ON_INTRODUCTIONS GIVE_UP_ON_INTRODUCTIONS]</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: GIVE_UP_ON_INTRODUCTIONS GIVE_UP_ON_INTRODUCTIONSbelief*priority: 0.03517382812500001*0.3=0.010552148437500002</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:20:04" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: GIVE_UP_ON_INTRODUCTIONS GIVE_UP_ON_INTRODUCTIONS</processing></entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:20:04" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: GIVE_UP_ON_INTRODUCTIONS </processing></entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: GIVE_UP_ON_INTRODUCTIONS </entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: GIVE_UP_ON_INTRODUCTIONS ]</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:20:04" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Okay, let's get ready to finish up this step. TIMEOUT_WARNING]</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Okay, let's get ready to finish up this step. TIMEOUT_WARNINGbelief*priority: 0.0791015625*0.25=0.019775390625</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:21:58" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Okay, let's get ready to finish up this step. TIMEOUT_WARNING</processing></entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:21:58" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: Okay, let's get ready to finish up this step. </processing></entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: Okay, let's get ready to finish up this step. </entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: Okay, let's get ready to finish up this step. ]</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:21:58" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:22:03" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="false" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:22:03" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: Jie is now PRESENT</processing></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Presence: Jie is now PRESENT</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Presence: Jie is now PRESENT]</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:22:03" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_2" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_3" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_3" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_3" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:30" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification."|Type "ready" when you are ready to move to the next step. PROMPT_STEP_3]</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification."|Type "ready" when you are ready to move to the next step. PROMPT_STEP_3belief*priority: 0.31640625*0.75=0.2373046875</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:22:30" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification." PROMPT_STEP_3</processing></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:22:30" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.client" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from DrML: OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification." </processing></entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: Message from DrML: OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification." </entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [Echo: Message from DrML: OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification." ]</entry>
+<entry timestamp="2021-03-02#11:22:30" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:22:35" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:22:35" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:22:35" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:22:35" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:22:35" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Type "ready" when you are ready to move to the next step. PROMPT_STEP_3</processing></entry>
+<entry timestamp="2021-03-02#11:22:35" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:22:40" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:22:40" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2021-03-02#11:22:41" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_3" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:45" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_3" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:45" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_3" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:22:45" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_3" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:22:45" user="Gatekeeper" level="NORMAL">waiting for responses from [Jie]</entry>
+<entry timestamp="2021-03-02#11:22:45" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:22:45" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: When you have listed your features and justifications, we'll move on. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: When you have listed your features and justifications, we'll move on. WAIT_FOR_CHECKINbelief*priority: 0.1406953125*0.25=0.035173828125</entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:22:46" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: When you have listed your features and justifications, we'll move on. WAIT_FOR_CHECKIN</processing></entry>
+<entry timestamp="2021-03-02#11:22:46" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: We need to start wrapping up this step. Get ready to move on. TIMEOUT_WARNING]</entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We need to start wrapping up this step. Get ready to move on. TIMEOUT_WARNINGbelief*priority: 0.25025006250000004*0.25=0.06256251562500001</entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:24:38" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: We need to start wrapping up this step. Get ready to move on. TIMEOUT_WARNING</processing></entry>
+<entry timestamp="2021-03-02#11:24:38" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:25:15" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_3" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:15" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_4" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:25:15" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_4" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:15" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_4" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:15" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: Now for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the upper right error cell of the confusion matrix. Share the examples in the chat, and for each example, say what you observe about it. Also, copy your examples into the Notes tab under "Examples from data in error cell." You can copy from the LightSIDE interface into the Notes. You should try to contribute at least 4 different examples.|Type "ready" when you are ready to move to the next step. PROMPT_STEP_4]</entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: Now for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the upper right error cell of the confusion matrix. Share the examples in the chat, and for each example, say what you observe about it. Also, copy your examples into the Notes tab under "Examples from data in error cell." You can copy from the LightSIDE interface into the Notes. You should try to contribute at least 4 different examples.|Type "ready" when you are ready to move to the next step. PROMPT_STEP_4belief*priority: 1.265625*0.75=0.94921875</entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:25:17" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Now for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the upper right error cell of the confusion matrix. Share the examples in the chat, and for each example, say what you observe about it. Also, copy your examples into the Notes tab under "Examples from data in error cell." You can copy from the LightSIDE interface into the Notes. You should try to contribute at least 4 different examples. PROMPT_STEP_4</processing></entry>
+<entry timestamp="2021-03-02#11:25:17" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:25:22" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:25:22" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:25:22" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:25:22" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:25:22" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: Type "ready" when you are ready to move to the next step. PROMPT_STEP_4</processing></entry>
+<entry timestamp="2021-03-02#11:25:22" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="NORMAL"><dispatching to="inputCoordinator">DORMANT_GROUP_EVENT</dispatching></entry>
+<entry timestamp="2021-03-02#11:25:42" user="(inputCoordinator->inputCoordinator)" level="INFO">Communicate DORMANT_GROUP_EVENT from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="INFO"><queued name="DORMANT_GROUP_EVENT" from="inputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="INFO">Informing 3 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_4" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="INFO"><processing name="DORMANT_GROUP_EVENT" from="inputCoordinator"><dormantGroup/></processing></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="NORMAL">InputCoordinator received event: <dormantGroup/></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_4" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Preprocessing: [<dormantGroup/>]</entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="NORMAL">Events After Agent Processing:[]</entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.outputCoordinator" level="NORMAL">Added to Proposal Queue: []</entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.inputCoordinator" level="INFO"><processed name="DORMANT_GROUP_EVENT" from="inputCoordinator"></processed></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="Prompt_Step_4" type="prompt"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_4" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2021-03-02#11:25:42" user="DrML_FH5.stateMemory" level="INFO">Informing 2 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="body" type="other" />
+	<Step name="WAIT_STEP_4" type="gated"/>
+	<student id="Jie" name="Jie" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2021-03-02#11:25:42" user="Gatekeeper" level="NORMAL">waiting for responses from [Jie]</entry>
+<entry timestamp="2021-03-02#11:25:42" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:25:42" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/DrML_FH5.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2021-03-02#11:25:43" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: We'll continue when you have shared, discussed, and entered your examples. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:25:43" user="DrML_FH5.outputCoordinator" level="INFO">Proposal not allowed by Source: PromptStep: Message from DrML: We'll continue when you have shared, discussed, and entered your examples. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-03-02#11:25:43" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have shared, discussed, and entered your examples. WAIT_FOR_CHECKINbelief*priority: 0.0*0.25=0.0</entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Queue: [Message from DrML: We'll continue when you have shared, discussed, and entered your examples. WAIT_FOR_CHECKIN]</entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.outputCoordinator" level="INFO">Proposal Message from DrML: We'll continue when you have shared, discussed, and entered your examples. WAIT_FOR_CHECKINbelief*priority: 0.06256251562500001*0.25=0.015640628906250002</entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2021-03-02#11:25:45" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.outputCoordinator" level="INFO">Informing 2 Observers of Event Sending</entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from DrML: We'll continue when you have shared, discussed, and entered your examples. WAIT_FOR_CHECKIN</processing></entry>
+<entry timestamp="2021-03-02#11:25:45" user="DrML_FH5.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Machine Learning Analysis">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+    <stage name="initiate" type="other" delay="0">  	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->        
+        <!--  <step type="greet" timeout="60" delay="10">GREETINGS</step> -->
+        <step type="prompt" timeout="45" delay="5" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
+        <step type="greet" timeout="30" delay="0">GREETINGS</step>
+    </stage>
+    
+    <stage name="body" type="other" delay="0">
+        <step type="prompt" delay="5" prompt="INTRODUCE_ASSIGNMENT" >INTRODUCE_ASSIGNMENT</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_2" >Prompt_Step_2</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="165" checkin_prompt="DECIDE_PROBLEMATIC_FEATURES">WAIT_STEP_2</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_3" >Prompt_Step_3</step>
+        <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="LIST_FEATURES_AND_JUSTIFICATIONS">WAIT_STEP_3</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_4" >Prompt_Step_4</step>
+        <step type="gated" gated_type="listen" timeout="195" delay="0" checkin_prompt="SHARE_EXAMPLES">WAIT_STEP_4</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_5" >Prompt_Step_5</step>
+        <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="FEATURE_1_MISCLASSIFICATION_SUMMARY">WAIT_STEP_5</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_6" >Prompt_Step_6</step>
+        <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="SHARE_EXAMPLES">WAIT_STEP_6</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_7" >Prompt_Step_7</step>
+        <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="FEATURE_1_CORRECT_CLASSIFICATION_SUMMARY">WAIT_STEP_7</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_8" >Prompt_Step_8</step>
+        <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="MODEL_MISSING_DISCUSSION">WAIT_STEP_8</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_9" >Prompt_Step_9</step>
+        <step type="gated" gated_type="listen" timeout="150" delay="0" checkin_prompt="POTENTIAL_SOLUTION_DISCUSSION">WAIT_STEP_9</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_10" >Prompt_Step_10</step>
+        <step type="gated" gated_type="listen" timeout="2250" delay="0" checkin_prompt="ALL_FEATURES_FINISHED">WAIT_STEP_10</step>
+        
+        <step type="prompt" timeout="660" delay="0" prompt="PROMPT_STEP_11" >Prompt_Step_11</step>
+    </stage>
+    
+    <stage name="finish" type="other" delay="0">
+        <step type="prompt" delay="30" prompt="PROMPT_FINISH" >PROMPT_STEP_D1</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
