@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE_SESSION">
+        <text>Hi! We will start soon.|If you have not done so already, make sure you have LightSIDE open and the User's Manual ready. Load the .csv file on the Extract Features panel, extract the features, then run the cross validation on the Build Models panel. Then load the dev set on the Build Models panel as a supplied test set. Use Logistic regression to run the experiment, and then go to the Explore Results panel and set up for an error analysis. Select the upper-right cell of the confusion matrix for the error analysis.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there are multiple users -->    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourselves.</text>
+    </prompt>
+    
+	<!-- This prompt is said automatically for step-type="greet" if there is only one user -->    
+    <prompt strategy="task" id="INTRODUCE_1">
+        <text>I'm [AGENT NAME]. Take a moment to introduce yourself.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>You can each enter notes in the Notes tab. Your individual responses will be color-coded. </text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE_ASSIGNMENT">
+        <text>OK, we are going to do Assignment 3 today. I am here just to structure the activity. You should get substantive help from each other. You can refer to the course materials as resources.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE_ASSIGNMENT_1">
+        <text>OK, we are going to do Assignment 3 today. I am here just to structure the activity. If you need substantive help, you can ask the instructor. But try to refer to course materials as resources first.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_2">
+        <text>Together, examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_2_1">
+        <text>Examine the "Horizontal" and "Vertical" tabs to the left to decide on 4 problematic features. 2 of these features should be based on a horizontal comparison and 2 should be based on a vertical comparison. Enter these features in the Notes tab where indicated.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_3">
+        <text>OK, if you have not already done so, list each of the 4 problematic features you picked on the Notes tab where indicated. Put the explanation for why you thought each feature is problematic where it says "Justification."|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_4">
+        <text>Now for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the upper right error cell of the confusion matrix. Share the examples in the chat, and for each example, say what you observe about it. Also, copy your examples into the Notes tab under "Examples from data in error cell." You can copy from the LightSIDE interface into the Notes. You should each try to contribute at least 2 different examples.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_4_1">
+        <text>Now for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the upper right error cell of the confusion matrix. Share the examples in the chat, and for each example, say what you observe about it. Also, copy your examples into the Notes tab under "Examples from data in error cell." You can copy from the LightSIDE interface into the Notes. You should try to contribute at least 4 different examples.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_5">
+        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the misclassifications that are happening.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_6">
+        <text>Now, again for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the lower right cell of the confusion matrix. These are examples that were correctly classified. Share the examples in the chat, and for each example you contribute, say what you observe about it. Also, copy your examples into the Notes tab where indicated. You should each try to contribute at least 2 different examples. What do you think distinguishes the examples that were correctly classified from the ones that were not? This should give you some idea about what new features might be added to the feature space.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_6_1">
+        <text>Now, again for the first feature, use the Documents Display feature in LightSIDE to find examples where the feature appears in the lower right cell of the confusion matrix. These are examples that were correctly classified. Share the examples in the chat, and for each example you contribute, say what you observe about it. Also, copy your examples into the Notes tab where indicated. You should try to contribute at least 4 different examples. What do you think distinguishes the examples that were correctly classified from the ones that were not? This should give you some idea about what new features might be added to the feature space.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_7">
+        <text>Now write a summary in the Notes about the examples you found for feature 1 that illustrate the correct classifications that are happening.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_8">
+        <text>Now discuss what you think the model is missing that leads to it making an incorrect prediction sometimes and a correct prediction sometimes. Enter your reasoning in the Notes.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_8_1">
+        <text>Now think about what the model is missing that leads to it making an incorrect prediction sometimes and a correct prediction sometimes. Enter your reasoning in the Notes.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_9">
+        <text>Now discuss what you think a potential solution would be -- what would you propose to add to the feature space on the extract features panel? Discuss your ideas, and then write what you decide in the Notes.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_9_1">
+        <text>Now think about what a potential solution would be -- what would you propose to add to the feature space on the extract features panel? Write what you decide in the Notes.|Type "ready" when you are ready to move to the next step.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_10">
+        <text>Now, until no later than 9:10, work on the other 3 features the same as you did above. By 9:10, you should be ready to try out your ideas for adding new features. Keep discussing and recording notes in the Notes tab.|Type "ready" when you have finished working on all of the features.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_10_1">
+        <text>Now, until no later than 9:10, work on the other 3 features the same as you did above. By 9:10, you should be ready to try out your ideas for adding new features. Keep recording notes in the Notes tab.|Type "ready" when you have finished working on all of the features.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_11">
+        <text>Start the final experiment by 9:10. You should each run the experiment on your own computer.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter your finding in the Notes.|You can leave when you have completed this step. Your participation has been noted and you do not need to turn in Assignment 3 unless you would like to get more practice.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_11_1">
+        <text>Start the final experiment by 9:10.|Go to the extract features panel and make your proposed adjustments to the feature extraction setup. Extract the new feature space. Then go to the Build Models panel and run the cross-validation. Note that it is probably still set up with the supplied test set option -- set it back to cross-validation. Run the cross-validation and enter the result in the Notes. If you can find the result you had from the baseline experiment you ran before, enter that as well. Finally, go to the Compare models panel to see whether your adjustment had a significant impact on the results, and enter your finding in the Notes.|You can leave when you have completed this step. Your participation has been noted and you do not need to turn in Assignment 3 unless you would like to get more practice.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="PROMPT_FINISH">
+        <text>I'm leaving the chat now.|Have a nice day!</text>
+    </prompt>
+ 
+ 
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+    
+    <prompt strategy="task" id="PROMPT_STEP_1">
+        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There are 4 spreadsheet tabs to the left. Find an empty one labeled Horizontal Sheet. Then open your horizontal.csv file in a spreadsheet program like Excel and copy its cells into the Horizontal Sheet tab. Similarly, copy the cells from your vertical.csv file into an open Vertical Sheet tab.|Click the "Ready" button or type "ready" when you are ready.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_1_1">
+        <text>The first thing we are going to do is explore your horizontal.csv and vertical.csv files. There should be 4 spreadsheet tabs in the upper left but you will use only 2 of them. Open one labeled Horizontal Sheet. Then open your horizontal.csv file in a spreadsheet program like Excel and copy its cells into the Horizontal Sheet tab. Similarly, copy the cells from your vertical.csv file into one of the Vertical Sheet tabs.|Click the "Ready" button or type "ready" when you are ready.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the group' discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+    
+<!--     
+    <prompt strategy="task" id="END_GREETINGS">
+        <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
+    </prompt>
+ -->    
+ 
+</prompts>
