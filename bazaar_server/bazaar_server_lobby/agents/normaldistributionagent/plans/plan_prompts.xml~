@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="AGENT_INTRODUCE">
+        <text>Hi, I'm [AGENT NAME]. Throughout this activity, I will be facilitating your discussion about this Torsion Analysis assignment.</text>
+    </prompt>
+
+    <prompt strategy="task" id="INTRO">
+        <text>Let's start by introducing yourselves. Take a minute to get to know each other and discuss background material with your partner(s).</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_2">
+    <text>We are now moving to part 2 of this assignment which is about applying twisting moment. For this part, you will already have calculated the cross-sectional shear stress and angle of twist plots from the pre-lab assignment.  We will be focusing discussing your approach and solutions in comparison to the two samples.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_2a">
+    <text>What is the polar moment of inertia and maximum twisting moment for Speciman A and B. Discuss the approach and your solution with your partner(s).</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_2b">
+    <text>Using the maximum allowable twisting moments from your two samples, report the minimum and maximum shear stresses acting in your speciman.  Compare and discuss why there are differences between the samples in your group.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_2c">
+    <text>Every material under torsion will also have a non-negligible angle of twist.  Using your plots of the angle of twist up to the maximum twisting moment applied, report the maximum angle of twist for your samples.  Compare and discuss why there are any differences.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_3_BACKGROUND">
+    <text>Spend a few minutes to read the high pressure torsion introduction.  Discuss the figures with your partners to compare your conceptual understanding.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_3">
+    <text>Now that we understand the benefits of high pressure torsion, we can process our samples and improve our washer design.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_3a">
+    <text>First, let's take a look at how the ultimate stress, Young's modulus and modulus of rigidity change. Use the Post-HPT tensile stress-strain curve to determine the change in properties.  Compare against the values provided in Table 1 or Part 1.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_3b">
+    <text>We can take advantage of the HPT processing to design a new washer based on the stronger material.  We can start by using the maximum twisting moment calculated for Sample A in Part 2 (a).</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_3bi">
+    <text>Design the washer diameter so that the maximum shear stress in the washer is at the yield value.</text>
+    </prompt>
+
+    <prompt strategy="task" id="DISCUSS_3bii">
+    <text>How much weight did we save by processing the aluminum?</text>
+    </prompt>
+
+    <prompt strategy="task" id="FINISH">
+    <text>Now this activity has come to an end. Thanks for a great chat!</text>
+    </prompt>
+
+</prompts>

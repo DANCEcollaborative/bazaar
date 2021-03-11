@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Jeopardy game">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+    <stage name="initiate" type="other" delay="0">
+    
+   
+    	
+        
+        
+    
+   	    <step type="prompt" delay="12" prompt="JEOPARDY_OUTRO" >JEOPARDY_OUTRO</step>
+        
+        <!-- PIECE OF A PIE -->
+        <step type="prompt" delay="5" prompt="PIE_INTRO" >PIE_INTRO</step>
+        <step type="whiteboard" delay="7" path="https://i.imgur.com/OTQ4ulG.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="5" prompt="PIE_PROMPT" >PIE_PROMPT</step>
+        <step type="whiteboard" delay="5" path="https://i.imgur.com/F6Z1WNQ.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="180" prompt="PIE_SHARE" >PIE_SHARE</step>
+        
+        <!-- ACTIVITY_END -->
+        <step type="prompt" delay="5" prompt="TIME_MGMT" >TIME_MGMT</step>
+        <step type="whiteboard" delay="45" path="https://i.imgur.com/wcYANmy.png">SHOW_IMAGE</step>
+        <step type="whiteboard" delay="5" path="https://i.imgur.com/gWrycCA.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="10" prompt="SOCIAL" >SOCIAL</step>
+        <step type="prompt" delay="10" prompt="WGU_GOODBYE" >WGU_GOODBYE</step>
+    	
+        
+        
+    
+    
+    	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->        
+        <!--  <step type="greet" timeout="60" delay="10">GREETINGS</step>
+        <step type="prompt" delay="10" prompt="SETUP">SETUP_STEP</step>
+        <step type="prompt" delay="5" prompt="WHITEBOARD_INSTRUCTIONS">WHITEBOARD_INSTRUCTIONS</step>
+        <step type="whiteboard" delay="5" path="http://blogs.adobe.com/digitalpublishing/files/2011/02/android_logo.gif">SHOW_IMAGE</step>
+        -->
+        
+        
+        
+        
+    </stage>
+   <!--  <stage name="body" type="other" delay="30"> --> -->
+    	<!-- <step type="dialogue" delay="15" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step> 
+    	<step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step>
+        <step type="prompt" delay="10" prompt="DISCUSS_LOWEST_PRESSURE" >DISCUSS_LOWEST_PRESSURE</step>
+        <step type="prompt" delay="10" prompt="CONTINUE_JEOPARDY_CATEGORIES" >CONTNUE_JEOPARDY_CATEGORIES</step>
+    	<step type="dialogue" delay="15" dialogue="HP_PRECIPITATION">HP_PRECIPITATION</step>
+    	<step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step>
+        <step type="prompt" delay="30" prompt="DISCUSS_HIGHEST_PRESSURE" >DISCUSS_HIGHEST_PRESSURE</step>
+    	<step type="dialogue" delay="30" dialogue="WF_PRECIPITATION">WF_PRECIPITATION</step>
+    	<step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step>
+        <step type="prompt" delay="30" prompt="DISCUSS_PRECIP_WARM_FRONT" >DISCUSS_PRECIP_WARM_FRONT</step>
+    	<step type="dialogue" delay="30" dialogue="WF_TEMPERATURE">WF_TEMPERATURE</step>
+    	<step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step>
+        <step type="prompt" delay="30" prompt="DISCUSS_COOLEST_TEMP" >DISCUSS_COOLEST_TEMP</step>
+    	<step type="dialogue" delay="30" dialogue="CF_WINDDIRECTION">WF_TEMPERATURE</step>
+    	<step type="whiteboard" delay="5" path="http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif">SHOW_IMAGE</step>
+        step type="prompt" delay="30" prompt="DISCUSS_HIGH_WIND" >DISCUSS_HIGH_WIND</step> -->
+<!--     </stage> -->
+</plan>

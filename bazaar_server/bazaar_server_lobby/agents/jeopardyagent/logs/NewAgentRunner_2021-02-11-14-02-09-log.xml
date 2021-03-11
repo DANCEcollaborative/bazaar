@@ -1,0 +1,114 @@
+<entry timestamp="2021-02-11#14:02:09" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-02-11#14:02:09" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-02-11#14:02:09" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-02-11#14:02:09" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2021-02-11#14:02:09" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.agents.listeners.QuestionsHandler, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, null]</entry>
+<entry timestamp="2021-02-11#14:02:10" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2021-02-11#14:02:10" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2021-02-11#14:02:11" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-02-11#14:02:11" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-02-11#14:02:12" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger</entry>
+<entry timestamp="2021-02-11#14:02:12" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger agree</entry>
+<entry timestamp="2021-02-11#14:02:12" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2021-02-11#14:02:13" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-02-11#14:02:13" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-02-11#14:02:14" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-02-11#14:02:14" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2021-02-11#14:02:17" user="NewAgentRunner" level="NORMAL">setting basilica2.agents.room_name to fhj87</entry>
+<entry timestamp="2021-02-11#14:02:17" user="NewAgentRunner" level="NORMAL"><launching room=fhj87/></entry>
+<entry timestamp="2021-02-11#14:02:17" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-02-11#14:02:17" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-02-11#14:02:17" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-02-11#14:02:17" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-02-11#14:02:17" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-02-11#14:02:17" user="AgentFactory" level="NORMAL">Agent build. JeopardyAgent_fhj87</entry>
+<entry timestamp="2021-02-11#14:02:17" user="NewAgentRunner" level="NORMAL">Adding agent JeopardyAgent_fhj87</entry>
+<entry timestamp="2021-02-11#14:02:17" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-02-11#14:02:17" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-02-11#14:02:18" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-02-11#14:02:18" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-02-11#14:02:18" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for JeopardyAgent_fhj87</entry>
+<entry timestamp="2021-02-11#14:02:18" user="NewAgentRunner" level="NORMAL">Agent added JeopardyAgent_fhj87</entry>
+<entry timestamp="2021-02-11#14:02:22" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-02-11#14:02:22" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-02-11#14:02:22" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-02-11#14:02:22" user="Step" level="NORMAL">Handlers for JEOPARDY_OUTRO(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:02:22" user="PromptStepHandler" level="NORMAL">starting 6.1 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:02:23" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-02-11#14:02:23" user="" level="NORMAL">accepted. Message from JeopardyAgent: Great job! I hope you both enjoyed that as much as I did. Nothing like a little friendly competition! ;-) JEOPARDY_OUTRO.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:02:28" user="PromptStepHandler" level="NORMAL">ending 6.1 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:02:28" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for JEOPARDY_OUTRO</entry>
+<entry timestamp="2021-02-11#14:02:38" user="PlanExecutor" level="NORMAL">PLAN: current step done: JEOPARDY_OUTRO</entry>
+<entry timestamp="2021-02-11#14:02:38" user="Step" level="NORMAL">Handlers for PIE_INTRO(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:02:38" user="PromptStepHandler" level="NORMAL">starting 23.8 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:02:40" user="" level="NORMAL">accepted. Message from JeopardyAgent: In your English Composition class, each of your assignments is one piece of a larger pie toward your goal of enrolling at WGU. All of your assignments are required to complete this course, and this course is required to complete WGU Academy. Upon completion of WGU Academy, you are guaranteed admission to WGU! | With that being said, it is crucial to keep up with your assignments and set short-term goals to work towards your larger long-term career goals.  PIE_INTRO.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:03:02" user="PromptStepHandler" level="NORMAL">ending 23.8 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:03:02" user="PlanExecutor" level="NORMAL">starting 2 second delay timer for PIE_INTRO</entry>
+<entry timestamp="2021-02-11#14:03:04" user="PlanExecutor" level="NORMAL">PLAN: current step done: PIE_INTRO</entry>
+<entry timestamp="2021-02-11#14:03:04" user="Step" level="NORMAL">Handlers for SHOW_IMAGE(whiteboard): [basilica2.agents.listeners.plan.WhiteboardStepHandler@7d909e51]</entry>
+<entry timestamp="2021-02-11#14:03:04" user="WhiteboardStepHandler" level="NORMAL">whiteboard step image:SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:04" user="PlanExecutor" level="NORMAL">starting 3 second delay timer for SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:06" user="" level="NORMAL">ACCEPTED! CREATE whiteboard-image https://i.imgur.com/0vk7f0p.png</entry>
+<entry timestamp="2021-02-11#14:03:07" user="PlanExecutor" level="NORMAL">PLAN: current step done: SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:07" user="Step" level="NORMAL">Handlers for PIE_PROMPT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:03:07" user="PromptStepHandler" level="NORMAL">starting 7.299999999999999 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:03:08" user="" level="NORMAL">accepted. Message from JeopardyAgent:  Completing your English assignments in a timely manner and filling in each piece of the pie will set you up for success. 
+ PIE_PROMPT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:03:14" user="PromptStepHandler" level="NORMAL">ending 7.299999999999999 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:03:14" user="PlanExecutor" level="NORMAL">starting 5 second delay timer for PIE_PROMPT</entry>
+<entry timestamp="2021-02-11#14:03:19" user="PlanExecutor" level="NORMAL">PLAN: current step done: PIE_PROMPT</entry>
+<entry timestamp="2021-02-11#14:03:19" user="Step" level="NORMAL">Handlers for SHOW_IMAGE(whiteboard): [basilica2.agents.listeners.plan.WhiteboardStepHandler@7d909e51]</entry>
+<entry timestamp="2021-02-11#14:03:19" user="WhiteboardStepHandler" level="NORMAL">whiteboard step image:SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:19" user="PlanExecutor" level="NORMAL">starting 3 second delay timer for SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:20" user="" level="NORMAL">ACCEPTED! CREATE whiteboard-image https://i.imgur.com/G7vtzE8.jpg</entry>
+<entry timestamp="2021-02-11#14:03:22" user="PlanExecutor" level="NORMAL">PLAN: current step done: SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:22" user="Step" level="NORMAL">Handlers for TIME_MGMT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:03:22" user="PromptStepHandler" level="NORMAL">starting 28.9 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:03:24" user="" level="NORMAL">accepted. Message from JeopardyAgent:  At WGU Academy, we like to set SMARTER goals. "SMARTER" stands for: Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward. | By setting SMARTER goals, we are setting ourselves up for success to fill in each piece of our pie. For example, instead of saying "I will do well in my English course," try setting a SMARTER goal such as "I will complete my Personal Narrative assignment in 2 weeks by setting aside one hour each evening to work on it. When I am finished, I will evaluate my progress and celebrate with my family!"
+ TIME_MGMT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:03:51" user="PromptStepHandler" level="NORMAL">ending 28.9 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:03:51" user="PlanExecutor" level="NORMAL">starting 5 second delay timer for TIME_MGMT</entry>
+<entry timestamp="2021-02-11#14:03:56" user="PlanExecutor" level="NORMAL">PLAN: current step done: TIME_MGMT</entry>
+<entry timestamp="2021-02-11#14:03:56" user="Step" level="NORMAL">Handlers for SHOW_IMAGE(whiteboard): [basilica2.agents.listeners.plan.WhiteboardStepHandler@7d909e51]</entry>
+<entry timestamp="2021-02-11#14:03:56" user="WhiteboardStepHandler" level="NORMAL">whiteboard step image:SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:56" user="PlanExecutor" level="NORMAL">starting 3 second delay timer for SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:58" user="" level="NORMAL">ACCEPTED! CREATE whiteboard-image https://i.imgur.com/h6IWxZ3.png</entry>
+<entry timestamp="2021-02-11#14:03:59" user="PlanExecutor" level="NORMAL">PLAN: current step done: SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:03:59" user="Step" level="NORMAL">Handlers for TIME_MGMT_SHARE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:03:59" user="PromptStepHandler" level="NORMAL">starting 4.8999999999999995 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:04:00" user="" level="NORMAL">accepted. Message from JeopardyAgent:  Take a moment to share what your next assignment is in your English Composition class.  TIME_MGMT_SHARE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:04:04" user="PromptStepHandler" level="NORMAL">ending 4.8999999999999995 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:04:04" user="PlanExecutor" level="NORMAL">starting 20 second delay timer for TIME_MGMT_SHARE</entry>
+<entry timestamp="2021-02-11#14:04:24" user="PlanExecutor" level="NORMAL">PLAN: current step done: TIME_MGMT_SHARE</entry>
+<entry timestamp="2021-02-11#14:04:24" user="Step" level="NORMAL">Handlers for SMARTER_GOALS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:04:24" user="PromptStepHandler" level="NORMAL">starting 8.2 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:04:26" user="" level="NORMAL">accepted. Message from JeopardyAgent:  Now, take turns sharing SMARTER goals for completing your next assignment. Make sure they follow the acronym of Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward!  SMARTER_GOALS.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:04:32" user="PromptStepHandler" level="NORMAL">ending 8.2 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:04:32" user="PlanExecutor" level="NORMAL">starting 60 second delay timer for SMARTER_GOALS</entry>
+<entry timestamp="2021-02-11#14:05:32" user="PlanExecutor" level="NORMAL">PLAN: current step done: SMARTER_GOALS</entry>
+<entry timestamp="2021-02-11#14:05:32" user="Step" level="NORMAL">Handlers for SHOW_IMAGE(whiteboard): [basilica2.agents.listeners.plan.WhiteboardStepHandler@7d909e51]</entry>
+<entry timestamp="2021-02-11#14:05:32" user="WhiteboardStepHandler" level="NORMAL">whiteboard step image:SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:05:32" user="PlanExecutor" level="NORMAL">starting 5 second delay timer for SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:05:34" user="" level="NORMAL">ACCEPTED! CREATE whiteboard-image https://i.imgur.com/gWrycCA.png</entry>
+<entry timestamp="2021-02-11#14:05:37" user="PlanExecutor" level="NORMAL">PLAN: current step done: SHOW_IMAGE</entry>
+<entry timestamp="2021-02-11#14:05:37" user="Step" level="NORMAL">Handlers for SOCIAL(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:05:37" user="PromptStepHandler" level="NORMAL">starting 12.7 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:05:38" user="" level="NORMAL">accepted. Message from JeopardyAgent: If you'd like, please share your email address, social media, or phone number with each other to keep in contact after this activity. Your personal information will not be used in any way outside of this conversation. Thank you for your participation!  SOCIAL.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:05:50" user="PromptStepHandler" level="NORMAL">ending 12.7 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:05:50" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for SOCIAL</entry>
+<entry timestamp="2021-02-11#14:06:00" user="PlanExecutor" level="NORMAL">PLAN: current step done: SOCIAL</entry>
+<entry timestamp="2021-02-11#14:06:00" user="Step" level="NORMAL">Handlers for WGU_GOODBYE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@421572f6]</entry>
+<entry timestamp="2021-02-11#14:06:00" user="PromptStepHandler" level="NORMAL">starting 3.6999999999999997 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:06:02" user="" level="NORMAL">accepted. Message from JeopardyAgent: For further information about WGU Academy, FAQs, and more, please visit: https://academy.wgu.edu/. WGU_GOODBYE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-02-11#14:06:04" user="PromptStepHandler" level="NORMAL">ending 3.6999999999999997 second prompt delay</entry>
+<entry timestamp="2021-02-11#14:06:04" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for WGU_GOODBYE</entry>
+<entry timestamp="2021-02-11#14:06:14" user="PlanExecutor" level="NORMAL">PLAN: current step done: WGU_GOODBYE</entry>
+<entry timestamp="2021-02-11#14:06:14" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>

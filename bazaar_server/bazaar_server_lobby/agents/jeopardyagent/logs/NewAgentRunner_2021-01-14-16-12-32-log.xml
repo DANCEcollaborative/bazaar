@@ -1,0 +1,92 @@
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.agents.listeners.QuestionsHandler, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, null]</entry>
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2021-01-14#16:12:32" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2021-01-14#16:12:33" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-01-14#16:12:33" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-01-14#16:12:34" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger</entry>
+<entry timestamp="2021-01-14#16:12:35" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger agree</entry>
+<entry timestamp="2021-01-14#16:12:35" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2021-01-14#16:12:36" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-01-14#16:12:36" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-01-14#16:12:37" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-01-14#16:12:38" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="NORMAL">setting basilica2.agents.room_name to ytr65</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="NORMAL"><launching room=ytr65/></entry>
+<entry timestamp="2021-01-14#16:12:42" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-01-14#16:12:42" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-01-14#16:12:42" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-01-14#16:12:42" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-01-14#16:12:42" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-01-14#16:12:42" user="AgentFactory" level="NORMAL">Agent build. JeopardyAgent_ytr65</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="NORMAL">Adding agent JeopardyAgent_ytr65</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-01-14#16:12:42" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for JeopardyAgent_ytr65</entry>
+<entry timestamp="2021-01-14#16:12:42" user="NewAgentRunner" level="NORMAL">Agent added JeopardyAgent_ytr65</entry>
+<entry timestamp="2021-01-14#16:12:47" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-01-14#16:12:47" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-01-14#16:12:47" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-01-14#16:12:47" user="Step" level="NORMAL">starting 25 second timeout for GREET</entry>
+<entry timestamp="2021-01-14#16:12:47" user="Step" level="NORMAL">Handlers for GREET(greet): [basilica2.agents.listeners.plan.GreetStepHandler@3b89fbeb]</entry>
+<entry timestamp="2021-01-14#16:12:47" user="GreetStepHandler" level="NORMAL">starting greet step...</entry>
+<entry timestamp="2021-01-14#16:12:47" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-01-14#16:12:48" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Hello! I'm JeopardyAgent. Take a minute to introduce yourselves. INTRODUCE</entry>
+<entry timestamp="2021-01-14#16:12:51" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-01-14#16:12:51" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-01-14#16:12:52" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-01-14#16:12:58" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Hello, Meredith! GREET</entry>
+<entry timestamp="2021-01-14#16:13:04" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Howdy, Friend! GREET</entry>
+<entry timestamp="2021-01-14#16:13:12" user="EndStepOnStopListeningDelegate" level="NORMAL">ending step GREET...</entry>
+<entry timestamp="2021-01-14#16:13:12" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GREET</entry>
+<entry timestamp="2021-01-14#16:13:12" user="PlanExecutor" level="NORMAL">PLAN: current step done: GREET</entry>
+<entry timestamp="2021-01-14#16:13:12" user="Step" level="NORMAL">Handlers for GIVE_UP_ON_INTRODUCTIONS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@789ee9a0]</entry>
+<entry timestamp="2021-01-14#16:13:12" user="PromptStepHandler" level="NORMAL">starting 2.2 second prompt delay</entry>
+<entry timestamp="2021-01-14#16:13:12" user="" level="NORMAL">accepted. Message from JeopardyAgent: Okay! Let's begin. We'll be playing Jeopardy. GIVE_UP_ON_INTRODUCTIONS.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-01-14#16:13:14" user="PromptStepHandler" level="NORMAL">ending 2.2 second prompt delay</entry>
+<entry timestamp="2021-01-14#16:13:14" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2021-01-14#16:13:22" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key GREET</entry>
+<entry timestamp="2021-01-14#16:13:24" user="PlanExecutor" level="NORMAL">PLAN: current step done: GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2021-01-14#16:13:24" user="Step" level="NORMAL">Handlers for INSTRUCTIONS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@789ee9a0]</entry>
+<entry timestamp="2021-01-14#16:13:24" user="PromptStepHandler" level="NORMAL">starting 0.4 second prompt delay</entry>
+<entry timestamp="2021-01-14#16:13:24" user="" level="NORMAL">accepted. Message from JeopardyAgent: instructions INSTRUCTIONS.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-01-14#16:13:24" user="PromptStepHandler" level="NORMAL">ending 0.4 second prompt delay</entry>
+<entry timestamp="2021-01-14#16:13:24" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for INSTRUCTIONS</entry>
+<entry timestamp="2021-01-14#16:13:34" user="PlanExecutor" level="NORMAL">PLAN: current step done: INSTRUCTIONS</entry>
+<entry timestamp="2021-01-14#16:13:34" user="Step" level="NORMAL">Handlers for JEOPARDY_CATEGORY(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@789ee9a0]</entry>
+<entry timestamp="2021-01-14#16:13:34" user="PromptStepHandler" level="NORMAL">starting 2.8 second prompt delay</entry>
+<entry timestamp="2021-01-14#16:13:36" user="" level="NORMAL">accepted. Message from JeopardyAgent: Please pick a category. Format = category + value. JEOPARDY_CATEGORY.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-01-14#16:13:37" user="PromptStepHandler" level="NORMAL">ending 2.8 second prompt delay</entry>
+<entry timestamp="2021-01-14#16:13:37" user="PlanExecutor" level="NORMAL">starting 5000 second delay timer for JEOPARDY_CATEGORY</entry>
+<entry timestamp="2021-01-14#16:13:46" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               English Composition for 100?
+         TUTOR</entry>
+<entry timestamp="2021-01-14#16:13:48" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Here we go... TUTOR</entry>
+<entry timestamp="2021-01-14#16:13:50" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTOR</entry>
+<entry timestamp="2021-01-14#16:13:54" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: https://www.plagiarism.org/article/what-is-plagiarism|Please choose another question to answer. TUTOR</entry>
+<entry timestamp="2021-01-14#16:13:54" user="PlanExecutor" level="NORMAL">starting 5000 second delay timer for JEOPARDY_CATEGORY</entry>
+<entry timestamp="2021-01-14#16:14:06" user="" level="NORMAL">REJECTED!Message from JeopardyAgent: Okay! Let's begin. We'll be playing Jeopardy. GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2021-01-14#16:14:06" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               English Composition for 200?
+         TUTOR</entry>
+<entry timestamp="2021-01-14#16:14:08" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Here we go... TUTOR</entry>
+<entry timestamp="2021-01-14#16:14:10" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: This is one of the required essays for this course and involves telling a personal story from your life. TUTOR</entry>
+<entry timestamp="2021-01-14#16:14:18" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Personal narrative is correct!|Please choose another question to answer. TUTOR</entry>
+<entry timestamp="2021-01-14#16:14:28" user="PlanExecutor" level="NORMAL">starting 5000 second delay timer for JEOPARDY_CATEGORY</entry>
+<entry timestamp="2021-01-14#16:14:32" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               Dummy Last?
+         TUTOR</entry>
+<entry timestamp="2021-01-14#16:14:34" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: And the winner is... TUTOR</entry>
+<entry timestamp="2021-01-14#16:14:36" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Friend TUTOR</entry>
+<entry timestamp="2021-01-14#16:15:46" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: I am waiting for your response to start. Please ask for help if you are stuck. TUTOR</entry>
+<entry timestamp="2021-01-14#16:16:06" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: I am waiting for your response to start. Please ask for help if you are stuck. TUTOR</entry>
+<entry timestamp="2021-01-14#16:16:33" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: I am waiting for your response to start. Please ask for help if you are stuck. TUTOR</entry>
+<entry timestamp="2021-01-14#16:18:47" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Okay, let's talk about this. TUTOR</entry>

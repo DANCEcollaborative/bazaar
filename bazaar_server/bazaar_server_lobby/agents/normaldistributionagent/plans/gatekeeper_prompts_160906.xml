@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>When you've finished introducing each other, press the "I'm Ready" button (or type "ready") to begin. Each person needs to press the button.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up this discussion. Get ready to move on.</text>
+       <text>Okay, let's get ready to finish up the discussion.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>Take your time to discuss this - we'll move on when everyone is ready.</text>
+    </prompt>
+	   
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <!-- <text>Press "I'm Ready" once your team has finished reading and discussing this.</text> -->
+       <text>Once you've read this and discussed it with your team, press the "I'm Ready" button.</text>
+       <text>When everyone is comfortable with this material, press Ready.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>Take your time to discuss this - we'll move on when everyone is ready.</text>
+       <text>When you've reached consensus in your group, press the Ready button.</text>
+       <text>Make sure your team agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until the rest of your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until everyone else is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay...</text>
+       <text>Okay, everyone. Let's move on...</text>
+       <text>Looks like everyone's together - let's move on!</text>
+       <text>I think we're all ready.</text>
+       <text>Moving on...</text>
+       <text>Looks like we're ready.</text>
+       <text>Onward!</text>
+    </prompt>
+    
+</prompts>
+

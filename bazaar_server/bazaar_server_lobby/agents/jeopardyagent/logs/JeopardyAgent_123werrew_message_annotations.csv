@@ -1,0 +1,73 @@
+2021-01-22,11:15:57,0,JeopardyAgent,1611332157940,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves. Go ahead and chat a little more if you have extra time. :-),INTRODUCE
+2021-01-22,11:16:13,0,other,1611332173910,i'm other,GIVING_NAME
+2021-01-22,11:16:13,0,JeopardyAgent,1611332174004,"Nice to meet you, Other.",GREET
+2021-01-22,11:16:17,0,mere,1611332177542,i'm mere,GIVING_NAME
+2021-01-22,11:16:17,0,JeopardyAgent,1611332178012,"Hi, Mere.",GREET
+2021-01-22,11:16:37,0,JeopardyAgent,1611332198082,"Welcome to WGU Academy. :-) Like our regular degree programs, courses in WGU Academy are entirely self-paced. YOU study on your own, and YOU decide when you're ready to tackle assessments. That's the beauty of competency-based education!",WGU_ACADEMY_INFO
+2021-01-22,11:16:59,0,JeopardyAgent,1611332220147,"All WGU Academy courses are transferable to WGU, and you are guaranteed admission to WGU upon completion of your minimum requirements. Take a look at Nancy's testimonial on the right. A WGU degree helped her become a principal!",TESTIMONIAL
+2021-01-22,11:17:20,0,other,1611332241096,cool,
+2021-01-22,11:17:20,0,JeopardyAgent,1611332242202,Now for the main event... let's play a game inspired by Jeopardy! ,JEOPARDY_INTRO_SHORT
+2021-01-22,11:17:25,0,other,1611332245328,ok,AFFIRMATIVE
+2021-01-22,11:17:31,0,JeopardyAgent,1611332252229,"In this game, you will be prompted with a clue that represents an answer. Your job is to give the corresponding question! For example, upon picking a category and point value, you will receive something like this: ""This university is the largest fully-online nonprofit university in the country.""",JEOPARDY_INSTRUCTIONS
+2021-01-22,11:17:31,0,JeopardyAgent,1611332257237,"Then... You will answer with the question! In this case, it should be: ""What is WGU?"", or you may simply type: ""WGU"". Please alternate turns to give everyone an equal chance to play. Only the person who asks for the question will be given points for an answer. For this demo, we will do 4 questions in total.",JEOPARDY_INSTRUCTIONS
+2021-01-22,11:18:27,0,JeopardyAgent,1611332308395,"Please pick a category using the format: category + value. For example, type: ""Sage the Owl for 100.""",JEOPARDY_CATEGORY
+2021-01-22,11:18:35,0,mere,1611332315861,sage 100,SAGE_OWL_100
+2021-01-22,11:18:35,0,JeopardyAgent,1611332316427,"
+               Sage the Owl for 100?
+        ",TUTOR
+2021-01-22,11:18:37,0,mere,1611332317745,yes,AFFIRMATIVE
+2021-01-22,11:18:37,0,JeopardyAgent,1611332318435,Here we go...,TUTOR
+2021-01-22,11:18:37,0,JeopardyAgent,1611332320446,"Sage sleeps during the day and is up studying all night, which means that he is this 9-letter adjective for a night owl, along with bats, hamsters, and many other animals.",TUTOR
+2021-01-22,11:18:44,0,mere,1611332324380,nocturnal,NEGATIVE
+2021-01-22,11:18:48,0,JeopardyAgent,1611332328478,Nocturnal is correct!!,TUTOR
+2021-01-22,11:18:48,0,JeopardyAgent,1611332333481,Please choose another question to answer.,TUTOR
+2021-01-22,11:18:58,0,other,1611332338623,sage 200,SAGE_OWL_200
+2021-01-22,11:18:58,0,JeopardyAgent,1611332340494,"
+               Sage the Owl for 200?
+        ",TUTOR
+2021-01-22,11:19:02,0,other,1611332342247,yeah,AFFIRMATIVE
+2021-01-22,11:19:02,0,JeopardyAgent,1611332342503,Here we go...,TUTOR
+2021-01-22,11:19:02,0,JeopardyAgent,1611332344512,"There are many names for groups of animals, such as a gaggle of geese or a pride of lions. A group of Sage and his owl friends would be called this.",TUTOR
+2021-01-22,11:19:09,0,other,1611332349766,parliament,
+2021-01-22,11:19:12,0,JeopardyAgent,1611332354541,A parliament is correct!,TUTOR
+2021-01-22,11:19:12,0,JeopardyAgent,1611332359546,Please choose another question to answer.,TUTOR
+2021-01-22,11:19:30,0,other,1611332370614,eng comp 200,ENG_COMP_200
+2021-01-22,11:19:30,0,JeopardyAgent,1611332372565,"
+               English Composition for 200?
+        ",TUTOR
+2021-01-22,11:19:34,0,other,1611332374203,yes,AFFIRMATIVE
+2021-01-22,11:19:34,0,JeopardyAgent,1611332374572,Here we go...,TUTOR
+2021-01-22,11:19:34,0,JeopardyAgent,1611332376576,This is one of the required essays for this course and involves telling a personal story from your life.,TUTOR
+2021-01-22,11:19:40,0,other,1611332380188,personal narrative,NEGATIVE
+2021-01-22,11:19:44,0,JeopardyAgent,1611332386599,Personal narrative is correct!,TUTOR
+2021-01-22,11:19:44,0,JeopardyAgent,1611332391602,Please choose another question to answer.,TUTOR
+2021-01-22,11:19:57,0,mere,1611332397158,wgu trivia 400,WGU_TRIVIA_400
+2021-01-22,11:19:57,0,JeopardyAgent,1611332398610,"
+               WGU Trivia for 400?
+        ",TUTOR
+2021-01-22,11:20:00,0,mere,1611332400255,yes,AFFIRMATIVE
+2021-01-22,11:20:00,0,JeopardyAgent,1611332400619,Here we go...,TUTOR
+2021-01-22,11:20:00,0,JeopardyAgent,1611332402625,WGU was founded by a group of governors in this year.,TUTOR
+2021-01-22,11:20:09,0,mere,1611332409624,1997,
+2021-01-22,11:20:10,0,JeopardyAgent,1611332412654,1997 is correct!,TUTOR
+2021-01-22,11:20:10,0,JeopardyAgent,1611332417659,Please choose another question to answer.,TUTOR
+2021-01-22,11:20:23,0,other,1611332423299,winner,POSITIVITY+WINNER_000
+2021-01-22,11:20:23,0,JeopardyAgent,1611332424669,"
+               Find out who the winner is?
+        ",TUTOR
+2021-01-22,11:20:25,0,other,1611332425896,yes,AFFIRMATIVE
+2021-01-22,11:20:23,0,JeopardyAgent,1611332426679,And the winner is...,TUTOR
+2021-01-22,11:20:23,0,JeopardyAgent,1611332428689,mere,TUTOR
+2021-01-22,11:20:23,0,JeopardyAgent,1611332430694,Congratulations!!! :-),TUTOR
+2021-01-22,11:20:25,0,JeopardyAgent,1611332432701, Did you learn anything new from this game? ,TUTOR
+DATE,TIME,TYPING_DURATION,AUTHOR,NOTE,TEXT,ANNOTATIONS
+2021-01-22,11:21:37,0,JeopardyAgent,1611332498646,Great job! I hope you both enjoyed that as much as I did. Nothing like a little friendly competition! ;-),JEOPARDY_OUTRO
+2021-01-22,11:21:53,0,JeopardyAgent,1611332514710,"A degree from WGU is one piece of a larger pie that will set you up for success in your career. And like any great bakery, there is a great variety of pies, and no two are exactly the same!",PIE_INTRO
+2021-01-22,11:21:53,0,JeopardyAgent,1611332519716,Here are a few pieces of Nancy's pie that set her up for success to eventually become a principal.,PIE_INTRO
+2021-01-22,11:22:23,0,JeopardyAgent,1611332544785,"Each student in each degree program has a unique recipe for individual success, including external exams, peer support, and more. For example, if you are seeking a nursing degree, maybe passing the NCLEX is part of your pie. If you are pursuing a Business degree, maybe brushing up on interview skills is one of your ingredients for success. 
+",PIE_PROMPT
+2021-01-22,11:22:51,0,JeopardyAgent,1611332572861,"Take a moment to share with your partner which degree program you are pursuing, and brainstorm which ingredients will set you up for success. Which ingredients do you have in common? Which ingredients are different?",PIE_SHARE
+2021-01-22,11:26:02,0,JeopardyAgent,1611332763421,"Okay! We are running out of time with this activity... Speaking of which, *time management* is one of the greatest challenges for the average WGU student! Juggling family obligations, work, school, and other life obligations is no small feat! One of the advantages of having a buddy in your courses is the ability to study together, keep each other accountable with work, and offer peer support!",TIME_MGMT
+2021-01-22,11:26:02,0,JeopardyAgent,1611332768425,Please take a minute to share a few time management tricks that have helped you in the past.,TIME_MGMT
+2021-01-22,11:27:18,0,JeopardyAgent,1611332839602,"If you'd like, please share your email address, social media, or phone number with each other to keep in contact after this activity. Your personal information will not be used in any way outside of this conversation. Thank you for your participation! ",SOCIAL
+2021-01-22,11:27:41,0,JeopardyAgent,1611332863682,"For further information about WGU Academy, FAQs, and more, please visit: https://academy.wgu.edu/.",WGU_GOODBYE

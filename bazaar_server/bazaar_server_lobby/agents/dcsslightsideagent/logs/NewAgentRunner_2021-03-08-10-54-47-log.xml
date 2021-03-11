@@ -1,0 +1,38 @@
+<entry timestamp="2021-03-08#10:54:47" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-03-08#10:54:47" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-03-08#10:54:47" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-03-08#10:54:47" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.side.listeners.LightSideMessageAnnotator, class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.myagent.listeners.Register]</entry>
+<entry timestamp="2021-03-08#10:54:47" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, class basilica2.myagent.listeners.PromptActor]</entry>
+<entry timestamp="2021-03-08#10:54:48" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-03-08#10:54:48" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-03-08#10:54:57" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-03-08#10:54:57" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-03-08#10:54:57" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-03-08#10:54:57" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-03-08#10:54:57" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-03-08#10:54:57" user="AgentFactory" level="NORMAL">Agent build. DCSSLightSideAgent_FJ57</entry>
+<entry timestamp="2021-03-08#10:54:57" user="NewAgentRunner" level="NORMAL">Adding agent DCSSLightSideAgent_FJ57</entry>
+<entry timestamp="2021-03-08#10:54:57" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-03-08#10:54:57" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-03-08#10:54:58" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-03-08#10:54:58" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-03-08#10:54:58" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for DCSSLightSideAgent_FJ57</entry>
+<entry timestamp="2021-03-08#10:54:58" user="NewAgentRunner" level="NORMAL">Agent added DCSSLightSideAgent_FJ57</entry>
+<entry timestamp="2021-03-08#10:55:23" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-03-08#10:55:23" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-03-08#10:55:23" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-03-08#10:55:23" user="Step" level="NORMAL">Handlers for Try typing "Teachers are amazing" for a response of "Detected," or try typing "No reason" for a response of "NOT Detected."|Also try other entries to evoke these responses. Most won't but some will.(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@67d97cbe]</entry>
+<entry timestamp="2021-03-08#10:55:23" user="PromptStepHandler" level="NORMAL">starting 10.0 second prompt delay</entry>
+<entry timestamp="2021-03-08#10:55:23" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-03-08#10:55:23" user="" level="NORMAL">accepted. Message from DCSSLightSideAgent: Welcome, STUDENT
+ INTRODUCTION.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-03-08#10:55:33" user="PromptStepHandler" level="NORMAL">ending 10.0 second prompt delay</entry>
+<entry timestamp="2021-03-08#10:55:33" user="PlanExecutor" level="NORMAL">starting 600 second delay timer for Try typing "Teachers are amazing" for a response of "Detected," or try typing "No reason" for a response of "NOT Detected."|Also try other entries to evoke these responses. Most won't but some will.</entry>
+<entry timestamp="2021-03-08#10:55:40" user="" level="NORMAL">accepted. Message from DCSSLightSideAgent: Try typing "Teachers are amazing" for a response of "Detected," or try typing "No reason" for a response of "NOT Detected."|Also try other entries to evoke these responses. Most won't but some will. Try typing "Teachers are amazing" for a response of "Detected," or try typing "No reason" for a response of "NOT Detected."|Also try other entries to evoke these responses. Most won't but some will..
+Starting blockout countdown... </entry>
+<entry timestamp="2021-03-08#10:55:52" user="" level="NORMAL">accepted. Message from DCSSLightSideAgent: *** Detected *** plan_reasoning.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-03-08#10:56:02" user="" level="NORMAL">rejected! Message from DCSSLightSideAgent: *** NOT Detected *** plan_reasoning</entry>
+<entry timestamp="2021-03-08#10:56:18" user="" level="NORMAL">accepted. Message from DCSSLightSideAgent: *** NOT Detected *** plan_reasoning.
+Starting blockout countdown... </entry>

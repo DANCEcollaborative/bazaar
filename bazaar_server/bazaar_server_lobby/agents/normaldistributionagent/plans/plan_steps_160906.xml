@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="statistics_assigment">
+
+    <stage name="initiate" type="other" delay="0">
+        <step type="prompt" delay="5" prompt="AGENT_INTRODUCE">AGENT_INTRODUCE</step>
+        <step type="prompt" delay="0" prompt="INTRO">INTRO</step>
+        <step type="gated" gated_type="listen" timeout="595" delay="0" checkin_prompt="WAIT_FOR_CHECKIN">INTRO_DISCUSSION</step>
+    </stage>
+
+    <stage name="part2" type="other" delay="5">
+    <step type="prompt" delay="10" prompt="DISCUSS_4_BACKGROUND">DISCUSS_4_BACKGROUND</step>
+    <step type="prompt" delay="10" prompt="DISCUSS_4_SHARE">DISCUSS_4_SHARE</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_4a">DISCUSS_4a</step>
+        <step type="gated" gated_type="listen" timeout="580" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_1</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_4b">DISCUSS_4b</step>
+        <step type="gated" gated_type="listen" timeout="590" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_2</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_4c">DISCUSS_4c</step>
+        <step type="gated" gated_type="listen" timeout="590" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_3</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_4d">DISCUSS_4d</step>
+        <step type="gated" gated_type="listen" timeout="590" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_4</step>
+	<step type="prompt" delay="20" prompt="DISCUSS_4e">DISCUSS_4e</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_4f">DISCUSS_4f</step>
+        <step type="gated" gated_type="listen" timeout="570" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_5</step>
+	<step type="prompt" delay="20" prompt="DISCUSS_4g">DISCUSS_4g</step>
+	<step type="prompt" delay="10" prompt="DISCUSS_4h">DISCUSS_4h</step>
+        <step type="gated" gated_type="listen" timeout="870" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_6</step>
+    </stage>
+
+    <stage name="finish" type="other" delay="5">
+        <step type="prompt" delay="5" prompt="FINISH">FINISH_STEP</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+
+</plan>
