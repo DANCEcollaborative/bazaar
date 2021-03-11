@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="statistics_assigment">
+
+    <stage name="initiate" type="other" delay="0">
+        <step type="prompt" delay="5" prompt="AGENT_INTRODUCE">AGENT_INTRODUCE</step>
+        <step type="prompt" delay="5" prompt="INTRO">INTRO</step>
+        <step type="gated" gated_type="listen" timeout="290" delay="0" checkin_prompt="WAIT_FOR_CHECKIN">INTRO_DISCUSSION</step>
+    </stage>
+
+    <stage name="part2" type="other" delay="5">
+        <step type="prompt" delay="0" prompt="DISCUSS_4_BACKGROUND">DISCUSS_4_BACKGROUND</step>
+        <step type="gated" gated_type="listen" timeout="1200" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_1</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4a">DISCUSS_4a</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_2</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4b">DISCUSS_4b</step>
+        <step type="gated" gated_type="listen" timeout="1200" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_3</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4b1">DISCUSS_4b1</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_4</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4b2">DISCUSS_4b2</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_5</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4c">DISCUSS_4c</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_6</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4d">DISCUSS_4d</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_7</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4e">DISCUSS_4e</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_8</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4f">DISCUSS_4f</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_9</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4g">DISCUSS_4g</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_10</step>
+        <step type="prompt" delay="0" prompt="DISCUSS_4h">DISCUSS_4h</step>
+        <step type="gated" gated_type="listen" timeout="600" delay="0" checkin_prompt="WAIT_FOR_DISCUSSION">WAIT_STEP_11</step>
+    </stage>
+
+    <stage name="finish" type="other" delay="5">
+        <step type="prompt" delay="5" prompt="FINISH">FINISH_STEP</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+
+</plan>

@@ -1,0 +1,20 @@
+2021-01-15,11:14:00,0,JeopardyAgent,1610727242286,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2021-01-15,11:14:08,0,Meredith,1610727248880,i'm meredith,GIVING_NAME
+2021-01-15,11:14:08,0,JeopardyAgent,1610727250329,"Hello, Meredith!",GREET
+2021-01-15,11:14:16,0,Other,1610727256562,i'm other,GIVING_NAME
+2021-01-15,11:14:16,0,JeopardyAgent,1610727258350,"Hi, Other.",GREET
+2021-01-15,11:14:30,0,JeopardyAgent,1610727272394,"In this game, you will be prompted with a clue that represents an answer. Your job is to give the corresponding question! For example, upon picking a category and point value, you will receive something like this: ""This university is the largest fully-online nonprofit university in the country.""",INSTRUCTIONS
+2021-01-15,11:14:30,0,JeopardyAgent,1610727277397,"Then... You will answer with the question! In this case, it should be: ""What is WGU?"", or you may simply type: ""WGU"". Please alternate turns to give everyone an equal chance to play.",INSTRUCTIONS
+2021-01-15,11:15:00,0,JeopardyAgent,1610727302467,Okay! Let's begin.,GIVE_UP_ON_INTRODUCTIONS
+2021-01-15,11:15:15,0,JeopardyAgent,1610727316509,"Please pick a category using the format: category + value. For example, type: ""Sage the Owl for 100.""",JEOPARDY_CATEGORY
+2021-01-15,11:15:25,0,Other,1610727326023,sage the owl for 100,SAGE_OWL_100
+2021-01-15,11:15:26,0,JeopardyAgent,1610727326537,"
+               Sage the Owl for 100?
+        ",TUTOR
+2021-01-15,11:15:28,0,Other,1610727328231,yes,AFFIRMATIVE
+2021-01-15,11:15:28,0,JeopardyAgent,1610727328547,Here we go...,TUTOR
+2021-01-15,11:15:28,0,JeopardyAgent,1610727330555,"Sage sleeps during the day and is up studying all night, which means that he is this 9-letter adjective for a night owl, along with bats, hamsters, and many other animals.",TUTOR
+2021-01-15,11:15:34,0,Other,1610727334735,nocturnal,NEGATIVE
+2021-01-15,11:15:38,0,JeopardyAgent,1610727340587,Nocturnal is correct!!,TUTOR
+2021-01-15,11:15:38,0,JeopardyAgent,1610727345594,Please feel free to continue discussing among yourselves.,TUTOR
+2021-01-15,11:17:11,0,JeopardyAgent,1610727432798,"hey Meredith, are you still with us?",ENCOURAGE_INDIVIDUAL+SOCIAL

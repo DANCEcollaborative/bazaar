@@ -1,0 +1,77 @@
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, null]</entry>
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2020-12-21#13:41:02" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2020-12-21#13:41:03" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2020-12-21#13:41:03" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2020-12-21#13:41:04" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger</entry>
+<entry timestamp="2020-12-21#13:41:04" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#13:41:05" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#13:41:05" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#13:41:06" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#13:41:06" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#13:41:07" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="NORMAL">setting basilica2.agents.room_name to hity</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="NORMAL"><launching room=hity/></entry>
+<entry timestamp="2020-12-21#13:41:13" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2020-12-21#13:41:13" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2020-12-21#13:41:13" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2020-12-21#13:41:13" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2020-12-21#13:41:13" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2020-12-21#13:41:13" user="AgentFactory" level="NORMAL">Agent build. JeopardyAgent_hity</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="NORMAL">Adding agent JeopardyAgent_hity</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2020-12-21#13:41:13" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for JeopardyAgent_hity</entry>
+<entry timestamp="2020-12-21#13:41:13" user="NewAgentRunner" level="NORMAL">Agent added JeopardyAgent_hity</entry>
+<entry timestamp="2020-12-21#13:41:33" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#13:41:33" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#13:41:38" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#13:41:38" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#13:41:38" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2020-12-21#13:41:38" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2020-12-21#13:41:38" user="Step" level="NORMAL">Handlers for WEATHER_TOPIC_SPECIFICS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@6220d2b7]</entry>
+<entry timestamp="2020-12-21#13:41:38" user="PromptStepHandler" level="NORMAL">starting 2.8 second prompt delay</entry>
+<entry timestamp="2020-12-21#13:41:39" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#13:41:39" user="" level="NORMAL">accepted. Message from JeopardyAgent: Please pick a category. Format = category + value. JEOPARDY_CATEGORY.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#13:41:41" user="PromptStepHandler" level="NORMAL">ending 2.8 second prompt delay</entry>
+<entry timestamp="2020-12-21#13:41:41" user="PlanExecutor" level="NORMAL">starting 20 second delay timer for WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#13:41:43" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               English Composition for 100?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#13:41:45" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Here we go... TUTOR</entry>
+<entry timestamp="2020-12-21#13:41:47" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: This word represents a form of cheating that involves copying someone else's work. TUTOR</entry>
+<entry timestamp="2020-12-21#13:41:55" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Plagiarism is correct. For more information about plagiarism, visit: insert weblink s|Please choose another question to answer. TUTOR</entry>
+<entry timestamp="2020-12-21#13:41:55" user="PlanExecutor" level="NORMAL">starting 20 second delay timer for WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#13:42:01" user="PlanExecutor" level="NORMAL">PLAN: current step done: WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#13:42:01" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>
+<entry timestamp="2020-12-21#13:42:01" user="PlanExecutor" level="NORMAL">Firing Stage 'body'</entry>
+<entry timestamp="2020-12-21#13:42:01" user="Step" level="NORMAL">Handlers for CONTNUE_WEATHER_TOPICS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@6220d2b7]</entry>
+<entry timestamp="2020-12-21#13:42:05" user="PromptStepHandler" level="NORMAL">starting 1.9 second prompt delay</entry>
+<entry timestamp="2020-12-21#13:42:07" user="PromptStepHandler" level="NORMAL">ending 1.9 second prompt delay</entry>
+<entry timestamp="2020-12-21#13:42:07" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for CONTNUE_WEATHER_TOPICS</entry>
+<entry timestamp="2020-12-21#13:42:07" user="" level="NORMAL">accepted. Message from JeopardyAgent: Ask me for another category please. CONTINUE_JEOPARDY_CATEGORIES.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#13:42:17" user="PlanExecutor" level="NORMAL">PLAN: current step done: CONTNUE_WEATHER_TOPICS</entry>
+<entry timestamp="2020-12-21#13:42:17" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage body</entry>
+<entry timestamp="2020-12-21#13:42:45" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               English Composition for 200?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#13:42:47" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Here we go... TUTOR</entry>
+<entry timestamp="2020-12-21#13:42:49" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: This is one of the required essays for this course and involves telling a personal story from your life. TUTOR</entry>
+<entry timestamp="2020-12-21#13:42:54" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#13:43:47" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: It sounds like you could use some help.|Sorry, I didn't understand you. Can you describe the wind speed and direction at a high pressure center? TUTOR</entry>
+<entry timestamp="2020-12-21#13:44:48" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Incorrect. Anyone else, hit the buzzer to chime in!|Please choose another question to answer. TUTOR</entry>
+<entry timestamp="2020-12-21#13:44:48" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for CONTNUE_WEATHER_TOPICS</entry>
+<entry timestamp="2020-12-21#13:44:58" user="PlanExecutor" level="NORMAL">PLAN: current step done: CONTNUE_WEATHER_TOPICS</entry>
+<entry timestamp="2020-12-21#13:44:58" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage body</entry>
+<entry timestamp="2020-12-21#13:45:00" user="" level="NORMAL">accepted. Message from JeopardyAgent: hey corb, are you still with us? ENCOURAGE_INDIVIDUAL+SOCIAL.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#13:47:46" user="" level="NORMAL">accepted. Message from JeopardyAgent: I can't do this on my own :-) SOCIAL+ENCOURAGE_GROUP.
+Starting blockout countdown... </entry>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="FRONT_MATTER">
+        <text>Hi, all. I'm Quinn - I'll be here while you work through today's activity.|My job is mainly to observe your collaboration - if you have technical questions, please ask David for help in the lobby chat room...</text>
+    </prompt>
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Take a minute to introduce yourselves...</text>
+    </prompt>
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME]!</text>
+        <text>Ahoy, [NAME].</text>
+        <text>Hey there, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <!--<text>I had a subroutine named "[NAME]" once...</text>-->
+    </prompt>-->
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    <prompt strategy="task" id="DO_GREETING">
+        <text>It's nice to meet you both.</text>
+    </prompt>
+    <prompt strategy="task" id="START_INSTRUCTIONS">
+        <text>Let's get started. | You should have a copy of today's assignment already. If you don't, the PDF is at bit.ly/stress_lab |Start by reading and discussing the introductory material.</text>
+    </prompt>
+    <prompt strategy="task" id="READING_REMINDER">
+        <text>If you have any questions or thoughts about the background material, share them with your partner.</text>
+    </prompt>
+    <prompt strategy="task" id="PART_1A">
+        <text>If you haven't started on Part 1 yet, you should get to it! The spreadsheets are available at bit.ly/stress_poly2 and bit.ly/stress_poly4</text>
+    </prompt>
+    <prompt strategy="task" id="PART_1B">
+        <text>Note that each of you is responsible for different data: One of you should be using the "poly2" sheet, and the other should be using "poly4".</text>
+    </prompt>
+    <prompt strategy="task" id="PART_2">
+        <text>In Part 2, when you're asked about the specimens, give answers for both data sets. | Your final assessment in question 5 should take both data sets into account. </text>
+    </prompt>
+    <prompt strategy="task" id="PART_2_CHECKIN">
+        <text>Just checking in -- you should be making some progress on Part 2...</text>
+    </prompt>
+    <prompt strategy="task" id="LAST_CALL">
+        <text>Alright - I'm out of here, and David will be signing off, too. | Good luck!</text>
+    </prompt>
+    <prompt strategy="task" id="FINISH">
+        <text>Hand in your completed assignment to your professor at the next class meeting.|Don't forget to complete the survey at bit.ly/stress_feedback!</text>
+    </prompt>
+</prompts>

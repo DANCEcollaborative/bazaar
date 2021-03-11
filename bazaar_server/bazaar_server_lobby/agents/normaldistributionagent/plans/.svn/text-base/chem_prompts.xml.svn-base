@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="AGENT_INTRODUCE">
+        <text>Hi, I'm Quinn. I'll be facilitating this group exercise. 
+        I won't answer your questions directly, but I'll structure the activity and add a few comments to your discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>Okay...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DO_GREETING">
+        <text>Each of you is the expert for a different kind of compound - take a moment to review your individual training materials.</text>
+    </prompt>
+    <prompt strategy="task" id="INTRO_0">
+        <text>We'll start by tying in to the specialized knowledge you got from your expert training -
+         for each of the questions in this section, one of you (the expert for this kind of molecule) should be able to explain it to the rest. </text>
+    </prompt>
+    <prompt strategy="task" id="INTRO_1">
+        <text>I'll post the first data set to the whiteboard - we'll move on when you all understand what factors are at play. | 
+        (If ever you need to, you can use the slider on the far left to scroll back in the whiteboard's history)</text>
+    </prompt>
+    <prompt strategy="task" id="INTRO_2">
+        <text>&lt;-- Let's look at the second dataset.</text>
+    </prompt>
+    <prompt strategy="task" id="INTRO_3">
+        <text>&lt;-- Let's look at the third set of data.</text>
+    </prompt>
+    <prompt strategy="task" id="INTRO_TASK">
+        <text>Next section - you'll be presented with three compounds at a time. Predict how they'll compare in terms of boiling points, and justify your prediction.</text>
+    </prompt>
+    <prompt strategy="task" id="TASK_START">
+        <text>&lt;-- Here's the next problem...</text>
+    </prompt>
+    <prompt strategy="task" id="TASK_PREDICT">
+        <text>What factors will affect these compounds' relative boiling points? How will the unlabeled compound rank against the others?</text>
+        <text>Which features might affect these molecules' relative boiling points? How will the mystery molecule compare to the others?</text>
+        <text>How will the unlabeled compound rank against the others? What factors will influence their boiling points?</text>
+    </prompt>
+    <prompt strategy="task" id="TASK_CHECK">
+        <text>With this new data, what do you think of your original prediction?</text>
+        <text>Does this new data confirm or challenge your initial prediction? How so?</text>
+        <text>How does this new data give hints about the molecules' relative boiling points? What do you think about your original prediction?</text>
+    </prompt>
+    <prompt strategy="task" id="TASK_EXPLAIN">
+        <text>&lt;-- Take some time to read this explanation, and discuss any lingering questions or new insights.</text>
+        <text>&lt;-- After reading this explanation, discuss any questions or thoughts it brings up.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TASK_FINISH">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FINAL_START">
+        <text>&lt;-- Here's the next puzzle...</text>
+        <text>&lt;-- Here's the next challenge...</text>
+        <text>&lt;-- Here's the next set...</text>
+    </prompt>
+    <prompt strategy="task" id="FINAL_PREDICT">
+        <text>What factors will affect these compounds' relative boiling points? What can you say about their other properties that might give you clues?</text>
+        <text>Which features might affect these molecules' relative boiling points? Which will have the highest and lowest boiling points?</text>
+        <text>How will these compounds compare in terms of boiling point? What other factors will influence their boiling points?</text>
+    </prompt>
+    <prompt strategy="task" id="FINAL_CHECK">
+        <text>With this new data, what do you think of your original prediction?</text>
+        <text>Does this new data confirm or challenge your initial predictions? How so?</text>
+        <text>How does this new data shed light on the molecules' relative boiling points, and on your prediction?</text>
+    </prompt>
+    <prompt strategy="task" id="FINAL_EXPLAIN">
+        <text>&lt;-- Take some time to read the explanation, and discuss any lingering questions or new insights it reveals.</text>
+        <text>&lt;-- Here's a bit of explanation. Discuss any questions or thoughts it brings up.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FINAL_FINISH">
+        <text>...</text>
+    </prompt>
+    <prompt strategy="task" id="ACTIVITY_FINISH">
+        <text>Thanks for working this out, team. Be sure to hand in your worksheet to the lab proctors, and don't forget to complete the post-test!</text>
+    </prompt>
+</prompts>

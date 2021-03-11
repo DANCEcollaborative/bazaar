@@ -1,0 +1,39 @@
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, null]</entry>
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2021-01-11#17:12:32" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2021-01-11#17:12:33" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-01-11#17:12:33" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-01-11#17:12:34" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger</entry>
+<entry timestamp="2021-01-11#17:12:34" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger agree</entry>
+<entry timestamp="2021-01-11#17:12:35" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2021-01-11#17:12:35" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-01-11#17:12:36" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-01-11#17:12:37" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2021-01-11#17:12:37" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="NORMAL">setting basilica2.agents.room_name to jeop1112</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="NORMAL"><launching room=jeop1112/></entry>
+<entry timestamp="2021-01-11#17:12:41" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-01-11#17:12:41" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-01-11#17:12:41" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-01-11#17:12:41" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-01-11#17:12:41" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-01-11#17:12:41" user="AgentFactory" level="NORMAL">Agent build. JeopardyAgent_jeop1112</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="NORMAL">Adding agent JeopardyAgent_jeop1112</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-01-11#17:12:41" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for JeopardyAgent_jeop1112</entry>
+<entry timestamp="2021-01-11#17:12:41" user="NewAgentRunner" level="NORMAL">Agent added JeopardyAgent_jeop1112</entry>
+<entry timestamp="2021-01-11#17:12:48" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-01-11#17:12:48" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-01-11#17:12:48" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-01-11#17:12:48" user="Step" level="NORMAL">starting 25 second timeout for GREET</entry>
+<entry timestamp="2021-01-11#17:12:48" user="Step" level="NORMAL">Handlers for GREET(greet): [basilica2.agents.listeners.plan.GreetStepHandler@1d84191]</entry>
+<entry timestamp="2021-01-11#17:12:48" user="GreetStepHandler" level="NORMAL">starting greet step...</entry>
+<entry timestamp="2021-01-11#17:12:49" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-01-11#17:12:49" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: INTRODUCE_1 INTRODUCE</entry>

@@ -1,0 +1,29 @@
+2020-12-21,11:40:28,0,JeopardyAgent,1608568830488,"Hi, [NAME].",GREET
+2020-12-21,11:40:38,0,Poppy,1608568838609,hi,
+2020-12-21,11:40:39,0,JeopardyAgent,1608568840528,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2020-12-21,11:40:44,0,Poppy,1608568844797,I'm kimmmmy,GIVING_NAME
+2020-12-21,11:40:44,0,JeopardyAgent,1608568846548,"Nice to meet you, Kimmmmy.",GREET
+2020-12-21,11:40:51,0,Meredith,1608568852063,i'm blarf,GIVING_NAME
+2020-12-21,11:40:52,0,JeopardyAgent,1608568852565,"Hi, Blarf.",GREET
+2020-12-21,11:41:04,0,JeopardyAgent,1608568866624,Okay! We'll be discussing factors affecting weather.,GIVE_UP_ON_INTRODUCTIONS
+2020-12-21,11:41:17,0,JeopardyAgent,1608568878663,"I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure.",WEATHER_TOPIC_SPECIFICS
+2020-12-21,11:41:26,0,Meredith,1608568886257,low pressure and wind,LOW-PRESSURE_WIND+POSITIVITY
+2020-12-21,11:41:28,0,JeopardyAgent,1608568890700,:-),SMILE+SOCIAL
+2020-12-21,11:41:26,0,JeopardyAgent,1608568896724,"
+               Would you like to answer some questions related to low pressure and wind direction ?
+        ",TUTOR
+2020-12-21,11:41:37,0,JeopardyAgent,1608568898731,"
+               Would you like to answer some questions related to low pressure and precipitation ?
+        ",TUTOR
+2020-12-21,11:41:41,0,Meredith,1608568901301,yeah,AFFIRMATIVE
+2020-12-21,11:41:41,0,Meredith,1608568901966,no,CHALLENGE_CONTRIBUTION+NEGATIVE
+2020-12-21,11:41:41,0,JeopardyAgent,1608568902746,Let's get started.,TUTOR
+2020-12-21,11:41:41,0,JeopardyAgent,1608568904752,We can talk about low pressure and precipitation in a little more detail.,TUTOR
+2020-12-21,11:41:41,0,JeopardyAgent,1608568909757,Can you explain why the chance of precipitation is most likely higher at a low pressure center?,TUTOR
+2020-12-21,11:42:41,0,JeopardyAgent,1608568962900,It sounds like you could use some help.,TUTOR
+2020-12-21,11:42:41,0,JeopardyAgent,1608568967902,"Sorry, I didn't understand you. In a low pressure center, the air is pushed upwards. Why do you think the chance of precipitation is higher at a low pressure center?",TUTOR
+2020-12-21,11:43:41,0,JeopardyAgent,1608569023053,"Let me help you out. In a low pressure center, the air is pushed upwards and condenses, so there is more moisture and clouds. This increases the chance of precipitation.",TUTOR
+2020-12-21,11:43:41,0,JeopardyAgent,1608569028058,Please feel free to continue discussing among yourselves.,TUTOR
+2020-12-21,11:44:03,0,JeopardyAgent,1608569045103,Also discuss among yourselves where all of you would expect to find the lowest atmospheric pressure over the area of the map on right of your screen.,DISCUSS_LOWEST_PRESSURE
+2020-12-21,11:44:21,0,JeopardyAgent,1608569063155,"Continue discussing relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts, and related to low or high pressure.",CONTINUE_WEATHER_TOPICS
+2020-12-21,11:46:41,0,JeopardyAgent,1608569201576,Team -- I need to see more contributions from all of you!,SOCIAL+ENCOURAGE_GROUP

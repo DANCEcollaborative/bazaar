@@ -1,0 +1,27 @@
+2021-01-15,11:24:42,0,JeopardyAgent,1610727882791,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2021-01-15,11:24:46,0,Meredith,1610727886215,i'm meredith,GIVING_NAME
+2021-01-15,11:24:46,0,JeopardyAgent,1610727886816,"Howdy, Meredith!",GREET
+2021-01-15,11:25:12,0,JeopardyAgent,1610727912902,"In this game, you will be prompted with a clue that represents an answer. Your job is to give the corresponding question! For example, upon picking a category and point value, you will receive something like this: ""This university is the largest fully-online nonprofit university in the country.""",INSTRUCTIONS
+2021-01-15,11:25:12,0,JeopardyAgent,1610727917907,"Then... You will answer with the question! In this case, it should be: ""What is WGU?"", or you may simply type: ""WGU"". Please alternate turns to give everyone an equal chance to play. We will do 8 questions in total!",INSTRUCTIONS
+2021-01-15,11:25:42,0,JeopardyAgent,1610727942974,Okay! Let's begin.,GIVE_UP_ON_INTRODUCTIONS
+2021-01-15,11:25:58,0,JeopardyAgent,1610727959022,"Please pick a category using the format: category + value. For example, type: ""Sage the Owl for 100.""",JEOPARDY_CATEGORY
+2021-01-15,11:26:21,0,Meredith,1610727981366,sage the owl for 100,SAGE_OWL_100
+2021-01-15,11:26:21,0,JeopardyAgent,1610727983090,"
+               Sage the Owl for 100?
+        ",TUTOR
+2021-01-15,11:26:23,0,Meredith,1610727983963,yes,AFFIRMATIVE
+2021-01-15,11:26:23,0,JeopardyAgent,1610727985097,Here we go...,TUTOR
+2021-01-15,11:26:23,0,JeopardyAgent,1610727987107,"Sage sleeps during the day and is up studying all night, which means that he is this 9-letter adjective for a night owl, along with bats, hamsters, and many other animals.",TUTOR
+2021-01-15,11:26:30,0,Meredith,1610727990259,nocturnal,NEGATIVE
+2021-01-15,11:26:34,0,JeopardyAgent,1610727995136,Nocturnal is correct!!,TUTOR
+2021-01-15,11:26:34,0,JeopardyAgent,1610728000140,Please choose another question to answer.,TUTOR
+2021-01-15,11:26:49,0,Meredith,1610728009826,eng comp for 200,ENG_COMP_200
+2021-01-15,11:26:49,0,JeopardyAgent,1610728011159,"
+               English Composition for 200?
+        ",TUTOR
+2021-01-15,11:26:52,0,Meredith,1610728012100,yes,AFFIRMATIVE
+2021-01-15,11:26:52,0,JeopardyAgent,1610728013165,Here we go...,TUTOR
+2021-01-15,11:26:52,0,JeopardyAgent,1610728015174,This is one of the required essays for this course and involves telling a personal story from your life.,TUTOR
+2021-01-15,11:26:59,0,Meredith,1610728019222,personal narrative,NEGATIVE
+2021-01-15,11:27:02,0,JeopardyAgent,1610728023198,Personal narrative is correct!,TUTOR
+2021-01-15,11:27:02,0,JeopardyAgent,1610728028204,Please choose another question to answer.,TUTOR

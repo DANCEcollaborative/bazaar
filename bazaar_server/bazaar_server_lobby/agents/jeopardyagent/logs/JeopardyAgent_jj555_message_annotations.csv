@@ -1,0 +1,32 @@
+2021-01-14,09:28:44,0,JeopardyAgent,1610634525759,Hello! I'm JeopardyAgent. Take a minute to introduce yourselves.,INTRODUCE
+2021-01-14,09:28:48,0,Meredith,1610634528969,i'm Mere,GIVING_NAME
+2021-01-14,09:28:48,0,JeopardyAgent,1610634529788,"Hi, Mere.",GREET
+2021-01-14,09:28:52,0,Meredith,1610634532814,hi,
+2021-01-14,09:29:09,0,JeopardyAgent,1610634549842,Okay! Let's begin. We'll be playing Jeopardy.,GIVE_UP_ON_INTRODUCTIONS
+2021-01-14,09:29:21,0,JeopardyAgent,1610634561874,"In this game, you will be prompted with a clue that represents an answer. Your job is to give the corresponding question!",INSTRUCTIONS
+2021-01-14,09:29:21,0,JeopardyAgent,1610634566881,"For example, upon picking a category and point value, you will receive something like this:",INSTRUCTIONS
+2021-01-14,09:29:21,0,JeopardyAgent,1610634571888,"""This university is the largest fully-online nonprofit university in the country.""",INSTRUCTIONS
+2021-01-14,09:29:21,0,JeopardyAgent,1610634576890,"Then... You will answer with the question! In this case, it should be: ""What is WGU?""",INSTRUCTIONS
+2021-01-14,09:29:50,0,JeopardyAgent,1610634591930,Please pick a category. Format = category + value.,JEOPARDY_CATEGORY
+2021-01-14,09:30:33,0,Meredith,1610634633418,english composition for 100,ENG_COMP_100
+2021-01-14,09:30:33,0,JeopardyAgent,1610634634040,"
+               English Composition for 100?
+        ",TUTOR
+2021-01-14,09:30:34,0,Meredith,1610634634990,yes,AFFIRMATIVE
+2021-01-14,09:30:34,0,JeopardyAgent,1610634636051,Meredith,TUTOR
+2021-01-14,09:30:34,0,JeopardyAgent,1610634638056,100,TUTOR
+2021-01-14,09:30:34,0,JeopardyAgent,1610634640063,Here we go...,TUTOR
+2021-01-14,09:30:35,0,JeopardyAgent,1610634642072,This word represents a form of cheating that involves copying someone else's work.,TUTOR
+2021-01-14,09:30:46,0,Meredith,1610634646785,what is plagiarism?,HELP_REQUEST+QUESTION
+2021-01-14,09:30:50,0,JeopardyAgent,1610634652100,"Plagiarism is correct. For more information about plagiarism, visit: https://www.plagiarism.org/article/what-is-plagiarism",TUTOR
+2021-01-14,09:30:50,0,JeopardyAgent,1610634657103,Please choose another question to answer.,TUTOR
+2021-01-14,09:30:48,0,JeopardyAgent,1610634664111,You're all in this together… help each other!,REASSURE+SOCIAL
+2021-01-14,09:31:10,0,Meredith,1610634670896,english composition for 200,ENG_COMP_200
+2021-01-14,09:31:10,0,JeopardyAgent,1610634672139,"
+               English Composition for 200?
+        ",TUTOR
+2021-01-14,09:31:14,0,Meredith,1610634674515,no,CHALLENGE_CONTRIBUTION+NEGATIVE
+2021-01-14,09:31:14,0,JeopardyAgent,1610634676149,Okay - pick another topic please.,TUTOR
+2021-01-14,09:31:20,0,Meredith,1610634680535,english composition for 100,ENG_COMP_100
+2021-01-14,09:31:20,0,JeopardyAgent,1610634682171,Oops! This question has already been answered. Try again!,TUTOR
+2021-01-14,09:34:51,0,JeopardyAgent,1610634892869,...is anyone working?,SOCIAL+ENCOURAGE_GROUP

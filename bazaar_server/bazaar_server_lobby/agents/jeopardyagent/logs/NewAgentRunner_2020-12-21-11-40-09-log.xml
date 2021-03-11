@@ -1,0 +1,109 @@
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.Register</entry>
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, null]</entry>
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2020-12-21#11:40:09" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.accountable.listeners.AgreeDisagreeActor, class basilica2.accountable.listeners.AskForExplanationActor, class basilica2.accountable.listeners.RevoiceActor, class basilica2.accountable.listeners.SayMoreActor, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.tutor.listeners.TutorActor, null]</entry>
+<entry timestamp="2020-12-21#11:40:10" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2020-12-21#11:40:10" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2020-12-21#11:40:11" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger</entry>
+<entry timestamp="2020-12-21#11:40:11" user="ConditionAgentUI" level="NORMAL">Conditions set to tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:40:11" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:40:12" user="ConditionAgentUI" level="NORMAL">Conditions set to say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:40:13" user="ConditionAgentUI" level="NORMAL">Conditions set to explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:40:13" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree</entry>
+<entry timestamp="2020-12-21#11:40:14" user="ConditionAgentUI" level="NORMAL">Conditions set to participation explain say_more social tutorial_trigger agree revoice</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="NORMAL">setting basilica2.agents.room_name to jeppy2</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="NORMAL"><launching room=jeppy2/></entry>
+<entry timestamp="2020-12-21#11:40:16" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2020-12-21#11:40:16" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2020-12-21#11:40:16" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2020-12-21#11:40:16" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2020-12-21#11:40:16" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2020-12-21#11:40:16" user="AgentFactory" level="NORMAL">Agent build. JeopardyAgent_jeppy2</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="NORMAL">Adding agent JeopardyAgent_jeppy2</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2020-12-21#11:40:16" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for JeopardyAgent_jeppy2</entry>
+<entry timestamp="2020-12-21#11:40:16" user="NewAgentRunner" level="NORMAL">Agent added JeopardyAgent_jeppy2</entry>
+<entry timestamp="2020-12-21#11:40:21" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:40:21" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2020-12-21#11:40:28" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#11:40:28" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2020-12-21#11:40:28" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2020-12-21#11:40:28" user="Step" level="NORMAL">Handlers for GREET(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@a1b974f]</entry>
+<entry timestamp="2020-12-21#11:40:28" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#11:40:28" user="PromptStepHandler" level="NORMAL">starting 0.7 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:40:29" user="PromptStepHandler" level="NORMAL">ending 0.7 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:40:29" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GREET</entry>
+<entry timestamp="2020-12-21#11:40:29" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#11:40:30" user="" level="NORMAL">accepted. Message from JeopardyAgent: Hi, [NAME]. GREET.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:40:39" user="PlanExecutor" level="NORMAL">PLAN: current step done: GREET</entry>
+<entry timestamp="2020-12-21#11:40:39" user="Step" level="NORMAL">starting 25 second timeout for GREETINGS</entry>
+<entry timestamp="2020-12-21#11:40:39" user="Step" level="NORMAL">Handlers for GREETINGS(greet): [basilica2.agents.listeners.plan.GreetStepHandler@391ed682]</entry>
+<entry timestamp="2020-12-21#11:40:39" user="GreetStepHandler" level="NORMAL">starting greet step...</entry>
+<entry timestamp="2020-12-21#11:40:40" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Hello! I'm JeopardyAgent. Take a minute to introduce yourselves. INTRODUCE</entry>
+<entry timestamp="2020-12-21#11:40:46" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Nice to meet you, Kimmmmy. GREET</entry>
+<entry timestamp="2020-12-21#11:40:52" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Hi, Blarf. GREET</entry>
+<entry timestamp="2020-12-21#11:41:04" user="EndStepOnStopListeningDelegate" level="NORMAL">ending step GREETINGS...</entry>
+<entry timestamp="2020-12-21#11:41:04" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GREETINGS</entry>
+<entry timestamp="2020-12-21#11:41:04" user="PlanExecutor" level="NORMAL">PLAN: current step done: GREETINGS</entry>
+<entry timestamp="2020-12-21#11:41:04" user="Step" level="NORMAL">Handlers for GIVE_UP_ON_INTRODUCTIONS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@a1b974f]</entry>
+<entry timestamp="2020-12-21#11:41:04" user="PromptStepHandler" level="NORMAL">starting 2.2 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:41:06" user="" level="NORMAL">accepted. Message from JeopardyAgent: Okay! We'll be discussing factors affecting weather. GIVE_UP_ON_INTRODUCTIONS.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:41:06" user="PromptStepHandler" level="NORMAL">ending 2.2 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:41:06" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:41:14" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key GREETINGS</entry>
+<entry timestamp="2020-12-21#11:41:17" user="PlanExecutor" level="NORMAL">PLAN: current step done: GIVE_UP_ON_INTRODUCTIONS</entry>
+<entry timestamp="2020-12-21#11:41:17" user="Step" level="NORMAL">Handlers for WEATHER_TOPIC_SPECIFICS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@a1b974f]</entry>
+<entry timestamp="2020-12-21#11:41:17" user="PromptStepHandler" level="NORMAL">starting 10.899999999999999 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:41:18" user="" level="NORMAL">accepted. Message from JeopardyAgent: I can help you discuss relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts. Or how they are related to low or high pressure. WEATHER_TOPIC_SPECIFICS.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:41:27" user="PromptStepHandler" level="NORMAL">ending 10.899999999999999 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:41:27" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#11:41:30" user="" level="NORMAL">accepted. Message from JeopardyAgent: :-) SMILE+SOCIAL.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:41:36" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               Would you like to answer some questions related to low pressure and wind direction ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:41:37" user="PlanExecutor" level="NORMAL">PLAN: current step done: WEATHER_TOPIC_SPECIFICS</entry>
+<entry timestamp="2020-12-21#11:41:37" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>
+<entry timestamp="2020-12-21#11:41:37" user="PlanExecutor" level="NORMAL">Firing Stage 'body'</entry>
+<entry timestamp="2020-12-21#11:41:37" user="Step" level="NORMAL">Handlers for LP_PRECIPITATION(dialogue): [basilica2.tutor.listeners.DialogStepHandler@671dab58]</entry>
+<entry timestamp="2020-12-21#11:41:38" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: 
+               Would you like to answer some questions related to low pressure and precipitation ?
+         TUTOR</entry>
+<entry timestamp="2020-12-21#11:41:42" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Let's get started. TUTOR</entry>
+<entry timestamp="2020-12-21#11:41:44" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: We can talk about low pressure and precipitation in a little more detail.|Can you explain why the chance of precipitation is most likely higher at a low pressure center? TUTOR</entry>
+<entry timestamp="2020-12-21#11:42:42" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: It sounds like you could use some help.|Sorry, I didn't understand you. In a low pressure center, the air is pushed upwards. Why do you think the chance of precipitation is higher at a low pressure center? TUTOR</entry>
+<entry timestamp="2020-12-21#11:43:43" user="" level="NORMAL">ACCEPTED! Message from JeopardyAgent: Let me help you out. In a low pressure center, the air is pushed upwards and condenses, so there is more moisture and clouds. This increases the chance of precipitation.|Please feel free to continue discussing among yourselves. TUTOR</entry>
+<entry timestamp="2020-12-21#11:43:43" user="PlanExecutor" level="NORMAL">starting 15 second delay timer for LP_PRECIPITATION</entry>
+<entry timestamp="2020-12-21#11:43:58" user="PlanExecutor" level="NORMAL">PLAN: current step done: LP_PRECIPITATION</entry>
+<entry timestamp="2020-12-21#11:43:58" user="Step" level="NORMAL">Handlers for SHOW_IMAGE(whiteboard): [basilica2.agents.listeners.plan.WhiteboardStepHandler@7697e365]</entry>
+<entry timestamp="2020-12-21#11:43:58" user="WhiteboardStepHandler" level="NORMAL">whiteboard step image:SHOW_IMAGE</entry>
+<entry timestamp="2020-12-21#11:43:58" user="PlanExecutor" level="NORMAL">starting 5 second delay timer for SHOW_IMAGE</entry>
+<entry timestamp="2020-12-21#11:43:59" user="" level="NORMAL">ACCEPTED! CREATE whiteboard-image http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif</entry>
+<entry timestamp="2020-12-21#11:44:03" user="PlanExecutor" level="NORMAL">PLAN: current step done: SHOW_IMAGE</entry>
+<entry timestamp="2020-12-21#11:44:03" user="Step" level="NORMAL">Handlers for DISCUSS_LOWEST_PRESSURE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@a1b974f]</entry>
+<entry timestamp="2020-12-21#11:44:03" user="PromptStepHandler" level="NORMAL">starting 8.2 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:44:05" user="" level="NORMAL">accepted. Message from JeopardyAgent: Also discuss among yourselves where all of you would expect to find the lowest atmospheric pressure over the area of the map on right of your screen. DISCUSS_LOWEST_PRESSURE.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:44:11" user="PromptStepHandler" level="NORMAL">ending 8.2 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:44:11" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for DISCUSS_LOWEST_PRESSURE</entry>
+<entry timestamp="2020-12-21#11:44:21" user="PlanExecutor" level="NORMAL">PLAN: current step done: DISCUSS_LOWEST_PRESSURE</entry>
+<entry timestamp="2020-12-21#11:44:21" user="Step" level="NORMAL">Handlers for CONTNUE_WEATHER_TOPICS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@a1b974f]</entry>
+<entry timestamp="2020-12-21#11:44:21" user="PromptStepHandler" level="NORMAL">starting 9.1 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:44:23" user="" level="NORMAL">accepted. Message from JeopardyAgent: Continue discussing relations between pairs of weather factors, such as how temperature, precipitation, and wind direction are related to warm or cold fronts, and related to low or high pressure. CONTINUE_WEATHER_TOPICS.
+Starting blockout countdown... </entry>
+<entry timestamp="2020-12-21#11:44:30" user="PromptStepHandler" level="NORMAL">ending 9.1 second prompt delay</entry>
+<entry timestamp="2020-12-21#11:44:30" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for CONTNUE_WEATHER_TOPICS</entry>
+<entry timestamp="2020-12-21#11:44:40" user="PlanExecutor" level="NORMAL">PLAN: current step done: CONTNUE_WEATHER_TOPICS</entry>
+<entry timestamp="2020-12-21#11:44:40" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage body</entry>
+<entry timestamp="2020-12-21#11:46:04" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2020-12-21#11:46:41" user="" level="NORMAL">accepted. Message from JeopardyAgent: Team -- I need to see more contributions from all of you! SOCIAL+ENCOURAGE_GROUP.
+Starting blockout countdown... </entry>
