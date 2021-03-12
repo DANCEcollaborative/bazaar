@@ -320,6 +320,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	}
 	
     if (isBlank(username)) {
+    	console.log("isBlank(username) is true; username = " + username);
 	    origin = socket.handshake.address
 	    username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
 	}
@@ -1149,6 +1150,7 @@ function translateDCSSAuthToBazaar(auth) {
       }
     }    
   */  
+   console.log("In Translate..., auth = " + auth);
 
   return {
     clientID: auth.agent.configuration.clientID,
