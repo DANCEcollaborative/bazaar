@@ -1422,7 +1422,7 @@ io.sockets.on('connection', async (socket) => {
 		console.log("Enter socket.on_request"); 	
 		console.log("socket.username: " + socket.username);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data);
+		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data.value);
 		console.log("Exit socket.on_request"); 
 	})
 	
