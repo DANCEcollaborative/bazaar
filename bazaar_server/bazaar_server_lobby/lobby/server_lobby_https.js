@@ -1288,8 +1288,8 @@ io.sockets.on('connection', async (socket) => {
 
 	console.log("info", "socket.on_connection: -- start");
 
-	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
+	// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
+	// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
 
  	if (isDCSSConnection(socket.handshake.auth)) {
 
@@ -1391,7 +1391,7 @@ io.sockets.on('connection', async (socket) => {
 		
 		if (socket.username == "DCSSLightSideAgent") {
 			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
-			io.sockets.in(socket.room).emit('interjection', socket.username, { message: data }); 
+			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
 			console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
