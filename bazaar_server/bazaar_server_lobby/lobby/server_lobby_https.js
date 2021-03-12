@@ -1316,15 +1316,12 @@ io.sockets.on('connection', async (socket) => {
 		// socket.roomid = agent + roomName;
 		// console.log("socket.roomid = " + socket.roomid);
 				
-		socket.join(token);  				// DCSS wants this	
-		// socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
+		// socket.join(token);  				// DCSS wants this	
 		// console.log("socket rooms: " + socket.rooms);
 				
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
-		// socket.roomid = roomid; 
-		// socket.room = roomid; 
 		socket.userID = userID;  
 		room = agent + roomName; 
 		console.log("room: " + room);    						
