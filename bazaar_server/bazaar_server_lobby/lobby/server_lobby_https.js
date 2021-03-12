@@ -320,6 +320,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	}
 	
     if (isBlank(username)) {
+    	console.log("isBlank(username) is true; username = " + username);
 	    origin = socket.handshake.address
 	    username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
 	}
@@ -1149,6 +1150,7 @@ function translateDCSSAuthToBazaar(auth) {
       }
     }    
   */  
+   console.log("In Translate..., auth = " + auth);
 
   return {
     clientID: auth.agent.configuration.clientID,
@@ -1288,8 +1290,8 @@ io.sockets.on('connection', async (socket) => {
 
 	console.log("info", "socket.on_connection: -- start");
 
-	console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
+	// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
+	// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
 
  	if (isDCSSConnection(socket.handshake.auth)) {
 
@@ -1314,15 +1316,12 @@ io.sockets.on('connection', async (socket) => {
 		// socket.roomid = agent + roomName;
 		// console.log("socket.roomid = " + socket.roomid);
 				
-		socket.join(token);  				// DCSS wants this	
-		// socket.join(socket.roomid); 		// this is the room that Bazaar will also join 
+		// socket.join(token);  				// DCSS wants this	
 		// console.log("socket rooms: " + socket.rooms);
 				
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
-		// socket.roomid = roomid; 
-		// socket.room = roomid; 
 		socket.userID = userID;  
 		room = agent + roomName; 
 		console.log("room: " + room);    						
@@ -1391,7 +1390,7 @@ io.sockets.on('connection', async (socket) => {
 		
 		if (socket.username == "DCSSLightSideAgent") {
 			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
-			io.sockets.in(socket.room).emit('interjection', socket.username, data); 
+			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
 			console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
@@ -1422,7 +1421,7 @@ io.sockets.on('connection', async (socket) => {
 		console.log("Enter socket.on_request"); 	
 		console.log("socket.username: " + socket.username);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data);
+		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data.value);
 		console.log("Exit socket.on_request"); 
 	})
 	
