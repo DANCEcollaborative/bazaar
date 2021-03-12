@@ -1391,7 +1391,7 @@ io.sockets.on('connection', async (socket) => {
 		
 		if (socket.username == "DCSSLightSideAgent") {
 			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
-			io.sockets.in(socket.room).emit('interjection', socket.username, data); 
+			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
 			console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
