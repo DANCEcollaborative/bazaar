@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <prompts>
     
     <prompt strategy="task" id="GREET">
@@ -33,7 +34,7 @@
     </prompt>
     
     <prompt strategy="task" id="JEOPARDY_CATEGORY">
-        <text>Please pick a category using the format: category + value. For example, type: "English Composition for 100."</text>
+        <text>Please pick a category using the format: category + value. For example, type: "English Composition for 100." Your time for this activity starts now!</text>
     </prompt>
     
     <prompt strategy="task" id="CONTINUE_JEOPARDY_CATEGORIES">
@@ -42,6 +43,15 @@
     
     <prompt strategy="task" id="SETUP">
         <text>You're on your own.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="LINKTEST">
+        <text>You can still receive payment by going to this <a href=\"https://www.google.com\">link</a> and entering your email address</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="JEOPARDY_WINNER">
+        <text>That's all we have time for! Please share something you learned during this game inspired by Jeopardy! :)</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
@@ -73,16 +83,30 @@
 </text>
     </prompt>
     
+    
+    
+    <prompt strategy="task" id="LINK">
+		<text>https://forms.gle/LoH4qHHTG2paKWeA8</text>
+    </prompt>
+    
     <prompt strategy="task" id="TIME_MGMT_SHARE">
 		<text> Take a moment to share what your next assignment is in your English Composition class. </text>
     </prompt>
     
+    <prompt strategy="task" id="GOOGLE_FORM">
+		<text>IMPORTANT: Please copy and paste the following Google Forms link into a new window or tab and fill out the form to mark your attendance for this activity. </text>
+    </prompt>
+    
     <prompt strategy="task" id="SMARTER_GOALS">
-		<text> Now, take turns sharing SMARTER goals for completing your next assignment. Make sure they follow the acronym of Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward! </text>
+		<text> Now, take 3 minutes to take turns sharing SMARTER goals for completing your next assignment. Make sure they follow the acronym of Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward! If you are not sure if your goals follow the SMARTER template, ask your partner! </text>
+    </prompt>
+    
+        <prompt strategy="task" id="SMARTER_GOALS_CONT">
+		<text> Take a few minutes to assess each other's goals. Do each of the goals follow the SMARTER steps? How can your goals be improved? How can you help each other with your goals? </text>
     </prompt>
     
     <prompt strategy="task" id="SOCIAL">
-        <text>If you'd like, please share your email address, social media, or phone number with each other to keep in contact after this activity. Your personal information will not be used in any way outside of this conversation. Thank you for your participation! </text>
+        <text>If you'd like, please share your email address, social media, or phone number with each other to keep in contact after this activity. Your personal information will not be used in any way outside of this conversation. </text>
     </prompt>
     
     <prompt strategy="task" id="PIE_INTRO">
