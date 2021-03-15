@@ -96,7 +96,7 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
 - Running
   - A chat room startup window will be displayed.
      - Select the agent’s behavior conditions.
-     - For “Room Name,” use a unique 5-digit number. 
+     - For “Room Name,” use a unique 5-digit number.
      - Press ’Start Agent’
   - To join the chat room: In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names. http://bazaar.lti.cs.cmu.edu/chat/ROOM/1/STUDENT/1/?html=index_ccc
      - For ROOM, use the Room Name you selected in the chat room window.
@@ -223,7 +223,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
 
 - Create a LightSide model. Download from http://ankara.lti.cs.cmu.edu/side/. Select the "Cutting Edge" version. A LightSide manual and installation instructions are included in the download. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
 
-- Configure Bazaar. A worked example is provided as agent 'MTurkLightSideLegacyAgent' - file names below are specified relative to that agent.
+- Configure Bazaar. A worked example is provided as agent 'MTurkLightSideAgent' - file names below are specified relative to that agent.
    - Agent classpath: Add
       - LightSideMessageAnnotator
       - lightside
