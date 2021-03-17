@@ -16,6 +16,6 @@ RUN cd lobby && npm install && cd ..
 EXPOSE 443 444
 
 # ENV DEBUG=*
-ENV DEBUG=socket.io*
+# ENV DEBUG=socket.io*
 
 CMD ["sh","-c","while ! nc -z nodechat 3306; do echo sleeping; sleep 1; done; bash ./runLobby"]

@@ -63,14 +63,14 @@ const generateXML = function(lis_result_sourcedid , curScore){
 }
 
 function sleep(milliseconds) {
-  console.log("sleep start");
+//console.log("sleep start");
   const start = new Date().getTime();
   while (1) {
     if ((new Date().getTime() - start) > milliseconds){
       break;
     }
   }
-  console.log("sleep over");
+//console.log("sleep over");
 }
 
 const generateRequest = function(Url,lis_result_sourcedid,curScore){
@@ -94,7 +94,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/room_status_all', async (req, res) => {
-    console.log("app.get('/room_status_all')");
+  //console.log("app.get('/room_status_all')");
   const query = 'SELECT name from nodechat.room where name like "normaldist%"';
   // console.log(query);
   try {
@@ -103,14 +103,14 @@ app.get('/room_status_all', async (req, res) => {
     for (var i = 0; i < rows.length; i++) num_list += "<p>" + rows[i].name + "</p>";
     res.send("<body>" + num_list + "</body>");
   } catch (err) {
-    console.log(err);
+  //console.log(err);
     res.send(500, "<body><h2>Error</h2><p>Couldn't fetch data</p></body>");
   }
 
 });
 
 app.get('/room_status*', async (req, res) => {
-    console.log("app.get('/room_status*')");
+  //console.log("app.get('/room_status*')");
   const query = 'SELECT name from nodechat.room where name like "normaldist%"';
   // console.log(query);
   try {
@@ -119,21 +119,21 @@ app.get('/room_status*', async (req, res) => {
     for (var i = 0; i < rows.length; i++) num_list += "<p>" + rows[i].name + "</p>";
     res.send("<body>" + num_list + "</body>");
   } catch (err) {
-    console.log(err);
+  //console.log(err);
     res.send(500, "<body><h2>Error</h2><p>Couldn't fetch data</p></body>");
   }
 
 });
 
 app.get('/welcome*', async (req, res) => {
-    console.log("Welcome");
+  //console.log("Welcome");
     res.sendFile(__dirname + ath.join(__dirname, './html_pages/' + '/welcome.html'));
 });
 
 
 // May call setTeam_ to launch an agent 
 app.get('/login*', async (req, res) => {
-  console.log("Enter app.get /login");
+//console.log("Enter app.get /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -145,20 +145,20 @@ app.get('/login*', async (req, res) => {
   try {
     await promisePool.query(query);
   } catch (err) {
-    console.log("error from db room insert " + err);
+  //console.log("error from db room insert " + err);
   }
 
   if (1) {        								// if(1) is always true? 
     teamNumber = req.query.roomId;
     setTeam_(teamNumber, req, logger, res);
   }
-  console.log("Exit app.get /login");
+//console.log("Exit app.get /login");
 });
 
 
 // May launch an agent directly -- IS THIS USED? 
 app.post('/login*', async (req, res) => {
-  console.log("Enter app.post /login");
+//console.log("Enter app.post /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -195,7 +195,7 @@ app.post('/login*', async (req, res) => {
           throw new Error("Couldn't update count for room " + req.query.roomName);
         }
         numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
-        console.log("exec ../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"');
+      //console.log("exec ../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"');
         exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
         sleep(5000);
         setTeam(teamNumber, req, logger, res);
@@ -205,10 +205,10 @@ app.post('/login*', async (req, res) => {
       // console.log("successful");
     }
   } catch (err) {
-    console.log(err);
+  //console.log(err);
     res.send(500, header_stuff + "<body><h2>Error</h2><p>" + err.message + "':</p><pre>" + err + "</pre></body>");
   }
-  console.log("Exit app.post /login");
+//console.log("Exit app.post /login");
 
 });
 
@@ -220,7 +220,7 @@ function createWorker() {
 const worker = createWorker();
 
 const agentLaunch = async (roomName, teamNumber) => {
-  console.log("agentLaunch: Launching agent -- roomName = " + roomName + "  -- teamNumber = " + teamNumber);
+//console.log("agentLaunch: Launching agent -- roomName = " + roomName + "  -- teamNumber = " + teamNumber);
   worker.postMessage({
     roomName: roomName,
     teamNumber: teamNumber
@@ -229,11 +229,11 @@ const agentLaunch = async (roomName, teamNumber) => {
 
 
 function setTeam_(teamNumber,req,logger,res) {
-    console.log("Enter setTeam_");
+  //console.log("Enter setTeam_");
 	if( (!(req.query.roomName + teamNumber in numUsers)) )
 	{
 			numUsers[req.query.roomName + teamNumber] = 0;
-			console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + teamNumber + ")");
+		//console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + teamNumber + ")");
 			agentLaunch(req.query.roomName, teamNumber);
 	}
 	//teamNumber = req.query.roomId;
@@ -244,7 +244,7 @@ function setTeam_(teamNumber,req,logger,res) {
 	const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
 														 req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
 
-	console.log("setTeam_, url: " + url);
+//console.log("setTeam_, url: " + url);
 	res.writeHead(301,{Location: url});
 	res.end();
 
@@ -253,16 +253,16 @@ function setTeam_(teamNumber,req,logger,res) {
 
 	//Replace accepts a value between 0 and 1.
    /* provider.outcome_service.send_replace_result(1, function(err, result){
-		console.log("Grade submitted: " + result) // True or false
+	//console.log("Grade submitted: " + result) // True or false
 	});*/
 
-    console.log("Exit setTeam_");
+  //console.log("Exit setTeam_");
 }
 
 
 function setTeam(teamNumber,req,provider,logger,res)
 {
-    console.log("Enter setTeam");
+  //console.log("Enter setTeam");
 	/*if( (!(req.query.roomName + pad(teamNumber, 2) in numUsers)) || numUsers[req.query.roomName + pad(teamNumber, 2)] <= 0)
 	{
 			numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
@@ -273,7 +273,7 @@ function setTeam(teamNumber,req,provider,logger,res)
 	if(req.query.html != undefined) html_page = req.query.html;
 	const roomname = req.query.roomName + pad(teamNumber, 2);
 	const url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
-	console.log("setTeam, url: " + url);
+//console.log("setTeam, url: " + url);
 
 	res.writeHead(301,{Location: url});
 	res.end();
@@ -281,19 +281,19 @@ function setTeam(teamNumber,req,provider,logger,res)
 	logger.log("info","Number of users : " + numUsers[roomname]);
 	logger.log("info","Team number : " + teamNumber);
 	logger.log("info","provider : " + provider.username);
-	console.log(provider);
+//console.log(provider);
 	//console.log(provider);
 	//Replace accepts a value between 0 and 1.
 	provider.outcome_service.send_replace_result(1, function(err, result){
-		console.log("Grade submitted: " + result) // True or false
+	//console.log("Grade submitted: " + result) // True or false
 	});
-    console.log("Exit setTeam");
+  //console.log("Exit setTeam");
         
 }
 
 
 function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
-    console.log("Enter setTeam_fromSocket");
+  //console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
@@ -301,12 +301,12 @@ function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
 	{
 			numUsers[roomNameAndNumber] = 0;
 			// console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
-			console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+		//console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
 			agentLaunch(roomName, teamNumber);
 	}
 	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
-    console.log("Exit setTeam_fromSocket");
+  //console.log("Exit setTeam_fromSocket");
 }
 
 
@@ -320,7 +320,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	}
 	
     if (isBlank(username)) {
-    	console.log("isBlank(username) is true; username = " + username);
+    //console.log("isBlank(username) is true; username = " + username);
 	    origin = socket.handshake.address
 	    username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
 	}
@@ -344,7 +344,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	user_perspectives[room][username] = perspective;
 
 	// Join room 
-	console.log("function addUser: Joining room " + room);
+//console.log("function addUser: Joining room " + room);
 	socket.join(room);
 	
 	// Add to user_sockets list  
@@ -366,12 +366,12 @@ function delay(ms) {
 
 app.get('/chat*', async (req, res) => {
 
-  console.log("Enter app.get /chat");
+//console.log("Enter app.get /chat");
   let html_page = 'index';
   if (req.query.html !== undefined) html_page = req.query.html;
 
   res.sendFile(path.join(__dirname, './html_pages/' + html_page + '.html'));
-  console.log("Exit app.get /chat");
+//console.log("Exit app.get /chat");
 });
 
 app.get('/discussionnew.css', async (req,res) => {
@@ -398,7 +398,7 @@ app.get('/data/*', async (req, res) => {
 
 
 app.get('*', async (req, res) => {
-   console.log("app.get(*): ");
+ //console.log("app.get(*): ");
 });
 
 
@@ -412,7 +412,7 @@ app.post('/',function(req, res) {
         isValidG = isValid;
     });
     if(isValidG){
-        console.log(provider.userId);
+      //console.log(provider.userId);
         // res.writeHead(301,{Location: 'http://erebor.lti.cs.cmu.edu:8007/team?userId='+provider.userId});
         res.end();
 
@@ -420,15 +420,15 @@ app.post('/',function(req, res) {
         const score = 0.5; //dummy grade
 
         if(score >=0 && score <=1){
-            console.log(provider);
+          //console.log(provider);
             outcome_url = provider.lis_outcome_service_url;
             //outcome_url = outcome_url.replace("https","http");
             outcome_url = outcome_url.replace("localhost",req.ip);
             result_sourcedid = provider.lis_result_sourcedid;
             //result_sourcedid = result_sourcedid.replace("https","http");
             result_sourcedid = result_sourcedid.replace("localhost",req.ip);
-            console.log("outcome_url is: "+outcome_url);
-            console.log("result source id is: "+result_sourcedid);
+          //console.log("outcome_url is: "+outcome_url);
+          //console.log("result source id is: "+result_sourcedid);
 
             //building OAuth
             const oauth = OAuth({
@@ -450,7 +450,7 @@ app.post('/',function(req, res) {
                 form: generateXML(result_sourcedid,score),
                 headers: oauth.toHeader( oauth.authorize( generateRequest(outcome_url, result_sourcedid, score),oauth_body_hash))
             },function(err,res){
-                console.log("res.body: "+res.body);
+              //console.log("res.body: "+res.body);
             });
         }
     }else{
@@ -508,7 +508,7 @@ function getUserInstructionText(nick, i, condition)
 }
 
 let conditionOffset = -1;
-let numTeams = 25;
+let numTeams = 50;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
@@ -700,7 +700,7 @@ const sessions = {};
 //when a user joins the lobby
 function createSession (nick,consent,reset) 
 {
-  winston.log('info',"server_lobby_https.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
+  // winston.log('info',"server_lobby_https.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
   if (nick.length > 50) return null;
    
   //rejects invalid nicknames
@@ -844,7 +844,7 @@ setInterval(function ()
                  //launch agent!
                 paddedTeamNumber = pad(teamNumber,2);
 
-				console.log("setInterval: about to 'exec' ../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"')
+			//console.log("setInterval: about to 'exec' ../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"')
                 exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
                 //break;
             }
@@ -875,7 +875,7 @@ setInterval(function ()
 	winston.log('info', "putting "+team.length+" new users on team "+teamNumber);
 	const theTeam = teams[teamNumber-1];
 	const condition = CONDITIONS[0];//condition];        
-	console.log("condition: "+condition);
+//console.log("condition: "+condition);
 
 	for(var i = 0; i < team.length; i++)
         {
@@ -1150,7 +1150,7 @@ function translateDCSSAuthToBazaar(auth) {
       }
     }    
   */  
-   console.log("In Translate..., auth = " + auth);
+ //console.log("In Translate..., auth = " + auth);
 
   return {
     clientID: auth.agent.configuration.clientID,
@@ -1174,7 +1174,7 @@ function exportCSV(room, res) {
 				+ 'where r.name=' + pool.escape(room) + ' order by timestamp', function (err, rows, fields) { 
 
 	if(err) {
-		 console.log(err);
+	//console.log(err);
 		 res.send(500, header_stuff+"<body><h2>Export Error</h2><p>Couldn't fetch data for room '"+room+"':</p><pre>"+err+"</pre></body>");
 	} else if(rows.length == 0) {
 			res.send(404, header_stuff+"<body><h2>Empty Room</h2><p>Couldn't fetch data for empty room '"+room+"'.</p></body>");
@@ -1190,7 +1190,7 @@ function exportCSV(room, res) {
 
 function loadHistory(socket, secret)
 {
-	console.log("Enter loadHistory");
+//console.log("Enter loadHistory");
     if(!socket.temporary) {
         //const connection = mysql.createConnection(mysql_auth);
         let id = null;
@@ -1212,7 +1212,7 @@ function loadHistory(socket, secret)
 					+ 'as m join nodechat.room as r on m.roomid=r.id '
 					+ 'where r.name=' + pool.escape(socket.room) + ' and not(m.type like "private") order by timestamp', function (err, rows, fields) {
 					if (err) 
-						console.log(err);						
+					//console.log(err);						
 					socket.emit('dump_history', rows);
 			
 					if(!secret) {
@@ -1230,14 +1230,14 @@ function loadHistory(socket, secret)
     {
 	io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
     }
-	console.log("Exit loadHistory");
+//console.log("Exit loadHistory");
 }
 
 function logMessage(socket, content, type) {   
-	console.log("Enter logMessage");	
-	console.log("logMessage, socket.room = " + socket.room);
-	console.log("logMessage, socket.roomid = " + socket.roomid);
-	console.log("logMessage, socket.username = " + socket.username);
+//console.log("Enter logMessage");	
+//console.log("logMessage, socket.room = " + socket.room);
+//console.log("logMessage, socket.roomid = " + socket.roomid);
+//console.log("logMessage, socket.username = " + socket.username);
 
     if(socket.temporary) return;
 
@@ -1245,8 +1245,8 @@ function logMessage(socket, content, type) {
        
   	pool.query('update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields) {
          if (err) {
-         	console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
-            console.log(err);
+         //console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
+          //console.log(err);
         	}
     });
     
@@ -1254,14 +1254,14 @@ function logMessage(socket, content, type) {
     if(socket.handshake)
 		endpoint = socket.handshake.address;
 		
-	console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
-	console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
-	console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
-	console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
-	console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
-	console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
-	console.log("logMessage, pool.escape(content) = " + pool.escape(content));
-	console.log("logMessage, pool.escape(type) = " + pool.escape(type));
+//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+//console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
+//console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
+//console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
+//console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
+//console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
+//console.log("logMessage, pool.escape(content) = " + pool.escape(content));
+//console.log("logMessage, pool.escape(type) = " + pool.escape(type));
 	
 	
 	
@@ -1270,17 +1270,17 @@ function logMessage(socket, content, type) {
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
     		+ pool.escape(type) + ', now());';                   
 
-	 console.log("logMessage: starting pool.query to mysql2");  
+//console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
          if (err) {
-         	console.log("Error on pool.query(query, function (err, rows, fields)")
-            console.log(err);
+         //console.log("Error on pool.query(query, function (err, rows, fields)")
+          //console.log(err);
         }
             
     });   
 //   connection.end()  
-    console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
-	console.log("Exit logMessage");  
+  //console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
+//console.log("Exit logMessage");  
 }
 
 // io.set('log level', 1);
@@ -1288,7 +1288,7 @@ function logMessage(socket, content, type) {
 
 io.sockets.on('connection', async (socket) => {
 
-	console.log("info", "socket.on_connection: -- start");
+//console.log("info", "socket.on_connection: -- start");
 
 	// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 	// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
@@ -1304,14 +1304,14 @@ io.sockets.on('connection', async (socket) => {
 		  username
 		} = translateDCSSAuthToBazaar(socket.handshake.auth);
 		  
-		console.log("socket ID: " + socket.id);
-		console.log("token = " + token);
-		console.log("clientID = " + clientID);
-		console.log("agent = " + agent);
-		console.log("roomName = " + roomName);
+	//console.log("socket ID: " + socket.id);
+	//console.log("token = " + token);
+	//console.log("clientID = " + clientID);
+	//console.log("agent = " + agent);
+	//console.log("roomName = " + roomName);
 		// console.log("roomid = " + roomid);
-		console.log("userID = " + userID);
-		console.log("username = " + username); 
+	//console.log("userID = " + userID);
+	//console.log("username = " + username); 
 		
 		// socket.roomid = agent + roomName;
 		// console.log("socket.roomid = " + socket.roomid);
@@ -1324,14 +1324,14 @@ io.sockets.on('connection', async (socket) => {
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.userID = userID;  
 		room = agent + roomName; 
-		console.log("room: " + room);    						
+	//console.log("room: " + room);    						
 		// socket.username = username; 
 		
 		logger = winston.createLogger({
     		transports: [
       			new (winston.transports.Console)()]
   		});	
-		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
+	//console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
 		setTeam_fromSocket(agent,roomName,userID,username,logger);
 		
 		let temporary = false; 
@@ -1374,55 +1374,55 @@ io.sockets.on('connection', async (socket) => {
 
 	// when the client emits 'adduser', this listens and executes
 	socket.on('adduser', async (room, username, temporary, id, perspective) => {
-	    console.log("info", "Enter socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
+	  //console.log("info", "Enter socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
 	    addUser(socket, room, username, temporary, id, perspective);
-	    console.log("info", "Exit socket.on_adduser");
+	  //console.log("info", "Exit socket.on_adduser");
 	});
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
-		console.log("Enter socket.on('sendchat')'"); 
-		console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
-		console.log("socket.on('sendchat'): socket.room = " + socket.room);
+	//console.log("Enter socket.on('sendchat')'"); 
+	//console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
+	//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
 		
 		if (socket.username == "DCSSLightSideAgent") {
-			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
+		//console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
-			console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
+		//console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		}
 		
 		
 		// if (typeof socket.clientID !== 'undefined' ) {
-		// 	console.log("socket.on('sendchat'): socket.clientID NOT undefined");
+		// //console.log("socket.on('sendchat'): socket.clientID NOT undefined");
 		// 	if (socket.clientID == "DCSS") {
 		// 	// if (socket.clientID == "DO_NOT_GO_HERE") {
-		// 		console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
+		// 	//console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
 		// 		io.sockets.in(socket.room).emit('interjection', socket.username, data); 
 		// 	} else {	
-		// 		console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
+		// 	//console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
 		// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	// 		}
 	// 	} else {	
-	// 		console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
+	// 	//console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
 	// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	// 	}
-		console.log("Exit socket.on('sendchat')"); 
+	//console.log("Exit socket.on('sendchat')"); 
 			
 	});
 
 
 	// when the client emits 'request', this listens and executes
 	socket.on('request', async (data)  => {	
-		console.log("Enter socket.on_request"); 	
-		console.log("socket.username: " + socket.username);
+	//console.log("Enter socket.on_request"); 	
+	//console.log("socket.username: " + socket.username);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data.value);
-		console.log("Exit socket.on_request"); 
+	//console.log("Exit socket.on_request"); 
 	})
 	
 	
@@ -1490,14 +1490,14 @@ io.sockets.on('connection', async (socket) => {
 	// when the user disconnects... perform this
 	socket.on('disconnect', async () => {
     try {
-      console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    //console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
     } catch (e) {
     }
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
-		console.log("token is NOT 'undefined'; issuing -leave- with token");
+	//console.log("token is NOT 'undefined'; issuing -leave- with token");
 		socket.leave(socket.handshake.auth.token);
 	}
 		
