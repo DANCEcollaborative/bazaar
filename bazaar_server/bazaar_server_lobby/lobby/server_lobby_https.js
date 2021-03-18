@@ -1118,6 +1118,10 @@ async function eventHubReceive() {
   // Subscribe to the events, and specify handlers for processing the events and errors.
   const subscription = consumerClient.subscribe({
       processEvents: async (events, context) => {
+	if (events.length === 0) {
+          // console.log(`No events received within wait time. Waiting for next interval`);
+          return;
+        }
         for (const event of events) {
           console.log(`=== eventHubReceive event: '${event.body}' from partition: '${context.partitionId}' and consumer group: '${context.consumerGroup}'`);
           eventHubPostTest(); 
@@ -1133,13 +1137,13 @@ async function eventHubReceive() {
   );
 
   // After 30 seconds, stop processing.
-  await new Promise((resolve) => {
-    setTimeout(async () => {
-      await subscription.close();
-      await consumerClient.close();
-      resolve();
-    }, 30000);
-  });
+  //   await new Promise((resolve) => {
+  //     setTimeout(async () => {
+  //       await subscription.close();
+  //       await consumerClient.close();
+  //       resolve();
+  //     }, 30000);
+  //   });
 }
 
 
