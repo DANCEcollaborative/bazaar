@@ -1120,6 +1120,7 @@ async function eventHubReceive() {
       processEvents: async (events, context) => {
         for (const event of events) {
           console.log(`=== eventHubReceive event: '${event.body}' from partition: '${context.partitionId}' and consumer group: '${context.consumerGroup}'`);
+          eventHubPostTest(); 
         }
         // Update the checkpoint.
         await context.updateCheckpoint(events[events.length - 1]);
@@ -1141,9 +1142,37 @@ async function eventHubReceive() {
   });
 }
 
+
 eventHubReceive().catch((err) => {
   console.log("Error occurred: ", err);
-});    
+}); 
+
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log("=== callback response 200, body = " + body);
+    }
+}
+
+
+function eventHubPostTest () {
+
+	var headers = {
+		'content-type': 'application/json'
+	};
+
+	var dataString = '{"admin_secret": "ymuabuippdimkgskicwuxaknlkzkxqeo"}';
+
+	var options = {
+		url: 'https://opemanager.azurewebsites.net/auth/admin',
+		method: 'POST',
+		headers: headers,
+		body: dataString
+	};
+	
+	request(options, callback);
+}
+ 
 
 // sockets by username
 let user_sockets = {};
