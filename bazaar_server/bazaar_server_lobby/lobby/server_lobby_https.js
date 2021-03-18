@@ -19,10 +19,10 @@ const { EventHubConsumerClient } = require("@azure/event-hubs");
 const { ContainerClient } = require("@azure/storage-blob");    
 const { BlobCheckpointStore } = require("@azure/eventhubs-checkpointstore-blob");
 
-const connectionString = "Endpoint=sb://opesessionstream.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=BY0eRiebPRPOZ+wZR4cxBOdUWbR/PVgSDg9++j5kGXs=";    
+const connectionString = "";    
 const eventHubName = "useractions";
 const consumerGroup = "$Default"; // name of the default consumer group
-const storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=opestreamcapture;AccountKey=96VLXadn4nR7y6T2RaIAnf117h/JMBiUO8hh+xzgtzPfKGXDzk86Damr13DCx11u69SvyBn1gf6+iUeOvvWjwA==;EndpointSuffix=core.windows.net";
+const storageConnectionString = "";
 const containerName = "eventhubcheckpoints";
 
 const consumer_key = "BazaarLTI";
