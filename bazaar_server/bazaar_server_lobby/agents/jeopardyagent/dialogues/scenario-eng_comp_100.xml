@@ -54,7 +54,7 @@
 		
 
 		<concept label="question1">
-			<phrase>This word represents a form of cheating that involves copying someone else's work.
+			<phrase>This word represents a form of cheating that involves copying someone else's work.  (You have about 30 seconds to guess before I give you a hint.)
             </phrase>
 		</concept>
 
@@ -75,7 +75,7 @@
 
 
 		<concept label="response1_1">
-			<phrase>Plagiarism is correct. For more information about plagiarism, visit: https://www.plagiarism.org/article/what-is-plagiarism </phrase>
+			<phrase>Plagiarism is correct! For more information about plagiarism, visit: https://www.plagiarism.org/article/what-is-plagiarism </phrase>
 		</concept>
 
 		<concept label="response1_2">
@@ -83,12 +83,12 @@
 		</concept>
 		
 		<concept label="incorrect">
-			<phrase>That is incorrect; try again! Anyone can chime in. :-)</phrase>
+			<phrase>Here's a hint:</phrase>
 		</concept>
 
 
 		<concept label="fix_response1">
-			<phrase>Let me help you out. *Plagiarism*, a form of cheating that involves copying someone else's work, violates WGU's code of conduct. For more information about plagiarism, visit: https://www.plagiarism.org/article/what-is-plagiarism
+			<phrase>Let me help you out. *Plagiarism*, a form of cheating that involves copying someone else's work, violates WGU's code of conduct. For more information about plagiarism, visit: https://www.plagiarism.org/article/what-is-plagiarism.
 			</phrase>
 		</concept>
 
@@ -104,6 +104,14 @@
 		<concept label="answer1_1" type="regex">
 			<phrase>plag</phrase>
 		</concept>
+		
+		<concept label="answer1_1_2" type="regex">
+			<phrase>plag</phrase>
+		</concept>
+		
+		
+		
+		
 
 		
 
@@ -113,8 +121,6 @@
 
 	<script>
 		<goal name="start" difficulty="1">
-			
-			
 			
 			<step>
 				<!-- Every step begins with an initiating concept or literal phrase -->
@@ -127,10 +133,13 @@
 					 Note that goals should NOT be recursively nested. -->
 					
 				<response say="response1_1">answer1_1</response>
-				<response say="response1_2" push="elicitate1">unanticipated-response</response>
+				<response say="incorrect" push="elicitate1">unanticipated-response</response>
 				
 			</step>
 
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
 
 
 			
@@ -139,7 +148,7 @@
 		<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation> </initiation>
+				<initiation>Try to think of a word that starts with a "p" that means copying someone else's work and taking credit for writing it yourself.</initiation>
                 <response say="response1_1">answer1_1</response>
 				<response say="fix_response1">unanticipated-response</response>
 			</step>

@@ -54,7 +54,7 @@
 		
 
 		<concept label="question1">
-			<phrase>This WGU resource is a great way to get personalized help and tips for your writing.
+			<phrase>This WGU resource is a great way to get personalized help and tips for your writing.  (You have about 30 seconds to guess before I give you a hint.)
             </phrase>
 		</concept>
 
@@ -75,16 +75,16 @@
 
 
 		<concept label="response1_1">
-			<phrase>The writing center is correct. Ask your PM for more information about what the writing center has to offer!</phrase>
+			<phrase>The writing center is correct. Ask your Student Success Coach for more information about what the writing center has to offer!</phrase>
 		</concept>
 
-		<concept label="response1_2">
-			<phrase>It sounds like you could use some help.</phrase>
+		<concept label="incorrect">
+			<phrase>Here's a hint:</phrase>
 		</concept>
 
 
-		<concept label="correct_response1">
-			<phrase>Let me help you out. The *writing center* 
+		<concept label="fix_response1">
+			<phrase>Let me help you out. The *writing center* can help you with your writing! Ask your Student Success Coach for more information about what the writing center has to offer.
 			</phrase>
 		</concept>
 
@@ -110,26 +110,24 @@
 	<script>
 		<goal name="start" difficulty="1">
 			
-			<!-- <step>
-				deliver a statement from the concept named "introduction" 
-				<initiation>introduction</initiation>
-			</step> -->
-			
 			<step>
 				<!-- Every step begins with an initiating concept or literal phrase -->
 				<initiation>question1</initiation>
 				
 				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
+					If the concept between the tags matches the student statement,
 				    the "say" concept/phrase will be delivered by the tutor.
 				    "push" adds another goal to the dialogue's stack. 
 					 Note that goals should NOT be recursively nested. -->
 					
 				<response say="response1_1">answer1_1</response>
-				<response say="correct_response1">answer1_2</response>
-				<response push="elicitate1" say="response1_2">unanticipated-response</response>
+				<response say="incorrect" push="elicitate1">unanticipated-response</response>
+				
 			</step>
 
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
 
 
 			
@@ -138,10 +136,9 @@
 		<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation>Sorry, I didn't understand you. Can you describe the wind speed and direction at a high pressure center?</initiation>
+				<initiation>This is a center at WGU that specializes in helping you with your essays and writing skills!</initiation>
                 <response say="response1_1">answer1_1</response>
-				<response say="correct_response1">answer1_2</response>
-				<response say="correct_response1">unanticipated-response</response>
+				<response say="fix_response1">unanticipated-response</response>
 			</step>
 		</goal>
 

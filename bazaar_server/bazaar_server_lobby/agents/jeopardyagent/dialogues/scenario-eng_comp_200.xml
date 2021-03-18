@@ -47,6 +47,8 @@
 			<phrase>Let's do English Composition for 200.
             </phrase>
 		</concept>
+		
+		
 
 		<concept label="conclusion1">
 			<phrase>Please choose another question to answer.</phrase>
@@ -54,7 +56,7 @@
 		
 
 		<concept label="question1">
-			<phrase>This is one of the required essays for this course and involves telling a personal story from your life.
+			<phrase>This is one of the required essays for this course and involves telling a personal story from your life.  (You have about 30 seconds to guess before I give you a hint.)
             </phrase>
 		</concept>
 
@@ -78,14 +80,13 @@
 			<phrase>Personal narrative is correct! </phrase>
 		</concept>
 
-		<concept label="response1_2">
-			<phrase>It sounds like you could use some help.</phrase>
+		<concept label="fix_response1">
+			<phrase>It sounds like you could use some help. *Personal narrative* is the correct answer.</phrase>
 		</concept>
 
 
-		<concept label="correct_response1">
-			<phrase>That is incorrect; try again! Anyone can chime in. :-)
-			</phrase>
+		<concept label="incorrect">
+			<phrase>Here's a hint:</phrase>
 		</concept>
 
 		<concept label="yes" type="annotation">
@@ -107,40 +108,40 @@
 	</concepts>
 
 
-	<script>
+<script>
 		<goal name="start" difficulty="1">
 			
-			<!-- <step>
-				deliver a statement from the concept named "introduction" 
-				<initiation>introduction</initiation>
-			</step> -->
+			
 			
 			<step>
 				<!-- Every step begins with an initiating concept or literal phrase -->
 				<initiation>question1</initiation>
 				
 				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
+					If the concept between the tags matches the student statement,
 				    the "say" concept/phrase will be delivered by the tutor.
 				    "push" adds another goal to the dialogue's stack. 
 					 Note that goals should NOT be recursively nested. -->
 					
 				<response say="response1_1">answer1_1</response>
-				<response say="correct_response1">answer1_2</response>
-				<response push="elicitate1" say="response1_2">unanticipated-response</response>
+				<response say="incorrect" push="elicitate1">unanticipated-response</response>
+				
 			</step>
 
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
 
 			
 		</goal>
 
 		<goal name="elicitate1" difficulty="0">
+		
 
 			<step>
-				<initiation></initiation>
+				<initiation>The answer is two words, and it is your first English Composition assignment due.</initiation>
                 <response say="response1_1">answer1_1</response>
-				<response say="correct_response1">answer1_2</response>
-				<response say="correct_response1">unanticipated-response</response>
+				<response say="fix_response1">unanticipated-response</response>
 			</step>
 		</goal>
 

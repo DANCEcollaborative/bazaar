@@ -4,8 +4,6 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
     <stage name="initiate" type="other" delay="0">
-    
- 		
     	<step type="whiteboard" delay="5" path="https://i.imgur.com/95bdk6j.png">SHOW_IMAGE</step>
         <step type="greet" timeout="40" delay="20">GREET</step>
       	<!--   <step type="prompt" delay="30" prompt="ICEBREAKER" >ICEBREAKER</step> -->
@@ -19,12 +17,17 @@
         <!-- TOTO: INSERT JEOP IMAGE  -->
         <step type="whiteboard" delay="5" path="https://i.imgur.com/1Rlzdsn.png">SHOW_IMAGE</step>
         <!-- <step type="whiteboard" delay="10" path="https://i.imgur.com/iiLmTRp.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="10" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step>
-        <step type="prompt" delay="3" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step>
-        <step type="whiteboard" delay="5" path="https://i.imgur.com/QaHL22C.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="5" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step>
+        <step type="prompt" delay="1" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step>
+        <step type="whiteboard" delay="2" path="https://i.imgur.com/QaHL22C.png">SHOW_IMAGE</step>
         <!-- TODO: Gated Step -->
+    
+    	<step type="prompt" delay="0" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
+ 		
+	</stage>
+	<stage name="body" type="other" timeout = "500">
         
-        <step type="prompt" delay="420" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
+        
         
         <step type="prompt" delay="30" prompt="JEOPARDY_WINNER">JEOPARDY_WINNER</step>
         
@@ -60,7 +63,7 @@
         <step type="whiteboard" delay="5" path="https://i.imgur.com/gWrycCA.png">SHOW_IMAGE</step>
         <step type="prompt" delay="25" prompt="SOCIAL">SOCIAL</step>
         
-        <step type="whiteboard" delay="1" path="https://i.imgur.com/s0ArPlY.png">SHOW_IMAGE</step>
+        <step type="whiteboard" delay="1" path="https://i.imgur.com/p98ZE1X.png">SHOW_IMAGE</step>
         <step type="prompt" delay="1" prompt="GOOGLE_FORM">GOOGLE_FORM</step>
         <step type="prompt" delay="1" prompt="LINK">LINK</step>
         <step type="prompt" delay="10" prompt="WGU_GOODBYE">WGU_GOODBYE</step>

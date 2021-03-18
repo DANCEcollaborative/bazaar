@@ -54,7 +54,7 @@
 		
 
 		<concept label="question1">
-			<phrase>Academy launched in this year.
+			<phrase>Academy launched in this year.  (You have about 30 seconds to guess before I give you a hint.)
             </phrase>
 		</concept>
 
@@ -83,12 +83,12 @@
 		</concept>
 		
 		<concept label="incorrect">
-			<phrase>That is incorrect; try again! Anyone can chime in. :-)</phrase>
+			<phrase>Here's a hint:</phrase>
 		</concept>
 
 
 		<concept label="fix_response1">
-			<phrase>Let me help you out. Academy launched in 2019.
+			<phrase>Let me help you out. Academy launched in *2019*.
 			</phrase>
 		</concept>
 
@@ -114,8 +114,6 @@
 	<script>
 		<goal name="start" difficulty="1">
 			
-			
-			
 			<step>
 				<!-- Every step begins with an initiating concept or literal phrase -->
 				<initiation>question1</initiation>
@@ -127,10 +125,13 @@
 					 Note that goals should NOT be recursively nested. -->
 					
 				<response say="response1_1">answer1_1</response>
-				<response say="response1_2" push="elicitate1">unanticipated-response</response>
+				<response say="incorrect" push="elicitate1">unanticipated-response</response>
 				
 			</step>
 
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
 
 
 			
@@ -139,7 +140,7 @@
 		<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation> </initiation>
+				<initiation>WGU Academy was launched some time between 2015 and 2020.</initiation>
                 <response say="response1_1">answer1_1</response>
 				<response say="fix_response1">unanticipated-response</response>
 			</step>
