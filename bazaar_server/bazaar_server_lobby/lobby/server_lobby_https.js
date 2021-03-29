@@ -19,12 +19,12 @@ const { EventHubConsumerClient } = require("@azure/event-hubs");
 const { ContainerClient } = require("@azure/storage-blob");    
 const { BlobCheckpointStore } = require("@azure/eventhubs-checkpointstore-blob");
 
-
 const connectionString = "";    
 const eventHubName = "useractions";
 const consumerGroup = "$Default"; // name of the default consumer group
-const containerName = "eventhubcheckpoints";
 const storageConnectionString = "";
+const containerName = "eventhubcheckpoints";
+
 const consumer_key = "BazaarLTI";
 const consumer_secret = "BLTI";
 const localPort = 443;
