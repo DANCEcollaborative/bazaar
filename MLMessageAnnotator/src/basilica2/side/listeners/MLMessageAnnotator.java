@@ -31,12 +31,13 @@ public class MLMessageAnnotator extends BasilicaAdapter
 		super(a);
 		host = getProperties().getProperty("host", host);
 		port = getProperties().getProperty("port", port);
+		System.err.println("MLMessageAnnotator, host:port -- " + host + ":" + port);
 		// pathToAnnotator = getProperties().getProperty("pathToAnnotator", pathToAnnotator);
 		modelPath = getProperties().getProperty("modelPath", modelPath);
 		modelName = getProperties().getProperty("modelName", modelName);        
 		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
-		Process process;
+		// Process process;
 		// File MLLocation = new File(pathToML);
 		
 		classificationString = getProperties().getProperty("classifications", classificationString);
@@ -106,6 +107,7 @@ public class MLMessageAnnotator extends BasilicaAdapter
             mUtil.addFormField("sample", text);
             mUtil.addFormField("model", modelPath + modelName );
             List<String> finish = mUtil.finish();
+            
             StringBuilder response = new StringBuilder();
             for (String line : finish) {
                 response.append(line);
