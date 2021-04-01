@@ -203,67 +203,29 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 	{
 		src = source;
 		if(bazaarstate==1){
+		String annotations = ""; 
 		if (event instanceof MessageEvent)
 		{
+			String prompt_message = ""; 
 			MessageEvent me = (MessageEvent)event;
-			String[] annotations = me.getAllAnnotations();
+			// String[] annotations = me.getAllAnnotations();
+			annotations = me.getAnnotationString();
+			System.err.println("In MLAgent, Register.java preProcessEvent, annotations: " + annotations); 
 			
 			User user = getUser(me.getFrom());
-			if(user == null) return;
+			// if(user == null) return;
 
 			Boolean promptFound = false; 
-			String promptRaw = ""; 
-			if (me.hasAnnotations("DETECTED")) {
-				promptRaw=lightSidePrompts.lookup("DETECTED");
-				if (promptRaw != "DETECTED") {
-					promptFound = true; 
-				}
-				else {
-					System.err.println("Prompt for DETECTED not found");
-				}
-					
+			if (annotations != "") {
+				System.err.println("In MLAgent, Register.java preProcessEvent: has annotation"); 
+				prompt_message = annotations;
+				promptFound = true; 
+			} else {
+				System.err.println("In MLAgent, Register.java preProcessEvent: NO annotation"); 
 			}
-			else if (me.hasAnnotations("NOTDETECTED")) {
-				promptRaw=lightSidePrompts.lookup("NOTDETECTED");
-				if (promptRaw != "NOTDETECTED") {
-					promptFound = true; 
-				}
-				else {
-					System.err.println("Prompt for _NOT_DETECTED not found");
-				}
-			}	
 			if (promptFound) {
-
-				
-				int plan = 0; 
-				if (me.hasAnnotations("PLAN1"))
-				{
-					plan = 1;
-				}
-				else if (me.hasAnnotations("PLAN2"))
-				{
-					plan = 2;
-				}
-				else if (me.hasAnnotations("PLAN3"))
-				{
-					plan = 3;
-				}						
-				else if (me.hasAnnotations("PLAN4"))
-				{
-					plan = 4;
-				}
-
-				Map<String, String> lightSidePromptVariables = new HashMap<String, String>();
-				lightSidePromptVariables.put("%this_student%",me.getFrom());
-				lightSidePromptVariables.put("%this_student_plan%",String.valueOf(plan));
-				String prompt_message = promptRaw;
-				for (Map.Entry<String, String> entry : lightSidePromptVariables.entrySet())
-				    prompt_message = prompt_message.replace(entry.getKey(), entry.getValue().toString());
-				
 				System.err.println("=== prompt_message: " + prompt_message); 
 				PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
-				
-				
 				source.queueNewEvent(prompt);
 			}
 			
