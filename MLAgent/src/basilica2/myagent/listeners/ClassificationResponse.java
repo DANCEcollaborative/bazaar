@@ -34,7 +34,7 @@ public class ClassificationResponse implements BasilicaPreProcessor
 			if (annotations != "") {
 				prompt_message = annotations;
 				System.err.println("=== prompt_message: " + prompt_message); 
-				PromptEvent prompt = new PromptEvent(source,prompt_message,"");
+				PromptEvent prompt = new PromptEvent(source,prompt_message,me.getFrom());
 				source.queueNewEvent(prompt);
 			}			
 	    }
