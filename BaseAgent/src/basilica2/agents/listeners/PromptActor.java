@@ -1,4 +1,4 @@
-package basilica2.myagent.listeners;
+package basilica2.agents.listeners;
 
 import edu.cmu.cs.lti.basilica2.core.Event;
 import basilica2.agents.components.InputCoordinator;
@@ -6,7 +6,6 @@ import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PromptEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
-import basilica2.agents.listeners.BasilicaListener;
 
 public class PromptActor implements BasilicaListener
 {
