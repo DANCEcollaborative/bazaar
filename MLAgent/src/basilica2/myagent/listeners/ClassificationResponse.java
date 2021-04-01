@@ -5,10 +5,10 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PromptEvent;
 import basilica2.agents.listeners.BasilicaPreProcessor;
-public class Register implements BasilicaPreProcessor
+public class ClassificationResponse implements BasilicaPreProcessor
 {
 
-	public Register() {}
+	public ClassificationResponse() {}
 
 	/**
 	 * @param source the InputCoordinator - to push new events to. (Modified events don't need to be re-pushed).
