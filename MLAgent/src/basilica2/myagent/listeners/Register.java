@@ -208,24 +208,16 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 		{
 			String prompt_message = ""; 
 			MessageEvent me = (MessageEvent)event;
-			// String[] annotations = me.getAllAnnotations();
 			annotations = me.getAnnotationString();
 			System.err.println("In MLAgent, Register.java preProcessEvent, annotations: " + annotations); 
 			
 			User user = getUser(me.getFrom());
-			// if(user == null) return;
 
 			Boolean promptFound = false; 
 			if (annotations != "") {
-				System.err.println("In MLAgent, Register.java preProcessEvent: has annotation"); 
 				prompt_message = annotations;
-				promptFound = true; 
-			} else {
-				System.err.println("In MLAgent, Register.java preProcessEvent: NO annotation"); 
-			}
-			if (promptFound) {
 				System.err.println("=== prompt_message: " + prompt_message); 
-				PromptEvent prompt = new PromptEvent(source,prompt_message,"plan_reasoning");
+				PromptEvent prompt = new PromptEvent(source,prompt_message,"");
 				source.queueNewEvent(prompt);
 			}
 			
