@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Classifier responses">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+   
+    <!-- Logoff regardless after one hour -->
+    <stage name="EndStage" type="other" delay="0" timeout="3600">
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
