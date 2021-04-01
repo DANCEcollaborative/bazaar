@@ -8,66 +8,30 @@ import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
-import basilica2.side.util.MultipartUtility;
-
+import basilica2.util.HttpUtility;
+import java.net.HttpURLConnection;
+import java.net.URLEncoder;
 
 public class MLMessageAnnotator extends BasilicaAdapter
 {
 	String host;
-	String modelName; 
-	String modelNickname;
-	String predictionCommand; 
-	String classificationString; 
-	
-	// String host = "http://localhost";
-	String port = "8000"; 
-    String charset = "UTF-8";
-	String modelPath = "models/";
-    MultipartUtility mUtil; 
-    Hashtable<String, Double> classify_dict = new Hashtable<String, Double>();
+	String port; 
+	String path;
+	String role = "Teacher";   // TEMPORARILY HARD-CODED
+	String delimiter; 
+    String charset;
 	
 	public MLMessageAnnotator(Agent a)
 	{
 		super(a);
 		host = getProperties().getProperty("host", host);
 		port = getProperties().getProperty("port", port);
+		path = getProperties().getProperty("path", path);
+		delimiter = getProperties().getProperty("delimiter", delimiter);
+		charset = getProperties().getProperty("charset", charset);
 		System.err.println("MLMessageAnnotator, host:port -- " + host + ":" + port);
-		// pathToAnnotator = getProperties().getProperty("pathToAnnotator", pathToAnnotator);
-		modelPath = getProperties().getProperty("modelPath", modelPath);
-		modelName = getProperties().getProperty("modelName", modelName);        
-		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
-		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
-		// Process process;
-		// File MLLocation = new File(pathToML);
-		
-		classificationString = getProperties().getProperty("classifications", classificationString);
-		String[] classificationList = classificationString.split(","); 
-		int listLength = classificationList.length; 
-		for (int i=0; i<listLength; i+=2) {
-			classify_dict.put(classificationList[i],Double.parseDouble(classificationList[i+1]));
-		}
-/*		
-		try {
-			ProcessBuilder pb = new ProcessBuilder(predictionCommand,port,modelNickname + ":" + modelPath + modelName);
-			pb.directory(MLLocation);
-			pb.inheritIO(); 
-			process = pb.start(); 
-						
-			Boolean isAlive = process.isAlive();
-			if (isAlive) {
-				System.err.println("ML process is alive");
-			}
-			else {
-				System.err.println("ML process is NOT alive");			
-			}
-			
-		} 
-		catch (Exception e)
-		{
-			System.err.println("MLMessageAnnotator, error starting ML");
-			e.printStackTrace();
-		}
-*/		
+		System.err.println("MLMessageAnnotator, path: " + path + "  ---  delimiter: " + delimiter);	
+		System.err.println("MLMessageAnnotator, charset: " + charset);	
 	}
  
 	/**
@@ -88,76 +52,42 @@ public class MLMessageAnnotator extends BasilicaAdapter
 	{
 		MessageEvent me = (MessageEvent) event;
 		System.out.println(me);
+		String encodedRole; 
+		String encodedText; 
 
 		String text = me.getText();
-		String label = annotateText(text);
+		try {
+			encodedRole = URLEncoder.encode(role,charset).replace("+", "%20");  // role is hard-coded for now
+			encodedText = URLEncoder.encode(text,charset).replace("+", "%20");
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    	return; 
+	    }
+		
+		String query = encodedRole + delimiter + encodedText; 		
+		String label = annotateText(query);
 
 		if (label != null)
 		{
-			me.addAnnotations(label);
-			
+			me.addAnnotations(label);			
 		}
 	}
 
 	public String annotateText(String text)
 	{
-
 		try {
-			MultipartUtility mUtil = new MultipartUtility(host + ":" + port + "/evaluate/" + modelName, charset);
-            mUtil.addFormField("sample", text);
-            mUtil.addFormField("model", modelPath + modelName );
-            List<String> finish = mUtil.finish();
-            
-            StringBuilder response = new StringBuilder();
-            for (String line : finish) {
-                response.append(line);
-                response.append('\r');
-            }
-            String classifications = parseMLResponse(response);
-            return classifications; 
+			String requestURL = host + ":" + port + path + text; 
+			HttpUtility.sendGetRequest(requestURL); 
+			String response = HttpUtility.readSingleLineResponse(); 
+			System.err.println("=== annotateText response: " + response); 
+			return response; 
+			
 	    } catch (IOException e) {
 	    	e.printStackTrace();
-	    	return "ML returned null"; 
+	    	return "annotateText returned an IOException"; 
 	    }	
 	}
 	
-	public String parseMLResponse(StringBuilder response)
-	{
-		String startFlag = "<h3>";
-		String endFlag = "</h3>";
-		String classSplit = "%<br>";
-		String withinClassSplit = ": ";
-		String[] classificationSpec;
-		String classification; 
-		Double classificationPercent; 
-		Double classificationThreshold;
-		StringBuilder annotation = new StringBuilder(""); 
-		String plus = ""; 
-		
-		int start = response.indexOf(startFlag);
-		int end = response.indexOf(endFlag,start);
-		String classifications = response.substring((start+4),end);
-		String[] classificationList = classifications.split(classSplit); 
-		int listLength = classificationList.length; 
-		for (int i=0; i < listLength; i++) {
-			classificationSpec = classificationList[i].split(withinClassSplit);
-			classification = classificationSpec[0];
-			classificationPercent = Double.parseDouble(classificationSpec[1]);
-			System.err.println("=== MLMessageAnnotator - classification " + classification + " " + Double.toString(classificationPercent) + "%");
-			try {
-				classificationThreshold = classify_dict.get(classification);
-				if (classificationPercent >= classificationThreshold) {
-					annotation.append(plus + classification.toUpperCase());
-					plus = "+"; 					
-				}
-			}
-			catch (Exception e) {
-		    	System.out.println("ML classification \"" + classification + "\" not used"); 
-			}			
-		}
-		return annotation.toString(); 	
-	}
-
 	/**
 	 * @return the classes of events that this Preprocessor cares about
 	 */
