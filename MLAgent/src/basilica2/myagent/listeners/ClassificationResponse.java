@@ -4,6 +4,9 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PromptEvent;
+import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.events.priority.PriorityEvent.Callback;
+import basilica2.agents.listeners.BasilicaAdapter;
 import basilica2.agents.listeners.BasilicaPreProcessor;
 public class ClassificationResponse implements BasilicaPreProcessor
 {
@@ -23,19 +26,25 @@ public class ClassificationResponse implements BasilicaPreProcessor
 		String annotations = ""; 
 		if (event instanceof MessageEvent)
 		{
-			String prompt_message = ""; 
 			MessageEvent me = (MessageEvent)event;
 			annotations = me.getAnnotationString();
-			// System.err.println("In MLAgent, Register.java preProcessEvent, annotations: " + annotations); 
-			
+			// System.err.println("In MLAgent, Register.java preProcessEvent, annotations: " + annotations); 		
 			// User user = getUser(me.getFrom());
 
-			Boolean promptFound = false; 
 			if (annotations != "") {
-				prompt_message = annotations;
-				System.err.println("=== prompt_message: " + prompt_message); 
-				PromptEvent prompt = new PromptEvent(source,prompt_message,me.getFrom());
-				source.queueNewEvent(prompt);
+				String prompt_message = annotations;
+				
+				// Create high priority response since this is all this agent does 
+				MessageEvent newMe = new MessageEvent(source, source.getAgent().getName(), prompt_message);
+				PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(source.getAgent().getName(), newMe, 1.0, 5, 5);
+				blackout.addCallback(new Callback()
+				{
+					@Override
+					public void accepted(PriorityEvent p) {}
+					@Override
+					public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
+				});
+				source.pushProposal(blackout);
 			}			
 	    }
 	}
