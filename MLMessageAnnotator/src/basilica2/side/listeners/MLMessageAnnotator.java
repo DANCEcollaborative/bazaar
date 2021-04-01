@@ -1,7 +1,5 @@
 package basilica2.side.listeners;
 import java.io.IOException;
-import java.util.*;
-import java.io.File;
 import java.util.Scanner;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
@@ -9,7 +7,6 @@ import basilica2.agents.listeners.BasilicaAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import basilica2.util.HttpUtility;
-import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 public class MLMessageAnnotator extends BasilicaAdapter
@@ -29,9 +26,9 @@ public class MLMessageAnnotator extends BasilicaAdapter
 		path = getProperties().getProperty("path", path);
 		delimiter = getProperties().getProperty("delimiter", delimiter);
 		charset = getProperties().getProperty("charset", charset);
-		System.err.println("MLMessageAnnotator, host:port -- " + host + ":" + port);
-		System.err.println("MLMessageAnnotator, path: " + path + "  ---  delimiter: " + delimiter);	
-		System.err.println("MLMessageAnnotator, charset: " + charset);	
+		// System.err.println("MLMessageAnnotator, host:port -- " + host + ":" + port);
+		// System.err.println("MLMessageAnnotator, path: " + path + "  ---  delimiter: " + delimiter);	
+		// System.err.println("MLMessageAnnotator, charset: " + charset);	
 	}
  
 	/**
@@ -79,7 +76,7 @@ public class MLMessageAnnotator extends BasilicaAdapter
 			String requestURL = host + ":" + port + path + text; 
 			HttpUtility.sendGetRequest(requestURL); 
 			String response = HttpUtility.readSingleLineResponse(); 
-			System.err.println("=== annotateText response: " + response); 
+			// System.err.println("=== annotateText response: " + response); 
 			return response; 
 			
 	    } catch (IOException e) {
@@ -107,7 +104,7 @@ public class MLMessageAnnotator extends BasilicaAdapter
 		{
 			String text = input.nextLine();
 			String label = annotator.annotateText(text);
-			System.out.println("Label is " + label);
+			// System.out.println("Label is " + label);
 		}
 		input.close();
 	}
