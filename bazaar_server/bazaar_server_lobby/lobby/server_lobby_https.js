@@ -1236,7 +1236,8 @@ function translateDCSSAuthToBazaar(auth) {
     agent: auth.agent.name,
     roomName: auth.chat.id,
     userID: auth.user.id,
-    username: auth.user.name
+    username: auth.user.name,
+    role: auth.user.role.name
   };
 }
 
@@ -1380,7 +1381,8 @@ io.sockets.on('connection', async (socket) => {
 		  agent,
 		  roomName,
 		  userID,
-		  username
+		  username,
+		  role
 		} = translateDCSSAuthToBazaar(socket.handshake.auth);
 		  
 		console.log("socket ID: " + socket.id);
@@ -1391,6 +1393,7 @@ io.sockets.on('connection', async (socket) => {
 		// console.log("roomid = " + roomid);
 		console.log("userID = " + userID);
 		console.log("username = " + username); 
+		console.log("role = " + role); 
 		
 		// socket.roomid = agent + roomName;
 		// console.log("socket.roomid = " + socket.roomid);
@@ -1463,11 +1466,12 @@ io.sockets.on('connection', async (socket) => {
 		console.log("Enter socket.on('sendchat')'"); 
 		console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
 		console.log("socket.on('sendchat'): socket.room = " + socket.room);
+		console.log("socket.on('sendchat'): socket.username = " + socket.username);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
 		
-		if (socket.username == "DCSSLightSideAgent") {
+		if (socket.username == "DCSSLightSideAgent" || socket.username == "MLAgent") {
 			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
@@ -1499,6 +1503,7 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('request', async (data)  => {	
 		console.log("Enter socket.on_request"); 	
 		console.log("socket.username: " + socket.username);
+		console.log("socket.role: " + socket.role);	
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data.value);
 		console.log("Exit socket.on_request"); 
