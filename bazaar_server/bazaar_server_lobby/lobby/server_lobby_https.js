@@ -137,7 +137,7 @@ app.get('/room_status*', async (req, res) => {
 
 app.get('/welcome*', async (req, res) => {
     console.log("Welcome");
-    res.sendFile(__dirname + ath.join(__dirname, './html_pages/' + '/welcome.html'));
+    res.sendFile(__dirname + path.join(__dirname, './html_pages/' + '/welcome.html'));
 });
 
 
