@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="GREET_AND_WAIT">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Hi. I'm [AGENT NAME].|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn about each other.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A1">
+        <text>Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2">
+        <text>Each of you will start out by specializing in one aspect of climate change: temperature change, carbon dioxide, or fossil fuels.|Decide among yourselves who will specialize in which aspect. If someone comes late, they'll get one of the remaining aspects. If you end up shorthanded, cover your own specialization and then work together on what remains.|Go ahead and decide who gets which. I'll wait a minute.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A3">
+        <text>Now that you've decided on your specializations, click on the "Data" tab at the left. You'll find a Google Sheet which itself has 3 tabs at the bottom, one for each specialization: Temperature Change, Carbon Dioxide, and Fossil Fuels. Find the Data tab for your specialization.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A4">
+        <text>Now examine your data and record your thoughts as you fill out the "Notes" tab on the left that corresponds to your specialization.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A5">
+        <text>Take up to 10 minutes to examine the data and record your thoughts. Make sure your team covers all the specializations. If you finish early, share your thoughts with one another and see if you can come up with more ideas.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B1">
+        <text>Okay, it's time to move on to the next part of the activity. First, spend a few minutes reading and thinking about the letter from the mayor that you'll find in the "Mayoral Letter" tab at the left.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B2">
+        <text>Before developing your response to Mayor Williams, summarize her perspective. What are the benefits of using fossil fuels? What evidence and reasoning does she use to support her decision? Discuss for a few minutes.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_B3">
+        <text>Now, spend the rest of your time discussing and developing a response to the mayor. Use the "Joint Response" tab at the left to record your thoughts.|Each team member's typing in the Joint Response will be a different color! But work together to create a combined response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_END">
+        <text>It is time for us to wrap up now. It has been a pleasure working with you. The activity is now over.|Have a nice day!</text>
+    </prompt>
+       
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the team's discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+    
+<!--     
+    <prompt strategy="task" id="END_GREETINGS">
+        <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
+    </prompt>
+ -->    
+
+</prompts>

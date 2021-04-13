@@ -35,6 +35,7 @@ public class IntroductionsHandler extends BasilicaAdapter
     final List<String> users = new ArrayList<String>();
     private double wait1 = 30;
     private PromptTable prompter;
+    private Boolean displayGiveUpPrompt = false; 
     
     Map<String, String> slots = new HashMap<String, String>();
             
@@ -43,6 +44,7 @@ public class IntroductionsHandler extends BasilicaAdapter
         super(a, "INTRODUCTION");
         agent = a;
         prompter = new PromptTable(properties.getProperty("prompt_file", "plans/plan_prompts.xml"));
+        displayGiveUpPrompt = Boolean.parseBoolean(properties.getProperty("display_give_up_prompt"));
         wait1 = Integer.parseInt(properties.getProperty("timeout", ""+wait1));
         
         
@@ -147,8 +149,15 @@ public class IntroductionsHandler extends BasilicaAdapter
                     slots.put("[NAMES]", StateMemory.getSharedState(agent).getStudentNamesString(users));
                     slots.putAll(IntroductionsHandler.this.slots);
                     
-                    MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GIVE_UP_ON_INTRODUCTIONS", slots),"GIVE_UP_ON_INTRODUCTIONS");
-                    source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));
+                    if (displayGiveUpPrompt) {
+                    	System.err.println("Displaying GIVE_UP_ON_INTRODUCTIONS prompt");
+                    	MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GIVE_UP_ON_INTRODUCTIONS", slots),"GIVE_UP_ON_INTRODUCTIONS");
+	                    source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));                   	
+                    } else {
+                    	System.err.println("NOT displaying GIVE_UP_ON_INTRODUCTIONS prompt");
+                    }
+                    
+	                    
                     
                     //assign remaining names
                     //uninstall:
