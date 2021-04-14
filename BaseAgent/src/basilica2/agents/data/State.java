@@ -357,6 +357,12 @@ public class State
 		return stageType;
 	}
 
+	public String getStepName()
+	{
+		if (stepName == null) { return ""; }
+		return stepName;
+	}
+
 	public poseEventType getGroupPose()
 	{
 		return groupPose;
