@@ -7,12 +7,8 @@
     <stage name="initiate" type="other" delay="0">  	
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
-        <!-- "delay" for a step is the delay *after* the step completes on its own.--> 
-        
-        <!-- <step type="prompt" delay="15" prompt="GREET_AND_WAIT" >INTRODUCE_SESSION</step>   -->        
-        <!-- <step type="prompt" delay="0" prompt="PROMPT_INTRO_1" >PROMPT_INTRO_1</step>     -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->       
         <step type="greet" timeout="120" delay="0">GREETINGS</step>
-        <!-- <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_INTRO_1</step>    -->
     </stage>
     
     <stage name="stageA" type="other" delay="0">MOVE_ON_DATA_FOUND
@@ -36,7 +32,6 @@
         <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_SUMMARIZE_PERSPECTIVE">WAIT_STEP_B3</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_B3" >PROMPT_STEP_B3</step>
-        <!-- <step type="gated" gated_type="listen" timeout="900" delay="0" checkin_prompt="READY_GENERIC">WAIT_STEP_B4</step>   -->     
     </stage>
     
     <stage name="EndStage" type="other" delay="0" timeout="1800">
