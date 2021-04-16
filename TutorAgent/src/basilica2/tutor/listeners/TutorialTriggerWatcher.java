@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -11,6 +12,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.State;
 import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
@@ -21,14 +24,23 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 
 public class TutorialTriggerWatcher extends BasilicaAdapter
 {
+	private Agent agentMe; 
 	Map<String[], String> dialogueTriggers = new HashMap<String[], String>();
 	String dialogueConfigFile="dialogues/dialogues-example.xml";
 	private String tutorialCondition = "tutorial";
+	private String[] no_dialogs_for_stepnames; 
+	private String[] no_dialogs_for_stagenames;  
+	private String stageName; 
+	private String stepName; 
+	
 	public TutorialTriggerWatcher(Agent a)
 	{
 		super(a);
+		agentMe = a; 
 		dialogueConfigFile = properties.getProperty("dialogue_config_file",dialogueConfigFile);
 		tutorialCondition = properties.getProperty("tutorial_condition",tutorialCondition );
+		no_dialogs_for_stagenames = getProperties().getProperty("no_dialogs_for_stagenames", "").split(",");
+		no_dialogs_for_stepnames = getProperties().getProperty("no_dialogs_for_stepnames", "").split(",");	
 		loadDialogConfiguration(dialogueConfigFile);
 	}
 	
@@ -101,10 +113,24 @@ public class TutorialTriggerWatcher extends BasilicaAdapter
 	{
 		MessageEvent me = (MessageEvent)event;
 
+        /** system.properties is rarely set 
 		if(!System.getProperty("basilica2.agents.condition").contains(tutorialCondition))
 		{
+			System.err.println("TutorialTYriggerWatcher.java, preProcessEvent: NO tutorialCondition; returning");
 			return;
 		}
+        */
+		
+		State state = State.copy(StateMemory.getSharedState(agentMe));
+		stageName = state.getStageName();
+		stepName = state.getStepName();
+		if ( (Arrays.asList(no_dialogs_for_stagenames).contains(stageName)) || 
+		  	 (Arrays.asList(no_dialogs_for_stepnames).contains(stepName)) ) 
+		{
+			System.out.println("TutorialTriggerWatcher preProcessEvent: Tutorial dialogs NOT allowed for this stage or step; returning");
+			return; 
+		}
+
 		for(String[] trigger : dialogueTriggers.keySet())
 		{
 			
