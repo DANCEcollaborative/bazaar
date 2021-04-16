@@ -13,6 +13,7 @@ const winston    = require('winston');
 const bodyParser = require('body-parser');
 const {pool, promisePool} = require('./database')
 const {Worker, isMainThread} = require('worker_threads');
+
 const lti = require('ims-lti');
 
 const { EventHubConsumerClient } = require("@azure/event-hubs");
@@ -73,14 +74,14 @@ const generateXML = function(lis_result_sourcedid , curScore){
 }
 
 function sleep(milliseconds) {
-  console.log("sleep start");
+//console.log("sleep start");
   const start = new Date().getTime();
   while (1) {
     if ((new Date().getTime() - start) > milliseconds){
       break;
     }
   }
-  console.log("sleep over");
+//console.log("sleep over");
 }
 
 const generateRequest = function(Url,lis_result_sourcedid,curScore){
@@ -99,12 +100,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src 'self' https://docs.google.com/spreadsheets/d/1OoLD9dZaVfLJz-0X-OQ3WnrI97G9syUKGEJWDR2Mxdg https://erebor.lti.cs.cmu.edu:9001/p/ https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src http://www.dnr.sc.gov/climate/sco/Education/wxmap/wxmap.gif https://i.imgur.com/iiLmTRp.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/QaHL22C.png https://i.imgur.com/0vk7f0p.png https://i.imgur.com/G7vtzE8.jpg https://i.imgur.com/dWLUrxv.png https://i.imgur.com/h6IWxZ3.png https://i.imgur.com/gWrycCA.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/iiLmTRp.png https://i.imgur.com/QaHL22C.png https://i.imgur.com/0vk7f0p.png https://i.imgur.com/G7vtzE8.jpg https://i.imgur.com/dWLUrxv.png https://i.imgur.com/h6IWxZ3.png https://i.imgur.com/gWrycCA.png https://i.imgur.com/iWA8cSn.png https://i.imgur.com/ghKvx84.png https://i.imgur.com/l97GY5t.png https://i.imgur.com/cRq4QUF.png https://i.imgur.com/s0ArPlY.png https://i.imgur.com/95bdk6j.png https://i.imgur.com/1Rlzdsn.png https://i.imgur.com/G7vtzE8.png https://i.imgur.com/p98ZE1X.png http://bazaar.lti.cs.cmu.edu/favicon.ico"); 
+    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src * data"); 
     return next();
 });
 
 app.get('/room_status_all', async (req, res) => {
-    console.log("app.get('/room_status_all')");
+  //console.log("app.get('/room_status_all')");
   const query = 'SELECT name from nodechat.room where name like "normaldist%"';
   // console.log(query);
   try {
@@ -113,14 +114,14 @@ app.get('/room_status_all', async (req, res) => {
     for (var i = 0; i < rows.length; i++) num_list += "<p>" + rows[i].name + "</p>";
     res.send("<body>" + num_list + "</body>");
   } catch (err) {
-    console.log(err);
+  //console.log(err);
     res.send(500, "<body><h2>Error</h2><p>Couldn't fetch data</p></body>");
   }
 
 });
 
 app.get('/room_status*', async (req, res) => {
-    console.log("app.get('/room_status*')");
+  //console.log("app.get('/room_status*')");
   const query = 'SELECT name from nodechat.room where name like "normaldist%"';
   // console.log(query);
   try {
@@ -129,21 +130,21 @@ app.get('/room_status*', async (req, res) => {
     for (var i = 0; i < rows.length; i++) num_list += "<p>" + rows[i].name + "</p>";
     res.send("<body>" + num_list + "</body>");
   } catch (err) {
-    console.log(err);
+  //console.log(err);
     res.send(500, "<body><h2>Error</h2><p>Couldn't fetch data</p></body>");
   }
 
 });
 
 app.get('/welcome*', async (req, res) => {
-    console.log("Welcome");
+  //console.log("Welcome");
     res.sendFile(__dirname + ath.join(__dirname, './html_pages/' + '/welcome.html'));
 });
 
 
 // May call setTeam_ to launch an agent 
 app.get('/login*', async (req, res) => {
-  console.log("Enter app.get /login");
+//console.log("Enter app.get /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -155,20 +156,20 @@ app.get('/login*', async (req, res) => {
   try {
     await promisePool.query(query);
   } catch (err) {
-    console.log("error from db room insert " + err);
+  //console.log("error from db room insert " + err);
   }
 
   if (1) {        								// if(1) is always true? 
     teamNumber = req.query.roomId;
     setTeam_(teamNumber, req, logger, res);
   }
-  console.log("Exit app.get /login");
+//console.log("Exit app.get /login");
 });
 
 
 // May launch an agent directly -- IS THIS USED? 
 app.post('/login*', async (req, res) => {
-  console.log("Enter app.post /login");
+//console.log("Enter app.post /login");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -205,7 +206,7 @@ app.post('/login*', async (req, res) => {
           throw new Error("Couldn't update count for room " + req.query.roomName);
         }
         numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
-        console.log("exec ../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"');
+      //console.log("exec ../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"');
         exec("../bazaar/launch_agent_docker.sh " + req.query.roomName + " " + teamNumber + ' "none"', puts);
         sleep(5000);
         setTeam(teamNumber, req, logger, res);
@@ -215,10 +216,10 @@ app.post('/login*', async (req, res) => {
       // console.log("successful");
     }
   } catch (err) {
-    console.log(err);
+  //console.log(err);
     res.send(500, header_stuff + "<body><h2>Error</h2><p>" + err.message + "':</p><pre>" + err + "</pre></body>");
   }
-  console.log("Exit app.post /login");
+//console.log("Exit app.post /login");
 
 });
 
@@ -230,7 +231,7 @@ function createWorker() {
 const worker = createWorker();
 
 const agentLaunch = async (roomName, teamNumber) => {
-  console.log("agentLaunch: Launching agent -- roomName = " + roomName + "  -- teamNumber = " + teamNumber);
+//console.log("agentLaunch: Launching agent -- roomName = " + roomName + "  -- teamNumber = " + teamNumber);
   worker.postMessage({
     roomName: roomName,
     teamNumber: teamNumber
@@ -239,11 +240,11 @@ const agentLaunch = async (roomName, teamNumber) => {
 
 
 function setTeam_(teamNumber,req,logger,res) {
-    console.log("Enter setTeam_");
+  //console.log("Enter setTeam_");
 	if( (!(req.query.roomName + teamNumber in numUsers)) )
 	{
 			numUsers[req.query.roomName + teamNumber] = 0;
-			console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + teamNumber + ")");
+		//console.log("setTeam_: agentLaunch(" + roomname_prefix + "," + teamNumber + ")");
 			agentLaunch(req.query.roomName, teamNumber);
 	}
 	//teamNumber = req.query.roomId;
@@ -254,7 +255,7 @@ function setTeam_(teamNumber,req,logger,res) {
 	const url = localURL + '/chat/' + roomname  + '/' + req.query.id + '/' +
 														 req.query.username + '/' + req.query.perspective + '/' + '?html=' + html_page + '&forum=' + req.query.forum;
 
-	console.log("setTeam_, url: " + url);
+//console.log("setTeam_, url: " + url);
 	res.writeHead(301,{Location: url});
 	res.end();
 
@@ -263,16 +264,16 @@ function setTeam_(teamNumber,req,logger,res) {
 
 	//Replace accepts a value between 0 and 1.
    /* provider.outcome_service.send_replace_result(1, function(err, result){
-		console.log("Grade submitted: " + result) // True or false
+	//console.log("Grade submitted: " + result) // True or false
 	});*/
 
-    console.log("Exit setTeam_");
+  //console.log("Exit setTeam_");
 }
 
 
 function setTeam(teamNumber,req,provider,logger,res)
 {
-    console.log("Enter setTeam");
+  //console.log("Enter setTeam");
 	/*if( (!(req.query.roomName + pad(teamNumber, 2) in numUsers)) || numUsers[req.query.roomName + pad(teamNumber, 2)] <= 0)
 	{
 			numUsers[req.query.roomName + pad(teamNumber, 2)] = 0;
@@ -283,7 +284,7 @@ function setTeam(teamNumber,req,provider,logger,res)
 	if(req.query.html != undefined) html_page = req.query.html;
 	const roomname = req.query.roomName + pad(teamNumber, 2);
 	const url = localURL + '/chat/' + roomname + '/' + provider.userId + '/?html=' + html_page;
-	console.log("setTeam, url: " + url);
+//console.log("setTeam, url: " + url);
 
 	res.writeHead(301,{Location: url});
 	res.end();
@@ -291,19 +292,19 @@ function setTeam(teamNumber,req,provider,logger,res)
 	logger.log("info","Number of users : " + numUsers[roomname]);
 	logger.log("info","Team number : " + teamNumber);
 	logger.log("info","provider : " + provider.username);
-	console.log(provider);
+//console.log(provider);
 	//console.log(provider);
 	//Replace accepts a value between 0 and 1.
 	provider.outcome_service.send_replace_result(1, function(err, result){
-		console.log("Grade submitted: " + result) // True or false
+	//console.log("Grade submitted: " + result) // True or false
 	});
-    console.log("Exit setTeam");
+  //console.log("Exit setTeam");
         
 }
 
 
 function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
-    console.log("Enter setTeam_fromSocket");
+  //console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
@@ -311,12 +312,12 @@ function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
 	{
 			numUsers[roomNameAndNumber] = 0;
 			// console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
-			console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+		//console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
 			agentLaunch(roomName, teamNumber);
 	}
 	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
-    console.log("Exit setTeam_fromSocket");
+  //console.log("Exit setTeam_fromSocket");
 }
 
 
@@ -330,7 +331,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	}
 	
     if (isBlank(username)) {
-    	console.log("isBlank(username) is true; username = " + username);
+    //console.log("isBlank(username) is true; username = " + username);
 	    origin = socket.handshake.address
 	    username = "Guest "+(origin.address+origin.port).substring(6).replace(/\./g, '');
 	}
@@ -354,7 +355,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	user_perspectives[room][username] = perspective;
 
 	// Join room 
-	console.log("function addUser: Joining room " + room);
+//console.log("function addUser: Joining room " + room);
 	socket.join(room);
 	
 	// Add to user_sockets list  
@@ -376,12 +377,12 @@ function delay(ms) {
 
 app.get('/chat*', async (req, res) => {
 
-  console.log("Enter app.get /chat");
+//console.log("Enter app.get /chat");
   let html_page = 'index';
   if (req.query.html !== undefined) html_page = req.query.html;
 
   res.sendFile(path.join(__dirname, './html_pages/' + html_page + '.html'));
-  console.log("Exit app.get /chat");
+//console.log("Exit app.get /chat");
 });
 
 app.get('/discussionnew.css', async (req,res) => {
@@ -408,7 +409,7 @@ app.get('/data/*', async (req, res) => {
 
 
 app.get('*', async (req, res) => {
-   console.log("app.get(*): ");
+ //console.log("app.get(*): ");
 });
 
 
@@ -422,7 +423,7 @@ app.post('/',function(req, res) {
         isValidG = isValid;
     });
     if(isValidG){
-        console.log(provider.userId);
+      //console.log(provider.userId);
         // res.writeHead(301,{Location: 'http://erebor.lti.cs.cmu.edu:8007/team?userId='+provider.userId});
         res.end();
 
@@ -430,15 +431,15 @@ app.post('/',function(req, res) {
         const score = 0.5; //dummy grade
 
         if(score >=0 && score <=1){
-            console.log(provider);
+          //console.log(provider);
             outcome_url = provider.lis_outcome_service_url;
             //outcome_url = outcome_url.replace("https","http");
             outcome_url = outcome_url.replace("localhost",req.ip);
             result_sourcedid = provider.lis_result_sourcedid;
             //result_sourcedid = result_sourcedid.replace("https","http");
             result_sourcedid = result_sourcedid.replace("localhost",req.ip);
-            console.log("outcome_url is: "+outcome_url);
-            console.log("result source id is: "+result_sourcedid);
+          //console.log("outcome_url is: "+outcome_url);
+          //console.log("result source id is: "+result_sourcedid);
 
             //building OAuth
             const oauth = OAuth({
@@ -460,7 +461,7 @@ app.post('/',function(req, res) {
                 form: generateXML(result_sourcedid,score),
                 headers: oauth.toHeader( oauth.authorize( generateRequest(outcome_url, result_sourcedid, score),oauth_body_hash))
             },function(err,res){
-                console.log("res.body: "+res.body);
+              //console.log("res.body: "+res.body);
             });
         }
     }else{
@@ -474,7 +475,7 @@ console.log("server is running on 8006");
 
 
 
-// === LOBBY CODE === // 
+//David's Code
 
 HOST = null; // localhost
 PORT = 444; 
@@ -518,7 +519,7 @@ function getUserInstructionText(nick, i, condition)
 }
 
 let conditionOffset = -1;
-let numTeams = 100;
+let numTeams = 150;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
@@ -649,7 +650,7 @@ const channel = new function ()
     for (var i = 0; i < callbacks.length; i++) 
     {
         const pending = callbacks[i];
-        if(channel.isVisible(m, pending.nick))
+        if(channel.isVisible(m, pending.nickUnique))
         {
             pending.callback([m]);
             callbacks.splice(i, 1);
@@ -660,7 +661,7 @@ const channel = new function ()
       messages.shift();
   };
 
-  this.getMessages = function (since, nick, callback) 
+  this.getMessages = function (since, nickUnique, callback) 
   {
     const matching = [];
     
@@ -668,7 +669,7 @@ const channel = new function ()
     for (var i = 0; i < messages.length; i++) 
     {
         var message = messages[i];
-        if(message.timestamp > since && channel.isVisible(message, nick))
+        if(message.timestamp > since && channel.isVisible(message, nickUnique))
         {
             matching.push(message);
         }
@@ -684,13 +685,17 @@ const channel = new function ()
       //callbacks.push({ timestamp: new Date(), callback: callback, nick:nick});
     }
   };
-  
+/*  
   this.isVisible = function(message, nick)
-	{     return nick && (message.target_nick == nick 
+	{     return nick && (message.target_nick == nickUnique 
 			      || nick == "System" || nick == message.nick 
 			      || (message.nick == "System" 
 				  && (message.target_nick == "all" 
 				      || message.target_nick == "everyone")));   
+	}
+*/  
+  this.isVisible = function(message, nickUnique)
+	{     return message.target_nick == nickUnique || message.target_nick == "all" || message.target_nick == "everyone"; 
 	}
 
   // clear old callbacks
@@ -710,7 +715,7 @@ const sessions = {};
 //when a user joins the lobby
 function createSession (nick,consent,reset) 
 {
-  winston.log('info',"server_lobby_https.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
+  // winston.log('info',"server_lobby_https.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
   if (nick.length > 50) return null;
    
   //rejects invalid nicknames
@@ -720,10 +725,11 @@ function createSession (nick,consent,reset)
 	  return null;
   }
 
+/*
   for (const i in sessions) 
   {
     const session = sessions[i];
-    if (session && session.nick === nick) 
+    if (session && session.nick === nick)     // I think this handles repeat user nicknames by destroying any previous with same nickname
     {
 	//"reset" should always be true. It comes from the UI,
 	//but hyeju has hard-coded it to true in the server. 
@@ -738,13 +744,19 @@ function createSession (nick,consent,reset)
 	}
     }
   }
+*/
 
   const session = 
   { 
     nick: nick, 
     id: (nextID++).toString(),
     timestamp: new Date(),
+    // timeString: new Date().getTime().toString(),
+    nickUnique: nick + new Date().getTime().toString(),
+    // nickUnique: nick + timeString,
     consent: consent,
+
+	// console.log("In const session, nickUnique = " + nickUnique); 
 
     poke: function () 
     {
@@ -798,6 +810,7 @@ setInterval(function ()
 {
   // console.log("Enter setInterval");
   const now = new Date(); 
+  // console.log("setInterval, now = " + now.toString()); 
  
   for (const id in sessions) 
   { 
@@ -854,7 +867,7 @@ setInterval(function ()
                  //launch agent!
                 paddedTeamNumber = pad(teamNumber,2);
 
-				console.log("setInterval: about to 'exec' ../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"')
+			//console.log("setInterval: about to 'exec' ../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"')
                 exec("../bazaar/launch_agent_docker.sh "+roomname_prefix+" "+paddedTeamNumber+' "'+condition+'"', puts);
                 //break;
             }
@@ -866,9 +879,9 @@ setInterval(function ()
 	    
 		// console.log("About to send timeout message");
 		member = session;
-		winston.log('info', "advising student "+member.nick+" to come back later");
+		winston.log('info', "advising student "+member.nickUnique+" to come back later");
 		// channel.appendMessage("System", "msg", member.nick+", there's nobody else to match you with right now. Below you can see the best times to come back to meet discussion partners.<br/><img src=\"http://erebor.lti.cs.cmu.edu/dal/dist.png\" width=\"600\" height=\"250\">", member.nick);    
-		channel.appendMessage("System", "msg", member.nick+", it looks like there is not a match for you because no one else is present in the lobby right now for this activity. Don't worry! You are still eligible to complete the 3rd part of this study to receive your payment. *IMPORTANT*: In order to remain eligible for the rest of this study, <b><a href=\"https://forms.gle/HNJUWYzaLYBwL53t6\">please follow this link and enter your email address</a></b> to mark your attendance in the lobby today.", member.nick);              
+		channel.appendMessage("System", "msg", member.nick+", it looks like there is not a match for you because no one else is present in the lobby right now for this activity. Don't worry! You are still eligible to complete the 3rd part of this study to receive your payment. *IMPORTANT*: In order to remain eligible for the rest of this study, <b><a href=\"https://forms.gle/HNJUWYzaLYBwL53t6\">please follow this link and enter your email address</a></b> to mark your attendance in the lobby today.", member.nickUnique);              
 		supplicants.splice(supplicants.indexOf(member),1);
 		setTimeout(function(member)
 		{
@@ -885,7 +898,7 @@ setInterval(function ()
 	winston.log('info', "putting "+team.length+" new users on team "+teamNumber);
 	const theTeam = teams[teamNumber-1];
 	const condition = CONDITIONS[0];//condition];        
-	console.log("condition: "+condition);
+//console.log("condition: "+condition);
 
 	for(var i = 0; i < team.length; i++)
         {
@@ -901,19 +914,19 @@ setInterval(function ()
 	    const instructions = getUserInstructionText(member.nick, i, condition);
 
             supplicants.splice(supplicants.indexOf(member),1);
-            teamMemberNames[member.nick] = {number:teamNumber, url:url, condition:condition};
+            teamMemberNames[member.nickUnique] = {number:teamNumber, url:url, condition:condition};
             
-            winston.log('info', "adding "+member.nick+" to Team "+teamNumber+", condition="+condition);
-            teamLogger.log('info', "User:"+member.nick+", Team:"+teamNumber+", condition:"+condition);
+            winston.log('info', "adding "+member.nickUnique+" to Team "+teamNumber+", condition="+condition);
+            teamLogger.log('info', "User:"+member.nickUnique+", Team:"+teamNumber+", condition:"+condition);
             
 
-	    channel.appendMessage("System", "msg", member.nick+", you're on Team "+teamNumber+".", member.nick)            
+	    channel.appendMessage("System", "msg", member.nick+", you're on Team "+teamNumber+".", member.nickUnique)            
             setTimeout(function(member, teamNum, url, instructions)
             {
                 return function()
                 {
                     instructions = '<p>Your team\'s discussion area is ready, '+member.nick+'. <a href="'+url +'" target="_blank"> Follow this link to join the discussion.</a></p><p>'+instructions+'</p>';
-        	    channel.appendMessage("System", "msg", instructions, member.nick);
+        	    channel.appendMessage("System", "msg", instructions, member.nickUnique);
                 }
             }(member, teamNumber, url, instructions), 4000); 
         }
@@ -978,33 +991,33 @@ fu.get("/join", function (req, res)
   
   if(nick == "System")
   {
-      channel.appendMessage("System", "msg", "Welcome.", session.nick);
+      channel.appendMessage("System", "msg", "Welcome.", session.nickUnique);
   }
-  else if(reset==="true" || !(nick in teamMemberNames)) //don't re-apply existing names to the team pool - they can re-join their old team!
+  else if(reset==="true" || !(nickUnique in teamMemberNames)) //don't re-apply existing names to the team pool - they can re-join their old team!
   {
       const now = new Date();
       if(LOCKDOWN_TIMEOUT > 0 && now > LOCKDOWN_TIME)
       {
-          channel.appendMessage("System", "msg", "Sorry, this lobby session has closed already.", session.nick);
+          channel.appendMessage("System", "msg", "Sorry, this lobby session has closed already.", session.nickUnique);
       }
       else
       {
 	// hyeju changed the mssage here to "hi"
 	  if(reset==="true")
-	      channel.appendMessage("System", "msg", "Hi, "+nick+".", session.nick);
+	      channel.appendMessage("System", "msg", "Hi, "+nick+".", session.nickUnique);
 
           lastJoin = new Date();
           supplicants.push(session);
           const instruction = getLoginInstructionText(session.nick);
           if(instruction)
-	      channel.appendMessage("System", "msg",instruction, session.nick); 
+	      channel.appendMessage("System", "msg",instruction, session.nickUnique); 
       }
   }
   else
   {
-      channel.appendMessage("System", "msg", "Welcome back, "+nick+"! Your username is already active on Team "+teamMemberNames[nick].number
-        +'. <a href="'+teamMemberNames[nick].url+'" target="_blank">Follow this link to return to your team\'s discussion area.</a>', nick);  
-      //channel.appendMessage("System", "msg", "Remember, "+teamMemberNames[nick].instructions, nick);
+      channel.appendMessage("System", "msg", "Welcome back, "+nick+"! Your username is already active on Team "+teamMemberNames[nickUnique].number
+        +'. <a href="'+teamMemberNames[nickUnique].url+'" target="_blank">Follow this link to return to your team\'s discussion area.</a>', nick);  
+      //channel.appendMessage("System", "msg", "Remember, "+teamMemberNames[nickUnique].instructions, nickUnique);
   }
 
 res.simpleJSON(200, { id: session.id
@@ -1051,13 +1064,14 @@ fu.get("/recv", function (req, res) {
   {
     session = sessions[id];
     nick = session.nick;
+    nickUnique = session.nickUnique; 
     session.poke();
   }
 
   const since = parseInt(parsed.since, 10);
   if(session)
   {
-      channel.getMessages(since, nick, function (messages) 
+      channel.getMessages(since, nickUnique, function (messages) 
       {
       
         let myMessages = [];
@@ -1065,7 +1079,7 @@ fu.get("/recv", function (req, res) {
         for(var i = 0; i < messages.length; i++)
         {
           const message = messages[i];
-          //if (nick && (message.target_nick == nick || nick == "System" || nick == message.nick))
+          //if (nick && (message.target_nick == nickUnique || nick == "System" /* || nick == message.nick */))
           {
             myMessages.push(message);
           }
@@ -1123,7 +1137,7 @@ async function eventHubReceive() {
           return;
         }
         for (const event of events) {
-          console.log(`=== eventHubReceive event: '${event.body}' from partition: '${context.partitionId}' and consumer group: '${context.consumerGroup}'`);
+        //console.log(`=== eventHubReceive event: '${event.body}' from partition: '${context.partitionId}' and consumer group: '${context.consumerGroup}'`);
           eventHubPostTest(); 
         }
         // Update the checkpoint.
@@ -1131,7 +1145,7 @@ async function eventHubReceive() {
       },
 
       processError: async (err, context) => {
-        console.log(`Error : ${err}`);
+      //console.log(`Error : ${err}`);
       }
     }
   );
@@ -1148,13 +1162,13 @@ async function eventHubReceive() {
 
 
 eventHubReceive().catch((err) => {
-  console.log("Error occurred: ", err);
+//console.log("Error occurred: ", err);
 }); 
 
 
 function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
-        console.log("=== callback response 200, body = " + body);
+      //console.log("=== callback response 200, body = " + body);
     }
 }
 
@@ -1229,7 +1243,7 @@ function translateDCSSAuthToBazaar(auth) {
       }
     }    
   */  
-   console.log("In Translate..., auth = " + auth);
+ //console.log("In Translate..., auth = " + auth);
 
   return {
     clientID: auth.agent.configuration.clientID,
@@ -1253,7 +1267,7 @@ function exportCSV(room, res) {
 				+ 'where r.name=' + pool.escape(room) + ' order by timestamp', function (err, rows, fields) { 
 
 	if(err) {
-		 console.log(err);
+	//console.log(err);
 		 res.send(500, header_stuff+"<body><h2>Export Error</h2><p>Couldn't fetch data for room '"+room+"':</p><pre>"+err+"</pre></body>");
 	} else if(rows.length == 0) {
 			res.send(404, header_stuff+"<body><h2>Empty Room</h2><p>Couldn't fetch data for empty room '"+room+"'.</p></body>");
@@ -1269,7 +1283,7 @@ function exportCSV(room, res) {
 
 function loadHistory(socket, secret)
 {
-	console.log("Enter loadHistory");
+//console.log("Enter loadHistory");
     if(!socket.temporary) {
         //const connection = mysql.createConnection(mysql_auth);
         let id = null;
@@ -1291,7 +1305,7 @@ function loadHistory(socket, secret)
 					+ 'as m join nodechat.room as r on m.roomid=r.id '
 					+ 'where r.name=' + pool.escape(socket.room) + ' and not(m.type like "private") order by timestamp', function (err, rows, fields) {
 					if (err) 
-						console.log(err);						
+					//console.log(err);						
 					socket.emit('dump_history', rows);
 			
 					if(!secret) {
@@ -1309,14 +1323,14 @@ function loadHistory(socket, secret)
     {
 	io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
     }
-	console.log("Exit loadHistory");
+//console.log("Exit loadHistory");
 }
 
 function logMessage(socket, content, type) {   
-	console.log("Enter logMessage");	
-	console.log("logMessage, socket.room = " + socket.room);
-	console.log("logMessage, socket.roomid = " + socket.roomid);
-	console.log("logMessage, socket.username = " + socket.username);
+//console.log("Enter logMessage");	
+//console.log("logMessage, socket.room = " + socket.room);
+//console.log("logMessage, socket.roomid = " + socket.roomid);
+//console.log("logMessage, socket.username = " + socket.username);
 
     if(socket.temporary) return;
 
@@ -1324,8 +1338,8 @@ function logMessage(socket, content, type) {
        
   	pool.query('update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields) {
          if (err) {
-         	console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
-            console.log(err);
+         //console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
+          //console.log(err);
         	}
     });
     
@@ -1333,14 +1347,14 @@ function logMessage(socket, content, type) {
     if(socket.handshake)
 		endpoint = socket.handshake.address;
 		
-	console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
-	console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
-	console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
-	console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
-	console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
-	console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
-	console.log("logMessage, pool.escape(content) = " + pool.escape(content));
-	console.log("logMessage, pool.escape(type) = " + pool.escape(type));
+//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+//console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
+//console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
+//console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
+//console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
+//console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
+//console.log("logMessage, pool.escape(content) = " + pool.escape(content));
+//console.log("logMessage, pool.escape(type) = " + pool.escape(type));
 	
 	
 	
@@ -1349,17 +1363,17 @@ function logMessage(socket, content, type) {
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
     		+ pool.escape(type) + ', now());';                   
 
-	 console.log("logMessage: starting pool.query to mysql2");  
+//console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
          if (err) {
-         	console.log("Error on pool.query(query, function (err, rows, fields)")
-            console.log(err);
+         //console.log("Error on pool.query(query, function (err, rows, fields)")
+          //console.log(err);
         }
             
     });   
 //   connection.end()  
-    console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
-	console.log("Exit logMessage");  
+  //console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
+//console.log("Exit logMessage");  
 }
 
 // io.set('log level', 1);
@@ -1367,7 +1381,7 @@ function logMessage(socket, content, type) {
 
 io.sockets.on('connection', async (socket) => {
 
-	console.log("info", "socket.on_connection: -- start");
+//console.log("info", "socket.on_connection: -- start");
 
 	// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 	// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
@@ -1383,14 +1397,14 @@ io.sockets.on('connection', async (socket) => {
 		  username
 		} = translateDCSSAuthToBazaar(socket.handshake.auth);
 		  
-		console.log("socket ID: " + socket.id);
-		console.log("token = " + token);
-		console.log("clientID = " + clientID);
-		console.log("agent = " + agent);
-		console.log("roomName = " + roomName);
+	//console.log("socket ID: " + socket.id);
+	//console.log("token = " + token);
+	//console.log("clientID = " + clientID);
+	//console.log("agent = " + agent);
+	//console.log("roomName = " + roomName);
 		// console.log("roomid = " + roomid);
-		console.log("userID = " + userID);
-		console.log("username = " + username); 
+	//console.log("userID = " + userID);
+	//console.log("username = " + username); 
 		
 		// socket.roomid = agent + roomName;
 		// console.log("socket.roomid = " + socket.roomid);
@@ -1403,14 +1417,14 @@ io.sockets.on('connection', async (socket) => {
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.userID = userID;  
 		room = agent + roomName; 
-		console.log("room: " + room);    						
+	//console.log("room: " + room);    						
 		// socket.username = username; 
 		
 		logger = winston.createLogger({
     		transports: [
       			new (winston.transports.Console)()]
   		});	
-		console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
+	//console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
 		setTeam_fromSocket(agent,roomName,userID,username,logger);
 		
 		let temporary = false; 
@@ -1453,55 +1467,55 @@ io.sockets.on('connection', async (socket) => {
 
 	// when the client emits 'adduser', this listens and executes
 	socket.on('adduser', async (room, username, temporary, id, perspective) => {
-	    console.log("info", "Enter socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
+	  //console.log("info", "Enter socket.on_adduser: -- room: " + room + "  -- username: " + username + "  -- id: " + id);
 	    addUser(socket, room, username, temporary, id, perspective);
-	    console.log("info", "Exit socket.on_adduser");
+	  //console.log("info", "Exit socket.on_adduser");
 	});
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
-		console.log("Enter socket.on('sendchat')'"); 
-		console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
-		console.log("socket.on('sendchat'): socket.room = " + socket.room);
+	//console.log("Enter socket.on('sendchat')'"); 
+	//console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
+	//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
 		
 		if (socket.username == "DCSSLightSideAgent") {
-			console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
+		//console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
-			console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
+		//console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		}
 		
 		
 		// if (typeof socket.clientID !== 'undefined' ) {
-		// 	console.log("socket.on('sendchat'): socket.clientID NOT undefined");
+		// //console.log("socket.on('sendchat'): socket.clientID NOT undefined");
 		// 	if (socket.clientID == "DCSS") {
 		// 	// if (socket.clientID == "DO_NOT_GO_HERE") {
-		// 		console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
+		// 	//console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
 		// 		io.sockets.in(socket.room).emit('interjection', socket.username, data); 
 		// 	} else {	
-		// 		console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
+		// 	//console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
 		// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	// 		}
 	// 	} else {	
-	// 		console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
+	// 	//console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
 	// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	// 	}
-		console.log("Exit socket.on('sendchat')"); 
+	//console.log("Exit socket.on('sendchat')"); 
 			
 	});
 
 
 	// when the client emits 'request', this listens and executes
 	socket.on('request', async (data)  => {	
-		console.log("Enter socket.on_request"); 	
-		console.log("socket.username: " + socket.username);
+	//console.log("Enter socket.on_request"); 	
+	//console.log("socket.username: " + socket.username);
 		// io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 		socket.in(socket.room).broadcast.emit('updatechat', socket.username, data.value);
-		console.log("Exit socket.on_request"); 
+	//console.log("Exit socket.on_request"); 
 	})
 	
 	
@@ -1569,14 +1583,14 @@ io.sockets.on('connection', async (socket) => {
 	// when the user disconnects... perform this
 	socket.on('disconnect', async () => {
     try {
-      console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    //console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
     } catch (e) {
     }
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
-		console.log("token is NOT 'undefined'; issuing -leave- with token");
+	//console.log("token is NOT 'undefined'; issuing -leave- with token");
 		socket.leave(socket.handshake.auth.token);
 	}
 		
