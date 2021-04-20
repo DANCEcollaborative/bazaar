@@ -488,7 +488,7 @@ const MESSAGE_BACKLOG = 200,
     //idle timeout before "booting" a user who's idle - at least five seconds
     SESSION_TIMEOUT =   7*1000,
 //how long to wait after the most recent particpant has joined before attempting a team assignment - should be greater than session_timeout
-    GROUP_DELAY = 	15*1000, // hyeju changed this value
+    GROUP_DELAY = 	0, // hyeju changed this value -- then Chas changed it from 15*1000
     // LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
     LAST_RESORT_TIMEOUT =  600*1000, //this is when the system tells students to come back later
 //    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
