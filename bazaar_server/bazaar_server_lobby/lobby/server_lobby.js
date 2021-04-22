@@ -30,7 +30,7 @@ const consumer_key = "BazaarLTI";
 const consumer_secret = "BLTI";
 const localPort = 443;
 const localHost = '0.0.0.0';
-const localURL = "/collab";
+const localURL = "/bazaar";
 
 //variables for grading
 // const url = require('url');
