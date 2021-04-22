@@ -940,12 +940,12 @@ setInterval(function ()
 
 fu.listen(Number(process.env.PORT || PORT), HOST);
 
-fu.get("/", fu.staticHandler("index.html"));
-fu.get("/style.css", fu.staticHandler("style.css"));
-fu.get("/client.js", fu.staticHandler("client.js"));
-fu.get("/jquery-1.2.6.min.js", fu.staticHandler("jquery-1.2.6.min.js"));
+fu.get("/lobby", fu.staticHandler("index.html"));
+fu.get("/lobby/style.css", fu.staticHandler("style.css"));
+fu.get("/lobby/client.js", fu.staticHandler("client.js"));
+fu.get("/lobby/jquery-1.2.6.min.js", fu.staticHandler("jquery-1.2.6.min.js"));
 
-fu.get("/who", function (req, res) {
+fu.get("/lobby/who", function (req, res) {
   const nicks = [];
   for (const id in sessions) {
     if (!sessions.hasOwnProperty(id)) continue;
@@ -958,7 +958,7 @@ fu.get("/who", function (req, res) {
 });
 
 //this is the incoming message from the client that triggers session creation.
-fu.get("/join", function (req, res) 
+fu.get("/lobby/join", function (req, res) 
 {
   let parsed = qs.parse(url.parse(req.url).query);
   let id = parsed.id; 
@@ -1028,7 +1028,7 @@ res.simpleJSON(200, { id: session.id
 });
 
 //this is where we receive the keepalive message from the client
-fu.get("/alive", function (req, res) {
+fu.get("/lobby/alive", function (req, res) {
   const id = qs.parse(url.parse(req.url).query).id;
   let session;
   if (id && sessions[id]) {
@@ -1039,7 +1039,7 @@ fu.get("/alive", function (req, res) {
 });
 
 //this is when the client can tell us that they've left -- doesn't always happen
-fu.get("/part", function (req, res) {
+fu.get("/lobby/part", function (req, res) {
   const id = qs.parse(url.parse(req.url).query).id;
   let session;
   if (id && sessions[id]) {
@@ -1050,7 +1050,7 @@ fu.get("/part", function (req, res) {
 });
 
 //the client is asking for new messages since the given timestamp
-fu.get("/recv", function (req, res) {
+fu.get("/lobby/recv", function (req, res) {
   const parsed = qs.parse(url.parse(req.url).query);
   if (!parsed.since) 
   {
@@ -1095,7 +1095,7 @@ fu.get("/recv", function (req, res) {
 });
 
 //the client is sending a chat message to the matchmaker system
-fu.get("/send", function (req, res) {
+fu.get("/lobby/send", function (req, res) {
   const id = qs.parse(url.parse(req.url).query).id;
   let text = qs.parse(url.parse(req.url).query).text;
 
