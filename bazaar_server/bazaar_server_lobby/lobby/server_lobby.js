@@ -968,6 +968,12 @@ fu.get("/lobby/join", function (req, res)
 //  const reset = parsed.reset;
   // hyeju changed this part
   let reset = "true";
+  
+  let agent = parsed.agent;
+  let htmlPage = parsed.htmlPage;
+  let groupSize = parsed.groupSize; 
+  let source = parsed.source; 
+  console.log("=== agent: " + agent + "  -- htmlPage: " + htmlPage + "  -- groupSize: " + groupSize.toString('base64') + "  -- source: " + source); 
 
   winston.log('info',req.url);
   winston.log('info',url.parse(req.url).query);
