@@ -30,7 +30,7 @@ const consumer_key = "BazaarLTI";
 const consumer_secret = "BLTI";
 const localPort = 443;
 const localHost = '0.0.0.0';
-const localURL = "/bazaar";
+const localURL = "/collab";
 
 //variables for grading
 // const url = require('url');
@@ -100,7 +100,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src * data"); 
+    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/vertical.pdf https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/horizontal.pdf; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/local/bazsocket/ ws://collab.lti.cs.cmu.edu/bazsocket/ http://collab.lti.cs.cmu.edu/bazsocket/ wss://collab.lti.cs.cmu.edu/bazsocket/ https://collab.lti.cs.cmu.edu/bazsocket/ ws://collab.lti.cs.cmu.edu/bazsocket/ http://collab.lti.cs.cmu.edu/local/bazsocket/ wss://collab.lti.cs.cmu.edu/local/bazsocket/ https://collab.lti.cs.cmu.edu/local/bazsocket/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_https/bazaar/discussionnew2.css https://rawgit.com/gtomar/help-button-javascript/master/discussion.css 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/stylesheets/master/colors.js https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js https://rawgit.com/marinawang/bazaar/master/client.js https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKjk0mRUe0Aw.woff2 https://fonts.gstatic.com/s/oxygen/v10/2sDfZG1Wl4LcnbuKgE0mRUe0A4Uc.woff2; img-src * data"); 
     return next();
 });
 
@@ -715,13 +715,13 @@ const sessions = {};
 //when a user joins the lobby
 function createSession (nick,consent,reset) 
 {
-  // winston.log('info',"server_lobby_https.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
+  // winston.log('info',"server_lobby.js, createSession -- " + nick + " trying to join, consent="+consent + " reset="+reset);
   if (nick.length > 50) return null;
    
   //rejects invalid nicknames
   if (/[^\w_\-^! ]/.exec(nick)) 
   {
-	winston.log('info',"server_lobby_https.js, createSession -- invalid nickname: " + nick);
+	winston.log('info',"server_lobby.js, createSession -- invalid nickname: " + nick);
 	  return null;
   }
 
