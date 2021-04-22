@@ -504,6 +504,10 @@ $(document).ready(function() {
     var reset = $("#resetBox").attr("checked");
     var consent = true;
     var noConsent = false;
+    var agent = "climatechange";
+    var htmlPage = "climate_change"; 
+    var groupSize = 3; 
+    var source = "gooru"; 
     nick = jQuery.trim(nick);
 
     //dont bother the backend if we fail easy validations
@@ -536,8 +540,8 @@ $(document).ready(function() {
     $.ajax({ cache: false
            , type: "GET" // XXX should be POST
            , dataType: "json"
-           , url: "/lobby/join"
-		, data: { nick: nick, consent:consent, reset:reset ,id:"10000"}
+           , url: "/lobby/join" +
+		, data: { nick: nick, consent:consent, reset:reset, id:"10000", agent:agent, htmlPage:htmlPage, groupSize:groupSize, source:source}
            , error: function () {
                alert("error connecting to server");
                
