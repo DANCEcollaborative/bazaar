@@ -54,7 +54,7 @@
 		
 
 		<concept label="question1">
-			<phrase>These educational resources are a required portion of the course and will help supplement your in-class learning. | (You have about 30 seconds to guess before I give you a hint. I'll tell you if you're right; otherwise, keep guessing!)
+			<phrase>Two of your required essays for this course (Compare and Contrast, Argumentative Essays) require you to use this type of formatting when doing a Works Cited page. | (You have about 30 seconds to guess before I give you a hint. I'll tell you if you're right; otherwise, keep guessing!)
             </phrase>
 		</concept>
 
@@ -75,7 +75,7 @@
 
 
 		<concept label="response1_1">
-			<phrase>Readings are correct. To see a list of readings for your class, please contact your Course Instructor.</phrase>
+			<phrase>MLA formatting is correct! :-) </phrase>
 		</concept>
 
 		<concept label="response1_2">
@@ -88,7 +88,7 @@
 
 
 		<concept label="fix_response1">
-			<phrase>Let me help you out. *Readings* are a required portion of this course.
+			<phrase>Let me help you out. The correct answer is *MLA formatting*.
 			</phrase>
 		</concept>
 
@@ -102,7 +102,7 @@
 
 
 		<concept label="answer1_1" type="regex">
-			<phrase>read</phrase>
+			<phrase>mla</phrase>
 		</concept>
 
 		
@@ -140,7 +140,7 @@
 		<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation>This is an educational part of your homework that could be from a textbook, research paper, etc.</initiation>
+				<initiation>This is a different formatting style than APA and is required in this course. It starts with an M!</initiation>
                 <response say="response1_1">answer1_1</response>
 				<response say="fix_response1">unanticipated-response</response>
 			</step>

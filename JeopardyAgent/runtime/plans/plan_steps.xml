@@ -22,7 +22,7 @@
         <step type="prompt" delay="5" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step>
         <step type="prompt" delay="1" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step>
         <!-- 3NewImage: Jeopardy Board -->
-        <step type="whiteboard" delay="2" path="https://i.imgur.com/eRz5dv2.png">SHOW_IMAGE</step>
+        <step type="whiteboard" delay="0" path="https://i.imgur.com/eRz5dv2.png">SHOW_IMAGE</step>
         <!-- TODO: Gated Step -->
     </stage>
     <stage name="playGame" type="other" delay="0">
@@ -38,11 +38,11 @@
     	<!-- // <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="ALL_READY">WAIT_STEP_1</step>
         // <step type="prompt" delay="0" prompt="DISCUSS_4a">DISCUSS_4a</step> -->
    		
-    	<step type="prompt" delay="10" prompt="JEOPARDY_OUTRO" >JEOPARDY_OUTRO</step>
+    	<step type="prompt" delay="5" prompt="JEOPARDY_OUTRO" >JEOPARDY_OUTRO</step>
         <!-- 
         PIECE OF A PIE -->
         <!-- 4NEwImage: funnel -->
-        <step type="whiteboard" delay="3" path="https://i.imgur.com/vxVLo0H.png">SHOW_IMAGE</step>
+        <step type="whiteboard" delay="0" path="https://i.imgur.com/vxVLo0H.png">SHOW_IMAGE</step>
         <step type="prompt" delay="2" prompt="PIE_INTRO">PIE_INTRO</step>
         
         
@@ -51,7 +51,7 @@
        
        <!-- SMARTER goals  -->
 <!--        	<step type="whiteboard" delay="1" path="https://i.imgur.com/G7vtzE8.png">SHOW_IMAGE</step> -->
-       	<step type="whiteboard" delay="3" path="https://i.imgur.com/Ew1TRoH.png">SHOW_IMAGE</step>
+       	<step type="whiteboard" delay="0" path="https://i.imgur.com/b5DWKor.png">SHOW_IMAGE</step>
       <!-- 5NewImage: SmartGoals -->
         <step type="prompt" delay="5" prompt="TIME_MGMT">TIME_MGMT</step>
         <!-- <step type="whiteboard" delay="3" path="https://i.imgur.com/l97GY5t.png">SHOW_IMAGE</step> -->
@@ -65,12 +65,12 @@
         
         <!-- SOCIAL MEDIA SHARE -->
         <!-- 6NewImage: social media -->
-        <step type="whiteboard" delay="5" path="https://i.imgur.com/4WCVqv3.png">SHOW_IMAGE</step>
+        <step type="whiteboard" delay="0" path="https://i.imgur.com/nm9na4N.png">SHOW_IMAGE</step>
         <step type="prompt" delay="25" prompt="SOCIAL">SOCIAL</step>
         <!-- 7NewImage: Google Form  -->
 
         <step type="prompt" delay="1" prompt="GOOGLE_FORM">GOOGLE_FORM</step>
-        <step type="whiteboard" delay="1" path="https://i.imgur.com/TKQOU45.png">SHOW_IMAGE</step>
+        <step type="whiteboard" delay="0" path="https://i.imgur.com/TKQOU45.png">SHOW_IMAGE</step>
         <step type="prompt" delay="5" prompt="WGU_GOODBYE">WGU_GOODBYE</step>
         <step type="logout" delay="1">LOGOUT</step>
     	
