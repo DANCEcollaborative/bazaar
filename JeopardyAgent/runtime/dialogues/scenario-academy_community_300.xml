@@ -49,12 +49,12 @@
 		</concept>
 
 		<concept label="conclusion1">
-			<phrase>Please choose another question to answer.</phrase>
+			<phrase>If you didn't answer this question, you're next up! Please choose another question to answer.</phrase>
 		</concept>
 		
 
 		<concept label="question1">
-			<phrase>Students typically take this number of months to graduate from Academy.
+			<phrase>Students typically graduate from Academy in less than 1 year. The average student graduates WGU Academy in *this many months*. | (You have about 30 seconds to guess before I give you a hint. I'll tell you if you're right; otherwise, keep guessing!)
             </phrase>
 		</concept>
 
@@ -75,20 +75,20 @@
 
 
 		<concept label="response1_1">
-			<phrase> 3-4 months is correct! </phrase>
+			<phrase> 3-4 months is correct! :-) </phrase>
 		</concept>
 
 		<concept label="response1_2">
-			<phrase>It sounds like you could use some help. Anyone can chime in!</phrase>
+			<phrase></phrase>
 		</concept>
 		
 		<concept label="incorrect">
-			<phrase>That is incorrect; try again! Anyone can chime in. :-)</phrase>
+			<phrase>You don't have the correct answer yet. Here's a hint...</phrase>
 		</concept>
 
 
 		<concept label="fix_response1">
-			<phrase>Let me help you out. The correct answer is 3-4 months!
+			<phrase>Let me help you out. The correct answer is *3-4 months*!
 			</phrase>
 		</concept>
 
@@ -114,8 +114,6 @@
 	<script>
 		<goal name="start" difficulty="1">
 			
-			
-			
 			<step>
 				<!-- Every step begins with an initiating concept or literal phrase -->
 				<initiation>question1</initiation>
@@ -127,10 +125,13 @@
 					 Note that goals should NOT be recursively nested. -->
 					
 				<response say="response1_1">answer1_1</response>
-				<response say="response1_2" push="elicitate1">unanticipated-response</response>
+				<response say="incorrect" push="elicitate1">unanticipated-response</response>
 				
 			</step>
 
+			<step>
+				<initiation>conclusion1</initiation>
+			</step>
 
 
 			
@@ -139,7 +140,7 @@
 		<goal name="elicitate1" difficulty="0">
 
 			<step>
-				<initiation> </initiation>
+				<initiation>Most people are finished with WGU Academy in fewer than 6 months. What do you think the average number of months is? </initiation>
                 <response say="response1_1">answer1_1</response>
 				<response say="fix_response1">unanticipated-response</response>
 			</step>

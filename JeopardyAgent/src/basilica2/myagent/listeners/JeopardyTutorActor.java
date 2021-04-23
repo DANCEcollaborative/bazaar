@@ -35,10 +35,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -46,15 +46,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PromptEvent;
-import basilica2.agents.events.StepDoneEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
 import basilica2.agents.listeners.BasilicaAdapter;
-import basilica2.agents.listeners.plan.PlanExecutor;
 //import basilica2.social.data.TurnCounts;
 import basilica2.tutor.events.DoTutoringEvent;
 import basilica2.tutor.events.DoneTutoringEvent;
@@ -81,8 +81,7 @@ import edu.cmu.cs.lti.tutalk.slim.TuTalkAutomata;
 public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiver
 {
 
-	private String currentPointsPerson = null;
-	private int currentNumPoints = 0;
+
 	private boolean isTutoring = false;
 	private boolean expectingResponse = false;
 	private boolean nullExpected = false;
@@ -93,15 +92,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	private List<String> answerers = null;
 	private Map<String, Dialog> pendingDialogs = new HashMap<String, Dialog>();
 	private Map<String, Dialog> proposedDialogs = new HashMap<String, Dialog>();
-	//HashMap to keep track of whether a question has been answered already
-	private Map<Dialog, Boolean> isAnswered = new HashMap<Dialog, Boolean>(); 
-	private int numAnswered = 0;
-	private int numQuestions = 2;
-	private boolean gameOn = true;
-
-	private Map<String, Integer> pointsMap = new HashMap<String, Integer>();
-	//TODO: add both names to pointsMap even if they haven't answered a question yet 
-	
 	private String enlistedDialog = null;
 	private InputCoordinator source;
 	
@@ -109,25 +99,26 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	private boolean interruptForNewDialogues = false;
 	private boolean startAnyways = true;
 	private String dialogueFolder = "dialogs";
-	
+	private Map<Dialog, Boolean> isAnswered = new HashMap<Dialog, Boolean>();
 	private String dialogueConfigFile = "dialogues/dialogues-example.xml";
 	private int introduction_cue_timeout = 60;
 	private int introduction_cue_timeout2 = 60;
 	private int tutorTimeout = 45;
-	private String request_poke_prompt_text = "I am waiting for your response to start. Please ask for help if you are stuck.";
+	private String request_poke_prompt_text = "You can do it!";
 	private String goahead_prompt_text = "Let's go ahead with this.";
-	private String response_poke_prompt_text = "Can you rephrase your response?";
+	private String response_poke_prompt_text = "...?";
 	private String dont_know_prompt_text = "Anybody?";
 	private String moving_on_text = "Okay, let's move on.";
-	private String already_answered_text = "Oops! This question has already been answered. Try again!";
+	private String already_answered_text = "Oops! This question has already been answered. Please choose another question.";
 	private String tutorialCondition = "tutorial";
 	private int numUser = 1;
-	
-
-
-	
+	private int numAccept = 0;
 	
 	private boolean block = false;
+	private long startTime = (long)0.0;
+//	private Agent agentMe;
+//	private boolean allowDialogs = false;
+//	private String stageName;
 
 	// private List<Dialog> dialogsReadyQueue = new ArrayList<Dialog>();
 
@@ -157,11 +148,11 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	public JeopardyTutorActor(Agent a)
 	{
 		super(a);
+//		agentMe = a;
 		introduction_cue_timeout = Integer.parseInt(properties.getProperty("timeout1"));
 		introduction_cue_timeout2 = Integer.parseInt(properties.getProperty("timeout2"));
 		request_poke_prompt_text = properties.getProperty("requestpokeprompt", request_poke_prompt_text);
 		goahead_prompt_text = properties.getProperty("goaheadprompt", goahead_prompt_text);
-		already_answered_text = properties.getProperty("alreadyanswered", already_answered_text);
 		response_poke_prompt_text = properties.getProperty("responsepokeprompt",response_poke_prompt_text);
 		dont_know_prompt_text = properties.getProperty("dontknowprompt", dont_know_prompt_text);
 		moving_on_text = properties.getProperty("moveonprompt", moving_on_text);
@@ -169,6 +160,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		dialogueFolder = properties.getProperty("dialogue_folder",dialogueFolder);
 		startAnyways = properties.getProperty("start_anyways","false").equals("true");
 		tutorialCondition = properties.getProperty("tutorial_condition",tutorialCondition);
+		already_answered_text = properties.getProperty("alreadyanswered",already_answered_text);
 		
 		loadDialogConfiguration(dialogueConfigFile);
 		
@@ -180,7 +172,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	{
 		try
 		{
-			// TODO: set up state variables here, and set gameOn = true, numAnswered = 0
 			
 			DOMParser parser = new DOMParser();
 			parser.parse(f);
@@ -226,7 +217,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 						Dialog d = new Dialog(conceptName, name, introText, cueAnnotation, cueText, cancelAnnotation, cancelText);
 						proposedDialogs.put(conceptName, d);
 						isAnswered.put(d, false);
-						
 					}
 				}
 			}
@@ -245,6 +235,17 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 //		{
 //			return;
 //		}
+//		State state = State.copy(StateMemory.getSharedState(agentMe));
+//		stageName = state.getStageName();
+//		if (stageName.equals("playGame")){
+//			System.out.println("setting in TutorActor processEvent allowDialogs true");
+//			state.setAllowDialogs(true);
+//		} else {
+//			System.out.println("setting in TutorActor processEvent allowDialogs FALSE");
+//			state.setAllowDialogs(false);
+//		}
+//		StateMemory.commitSharedState(state, agentMe);
+		
 		if(block)
 		{
 			/*try {
@@ -305,7 +306,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 
 	private void handleDoTutoringEvent(DoTutoringEvent dte)
 	{
-		
 		Dialog d = proposedDialogs.get(dte.getConcept());
 		Boolean answeredAlready = isAnswered.get(d);
 		if (d != null)
@@ -331,13 +331,12 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 					isTutoring = false;
 	
 					// dialogsReadyQueue.add(d);
-					if (!answeredAlready) {
-					
+					if(!answeredAlready) {
 						launchDialogOffer(d);
-					}
-					else {
+					} else {
 						sendTutorMessage(already_answered_text);
 					}
+					
 				}
 				else
 				{
@@ -346,19 +345,9 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 			}
 			else
 			{
-				if (!answeredAlready && numAnswered < numQuestions - 1) { // and not last question -> else launch dialog offer last (conclude)
-					
+				if(!answeredAlready) {
 					launchDialogOffer(d);
-				}
-				else if (!answeredAlready && numAnswered == numQuestions - 1) {
-					
-					sendTutorMessage("This is our last question! It all comes down to this...");
-					//launchDialogOfferWait(d);
-					launchDialogOffer(d);
-					//sendTutorMessageWinner("And the winner is...");
-					
-				}
-				else {
+				} else {
 					sendTutorMessage(already_answered_text);
 				}
 			}
@@ -376,22 +365,12 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 
 				if (d.acceptAnnotation.equals(concept))
 				{
-					
+//					if (numAccept == 0) {
+//						startTime = System.currentTimeMillis();
+//					}
+					numAccept++;
 					killMeNow = d;
 					isAnswered.put(d, true);
-					numAnswered += 1;
-					
-					//TODO: get sender name and points value 
-					System.out.println("concept");
-					System.out.println(d.conceptName);
-					System.out.println("scenario");
-					System.out.println(d.scenarioName);
-					System.out.println("from");
-					System.out.println(e.getFrom());
-					//sendTutorMessage(e.getFrom());
-					currentNumPoints = Integer.parseInt(d.conceptName.substring(d.conceptName.length() - 3));
-					currentPointsPerson = e.getFrom();
-					//sendTutorMessage(d.conceptName.substring(d.conceptName.length() - 3));
 					sendTutorMessage(d.acceptText);
 					startDialog(d);
 				}
@@ -483,9 +462,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 						studentTurn += turn + " | ";
 					}
 					List<EvaluatedConcept> matchingConcepts = currentAutomata.evaluateTuteeTurn(studentTurn, ste.getAnnotations());
-//					State s = State.copy(StateMemory.getSharedState(agent));
-//					s.setStudentPose(identity,poseEvent.getPoseEventType());
-//					StateMemory.commitSharedState(s, agent);
 					if (matchingConcepts.size() != 0)
 					{
 						System.out.println(matchingConcepts.get(0).getClass().getSimpleName());
@@ -500,22 +476,23 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 								noMatchingResponseCount++;
 								if (noMatchingResponseCount <= numUser + 2)
 								{
+									
 									//TODONE: fire poke event in repsonse to student message
 //									TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { response_poke_prompt_text,
 //											lastTutorTurns.get(lastTutorTurns.size() - 1) });
 //									this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
 									//sendTutorMessage(response_poke_prompt_text, lastTutorTurns.get(lastTutorTurns.size() - 1));
-									System.out.println("unanticipated");
 								}
-								else if (noMatchingResponseCount >= numUser + 2)
-								{
-									// Give up and just go with Unanticipated
-									// Response match
-									expectingResponse = false;
-									noMatchingResponseCount = 0;
-									List<String> tutorTurns = currentAutomata.progress(concept);
-									processTutorTurns(tutorTurns);
-								}
+//								else if (noMatchingResponseCount >= numUser + 2)
+//								{
+//									System.out.println("too many unanticipated");
+//									// Give up and just go with Unanticipated
+//									// Response match
+//									expectingResponse = false;
+//									noMatchingResponseCount = 0;
+//									List<String> tutorTurns = currentAutomata.progress(concept);
+//									processTutorTurns(tutorTurns);
+//								}
 							}
 							else
 							{
@@ -527,6 +504,16 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 								processTutorTurns(tutorTurns);
 							}
 						}
+//							else if (concept.getLabel().equalsIgnoreCase("answer1_1")) {
+//								if (System.currentTimeMillis() - startTime < 360000) {
+//									sendTutorMessage("Please choose another question to answer.");
+//									System.out.println(System.currentTimeMillis());
+//									Systsem.out.println(startTime);
+//								} else {
+//									sendTutorMessage("Thanks for playing. :-)");
+//								}
+//							
+//						}
 						/*else if (concept.getLabel().equalsIgnoreCase("_dont_know_"))
 						{
 
@@ -541,71 +528,8 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 //							this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
 							sendTutorMessage(dont_know_prompt_text);
 						}*/
-						
-						// indicates that the answerer got the correct answer - add pts
-						else if (concept.getLabel().equalsIgnoreCase("answer1_1")) {
-							for (String contributor : ste.getContributors())
-							{
-								answerers.add(contributor);
-							}
-							System.out.println("answerers");
-							System.out.println(answerers);
-							System.out.println("NAME");
-							System.out.println(ste.getSender());
-							System.out.println(ste);
-							
-							System.out.println("current points person");
-							System.out.println(currentPointsPerson);
-							System.out.println("current num points");
-							System.out.println(currentNumPoints);
-							
-							
-							
-							
-							
-							if (pointsMap.keySet().size() > 0) {
-								for (String person : pointsMap.keySet()) {
-									if (person.contains(currentPointsPerson)){
-										System.out.println("position_A");
-										pointsMap.put(person, currentNumPoints + pointsMap.get(person));
-									} else {
-										System.out.println("position_B");
-										pointsMap.put(currentPointsPerson, currentNumPoints);
-									}
-								}
-							} else {
-								System.out.println("position_C");
-								pointsMap.put(currentPointsPerson, currentNumPoints);
-							}
-							
-							expectingResponse = false;
-							noMatchingResponseCount = 0;
-							List<String> tutorTurns = currentAutomata.progress(concept);
-							processTutorTurns(tutorTurns);
-							
-							// sendTutorMessage("The current scores are: ");
-							// TODO: send current scores
-							
-							if (numAnswered == numQuestions) {
-								source.pushEvent(new StepDoneEvent(source, "step"));
-								String key = " ";
-								key = Collections.max(pointsMap.entrySet(), Map.Entry.comparingByValue()).getKey();
-								
-								String messageToSend = "Game over! The winner is... " + key + "!! Take a moment to share something new you learned during this game. :-)";
-								sendTutorMessage(messageToSend);
-	
-							} else {
-								sendTutorMessage("Please choose another question to answer.");
-							}
-							
-							
-							System.out.println("POINTS MAP");
-							System.out.println(pointsMap);
-						}
-						
 						else
 						{
-							
 							for (String contributor : ste.getContributors())
 							{
 								answerers.add(contributor);
@@ -703,13 +627,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		// is not responded to yet!
 		Timer t = new Timer(introduction_cue_timeout, d.conceptName, this);
 		t.start();
-	}
-	
-	private void launchDialogOfferWait(Dialog d) {
-		launchDialogOffer(d);
-//		while (numAnswered != numQuestions) {
-//		
-//		}
 	}
 
 	private void processTutorTurns(List<String> tutorTurns)
@@ -828,33 +745,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		source.pushProposal(pete);
 		
 	}
-	
-	private void sendTutorMessageWinner(String... promptStrings)
-	{
-		String combo = join(promptStrings);
-//		while (numAnswered != numQuestions) {
-//			
-//		}
-		
-		PriorityEvent pete = new PriorityEvent(source, new MessageEvent(source, getAgent().getUsername(), combo, "TUTOR"), tutorMessagePriority , prioritySource, 45);
-		//PriorityEvent pete = PriorityEvent.makeBlackoutEvent("TUTOR_DIALOG", new MessageEvent(source, getAgent().getUsername(), combo, "TUTOR"), 1.0, 45, 10);
-		//((BlacklistSource)pete.getSource()).addExceptions("TUTOR_DIALOG");
-		source.pushProposal(pete);
-		int highScore = 0;
-		String winner = null;
-		for (String person : pointsMap.keySet()) {
-			System.out.println(person);
-			if (pointsMap.get(person) > highScore){
-				highScore = pointsMap.get(person);
-				winner = person;
-			} else if (pointsMap.get(person) == highScore) {
-				winner = String.join(person, " ", winner);
-			}
-		}
-		sendTutorMessage(winner);
-		sendTutorMessage("Congratulations!!! :-)");
-		
-	}
 
 	public String join(String... promptStrings)
 	{
@@ -874,6 +764,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	@Override
 	public void processEvent(InputCoordinator source, Event event)
 	{
+		
 		this.source = source;
 		processEvent(event);
 		

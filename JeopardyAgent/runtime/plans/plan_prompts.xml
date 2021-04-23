@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <prompts>
     
     <prompt strategy="task" id="GREET">
@@ -15,9 +16,12 @@
     <prompt strategy="task" id="ICEBREAKER">
         <text>Great! Now, share one reason why you are pursuing a WGU degree.</text>
     </prompt>
-    
+
+	<prompt strategy="task" id="DIRECTIONS">
+        <text> Welcome to WGU Academy. :-) I'll be guiding you through some fun collaborative activities. I am only here to facilitate your conversation. During this activity, you two should chat with each other, work as a team, and get to know each other. |As a heads-up: you'll both need to stick around until the VERY END in order get the directions to fill out a Google Form to mark your participation for this activity, so please don't leave early.</text>
+    </prompt>
     <prompt strategy="task" id="WGU_GOODBYE">
-        <text>For further information about WGU Academy, FAQs, and more, please visit: https://academy.wgu.edu/.</text>
+        <text>Thank you for your participation! For further information about WGU Academy, FAQs, and more, please visit: https://academy.wgu.edu/.</text>
     </prompt>
     
     <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
@@ -25,7 +29,7 @@
     </prompt>
     
     <prompt strategy="task" id="WGU_ACADEMY_INFO">
-        <text>Welcome to WGU Academy. :-) Like our regular degree programs, courses in WGU Academy are entirely self-paced. YOU study on your own, and YOU decide when you're ready to tackle assessments. That's the beauty of competency-based education!</text>
+        <text>Welcome to WGU Academy. :-) Courses in WGU Academy are entirely self-paced. YOU study on your own, and YOU decide when you're ready to tackle assessments. That's the beauty of competency-based education!</text>
     </prompt>
     
     <prompt strategy="task" id="TESTIMONIAL">
@@ -33,7 +37,11 @@
     </prompt>
     
     <prompt strategy="task" id="JEOPARDY_CATEGORY">
-        <text>Please pick a category using the format: category + value. For example, type: "English Composition for 100."</text>
+        <text>Whoever has the name that comes first in the alphabet... You're first! Please type in the chat a category using the format: category + value. For example, type: "English Composition for 100" into the chat box. Your time for this activity starts now!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="JEOPARDY_CATEGORY_WARNING">
+        <text>Your time for this activity is almost up. One minute left! :-)</text>
     </prompt>
     
     <prompt strategy="task" id="CONTINUE_JEOPARDY_CATEGORIES">
@@ -42,6 +50,11 @@
     
     <prompt strategy="task" id="SETUP">
         <text>You're on your own.</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="JEOPARDY_END">
+        <text>Great job -- Please share something you learned during this game inspired by Jeopardy!</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
@@ -56,33 +69,47 @@
     </prompt>
     
     <prompt strategy="task" id="JEOPARDY_INTRO_SHORT">
-        <text>Now for the main event... let's play a game inspired by Jeopardy! </text>
+        <text>Now, let's play a game inspired by Jeopardy! You will have about 7 minutes to play. </text>
     </prompt>
     
     <prompt strategy="task" id="JEOPARDY_OUTRO">
-        <text>Great job! I hope you both enjoyed that as much as I did. Nothing like a little friendly competition! ;-)</text>
+        <text>Great job! Let's move on to the next portion of the activity, where we will discuss goal-setting strategies in your English Composition class.</text>
     </prompt>
     
     <prompt strategy="task" id="PIE_PROMPT">
-        <text> Completing your English assignments in a timely manner and working toward completing each portion of your funnel will set you up for success. 
+        <text>Completing your English assignments in a timely manner and working toward completing each portion of your funnel will set you up for success. 
 </text>
     </prompt>
     
     <prompt strategy="task" id="TIME_MGMT">
-        <text> At WGU Academy, we like to set SMARTER goals. "SMARTER" stands for: Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward. | By setting SMARTER goals, we are setting ourselves up for success to fill in each piece of our pie. For example, instead of saying "I will do well in my English course," try setting a SMARTER goal such as "I will complete my Personal Narrative assignment in 1 week by setting aside one hour each evening to work on it. Along the way, I will evaluate my progress, and when I finish, I will celebrate with my family!"
+        <text>At WGU Academy, we like to set SMARTER goals. "SMARTER" stands for: Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward. | By making SMARTER goals, we are setting ourselves up for success to complete our funnel. For example, instead of saying "I will do well in my English course," try setting a SMARTER goal such as "I will complete my Personal Narrative assignment in 1 week by setting aside one hour each evening to work on it. Along the way, I will evaluate my progress, and when I finish, I will celebrate with my family!"
 </text>
     </prompt>
     
+    
+    
+    <prompt strategy="task" id="LINK">
+		<text>https://forms.gle/LoH4qHHTG2paKWeA8</text>
+    </prompt>
+    
     <prompt strategy="task" id="TIME_MGMT_SHARE">
-		<text> Take a moment to share what your next assignment is in your English Composition class. </text>
+		<text>Take 30 seconds to share what your next assignment is in your English Composition class. Your choices are the Personal Narrative, Compare and Contrast, Persuasive Letter, and Argumentative Essay. </text>
+    </prompt>
+    
+    <prompt strategy="task" id="GOOGLE_FORM">
+		<text>IMPORTANT: Please copy and paste the following Google Form link into a new window or tab and fill out the form to mark your attendance for this activity... | https://forms.gle/LoH4qHHTG2paKWeA8</text>
     </prompt>
     
     <prompt strategy="task" id="SMARTER_GOALS">
-		<text> Now, take turns sharing SMARTER goals for completing your next assignment. Make sure they follow the acronym of Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward! </text>
+		<text>Now, take 3 minutes to take turns sharing SMARTER goals for completing your next assignment. Make sure they follow the acronym of Specific, Measurable, Actionable, Relevant, Time-Bound, Evaluate, and Reward! If you are not sure if your goals follow the SMARTER template, ask your partner! </text>
+    </prompt>
+    
+        <prompt strategy="task" id="SMARTER_GOALS_CONT">
+		<text>Take 1 minute to assess each other's goals. Do each of the goals follow the SMARTER steps? How can your goals be improved? How can you help each other with your goals? </text>
     </prompt>
     
     <prompt strategy="task" id="SOCIAL">
-        <text>If you'd like, please share your email address, social media, or phone number with each other to keep in contact after this activity. Your personal information will not be used in any way outside of this conversation. Thank you for your participation! </text>
+        <text>If you'd like, please share your email address, social media, or phone number with each other to keep in contact after this activity. Your personal information will not be used in any way outside of this conversation. Remember to stick around to fill out the Google Form.</text>
     </prompt>
     
     <prompt strategy="task" id="PIE_INTRO">
@@ -95,7 +122,7 @@
     
     
     <prompt strategy="task" id="JEOPARDY_INSTRUCTIONS">
-    	<text>In this game, you will be prompted with a clue that represents an answer. Your job is to give the corresponding question! For example, upon picking a category and point value, you will receive something like this: "This university is the largest fully-online nonprofit university in the country." |Then... You will answer with the question! In this case, it should be: "What is WGU?", or you may simply type: "WGU". Please alternate turns to give everyone an equal chance to play. Only the person who asks for the question will be given points for an answer.</text>
+    	<text>In this game, you will be prompted with a clue. Your job is to solve it! For example, upon picking a category and point value, you will receive something like this: "This university is the largest fully-online nonprofit university in the country." |Then... You will type your answer in the chat box! In this case, it should be: "WGU". Please alternate turns to give everyone an equal chance to play.</text>
     </prompt>
     
     <!-- <prompt strategy="task" id="INSTRUCTIONS">
