@@ -264,6 +264,7 @@ ul.tab li a:focus, .active {
             $('input,textarea').prop('disabled', true);
 	}
         $('#roomname').text(room);
+        document.getElementById('climateChangeData').src =  "/bazaar/static/climateChangeData.pdf";    
         document.getElementById('jointResponse').src =  "https://collab.lti.cs.cmu.edu:9001/p/" + "j" +  room + "?showChat=false&noColors=false";
         document.getElementById('tempNotes').src =  "https://bazaar.lti.cs.cmu.edu:9001/p/" + "t" +  room + "?showChat=false&noColors=false";
         document.getElementById('co2Notes').src =  "https://bazaar.lti.cs.cmu.edu:9001/p/" + "c" + room + "?showChat=false&noColors=false";  
@@ -523,7 +524,7 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Spreadsheet')">Data</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Data')">Data</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Temperature Change Notes')">Temperature Change Notes</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Carbon Dioxide Notes')">Carbon Dioxide Notes</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Fossil Fuel Notes')">Fossil Fuels Notes</a></li>
@@ -531,26 +532,9 @@ ul.tab li a:focus, .active {
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Joint Response')">Joint Response</a></li>
     </ul>
 
-
-    <div id="Spreadsheet" class="tabcontent">
+   <div id="Data" class="tabcontent">
       <div id="image_container" class="container">
-        <!--<div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/1ZRP9_ypVZOEQ_hASea2sR8e52MkendyR1YHBlBYWrvg/edit#gid=0" width="100%" height="100%"></iframe></div>-->
-        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/1OEGlbtimIwn9rekGN6yYHCqqvJrJiY05tXfSY8sXzW0" width="100%" height="100%"></iframe></div>
-        <!--<div id="images" class="scrollable"><iframe id="spreadsheet" src="" width="100%" height="100%"></iframe></div>-->
-      </div>
-    </div>
-
-
-    <div id="Sharing Space" class="tabcontent">
-      <div id="image_container" class="container">
-          <div id="images" class="scrollable"></div>
-      </div>
-
-      <div id="image_controls" class="control">
-          <div id="image_url_input_div">
-              <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
-          </div>
-          <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
+        <div id="images" class="scrollable"><iframe id= "climateChangeData" width="100%" height="100%"></iframe></div>
       </div>
     </div>
 
