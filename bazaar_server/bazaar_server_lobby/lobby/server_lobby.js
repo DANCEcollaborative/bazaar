@@ -971,10 +971,11 @@ fu.get("/lobby/join", function (req, res)
   
   let agent = parsed.agent;
   let htmlPage = parsed.htmlPage;
-  // let groupSize = parsed.groupSize; 
+  let groupSize = parsed.groupSize; 
   let source = parsed.source; 
   // console.log("=== agent: " + agent + "  -- htmlPage: " + htmlPage + "  -- groupSize: " + groupSize.toString('base64') + "  -- source: " + source); 
-  console.log("=== agent: " + agent + "  -- htmlPage: " + htmlPage + "  -- source: " + source); 
+  console.log("=== agent: " + agent + "  -- htmlPage: " + htmlPage + "  -- groupSize: " + groupSize + "  -- source: " + source); 
+  // console.log("=== agent: " + agent + "  -- htmlPage: " + htmlPage + "  -- source: " + source); 
 
   winston.log('info',req.url);
   winston.log('info',url.parse(req.url).query);
