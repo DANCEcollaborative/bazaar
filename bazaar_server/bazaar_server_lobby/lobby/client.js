@@ -542,7 +542,6 @@ $(document).ready(function() {
            , dataType: "json"
            , url: "/lobby/join"
 		, data: { nick: nick, consent:consent, reset:reset, id:"10000", agent:agent, htmlPage:htmlPage, groupSize:groupSize, source:source}
-		// , data: { nick: nick, agent:agent, htmlPage:htmlPage, source:source, consent:consent, reset:reset, id:"10000"}
 		// , data: { nick: nick, consent:consent, reset:reset, id:"10000"}
            , error: function () {
                alert("error connecting to server");
