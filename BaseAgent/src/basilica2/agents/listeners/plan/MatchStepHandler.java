@@ -68,10 +68,8 @@ class MatchStepHandler implements StepHandler
 		}
 		catch (Exception e){}
 		numRoles = roles.length; 
-		System.err.println("MatchStepHandler, numRoles: " + Integer.toString(numRoles)); 
 		for (int i=0; i< numRoles; i++) {
 			roles[i] = roles[i].replace("_", " "); 
-			System.err.println("role " + Integer.toString(i) + ": " + roles[i]); 
 		}
 		roleList = Arrays.asList(roles);
 		Collections.shuffle(roleList);
@@ -108,7 +106,6 @@ class MatchStepHandler implements StepHandler
 		// Get the IDs of the students currentlyo present
 		String[] studentIds = state.getStudentIds(); 
 		int numStudents = studentIds.length; 
-		System.err.println("MatchStepHandler, execute: num students = " + Integer.toString(numStudents));		
 		if (maxUsersToMatch > numStudents) {
 			maxUsersToMatch = numStudents; 
 		}
@@ -137,11 +134,6 @@ class MatchStepHandler implements StepHandler
         	}
         } else {
         	promptText = prompter.lookup(promptKey);
-        }
-        
-        // Temp to check if roles are properly associated with student IDs
-        for (int i=0; i < maxUsersToMatch; i++) {
-        	System.err.println("Student - id: " + studentIds[i] +  "  -- name: " + state.getStudentName(studentIds[i]) +  "  -- role: " + state.getStudentRole(studentIds[i])); 
         }
         	
 		final double delay = constantDelay + (rateLimited?(promptText.split(" ").length/wordsPerSecond):0);

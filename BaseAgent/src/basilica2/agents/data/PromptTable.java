@@ -160,19 +160,15 @@ public class PromptTable
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
 			String promptText = promptTexts.get(promptIndex);
-			// System.out.println("promptText: " + promptText); 
-			if (studentIds != null && roles != null)
+			if (studentIds != null && roles != null)			// Replace all [NAME#] and [ROLE#] in prompt with names and roles
 			{
 				String nameKey, roleKey, name, role; 
 				for (int i = 0; i < maxMatches; i++)
 				{
 					nameKey = "[NAME" + Integer.toString(i+1) + "]"; 
-					name = state.getStudentName(studentIds[i]);
-					
+					name = state.getStudentName(studentIds[i]);					
 					roleKey = "[ROLE" + Integer.toString(i+1) + "]"; 
 					role = roles[i];
-
-					// System.out.println("PromptTable, match: nameKey = " + nameKey + " - name = " + name + "  --- rolekey = " + roleKey + " - role = " + role);
 					if(name != null && role != null)
 						promptText = promptText.replace(nameKey, name);
 						promptText = promptText.replace(roleKey, role);
