@@ -25,11 +25,23 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_A2">
-        <text>Each of you will start out by specializing in one aspect of climate change: temperature change, carbon dioxide, or fossil fuels.|Decide among yourselves who will specialize in which aspect. If someone comes late, they'll get one of the remaining aspects. If you end up shorthanded, cover your own specialization and then work together on what remains.|Go ahead and decide who gets which. I'll wait a bit.</text>
+        <text>Each of you will start out by specializing in one aspect of climate change: temperature change, carbon dioxide, or fossil fuels.|Decide among yourselves who will specialize in which aspect. If someone comes late, they'll get one of the remaining aspects. If you end up shorthanded, cover your own specialization and then work together on what remains.|Go ahead and decide who gets which. I'll wait a little while.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2_1">
+        <text>Temperature change, carbon dioxide, and fossil fuels all play a role in climate change.|[NAME1], you will research the role of [ROLE1].|If others join you later, they will research the other roles.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2_2">
+        <text>Temperature change, carbon dioxide, and fossil fuels all play a role in climate change.|[NAME1], you will research the role of [ROLE1]. ... [NAME2], you will research the role of [ROLE2].|If someone joins you later, they will research the remaining role.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_A2_3">
+        <text>Temperature change, carbon dioxide, and fossil fuels all play a role in climate change.|[NAME1], you will research the role of [ROLE1]. ... [NAME2], you will research the role of [ROLE2]. ... [NAME3], you will research the role of [ROLE3].</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_A3">
-        <text>Now it's time to research your specialization. Click on the "Data" tab at the left. You'll find a Google Sheet which itself has 3 tabs at the bottom, one for each specialization: Temperature Change, Carbon Dioxide, and Fossil Fuels. Find the Data tab for your specialization.</text>
+        <text>Now it's time to research your specialization. Click on the "Data" tab at the left. You'll find 3 links at the bottom of the Data tab, one for each specialization: Temperature Change, Carbon Dioxide, and Fossil Fuels. Click on the link for your specialization.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_A4">
