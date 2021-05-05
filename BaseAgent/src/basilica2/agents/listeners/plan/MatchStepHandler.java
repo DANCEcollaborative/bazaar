@@ -75,9 +75,12 @@ class MatchStepHandler implements StepHandler
 			roles[i] = roles[i].replace("_", " "); 
 			System.err.println("role " + Integer.toString(i) + ": " + roles[i]); 
 		}
+		System.err.println("roles[] before shuffle" + roles);
 		roleList = Arrays.asList(roles);
 		Collections.shuffle(roleList);
-		
+		roleList.toArray(roles);
+		System.err.println("roles[] after shuffle" + roles);
+/*		
 		for (int i = 0; i < numRoles; i++)
 		{
 			String role = roleList.get(i);
@@ -85,7 +88,7 @@ class MatchStepHandler implements StepHandler
 			slots2.put("[ROLE" + (i + 1) + "]", role);
 		}		
 		// roleList.toArray(roles);
-		
+*/		
 		try
 		{
 			maxUsersToMatch = Integer.parseInt(properties.getProperty("max_users_to_match",""+maxUsersToMatch));
@@ -108,10 +111,10 @@ class MatchStepHandler implements StepHandler
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
 		System.err.println("MatchStepHandler: entering 'execute'");
-		State news = StateMemory.getSharedState(overmind.getAgent());
-		if (news.getNumRoles() == 0) 
+		State state = StateMemory.getSharedState(overmind.getAgent());
+		if (state.getNumRoles() == 0) 
 		{
-			news.setRoles(roles);
+			state.setRoles(roles);
 		}
 
 		if(slots1 == null)
@@ -120,28 +123,30 @@ class MatchStepHandler implements StepHandler
 			// slots1.put("[AGENT NAME]", source.getAgent().getUsername().split(" ")[0]);
 		}
  
-		// slots1.put("[NAMES]", news.getStudentNamesString());
-		List<String> studentIds = news.getStudentIdList(); 
-		List<String> studentNames = news.getStudentNamesByIds(studentIds); 
-		int numStudents = studentNames.size(); 
+		// slots1.put("[NAMES]", state.getStudentNamesString());
+		// List<String> studentIds = state.getStudentIdList(); 
+		String[] studentIds = state.getStudentIds(); 
+		// List<String> studentNames = state.getStudentNamesByIds(studentIds); 
+		int numStudents = studentIds.length; 
 		System.err.println("MatchStepHandler, execute: num students = " + Integer.toString(numStudents));
 		
 		if (maxUsersToMatch > numStudents) {
 			maxUsersToMatch = numStudents; 
 		}
+/*
 		for (int i = 0; i < maxUsersToMatch; i++)
 		{
 			String studentName = studentNames.get(i);
 			slots1.put("[NAME" + (i + 1) + "]", studentName);
 		}
-		String rolesString = news.getRolesString(); 
+		String rolesString = state.getRolesString(); 
 		// slots2.put("[ROLES]",rolesString);
 		for (int i = 0; i < maxUsersToMatch; i++)
 		{
 			String role = roleList.get(i);
 			slots2.put("[ROLE" + (i + 1) + "]", role);
 		}
-
+*/ 
 		String promptKey = step.name;
 		if(step.attributes.containsKey("prompt"))
 		{
@@ -154,10 +159,10 @@ class MatchStepHandler implements StepHandler
         String promptSuffix = "_" + Integer.toString(numStudents); 
         if (numStudents > 0) {
         	adjustedPromptKey = promptKey + promptSuffix; 
-        	String adjustedPromptText = prompter.match(adjustedPromptKey, slots1, slots2, maxUsersToMatch);
+        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, maxUsersToMatch, state);
         	if (adjustedPromptText == adjustedPromptKey) {
         		System.err.println("MatchStepHandler, execute: first match failed"); 
-        		promptText = prompter.match(promptKey, slots1, slots2, maxUsersToMatch);
+        		promptText = prompter.match(promptKey, studentIds, roles, maxUsersToMatch, state);
         	}
         	else {
         		promptText = adjustedPromptText; 

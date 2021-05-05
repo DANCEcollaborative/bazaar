@@ -340,7 +340,17 @@ public class State
 		return ids;
 	}
 
-	public List<String> getStudentNamesByIds(List<String> ids)
+	public String[] getStudentNamesByIds(String[] ids)
+	{
+		List<String> names = new ArrayList<String>();
+		for (int i = 0; i < ids.length; i++)
+		{
+			names.add(getStudentName(ids[i]));
+		}
+		return names.toArray(new String[0]);
+	}
+
+	public List<String> getStudentNamesByIdList(List<String> ids)
 	{
 		List<String> names = new ArrayList<String>();
 		for (int i = 0; i < ids.size(); i++)
