@@ -154,47 +154,29 @@ public class PromptTable
 
 	public String match(String promptName, String[] studentIds, String[] roles, int maxMatches, State state)
 	{
-		System.err.println("PromptTable, match: maxMatches = " + Integer.toString(maxMatches)); 
-		// Do the Prompt
-		System.err.println("PromptTable, match - studentIds: " + studentIds);
-		System.err.println("PromptTable, match - roles: " + roles);
-	/*
-	    System.err.println("\t" + slotFillers1);
-		System.err.println("slotfillers2 ...");
-	    System.err.println("\t" + slotFillers2);
-	*/
+
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
 			String promptText = promptTexts.get(promptIndex);
-			System.err.println("promptText: " + promptText); 
+			// System.out.println("promptText: " + promptText); 
 			if (studentIds != null && roles != null)
 			{
-				System.err.println("PromptTable, match: studentIds != null && roles != null"); 
-	/*
-				String[] slots1 = slotFillers1.keySet().toArray(new String[0]);
-				String[] slots2 = slotFillers2.keySet().toArray(new String[0]);
-				System.err.println("slots1: " + Arrays.toString(slots1));
-				System.err.println("slots2: " + Arrays.toString(slots2));
-	*/ 
 				String nameKey, roleKey, name, role; 
 				for (int i = 0; i < maxMatches; i++)
 				{
-					// nameKey = "NAME" + Integer.toString(i); 
 					nameKey = "[NAME" + Integer.toString(i+1) + "]"; 
 					name = state.getStudentName(studentIds[i]);
 					
-					// roleKey = "ROLE" + Integer.toString(i); 
 					roleKey = "[ROLE" + Integer.toString(i+1) + "]"; 
 					role = roles[i];
 
-					// String filler1 = slotFillers1.get(slots1[i]);
-					// String filler2 = slotFillers2.get(slots2[i]);
-					System.err.println("PromptTable, match: nameKey = " + nameKey + " - name = " + name + "  --- rolekey = " + roleKey + " - role = " + role);
+					// System.out.println("PromptTable, match: nameKey = " + nameKey + " - name = " + name + "  --- rolekey = " + roleKey + " - role = " + role);
 					if(name != null && role != null)
 						promptText = promptText.replace(nameKey, name);
 						promptText = promptText.replace(roleKey, role);
+						state.setStudentRole(studentIds[i], roles[i]);
 				}
 			}
 			return promptText;

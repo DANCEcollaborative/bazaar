@@ -50,7 +50,7 @@ public class State
 
 		public String chatId;
 		public String name;
-		public String role;
+		public String role = null; 
 		public boolean isPresent;
 		public String speech;
 		public String identity;
@@ -274,6 +274,18 @@ public class State
 				students.get(i).role = role;
 			}
 		}
+	}
+
+	public String getStudentRole(String sid)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				return students.get(i).role; 
+			}
+		}
+		return sid; 
 	}
 
 	public String getRolesString()
