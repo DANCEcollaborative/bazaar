@@ -72,6 +72,7 @@ class MatchStepHandler implements StepHandler
 		numRoles = roles.length; 
 		System.err.println("MatchStepHandler, numRoles: " + Integer.toString(numRoles)); 
 		for (int i=0; i< numRoles; i++) {
+			roles[i] = roles[i].replace("_", " "); 
 			System.err.println("role " + Integer.toString(i) + ": " + roles[i]); 
 		}
 		roleList = Arrays.asList(roles);
