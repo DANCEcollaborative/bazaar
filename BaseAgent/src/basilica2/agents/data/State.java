@@ -247,7 +247,7 @@ public class State
 
 	public void addRole(String role)
 	{
-		System.err.println("===== State,addRole: " + role); 
+		// System.out.println("===== State,addRole: " + role); 
 		roles.add(role); 	
 	}
 
@@ -256,7 +256,7 @@ public class State
 		for (int i = 0; i < roles.length; i++)
 		{
 			addRole(roles[i]); 
-			System.err.println("State, setRoles: Added role " + roles[i]); 
+			// System.out.println("State, setRoles: Added role " + roles[i]); 
 		}
 	}
 
@@ -338,6 +338,16 @@ public class State
 			}
 		}
 		return ids;
+	}
+
+	public List<String> getStudentNamesByIds(List<String> ids)
+	{
+		List<String> names = new ArrayList<String>();
+		for (int i = 0; i < ids.size(); i++)
+		{
+			names.add(getStudentName(ids.get(i)));
+		}
+		return names;
 	}
 
 	public String getStudentNamesString()

@@ -37,6 +37,7 @@ import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -151,22 +152,32 @@ public class PromptTable
 		}
 	}
 
-	public String match(String promptName, Map<String, String> slotFillers1, Map<String, String> slotFillers2)
+	public String match(String promptName, Map<String, String> slotFillers1, Map<String, String> slotFillers2, int maxMatches)
 	{
+		System.err.println("PromptTable, match: maxMatches = " + Integer.toString(maxMatches)); 
 		// Do the Prompt
+		System.err.println("slotfillers1 ...");
+	    System.err.println("\t" + slotFillers1);
+		System.err.println("slotfillers2 ...");
+	    System.err.println("\t" + slotFillers2);
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
 			String promptText = promptTexts.get(promptIndex);
+			System.err.println("promptText: " + promptText); 
 			if (slotFillers1 != null && slotFillers2 != null)
 			{
+				System.err.println("PromptTable, match: slotFillers1 != null && slotFillers2 != null"); 
 				String[] slots1 = slotFillers1.keySet().toArray(new String[0]);
 				String[] slots2 = slotFillers2.keySet().toArray(new String[0]);
-				for (int i = 0; i < slots1.length && i < slots2.length; i++)
+				System.err.println("slots1: " + Arrays.toString(slots1));
+				System.err.println("slots2: " + Arrays.toString(slots2));
+				for (int i = 0; i < maxMatches; i++)
 				{
 					String filler1 = slotFillers1.get(slots1[i]);
 					String filler2 = slotFillers2.get(slots2[i]);
+					System.err.println("PromptTable, match: i = " + Integer.toString(i) + "  -- filler1 = " + filler1 + "  -- filler2 = " + filler2);
 					if(filler1 != null && filler2 != null)
 						promptText = promptText.replace(slots1[i], filler1);
 						promptText = promptText.replace(slots2[i], filler2);
