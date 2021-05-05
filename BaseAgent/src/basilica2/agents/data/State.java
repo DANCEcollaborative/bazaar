@@ -67,6 +67,7 @@ public class State
 	}
 
 	private List<Student> students = new ArrayList<Student>();
+	private List<String> roles = new ArrayList<String>();
 	private boolean initiated = false;
 	private String stageName = null;
 	private String stageType = null;
@@ -98,6 +99,11 @@ public class State
 		for (int i = 0; i < s.students.size(); i++)
 		{
 			news.students.add(s.students.get(i));
+		}
+
+		for (int i = 0; i < s.roles.size(); i++)
+		{
+			news.roles.add(s.roles.get(i));
 		}
 
 		return news;
@@ -239,7 +245,27 @@ public class State
 		}
 	}
 
-	public void setRole(String sid, String role)
+	public void addRole(String role)
+	{
+		System.err.println("===== State,addRole: " + role); 
+		roles.add(role); 	
+	}
+
+	public void setRoles(String[] roles)
+	{
+		for (int i = 0; i < roles.length; i++)
+		{
+			addRole(roles[i]); 
+			System.err.println("State, setRoles: Added role " + roles[i]); 
+		}
+	}
+
+	public int getNumRoles()
+	{
+		return roles.size(); 
+	}
+
+	public void setStudentRole(String sid, String role)
 	{
 		for (int i = 0; i < students.size(); i++)
 		{
@@ -248,6 +274,18 @@ public class State
 				students.get(i).role = role;
 			}
 		}
+	}
+
+	public String getRolesString()
+	{
+		String roleString = "";
+		for (String role : roles)
+		{
+			roleString += role + ", ";
+		}
+		if(roleString.length() > 2)
+			roleString = roleString.substring(0, roleString.length() - 2);
+		return roleString;
 	}
 	
 	public int getStudentCount()
