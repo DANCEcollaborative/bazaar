@@ -50,7 +50,7 @@ public class State
 
 		public String chatId;
 		public String name;
-		public String role;
+		public String role = null; 
 		public boolean isPresent;
 		public String speech;
 		public String identity;
@@ -247,7 +247,7 @@ public class State
 
 	public void addRole(String role)
 	{
-		System.err.println("===== State,addRole: " + role); 
+		// System.out.println("===== State,addRole: " + role); 
 		roles.add(role); 	
 	}
 
@@ -256,7 +256,7 @@ public class State
 		for (int i = 0; i < roles.length; i++)
 		{
 			addRole(roles[i]); 
-			System.err.println("State, setRoles: Added role " + roles[i]); 
+			// System.out.println("State, setRoles: Added role " + roles[i]); 
 		}
 	}
 
@@ -274,6 +274,18 @@ public class State
 				students.get(i).role = role;
 			}
 		}
+	}
+
+	public String getStudentRole(String sid)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				return students.get(i).role; 
+			}
+		}
+		return sid; 
 	}
 
 	public String getRolesString()
@@ -338,6 +350,26 @@ public class State
 			}
 		}
 		return ids;
+	}
+
+	public String[] getStudentNamesByIds(String[] ids)
+	{
+		List<String> names = new ArrayList<String>();
+		for (int i = 0; i < ids.length; i++)
+		{
+			names.add(getStudentName(ids[i]));
+		}
+		return names.toArray(new String[0]);
+	}
+
+	public List<String> getStudentNamesByIdList(List<String> ids)
+	{
+		List<String> names = new ArrayList<String>();
+		for (int i = 0; i < ids.size(); i++)
+		{
+			names.add(getStudentName(ids.get(i)));
+		}
+		return names;
 	}
 
 	public String getStudentNamesString()

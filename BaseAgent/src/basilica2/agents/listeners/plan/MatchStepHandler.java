@@ -31,9 +31,6 @@ class MatchStepHandler implements StepHandler
 	private String[] roles; 
 	private List<String> roleList = new ArrayList<String>(); 
 	private int numRoles; 
-	
-	private HashMap<String, String> slots1 = null;	
-	private HashMap<String, String> slots2 = new HashMap<String, String>();
 
 	public static String getStepType()
 	{
@@ -64,31 +61,21 @@ class MatchStepHandler implements StepHandler
 		}
 		catch (Exception e){}
 		
+		// Get the set of roles to match with students, then shuffle the roles
 		try
 		{
 			roles = properties.getProperty("roles", "").split("[\\s,]+");
 		}
 		catch (Exception e){}
 		numRoles = roles.length; 
-		System.err.println("MatchStepHandler, numRoles: " + Integer.toString(numRoles)); 
 		for (int i=0; i< numRoles; i++) {
 			roles[i] = roles[i].replace("_", " "); 
-			System.err.println("role " + Integer.toString(i) + ": " + roles[i]); 
 		}
 		roleList = Arrays.asList(roles);
 		Collections.shuffle(roleList);
-		
-		for (int i = 0; i < numRoles; i++)
-		{
-			String role = roleList.get(i);
-			// System.err.println("In loop - role: " + role);
-			slots2.put("[ROLE" + (i + 1) + "]", role);
-		}		
-		// roleList.toArray(roles);
-		
+		roleList.toArray(roles);
 		try
 		{
-			// maxUsersToMatch = Integer.parseInt(properties.getProperty("max_users_to_match"));
 			maxUsersToMatch = Integer.parseInt(properties.getProperty("max_users_to_match",""+maxUsersToMatch));
 		}
 		catch (Exception e){}	
@@ -108,49 +95,39 @@ class MatchStepHandler implements StepHandler
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		System.err.println("MatchStepHandler: entering 'execute'");
-		State news = StateMemory.getSharedState(overmind.getAgent());
-		if (news.getNumRoles() == 0) 
+		State state = StateMemory.getSharedState(overmind.getAgent());
+		
+		// Initialize the agent's state's roles if they haven't been initialized already
+		if (state.getNumRoles() == 0) 
 		{
-			news.setRoles(roles);
+			state.setRoles(roles);
 		}
-		if(slots1 == null)
-		{
-			slots1 = new HashMap<String, String>();
-			slots1.put("[AGENT NAME]", source.getAgent().getUsername().split(" ")[0]);
-		}
-		slots1.put("[NAMES]", news.getStudentNamesString());
-		List<String> studentNames = news.getStudentNames();
-		System.err.println("MatchStepHandler, execute: num students = " + Integer.toString(studentNames.size()));
-		for (int i = 0; i < studentNames.size() && i < maxUsersToMatch; i++)
-		{
-			String studentName = studentNames.get(i);
-			slots1.put("[NAME" + (i + 1) + "]", studentName);
-		}
-		String rolesString = news.getRolesString(); 
-		slots2.put("[ROLES]",rolesString);
-		for (int i = 0; i < studentNames.size() && i < maxUsersToMatch; i++)
-		{
-			String role = roleList.get(i);
-			slots2.put("[ROLE" + (i + 1) + "]", role);
+ 
+		// Get the IDs of the students currentlyo present
+		String[] studentIds = state.getStudentIds(); 
+		int numStudents = studentIds.length; 
+		if (maxUsersToMatch > numStudents) {
+			maxUsersToMatch = numStudents; 
 		}
 
+		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
+		// for various numbers of students & roles to match
 		String promptKey = step.name;
 		if(step.attributes.containsKey("prompt"))
 		{
 			promptKey = step.attributes.get("prompt");
 		}
 	
-        // Variable prompt message, if available, depending upon number of students
+        // Variable prompt message, if available, depending upon the number of students & roles to match
 		String promptText; 
-        int numStudents = StateMemory.getSharedState(overmind.getAgent()).getStudentCount(); 
         String adjustedPromptKey = promptKey;
-        String promptSuffix = "_" + Integer.toString(numStudents); 
-        if (numStudents > 0) {
+        String promptSuffix = "_" + Integer.toString(maxUsersToMatch); 
+        if (maxUsersToMatch > 0) {
         	adjustedPromptKey = promptKey + promptSuffix; 
-        	String adjustedPromptText = prompter.match(adjustedPromptKey, slots1, slots2);
+        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, maxUsersToMatch, state);
         	if (adjustedPromptText == adjustedPromptKey) {
-        		promptText = prompter.match(promptKey, slots1, slots2);
+        		System.err.println("MatchStepHandler, execute: first match attempt failed"); 
+        		promptText = prompter.match(promptKey, studentIds, roles, maxUsersToMatch, state);
         	}
         	else {
         		promptText = adjustedPromptText; 
@@ -158,7 +135,7 @@ class MatchStepHandler implements StepHandler
         } else {
         	promptText = prompter.lookup(promptKey);
         }
-		
+        	
 		final double delay = constantDelay + (rateLimited?(promptText.split(" ").length/wordsPerSecond):0);
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);

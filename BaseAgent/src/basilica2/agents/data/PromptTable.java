@@ -37,6 +37,7 @@ import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -151,25 +152,27 @@ public class PromptTable
 		}
 	}
 
-	public String match(String promptName, Map<String, String> slotFillers1, Map<String, String> slotFillers2)
+	public String match(String promptName, String[] studentIds, String[] roles, int maxMatches, State state)
 	{
-		// Do the Prompt
+
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
 			String promptText = promptTexts.get(promptIndex);
-			if (slotFillers1 != null && slotFillers2 != null)
+			if (studentIds != null && roles != null)			// Replace all [NAME#] and [ROLE#] in prompt with names and roles
 			{
-				String[] slots1 = slotFillers1.keySet().toArray(new String[0]);
-				String[] slots2 = slotFillers2.keySet().toArray(new String[0]);
-				for (int i = 0; i < slots1.length && i < slots2.length; i++)
+				String nameKey, roleKey, name, role; 
+				for (int i = 0; i < maxMatches; i++)
 				{
-					String filler1 = slotFillers1.get(slots1[i]);
-					String filler2 = slotFillers2.get(slots2[i]);
-					if(filler1 != null && filler2 != null)
-						promptText = promptText.replace(slots1[i], filler1);
-						promptText = promptText.replace(slots2[i], filler2);
+					nameKey = "[NAME" + Integer.toString(i+1) + "]"; 
+					name = state.getStudentName(studentIds[i]);					
+					roleKey = "[ROLE" + Integer.toString(i+1) + "]"; 
+					role = roles[i];
+					if(name != null && role != null)
+						promptText = promptText.replace(nameKey, name);
+						promptText = promptText.replace(roleKey, role);
+						state.setStudentRole(studentIds[i], roles[i]);
 				}
 			}
 			return promptText;
