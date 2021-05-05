@@ -15,7 +15,7 @@
     <stage name="stageA" type="other" delay="0">MOVE_ON_DATA_FOUND
         <!-- <step type="prompt" delay="15" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step> -->
         
-        <step type="match" delay="25" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
+        <step type="match" delay="0" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
         <!-- <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="READY_SPECIALIZATIONS_SELECTED">WAIT_STEP_A2</step>  -->
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A3" >Prompt_Step_A3</step>
