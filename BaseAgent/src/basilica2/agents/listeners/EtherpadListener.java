@@ -37,17 +37,20 @@ public class EtherpadListener extends BasilicaAdapter
 	int port = 3306;
 	int checkInterval = 2000;
 	String host = "128.2.220.51";
+	
 	String user = "bazaar";
 	String password = "********";
 	String dbName = "etherpad-lite";
 	// String agentUserName="guest";
-
 	MysqlDataSource dataSource = new MysqlDataSource();
 	Connection conn;	
 	boolean connected = false;	
 	// int chatID;
 	// int userID;
 	long lastTime = 0;
+	private InputCoordinator source;
+	// private String status = "";
+	private String roomName; 	
 	
 	/* (non-Javadoc)
 	 * @see basilica2.agents.components.ChatClient#disconnect()
@@ -83,6 +86,8 @@ public class EtherpadListener extends BasilicaAdapter
 		{
 			try{host = getProperties().getProperty("host", host);}
 			catch(Exception e) {e.printStackTrace();}
+			try{port = Integer.parseInt(getProperties().getProperty("port", ""+port));}
+			catch(Exception e) {e.printStackTrace();}
 			try{user = getProperties().getProperty("user", user);}
 			catch(Exception e) {e.printStackTrace();}	
 			try{password = getProperties().getProperty("password", password);}
@@ -91,21 +96,29 @@ public class EtherpadListener extends BasilicaAdapter
 			catch(Exception e) {e.printStackTrace();}						
 		}
 		roomName = a.getRoomName();
-		
-
-		// agentUserName = myProperties.getProperty("moodle_agent_username", agentUserName);
-		
-		try{port = Integer.parseInt(myProperties.getProperty("db_port", ""+port));}
-		catch(NumberFormatException e) {e.printStackTrace();}
-
-		try{checkInterval = Integer.parseInt(myProperties.getProperty("check_interval", ""+port));}
-		catch(NumberFormatException e) {e.printStackTrace();}
-		
 		System.out.println("mysql://"+user+"@"+host+":"+port+"/"+dbName);
-		// System.out.println(agentUserName);
+		
+		try
+		{
+			dataSource.setUser(user);
+			dataSource.setPassword(password);
+			dataSource.setServerName(host);
+			dataSource.setPort(port);
+			dataSource.setDatabaseName(dbName);
+			conn = dataSource.getConnection();
+			connected = true;		
+			lastTime = getSystemTime();		
+		}
+		catch (Exception e)
+		{
+			System.err.println("Couldn't login to mysql");
+			e.printStackTrace();
+			connected = false;
+		}
+		
 	}
 
-	@Override
+	// @Override
 	protected void processEvent(Event e)
 	{
 		/**
@@ -126,71 +139,6 @@ public class EtherpadListener extends BasilicaAdapter
 		//TODO: private messages? "beeps"?
 		*/ 
 	}
-	
-	/* (non-Javadoc)
-	 * @see basilica2.agents.components.ChatClient#login(java.lang.String)
-	 */
-	// @Override
-	public void login(String roomName)
-	{
-		// System.out.println("logging in to "+roomName+"@"+host);
-		System.out.println("logging in to mysql @ "+host);
-		try
-		{
-			dataSource.setUser(user);
-			dataSource.setPassword(password);
-			dataSource.setServerName(host);
-			dataSource.setPort(port);
-			dataSource.setDatabaseName(dbName);
-
-			conn = dataSource.getConnection();
-			
-			// chatID = getChatID(roomName, conn);
-			// userID = getUserID(agentUserName, conn);
-			connected = true;
-			
-			lastTime = getSystemTime();
-			
-			// enterChat(	chatID, userID, conn);
-			
-			/*
-			new Thread()
-			{
-				public void run()
-				{
-					while(connected)
-					{
-						try
-						{
-							justPing(conn);
-							Thread.sleep(checkInterval);
-//							System.out.println("checking room "+chatID);
-							checkMessages(conn);
-								
-						}
-						catch(Exception e)
-						{
-							e.printStackTrace();
-	//						connected = false;
-						}
-					}
-				}
-			}.start();
-			*/			
-		}
-		catch (Exception e)
-		{
-			System.err.println("Couldn't log in to the chat server...");
-			e.printStackTrace();
-			
-			JOptionPane.showMessageDialog(null, "Couldn't access chat database: "+ e.getMessage(), "Login Failure", JOptionPane.ERROR_MESSAGE);
-			
-			connected = false;
-		}
-
-	}
-
-
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
@@ -213,131 +161,7 @@ public class EtherpadListener extends BasilicaAdapter
 
 		}
 		*/
-	}	
-	
-	
-	private int getUserID(String userName, Connection conn) throws SQLException
-	{
-		String userQuery = "select id from mdl_user where username='"+userName+"'";
-
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(userQuery);
-
-		int userID = 1;
-		if (rs.next())
-		{
-			userID = rs.getInt("id");
-
-		}
-		else
-		{
-			throw new RuntimeException("Etherpad user '"+userName+"' does not exist!");
-		}
-		rs.close();
-		stmt.close();
-		
-		return userID;
 	}
-	
-	private int getChatID(String roomName, Connection conn) throws SQLException
-	{
-		String roomQuery = "select id from mdl_chat where name='"+roomName+"'";
-
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(roomQuery);
-
-		int roomID = 1;
-		if (rs.next())
-		{
-			roomID = rs.getInt("id");
-
-		}
-		else
-		{
-			throw new RuntimeException("Etherpad chat room '"+roomName+"' does not exist!");
-		}
-		rs.close();
-		stmt.close();
-		
-		return roomID;
-	}
-
-	@Override
-	public String getType()
-	{
-		return "ChatClient";
-	}
-	//unneccessary.
-		protected void exitChat(Connection conn) throws SQLException
-		{
-			String insertExit = "INSERT INTO mdl_chat_messages_current (chatid, userid, groupid, system, message, timestamp) " +
-					"VALUES (" + chatID + ", "
-					+ userID + ", '0', '1', 'exit', UNIX_TIMESTAMP(NOW()));";
-
-//			String deleteRow = "DELETE FROM mdl_chat_users WHERE chatid="+chatID+" and userID="+userID+";";
-			
-			Statement stmt;
-			stmt = conn.createStatement();
-			stmt.addBatch(insertExit);
-//			stmt.addBatch(deleteRow);
-			stmt.executeBatch();
-
-			stmt.close();
-		}
-
-		protected void enterChat(int chatID, int userID, Connection conn) throws SQLException
-		{
-			String insertEnter = "INSERT INTO mdl_chat_messages_current (chatid, userid, groupid, system, message, timestamp) " +
-					"VALUES (" + chatID + ", "	+ userID + ", '0', '1', 'enter', UNIX_TIMESTAMP(NOW())); ";
-
-			
-			String insertPing =  "INSERT INTO mdl_chat_users (chatid, userid, groupid, firstping, lastping, lastmessageping) " +
-					"VALUES ("+chatID+", "+userID+", 0, UNIX_TIMESTAMP(NOW()), UNIX_TIMESTAMP(NOW()), UNIX_TIMESTAMP(NOW()) );";
-			
-			Statement stmt;
-			stmt = conn.createStatement();
-			stmt.addBatch(insertEnter);
-			stmt.addBatch(insertPing);
-			stmt.executeBatch();
-
-			stmt.close();
-		}
-
-		protected void justPing(Connection conn) throws SQLException
-		{
-			String updatePing = "UPDATE mdl_chat_users SET lastping=UNIX_TIMESTAMP(NOW()) " +
-					"where chatid="+chatID+" and userid="+userID+";";
-			
-			Statement stmt;
-			
-			stmt = conn.createStatement();
-			stmt.execute(updatePing);
-
-			stmt.close();
-		}
-		
-		protected void insertMessage(String message, Connection conn) throws SQLException
-		{
-			
-			message = message.replaceAll("\"", "\\\\\"");
-			
-			String insertMessage = "INSERT INTO mdl_chat_messages_current (chatid, userid, groupid, system, message, timestamp) " +
-					"VALUES (" + chatID + ", "
-					+ userID + ", '0', '0', \"" + message + "\", UNIX_TIMESTAMP(NOW()));";
-			
-			String pingMessage = "UPDATE mdl_chat_users SET lastping=UNIX_TIMESTAMP(NOW()), lastmessageping=UNIX_TIMESTAMP(NOW()) " +
-					"where chatid="+chatID+" and userid="+userID+";";
-			
-			Statement stmt;
-			
-			stmt = conn.createStatement();
-			stmt.addBatch(insertMessage);
-			stmt.addBatch(pingMessage);
-			stmt.executeBatch();
-
-			stmt.close();
-		}
-
 		protected long getSystemTime() throws SQLException
 		{
 			String timeQuery = "select UNIX_TIMESTAMP(NOW()) from mdl_chat;";
