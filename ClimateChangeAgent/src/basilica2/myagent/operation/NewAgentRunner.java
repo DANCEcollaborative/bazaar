@@ -111,7 +111,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 	{
 		// log(Logger.LOG_NORMAL, "setting basilica2.agents.room_name to " + room_name);
 		System.setProperty("basilica2.agents.room_name", room_name);
-		System.err.println("NewAgentRunner, launchAgent: room_name = " + room_name); 
+		// System.err.println("NewAgentRunner, launchAgent: room_name = " + room_name); 
 
 		// log(Logger.LOG_NORMAL, "<launching room=" + room_name + "/>");
 		

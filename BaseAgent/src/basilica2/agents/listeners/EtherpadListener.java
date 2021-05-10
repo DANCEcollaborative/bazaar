@@ -34,23 +34,26 @@ public class EtherpadListener extends BasilicaAdapter
 {	
 	
 	//TODO: parameterize these.
-	int port = 3306;
-	int checkInterval = 2000;
-	String host = "128.2.220.51";
-	
-	String user = "bazaar";
-	String password = "********";
-	String dbName = "etherpad-lite";
+	private int port = 3306;
+	// int checkInterval = 2000;
+	private String host = "128.2.220.51";	
+	private String user = "bazaar";
+	private String password = "********";
+	private String databaseName = "etherpad-lite";
+	private String tableName = "store";
+	private String roomNamePrefix = "j";
 	// String agentUserName="guest";
 	MysqlDataSource dataSource = new MysqlDataSource();
 	Connection conn;	
-	boolean connected = false;	
+	private boolean connected = false;	
 	// int chatID;
 	// int userID;
-	long lastTime = 0;
+	// long lastTime = 0;
 	private InputCoordinator source;
+	private String agentID; 
 	// private String status = "";
 	private String roomName; 	
+	private int rowCount; 	
 	
 	/* (non-Javadoc)
 	 * @see basilica2.agents.components.ChatClient#disconnect()
@@ -92,11 +95,18 @@ public class EtherpadListener extends BasilicaAdapter
 			catch(Exception e) {e.printStackTrace();}	
 			try{password = getProperties().getProperty("password", password);}
 			catch(Exception e) {e.printStackTrace();}	
-			try{dbName = getProperties().getProperty("dbName", dbName);}
-			catch(Exception e) {e.printStackTrace();}						
+			try{databaseName = getProperties().getProperty("databaseName", databaseName);}
+			catch(Exception e) {e.printStackTrace();}	
+			try{tableName = getProperties().getProperty("tableName", tableName);}
+			catch(Exception e) {e.printStackTrace();}	
+			try{roomNamePrefix = getProperties().getProperty("roomNamePrefix", roomNamePrefix);}
+			catch(Exception e) {e.printStackTrace();}		
+			try{agentID = getProperties().getProperty("agentID", agentID);}
+			catch(Exception e) {e.printStackTrace();}					
 		}
 		roomName = a.getRoomName();
-		System.out.println("mysql://"+user+"@"+host+":"+port+"/"+dbName);
+		System.err.println("roomName: " + roomName); 
+		System.err.println("mysql://"+user+"@"+host+":"+port+"/"+databaseName+"/"+tableName+"/"+roomNamePrefix+agentID+roomName);
 		
 		try
 		{
@@ -104,10 +114,10 @@ public class EtherpadListener extends BasilicaAdapter
 			dataSource.setPassword(password);
 			dataSource.setServerName(host);
 			dataSource.setPort(port);
-			dataSource.setDatabaseName(dbName);
+			dataSource.setDatabaseName(databaseName);
 			conn = dataSource.getConnection();
 			connected = true;		
-			lastTime = getSystemTime();		
+			// lastTime = getSystemTime();		
 		}
 		catch (Exception e)
 		{
@@ -119,8 +129,19 @@ public class EtherpadListener extends BasilicaAdapter
 	}
 
 	// @Override
-	protected void processEvent(Event e)
+	public void preProcessEvent(InputCoordinator source, Event e)
 	{
+		try
+		{
+			checkMessages(conn);
+		}
+		catch (Exception e1)
+		{
+			System.err.println("EtherpadListener: couldn't checkMessages");
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		/**
 		if(e instanceof MessageEvent)
 		{
@@ -139,30 +160,8 @@ public class EtherpadListener extends BasilicaAdapter
 		//TODO: private messages? "beeps"?
 		*/ 
 	}
-	@Override
-	public void preProcessEvent(InputCoordinator source, Event e)
-	{
-		/*
-		File file; 
-		FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
-		for (int i=0; i < fileCompleted.length; i++) {
-			if (!fileCompleted[i]) {
-				file = new File(filePath + "room-" + roomName + "-" + fileNames[i] + fileSuffix);
-				System.err.println("Checking file: " + file.getPath()); 
-				synchronized(source) {
-					if (file.exists()) {
-						fileCompleted[i] = true;
-						System.err.println("File newly exists: " + file.getPath()); 
-						FileEvent fEvent = new FileEvent(source,fileNames[i],eventType);
-						source.pushEvent(fEvent);
-					}				
-				}					
-			}
 
-		}
-		*/
-	}
-		protected long getSystemTime() throws SQLException
+	protected long getSystemTime() throws SQLException
 		{
 			String timeQuery = "select UNIX_TIMESTAMP(NOW()) from mdl_chat;";
 			Statement stmt = conn.createStatement();
@@ -177,14 +176,23 @@ public class EtherpadListener extends BasilicaAdapter
 		
 		protected void checkMessages(Connection conn) throws SQLException
 		{
-	
-			String messageQuery = "select firstname, lastname, username, message, system, timestamp " +
-					"from mdl_chat_messages_current, mdl_user where chatid = " + chatID
-					+ " AND timestamp > " + lastTime + " AND mdl_chat_messages_current.userid=mdl_user.id ORDER BY timestamp ASC";
-
+			
+			// TODO: Improve this query 
+			String messageQuery = "select * from " + tableName + " where value like '%" + roomNamePrefix + agentID + roomName +"%'";
+			System.err.println("mysql query: " + messageQuery); 
+				
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(messageQuery);
-
+			
+			rowCount = 0;
+		      while (rs.next()) {
+		           rowCount++;
+		      }
+		    System.err.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
+		    if (rowCount > 1) {
+		    	System.err.println("=== Activity detected in Etherpad *** " + roomNamePrefix + " ***");
+		    }
+		    /**
 			while (rs.next())
 			{
 				
@@ -234,6 +242,7 @@ public class EtherpadListener extends BasilicaAdapter
 				}
 
 			}
+			*/ 
 			rs.close();
 			stmt.close();
 			
