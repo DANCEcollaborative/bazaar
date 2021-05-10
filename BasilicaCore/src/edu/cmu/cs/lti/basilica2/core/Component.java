@@ -367,20 +367,20 @@ public abstract class Component implements Runnable
 
 	protected void dispatchEvent(Component receiver, Event e)
 	{
-		System.err.println("Enter dispatchEvent"); 
+		// System.out.println("Enter dispatchEvent"); 
 		if (!e.getSender().equals(this)) e.setSender(this);
 		log(Logger.LOG_NORMAL, "<dispatching to=\"" + receiver.getName() + "\">" + e.getName() + "</dispatching>");
 		for (int i = 0; i < myOutgoingConnections.size(); i++)
 		{
 			if (myOutgoingConnections.get(i).getReceiverComponent().equals(receiver))
 			{
-				System.err.println("dispatchEvent communicating to outgoing connection"); 
+				// System.out.println("dispatchEvent communicating to outgoing connection"); 
 				myOutgoingConnections.get(i).communicate(e);
 				break;
 			}
 		}
 		informObserversOfSending(e);
-		System.err.println("Exit dispatchEvent"); 
+		// System.out.println("Exit dispatchEvent"); 
 	}
 
 	protected void informObserversOfSending(Event e)

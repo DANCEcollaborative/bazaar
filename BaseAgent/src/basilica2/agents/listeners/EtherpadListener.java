@@ -117,51 +117,70 @@ public class EtherpadListener extends BasilicaAdapter
 			return 0;
 		}
 		
-		protected void checkMessages(Connection conn) throws SQLException
-		{
-			
-			// TODO: Improve this query 
-			String messageQuery = "select * from " + tableName + " where value like '%" + roomNamePrefix + agentID + roomName +"%'";
-			System.err.println("mysql query: " + messageQuery); 
-				
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(messageQuery);
-			
-			rowCount = 0;
-		      while (rs.next()) {
-		           rowCount++;
-		      }
-		    System.err.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
-		    if (rowCount > 1) {
-		    	System.err.println("=== Activity detected in Etherpad *** " + roomNamePrefix + " ***");
-		    }
-			rs.close();
-			stmt.close();
-			
-		}
+	protected void checkMessages(Connection conn) throws SQLException
+	{
 		
-		/**
-		 * @return the classes of events that this Preprocessor cares about
-		 */
-		@Override
-		public Class[] getPreprocessorEventClasses()
-		{
-			return new Class[]{MessageEvent.class, ReadyEvent.class, PresenceEvent.class, WhiteboardEvent.class, TypingEvent.class};
-		}
-
-
-		@Override
-		public void processEvent(InputCoordinator source, Event event) {
-			// TODO Auto-generated method stub
+		// TODO: Improve this query 
+		String messageQuery = "select * from " + tableName + " where `key` like '%" + roomNamePrefix + agentID + roomName +"%'";
+		System.err.println("mysql query: " + messageQuery); 
 			
-		}
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(messageQuery);
+
+		String nextKey; 
+		String[] keySplit;
+		int revisionNumber; 
+		rowCount = 0;
+	    System.err.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
+	    while (rs.next()) {
+	        rowCount++;
+	        nextKey = rs.getString("key"); 
+	        System.err.println("nextKey: " + nextKey);
+	        keySplit = nextKey.split(":");
+	        System.err.println("keySplit.length = " + keySplit.length);
+	        if (keySplit.length > 2) {
+	            if (keySplit[2].equals("revs")) {  
+	            	System.err.println("keySplit[2].equals 'revs'"); 
+	        		if (keySplit.length > 3) {
+	        			revisionNumber = Integer.parseInt(keySplit[3]); 
+	        			System.err.println("Revision #: " + Integer.toString(revisionNumber)); 
+	        		}
+	        	}
+	        }	           
+	    }
+	    /**
+	    System.err.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
+	    if (rowCount > 1) {
+	    	System.err.println("=== Activity detected in Etherpad *** " + roomNamePrefix + " ***");
+	    }
+	    */ 
+		rs.close();
+		stmt.close();
+		
+	}
+	
+	/**
+	 * @return the classes of events that this Preprocessor cares about
+	 */
+	@Override
+	public Class[] getPreprocessorEventClasses()
+	{
+		return new Class[]{MessageEvent.class, ReadyEvent.class, PresenceEvent.class, WhiteboardEvent.class, TypingEvent.class};
+	}
 
 
-		@Override
-		public Class[] getListenerEventClasses() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public void processEvent(InputCoordinator source, Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Class[] getListenerEventClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }
