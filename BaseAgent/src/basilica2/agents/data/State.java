@@ -51,6 +51,7 @@ public class State
 		public String chatId;
 		public String name;
 		public String role = null; 
+		public int activityMetric = 0; 
 		public boolean isPresent;
 		public String speech;
 		public String identity;
@@ -75,6 +76,7 @@ public class State
 	private String stepType = null;
 	private poseEventType groupPose = poseEventType.none;
 	private String identityAllUsers = "group";
+	private int jointActivityMetric = 0; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -413,6 +415,40 @@ public class State
 			}
 		}
 		return null;
+	}
+
+
+	public void setStudentActivityMetric(String sid, int metric)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				students.get(i).activityMetric = metric;
+			}
+		}
+	}
+
+	public int getStudentActivityMetric(String sid)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				return students.get(i).activityMetric; 
+			}
+		}
+		return 0; 
+	}
+
+	public void setJointActivityMetric(int metric)
+	{
+		jointActivityMetric = metric; 
+	}
+
+	public int getJointActivityMetric()
+	{
+		return jointActivityMetric; 
 	}
 
 	public String getStageName()

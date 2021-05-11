@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.State;
 import basilica2.agents.events.EchoEvent;
 import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.MessageEvent;
@@ -37,9 +39,11 @@ public class EtherpadListener extends BasilicaAdapter
 	MysqlDataSource dataSource = new MysqlDataSource();
 	Connection conn;	
 	private boolean connected = false;	
+	private Agent agent; 
 	private InputCoordinator source;
 	private String agentID; 
 	private String roomName; 	
+	private String role;   // The role for this Etherpad activity
 	private int rowCount; 	
 	
 
@@ -63,11 +67,14 @@ public class EtherpadListener extends BasilicaAdapter
 			try{roomNamePrefix = getProperties().getProperty("roomNamePrefix", roomNamePrefix);}
 			catch(Exception e) {e.printStackTrace();}		
 			try{agentID = getProperties().getProperty("agentID", agentID);}
+			catch(Exception e) {e.printStackTrace();}		
+			try{role = getProperties().getProperty("role", role);}
 			catch(Exception e) {e.printStackTrace();}					
 		}
+		agent = a; 
 		roomName = a.getRoomName();
-		System.err.println("roomName: " + roomName); 
-		System.err.println("mysql://"+user+"@"+host+":"+port+"/"+databaseName+"/"+tableName+"/"+roomNamePrefix+agentID+roomName);
+		// System.out.println("roomName: " + roomName); 
+		// System.out.println("mysql://"+user+"@"+host+":"+port+"/"+databaseName+"/"+tableName+"/"+roomNamePrefix+agentID+roomName);
 		
 		try
 		{
@@ -122,42 +129,69 @@ public class EtherpadListener extends BasilicaAdapter
 		
 		// TODO: Improve this query 
 		String messageQuery = "select * from " + tableName + " where `key` like '%" + roomNamePrefix + agentID + roomName +"%'";
-		System.err.println("mysql query: " + messageQuery); 
+		System.out.println("mysql query: " + messageQuery); 
 			
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(messageQuery);
 
 		String nextKey; 
 		String[] keySplit;
+		int maxRevisionNumber = 0;
 		int revisionNumber; 
 		rowCount = 0;
-	    System.err.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
+	    // System.out.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
 	    while (rs.next()) {
 	        rowCount++;
 	        nextKey = rs.getString("key"); 
-	        System.err.println("nextKey: " + nextKey);
+	        // System.out.println("nextKey: " + nextKey);
 	        keySplit = nextKey.split(":");
-	        System.err.println("keySplit.length = " + keySplit.length);
+	        // System.out.println("keySplit.length = " + keySplit.length);
 	        if (keySplit.length > 2) {
 	            if (keySplit[2].equals("revs")) {  
-	            	System.err.println("keySplit[2].equals 'revs'"); 
+	            	// System.out.println("keySplit[2].equals 'revs'"); 
 	        		if (keySplit.length > 3) {
 	        			revisionNumber = Integer.parseInt(keySplit[3]); 
-	        			System.err.println("Revision #: " + Integer.toString(revisionNumber)); 
+	        			if (revisionNumber > maxRevisionNumber) {
+	        				maxRevisionNumber = revisionNumber;
+	        			}
+	        			System.err.println("EtherpadListener " + roomNamePrefix + ", revision #: " + Integer.toString(revisionNumber)); 
 	        		}
 	        	}
 	        }	           
 	    }
-	    /**
-	    System.err.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
-	    if (rowCount > 1) {
-	    	System.err.println("=== Activity detected in Etherpad *** " + roomNamePrefix + " ***");
-	    }
-	    */ 
+	    updateActivityMetric(role, maxRevisionNumber); 
 		rs.close();
-		stmt.close();
+		stmt.close();		
+	}
+	
+	private void updateActivityMetric (String role, int currentRevisionNumber) {
+		// Check if role is for an individual student 
+		//    -- Current support is only for roles that are for individuals or for the group as a whole.
+		//       (E.g, roles for subgroups of students are not currently supported.)
+		State state = StateMemory.getSharedState(agent);
+		Boolean roleFound = false; 
+		String[] studentIds = state.getStudentIds(); 
+		String studentForRole = null; 
+		for (int i=0; i < studentIds.length && !roleFound; i++) {
+			String studentRole = state.getStudentRole(studentIds[i]);
+			if (studentRole.equals(role)) {
+				roleFound = true;
+				studentForRole = studentIds[i]; 
+			}
+		}
+		
+		// Update either student.activityMetric or jointActivityMetric
+		if (studentForRole != null) {
+			state.setStudentActivityMetric(studentForRole, currentRevisionNumber); 
+		} else {
+			state.setJointActivityMetric(currentRevisionNumber); 
+		}
+		
+		// Temp for testing
+		// System.err.println("jointActivityMetric: " + state.getJointActivityMetric()); 
 		
 	}
+	
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
