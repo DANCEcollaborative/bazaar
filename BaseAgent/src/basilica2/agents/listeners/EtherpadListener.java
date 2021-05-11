@@ -139,26 +139,22 @@ public class EtherpadListener extends BasilicaAdapter
 		int maxRevisionNumber = 0;
 		int revisionNumber; 
 		rowCount = 0;
-	    // System.out.println("EtherpadListener, row count for " + roomNamePrefix + " is " + Integer.toString(rowCount));
 	    while (rs.next()) {
 	        rowCount++;
 	        nextKey = rs.getString("key"); 
-	        // System.out.println("nextKey: " + nextKey);
 	        keySplit = nextKey.split(":");
-	        // System.out.println("keySplit.length = " + keySplit.length);
 	        if (keySplit.length > 2) {
-	            if (keySplit[2].equals("revs")) {  
-	            	// System.out.println("keySplit[2].equals 'revs'"); 
+	            if (keySplit[2].equals("revs")) { 
 	        		if (keySplit.length > 3) {
 	        			revisionNumber = Integer.parseInt(keySplit[3]); 
 	        			if (revisionNumber > maxRevisionNumber) {
 	        				maxRevisionNumber = revisionNumber;
-	        			}
-	        			System.err.println("EtherpadListener " + roomNamePrefix + ", revision #: " + Integer.toString(revisionNumber)); 
+	        			}	   
 	        		}
 	        	}
 	        }	           
 	    }
+	    System.err.println("EtherpadListener " + roomNamePrefix + ", maxRevisionNumber: " + Integer.toString(maxRevisionNumber)); 
 	    updateActivityMetric(role, maxRevisionNumber); 
 		rs.close();
 		stmt.close();		
