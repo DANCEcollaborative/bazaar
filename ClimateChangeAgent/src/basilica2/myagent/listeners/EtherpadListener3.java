@@ -1,4 +1,4 @@
-package basilica2.agents.listeners;
+package basilica2.myagent.listeners;
 
 import java.io.File;
 import java.sql.Connection;
@@ -18,6 +18,7 @@ import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.TypingEvent;
 import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.listeners.BasilicaAdapter;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import de.fhg.ipsi.utils.StringUtilities;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -26,7 +27,7 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 
-public class EtherpadListener extends BasilicaAdapter
+public class EtherpadListener3 extends BasilicaAdapter
 {	
 	private int port = 3306;
 	// int checkInterval = 2000;
@@ -46,7 +47,7 @@ public class EtherpadListener extends BasilicaAdapter
 	private int rowCount; 	
 	
 
-	public EtherpadListener(Agent a)
+	public EtherpadListener3(Agent a)
 	{
 		super(a);
 		if (properties != null)
@@ -64,7 +65,7 @@ public class EtherpadListener extends BasilicaAdapter
 			try{tableName = getProperties().getProperty("tableName", tableName);}
 			catch(Exception e) {e.printStackTrace();}	
 			try{roomNamePrefix = getProperties().getProperty("roomNamePrefix", roomNamePrefix);}
-			catch(Exception e) {e.printStackTrace();}		
+			catch(Exception e) {e.printStackTrace();}					
 			try {
 				role = getProperties().getProperty("role", role);
 				role = role.replace("_", " "); 
@@ -105,7 +106,7 @@ public class EtherpadListener extends BasilicaAdapter
 		}
 		catch (Exception e1)
 		{
-			System.err.println("EtherpadListener: couldn't checkMessages");
+			System.err.println("EtherpadListener3: couldn't checkMessages");
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -154,7 +155,7 @@ public class EtherpadListener extends BasilicaAdapter
 	        	}
 	        }	           
 	    }
-	    System.err.println("EtherpadListener " + roomNamePrefix + ", maxRevisionNumber: " + Integer.toString(maxRevisionNumber)); 
+	    System.err.println("EtherpadListener3 " + roomNamePrefix + ", maxRevisionNumber: " + Integer.toString(maxRevisionNumber)); 
 	    updateActivityMetric(role, maxRevisionNumber); 
 		rs.close();
 		stmt.close();		
