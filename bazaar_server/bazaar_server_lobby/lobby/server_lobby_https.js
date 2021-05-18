@@ -491,8 +491,9 @@ const MESSAGE_BACKLOG = 200,
     GROUP_DELAY = 	0, // hyeju changed this value -- then Chas changed it from 15*1000
     // LAST_RESORT_TIMEOUT =  2*50*1000, //this is when the system tells students to come back later
     LAST_RESORT_TIMEOUT =  600*1000, //this is when the system tells students to come back later
-//    LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
-    LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
+    // LOCKDOWN_TIMEOUT = 15*60*1000; //no more students!
+    // LOCKDOWN_TIMEOUT =  7*24*60*60*1000; //lobby open for 7 days
+    LOCKDOWN_TIMEOUT =  365*24*60*60*1000; //lobby open for 1 year
 	
 let LOCKDOWN_TIME = 0;
 let START_TIME = new Date().getTime();
