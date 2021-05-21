@@ -179,6 +179,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			{
 				log(Logger.LOG_NORMAL, "no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
+				System.err.println("AbstractAccountableActor, checkForCandidate: sentence similarity = " + Double.toString(sim)); 
 				if (shouldPromptForMove(event, sim, match))
 				{
 					log(Logger.LOG_NORMAL, "AT check starting...");
@@ -234,7 +235,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 						}
 					});
 
-					source.addProposal(pete);
+					// source.addProposal(pete);
+					source.pushProposal(pete);
 				}
 
 			}
@@ -440,7 +442,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	 */
 	private boolean shouldPromptForMove(MessageEvent me, double sim, String match)
 	{
-		if (Math.random() > skipRatio)
+		if (Math.random() >= skipRatio)
 		{
 			return true;
 		}
