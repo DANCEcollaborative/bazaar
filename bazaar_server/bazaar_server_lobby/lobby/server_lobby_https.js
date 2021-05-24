@@ -496,6 +496,7 @@ const MESSAGE_BACKLOG = 200,
     LOCKDOWN_TIMEOUT =  365*24*60*60*1000; //lobby open for 1 year
 	
 let LOCKDOWN_TIME = 0;
+// let LOCKDOWN_TIME = 365*24*60*60*1000; //lobby open for 1 year
 let START_TIME = new Date().getTime();
 const chat_url = "https://bazaar.lti.cs.cmu.edu/bazaar/chat/";
 const roomname_prefix = "jeopardy";
@@ -598,9 +599,9 @@ if(LOCKDOWN_TIME == 0)
 }
     
 if(LOCKDOWN_TIMEOUT > 0)
-{
-    winston.log('info', new Date(LOCKDOWN_TIME) + " <-- lockdown set");
-	setTimeout(function (){ channel.appendMessage("System", "msg", "This session is now closed. No new students can join. If you don't have a partner yet, please come back later!" ,"all"); }, LOCKDOWN_TIME - new Date().getTime())
+{   // This message was showing when it shouldn't. Most expeditious fix was commenting out the message. 
+    // winston.log('info', new Date(LOCKDOWN_TIME) + " <-- lockdown set");
+	// setTimeout(function (){ channel.appendMessage("System", "msg", "This session is now closed. No new students can join. If you don't have a partner yet, please come back later!" ,"all"); }, LOCKDOWN_TIME - new Date().getTime())
 }
 
 //logs team information -- who's on what team
