@@ -30,7 +30,7 @@ public abstract class ASentenceMatcher
 //	private Pattern negPattern = Pattern.compile("(in|un|dis)|inversely|inverse|decrease|limit|reduc|less|lost|lose|smaller|down|weaker|no|not|n't|dont|isnt|wont|never|refute|deny|denied|decreased|neither|cant");
 	protected Pattern negPattern = Pattern.compile("((^| )(no|not|dont|isnt|wont|never|neither|can't|cant|don|won|don't|won't|aren't|arent|doesnt|doesn't)( |$))|((n't)( |$))");
 	protected Collection<String> stopWords = new HashSet<String>();
-	protected int verbose = 3;
+	protected int verbose = 0;
 
 
 	protected String[] tokenize(String sentence)
