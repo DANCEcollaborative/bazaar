@@ -30,7 +30,7 @@ public abstract class ASentenceMatcher
 //	private Pattern negPattern = Pattern.compile("(in|un|dis)|inversely|inverse|decrease|limit|reduc|less|lost|lose|smaller|down|weaker|no|not|n't|dont|isnt|wont|never|refute|deny|denied|decreased|neither|cant");
 	protected Pattern negPattern = Pattern.compile("((^| )(no|not|dont|isnt|wont|never|neither|can't|cant|don|won|don't|won't|aren't|arent|doesnt|doesn't)( |$))|((n't)( |$))");
 	protected Collection<String> stopWords = new HashSet<String>();
-	protected int verbose = 0;
+	protected int verbose = 3;
 
 
 	protected String[] tokenize(String sentence)
@@ -349,7 +349,7 @@ public abstract class ASentenceMatcher
 			System.out.println("best match:\t"+bestSimilarity+"\t"+bestMatch);
 		if (bestSimilarity > threshold)
 		{
-			if(verbose < 0)
+			if(verbose > 0)
 				System.out.println(input+"\t"+bestMatch+"\t"+bestSimilarity);
 			return bestMatch;
 		}
@@ -393,7 +393,7 @@ public abstract class ASentenceMatcher
 				continue;
 	
 			if(verbose > 0)
-				System.out.println("("+inpart+")");
+				System.err.println("("+inpart+")");
 			for(String can : candidates)
 			{
 				String orig = can;
@@ -403,7 +403,7 @@ public abstract class ASentenceMatcher
 	
 	
 				if(verbose > 1 || (verbose > 0 && sim > threshold) )
-					System.out.println(sim+"\t"+orig);
+					System.err.println(sim+"\t"+orig);
 				
 				if(sim >= threshold && negativesMatch(inpart, can))
 				{
@@ -412,11 +412,11 @@ public abstract class ASentenceMatcher
 			}
 		}
 		if(verbose > 0)
-			System.out.println("best match:\t"+bestSimilarity+"\t"+bestMatch);
+			System.err.println("best match:\t"+bestSimilarity+"\t"+bestMatch);
 		if (bestSimilarity > threshold)
 		{
-			if(verbose < 0)
-				System.out.println(input+"\t"+bestMatch+"\t"+bestSimilarity);
+			if(verbose > 0)
+				System.err.println(input+"\t"+bestMatch+"\t"+bestSimilarity);
 			
 		}
 		Collections.sort(matches);
