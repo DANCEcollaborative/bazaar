@@ -349,7 +349,7 @@ public abstract class ASentenceMatcher
 			System.out.println("best match:\t"+bestSimilarity+"\t"+bestMatch);
 		if (bestSimilarity > threshold)
 		{
-			if(verbose < 0)
+			if(verbose > 0)
 				System.out.println(input+"\t"+bestMatch+"\t"+bestSimilarity);
 			return bestMatch;
 		}
@@ -393,7 +393,7 @@ public abstract class ASentenceMatcher
 				continue;
 	
 			if(verbose > 0)
-				System.out.println("("+inpart+")");
+				System.err.println("("+inpart+")");
 			for(String can : candidates)
 			{
 				String orig = can;
@@ -403,7 +403,7 @@ public abstract class ASentenceMatcher
 	
 	
 				if(verbose > 1 || (verbose > 0 && sim > threshold) )
-					System.out.println(sim+"\t"+orig);
+					System.err.println(sim+"\t"+orig);
 				
 				if(sim >= threshold && negativesMatch(inpart, can))
 				{
@@ -412,11 +412,11 @@ public abstract class ASentenceMatcher
 			}
 		}
 		if(verbose > 0)
-			System.out.println("best match:\t"+bestSimilarity+"\t"+bestMatch);
+			System.err.println("best match:\t"+bestSimilarity+"\t"+bestMatch);
 		if (bestSimilarity > threshold)
 		{
-			if(verbose < 0)
-				System.out.println(input+"\t"+bestMatch+"\t"+bestSimilarity);
+			if(verbose > 0)
+				System.err.println(input+"\t"+bestMatch+"\t"+bestSimilarity);
 			
 		}
 		Collections.sort(matches);

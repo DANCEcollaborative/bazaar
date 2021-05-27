@@ -45,6 +45,7 @@ public class PrioritySource extends AbstractPrioritySource
     public double likelyNext(PriorityEvent p)
     {
         return p.getSource().getName().equals(name) ? 0.667 : 1.5;
+        // return p.getSource().getName().equals(name) ? 0.9 : 1.5;
     }
     
 }

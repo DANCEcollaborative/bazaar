@@ -44,7 +44,7 @@ public class PressForReasoningActor extends AbstractAccountableActor
 		double ratio = allExplanations/(double)(1.0 + allTurns);
 		log(Logger.LOG_NORMAL, me.getFrom()+" "+candidateLabel+" ratio is "+ratio);
 		
-		return ratio < targetRatio;
+		return ratio <= targetRatio;
 	}
 
 	@Override

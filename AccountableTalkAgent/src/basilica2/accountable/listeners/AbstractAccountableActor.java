@@ -80,7 +80,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		Properties actorProperties = getProperties();
 		String conditionFlag = actorProperties.getProperty("condition_flag", "accountable_talk");
 		conditionActive = condition.contains(conditionFlag);
-		log(Logger.LOG_WARNING, conditionFlag + " condition: " + conditionActive);
+		log(Logger.LOG_NORMAL, conditionFlag + " condition: " + conditionActive);
 		RollingWindow.sharedWindow().setWindowSize(HISTORY_WINDOW, 20);
 
 		try
@@ -125,9 +125,13 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		try
 		{
 			Scanner s = new Scanner(expertFile);
+			// String statement;    				   // TEMPORARY
 			while (s.hasNextLine())
 			{
-				candidates.add(s.nextLine());
+				candidates.add(s.nextLine());   
+				// statement = s.nextLine();     		// TEMPORARY
+				// candidates.add(statement);      	// TEMPORARY
+				// log(Logger.LOG_NORMAL, "expert statement: " + statement);    	 // TEMPORARY
 			}
 		}
 		catch (FileNotFoundException e)
@@ -139,6 +143,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	@Override
 	public void processEvent(InputCoordinator source, Event event)
 	{
+		// System.err.println("AbstractAccountableActor, enter processEvent"); 
 		this.source = source;
 		if (event instanceof MessageEvent && conditionActive)
 		{
@@ -170,10 +175,11 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		{
 			log(Logger.LOG_NORMAL, "received " + candidateLabel + " event");
 			final String match = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
-			if (getFeedbackCount(match) < 1)
+			if (match != null && getFeedbackCount(match) < 1)
 			{
 				log(Logger.LOG_NORMAL, "no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
+				System.err.println("AbstractAccountableActor, checkForCandidate: sentence similarity = " + Double.toString(sim)); 
 				if (shouldPromptForMove(event, sim, match))
 				{
 					log(Logger.LOG_NORMAL, "AT check starting...");
@@ -229,7 +235,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 						}
 					});
 
-					source.addProposal(pete);
+					// source.addProposal(pete);
+					source.pushProposal(pete);
 				}
 
 			}
@@ -331,6 +338,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event event)
 	{
+		// System.err.println("AbstractAccountableActor, enter preProcessEvent"); 
 		MessageEvent me = (MessageEvent) event;
 		String text = me.getText();
 		String match = sentenceMatcher.getMatch(text, minimumMatch, candidates);
@@ -338,9 +346,12 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		List<SentenceMatch> matches = sentenceMatcher.getMatches(text, minimumMatch, candidates);
 		// for(SentenceMatch m : matches)
 		// System.out.println("match: "+m.sim + "\t" + m.matchText);
+		
+		System.err.println("AbstractAccountableAgent, preProcessEvent: match = " + match);
 
 		if (match != null && shouldAnnotateAsCandidate(me))
 		{
+			System.err.println("AbstractAccountableActor, preProcessEvent, adding candidateLabel: " + candidateLabel);
 			me.addAnnotation(candidateLabel, Arrays.asList(match));
 		}
 	}
@@ -431,7 +442,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	 */
 	private boolean shouldPromptForMove(MessageEvent me, double sim, String match)
 	{
-		if (Math.random() > skipRatio)
+		if (Math.random() >= skipRatio)
 		{
 			return true;
 		}

@@ -206,30 +206,36 @@ public class InputCoordinator extends Component
 
     private void processAllEvents()
     {
-        synchronized(this)
-        {
-
-			log(Logger.LOG_NORMAL, "Events After Preprocessing: " +preprocessedEvents);
-
-    		RollingWindow window = RollingWindow.sharedWindow();
-            for(Event eve : preprocessedEvents)
-            {
-                processOneEvent(eve);
-                if(eve instanceof MessageEvent)
-                {
-                	MessageEvent me = (MessageEvent)eve;
-	        		window.addEvent(me, me.getAllAnnotations());
-	        		window.addEvent(me, "incoming", me.getFrom()+"_turn", "student_turn");
-                }
-//                else if(eve instanceof EchoEvent)
-//                {
-//                	window.addEvent(eve, "tutor_turn");
-//                }
-            }
-
-            pushEventsToOutputCoordinator();
-            preprocessedEvents.clear();
-        }
+    	try {
+	        synchronized(this)
+	        {
+	
+				log(Logger.LOG_NORMAL, "Events After Preprocessing: " +preprocessedEvents);
+	
+	    		RollingWindow window = RollingWindow.sharedWindow();
+	            for(Event eve : preprocessedEvents)
+	            {
+	                processOneEvent(eve);
+	                if(eve instanceof MessageEvent)
+	                {
+	                	MessageEvent me = (MessageEvent)eve;
+		        		window.addEvent(me, me.getAllAnnotations());
+		        		window.addEvent(me, "incoming", me.getFrom()+"_turn", "student_turn");
+	                }
+	//                else if(eve instanceof EchoEvent)
+	//                {
+	//                	window.addEvent(eve, "tutor_turn");
+	//                }
+	            }
+	
+	            pushEventsToOutputCoordinator();
+	            preprocessedEvents.clear();
+	        }
+    	} catch (Exception e) {
+    		System.err.println("InputCoordinator. processAllEvents: syncrhonization error"); 
+    		e.printStackTrace();
+    	}
+	     
     }
 
 	private void pushEventsToOutputCoordinator()
