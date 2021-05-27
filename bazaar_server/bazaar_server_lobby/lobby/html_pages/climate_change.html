@@ -263,12 +263,8 @@ ul.tab li a:focus, .active {
             socket.emit('snoop', room, id);
             $('input,textarea').prop('disabled', true);
 	}
-        $('#roomname').text(room);
-        // document.getElementById('climateChangeData').src =  "/bazaar/static/ClimateChangeData.png";    
+        $('#roomname').text(room);   
         document.getElementById('jointResponse').src =  "https://collab.lti.cs.cmu.edu:9001/p/" + "j" +  room + "?showChat=false&noColors=false";
-        document.getElementById('tempNotes').src =  "https://bazaar.lti.cs.cmu.edu:9001/p/" + "t" +  room + "?showChat=false&noColors=false";
-        document.getElementById('co2Notes').src =  "https://bazaar.lti.cs.cmu.edu:9001/p/" + "c" + room + "?showChat=false&noColors=false";  
-        document.getElementById('fuelNotes').src =  "https://bazaar.lti.cs.cmu.edu:9001/p/" + "f" + room + "?showChat=false&noColors=false"; 
         document.getElementById('mayoralLetter').src =  "https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_OLI/server/bazaar/static/mayoralLetter.pdf";    
         });
 	
@@ -524,48 +520,40 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Spreadsheet')">Data</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Temperature Change Notes')">Temperature Change Notes</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Carbon Dioxide Notes')">Carbon Dioxide Notes</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Fossil Fuel Notes')">Fossil Fuels Notes</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Temperature Change')">Temperature Change Data</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Carbon Dioxide')">Carbon Dioxide Data</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Fossil Fuels')">Fossil Fuels Data</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Mayoral Letter')">Mayoral Letter</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Joint Response')">Joint Response</a></li>
     </ul>
 
-   <div id="Spreadsheet" class="tabcontent">
+   <div id="Temperature Change" class="tabcontent">
       <div id="image_container" class="container">
-        <!-- <div id="images" class="scrollable"><iframe id= "climateChangeData" width="100%" height="100%"></iframe></div -->>
-        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSj--vuDAiv_SKVraeFXKBIdxEJL39jNz0EZrvCKsiPwL5EKFz1pz1yWPM_z2GO6-mofxMtvXgtjKkI/pubhtml?widget=true&amp;headers=false" width="100%" height="100%"></iframe></div>
+        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQrvkUC8Gf4tvRQWRt6GFH1NuOK9kT67C-i8FtbS0NIFxvq2B_X1H4bilDnAP_kqjOtRY1tQCeGdLKZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%"></iframe></div>
+      </div>
+    </div>
+
+   <div id="Carbon Dioxide" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable">: <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSWD_LpZKbl_gyNIvqL1TVDlJwKg2yHLSU1ZmyePYFjrs8EH9nwYHB09_S5OVbfXuoxeHBr6zFd3XCZ/pubhtml?gid=1384093822&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%></iframe></div>
+      </div>
+    </div>
+
+   <div id="Fossil Fuels" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRj42F52Ti9D6pynGzVDFN-QBTrk_ewDgDkyaPelxa2kx9zdB5SqU3fqiEreEIDSnecXskE4pTZu2n/pubhtml?gid=1983851117&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%></iframe></div>
+      </div>
+    </div>
+    
+   <div id="Mayoral Letter" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable"><embed id= "mayoralLetter" width="100%" height="100%"></embed></div>
       </div>
     </div>
 
    <div id="Joint Response" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id= "jointResponse" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-   <div id="Temperature Change Notes" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "tempNotes" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-   <div id="Carbon Dioxide Notes" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "co2Notes" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-    
-   <div id="Fossil Fuel Notes" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "fuelNotes" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-   <div id="Mayoral Letter" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><embed id= "mayoralLetter" width="100%" height="100%"></embed></div>
       </div>
     </div>
 
