@@ -4,26 +4,26 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
 	
-    <stage name="initiate" type="other" delay="0">  	
+<!--    <stage name="initiate" type="other" delay="0">   -->	
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
-        <step type="prompt" delay="90" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>     <!-- Increase to {30 or 45} for actual 
+  <!--      <step type="prompt" delay="90" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>  -->    <!-- Increase to {30 or 45} for actual 
 use -->
-        <step type="greet" timeout="60" delay="0">GREETINGS</step>    <!-- Increase to {120} for actual use -->
-    </stage>
+ <!--       <step type="greet" timeout="60" delay="0">GREETINGS</step>  -->   <!-- Increase to {120} for actual use -->
+	 <!--   </stage> -->
     
     <stage name="stageA" type="other" delay="0">
-        <step type="prompt" delay="40" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
+ <!--       <step type="prompt" delay="40" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step> -->
         
-        <step type="match" delay="40" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
+<!--        <step type="match" delay="40" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step> -->
         <!-- <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="READY_SPECIALIZATIONS_SELECTED">WAIT_S
 TEP_A2</step>  -->
         
-        <step type="prompt" delay="0" prompt="PROMPT_STEP_A3" >Prompt_Step_A3</step>
-        <step type="gated" gated_type="listen" timeout="60" delay="0" checkin_prompt="READY_DATA_FOUND">WAIT_STEP_A3</step>
+ <!--       <step type="prompt" delay="0" prompt="PROMPT_STEP_A3" >Prompt_Step_A3</step> -->
+ <!--       <step type="gated" gated_type="listen" timeout="60" delay="0" checkin_prompt="READY_DATA_FOUND">WAIT_STEP_A3</step>-->
         
-        <step type="prompt" delay="20" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step>
+ <!--       <step type="prompt" delay="20" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step> -->
         <step type="prompt" delay="0" prompt="PROMPT_STEP_A5" >Prompt_Step_A5</step>
         <step type="listen" timeout="180" delay="1">LISTEN_STEP_A5</step>
     </stage>

@@ -404,14 +404,14 @@ public class State
 		return null;
 	}
 
-	public Student getStudentByRole(String role)
+	public String getStudentByRole(String role)
 	{
 		for (int i = 0; i < students.size(); i++)
 		{
 			Student s = students.get(i);
 			if (s.isPresent)
 			{
-				if (s.role.equalsIgnoreCase(role)) { return s; }
+				if (s.role.equalsIgnoreCase(role)) { return s.chatId; }
 			}
 		}
 		return null;
