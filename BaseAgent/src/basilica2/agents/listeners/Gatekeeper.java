@@ -87,7 +87,7 @@ public class Gatekeeper extends BasilicaAdapter
 
 			String username = me.getFrom();
 
-			if (keyPattern.matcher(me.getText()).matches())// me.getText().toLowerCase().matches(keyPhrase))
+			if (keyPattern.matcher(me.getText()).matches())   // me.getText().toLowerCase().matches(keyPhrase))
 			{
 				System.err.println("===== Matched ready phrase ====="); 
 				readyUser(source, username);
@@ -159,7 +159,7 @@ public class Gatekeeper extends BasilicaAdapter
 		}
 		else
 		{
-			slots.put("[STUDENT]", username);
+			slots.put("[STUDENT]", StateMemory.getSharedState(getAgent()).getStudentName(username));
 			slots.put("[NUM_READY]", receivedKeys.size() + "");
 			slots.put("[NUM_REMAINING]", (keymasters.size() - receivedKeys.size()) + "");
 			source.addEventProposal(new PrivateMessageEvent(source, username, getAgent().getName(), prompter.lookup("ACKNOWLEDGE", slots), "ACKNOWLEDGE"));
