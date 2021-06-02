@@ -92,24 +92,30 @@ class PromptStepHandler implements StepHandler
 
 		// If prompt in plan file contains the key 'role'
 		//    1. try to fill in the student name for that role
-		//    2. Append the prompt key with the role name
-		String promptRole = null;
+		//    2. Append the prompt key with '_STUDENT'. 
 		Boolean studentForRoleFound = false; 
+		String promptRole = null; 
 		if(step.attributes.containsKey("role"))
 		{
-			promptRole = step.attributes.get("role");
+			System.err.println("PromptStepHandler: step contains key 'role'.");
+			String role = step.attributes.get("role");
+			promptRole = role.replace("_", " "); 
+			System.err.println("PromptStepHandler: adjusted role = " + promptRole);
+			slots.put("[ROLE]", promptRole);
 			String sid = news.getStudentByRole(promptRole); 
+			System.err.println("PromptStepHandler: getStudentByRole result = " + sid);
 			if (sid != null) {
 				String studentName = news.getStudentName(sid); 
-				if (studentName != sid) {
-					slots.put("[NAME1]", studentName);
-					studentForRoleFound = true; 
-				}
+				System.err.println("PromptStepHandler: studentName = " + studentName);
+				slots.put("[NAME1]", studentName);
+				studentForRoleFound = true; 
+				System.err.println("PromptStepHandler: studentForRoleFound = true");
 			}
 		}
 		if (studentForRoleFound) {
-			promptKey = promptKey + "_" + promptRole; 
+			promptKey = promptKey + "_STUDENT"; 
 		}
+		System.err.println("PromptStepHandler: promptKey after role processing = " + promptKey);
 		
 		
         // Variable prompt message, if available, depending upon a single student vs. multiple students
