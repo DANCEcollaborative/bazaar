@@ -23,7 +23,8 @@ public class Gatekeeper extends BasilicaAdapter
 	private Collection<String> keymasters = new ArrayList<String>();
 	private Collection<String> remainingKeys = new ArrayList<String>();
 	private Collection<String> receivedKeys = new ArrayList<String>();
-	private String keyPhrase = "^(ok|okay)?\\s*(ready)|(next)|(done)(\\p{Punct}+|\\s*$)";
+	// private String keyPhrase = "^(ok|okay)?\\s*(ready)|(next)|(done)(\\p{Punct}+|\\s*$)";
+	private String keyPhrase = ".*(ok|okay|ready|next|done).*";
 	private Pattern keyPattern = Pattern.compile(keyPhrase, Pattern.CASE_INSENSITIVE);
 	private String stepName = "step";
 	private PromptTable prompter;

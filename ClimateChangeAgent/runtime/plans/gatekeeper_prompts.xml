@@ -6,8 +6,8 @@
     </prompt>
     
     <prompt strategy="task" id="TIMEOUT_WARNING">
-       <text>We need to start wrapping up. Get ready to move on.</text>
-       <text>Okay, let's get ready to move on.</text>
+       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
+       <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
     </prompt>
         
     <!-- for READY_GENERIC -->    
@@ -65,11 +65,8 @@
     </prompt>
     
     <prompt strategy="task" id="ALL_READY">
-       <text>Okay...</text>
        <text>Okay, let's move on...</text>
-       <text>I think we're ready.</text>
        <text>Moving on...</text>
-       <text>Looks like we're ready.</text>
        <text>Onward!</text>
     </prompt>
   
