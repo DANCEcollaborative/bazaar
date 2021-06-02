@@ -16,12 +16,10 @@ use -->
     <stage name="stageA" type="other" delay="0">
        <step type="prompt" delay="40" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step> 
         
-        <step type="match" delay="40" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
-        <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="READY_GENERIC">WAIT_STEP_A2</step> 
+        <step type="match" delay="20" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
               
         <step type="prompt" delay="0" prompt="PROMPT_STEP_TEMPERATURE_CHANGE" role="temperature_change">PROMPT_STEP_TEMPERATURE_CHANGE</step>
-        <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="READY_SPECIALIZATIONS_SELECTED">WAIT_STEP_A2</step> 
-        <!-- ><step type="listen" timeout="60" delay="1">LISTEN_STEP_TEMPERATURE_CHANGE</step> -->
+        <step type="listen" timeout="60" delay="1">LISTEN_STEP_TEMPERATURE_CHANGE</step>
         
         <step type="prompt" delay="0" prompt="PROMPT_STEP_CARBON_DIOXIDE" role="carbon_dioxide">PROMPT_STEP_CARBON_DIOXIDE</step>
         <step type="listen" timeout="60" delay="1">LISTEN_STEP_CARBON_DIOXIDE</step>
