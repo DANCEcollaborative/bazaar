@@ -16,7 +16,7 @@ use -->
     <stage name="stageA" type="other" delay="0">
        <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step> 
         
-        <step type="match" delay="45" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
+        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
               
         <step type="prompt" delay="0" prompt="PROMPT_STEP_TEMPERATURE_CHANGE" role="temperature_change">PROMPT_STEP_TEMPERATURE_CHANGE</step>
         <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_TEMPERATURE_CHANGE</step> -->
