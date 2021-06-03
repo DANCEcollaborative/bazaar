@@ -23,7 +23,8 @@ public class Gatekeeper extends BasilicaAdapter
 	private Collection<String> keymasters = new ArrayList<String>();
 	private Collection<String> remainingKeys = new ArrayList<String>();
 	private Collection<String> receivedKeys = new ArrayList<String>();
-	private String keyPhrase = "^(ok|okay)?\\s*(ready)|(next)|(done)(\\p{Punct}+|\\s*$)";
+	// private String keyPhrase = "^(ok|okay)?\\s*(ready)|(next)|(done)(\\p{Punct}+|\\s*$)";
+	private String keyPhrase = ".*(ready|next|done).*";
 	private Pattern keyPattern = Pattern.compile(keyPhrase, Pattern.CASE_INSENSITIVE);
 	private String stepName = "step";
 	private PromptTable prompter;
@@ -87,7 +88,7 @@ public class Gatekeeper extends BasilicaAdapter
 
 			String username = me.getFrom();
 
-			if (keyPattern.matcher(me.getText()).matches())// me.getText().toLowerCase().matches(keyPhrase))
+			if (keyPattern.matcher(me.getText()).matches())   // me.getText().toLowerCase().matches(keyPhrase))
 			{
 				System.err.println("===== Matched ready phrase ====="); 
 				readyUser(source, username);
@@ -159,7 +160,7 @@ public class Gatekeeper extends BasilicaAdapter
 		}
 		else
 		{
-			slots.put("[STUDENT]", username);
+			slots.put("[STUDENT]", StateMemory.getSharedState(getAgent()).getStudentName(username));
 			slots.put("[NUM_READY]", receivedKeys.size() + "");
 			slots.put("[NUM_REMAINING]", (keymasters.size() - receivedKeys.size()) + "");
 			source.addEventProposal(new PrivateMessageEvent(source, username, getAgent().getName(), prompter.lookup("ACKNOWLEDGE", slots), "ACKNOWLEDGE"));

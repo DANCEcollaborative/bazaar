@@ -175,6 +175,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		{
 			log(Logger.LOG_NORMAL, "received " + candidateLabel + " event");
 			final String match = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
+			System.err.println("AbstractAccountableActor, checkForCandidate: match = " + match);
 			if (match != null && getFeedbackCount(match) < 1)
 			{
 				log(Logger.LOG_NORMAL, "no previous match for " + match);
@@ -253,6 +254,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		String studentName = StateMemory.getSharedState(agent).getStudentName(student);
 		String conceptForm = prompts.lookup(concept);
+		String role = StateMemory.getSharedState(agent).getStudentRole(student); 
 		slots.put("[STUDENT]", studentName);
 		slots.put("[CONCEPT]", conceptForm);
 		List<String> others = StateMemory.getSharedState(agent).getStudentNames();
@@ -261,6 +263,9 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			slots.put("[OTHERSTUDENT]", others.get((int) (Math.random() * others.size())));
 		else
 			slots.put("[OTHERSTUDENT]", "Team");
+//		if (role != student) {
+//			slots.put("[ROLE", "from ")
+//		}
 
 		final MessageEvent me = new MessageEvent(source, this.getAgent().getUsername(), prompts.lookup(prompt, slots), prompt, student, AT_MOVE);
 		me.setReference(reference);
