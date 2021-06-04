@@ -7,7 +7,7 @@ services:
     build:
        context: ./
        dockerfile: Dockerfile.mysql
-    container_name: nodechat_lobby_https
+    container_name: nodechat
     volumes:    
      - mysql_data:/var/lib/mysql
     environment:
@@ -21,8 +21,8 @@ services:
   bazaar:
     build: 
        context: ./
-       dockerfile: Dockerfile
-    container_name: bazaar_lobby_https
+       dockerfile: Dockerfile.local
+    container_name: bazaar
     depends_on:
      - nodechat
     networks:
@@ -30,7 +30,7 @@ services:
   front:
     build: ./ha-proxy
     image: bazaar/haproxy
-    container_name: bazaar-haproxy_lobby_https
+    container_name: bazaar-haproxy
     ports:
       - "80:80"
       - "443:443"
