@@ -64,7 +64,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 - Running
  - In a terminal window
    - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
-     - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_legacy
+     - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_lobby
    - Enter: docker-compose -f docker-compose-dev.yml build
      - This command will take longer the first time it is executed as it downloads several things.
    - Enter: docker-compose -f docker-compose-dev.yml up -d
@@ -75,7 +75,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
    - Set a “Room Name”.
    - Press ’Start Agent’
  - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
-   - http://localhost/bazaar/chat/ROOM/1/STUDENT/1/?html=share_chat
+   - http://localhost/chat/ROOM/1/STUDENT/1/?html=share_chat
    - Use the ROOM you selected in the chat room window.
         - Use your choice for STUDENT. For multiple students:
           - Use a unique STUDENT name for each.
