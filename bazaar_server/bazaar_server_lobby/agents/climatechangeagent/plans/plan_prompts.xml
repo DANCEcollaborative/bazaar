@@ -20,48 +20,56 @@
         <text>Welcome! I'm [AGENT NAME].|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A1">
+    <prompt strategy="task" id="PROMPT_STEP_INTRODUCTION">
         <text>Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A2">
-        <text>Each of you will start out by specializing in one aspect of climate change: temperature change, carbon dioxide, or fossil fuels.|Decide among yourselves who will specialize in which aspect. If someone comes late, they'll get one of the remaining aspects. If you end up shorthanded, cover your own specialization and then work together on what remains.|Go ahead and decide who gets which. I'll wait a little while.</text>
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], you will lead a discussion about [ROLE1] and climate change.|If others join you later, they will lead discussions on the other roles.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A2_1">
-        <text>Temperature change, carbon dioxide, and fossil fuels all play a role in climate change.|[NAME1], you will research the role of [ROLE1].|If others join you later, they will research the other roles.</text>
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], you will lead a discussion about [ROLE1] and climate change. ... [NAME2], you will lead a discussion about [ROLE2].|If someone joins you later, they will lead discussion on the remaining role.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A2_2">
-        <text>Temperature change, carbon dioxide, and fossil fuels all play a role in climate change.|[NAME1], you will research the role of [ROLE1]. ... [NAME2], you will research the role of [ROLE2].|If someone joins you later, they will research the remaining role.</text>
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], you will lead a discussion about [ROLE1] and climate change. ... [NAME2], you will lead a discussion about [ROLE2]. ... [NAME3], you will lead a discussion about [ROLE3].</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A2_3">
-        <text>Temperature change, carbon dioxide, and fossil fuels all play a role in climate change.|[NAME1], you will research the role of [ROLE1]. ... [NAME2], you will research the role of [ROLE2]. ... [NAME3], you will research the role of [ROLE3].</text>
+    <prompt strategy="task" id="PROMPT_STEP_TEMPERATURE_CHANGE">
+        <text>First, click on the words "Temperature Change Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet been assigned a role, ask them to lead this discussion by sharing their thoughts and asking the team about their ideas. What does the evidence tell you? Does it lead to further questions?</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A3">
-        <text>Now it's time to research your specialization. Click on the "Data" tab at the left. You'll find 3 links at the bottom of the Data tab, one for each specialization: Temperature Change, Carbon Dioxide, and Fossil Fuels. Click on the link for your specialization.</text>
+    <prompt strategy="task" id="PROMPT_STEP_TEMPERATURE_CHANGE_STUDENT">
+        <text>First, click on the words "Temperature Change Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|[NAME1], take the lead by sharing your thoughts and asking the team about their ideas. What does the evidence tell you? Does it lead to further questions?</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A4">
-        <text>Now examine your data and record your thoughts by filling out the "Notes" tab that corresponds to your specialization on the left.</text>
+    <prompt strategy="task" id="PROMPT_STEP_CARBON_DIOXIDE">
+        <text>Next, click on the words "Carbon Dioxide Data" at the upper left. Examine the tables and take about 5 minutes to discuss as a team.|If someone has not yet been assigned a role, ask them to take the lead this time. Is the evidence convincing? Could there be other causes for the effects?</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_A5">
-        <text>Take up to 10 minutes to examine the data and record your thoughts. Make sure your team covers all the specializations. If you finish early, share your thoughts with one another and see if you can come up with more ideas.</text>
+    <prompt strategy="task" id="PROMPT_STEP_CARBON_DIOXIDE_STUDENT">
+        <text>Next, click on the words "Carbon Dioxide Data" at the upper left. Examine the tables and take about 5 minutes to discuss as a team.|[NAME1], you take the lead this time. Is the evidence convincing? Could there be other causes for the effects?</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_B1">
-        <text>Okay, it's time to move on to the next part of the activity. First, spend a few minutes reading and thinking about the letter from the mayor that you'll find in the "Mayoral Letter" tab at the left.</text>
+    <prompt strategy="task" id="PROMPT_STEP_FOSSIL_FUELS">
+        <text>Now, click on the words "Fossil Fuels Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet led a discussion, it's their turn to take the lead. How does this data relate to climate change?</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_B2">
+    <prompt strategy="task" id="PROMPT_STEP_FOSSIL_FUELS_STUDENT">
+        <text>Now, click on the words "Fossil Fuels Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|[NAME1], it's your turn to take the lead. How does this data relate to climate change?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_READ_LETTER">
+        <text>Okay, it's time to move on to the next part of the activity. First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MAYORAL_PERSPECTIVE">
         <text>Before developing your response to Mayor Williams, summarize her perspective. What are the benefits of using fossil fuels? What evidence and reasoning does she use to support her decision? Discuss for a few minutes.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_B3">
-        <text>Now, spend the rest of your time discussing and developing a response to the mayor. Make sure to support your ideas with evidence. Use the "Joint Response" tab at the left to develop your response.|Each team member's typing in the Joint Response will be a different color! But work together to create a combined response.</text>
+    <prompt strategy="task" id="PROMPT_STEP_MAYORAL_RESPONSE">
+        <text>Now, spend the rest of your time discussing and developing a response to the mayor. Click on "Joint Response" at the left for the form you will complete together. You can logout of the agent when you're done.|How would you respond to the mayor from the standpoint of the discussion you led on a climate change role? Make sure to support your ideas with evidence.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_END">
