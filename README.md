@@ -40,7 +40,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
 
 # Install this repository
   - Commands:
-    - git clone https://github.com/DANCEcollaborative/bazaar.git bazaar
+    - git clone https://github.com/DANCEcollaborative/bazaar.git
     - cd bazaar/LightSide
     - ant build
     - cd ../Genesis-Plugins
@@ -69,7 +69,7 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
      - This command will take longer the first time it is executed as it downloads several things.
    - Enter: docker-compose -f docker-compose-dev.yml up -d
      - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
- - Within the IDE, run a Docker agent, such as WeatherAgent or MturkAgent.
+ - Within the IDE, run a Docker agent, such as ClimateChangeAgent.
  - A chat room startup window will be displayed.
    - Select the agent’s behavior conditions.
    - Set a “Room Name”.
@@ -77,15 +77,15 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
  - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
    - http://localhost/chat/ROOM/1/STUDENT/1/?html=share_chat
    - Use the ROOM you selected in the chat room window.
-        - Use your choice for STUDENT. For multiple students:
-          - Use a unique STUDENT name for each.
-          - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
-            - The first number is the student ID, and must be unique.
-            - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
-            - E.g., for multiple students, :
-              - .../1/STUDENTA/1/…
-              - .../2/STUDENTB/2/...
-              - .../3/STUDENTC/3/…
+    - Use your choice for STUDENT. For multiple students:
+      - Use a unique STUDENT name for each.
+      - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
+        - The first number is the student ID, and must be unique.
+        - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
+        - E.g., for multiple students, :
+          - .../1/STUDENTA/1/…
+          - .../2/STUDENTB/2/...
+          - .../3/STUDENTC/3/…
 
 # Install and run the legacy version in an IDE
 A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherLegacyAgent and MTurkLegacyAgent.
@@ -111,7 +111,7 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
            - .../3/STUDENTC/3/…
 
 # Convert a legacy agent to a Docker agent
-- Replace the agent's file '…/runtime/properties/WebsocketChatClientLegacy.properties' with a copy of (e.g.) the file 'WeatherAgent/runtime/properties/WebsocketChatClient.properties'
+- Replace the agent's file '…/runtime/properties/WebsocketChatClientLegacy.properties' with a copy of (e.g.) the file 'ClimateChangeAgent/runtime/properties/WebsocketChatClient.properties'.
 - In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClientLegacy" with "WebsocketChatClient".
 - If any src files include the line 'import basilica2.socketchat.WebsocketChatClientLegacy', change those lines to 'import basilica2.socketchat.WebsocketChatClient'.
 - In the .classpath file, replace ‘SocketIOClientLegacy’ with ‘SocketIOClient’.
@@ -121,15 +121,69 @@ A few of the tutor agents are set up to use an older ("legacy") version of socke
 # Install a Bazaar Docker agent on a Linux server
 NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
 
+- Install the Bazaar server
+   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), within subdirectory 'bazaar_server/'. There are two versions with only minor differences.
+      - **'bazaar_server/bazaar_server_lobby'** is for an https server with a "Lobby" for combining students in groups. **These instructions will install this version since it is most advanced.**
+      - 'bazaar_server/bazaar_server_https' is for an https server without a Bazaar Lobby.
+      - The two versions may be installed together on the same server so long as they use different port numbers as described below.
+
+  - Set up your web server code to route URLs that include
+      - '/bazaar' for HTTP protocol or '/bazsocket' for websockets to a port such as '8300'.
+      - '/lobby' to a port such as '8400'.
+  - If you are using apache2 for web services, sample files for routing URLs on a Linux Ubuntu system are included in 'bazaar_server_lobby/apache2/'.
+        - Install the 'apache2.conf' file in directory '/etc/apache2/', or else update your 'apache2.conf' file with the following lines:
+            <Directory /bazaar>
+                Options Indexes FollowSymLinks
+                AllowOverride All
+                Require all granted
+            </Directory\>
+
+        - Install the file from subdirectory 'apache2/sites-available/' into directory '/etc/apache2/sites-available'.
+        - Execute the appropriate command(s) below for your http and/or https version:
+          - sudo a2ensite bazaar-docker-lobby.conf
+          - sudo a2ensite bazaar-docker-https.conf
+        - Depending on your apache2 configuration, you may need to execute the following:
+          - sudo a2enmod rewrite
+          - sudo a2enmod proxy
+          - sudo a2enmod proxy_http
+          - sudo a2enmod proxy_wstunnel
+          - sudo a2enmod rewrite
+        - For the https version, you may also need to execute the following:
+          - sudo a2enmod ssl
+        - Execute: sudo systemctl restart apache2
+
+  - Install MySQL on the server.
+    - A copy of the MySQL database structure without content is available in [this repository](https://github.com/DANCEcollaborative/bazaar) at 'bazaar_server_lobby/mysql/msql-structure-only.sql'.
+
+  - Install and start Docker.
+      - Install [Docker for Linux](https://docs.docker.com/engine/install/).
+      - Start Docker: sudo systemctl start docker
+
+  - Install and run the files from subdirectory 'bazaar_server_lobby' on the server.
+      - Structure:
+          - YOUR_BASE_DIRECTORY
+             - Dockerfile
+             - Dockerfile.mysql
+             - docker-compose.yml
+             - runLobby
+             - bazaar
+                - All files within subdirectory 'bazaar'.
+             - lobby
+                - All files within subdirectory 'lobby'.
+             - agents
+               - Directory(ies) for Bazaar Docker agent(s) created above -- e.g., climatechangeagent/
+
+      - In file 'bazaar/server_lobby_https.js', within the 'Content-Security-Policy' specification, change every instance of 'bazaar.lti.cs.cmu.edu' to your server name.
+      - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
+      - In file docker-compose.yml, customize ports '8300' and '8400' to the port you used when setting up your web server above.
+
 - Install a Bazaar Docker agent
-   - The agent’s name needs to end in “Agent” or “agent” — e.g., "WeatherAgent”.
-   - Customize the agent's 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties file. Two sample versions are provided for WeatherAgent in [this location](https://github.com/DANCEcollaborative/bazaar/tree/master/WeatherAgent/runtime/properties). The only difference in the two versions is the 'socket_url=...' line.
-      - For an http server, this should be
-        - socket_url=http://127.0.0.1
-      - For an https server, customize the following line in file WebsocketChatClient.properties with your server name and the port number you configured above.
-        - socket_url=http://misty.lti.cs.cmu.edu:8200
+   - The agent’s name needs to end in “Agent” or “agent” — e.g., "ClimateChangeAgent”.
+   - Customize the agent's 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties file. A sample version is provided for ClimateChangeAgent in [this location](https://github.com/DANCEcollaborative/bazaar/tree/master/ClimateChangeAgent/runtime/properties).
+      - Comment out line 'socket_url=http://127.0.0.1' if necessary by inserting '#' at the beginning of the line.
+      - Make sure the line 'socket_url=http://bazaar.lti.cs.cmu.edu:8300' is not commented out. Customize 'bazaar.lti.cs.cmu.edu:8300' with your server name and  port number for Bazaar.
    - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
-     - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘WeatherAgent’) and select “Export.”
+     - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘ClimateChangeAgent’) and select “Export.”
      - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
      - Runnable JAR File Specification
         - Launch configuration: Select one from the dropdown. If you’ve created the agent l- ike most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
@@ -139,74 +193,12 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
         - “This operation repacks referenced libraries. …”
         - "JAR export finished with warnings. …”
     - On the Linux server.
-      - Create a subdirectory for the agent — e.g., ‘weatheragent’.
+      - Create a subdirectory for the agent within directory 'bazaar_server/bazaar_server_lobby/agents/'— e.g., ‘climatechangeagent’.
       - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 
-- Install the server
-   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), within subdirectory 'bazaar_server/'. There are two versions with only minor differences. They are supplied as distinct versions for ease of installation but since they are so similar installation instructions are combined below with differences pointed out as necessary.
-      - 'bazaar_server/bazaar_server_http' is for an http server.
-      - 'bazaar_server/bazaar_server_https' is for an https server.
-      - The two versions may be installed together on the same server so long as they use different port numbers as described below.
-      - File that are different within the two versions are listed here:
-         - In apache2/sites-available: bazaar-docker-http.conf vs. bazaar-docker-https.conf.
-         - docker-compose.yml
-         - Dockerfile
-         - bazaar/server_docker.js
-
-   - Install MySQL on the server.
-      - This has been tested with MySQL version 5.7.31.
-      - A copy of the MySQL database structure without content is available in [this repository](https://github.com/DANCEcollaborative/bazaar), 'bazaar_docker_server/mysql/msql-structure-only.sql'.
-
-  - Install and start Docker.
-      - Install [Docker for Linux](https://docs.docker.com/engine/install/).
-      - Start Docker: sudo systemctl start docker
-
-  - Set up your web server code to route URLs that include '/bazaar' for HTTP or '/bazsocket' for websockets to a port such as '8000' or '8200'. Sample files for doing this using 'apache2' on a Linux Ubuntu system are included in your bazaar server directory (http or https version), subdirectory 'apache2/'.
-    - Install the 'apache2.conf' file in directory '/etc/apache2/', or else update your 'apache2.conf' file with the following lines:
-         - <Directory /bazaar>
-              - Options Indexes FollowSymLinks
-              - AllowOverride All
-              - Require all granted
-         - </Directory\>
-    - Install the file in subdirectory 'apache2/sites-available/' (either bazaar-docker-http.conf or bazaar-docker-https.conf) in directory '/etc/apache2/sites-available'.
-        - Change 'misty.lti.cs.cmu.edu' to your server name.
-        - If port '8000' (in bazaar_docker-http.conf) or '8200' (in bazaar_docker-https.conf) isn't available on your system, choose an available port number greater than or equal to 1024 and change '8000' or '8200' to your port number everywhere in your *.conf file.
-        - If you're installing the https version (bazaar-docker-https.conf), change the following lines to point to your security certificate.
-            - SSLCertificateFile    /etc/ssl/certs/apache.crt
-            - SSLCertificateKeyFile /etc/ssl/certs/apache.key
-    - Execute the appropriate command(s) below for your http and/or https version:
-        - sudo a2ensite bazaar-docker-http.conf
-        - sudo a2ensite bazaar-docker-https.conf
-    - Depending on your apache2 configuration, you may need to execute the following:
-        - sudo a2enmod rewrite
-        - sudo a2enmod proxy
-        - sudo a2enmod proxy_http
-        - sudo a2enmod proxy_wstunnel
-        - sudo a2enmod rewrite
-    - For the https version, you may also need to execute the following:
-        - sudo a2enmod ssl
-    - Execute: sudo systemctl restart apache2
-
- - Install and run the files from subdirectory 'bazaar_server_http' or 'bazaar_server_https' on the server.
-      - Structure:
-          - YOUR_BASE_DIRECTORY
-             - Dockerfile
-             - Dockerfile.mysql
-             - docker-compose.yml
-             - runBazaarDocker
-             - bazaar
-                - All files within subdirectory 'bazaar'.
-             - lobby
-                - All files within subdirectory 'lobby'.
-             - Directory(ies) for Bazaar Docker agent(s) created above -- e.g., weatheragent/
-
-      - In file 'bazaar/server_docker.js', within the 'Content-Security-Policy' specification, change every instance of 'misty.lti.cs.cmu.edu' to your server name.
-      - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
-      - In file docker-compose.yml, customize port '8000' or '8200' to the port you used when setting up your web server above (if necessary).
-      - Start Docker:
-           - cd YOUR_BASE_DIRECTORY
-           - sudo docker-compose up --build
-
+- Start the Docker containers:
+   - cd bazaar_server_lobby
+   - sudo docker-compose up --build -d
 
 # Run a Bazaar Docker agent on a Linux server.
   - Install a Bazaar Docker agent on a server as described above.
