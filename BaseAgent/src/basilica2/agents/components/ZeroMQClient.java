@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import basilica2.agents.components.ChatClient;
+import basilica2.agents.data.State.Student;
 import basilica2.agents.events.EchoEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
@@ -27,8 +28,8 @@ public class ZeroMQClient extends Component implements ChatClient
     private ZMQ.Socket publisher;
     private ZMQ.Socket subscriber; 
     // private String subscribeTopic = "PSI_BAZAAR_TEXT"; 
-    private String subscribeTopic = "10001"; 
-    private String publishTopic   = "BAZAAR_PSI_TEXT"; 
+    private String subscribeTopic = "PSI_Bazaar_Text"; 
+    private String publishTopic   = "Bazaar_PSI_Text"; 
 
     // private ArrayList<MessageConsumer> consumers;
     
@@ -83,7 +84,7 @@ public class ZeroMQClient extends Component implements ChatClient
             System.err.println("*** ZeroMQClient initZeroMQClient: about to create PRESENCE EVENT ***");
             PresenceEvent e = new PresenceEvent(this,"psiAgent",PresenceEvent.PRESENT); 
             this.broadcast(e);
-            System.out.println("*** ZeroMQClient initZeroMQClient: PRESENCE EVENT created ***");
+            System.err.println("*** ZeroMQClient initZeroMQClient: PRESENCE EVENT created ***");
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,16 +104,24 @@ public class ZeroMQClient extends Component implements ChatClient
 		{	
 			try (ZContext context = new ZContext()) { 
 	            subscriber = context.createSocket(SocketType.SUB);
-	            subscriber.setReceiveTimeOut(2000);
-	            // subscriber.setReceiveTimeOut(-1);
-	            subscriber.connect("tcp://localhost:5556");   // >>> CHANGE TO 5556 <<< 
+	            // subscriber.setReceiveTimeOut(2000);
+	            subscriber.setReceiveTimeOut(-1);
+	            subscriber.connect("tcp://localhost:5556"); 
 	            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
 				// Thread.sleep(1000);
 				// myThread.sleep(1000);
-				System.err.println("ZeroMQClient, run - about to call recvStr"); 
+				// System.err.println("ZeroMQClient, run - about to call recvStr"); 
 				// String psiMessage = subscriber.recvStr(0).trim(); 
 				String psiMessage = subscriber.recvStr(0); 
-				System.err.println("ZeroMQClient, run - received message: " + psiMessage); 				
+				System.err.println("ZeroMQClient, run - received message: " + psiMessage); 	
+				
+
+		    	MessageEvent me = new MessageEvent(this, "piClient", psiMessage);
+		    	System.err.println("********* ZeroMQCient: About to BROADCAST message >>>   " + psiMessage);
+		    	// System.out.println("********* psiTextSubscriber: MessageEvent               >>>   " + me);
+		    	this.broadcast(me);
+		    	System.err.println("********* ZeroMQClient: MessageEvent sent >>>   " + me);
+				
 			} catch (Exception e) {
 	            e.printStackTrace();
 	        }	
@@ -164,4 +173,5 @@ public class ZeroMQClient extends Component implements ChatClient
 		}
 
 	}
+
 }

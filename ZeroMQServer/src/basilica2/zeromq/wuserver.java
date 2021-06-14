@@ -25,16 +25,10 @@ public class wuserver
             Random srandom = new Random(System.currentTimeMillis());
             while (!Thread.currentThread().isInterrupted()) {
                 //  Get values that will fool the boss
-            	// Thread.sleep(1000);
-                int zipcode, temperature, relhumidity;
-                zipcode = 10000 + srandom.nextInt(10000);
-                temperature = srandom.nextInt(215) - 80 + 1;
-                relhumidity = srandom.nextInt(50) + 10 + 1;
+            	Thread.sleep(3000);
 
                 //  Send message to all subscribers
-                String update = String.format(
-                    "%05d %d %d", zipcode, temperature, relhumidity
-                );
+                String update = "PSI_Bazaar_Text:true;%;multimodal:true;%;identity:group;%;speech:Hello,I am PSI!;%;location:0:0:0"; 
                 // System.err.println("wuserver, sending message: " + update);
                 publisher.send(update, 0);
             }
