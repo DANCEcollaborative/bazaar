@@ -81,6 +81,12 @@ public class ZeroMQClient extends Component implements ChatClient
             // connection.setClientID("Customer");
             // connection.start();
             // session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            subscriber = context.createSocket(SocketType.SUB);
+            // subscriber.setReceiveTimeOut(2000);
+            subscriber.setReceiveTimeOut(-1);
+            subscriber.connect("tcp://localhost:5556"); 
+            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
+            
             System.err.println("*** ZeroMQClient initZeroMQClient: about to create PRESENCE EVENT ***");
             PresenceEvent e = new PresenceEvent(this,"psiAgent",PresenceEvent.PRESENT); 
             this.broadcast(e);
