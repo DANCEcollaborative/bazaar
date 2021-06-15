@@ -190,8 +190,11 @@ public class InputCoordinator extends Component
             }
  
             //collect any annotations that the preprocessors have applied to this message, and log it.
-            if(event instanceof MessageEvent)
+            if(event instanceof MessageEvent) {
+            	MessageEvent me = (MessageEvent) event; 
+            	System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
         		MessageEventLogger.logMessageEvent((MessageEvent)event);
+            }
             
             processAllEvents();
         }

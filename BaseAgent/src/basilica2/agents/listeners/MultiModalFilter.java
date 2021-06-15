@@ -135,10 +135,10 @@ public class MultiModalFilter extends BasilicaAdapter
 					System.err.println("MultiModalFilter, handleMessageEvent - subscribeTopic = " + messagePart[0]); 
 					break; 
 				case multimodal:
-					System.out.println("=========== multimodal message ===========");
+					System.err.println("=========== multimodal message ===========");
 					break;
 				case identity:  // already handled above
-					System.out.println("Identity: " + messagePart[1]);
+					System.err.println("Identity: " + messagePart[1]);
 					break;
 				case speech:
 					System.err.println("Speech: " + messagePart[1]);
