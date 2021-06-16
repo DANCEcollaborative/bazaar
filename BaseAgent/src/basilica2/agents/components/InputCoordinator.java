@@ -152,35 +152,18 @@ public class InputCoordinator extends Component
     public void processEvent(Event event)
     {
     	log(Logger.LOG_NORMAL, "InputCoordinator received event: "+event);
-    	
-    	/**
-        String messageSender = event.getSender().getName();
-        System.err.println("InputCoordinator, message from: '" + messageSender + "'");
-        if (messageSender.equals("psiClient")) {
-        	System.err.println("InputCoordinator, about to echo event from psiClient");
-        	event = new EchoEvent(this, (MessageEvent)event);
-        	preprocessedEvents.add(event);
-        	System.err.println("InputCoordinator, echoed event from psiClient");
-        }
-        */
 
         if(event instanceof MessageEvent && isAgentName(((MessageEvent) event).getFrom())) 
         {
-        	// System.err.println("***** CREATING ECHO EVENT *****");
             event = new EchoEvent(this, (MessageEvent)event);
         }
-        //System.err.println(event.getName()+": "+event.toString());
             
         synchronized(this)
         {
 //            Class<? extends Event> eventClass = event.getClass();
 //            if(preprocessors.containsKey(eventClass))
 
-            // preprocessedEvents.add(event);
-            Boolean addSuccess = preprocessedEvents.add(event);    // TEMPORARY REPLACEMENT FOR preprocessedEvents.add(event);
-            System.err.println("@@@@@@ InputCoordinator processEvent, addSuccess = " + addSuccess.toString() + " for event " + event);
-            
-            
+            preprocessedEvents.add(event);
             
             for(Class<? extends Event> keyClass : preprocessors.keySet())
             {
@@ -188,9 +171,9 @@ public class InputCoordinator extends Component
             	{
 		            for(BasilicaPreProcessor prep : preprocessors.get(keyClass))
 		            {
-		            	System.err.println("****\n\nprocessing "+event+" for "+prep.getClass().getSimpleName()+": ");
+		            	// System.err.println("****\n\nprocessing "+event+" for "+prep.getClass().getSimpleName()+": ");
 		                prep.preProcessEvent(this, event);
-		                System.err.println(preprocessedEvents+"\n\n****");
+		                // System.err.println(preprocessedEvents+"\n\n****");
 		            }
             	}
             }
@@ -198,7 +181,7 @@ public class InputCoordinator extends Component
             //collect any annotations that the preprocessors have applied to this message, and log it.
             if(event instanceof MessageEvent) {
             	MessageEvent me = (MessageEvent) event; 
-            	System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
+            	// System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
         		MessageEventLogger.logMessageEvent((MessageEvent)event);
             }
             
