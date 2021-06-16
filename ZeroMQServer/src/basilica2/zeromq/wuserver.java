@@ -18,7 +18,9 @@ public class wuserver
         //  Prepare our context and publisher
         try (ZContext context = new ZContext()) {
             ZMQ.Socket publisher = context.createSocket(SocketType.PUB);
-            publisher.bind("tcp://*:5556");
+            publisher.bind("tcp://*:5556");         		// local
+            // publisher.bind("tcp://128.2.220.133:5556"); 	// bazaar.lti     
+            // publisher.bind("tcp://128.2.220.52:5556"); 	 	// forum.lti         
             publisher.bind("ipc://weather");
 
             //  Initialize random number generator
