@@ -166,6 +166,7 @@ public class InputCoordinator extends Component
 
         if(event instanceof MessageEvent && isAgentName(((MessageEvent) event).getFrom())) 
         {
+        	// System.err.println("***** CREATING ECHO EVENT *****");
             event = new EchoEvent(this, (MessageEvent)event);
         }
         //System.err.println(event.getName()+": "+event.toString());
@@ -175,7 +176,12 @@ public class InputCoordinator extends Component
 //            Class<? extends Event> eventClass = event.getClass();
 //            if(preprocessors.containsKey(eventClass))
 
-            preprocessedEvents.add(event);
+            // preprocessedEvents.add(event);
+            Boolean addSuccess = preprocessedEvents.add(event);    // TEMPORARY REPLACEMENT FOR preprocessedEvents.add(event);
+            System.err.println("@@@@@@ InputCoordinator processEvent, addSuccess = " + addSuccess.toString() + " for event " + event);
+            
+            
+            
             for(Class<? extends Event> keyClass : preprocessors.keySet())
             {
             	if(keyClass.isInstance(event))
