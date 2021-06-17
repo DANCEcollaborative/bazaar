@@ -29,6 +29,7 @@ public class ZeroMQClient extends Component implements ChatClient
     private ZMQ.Socket subscriber; 
     private String subscribeTopic = "PSI_Bazaar_Text"; 
     private String publishTopic   = "Bazaar_PSI_Text"; 
+    private ZContext context; 
     
     @Override
 	public void disconnect()
@@ -53,13 +54,14 @@ public class ZeroMQClient extends Component implements ChatClient
     }
 
     private void initZeroMQClient() {
-        try (ZContext context = new ZContext()) {
-            
+    	context = new ZContext(); 
+        // try (ZContext context = new ZContext()) {
+        try  {           
             // subscriber
             subscriber = context.createSocket(SocketType.SUB);
-            // subscriber.setReceiveTimeOut(2000);			// wait at most 2 seconds
-            subscriber.setReceiveTimeOut(-1);				// wait indefintely to receive a message
-            subscriber.connect("tcp://localhost:5556"); 
+            // subscriber.setReceiveTimeOut(2000);						// wait at most 2 seconds
+            subscriber.setReceiveTimeOut(-1);							// wait indefintely to receive a message
+            subscriber.connect("tcp://128.2.220.133:5556"); 	     	// subscribe to server bazaar.lti.cs.cmu.edu
             subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
             
             PresenceEvent e = new PresenceEvent(this,"psiAgent",PresenceEvent.PRESENT); 
@@ -75,20 +77,9 @@ public class ZeroMQClient extends Component implements ChatClient
 	{
 		while (!stopSignalled)
 		{	
-			try (ZContext context = new ZContext()) { 
-	            subscriber = context.createSocket(SocketType.SUB);
-	            // subscriber.setReceiveTimeOut(2000);				// wait at most 2 seconds
-	            subscriber.setReceiveTimeOut(-1);					// wait indefintely to receive a message
-	            // subscriber.connect("tcp://localhost:5556");    	// subscribe to local machine
-	            subscriber.connect("tcp://128.2.220.133:5556");		// subscribe to bazaar.lti.cs.cmu.edu
-	            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
-				String psiMessage = subscriber.recvStr(0); 
-		    	MessageEvent me = new MessageEvent(this, "psiClient", psiMessage);
-		    	this.broadcast(me);
-				
-			} catch (Exception e) {
-	            e.printStackTrace();
-	        }	
+			String psiMessage = subscriber.recvStr(0); 
+	    	MessageEvent me = new MessageEvent(this, "psiClient", psiMessage);
+	    	this.broadcast(me);
 		}
 	}
     

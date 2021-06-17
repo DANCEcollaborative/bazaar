@@ -69,11 +69,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
-		/**
-		if (separateOutputToPSI) {
-			initializePSI(); 
-		}
-		*/ 
 		initializePSI(); 
 	}
 	
