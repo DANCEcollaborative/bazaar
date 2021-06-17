@@ -19,10 +19,11 @@ public class wuclient
             //  Socket to talk to server
             System.out.println("Collecting updates from weather server");
             ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
-            subscriber.connect("tcp://localhost:5556");
+            subscriber.connect("tcp://localhost:5555");
 
             //  Subscribe to zipcode, default is NYC, 10001
-            String filter = (args.length > 0) ? args[0] : "10001 ";
+            // String filter = (args.length > 0) ? args[0] : "10001 ";
+            String filter = "Bazaar_PSI_Text";
             subscriber.subscribe(filter.getBytes(ZMQ.CHARSET));
 
             //  Process 100 updates

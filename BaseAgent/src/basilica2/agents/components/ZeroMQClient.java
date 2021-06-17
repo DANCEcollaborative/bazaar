@@ -88,7 +88,7 @@ public class ZeroMQClient extends Component implements ChatClient
 	            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
 				String psiMessage = subscriber.recvStr(0); 
 				// System.err.println("ZeroMQClient, run - received message: " + psiMessage); 	
-		    	MessageEvent me = new MessageEvent(this, "piClient", psiMessage);
+		    	MessageEvent me = new MessageEvent(this, "psiClient", psiMessage);
 		    	// System.err.println("********* ZeroMQCient: About to BROADCAST message >>>   " + psiMessage);
 		    	this.broadcast(me);
 				
@@ -96,6 +96,23 @@ public class ZeroMQClient extends Component implements ChatClient
 	            e.printStackTrace();
 	        }	
 		}
+	}
+
+
+	public void sendMessage(String message)
+	{
+		System.err.println("ZeroMQClient, sendMessage: enter"); 
+		try (ZContext context = new ZContext()) { 
+        	// publisher = context.createSocket(SocketType.PUB);
+            // publisher.bind("tcp://*:5555");  
+			String topicMessage = publishTopic + ":true" + message; 
+			System.err.println("ZeroMQClient,sendMessage --  message: " + topicMessage);
+            publisher.send(topicMessage, 0);
+			
+		} catch (Exception e) {
+            e.printStackTrace();
+        }	
+		System.err.println("ZeroMQClient, sendMessage: exit"); 
 	}
     
     

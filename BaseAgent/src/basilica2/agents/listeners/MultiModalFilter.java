@@ -143,7 +143,7 @@ public class MultiModalFilter extends BasilicaAdapter
 				case speech:
 					System.out.println("Speech: " + messagePart[1]);
 					// me.setText(messagePart[1]);
-					MessageEvent meSpeech = new MessageEvent(source, "piClient", messagePart[1]);
+					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
 					source.queueNewEvent(meSpeech);
 					break;
 				case location:
@@ -257,6 +257,10 @@ public class MultiModalFilter extends BasilicaAdapter
 			return locationStringToDoubles(rawLocation);
 		}
 		else return null;		
+	}
+	
+	public String getMultiModalDelim () {
+		return multiModalDelim;		
 	}
 	
 	private Double[] locationStringToDoubles(String locationString) {
