@@ -21,7 +21,10 @@ import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
-import smartlab.communication.CommunicationManager; 
+// import smartlab.communication.CommunicationManager; 
+import org.zeromq.SocketType;
+import org.zeromq.ZMQ;
+import org.zeromq.ZContext;
 
 /**
  * @author dadamson
@@ -43,7 +46,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 	private Boolean outputToPSI = false; 
 	private Boolean separateOutputToPSI = false; 
-	CommunicationManager psiCommunicationManager; 
+	// CommunicationManager psiCommunicationManager; 
+	ZeroMQClient psiCommunicationManager; 
+    private ZMQ.Socket publisher;
+    ZContext context; 
+	private String psiHost = "*";							// This machine 
+	private String psiPort = "5555"; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
@@ -58,13 +66,24 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
-		if (separateOutputToPSI) {
-			initializePSI(); 
-		}
+			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
+			catch(Exception e) {e.printStackTrace();}
+			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
+			catch(Exception e) {e.printStackTrace();}
+			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
+			catch(Exception e) {e.printStackTrace();}
+		initializePSI(); 
 	}
 	
 	private void initializePSI() {
-		psiCommunicationManager = new CommunicationManager();
+		context = new ZContext(); 
+		try {                      
+	    	publisher = context.createSocket(SocketType.PUB);
+	        // publisher.bind("tcp://*:5555");  
+	        publisher.bind("tcp://" + psiHost + ":" + psiPort);  
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addAll(Collection<PriorityEvent> events)
@@ -291,28 +310,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				to = identityAllUsers; 
 			}	
 		}
-		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
+		// System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
-		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
-		if (!separateOutputToPSI) {
-			MessageEvent newme;
-			String[] allAnnotations = me.getAllAnnotations();
-			try
-			{
-				newme = me.cloneMessage(messageString);
-			}
-			catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
-			}
-			broadcast(newme);
-			MessageEventLogger.logMessageEvent(newme);
-		} else {
-			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
-		}
+		// System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		
+		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
+		// System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
+        publisher.send(topicMessage, 0);
 	}
 
 	

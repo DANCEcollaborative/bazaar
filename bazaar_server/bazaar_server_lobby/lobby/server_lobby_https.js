@@ -1483,7 +1483,7 @@ io.sockets.on('connection', async (socket) => {
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
 		
-		if (socket.username == "DCSSLightSideAgent") {
+		if (socket.username == "MLAgent") {
 		//console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
