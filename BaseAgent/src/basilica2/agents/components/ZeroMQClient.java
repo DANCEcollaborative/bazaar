@@ -55,14 +55,10 @@ public class ZeroMQClient extends Component implements ChatClient
     private void initZeroMQClient() {
         try (ZContext context = new ZContext()) {
             
-        	// publisher
-        	// publisher = context.createSocket(SocketType.PUB);
-            // publisher.bind("tcp://*:5555");  
-            
             // subscriber
             subscriber = context.createSocket(SocketType.SUB);
-            // subscriber.setReceiveTimeOut(2000);
-            subscriber.setReceiveTimeOut(-1);
+            // subscriber.setReceiveTimeOut(2000);			// wait at most 2 seconds
+            subscriber.setReceiveTimeOut(-1);				// wait indefintely to receive a message
             subscriber.connect("tcp://localhost:5556"); 
             subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
             
@@ -81,38 +77,19 @@ public class ZeroMQClient extends Component implements ChatClient
 		{	
 			try (ZContext context = new ZContext()) { 
 	            subscriber = context.createSocket(SocketType.SUB);
-	            // subscriber.setReceiveTimeOut(2000);
-	            subscriber.setReceiveTimeOut(-1);
-	            // subscriber.connect("tcp://0.0.0.0:5556"); 
-	            subscriber.connect("tcp://128.2.220.133:5556");              // bazaar.lti.cs.cmu.edu
+	            // subscriber.setReceiveTimeOut(2000);				// wait at most 2 seconds
+	            subscriber.setReceiveTimeOut(-1);					// wait indefintely to receive a message
+	            // subscriber.connect("tcp://localhost:5556");    	// subscribe to local machine
+	            subscriber.connect("tcp://128.2.220.133:5556");		// subscribe to bazaar.lti.cs.cmu.edu
 	            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
 				String psiMessage = subscriber.recvStr(0); 
-				// System.err.println("ZeroMQClient, run - received message: " + psiMessage); 	
 		    	MessageEvent me = new MessageEvent(this, "psiClient", psiMessage);
-		    	// System.err.println("********* ZeroMQCient: About to BROADCAST message >>>   " + psiMessage);
 		    	this.broadcast(me);
 				
 			} catch (Exception e) {
 	            e.printStackTrace();
 	        }	
 		}
-	}
-
-
-	public void sendMessage(String message)
-	{
-		System.err.println("ZeroMQClient, sendMessage: enter"); 
-		try (ZContext context = new ZContext()) { 
-        	// publisher = context.createSocket(SocketType.PUB);
-            // publisher.bind("tcp://*:5555");  
-			String topicMessage = publishTopic + ":true" + message; 
-			System.err.println("ZeroMQClient,sendMessage --  message: " + topicMessage);
-            publisher.send(topicMessage, 0);
-			
-		} catch (Exception e) {
-            e.printStackTrace();
-        }	
-		System.err.println("ZeroMQClient, sendMessage: exit"); 
 	}
     
     

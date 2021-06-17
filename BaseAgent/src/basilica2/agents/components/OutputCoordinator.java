@@ -22,7 +22,6 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 // import smartlab.communication.CommunicationManager; 
-// import basilica2.agents.components.ZeroMQClient; 
 import org.zeromq.SocketType;
 import org.zeromq.ZMQ;
 import org.zeromq.ZContext;
@@ -79,8 +78,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	}
 	
 	private void initializePSI() {
-		// psiCommunicationManager = new ZeroMQClient(agent,"psiClient",null);
-		// try (context = new ZContext()) {  
 		context = new ZContext(); 
 		try {                      
 	    	publisher = context.createSocket(SocketType.PUB);
@@ -314,50 +311,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				to = identityAllUsers; 
 			}	
 		}
-		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
+		// System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
-		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
+		// System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		
-		// psiCommunicationManager.sendMessage(messageString);
-/**
-		if (!separateOutputToPSI) {
-			MessageEvent newme;
-			String[] allAnnotations = me.getAllAnnotations();
-			try
-			{
-				newme = me.cloneMessage(messageString);
-			}
-			catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
-			}
-			broadcast(newme);
-			MessageEventLogger.logMessageEvent(newme);
-		} else {
-			// psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
-			psiCommunicationManager.sendMessage(messageString);
-
-		}
-*/ 		
-		String topicMessage = publishTopic + ":true" + ";%;" + messageString; 
-		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
+		String topicMessage = publishTopic + ":true" + multiModalDelim + messageString; 
+		// System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
         publisher.send(topicMessage, 0);
-/**
-		System.err.println("ZeroMQClient, sendMessage: enter"); 
-		try (ZContext context = new ZContext()) { 
-        	// publisher = context.createSocket(SocketType.PUB);
-            // publisher.bind("tcp://*:5555");  
-			String topicMessage = publishTopic + ":true" + messageString; 
-			System.err.println("ZeroMQClient,sendMessage --  message: " + topicMessage);
-            publisher.send(topicMessage, 0);
-			
-		} catch (Exception e) {
-            e.printStackTrace();
-        }	
-		System.err.println("ZeroMQClient, sendMessage: exit"); 
-*/ 		
 	}
 
 	
