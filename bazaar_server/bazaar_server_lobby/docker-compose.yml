@@ -26,8 +26,6 @@ services:
     ports:
      - "8300:443"
      - "8400:444"
-     - "5555:5555"
-     - "5556:5556"
     networks:
     - bazaar-net
 networks:

@@ -83,7 +83,8 @@ public class ZeroMQClient extends Component implements ChatClient
 	            subscriber = context.createSocket(SocketType.SUB);
 	            // subscriber.setReceiveTimeOut(2000);
 	            subscriber.setReceiveTimeOut(-1);
-	            subscriber.connect("tcp://localhost:5556"); 
+	            // subscriber.connect("tcp://0.0.0.0:5556"); 
+	            subscriber.connect("tcp://128.2.220.133:5556");              // bazaar.lti.cs.cmu.edu
 	            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
 				String psiMessage = subscriber.recvStr(0); 
 				// System.err.println("ZeroMQClient, run - received message: " + psiMessage); 	
