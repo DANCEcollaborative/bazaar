@@ -48,19 +48,16 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean separateOutputToPSI = false; 
 	// CommunicationManager psiCommunicationManager; 
 	ZeroMQClient psiCommunicationManager; 
-	private String bazaarToPSITopic = "Bazaar_PSI_Text";
-	private Agent agent; 
-	
     private ZMQ.Socket publisher;
-    // private ZMQ.Socket subscriber; 
-    private String publishTopic   = "Bazaar_PSI_Text"; 
     ZContext context; 
+	private String psiServer = "*";
+	private String psiPort = "5555"; 
+	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
 		// s1 = name; s2 = properties file name
 		super(agent, s1, s2);
-		agent = agent; 
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
 		
@@ -69,6 +66,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
+			try{psiServer = myProperties.getProperty("PSI_Server", psiServer);}
+			catch(Exception e) {e.printStackTrace();}
+			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
+			catch(Exception e) {e.printStackTrace();}
+			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
+			catch(Exception e) {e.printStackTrace();}
 		initializePSI(); 
 	}
 	
@@ -76,7 +79,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		context = new ZContext(); 
 		try {                      
 	    	publisher = context.createSocket(SocketType.PUB);
-	        publisher.bind("tcp://*:5555");  
+	        // publisher.bind("tcp://*:5555");  
+	        publisher.bind("tcp://" + psiServer + ":" + psiPort);  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -310,7 +314,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		// System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		
-		String topicMessage = publishTopic + ":true" + multiModalDelim + messageString; 
+		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
 		// System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
         publisher.send(topicMessage, 0);
 	}
