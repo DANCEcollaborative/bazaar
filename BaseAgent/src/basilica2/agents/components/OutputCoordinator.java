@@ -50,7 +50,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	ZeroMQClient psiCommunicationManager; 
     private ZMQ.Socket publisher;
     ZContext context; 
-	private String psiServer = "*";
+	private String psiHost = "*";							// This machine 
 	private String psiPort = "5555"; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
 	
@@ -66,7 +66,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
-			try{psiServer = myProperties.getProperty("PSI_Server", psiServer);}
+			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 			catch(Exception e) {e.printStackTrace();}
 			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
 			catch(Exception e) {e.printStackTrace();}
@@ -80,7 +80,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		try {                      
 	    	publisher = context.createSocket(SocketType.PUB);
 	        // publisher.bind("tcp://*:5555");  
-	        publisher.bind("tcp://" + psiServer + ":" + psiPort);  
+	        publisher.bind("tcp://" + psiHost + ":" + psiPort);  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

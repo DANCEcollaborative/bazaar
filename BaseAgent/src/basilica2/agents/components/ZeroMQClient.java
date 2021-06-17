@@ -27,9 +27,10 @@ public class ZeroMQClient extends Component implements ChatClient
     public Agent psiAgent;
     private ZMQ.Socket publisher;
     private ZMQ.Socket subscriber; 
-    private String subscribeTopic = "PSI_Bazaar_Text"; 
-    private String publishTopic   = "Bazaar_PSI_Text"; 
     private ZContext context; 
+	private String psiHost = "*";							// This machine 
+	private String psiPort = "5556"; 
+	private String psiToBazaarTopic = "PSI_Bazaar_Text";
     
     @Override
 	public void disconnect()
@@ -49,7 +50,14 @@ public class ZeroMQClient extends Component implements ChatClient
     public ZeroMQClient(Agent a, String n, String pf, String uri) {
 		super(a, n, pf);
 		this.psiAgent = a;
-        this.uri = uri;
+        this.uri = uri;		
+		if(myProperties!=null)
+			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
+			catch(Exception e) {e.printStackTrace();}
+			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
+			catch(Exception e) {e.printStackTrace();}
+			try{psiToBazaarTopic = myProperties.getProperty("PSI_to_Bazaar_Topic", psiToBazaarTopic);}
+			catch(Exception e) {e.printStackTrace();}
         initZeroMQClient();
     }
 
@@ -59,10 +67,11 @@ public class ZeroMQClient extends Component implements ChatClient
         try  {           
             // subscriber
             subscriber = context.createSocket(SocketType.SUB);
-            // subscriber.setReceiveTimeOut(2000);						// wait at most 2 seconds
+            // subscriber.setReceiveTimeOut(2000);						// wait at most 2 seconds to receive a message
             subscriber.setReceiveTimeOut(-1);							// wait indefintely to receive a message
-            subscriber.connect("tcp://128.2.220.133:5556"); 	     	// subscribe to server bazaar.lti.cs.cmu.edu
-            subscriber.subscribe(subscribeTopic.getBytes(ZMQ.CHARSET));
+            // subscriber.connect("tcp://128.2.220.133:5556"); 	     	// subscribe to server bazaar.lti.cs.cmu.edu
+            subscriber.connect("tcp://" + psiHost + ":" + psiPort); 
+            subscriber.subscribe(psiToBazaarTopic.getBytes(ZMQ.CHARSET));
             
             PresenceEvent e = new PresenceEvent(this,"psiAgent",PresenceEvent.PRESENT); 
             this.broadcast(e);
