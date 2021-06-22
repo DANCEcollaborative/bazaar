@@ -20,9 +20,9 @@ public class testclient
             System.out.println("Receiving messages as PSI subscriber");
             ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
             subscriber.setReceiveTimeOut(-1);
-            subscriber.connect("tcp://localhost:5555");					// local machine
+            // subscriber.connect("tcp://localhost:5555");					// local machine
             // subscriber.connect("tcp://128.2.220.133:5555");              // bazaar.lti.cs.cmu.edu
-         // subscriber.connect("tcp://128.2.220.52:5555");              // forum.lti.cs.cmu.edu
+            subscriber.connect("tcp://128.2.220.52:5555");              // forum.lti.cs.cmu.edu
 
             String subscribeTopic = "Bazaar_PSI_Text";
             // String subscribeTopic = "PSI_Bazaar_Text";    // TEMP test receive from wuserver
