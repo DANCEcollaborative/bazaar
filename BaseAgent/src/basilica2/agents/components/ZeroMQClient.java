@@ -25,7 +25,6 @@ public class ZeroMQClient extends Component implements ChatClient
 {
     private String uri;
     public Agent psiAgent;
-    private ZMQ.Socket publisher;
     private ZMQ.Socket subscriber; 
     private ZContext context; 
 	private String psiHost = "*";							// This machine 

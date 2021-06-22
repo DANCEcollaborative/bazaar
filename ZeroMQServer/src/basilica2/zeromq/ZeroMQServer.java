@@ -52,7 +52,7 @@ public class ZeroMQServer extends Component implements ChatClient
 		this.psiAgent = a;
         this.uri = uri;
         // this.consumers = new ArrayList<>();
-        System.err.println("*** ZeroMQServer: about to initiale ***");
+        System.err.println("*** ZeroMQServer: about to initiate ***");
         initZeroMQServer();
         System.err.println("*** ZeroMQServer: initialization complete ***");
         // textSubscriber = new psiTextSubscriber("psiSubscriber",this,psiAgent); 

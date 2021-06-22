@@ -31,7 +31,7 @@ public class wuserver
 
                 //  Send message to all subscribers
                 String update = "PSI_Bazaar_Text:true;%;multimodal:true;%;identity:group;%;speech:I am Haogang;%;location:0:0:0"; 
-                // System.err.println("wuserver, sending message: " + update);
+                System.err.println("wuserver, sending message: " + update);
                 publisher.send(update, 0);
             }
         }
