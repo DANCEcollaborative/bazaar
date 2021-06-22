@@ -13,7 +13,7 @@ COPY . ./
 
 RUN cd lobby && npm install && cd ..
 
-EXPOSE 443 444
+EXPOSE 443 444 5555
 
 # ENV DEBUG=*
 ENV DEBUG=socket.io*

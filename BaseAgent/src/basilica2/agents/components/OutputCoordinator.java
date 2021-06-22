@@ -315,7 +315,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		
 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
-		// System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
+		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
         publisher.send(topicMessage, 0);
 	}
 
