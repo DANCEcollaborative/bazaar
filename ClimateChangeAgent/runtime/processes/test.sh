@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "script started"
-mkdir crazy_directory
-cd crazy_directory
-touch crazy_test_file
+cd processes
+/Users/rcmurray/.pyenv/shims/python3 chat_logs.py bazaar_2021-06-11-am.csv jeopardy 06/04/21 00 06/04/21 23 >> python_output.txt
 echo "script ended"
