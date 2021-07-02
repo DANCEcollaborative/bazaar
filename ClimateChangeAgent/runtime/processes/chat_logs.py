@@ -54,7 +54,7 @@ def process_room (chat_list, start_index):
     next_room_name = room_name
     index = start_index;
 
-    print('process_room, start first pass thru room')
+    # print('process_room, start first pass thru room')
     # First pass thru room: get any users that aren't in users_to_exclude
     while next_room_name == room_name:
         username = chat_list[index][1]        # username
@@ -69,7 +69,7 @@ def process_room (chat_list, start_index):
         # At this point, end_index is either
         #    -- past the end of the overall chat_list
         #    -- at the first index for a new room
-        print('process_room, end first pass thru room, end_index = ' + str(end_index))
+        # print('process_room, end first pass thru room, end_index = ' + str(end_index))
 
 
     # If room has any non-excluded users, write out the chat log entries to a file named by room_name_prefix plus all non-excluded user IDs
