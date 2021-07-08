@@ -1,0 +1,14 @@
+[mysqld]
+secure-file-priv=/mysql-files
+transaction_isolation=READ-COMMITTED
+
+character-set-server = utf8
+default_storage_engine = InnoDB
+
+max_connections = 2200
+
+innodb_buffer_pool_size = 16G # (adjust value here, 50%-70% of total RAM)
+innodb_log_file_size = 256M
+innodb_flush_log_at_trx_commit = 1 # may change to 2 or 0
+innodb_flush_method = O_DIRECT
+
