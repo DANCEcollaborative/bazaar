@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.io.BufferedInputStream;
 
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
@@ -53,11 +54,34 @@ class ProcessStepHandler implements StepHandler
 		catch (Exception e){}
 	
 		ProcessBuilder pb = new ProcessBuilder(processPath + processFile);
+		Process p; 
+	    int exitValue = -1; 
 		try
 		{
-			Process p = pb.start();
+			p = pb.start();
+			System.err.println("ProcessStepHandler, process started; waiting for return value");
+			exitValue = p.waitFor();
+
+		    if (exitValue != 0) {
+		        // check for errors
+		    	System.err.println("ProcessStepHandler, process exitValue is nonzero");
+		        new BufferedInputStream(p.getErrorStream());
+		        throw new RuntimeException("exitValue is nonzero");
+		    }
 		}
-		catch (Exception e){}
+		catch (Exception e){
+	    	System.err.println("ProcessStepHandler, execution of script failed!");
+	        throw new RuntimeException("execution of script failed!");
+		}
+
+		
+		
+	    if (exitValue != 0) {
+	        // check for errors
+	        new BufferedInputStream(p.getErrorStream());
+	        throw new RuntimeException("execution of script failed!");
+	    }
+		
 		System.err.println("ProcessStepHandler, exiting execute");
 	}
 	

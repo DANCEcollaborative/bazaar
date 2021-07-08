@@ -14,6 +14,11 @@ services:
       MYSQL_ROOT_PASSWORD: smoot
       MYSQL_USER: "local"
       MYSQL_PASSWORD: "local"
+    ports:
+    - "3306:3306"
+    - "8500:8500" 
+    volumes:
+    - 'shared:/mysql-files' 
     networks:
     - bazaar-net
   bazaar:
@@ -23,12 +28,19 @@ services:
     container_name: bazaar_lobby
     depends_on:
      - nodechat
+    volumes:
+    - 'shared:/mysql-files' 
     ports:
      - "8300:443"
      - "8400:444"
      - "5555:5555"
+    volumes:
+     - shared:/mysql-files
     networks:
     - bazaar-net
+volumes:
+  shared:
+    driver: local
 networks:
   bazaar-net:
     driver: bridge

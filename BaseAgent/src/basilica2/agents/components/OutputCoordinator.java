@@ -72,7 +72,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			catch(Exception e) {e.printStackTrace();}
 			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
 			catch(Exception e) {e.printStackTrace();}
-		initializePSI(); 
+		if (outputToPSI) {
+			initializePSI(); 			
+		}
 	}
 	
 	private void initializePSI() {
