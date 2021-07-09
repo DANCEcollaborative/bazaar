@@ -27,7 +27,8 @@ room_number = ""
 # users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
 # users_to_exclude = ["csealfon","cprose","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML","DrStats"]
 # users_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
-users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
+# users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
+users_to_exclude = []
 
 def create_filename (prefix, suffix):
     # suffix includes the period, if any -- e.g., '.csv
