@@ -22,6 +22,7 @@ row_list = []
 user_list = []
 user_count = 0;
 room_name_prefix = ""
+room_number = ""
 
 # users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
 # users_to_exclude = ["csealfon","cprose","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML","DrStats"]

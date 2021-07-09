@@ -32,28 +32,35 @@ class ProcessStepHandler implements StepHandler
 
 	public ProcessStepHandler()
 	{
-		System.err.println("ProcessStepHandler, entering constructor");
+		// System.err.println("ProcessStepHandler, entering constructor");
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");		
 		try
 		{
 			processPath = properties.getProperty("process_path","processes/");
 		}
 		catch (Exception e){}	
-		System.err.println("ProcessStepHandler, exiting constructor");	
+		// System.err.println("ProcessStepHandler, exiting constructor");	
 	}
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		System.err.println("ProcessStepHandler, entering execute");
-		String processFile = ""; 
+		// System.err.println("ProcessStepHandler, entering execute");
+		String processWithArgs = ""; 
 		
 		try
 		{
-			processFile = step.attributes.get("process");
+			processWithArgs = step.attributes.get("process");
+			// System.err.println("ProcessStepHandler, execute - processWithArgs: " + processWithArgs);
 		}
 		catch (Exception e){}
+		
+		String processWithArgsWithPath = processPath + processWithArgs; 
+		// System.err.println("ProcessStepHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
+		List<String> processWithArgsList = new ArrayList<>(Arrays.asList(processWithArgsWithPath.split(" ")));
+		// System.err.println("ProcessStepHandler, execute - processWithArgsList: " + Arrays.deepToString(processWithArgsList.toArray()));
 	
-		ProcessBuilder pb = new ProcessBuilder(processPath + processFile);
+		// ProcessBuilder pb = new ProcessBuilder(processPath + processFile);
+		ProcessBuilder pb = new ProcessBuilder(processWithArgsList);
 		Process p; 
 	    int exitValue = -1; 
 		try
