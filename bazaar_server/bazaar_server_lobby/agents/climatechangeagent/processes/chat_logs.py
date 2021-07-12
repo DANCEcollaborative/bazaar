@@ -16,12 +16,13 @@ import datetime
 from datetime import timedelta
 import operator
 import os
+import argparse
+
 
 UTC_offset = 4
 row_list = []
 user_list = []
-user_count = 0;
-room_name_prefix = ""
+user_count = 0
 room_number = ""
 
 # users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
@@ -49,7 +50,7 @@ def create_filename (prefix, suffix):
 
 # Process one chat_log room. Called with a valid start_index.
 def process_room (chat_list, start_index):
-    print('process_room - enter - start_index = ' + str(start_index))
+    # print('process_room - enter - start_index = ' + str(start_index))
     global user_count
     user_list.clear()
     room_name = chat_list[start_index][5]
@@ -76,9 +77,8 @@ def process_room (chat_list, start_index):
 
     # If room has any non-excluded users, write out the chat log entries to a file named by room_name_prefix plus all non-excluded user IDs
     if len(user_list) > 0:
-        print('process_room: found a user')
         user_count += len(user_list)
-        file_prefix = room_name_prefix
+        file_prefix = args.room_name_prefix
         for i in range(len(user_list)):
             file_prefix += "_"
             file_prefix += user_list[i]
@@ -101,84 +101,105 @@ def process_room (chat_list, start_index):
 
         out_file.close()
 
-    print('process_room - exit')
     return end_index;   # return the last index for the room plus 1
 
 
 try:
-    csvfile = open(sys.argv[1],'r')
-    room_name_prefix = sys.argv[2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('csvfile',  help='The log file to process in .csv form')
+    parser.add_argument('room_name_prefix', help='Room name prefix (e.g., jeopardy) or specific room name (e.g., jeopardy12345')
+    # Currently, if --startdate supplied, so must be --starttime; and similarly for --enddate and --endtime
+    parser.add_argument('--startdate', help='The earliest date to collect logs in mm/dd/yy format')
+    parser.add_argument('--starttime', help='The earliest time to collect logs in hh (hour) format')
+    parser.add_argument('--enddate', help='The latest date to collect logs in mm/dd/yy format')
+    parser.add_argument('--endtime', help='The latest time to collect logs in hh (hour) format')
+    args = parser.parse_args()
 
+    filter_by_start = False
+    filter_by_end = False
+
+    # print('Before process dates-times')
+    if args.startdate is None:
+        print('args.startdate is None')
+    if args.starttime is None:
+        print('args.starttime is None')
+    if args.enddate is None:
+        print('args.enddate is None')
+    if args.endtime is None:
+        print('args.endtime is None')
     #################################################################################
-    # Process min & max date(s)-time(s) to search for ###############################
-    target_start_date = datetime.datetime.strptime(sys.argv[3], '%m/%d/%y')
-    target_start_year = int(target_start_date.year)
-    target_start_month = int(target_start_date.month)
-    target_start_day = int(target_start_date.day)
-    target_start_hour = int(sys.argv[4])
-    target_start_UTC_hour = target_start_hour + UTC_offset
-    if target_start_UTC_hour > 23:
-        target_start_UTC_hour = target_start_UTC_hour - 24
-        target_start_UTC_day = target_start_day + 1
-    else:
-        target_start_UTC_day = target_start_day
+    # Process optional min & max date(s)-time(s) to search for #
+    if (args.startdate is not None) & (args.starttime is not None):
+        # print('processing args.start date-time')
+        filter_by_start = True
+        target_start_date = datetime.datetime.strptime(args.startdate, '%m/%d/%y')
+        target_start_year = int(target_start_date.year)
+        target_start_month = int(target_start_date.month)
+        target_start_day = int(target_start_date.day)
+        target_start_hour = int(args.starttime)
+        target_start_UTC_hour = target_start_hour + UTC_offset
+        if target_start_UTC_hour > 23:
+            target_start_UTC_hour = target_start_UTC_hour - 24
+            target_start_UTC_day = target_start_day + 1
+        else:
+            target_start_UTC_day = target_start_day
+        target_start_time = datetime.datetime(target_start_year, target_start_month, target_start_UTC_day,
+                                              target_start_UTC_hour, 0)
 
-    target_end_date = datetime.datetime.strptime(sys.argv[5], '%m/%d/%y')
-    target_end_year = int(target_end_date.year)
-    target_end_month = int(target_end_date.month)
-    target_end_day = int(target_end_date.day)
-    target_end_hour = int(sys.argv[6])
 
-    target_end_UTC_hour = target_end_hour + UTC_offset
-    if target_end_UTC_hour > 23:
-        target_end_UTC_hour = target_end_UTC_hour - 24
-        target_end_UTC_day = target_end_day + 1
-    else:
-        target_end_UTC_day = target_end_day
+    # print('After process start dates-times')
 
-    target_start_time = datetime.datetime(target_start_year,target_start_month,target_start_UTC_day,target_start_UTC_hour,0)
-    target_end_time = datetime.datetime(target_end_year,target_end_month,target_end_UTC_day,target_end_UTC_hour,59,59)
-    print(target_start_time)
-    print(target_end_time)
+    if (args.enddate is not None) & (args.endtime is not None):
+        # print('processing end date-time')
+        filter_by_end = True
+        target_end_date = datetime.datetime.strptime(args.enddate, '%m/%d/%y')
+        target_end_year = int(target_end_date.year)
+        target_end_month = int(target_end_date.month)
+        target_end_day = int(target_end_date.day)
+        target_end_hour = int(args.endtime)
+        target_end_UTC_hour = target_end_hour + UTC_offset
+        if target_end_UTC_hour > 23:
+            target_end_UTC_hour = target_end_UTC_hour - 24
+            target_end_UTC_day = target_end_day + 1
+        else:
+            target_end_UTC_day = target_end_day
+        target_end_time = datetime.datetime(target_end_year,target_end_month,target_end_UTC_day,target_end_UTC_hour,59,59)
+
+    # print('After process end dates-times')
+
     ##################################################################################
 
     # print('Before reader')
+    csvfile = open(args.csvfile,'r')
     reader = csv.reader(csvfile)
     # print('After reader')
 
     # Select only chat log entries with the sought room_name_prefix between the specified start & end times
     filtered = []
 
-    # i = 0
-    # j = 0
-
     for row in reader:
-        # i += 1
-        # if (i == 3)
-        #     print ("row " + i)
-        # print('found a row')
-        if room_name_prefix in row[5]:
-            # print('found room_name_prefix')
+        if args.room_name_prefix in row[5]:
+            tentative_include = True
             chat_datetime = datetime.datetime.strptime(row[4], '%Y-%m-%d %H:%M:%S')
-            if target_start_time <= chat_datetime <= target_end_time:
+            if (filter_by_start):
+                    if (target_start_time > chat_datetime):
+                        tentative_include = False
+            if (filter_by_end):
+                if (target_end_time < chat_datetime):
+                    tentative_include = False
+            if tentative_include == True:
                 filtered.append(row)
-                # print('found a targeted row')
-                #         j += 1;
-                #         print("appended row " + j)
     csvfile.close()
 
     # Sort the chat log entries by (1) room_name, then (2) time
     # print('before sort')
     sort = sorted(filtered,key=operator.itemgetter(5,4))
-    # print('after sort')
-    print('len(sort): ' + str(len(sort)))
+    # print('len(sort): ' + str(len(sort)))
 
     # Process each room in the filtered, sorted chat log entries
     next_index = 0
     while next_index < len(sort):
-        print('processing sort')
         next_index = process_room(sort,next_index)
-
     print(str(user_count) + " users")
 
 except NameError:
