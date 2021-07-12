@@ -10,5 +10,5 @@ e,username,useraddress,userid,timestamp,'$ROOM_PREFIX' AS roomname,REPLACE(conte
 TO OUTFILE '/mysql-files/$ROOM_PREFIX.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 MYSQL_QUERY
 python3 chat_logs.py /mysql-files/$ROOM_PREFIX.csv $ROOM_PREFIX
-rm $ROOM_PREFIX.csv
+rm /mysql-files/$ROOM_PREFIX.csv
 mv *.csv ../chat_logs
