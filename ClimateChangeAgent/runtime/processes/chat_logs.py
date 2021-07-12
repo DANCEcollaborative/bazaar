@@ -118,7 +118,7 @@ try:
     filter_by_start = False
     filter_by_end = False
 
-    print('Before process dates-times')
+    # print('Before process dates-times')
     if args.startdate is None:
         print('args.startdate is None')
     if args.starttime is None:
@@ -130,7 +130,7 @@ try:
     #################################################################################
     # Process optional min & max date(s)-time(s) to search for #
     if (args.startdate is not None) & (args.starttime is not None):
-        print('processing args.start date-time')
+        # print('processing args.start date-time')
         filter_by_start = True
         target_start_date = datetime.datetime.strptime(args.startdate, '%m/%d/%y')
         target_start_year = int(target_start_date.year)
@@ -145,13 +145,12 @@ try:
             target_start_UTC_day = target_start_day
         target_start_time = datetime.datetime(target_start_year, target_start_month, target_start_UTC_day,
                                               target_start_UTC_hour, 0)
-        print("target_start_time: " + target_start_time)
 
 
-    print('After process start dates-times')
+    # print('After process start dates-times')
 
     if (args.enddate is not None) & (args.endtime is not None):
-        print('processing end date-time')
+        # print('processing end date-time')
         filter_by_end = True
         target_end_date = datetime.datetime.strptime(args.enddate, '%m/%d/%y')
         target_end_year = int(target_end_date.year)
@@ -165,9 +164,8 @@ try:
         else:
             target_end_UTC_day = target_end_day
         target_end_time = datetime.datetime(target_end_year,target_end_month,target_end_UTC_day,target_end_UTC_hour,59,59)
-        print("target_end_time: " + target_end_time)
 
-    print('After process end dates-times')
+    # print('After process end dates-times')
 
     ##################################################################################
 
@@ -202,7 +200,6 @@ try:
     next_index = 0
     while next_index < len(sort):
         next_index = process_room(sort,next_index)
-
     print(str(user_count) + " users")
 
 except NameError:
