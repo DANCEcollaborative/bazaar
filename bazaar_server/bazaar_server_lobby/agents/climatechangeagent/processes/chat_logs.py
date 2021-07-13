@@ -120,14 +120,14 @@ try:
     filter_by_end = False
 
     # print('Before process dates-times')
-    if args.startdate is None:
-        print('args.startdate is None')
-    if args.starttime is None:
-        print('args.starttime is None')
-    if args.enddate is None:
-        print('args.enddate is None')
-    if args.endtime is None:
-        print('args.endtime is None')
+    # if args.startdate is None:
+    #     print('args.startdate is None')
+    # if args.starttime is None:
+    #     print('args.starttime is None')
+    # if args.enddate is None:
+    #     print('args.enddate is None')
+    # if args.endtime is None:
+    #     print('args.endtime is None')
     #################################################################################
     # Process optional min & max date(s)-time(s) to search for #
     if (args.startdate is not None) & (args.starttime is not None):

@@ -29,7 +29,8 @@ room_number = ""
 # users_to_exclude = ["csealfon","cprose","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML","DrStats"]
 # users_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
 # users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
-users_to_exclude = []
+# users_to_exclude = []
+users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk"]
 
 def create_filename (prefix, suffix):
     # suffix includes the period, if any -- e.g., '.csv
@@ -119,14 +120,14 @@ try:
     filter_by_end = False
 
     # print('Before process dates-times')
-    if args.startdate is None:
-        print('args.startdate is None')
-    if args.starttime is None:
-        print('args.starttime is None')
-    if args.enddate is None:
-        print('args.enddate is None')
-    if args.endtime is None:
-        print('args.endtime is None')
+    # if args.startdate is None:
+    #     print('args.startdate is None')
+    # if args.starttime is None:
+    #     print('args.starttime is None')
+    # if args.enddate is None:
+    #     print('args.enddate is None')
+    # if args.endtime is None:
+    #     print('args.endtime is None')
     #################################################################################
     # Process optional min & max date(s)-time(s) to search for #
     if (args.startdate is not None) & (args.starttime is not None):
