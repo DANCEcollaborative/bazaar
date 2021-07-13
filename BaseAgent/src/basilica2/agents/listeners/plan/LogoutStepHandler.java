@@ -33,8 +33,10 @@ class LogoutStepHandler implements StepHandler
 
 	public void execute(Step step, PlanExecutor overmind, InputCoordinator source)
 	{
+		// System.err.println("LogoutStepHandler, execute: entering");
 		Logger.commonLog("LogoutStepHandler", Logger.LOG_NORMAL, "step "+step+": stopping agent");
 		overmind.getAgent().dispose();
+		// System.err.println("LogoutStepHandler, execute: about to issue System.exit(0)");
 		System.exit(0);
 	}
 }

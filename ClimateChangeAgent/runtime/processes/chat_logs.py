@@ -204,4 +204,5 @@ try:
     print(str(user_count) + " users")
 
 except NameError:
-    print("Usage: python chat_logs.py <Bazaar_chat_log_file> <room_name_prefix> <target_start_mm/dd/yy> <target_start_hour> <target_end_mm/dd/yy> <target_end_hour>")
+    print("Usage: python chat_logs.py <Bazaar_chat_log_file> <room_name_prefix> --startdate <target_start_mm/dd/yy> --starttime <target_start_hour> --enddate <target_end_mm/dd/yy> --endtime <target_end_hour>")
+    print('   Only arguments <Bazaar_chat_log_file> & <room_name_prefix> are required')

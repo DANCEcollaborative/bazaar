@@ -66,22 +66,24 @@ class ChatLogHandler implements StepHandler
 		        // check for errors
 		    	System.err.println("ChatLogHandler, process exitValue is nonzero");
 		        new BufferedInputStream(p.getErrorStream());
-		        throw new RuntimeException("exitValue is nonzero");
+		        // throw new RuntimeException("exitValue is nonzero");
 		    }
 		}
 		catch (Exception e){
 	    	System.err.println("ChatLogHandler, execution of script failed!");
-	        throw new RuntimeException("execution of script failed!");
+	        // throw new RuntimeException("execution of script failed!");
 		}
 
 		
 		
 	    if (exitValue != 0) {
 	        // check for errors
-	        new BufferedInputStream(p.getErrorStream());
-	        throw new RuntimeException("execution of script failed!");
+	        // new BufferedInputStream(p.getErrorStream());
+	        // throw new RuntimeException("execution of script failed!");
 	    }
 		
+	    overmind.stepDone();
+	    
 		System.err.println("ChatLogHandler, exiting execute");
 	}
 	

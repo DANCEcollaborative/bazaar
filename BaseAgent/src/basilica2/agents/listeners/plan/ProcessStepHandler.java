@@ -89,6 +89,8 @@ class ProcessStepHandler implements StepHandler
 	        throw new RuntimeException("execution of script failed!");
 	    }
 		
+	    overmind.stepDone();
+	    
 		System.err.println("ProcessStepHandler, exiting execute");
 	}
 	
