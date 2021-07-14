@@ -7,6 +7,7 @@ RUN apt-get install -y netcat screen vim wget
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 RUN apt-get install -y default-mysql-client
+RUN apt-get install python3
 
 WORKDIR /usr/bazaar/
 
@@ -14,7 +15,7 @@ COPY . ./
 
 RUN cd lobby && npm install && cd ..
 
-EXPOSE 443 444 3306 5555
+EXPOSE 443 444 5555
 
 # ENV DEBUG=*
 ENV DEBUG=socket.io*
