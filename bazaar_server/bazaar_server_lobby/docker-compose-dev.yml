@@ -15,22 +15,22 @@ services:
       MYSQL_USER: "local"
       MYSQL_PASSWORD: "local"
     ports:
-     - "3306:3306"
-     - "8500:8500" 
+    - "3306:3306"
+    - "8500:8500" 
     volumes:
-     - shared:/mysql-files 
+    - 'shared:/mysql-files' 
     networks:
     - bazaar-net
   bazaar:
     build: 
        context: ./
-       dockerfile: Dockerfile.local
-    container_name: bazaar
+       dockerfile: Dockerfile
+    container_name: bazaar_lobby
     depends_on:
      - nodechat
     volumes:
      - shared:/mysql-files
-     - ./agents:/usr/bazaar/agents 
+     - ./agents:/usr/bazaar/agents
     networks:
      - bazaar-net
   front:
