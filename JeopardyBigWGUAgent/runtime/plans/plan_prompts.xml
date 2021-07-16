@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<prompts>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves. Go ahead and chat a little more if you have extra time. :-)</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ICEBREAKER">
+        <text>Great! Now, share one reason why you are pursuing a WGU degree.</text>
+    </prompt>
+
+	<prompt strategy="task" id="DIRECTIONS">
+        <text>Welcome to WGU. :-) I'll be guiding you through some fun collaborative activities. I am only here to facilitate your conversation. During this activity, you two should chat with each other, work as a team, and get to know each other. |As a heads-up: you'll both need to stick around until the VERY END in order to get the directions to fill out a Google Form to mark your participation for this activity, so please don't leave early.</text>
+    </prompt>
+    <prompt strategy="task" id="WGU_GOODBYE">
+        <text>Thank you for your participation! For further information about WGU, FAQs, and more, please visit: https://wgu.edu/.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>Okay! Let's begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WGU_ACADEMY_INFO">
+        <text>Welcome to WGU Academy. :-) Courses in WGU Academy are entirely self-paced. YOU study on your own, and YOU decide when you're ready to tackle assessments. That's the beauty of competency-based education!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TESTIMONIAL">
+        <text>All WGU Academy courses are transferable to WGU, and you are guaranteed admission to WGU upon completion of your minimum requirements. Take a look at Nancy's testimonial on the right. A WGU degree helped her become a principal!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="JEOPARDY_CATEGORY">
+        <text>Whoever has the name that comes first in the alphabet... You're first! Please type in the chat a category using the format: category + value. For example, type: "Sage for 100" into the chat box. Your time for this activity starts now!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="JEOPARDY_CATEGORY_WARNING">
+        <text>Your time for this activity is almost up. One minute left! :-)</text>
+    </prompt>
+    
+    <prompt strategy="task" id="CONTINUE_JEOPARDY_CATEGORIES">
+        <text>Ask me for another category please.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="SETUP">
+        <text>You're on your own.</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="JEOPARDY_END">
+        <text>Great job -- Please share something you learned during this game inspired by Jeopardy!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME]!</text>
+        <text>Hello, [NAME]!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="JEOPARDY_INTRO">
+        <text>Now for the main event... let's play a game inspired by Jeopardy! This game is meant to serve as a way to get to know each other a little better and to learn more about WGU. Let's begin. :-)</text>
+    </prompt>
+    
+    <prompt strategy="task" id="JEOPARDY_INTRO_SHORT">
+        <text>Now, let's play a game inspired by Jeopardy! You will have about 7 minutes to play. </text>
+    </prompt>
+    
+    <prompt strategy="task" id="JEOPARDY_OUTRO">
+        <text>Let's move on to the next portion of the activity, where we will discuss goal-setting strategies to complete your first class at WGU.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PIE_PROMPT">
+        <text>Completing your English assignments in a timely manner and working toward completing each portion of your funnel will set you up for success. 
+</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIME_MGMT">
+        <text>At WGU, we like to set SMART goals. "SMART" stands for: Specific, Measurable, Actionable, Relevant, and Timeline. | By making SMART goals, you are setting yourselves up for success to complete your first class and obtain your degree. For example, instead of saying "I will do well in my first course," try setting a SMART goal such as "I will complete my first course in 6 weeks by setting aside one hour each evening to study. Along the way, I will reach out to my course instructor once per week to get assistance with material to ensure that I am prepared for the course assessment." </text>
+    </prompt>
+    
+    
+    
+    <prompt strategy="task" id="LINK">
+		<text>https://forms.gle/LoH4qHHTG2paKWeA8</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIME_MGMT_SHARE">
+		<text>Take 30 seconds to share what program you are enrolled in and what class you plan on starting first.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GOOGLE_FORM">
+		<text>IMPORTANT: Please copy and paste the following Google Form link into a new window or tab and fill out the form to mark your attendance for this activity... | https://forms.gle/LoH4qHHTG2paKWeA8</text>
+    </prompt>
+    
+    <prompt strategy="task" id="SMARTER_GOALS">
+		<text>Now, take 3 minutes to take turns sharing SMART goals for completing your first course. Make sure they follow the acronym of Specific, Measurable, Actionable, Relevant, and Timeline! If you are not sure if your goals follow the SMART template, ask your partner! </text>
+    </prompt>
+    
+        <prompt strategy="task" id="SMARTER_GOALS_CONT">
+		<text>Take 1 minute to assess each other's goals. Do each of the goals follow the SMART steps? How can your goals be improved? How can you help each other with your goals? </text>
+    </prompt>
+    
+    <prompt strategy="task" id="SOCIAL">
+        <text>Want to stay in touch with each other and provide peer support? Now's your chance. Otherwise, please stick around to fill out the Google Form.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PIE_INTRO">
+        <text>Your first course here at WGU is one piece of a larger funnel that leads into your goal of graduating from WGU and ultimately advancing your career. Creating a solid plan of action for completing your first course will get you started on the right path to success at WGU. | With that being said, it is crucial to set SMART goals to complete your courses on time and work toward your degree. </text>
+    </prompt>
+    
+    <prompt strategy="task" id="PIE_SHARE">
+        <text>Take a moment to share with your partner which degree program you are pursuing, and brainstorm which ingredients will set you up for success. Which ingredients do you have in common? Which ingredients are different?</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="JEOPARDY_INSTRUCTIONS">
+    	<text>In this game, you will be prompted with a clue. Your job is to solve it! For example, upon picking a category and point value, you will receive something like this: "This university is the largest fully-online nonprofit university in the country." |Then... You will type your answer in the chat box! In this case, it should be: "WGU". Please alternate turns to give everyone an equal chance to play.</text>
+    </prompt>
+    
+    <!-- <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>instructions</text>
+    </prompt> -->
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FINISH_TUTORIALS">
+    	<text>(You can trigger the same tutorial dynamically by talking about animals - see dialogues/dialogues-example.xml and dictionaries/animals.txt for details)</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+     
+
+ 
+</prompts>

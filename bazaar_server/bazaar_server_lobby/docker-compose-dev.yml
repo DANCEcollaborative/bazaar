@@ -18,19 +18,19 @@ services:
     - "3306:3306"
     - "8500:8500" 
     volumes:
-    - 'shared:/mysql-files' 
+     - shared:/mysql-files 
     networks:
     - bazaar-net
   bazaar:
     build: 
        context: ./
-       dockerfile: Dockerfile
-    container_name: bazaar_lobby
+       dockerfile: Dockerfile.local
+    container_name: bazaar
     depends_on:
      - nodechat
     volumes:
      - shared:/mysql-files
-     - ./agents:/usr/bazaar/agents
+     - ./agents:/usr/bazaar/agents 
     networks:
      - bazaar-net
   front:
