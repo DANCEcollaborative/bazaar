@@ -24,7 +24,7 @@ services:
   bazaar:
     build: 
        context: ./
-       dockerfile: Dockerfile
+       dockerfile: Dockerfile.forum
     container_name: bazaar_lobby
     depends_on:
      - nodechat

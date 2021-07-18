@@ -521,7 +521,7 @@ function getUserInstructionText(nick, i, condition)
 }
 
 let conditionOffset = -1;
-let numTeams = 230;
+let numTeams = 260;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
