@@ -499,7 +499,7 @@ let LOCKDOWN_TIME = 0;
 // let LOCKDOWN_TIME = 365*24*60*60*1000; //lobby open for 1 year
 let START_TIME = new Date().getTime();
 const chat_url = "https://bazaar.lti.cs.cmu.edu/bazaar/chat/";
-const roomname_prefix = "jeopardy";
+const roomname_prefix = "jeopardybiggwu";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started
@@ -521,7 +521,7 @@ function getUserInstructionText(nick, i, condition)
 }
 
 let conditionOffset = -1;
-let numTeams = 230;
+let numTeams = 1000;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
@@ -1482,8 +1482,12 @@ io.sockets.on('connection', async (socket) => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
-		
+                console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+  
 		if (socket.username == "MLAgent") {
+		// if (socket.username == "DCSSLightSideAgent") {
+                // if (socket.clientID == "DCSS") {		
+		// if (socket.username == "DCSSLightSideAgent") {
 		//console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		} else {	
