@@ -50,6 +50,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 										// trigger threshold
 	protected double ratioWindowTime = 60 * 5;
 	protected double priorityEventTimeout = 5; 
+	protected double priorityEventExpiration = 1; 
 
 	protected String promptLabel;
 	protected String candidateLabel;
@@ -103,7 +104,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			feedbackWindow = Double.parseDouble(properties.getProperty("feedback_window", "60"));
 			candidateWindow = Double.parseDouble(properties.getProperty("candidate_window", "10"));
 			blackoutTimeout = Double.parseDouble(properties.getProperty("blackout_timeout", "15.0"));
-			priorityEventTimeout = Double.parseDouble(properties.getProperty("priority_event_timeout", "5.0"));
+			priorityEventTimeout = Double.parseDouble(properties.getProperty("priority_event_timeout", String.valueOf(priorityEventTimeout)));
+			priorityEventExpiration = Double.parseDouble(properties.getProperty("priority_event_expiration", String.valueOf(priorityEventExpiration)));
 			System.err.println("AbstractAccountableActor, priorityEventTimeout = " + String.valueOf(priorityEventTimeout));
 			ratioWindowTime = Double.parseDouble(properties.getProperty("ratio_window_time", "" + ratioWindowTime));
 			candidateCheckPriority = Double.parseDouble(properties.getProperty("candidate_check_priority", "" + candidateCheckPriority));
@@ -283,7 +285,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 																									// and
 																									// everybody
 		// PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, 1.0);
-		PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, 10.0);
+		// PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, 10.0);
+		PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, priorityEventExpiration);
 		pe.setSource(SOURCE_NAME);
 
 		source.pushProposal(pe);
