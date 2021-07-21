@@ -36,7 +36,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	protected static final double WINDOW_BUFFER = 0.1;
 	protected static final String AT_MOVE = "AT_MOVE";
 	protected static final String SOURCE_NAME = "AccountableTalk";
-	protected static final int HISTORY_WINDOW = 60 * 90;
+	// protected static final int HISTORY_WINDOW = 60 * 90;
+	protected static final int HISTORY_WINDOW = 5;
 
 	protected double feedbackWindow = 30;
 	protected double candidateWindow = 10;
@@ -48,6 +49,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 										// sort that this component wants as a
 										// trigger threshold
 	protected double ratioWindowTime = 60 * 5;
+	protected double priorityEventTimeout = 5; 
+	protected double priorityEventExpiration = 1; 
 
 	protected String promptLabel;
 	protected String candidateLabel;
@@ -81,7 +84,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		String conditionFlag = actorProperties.getProperty("condition_flag", "accountable_talk");
 		conditionActive = condition.contains(conditionFlag);
 		log(Logger.LOG_NORMAL, conditionFlag + " condition: " + conditionActive);
-		RollingWindow.sharedWindow().setWindowSize(HISTORY_WINDOW, 20);
+		// RollingWindow.sharedWindow().setWindowSize(HISTORY_WINDOW, 20);
+		RollingWindow.sharedWindow().setWindowSize(HISTORY_WINDOW, 2);
 
 		try
 		{
@@ -100,6 +104,9 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			feedbackWindow = Double.parseDouble(properties.getProperty("feedback_window", "60"));
 			candidateWindow = Double.parseDouble(properties.getProperty("candidate_window", "10"));
 			blackoutTimeout = Double.parseDouble(properties.getProperty("blackout_timeout", "15.0"));
+			priorityEventTimeout = Double.parseDouble(properties.getProperty("priority_event_timeout", String.valueOf(priorityEventTimeout)));
+			priorityEventExpiration = Double.parseDouble(properties.getProperty("priority_event_expiration", String.valueOf(priorityEventExpiration)));
+			System.err.println("AbstractAccountableActor, priorityEventTimeout = " + String.valueOf(priorityEventTimeout));
 			ratioWindowTime = Double.parseDouble(properties.getProperty("ratio_window_time", "" + ratioWindowTime));
 			candidateCheckPriority = Double.parseDouble(properties.getProperty("candidate_check_priority", "" + candidateCheckPriority));
 			promptLabel = actorProperties.getProperty("prompt_label", "AT_MOVE");
@@ -177,6 +184,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			final String match = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
 			System.err.println("AbstractAccountableActor, checkForCandidate: match = " + match);
 			if (match != null && getFeedbackCount(match) < 1)
+			// if (match != null && getFeedbackCount(match) < 10)
 			{
 				log(Logger.LOG_NORMAL, "no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
@@ -201,7 +209,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 						{
 							return "Hold-the-floor Event for " + candidateLabel + " check";
 						}
-					}, sim * candidateCheckPriority, 5, candidateWindow);
+					}, sim * candidateCheckPriority, priorityEventTimeout, candidateWindow);
 
 					pete.addCallback(new Callback()
 					{
@@ -276,7 +284,9 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 																									// ourselves
 																									// and
 																									// everybody
-		PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, 1.0);
+		// PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, 1.0);
+		// PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, 10.0);
+		PriorityEvent pe = new PriorityEvent(source, me, priority, blacklistSource, priorityEventExpiration);
 		pe.setSource(SOURCE_NAME);
 
 		source.pushProposal(pe);
