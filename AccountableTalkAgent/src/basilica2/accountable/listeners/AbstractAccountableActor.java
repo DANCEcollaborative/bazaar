@@ -183,8 +183,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			log(Logger.LOG_NORMAL, "received " + candidateLabel + " event");
 			final String match = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
 			System.err.println("AbstractAccountableActor, checkForCandidate: match = " + match);
-			// if (match != null && getFeedbackCount(match) < 1)
-			if (match != null && getFeedbackCount(match) < 10)
+			if (match != null && getFeedbackCount(match) < 1)
+			// if (match != null && getFeedbackCount(match) < 10)
 			{
 				log(Logger.LOG_NORMAL, "no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
