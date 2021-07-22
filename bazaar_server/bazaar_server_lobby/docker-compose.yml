@@ -15,7 +15,7 @@ services:
       MYSQL_USER: "local"
       MYSQL_PASSWORD: "local"
     ports:
-    - "3306:3306"
+    - "8306:3306"
     - "8500:8500" 
     volumes:
     - 'shared:/mysql-files' 
