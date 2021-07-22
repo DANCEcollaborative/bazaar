@@ -1,18 +1,67 @@
 package basilica2.myagent.listeners;
 
+import java.util.Arrays;
+import java.util.List;
+
 import basilica2.accountable.listeners.AbstractAccountableActor;
+//import basilica2.myagent.listeners.AbstractAccountableActor;
+
+import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.data.RollingWindow;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PresenceEvent;
+import basilica2.agents.events.ReadyEvent;
+import basilica2.agents.events.TypingEvent;
+import basilica2.agents.events.WhiteboardEvent;
+import dadamson.words.ASentenceMatcher.SentenceMatch;
 import edu.cmu.cs.lti.basilica2.core.Agent;
+import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 public class AgreeDisagreeActor extends AbstractAccountableActor
 {
+	
+	private String altCandidateLabel = candidateLabel; 
+	
 	public AgreeDisagreeActor(Agent a)
 	{
-		super(a); //all the variance is in the properties file
+		super(a); 
+		altCandidateLabel = properties.getProperty("alternative_candidate_label", altCandidateLabel);
 	}
 
+	
+
+	// @Override
+	public void preProcessEvent(InputCoordinator source, Event event)
+	{
+		System.err.println("AgreeDisagreeActor, enter preProcessEvent"); 
+		MessageEvent me = (MessageEvent) event;
+		String text = me.getText();
+		System.err.println("AgreeDisagreeActor, text: " + text); 
+		String match = sentenceMatcher.getMatch(text, minimumMatch, candidates);
+
+		List<SentenceMatch> matches = sentenceMatcher.getMatches(text, minimumMatch, candidates);
+		for(SentenceMatch m : matches)
+			System.err.println("match: "+m.sim + "\t" + m.matchText);
+		
+		System.err.println("AgreeDisagreeActor, preProcessEvent: match = " + match);
+
+		if (match != null && shouldAnnotateAsCandidate(me))
+		{
+			System.err.println("AgreeDisagreeActor, checking word count"); 
+			Integer wordCount = getWordCount(me.getText());
+			System.err.println("AgreeDisagreeActor, wordCount: " + Integer.toString(wordCount)); 
+			if (wordCount < wordCountMin) {
+				candidateLabel = altCandidateLabel; 
+				System.err.println("AgreeDisagreeActor: Changing label to " + altCandidateLabel); 
+			}			
+			System.err.println("AgreeDisagreeActor, preProcessEvent, adding candidateLabel: " + candidateLabel);
+			me.addAnnotation(candidateLabel, Arrays.asList(match));
+		}
+
+		System.err.println("AgreeDisagreeActor, exit preProcessEvent"); 
+	}	
+	
 	//second-tier response - the core AT move isn't needed because the discussion is productive enough - check for secondary opportunity
 	@Override
 	public void performFollowupCheck(final MessageEvent event)
@@ -50,7 +99,7 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 	@Override
 	public boolean shouldTriggerOnCandidate(MessageEvent me)
 	{
-		System.err.println("ClimateChange AgreeDisagreeActor, enter shouldTriggerOnCandidate"); 
+		System.err.println("AgreeDisgreeActor, enter shouldTriggerOnCandidate");
 		int myTurns = RollingWindow.sharedWindow().countEvents(ratioWindowTime, me.getFrom()+"_turn");
 		int allTurns = RollingWindow.sharedWindow().countEvents(ratioWindowTime, "student_turn");
 		int myCandidates = RollingWindow.sharedWindow().countEvents(ratioWindowTime, me.getFrom()+"_turn", candidateLabel);
@@ -58,17 +107,38 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 		
 		double ratio = (allCandidates - myCandidates) /(double)Math.max(1, allTurns - myTurns);
 		log(Logger.LOG_NORMAL, me.getFrom()+"'s " +candidateLabel+ " ratio is "+ratio);
-		
-		return ratio <= targetRatio;
+
+		System.err.println("AgreeDisagreeActor, exit shouldTriggerOnCandidate");
+		// return ratio < targetRatio;
+		return true; 
 	}
 
 	@Override
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
-		System.err.println("ClimateChange AgreeDisagreeActor, enter shouldAnnotateAsCandidate"); 
+		System.err.println("AgreeDisagreeActor, enter shouldAnnotateAsCandidate"); 
 		boolean shouldAnnotate = !me.hasAnnotations("QUESTION") && !me.getText().contains("?");
 		//System.out.println("ADA: "+shouldAnnotate + " <-- "+me);
+		System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
 		return shouldAnnotate;
+	}
+	
+	
+	protected int getWordCount(String text)
+	{
+		String[] wordArray = text.trim().split("\\s+");
+		System.err.println("AgreeDisgreeActor, word count = " + wordArray.length);
+	    return wordArray.length;
+	}
+
+	
+	/**
+	 * @return the classes of events that this Preprocessor cares about
+	 */
+	@Override
+	public Class[] getPreprocessorEventClasses()
+	{
+		return new Class[]{MessageEvent.class};
 	}
 	
 }
