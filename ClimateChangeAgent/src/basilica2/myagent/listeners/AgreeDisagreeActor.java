@@ -31,8 +31,8 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 
 	
 
-	@Override
-	public void preProcessEvent(InputCoordinator source, Event event)
+	// @Override
+	public void preProcessEventDeleteMe(InputCoordinator source, Event event)
 	{
 		System.err.println("AgreeDisagreeActor, enter preProcessEvent"); 
 		MessageEvent me = (MessageEvent) event;
@@ -116,21 +116,20 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 	@Override
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
-		boolean shouldAnnotate = true; 
 		System.err.println("AgreeDisagreeActor, enter shouldAnnotateAsCandidate"); 
 		Integer wordCount = getWordCount(me.getText());
 		if (wordCount < wordCountMin) {
-			shouldAnnotate = false; 
-			System.err.println("AgreeDisagreeActor, shouldAnnotate = false"); 
+			System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = false"); 
+			return false; 
 		}
 		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
-			shouldAnnotate = false; 
-			System.err.println("AgreeDisagreeActor, shouldAnnotate = false"); 
+			System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = false"); 
+			return false; 
 		}
 		//System.out.println("ADA: "+shouldAnnotate + " <-- "+me);
-		System.err.println("AgreeDisagreeActor, shouldAnnotate = true"); 
+		System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = true"); 
 		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
-		return shouldAnnotate;
+		return true;
 	}
 	
 	
