@@ -13,10 +13,14 @@ import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.TypingEvent;
 import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.events.priority.PriorityEvent.Callback;
+import basilica2.util.TimeoutAdapter;
 import dadamson.words.ASentenceMatcher.SentenceMatch;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
+import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 public class AgreeDisagreeActor extends AbstractAccountableActor
 {
@@ -137,7 +141,7 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
 		return true;
 	}
-	
+
 	
 	protected int getWordCount(String text)
 	{

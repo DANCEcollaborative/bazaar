@@ -54,6 +54,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	protected int wordCountMin = 0; 
 	protected int wordCountMax = -1; 
 	protected boolean phraseExactMatch = false; 
+	protected boolean promptAlways = false; 
 
 	protected String promptLabel;
 	protected String candidateLabel;
@@ -114,6 +115,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			wordCountMin = Integer.parseInt(properties.getProperty("word_count_min", String.valueOf(wordCountMin)));
 			wordCountMax = Integer.parseInt(properties.getProperty("word_count_max", String.valueOf(wordCountMax)));
 			phraseExactMatch = Boolean.valueOf(properties.getProperty("phrase_exact_match", String.valueOf(phraseExactMatch)));
+			promptAlways = Boolean.valueOf(properties.getProperty("prompt_always", String.valueOf(promptAlways)));
 			ratioWindowTime = Double.parseDouble(properties.getProperty("ratio_window_time", "" + ratioWindowTime));
 			candidateCheckPriority = Double.parseDouble(properties.getProperty("candidate_check_priority", "" + candidateCheckPriority));
 			promptLabel = actorProperties.getProperty("prompt_label", "AT_MOVE");
@@ -187,13 +189,26 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		if (event.hasAnnotations(candidateLabel) && shouldTriggerOnCandidate(event))
 		{
+			String conditionalMatch; 
 			log(Logger.LOG_NORMAL, "received " + candidateLabel + " event");
-			final String match = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
-			System.err.println("AbstractAccountableActor, checkForCandidate: match = " + match);
-			if (match != null && getFeedbackCount(match) < 1)
+			if (phraseExactMatch) {
+				conditionalMatch = phraseMatch(event.getText());
+			
+			} else {
+				conditionalMatch = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
+				System.err.println("AbstractAccountableActor, checkForCandidate: match = " + conditionalMatch);
+			}
+
+			if (getWordCount(event.getText()) < wordCountMin) {
+				conditionalMatch = null; 
+			}	
+
+			final String match = conditionalMatch; 
+				
+			if (match != null && (getFeedbackCount(match) < 1 || promptAlways))
 			// if (match != null && getFeedbackCount(match) < 10)
 			{
-				log(Logger.LOG_NORMAL, "no previous match for " + match);
+				log(Logger.LOG_NORMAL, "either promptAlways OR no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
 				System.err.println("AbstractAccountableActor, checkForCandidate: sentence similarity = " + Double.toString(sim)); 
 				if (shouldPromptForMove(event, sim, match))
@@ -501,6 +516,14 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 				return text;
 		}
 		return null; 
+	}
+
+	
+	protected int getWordCount(String text)
+	{
+		String[] wordArray = text.trim().split("\\s+");
+		System.err.println("AgreeDisgreeActor, word count = " + wordArray.length);
+	    return wordArray.length;
 	}
 
 
