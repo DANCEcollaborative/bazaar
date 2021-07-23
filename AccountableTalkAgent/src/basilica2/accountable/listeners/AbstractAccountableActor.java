@@ -209,7 +209,10 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			// if (match != null && getFeedbackCount(match) < 10)
 			{
 				log(Logger.LOG_NORMAL, "either promptAlways OR no previous match for " + match);
-				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
+				double sim = 1.0; 
+				if (!phraseExactMatch) {
+					sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
+				} 
 				System.err.println("AbstractAccountableActor, checkForCandidate: sentence similarity = " + Double.toString(sim)); 
 				if (promptAlways || (shouldPromptForMove(event, sim, match)))
 				{
