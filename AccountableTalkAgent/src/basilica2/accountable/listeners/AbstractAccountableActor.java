@@ -211,7 +211,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 				log(Logger.LOG_NORMAL, "either promptAlways OR no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
 				System.err.println("AbstractAccountableActor, checkForCandidate: sentence similarity = " + Double.toString(sim)); 
-				if (shouldPromptForMove(event, sim, match))
+				if (promptAlways || (shouldPromptForMove(event, sim, match)))
 				{
 					log(Logger.LOG_NORMAL, "AT check starting...");
 					PriorityEvent pete = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, new Event()
@@ -238,11 +238,6 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 						@Override
 						public void accepted(PriorityEvent p)
 						{
-							
-							if ((candidateLabel.equals("EXPLAIN_CANDIDATE")) && (promptLabel.equals("AGREE_DISAGREE"))) {
-								promptLabel = "EXPLAIN_OTHER";
-								System.err.println("AbstractAccountableActor, checkForCandidate: swapping AGREE_DISAGREE for EXPLAIN_OTHER"); 
-							}
 							
 							log(Logger.LOG_NORMAL, "Counting to " + candidateWindow + " before checking for " + promptLabel + " opportunity");
 							new Timer(candidateWindow, new TimeoutAdapter()
