@@ -31,7 +31,7 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 
 	
 
-	// @Override
+	@Override
 	public void preProcessEvent(InputCoordinator source, Event event)
 	{
 		System.err.println("AgreeDisagreeActor, enter preProcessEvent"); 
@@ -116,10 +116,20 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 	@Override
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
+		boolean shouldAnnotate = true; 
 		System.err.println("AgreeDisagreeActor, enter shouldAnnotateAsCandidate"); 
-		boolean shouldAnnotate = !me.hasAnnotations("QUESTION") && !me.getText().contains("?");
+		Integer wordCount = getWordCount(me.getText());
+		if (wordCount < wordCountMin) {
+			shouldAnnotate = false; 
+			System.err.println("AgreeDisagreeActor, shouldAnnotate = false"); 
+		}
+		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
+			shouldAnnotate = false; 
+			System.err.println("AgreeDisagreeActor, shouldAnnotate = false"); 
+		}
 		//System.out.println("ADA: "+shouldAnnotate + " <-- "+me);
-		System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
+		System.err.println("AgreeDisagreeActor, shouldAnnotate = true"); 
+		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
 		return shouldAnnotate;
 	}
 	
