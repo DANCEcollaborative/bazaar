@@ -41,7 +41,10 @@ public class AskForExplanationActor extends AbstractAccountableActor
 		double ratio = (allCandidates - myCandidates) /(double)Math.max(1, allTurns - myTurns);
 		log(Logger.LOG_NORMAL, "group RB ratio is "+ratio);
 		
-		return ratio < targetRatio;
+		
+		// SPECIAL PROCESSING FOR CLIMATE AGENT TO NOT TRIGGER IF WORD COUNT IS LOW
+		// return ratio < targetRatio;
+		return true; 
 	}
 
 	@Override

@@ -73,6 +73,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 		{
 			conditionString += condition + " ";
 		}
+		System.err.println("ClimateChangeAgent, getConditionString, condition = " + conditionString); 
 		if (conditionString.isEmpty()) return "none";
 		else return conditionString.trim();
 	}

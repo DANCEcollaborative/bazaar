@@ -34,28 +34,33 @@ public class ListenStepHandler implements StepHandler
 		if(revoicer == null)
 		{
 			Agent a = overmind.getAgent();
+/**
 			revoicer = new RevoiceActor(a);
 			agreer = new AgreeDisagreeActor(a);
 			explainer = new AskForExplanationActor(a);
 			saymore = new SayMoreActor(a);
 			restater = new AskForRestateActor(a);
 			presser = new PressForReasoningActor(a);
+
 			
 			socializer = new SocialController(a);
 			scoreComputer = new StrategyScoreComputer(a);
 			triggerComputer = new RuleBasedTriggerComputer(a);
+*/
 //			feedbacker = new FeedbackActor(a);
 		}
 		
 		//revoicer.setDelegate(new EndStepOnStopListening(overmind, currentStep.name));
 
 //        overmind.addHelper(feedbacker);
+/**
         overmind.addHelper(revoicer);
         overmind.addHelper(agreer);
         overmind.addHelper(explainer);
         overmind.addHelper(saymore);
         overmind.addHelper(restater);
         overmind.addHelper(presser);
+*/
         
         
 //        overmind.addHelper(scoreComputer);

@@ -83,6 +83,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		super(a, SOURCE_NAME);
 
 		String condition = System.getProperty("basilica2.agents.condition", "feedback revoice agree remind social cooperate accountable_talk");
+		System.err.println("AbstractAccountableAgent, condition = " + condition); 
 		Properties actorProperties = getProperties();
 		String conditionFlag = actorProperties.getProperty("condition_flag", "accountable_talk");
 		conditionActive = condition.contains(conditionFlag);
@@ -366,6 +367,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		// System.err.println("AbstractAccountableActor, enter preProcessEvent"); 
 		// boolean matchFound = false; 
+		String classPath = this.getClass().getName(); 
+		System.err.println("AbstractAccountableAgent, enter preProcessEvent, classPath = " + classPath); 
 		String match = null; 
 		MessageEvent me = (MessageEvent) event;
 		String text = me.getText();

@@ -107,8 +107,14 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 		
 		double ratio = (allCandidates - myCandidates) /(double)Math.max(1, allTurns - myTurns);
 		log(Logger.LOG_NORMAL, me.getFrom()+"'s " +candidateLabel+ " ratio is "+ratio);
+		
+		// SPECIAL PROCESSING FOR CLIMATE AGENT TO NOT TRIGGER IF WORD COUNT IS LOW
+		if (getWordCount(me.getText()) < wordCountMin) {
+			System.err.println("AgreeDisagreeActor, shouldTriggerOnCandidate = false");
+			return false; 
+		}
 
-		System.err.println("AgreeDisagreeActor, exit shouldTriggerOnCandidate");
+		System.err.println("AgreeDisagreeActor, shouldTriggerOnCandidate = true");
 		// return ratio < targetRatio;
 		return true; 
 	}
