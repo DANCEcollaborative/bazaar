@@ -13,10 +13,14 @@ import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.TypingEvent;
 import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.events.priority.PriorityEvent.Callback;
+import basilica2.util.TimeoutAdapter;
 import dadamson.words.ASentenceMatcher.SentenceMatch;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
+import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 public class AgreeDisagreeActor extends AbstractAccountableActor
 {
@@ -32,7 +36,7 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 	
 
 	// @Override
-	public void preProcessEvent(InputCoordinator source, Event event)
+	public void preProcessEventDeleteMe(InputCoordinator source, Event event)
 	{
 		System.err.println("AgreeDisagreeActor, enter preProcessEvent"); 
 		MessageEvent me = (MessageEvent) event;
@@ -107,8 +111,14 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 		
 		double ratio = (allCandidates - myCandidates) /(double)Math.max(1, allTurns - myTurns);
 		log(Logger.LOG_NORMAL, me.getFrom()+"'s " +candidateLabel+ " ratio is "+ratio);
+		
+		// SPECIAL PROCESSING FOR CLIMATE AGENT TO NOT TRIGGER IF WORD COUNT IS LOW
+		if (getWordCount(me.getText()) < wordCountMin) {
+			System.err.println("AgreeDisagreeActor, shouldTriggerOnCandidate = false");
+			return false; 
+		}
 
-		System.err.println("AgreeDisagreeActor, exit shouldTriggerOnCandidate");
+		System.err.println("AgreeDisagreeActor, shouldTriggerOnCandidate = true");
 		// return ratio < targetRatio;
 		return true; 
 	}
@@ -117,12 +127,21 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
 		System.err.println("AgreeDisagreeActor, enter shouldAnnotateAsCandidate"); 
-		boolean shouldAnnotate = !me.hasAnnotations("QUESTION") && !me.getText().contains("?");
+		Integer wordCount = getWordCount(me.getText());
+		if (wordCount < wordCountMin) {
+			System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = false"); 
+			return false; 
+		}
+		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
+			System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = false"); 
+			return false; 
+		}
 		//System.out.println("ADA: "+shouldAnnotate + " <-- "+me);
-		System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
-		return shouldAnnotate;
+		System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = true"); 
+		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
+		return true;
 	}
-	
+
 	
 	protected int getWordCount(String text)
 	{

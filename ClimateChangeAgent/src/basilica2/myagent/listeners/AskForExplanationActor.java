@@ -33,9 +33,9 @@ public class AskForExplanationActor extends AbstractAccountableActor
 	@Override
 	public boolean shouldTriggerOnCandidate(MessageEvent me)
 	{
-		System.err.println("ClimateChange AskForExplanationActor, enter shouldTriggerOnCandidate"); 
-		if(me.hasAnnotations("EXPLANATION_CONTRIBUTION"))
-			return false;
+		System.err.println("AskForExplanationActor, enter shouldTriggerOnCandidate"); 
+		// if(me.hasAnnotations("EXPLANATION_CONTRIBUTION"))
+		//	return false;
 					
 		int windowSize = 20*60;
 		int myTurns = RollingWindow.sharedWindow().countEvents(windowSize, me.getFrom()+"_turn");
@@ -47,8 +47,10 @@ public class AskForExplanationActor extends AbstractAccountableActor
 		log(Logger.LOG_NORMAL, "group RB ratio is "+ratio);
 		
 		System.err.println("AskForExplanationActor, shouldTriggerOnCandidate, ratio: " + Double.toString(ratio));
-		
-		return ratio <= targetRatio;
+
+		System.err.println("AskForExplanationActor, shouldTriggerOnCandidate = true");
+		// return ratio < targetRatio;
+		return true; 
 	}
 
 	@Override

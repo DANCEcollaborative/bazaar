@@ -53,6 +53,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	protected double priorityEventExpiration = 1; 
 	protected int wordCountMin = 0; 
 	protected int wordCountMax = -1; 
+	protected boolean phraseExactMatch = false; 
+	protected boolean promptAlways = false; 
 
 	protected String promptLabel;
 	protected String candidateLabel;
@@ -82,6 +84,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 		super(a, SOURCE_NAME);
 
 		String condition = System.getProperty("basilica2.agents.condition", "feedback revoice agree remind social cooperate accountable_talk");
+		System.err.println("AbstractAccountableAgent, condition = " + condition); 
 		Properties actorProperties = getProperties();
 		String conditionFlag = actorProperties.getProperty("condition_flag", "accountable_talk");
 		conditionActive = condition.contains(conditionFlag);
@@ -111,6 +114,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			priorityEventExpiration = Double.parseDouble(properties.getProperty("priority_event_expiration", String.valueOf(priorityEventExpiration)));
 			wordCountMin = Integer.parseInt(properties.getProperty("word_count_min", String.valueOf(wordCountMin)));
 			wordCountMax = Integer.parseInt(properties.getProperty("word_count_max", String.valueOf(wordCountMax)));
+			phraseExactMatch = Boolean.valueOf(properties.getProperty("phrase_exact_match", String.valueOf(phraseExactMatch)));
+			promptAlways = Boolean.valueOf(properties.getProperty("prompt_always", String.valueOf(promptAlways)));
 			ratioWindowTime = Double.parseDouble(properties.getProperty("ratio_window_time", "" + ratioWindowTime));
 			candidateCheckPriority = Double.parseDouble(properties.getProperty("candidate_check_priority", "" + candidateCheckPriority));
 			promptLabel = actorProperties.getProperty("prompt_label", "AT_MOVE");
@@ -184,16 +189,29 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		if (event.hasAnnotations(candidateLabel) && shouldTriggerOnCandidate(event))
 		{
+			String conditionalMatch; 
 			log(Logger.LOG_NORMAL, "received " + candidateLabel + " event");
-			final String match = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
-			System.err.println("AbstractAccountableActor, checkForCandidate: match = " + match);
-			if (match != null && getFeedbackCount(match) < 1)
+			if (phraseExactMatch) {
+				conditionalMatch = phraseMatch(event.getText());
+			
+			} else {
+				conditionalMatch = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
+				System.err.println("AbstractAccountableActor, checkForCandidate: match = " + conditionalMatch);
+			}
+
+			if (getWordCount(event.getText()) < wordCountMin) {
+				conditionalMatch = null; 
+			}	
+
+			final String match = conditionalMatch; 
+				
+			if (match != null && (getFeedbackCount(match) < 1 || promptAlways))
 			// if (match != null && getFeedbackCount(match) < 10)
 			{
-				log(Logger.LOG_NORMAL, "no previous match for " + match);
+				log(Logger.LOG_NORMAL, "either promptAlways OR no previous match for " + match);
 				double sim = sentenceMatcher.getSentenceSimilarity(event.getText(), match);
 				System.err.println("AbstractAccountableActor, checkForCandidate: sentence similarity = " + Double.toString(sim)); 
-				if (shouldPromptForMove(event, sim, match))
+				if (promptAlways || (shouldPromptForMove(event, sim, match)))
 				{
 					log(Logger.LOG_NORMAL, "AT check starting...");
 					PriorityEvent pete = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, new Event()
@@ -220,11 +238,6 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 						@Override
 						public void accepted(PriorityEvent p)
 						{
-							
-							if ((candidateLabel.equals("EXPLAIN_CANDIDATE")) && (promptLabel.equals("AGREE_DISAGREE"))) {
-								promptLabel = "EXPLAIN_OTHER";
-								System.err.println("AbstractAccountableActor, checkForCandidate: swapping AGREE_DISAGREE for EXPLAIN_OTHER"); 
-							}
 							
 							log(Logger.LOG_NORMAL, "Counting to " + candidateWindow + " before checking for " + promptLabel + " opportunity");
 							new Timer(candidateWindow, new TimeoutAdapter()
@@ -363,26 +376,28 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	public void preProcessEvent(InputCoordinator source, Event event)
 	{
 		// System.err.println("AbstractAccountableActor, enter preProcessEvent"); 
+		// boolean matchFound = false; 
+		String classPath = this.getClass().getName(); 
+		System.err.println("AbstractAccountableAgent, enter preProcessEvent, classPath = " + classPath); 
+		String match = null; 
 		MessageEvent me = (MessageEvent) event;
 		String text = me.getText();
-		String match = sentenceMatcher.getMatch(text, minimumMatch, candidates);
+		if (phraseExactMatch) {
+			match = phraseMatch(text);
+			
+		} else {
+			match = sentenceMatcher.getMatch(text, minimumMatch, candidates);
+	
+			List<SentenceMatch> matches = sentenceMatcher.getMatches(text, minimumMatch, candidates);
+			// for(SentenceMatch m : matches)
+			// System.out.println("match: "+m.sim + "\t" + m.matchText);
+			
+			System.err.println("AbstractAccountableAgent, preProcessEvent: match = " + match);
+		}
 
-		List<SentenceMatch> matches = sentenceMatcher.getMatches(text, minimumMatch, candidates);
-		// for(SentenceMatch m : matches)
-		// System.out.println("match: "+m.sim + "\t" + m.matchText);
-		
-		System.err.println("AbstractAccountableAgent, preProcessEvent: match = " + match);
 
 		if (match != null && shouldAnnotateAsCandidate(me))
 		{
-			if (candidateLabel.equals("AGREE_CANDIDATE")) {
-				
-				Integer wordCount = getWordCount(me.getText());
-				System.err.println("AbstractAccountableAgent, preProcessEvent, AGREE_CANDIDATE: wordCount = " + Integer.toString(wordCount));
-				if (wordCount < wordCountMin) {
-					candidateLabel = "EXPLAIN_CANDIDATE";
-				}
-			}
 			System.err.println("AbstractAccountableActor, preProcessEvent, adding candidateLabel: " + candidateLabel);
 			me.addAnnotation(candidateLabel, Arrays.asList(match));
 		}
@@ -486,10 +501,23 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	}
 	
 	
+	protected String phraseMatch (String text) 
+	{
+		text = text.toLowerCase(); 
+		for(String can : candidates)
+		{
+			can = can.toLowerCase();
+			if (text.contains(can)) 
+				return text;
+		}
+		return null; 
+	}
+
+	
 	protected int getWordCount(String text)
 	{
 		String[] wordArray = text.trim().split("\\s+");
-		System.err.println("my AbstractAccountableActor, sentence length = " + wordArray.length);
+		System.err.println("AgreeDisgreeActor, word count = " + wordArray.length);
 	    return wordArray.length;
 	}
 
