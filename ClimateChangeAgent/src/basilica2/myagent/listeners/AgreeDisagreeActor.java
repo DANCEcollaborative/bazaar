@@ -32,39 +32,7 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 		super(a); 
 		altCandidateLabel = properties.getProperty("alternative_candidate_label", altCandidateLabel);
 	}
-
 	
-
-	// @Override
-	public void preProcessEventDeleteMe(InputCoordinator source, Event event)
-	{
-		System.err.println("AgreeDisagreeActor, enter preProcessEvent"); 
-		MessageEvent me = (MessageEvent) event;
-		String text = me.getText();
-		System.err.println("AgreeDisagreeActor, text: " + text); 
-		String match = sentenceMatcher.getMatch(text, minimumMatch, candidates);
-
-		List<SentenceMatch> matches = sentenceMatcher.getMatches(text, minimumMatch, candidates);
-		for(SentenceMatch m : matches)
-			System.err.println("match: "+m.sim + "\t" + m.matchText);
-		
-		System.err.println("AgreeDisagreeActor, preProcessEvent: match = " + match);
-
-		if (match != null && shouldAnnotateAsCandidate(me))
-		{
-			System.err.println("AgreeDisagreeActor, checking word count"); 
-			Integer wordCount = getWordCount(me.getText());
-			System.err.println("AgreeDisagreeActor, wordCount: " + Integer.toString(wordCount)); 
-			if (wordCount < wordCountMin) {
-				candidateLabel = altCandidateLabel; 
-				System.err.println("AgreeDisagreeActor: Changing label to " + altCandidateLabel); 
-			}			
-			System.err.println("AgreeDisagreeActor, preProcessEvent, adding candidateLabel: " + candidateLabel);
-			me.addAnnotation(candidateLabel, Arrays.asList(match));
-		}
-
-		System.err.println("AgreeDisagreeActor, exit preProcessEvent"); 
-	}	
 	
 	//second-tier response - the core AT move isn't needed because the discussion is productive enough - check for secondary opportunity
 	@Override
@@ -140,14 +108,6 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 		System.err.println("AgreeDisagreeActor, shouldAnnotateAsCandidate = true"); 
 		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
 		return true;
-	}
-
-	
-	protected int getWordCount(String text)
-	{
-		String[] wordArray = text.trim().split("\\s+");
-		System.err.println("AgreeDisgreeActor, word count = " + wordArray.length);
-	    return wordArray.length;
 	}
 
 	
