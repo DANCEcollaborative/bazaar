@@ -79,6 +79,8 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 
 	protected boolean conditionActive = true;
 
+	protected String classPath = this.getClass().getName(); 
+
 	public AbstractAccountableActor(Agent a)
 	{
 		super(a, SOURCE_NAME);
@@ -198,9 +200,17 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 				conditionalMatch = sentenceMatcher.getMatch(event.getText(), minimumMatch, candidates);
 				System.err.println("AbstractAccountableActor, checkForCandidate: match = " + conditionalMatch);
 			}
+			
+			Integer wordCount = getWordCount(event.getText()); 
 
-			if (getWordCount(event.getText()) < wordCountMin) {
+			if (wordCount < wordCountMin) {
 				conditionalMatch = null; 
+				System.err.println("AbstractAccountableAgent, classPath " + classPath + ", checkForCandidate: < wordCountMin"); 
+			}	
+
+			if ((wordCountMax != -1) && (wordCount > wordCountMax)) {
+				conditionalMatch = null; 
+				System.err.println("AbstractAccountableAgent, classPath " + classPath + ", checkForCandidate: > wordCountMax"); 
 			}	
 
 			final String match = conditionalMatch; 
@@ -380,7 +390,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		// System.err.println("AbstractAccountableActor, enter preProcessEvent"); 
 		// boolean matchFound = false; 
-		String classPath = this.getClass().getName(); 
+		// String classPath = this.getClass().getName(); 
 		System.err.println("AbstractAccountableAgent, enter preProcessEvent, classPath = " + classPath); 
 		String match = null; 
 		MessageEvent me = (MessageEvent) event;
@@ -520,7 +530,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	protected int getWordCount(String text)
 	{
 		String[] wordArray = text.trim().split("\\s+");
-		System.err.println("AgreeDisgreeActor, word count = " + wordArray.length);
+		System.err.println("word count = " + wordArray.length);
 	    return wordArray.length;
 	}
 

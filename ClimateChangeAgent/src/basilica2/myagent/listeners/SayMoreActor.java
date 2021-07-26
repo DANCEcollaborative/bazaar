@@ -22,12 +22,12 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.Timer;
 
-public class QuestionActor extends AbstractAccountableActor
+public class SayMoreActor extends AbstractAccountableActor
 {
 	
 	private String altCandidateLabel = candidateLabel; 
 	
-	public QuestionActor(Agent a)
+	public SayMoreActor(Agent a)
 	{
 		super(a); 
 		altCandidateLabel = properties.getProperty("alternative_candidate_label", altCandidateLabel);
@@ -83,15 +83,15 @@ public class QuestionActor extends AbstractAccountableActor
 		// DO NOT TRIGGER IF WORD COUNT IS TOO LOW OR TOO HIGH
 		Integer wordCount = getWordCount(me.getText()); 
 		if (wordCount < wordCountMin) {
-			System.err.println("QuestionActor, shouldTriggerOnCandidate = false: wordCount < wordCountMin");
+			System.err.println("SayMoreActor, shouldTriggerOnCandidate = false: wordCount < wordCountMin");
 			return false; 
 		}	
 		if ((wordCountMax != -1) && (wordCount > wordCountMax)) {
-			System.err.println("QuestionActor, shouldTriggerOnCandidate = false: wordCount > wordCountMax");
+			System.err.println("SayMoreActor, shouldTriggerOnCandidate = false: wordCount > wordCountMax");
 			return false; 
 		}	
 
-		System.err.println("QuestionActor, shouldTriggerOnCandidate = true");
+		System.err.println("SayMoreActor, shouldTriggerOnCandidate = true");
 		// return ratio < targetRatio;
 		return true; 
 	}
@@ -99,21 +99,27 @@ public class QuestionActor extends AbstractAccountableActor
 	@Override
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
-		System.err.println("QuestionActor, enter shouldAnnotateAsCandidate"); 
-		Integer wordCount = getWordCount(me.getText());
+		// DO NOT ANNOTATE IF WORD COUNT IS TOO LOW OR TOO HIGH
+		Integer wordCount = getWordCount(me.getText()); 
 		if (wordCount < wordCountMin) {
-			System.err.println("QuestionActor, shouldAnnotateAsCandidate = false"); 
+			System.err.println("SayMoreActor, shouldAnnotateAsCandidate = false: wordCount < wordCountMin");
+			return false; 
+		}	
+		if ((wordCountMax != -1) && (wordCount > wordCountMax)) {
+			System.err.println("SayMoreActor, shouldAnnotateAsCandidate = false: wordCount > wordCountMax");
+			return false; 
+		}	
+		
+		// DO NOT ANNOTATE IF QUESTION
+		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
+			System.err.println("SayMoreActor, shouldAnnotateAsCandidate = false: this is a question"); 
 			return false; 
 		}
-		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
-			System.err.println("QuestionActor, shouldAnnotateAsCandidate = true"); 
-			return true; 
-		}
-		//System.out.println("ADA: "+shouldAnnotate + " <-- "+me);
-		System.err.println("QuestionActor, shouldAnnotateAsCandidate = true"); 
-		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 
-		return true;
+
+		System.err.println("SayMoreActor, shouldAnnotateAsCandidate = true");		
+		return true; 
 	}
+
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
