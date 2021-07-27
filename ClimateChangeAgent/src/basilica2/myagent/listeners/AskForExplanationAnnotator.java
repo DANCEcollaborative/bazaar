@@ -23,6 +23,7 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 	String port = "8000"; 
     String charset = "UTF-8";
 	String modelPath = "models/";
+	String translationForTrue = "EXPLAIN_CANDIDATE"; 
     MultipartUtility mUtil; 
     Hashtable<String, Double> classify_dict = new Hashtable<String, Double>();
 	
@@ -33,7 +34,8 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 		pathToLightSide = getProperties().getProperty("pathToLightSide", pathToLightSide);
 		modelPath = getProperties().getProperty("modelPath", modelPath);
 		modelName = getProperties().getProperty("modelName", modelName);        
-		modelNickname = getProperties().getProperty("modelNickname", modelNickname);
+		modelNickname = getProperties().getProperty("modelNickname", modelNickname);  
+		translationForTrue = getProperties().getProperty("translation_for_true", translationForTrue);
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
 		Process process;
 		File lightSideLocation = new File(pathToLightSide);
@@ -146,6 +148,9 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 			try {
 				classificationThreshold = classify_dict.get(classification);
 				if (classificationPercent >= classificationThreshold) {
+					if (classification.equalsIgnoreCase("true")) {
+						classification = translationForTrue; 
+					}
 					annotation.append(plus + classification.toUpperCase());
 					plus = "+"; 					
 				}
