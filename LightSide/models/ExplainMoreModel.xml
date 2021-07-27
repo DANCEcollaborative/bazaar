@@ -1,0 +1,4009 @@
+<edu.cmu.side.model.Recipe serialization="custom">
+  <edu.cmu.side.model.Recipe>
+    <edu.cmu.side.model.RecipeManager_-Stage>TRAINED_MODEL</edu.cmu.side.model.RecipeManager_-Stage>
+    <string></string>
+    <edu.cmu.side.model.OrderedPluginMap serialization="custom">
+      <edu.cmu.side.model.OrderedPluginMap>
+        <list>
+          <string>plugins.features.BasicFeatures</string>
+        </list>
+        <map>
+          <entry>
+            <string>plugins.features.BasicFeatures</string>
+            <tree-map>
+              <entry>
+                <string>Bigrams</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Contains Non-Stopwords</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Count Occurences</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Ignore All-stopword N-Grams</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Include Punctuation</string>
+                <string>true</string>
+              </entry>
+              <entry>
+                <string>Line Length</string>
+                <string>true</string>
+              </entry>
+              <entry>
+                <string>Normalize N-Gram Counts</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>POS Bigrams</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>POS Trigrams</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Skip Stopwords in N-Grams</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Stem N-Grams</string>
+                <string>true</string>
+              </entry>
+              <entry>
+                <string>Track Feature Hit Location</string>
+                <string>true</string>
+              </entry>
+              <entry>
+                <string>Trigrams</string>
+                <string>false</string>
+              </entry>
+              <entry>
+                <string>Unigrams</string>
+                <string>true</string>
+              </entry>
+              <entry>
+                <string>Word/POS Pairs</string>
+                <string>false</string>
+              </entry>
+            </tree-map>
+          </entry>
+        </map>
+      </edu.cmu.side.model.OrderedPluginMap>
+    </edu.cmu.side.model.OrderedPluginMap>
+    <edu.cmu.side.model.OrderedPluginMap serialization="custom">
+      <edu.cmu.side.model.OrderedPluginMap>
+        <list/>
+        <map/>
+      </edu.cmu.side.model.OrderedPluginMap>
+    </edu.cmu.side.model.OrderedPluginMap>
+    <edu.cmu.side.model.OrderedPluginMap serialization="custom">
+      <edu.cmu.side.model.OrderedPluginMap>
+        <list/>
+        <map/>
+      </edu.cmu.side.model.OrderedPluginMap>
+    </edu.cmu.side.model.OrderedPluginMap>
+    <string>plugins.learning.WekaBayes</string>
+    <tree-map>
+      <entry>
+        <string>classifier</string>
+        <string>rO0ABXNyACF3ZWthLmNsYXNzaWZpZXJzLmJheWVzLk5haXZlQmF5ZXNTM1cDkMZVdwIACEkADG1f
+TnVtQ2xhc3Nlc1oAE21fVXNlRGlzY3JldGl6YXRpb25aABRtX1VzZUtlcm5lbEVzdGltYXRvcloA
+GW1fZGlzcGxheU1vZGVsSW5PbGRGb3JtYXRMABNtX0NsYXNzRGlzdHJpYnV0aW9udAAbTHdla2Ev
+ZXN0aW1hdG9ycy9Fc3RpbWF0b3I7TAAGbV9EaXNjdAAuTHdla2EvZmlsdGVycy9zdXBlcnZpc2Vk
+L2F0dHJpYnV0ZS9EaXNjcmV0aXplO1sAD21fRGlzdHJpYnV0aW9uc3QAHVtbTHdla2EvZXN0aW1h
+dG9ycy9Fc3RpbWF0b3I7TAALbV9JbnN0YW5jZXN0ABVMd2VrYS9jb3JlL0luc3RhbmNlczt4cgAj
+d2VrYS5jbGFzc2lmaWVycy5BYnN0cmFjdENsYXNzaWZpZXJaPoQhvSYjTQIABFoAB21fRGVidWda
+ABhtX0RvTm90Q2hlY2tDYXBhYmlsaXRpZXNJABJtX251bURlY2ltYWxQbGFjZXNMAAttX0JhdGNo
+U2l6ZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwAAAAAAACdAADMTAwAAAAAgAAAHNyACF3ZWthLmVz
+dGltYXRvcnMuRGlzY3JldGVFc3RpbWF0b3KzTfmWkq4gpQIAA0QACG1fRlByaW9yRAANbV9TdW1P
+ZkNvdW50c1sACG1fQ291bnRzdAACW0R4cgAZd2VrYS5lc3RpbWF0b3JzLkVzdGltYXRvcq4WbAZJ
+livaAgAEWgAHbV9EZWJ1Z1oAGG1fRG9Ob3RDaGVja0NhcGFiaWxpdGllc0QAEW1fY2xhc3NWYWx1
+ZUluZGV4WgAJbV9ub0NsYXNzeHAAAL/wAAAAAAAAAT/wAAAAAAAAQGFAAAAAAAB1cgACW0Q+powU
+q2NaHgIAAHhwAAAAAkA/AAAAAAAAQFrAAAAAAABwdXIAHVtbTHdla2EuZXN0aW1hdG9ycy5Fc3Rp
+bWF0b3I7iOFdi3OB8M0CAAB4cAAAADl1cgAcW0x3ZWthLmVzdGltYXRvcnMuRXN0aW1hdG9yOxDj
+UszRj+gLAgAAeHAAAAACc3EAfgAJAAC/8AAAAAAAAAE/8AAAAAAAAEBAAAAAAAAAdXEAfgANAAAA
+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
+AAAAQEAAAAAAAAB1cQB+AA0AAAACQD4AAAAAAABAAAAAAAAAAHNxAH4ACQAAv/AAAAAAAAABP/AA
+AAAAAABAWwAAAAAAAHVxAH4ADQAAAAJAWgAAAAAAAEAQAAAAAAAAc3IAE3dla2EuY29yZS5JbnN0
+YW5jZXP/uwiTNGWppAIABkkADG1fQ2xhc3NJbmRleEkAB21fTGluZXNMAAxtX0F0dHJpYnV0ZXN0
+ABVMamF2YS91dGlsL0FycmF5TGlzdDtMAAttX0luc3RhbmNlc3EAfgEvTAAZbV9OYW1lc1RvQXR0
+cmlidXRlSW5kaWNlc3QAE0xqYXZhL3V0aWwvSGFzaE1hcDtMAA5tX1JlbGF0aW9uTmFtZXEAfgAG
+eHAAAAA5AAAAAHNyABR3ZWthLmNvcmUuRmFzdFZlY3RvcuHVslxN4yEHAgAAeHIAE2phdmEudXRp
+bC5BcnJheUxpc3R4gdIdmcdhnQMAAUkABHNpemV4cAAAADp3BAAAADpzcgATd2VrYS5jb3JlLkF0
+dHJpYnV0ZfWzPrR5eiVhAgAGSQAHbV9JbmRleEkABm1fVHlwZUQACG1fV2VpZ2h0TAAPbV9BdHRy
+aWJ1dGVJbmZvdAAZTHdla2EvY29yZS9BdHRyaWJ1dGVJbmZvO0wAE21fQXR0cmlidXRlTWV0YUlu
+Zm90AB1Md2VrYS9jb3JlL0F0dHJpYnV0ZU1ldGFJbmZvO0wABm1fTmFtZXEAfgAGeHAAAAAAAAAA
+AT/wAAAAAAAAc3IAHndla2EuY29yZS5Ob21pbmFsQXR0cmlidXRlSW5mb8Z9sMzxgNd9AgACTAAL
+bV9IYXNodGFibGV0ABVMamF2YS91dGlsL0hhc2h0YWJsZTtMAAhtX1ZhbHVlc3EAfgEveHBzcgAT
+amF2YS51dGlsLkhhc2h0YWJsZRO7DyUhSuS4AwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhw
+P0AAAAAAAAN3CAAAAAUAAAACdAAFZmFsc2VzcgARamF2YS5sYW5nLkludGVnZXIS4qCk94GHOAIA
+AUkABXZhbHVleHIAEGphdmEubGFuZy5OdW1iZXKGrJUdC5TgiwIAAHhwAAAAAHQABHRydWVzcQB+
+AT8AAAABeHNxAH4BMwAAAAJ3BAAAAAJxAH4BPnEAfgFCeHB0AANhbmRzcQB+ATUAAAABAAAAAT/w
+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
+DzFncmFtc19sZW5ndGhfNA==</string>
+      </entry>
+      <entry>
+        <string>nb-discretize</string>
+        <string>false</string>
+      </entry>
+      <entry>
+        <string>nb-kernel</string>
+        <string>false</string>
+      </entry>
+    </tree-map>
+    <edu.cmu.side.model.data.DocumentList>
+      <filenameList>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+        <string>C:\Users\cp3a\Documents\saymore.csv</string>
+      </filenameList>
+      <allAnnotations class="tree-map">
+        <entry>
+          <string>class</string>
+          <list>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>FALSE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+            <string>TRUE</string>
+          </list>
+        </entry>
+      </allAnnotations>
+      <textColumns class="tree-map">
+        <entry>
+          <string>text</string>
+          <list>
+            <string>it&apos;s getting hotter</string>
+            <string>human effects cause climate change</string>
+            <string>human effects cause temperatures to rise</string>
+            <string>carbon dioxide is making it hotter</string>
+            <string>carbon dioxide is increasing</string>
+            <string>co2 is making it hotter</string>
+            <string>co2 is increasing</string>
+            <string>temperatures are increasing</string>
+            <string>fossil fuel use is increasing</string>
+            <string>fossil fuels create carbon dioxide</string>
+            <string>fossil fuels create co2</string>
+            <string>fossil fuels create climate change</string>
+            <string>renewable energy is cheaper</string>
+            <string>renewable energy costs less</string>
+            <string>renewable energy is more expensive</string>
+            <string>renewable energy costs more</string>
+            <string>renewable energy is unreliable</string>
+            <string>fossil fuels are less expensive</string>
+            <string>fossil fuels are more reliable</string>
+            <string>fossil fuels are cheaper</string>
+            <string>cause temperature increase</string>
+            <string>human effects make climate change</string>
+            <string>human effects cause temperatures to decrease</string>
+            <string>carbon dioxide is making it cooler</string>
+            <string>carbon dioxide is decreasing</string>
+            <string>co2 is making it cooler</string>
+            <string>co2 is decreasing</string>
+            <string>temperatures have to decrease</string>
+            <string>fossil fuel use is different now</string>
+            <string>fossil fuels create carbon dioxide gas</string>
+            <string>fossil fuels create co2 gas</string>
+            <string>fossil fuels make climate change happen</string>
+            <string>renewable energy might be less expensive</string>
+            <string>renewable energy is less costly to the environment</string>
+            <string>renewable energy can be less costly</string>
+            <string>renewable energy might be more expensive</string>
+            <string>renewable energy is more reliable</string>
+            <string>fossil fuels are more expensive</string>
+            <string>fossil fuels might be less reliable</string>
+            <string>fossil fuels are more expensive</string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>co2</string>
+            <string>carbon dioxide</string>
+            <string>human effects</string>
+            <string>human</string>
+            <string>fuel</string>
+            <string>energy</string>
+            <string>gas</string>
+            <string>climate</string>
+            <string>climate change</string>
+            <string>fossil fuels are more expensive and fossil fuels are more expensive</string>
+            <string>it&apos;s getting hotter and that causes climate change</string>
+            <string>human effects make the temperature go up and co2 decrease</string>
+            <string>humans are causing climate change</string>
+            <string>people are causing temperatures to rise</string>
+            <string>people cause climate change</string>
+            <string>without human effects, temperatures wouldn&apos;t be rising</string>
+            <string>carbon dioxide causes temperatures to rise</string>
+            <string>carbon dioxide causes climate change</string>
+            <string>co2 causes temperatures to rise</string>
+            <string>co2 causes climate change</string>
+            <string>fossil fuels make temperatures rise</string>
+            <string>fossil fuels create climate change</string>
+            <string>fossil fuels cause carbon emissions</string>
+            <string>fossil fuels cause co2 emissions</string>
+            <string>fossil fuels cause temperature to rise</string>
+            <string>temperature increases are due to carbon dioxide</string>
+            <string>temperature increases are due to co2</string>
+            <string>the mayor is against renewable energy</string>
+            <string>the mayor is in bed with the fossil fuel industry</string>
+            <string>the mayor doesn&apos;t understand science</string>
+            <string>the mayor doesn&apos;t look to the future</string>
+            <string>the mayor&apos;s thinking is in the past</string>
+            <string>renewable energy resources never run out</string>
+            <string>fossil fuels will get more expensive</string>
+            <string>fossil fuels run out</string>
+            <string>fossil fuels cause climate change</string>
+            <string>electric cars will get cheaper</string>
+            <string>jobs lost will be replaced </string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>fossil fuel</string>
+            <string>renewable energy</string>
+            <string>climate change</string>
+            <string>climate change</string>
+            <string>climate change</string>
+            <string>climate change</string>
+            <string>it&apos;s getting hotter</string>
+            <string>human effects cause climate change</string>
+            <string>human effects cause temperatures to rise</string>
+            <string>carbon dioxide is making it hotter</string>
+            <string>carbon dioxide is increasing</string>
+            <string>co2 is making it hotter</string>
+            <string>co2 is increasing</string>
+            <string>temperatures are increasing</string>
+            <string>fossil fuel use is increasing</string>
+            <string>fossil fuels create carbon dioxide</string>
+            <string>fossil fuels create co2</string>
+            <string>fossil fuels create climate change</string>
+            <string>renewable energy is cheaper</string>
+            <string>renewable energy costs less</string>
+            <string>renewable energy is more expensive</string>
+            <string>renewable energy costs more</string>
+            <string>renewable energy is unreliable</string>
+            <string>fossil fuels are less expensive</string>
+            <string>fossil fuels are more reliable</string>
+            <string>fossil fuels are cheaper</string>
+            <string>cause temperature increase</string>
+            <string>human effects make climate change</string>
+            <string>human effects cause temperatures to decrease</string>
+            <string>carbon dioxide is making it cooler</string>
+            <string>carbon dioxide is decreasing</string>
+            <string>co2 is making it cooler</string>
+            <string>co2 is decreasing</string>
+            <string>temperatures have to decrease</string>
+            <string>fossil fuel use is different now</string>
+            <string>fossil fuels create carbon dioxide gas</string>
+            <string>fossil fuels create co2 gas</string>
+            <string>fossil fuels make climate change happen</string>
+            <string>renewable energy might be less expensive</string>
+            <string>renewable energy is less costly to the environment</string>
+            <string>renewable energy can be less costly</string>
+            <string>renewable energy might be more expensive</string>
+            <string>renewable energy is more reliable</string>
+            <string>fossil fuels are more expensive</string>
+            <string>fossil fuels might be less reliable</string>
+            <string>fossil fuels are more expensive</string>
+          </list>
+        </entry>
+      </textColumns>
+      <differentiateTextColumns>false</differentiateTextColumns>
+      <currentAnnotation>class</currentAnnotation>
+      <name>saymore.csv</name>
+      <emptyAnnotationString></emptyAnnotationString>
+      <labelArray>
+        <string>FALSE</string>
+        <string>TRUE</string>
+      </labelArray>
+    </edu.cmu.side.model.data.DocumentList>
+    <edu.cmu.side.model.data.FeatureTable type="default">
+      <name>1grams_length_4</name>
+      <DocumentList reference="../../edu.cmu.side.model.data.DocumentList"/>
+      <Threshold>2</Threshold>
+      <Annotation>class</Annotation>
+      <Type>NOMINAL</Type>
+      <Features>
+        <Feature value="plugins.features.BasicFeatures_basic_and_BOOLEAN">
+          <Hit doc="51" value="true">
+            <loc>text,32,35</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,20,23</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,41,44</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_ar_BOOLEAN">
+          <Hit doc="7" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="17" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="18" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="19" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="37" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="39" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="51" value="true">
+            <loc>text,13,16;text,49,52</loc>
+          </Hit>
+          <Hit doc="54" value="true">
+            <loc>text,7,10</loc>
+          </Hit>
+          <Hit doc="55" value="true">
+            <loc>text,7,10</loc>
+          </Hit>
+          <Hit doc="67" value="true">
+            <loc>text,22,25</loc>
+          </Hit>
+          <Hit doc="68" value="true">
+            <loc>text,22,25</loc>
+          </Hit>
+          <Hit doc="103" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="113" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="114" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="115" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="133" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+          <Hit doc="135" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_be_BOOLEAN">
+          <Hit doc="32" value="true">
+            <loc>text,23,25</loc>
+          </Hit>
+          <Hit doc="34" value="true">
+            <loc>text,21,23</loc>
+          </Hit>
+          <Hit doc="35" value="true">
+            <loc>text,23,25</loc>
+          </Hit>
+          <Hit doc="38" value="true">
+            <loc>text,19,21</loc>
+          </Hit>
+          <Hit doc="57" value="true">
+            <loc>text,45,47</loc>
+          </Hit>
+          <Hit doc="79" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="128" value="true">
+            <loc>text,23,25</loc>
+          </Hit>
+          <Hit doc="130" value="true">
+            <loc>text,21,23</loc>
+          </Hit>
+          <Hit doc="131" value="true">
+            <loc>text,23,25</loc>
+          </Hit>
+          <Hit doc="134" value="true">
+            <loc>text,19,21</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_can_BOOLEAN">
+          <Hit doc="34" value="true">
+            <loc>text,17,20</loc>
+          </Hit>
+          <Hit doc="130" value="true">
+            <loc>text,17,20</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_carbon_BOOLEAN">
+          <Hit doc="3" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="4" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="9" value="true">
+            <loc>text,20,26</loc>
+          </Hit>
+          <Hit doc="23" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="24" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="29" value="true">
+            <loc>text,20,26</loc>
+          </Hit>
+          <Hit doc="43" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="58" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="59" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="64" value="true">
+            <loc>text,19,25</loc>
+          </Hit>
+          <Hit doc="67" value="true">
+            <loc>text,33,39</loc>
+          </Hit>
+          <Hit doc="99" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="100" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="105" value="true">
+            <loc>text,20,26</loc>
+          </Hit>
+          <Hit doc="119" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="120" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="125" value="true">
+            <loc>text,20,26</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_caus_BOOLEAN">
+          <Hit doc="1" value="true">
+            <loc>text,14,19</loc>
+          </Hit>
+          <Hit doc="2" value="true">
+            <loc>text,14,19</loc>
+          </Hit>
+          <Hit doc="20" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="22" value="true">
+            <loc>text,14,19</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,29,35</loc>
+          </Hit>
+          <Hit doc="54" value="true">
+            <loc>text,11,18</loc>
+          </Hit>
+          <Hit doc="55" value="true">
+            <loc>text,11,18</loc>
+          </Hit>
+          <Hit doc="56" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="58" value="true">
+            <loc>text,15,21</loc>
+          </Hit>
+          <Hit doc="59" value="true">
+            <loc>text,15,21</loc>
+          </Hit>
+          <Hit doc="60" value="true">
+            <loc>text,4,10</loc>
+          </Hit>
+          <Hit doc="61" value="true">
+            <loc>text,4,10</loc>
+          </Hit>
+          <Hit doc="64" value="true">
+            <loc>text,13,18</loc>
+          </Hit>
+          <Hit doc="65" value="true">
+            <loc>text,13,18</loc>
+          </Hit>
+          <Hit doc="66" value="true">
+            <loc>text,13,18</loc>
+          </Hit>
+          <Hit doc="77" value="true">
+            <loc>text,13,18</loc>
+          </Hit>
+          <Hit doc="97" value="true">
+            <loc>text,14,19</loc>
+          </Hit>
+          <Hit doc="98" value="true">
+            <loc>text,14,19</loc>
+          </Hit>
+          <Hit doc="116" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="118" value="true">
+            <loc>text,14,19</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_chang_BOOLEAN">
+          <Hit doc="1" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="11" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="21" value="true">
+            <loc>text,27,33</loc>
+          </Hit>
+          <Hit doc="31" value="true">
+            <loc>text,26,32</loc>
+          </Hit>
+          <Hit doc="50" value="true">
+            <loc>text,8,14</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,44,50</loc>
+          </Hit>
+          <Hit doc="54" value="true">
+            <loc>text,27,33</loc>
+          </Hit>
+          <Hit doc="56" value="true">
+            <loc>text,21,27</loc>
+          </Hit>
+          <Hit doc="59" value="true">
+            <loc>text,30,36</loc>
+          </Hit>
+          <Hit doc="61" value="true">
+            <loc>text,19,25</loc>
+          </Hit>
+          <Hit doc="63" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="77" value="true">
+            <loc>text,27,33</loc>
+          </Hit>
+          <Hit doc="92" value="true">
+            <loc>text,8,14</loc>
+          </Hit>
+          <Hit doc="93" value="true">
+            <loc>text,8,14</loc>
+          </Hit>
+          <Hit doc="94" value="true">
+            <loc>text,8,14</loc>
+          </Hit>
+          <Hit doc="95" value="true">
+            <loc>text,8,14</loc>
+          </Hit>
+          <Hit doc="97" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="107" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="117" value="true">
+            <loc>text,27,33</loc>
+          </Hit>
+          <Hit doc="127" value="true">
+            <loc>text,26,32</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_cheaper_BOOLEAN">
+          <Hit doc="12" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="19" value="true">
+            <loc>text,17,24</loc>
+          </Hit>
+          <Hit doc="78" value="true">
+            <loc>text,23,30</loc>
+          </Hit>
+          <Hit doc="108" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="115" value="true">
+            <loc>text,17,24</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_climat_BOOLEAN">
+          <Hit doc="1" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="11" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="21" value="true">
+            <loc>text,19,26</loc>
+          </Hit>
+          <Hit doc="31" value="true">
+            <loc>text,18,25</loc>
+          </Hit>
+          <Hit doc="49" value="true">
+            <loc>text,0,7</loc>
+          </Hit>
+          <Hit doc="50" value="true">
+            <loc>text,0,7</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,36,43</loc>
+          </Hit>
+          <Hit doc="54" value="true">
+            <loc>text,19,26</loc>
+          </Hit>
+          <Hit doc="56" value="true">
+            <loc>text,13,20</loc>
+          </Hit>
+          <Hit doc="59" value="true">
+            <loc>text,22,29</loc>
+          </Hit>
+          <Hit doc="61" value="true">
+            <loc>text,11,18</loc>
+          </Hit>
+          <Hit doc="63" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="77" value="true">
+            <loc>text,19,26</loc>
+          </Hit>
+          <Hit doc="92" value="true">
+            <loc>text,0,7</loc>
+          </Hit>
+          <Hit doc="93" value="true">
+            <loc>text,0,7</loc>
+          </Hit>
+          <Hit doc="94" value="true">
+            <loc>text,0,7</loc>
+          </Hit>
+          <Hit doc="95" value="true">
+            <loc>text,0,7</loc>
+          </Hit>
+          <Hit doc="97" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="107" value="true">
+            <loc>text,20,27</loc>
+          </Hit>
+          <Hit doc="117" value="true">
+            <loc>text,19,26</loc>
+          </Hit>
+          <Hit doc="127" value="true">
+            <loc>text,18,25</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_co2_BOOLEAN">
+          <Hit doc="5" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="6" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="10" value="true">
+            <loc>text,20,23</loc>
+          </Hit>
+          <Hit doc="25" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="26" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="30" value="true">
+            <loc>text,20,23</loc>
+          </Hit>
+          <Hit doc="42" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,45,48</loc>
+          </Hit>
+          <Hit doc="60" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="61" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="65" value="true">
+            <loc>text,19,22</loc>
+          </Hit>
+          <Hit doc="68" value="true">
+            <loc>text,33,36</loc>
+          </Hit>
+          <Hit doc="101" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="102" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="106" value="true">
+            <loc>text,20,23</loc>
+          </Hit>
+          <Hit doc="121" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="122" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="126" value="true">
+            <loc>text,20,23</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_cooler_BOOLEAN">
+          <Hit doc="23" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="25" value="true">
+            <loc>text,17,23</loc>
+          </Hit>
+          <Hit doc="119" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="121" value="true">
+            <loc>text,17,23</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_cost_BOOLEAN">
+          <Hit doc="13" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="15" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="109" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="111" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_costli_BOOLEAN">
+          <Hit doc="33" value="true">
+            <loc>text,25,31</loc>
+          </Hit>
+          <Hit doc="34" value="true">
+            <loc>text,29,35</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,25,31</loc>
+          </Hit>
+          <Hit doc="130" value="true">
+            <loc>text,29,35</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_creat_BOOLEAN">
+          <Hit doc="9" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="10" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="11" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="29" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="30" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="63" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="105" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="106" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="107" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="125" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="126" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_decreas_BOOLEAN">
+          <Hit doc="22" value="true">
+            <loc>text,36,44</loc>
+          </Hit>
+          <Hit doc="24" value="true">
+            <loc>text,18,28</loc>
+          </Hit>
+          <Hit doc="26" value="true">
+            <loc>text,7,17</loc>
+          </Hit>
+          <Hit doc="27" value="true">
+            <loc>text,21,29</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,49,57</loc>
+          </Hit>
+          <Hit doc="118" value="true">
+            <loc>text,36,44</loc>
+          </Hit>
+          <Hit doc="120" value="true">
+            <loc>text,18,28</loc>
+          </Hit>
+          <Hit doc="122" value="true">
+            <loc>text,7,17</loc>
+          </Hit>
+          <Hit doc="123" value="true">
+            <loc>text,21,29</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_differ_BOOLEAN">
+          <Hit doc="28" value="true">
+            <loc>text,19,28</loc>
+          </Hit>
+          <Hit doc="124" value="true">
+            <loc>text,19,28</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_dioxid_BOOLEAN">
+          <Hit doc="3" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="4" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="9" value="true">
+            <loc>text,27,34</loc>
+          </Hit>
+          <Hit doc="23" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="24" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="29" value="true">
+            <loc>text,27,34</loc>
+          </Hit>
+          <Hit doc="43" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="58" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="59" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="67" value="true">
+            <loc>text,40,47</loc>
+          </Hit>
+          <Hit doc="99" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="100" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="105" value="true">
+            <loc>text,27,34</loc>
+          </Hit>
+          <Hit doc="119" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="120" value="true">
+            <loc>text,7,14</loc>
+          </Hit>
+          <Hit doc="125" value="true">
+            <loc>text,27,34</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_doe_BOOLEAN">
+          <Hit doc="71" value="true">
+            <loc>text,10,14</loc>
+          </Hit>
+          <Hit doc="72" value="true">
+            <loc>text,10,14</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_due_BOOLEAN">
+          <Hit doc="67" value="true">
+            <loc>text,26,29</loc>
+          </Hit>
+          <Hit doc="68" value="true">
+            <loc>text,26,29</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_effect_BOOLEAN">
+          <Hit doc="1" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="2" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="21" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="22" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="44" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="57" value="true">
+            <loc>text,14,21</loc>
+          </Hit>
+          <Hit doc="97" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="98" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="117" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+          <Hit doc="118" value="true">
+            <loc>text,6,13</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_emiss_BOOLEAN">
+          <Hit doc="64" value="true">
+            <loc>text,26,35</loc>
+          </Hit>
+          <Hit doc="65" value="true">
+            <loc>text,23,32</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_energi_BOOLEAN">
+          <Hit doc="12" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="13" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="14" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="15" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="16" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="32" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="33" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="34" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="35" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="36" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="41" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="47" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="69" value="true">
+            <loc>text,31,37</loc>
+          </Hit>
+          <Hit doc="74" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="81" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="83" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="85" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="87" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="89" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="91" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="108" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="109" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="110" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="111" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="112" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="128" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="130" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="131" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+          <Hit doc="132" value="true">
+            <loc>text,10,16</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_environ_BOOLEAN">
+          <Hit doc="33" value="true">
+            <loc>text,39,50</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,39,50</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_expens_BOOLEAN">
+          <Hit doc="14" value="true">
+            <loc>text,25,34</loc>
+          </Hit>
+          <Hit doc="17" value="true">
+            <loc>text,22,31</loc>
+          </Hit>
+          <Hit doc="32" value="true">
+            <loc>text,31,40</loc>
+          </Hit>
+          <Hit doc="35" value="true">
+            <loc>text,31,40</loc>
+          </Hit>
+          <Hit doc="37" value="true">
+            <loc>text,22,31</loc>
+          </Hit>
+          <Hit doc="39" value="true">
+            <loc>text,22,31</loc>
+          </Hit>
+          <Hit doc="51" value="true">
+            <loc>text,22,31;text,58,67</loc>
+          </Hit>
+          <Hit doc="75" value="true">
+            <loc>text,27,36</loc>
+          </Hit>
+          <Hit doc="110" value="true">
+            <loc>text,25,34</loc>
+          </Hit>
+          <Hit doc="113" value="true">
+            <loc>text,22,31</loc>
+          </Hit>
+          <Hit doc="128" value="true">
+            <loc>text,31,40</loc>
+          </Hit>
+          <Hit doc="131" value="true">
+            <loc>text,31,40</loc>
+          </Hit>
+          <Hit doc="133" value="true">
+            <loc>text,22,31</loc>
+          </Hit>
+          <Hit doc="135" value="true">
+            <loc>text,22,31</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_fossil_BOOLEAN">
+          <Hit doc="8" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="9" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="10" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="11" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="17" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="18" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="19" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="28" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="29" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="30" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="31" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="37" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="38" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="39" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="40" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="51" value="true">
+            <loc>text,0,6;text,36,42</loc>
+          </Hit>
+          <Hit doc="62" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="63" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="64" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="65" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="66" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="70" value="true">
+            <loc>text,29,35</loc>
+          </Hit>
+          <Hit doc="75" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="76" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="77" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="80" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="82" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="84" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="86" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="88" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="90" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="104" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="105" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="106" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="107" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="113" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="114" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="115" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="124" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="125" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="126" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="127" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="133" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="134" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="135" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_fuel_BOOLEAN">
+          <Hit doc="8" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="9" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="10" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="11" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="17" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="18" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="19" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="28" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="29" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="30" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="31" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="37" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="38" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="39" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="40" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="46" value="true">
+            <loc>text,0,4</loc>
+          </Hit>
+          <Hit doc="51" value="true">
+            <loc>text,7,12;text,43,48</loc>
+          </Hit>
+          <Hit doc="62" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="63" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="64" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="65" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="66" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="70" value="true">
+            <loc>text,36,40</loc>
+          </Hit>
+          <Hit doc="75" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="76" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="77" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="80" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="82" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="84" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="86" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="88" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="90" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="104" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="105" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="106" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="107" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="113" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="114" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="115" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="124" value="true">
+            <loc>text,7,11</loc>
+          </Hit>
+          <Hit doc="125" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="126" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="127" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="133" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="134" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+          <Hit doc="135" value="true">
+            <loc>text,7,12</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_ga_BOOLEAN">
+          <Hit doc="29" value="true">
+            <loc>text,35,38</loc>
+          </Hit>
+          <Hit doc="30" value="true">
+            <loc>text,24,27</loc>
+          </Hit>
+          <Hit doc="48" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="125" value="true">
+            <loc>text,35,38</loc>
+          </Hit>
+          <Hit doc="126" value="true">
+            <loc>text,24,27</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_get_BOOLEAN">
+          <Hit doc="0" value="true">
+            <loc>text,5,12</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,5,12</loc>
+          </Hit>
+          <Hit doc="75" value="true">
+            <loc>text,18,21</loc>
+          </Hit>
+          <Hit doc="78" value="true">
+            <loc>text,19,22</loc>
+          </Hit>
+          <Hit doc="96" value="true">
+            <loc>text,5,12</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_happen_BOOLEAN">
+          <Hit doc="31" value="true">
+            <loc>text,33,39</loc>
+          </Hit>
+          <Hit doc="127" value="true">
+            <loc>text,33,39</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_have_BOOLEAN">
+          <Hit doc="27" value="true">
+            <loc>text,13,17</loc>
+          </Hit>
+          <Hit doc="123" value="true">
+            <loc>text,13,17</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_hotter_BOOLEAN">
+          <Hit doc="0" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="3" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="5" value="true">
+            <loc>text,17,23</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="96" value="true">
+            <loc>text,13,19</loc>
+          </Hit>
+          <Hit doc="99" value="true">
+            <loc>text,28,34</loc>
+          </Hit>
+          <Hit doc="101" value="true">
+            <loc>text,17,23</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_human_BOOLEAN">
+          <Hit doc="1" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="2" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="21" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="22" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="44" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="45" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="54" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="57" value="true">
+            <loc>text,8,13</loc>
+          </Hit>
+          <Hit doc="97" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="98" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="117" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+          <Hit doc="118" value="true">
+            <loc>text,0,5</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_in_BOOLEAN">
+          <Hit doc="70" value="true">
+            <loc>text,13,15</loc>
+          </Hit>
+          <Hit doc="73" value="true">
+            <loc>text,24,26</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_increas_BOOLEAN">
+          <Hit doc="4" value="true">
+            <loc>text,18,28</loc>
+          </Hit>
+          <Hit doc="6" value="true">
+            <loc>text,7,17</loc>
+          </Hit>
+          <Hit doc="7" value="true">
+            <loc>text,17,27</loc>
+          </Hit>
+          <Hit doc="8" value="true">
+            <loc>text,19,29</loc>
+          </Hit>
+          <Hit doc="20" value="true">
+            <loc>text,18,26</loc>
+          </Hit>
+          <Hit doc="67" value="true">
+            <loc>text,12,21</loc>
+          </Hit>
+          <Hit doc="68" value="true">
+            <loc>text,12,21</loc>
+          </Hit>
+          <Hit doc="100" value="true">
+            <loc>text,18,28</loc>
+          </Hit>
+          <Hit doc="102" value="true">
+            <loc>text,7,17</loc>
+          </Hit>
+          <Hit doc="103" value="true">
+            <loc>text,17,27</loc>
+          </Hit>
+          <Hit doc="104" value="true">
+            <loc>text,19,29</loc>
+          </Hit>
+          <Hit doc="116" value="true">
+            <loc>text,18,26</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_is_BOOLEAN">
+          <Hit doc="3" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="4" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="5" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="6" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="8" value="true">
+            <loc>text,16,18</loc>
+          </Hit>
+          <Hit doc="12" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="14" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="16" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="23" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="24" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="25" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="26" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="28" value="true">
+            <loc>text,16,18</loc>
+          </Hit>
+          <Hit doc="33" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="36" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="69" value="true">
+            <loc>text,10,12</loc>
+          </Hit>
+          <Hit doc="70" value="true">
+            <loc>text,10,12</loc>
+          </Hit>
+          <Hit doc="73" value="true">
+            <loc>text,21,23</loc>
+          </Hit>
+          <Hit doc="99" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="100" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="101" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="102" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="104" value="true">
+            <loc>text,16,18</loc>
+          </Hit>
+          <Hit doc="108" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="110" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="112" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="119" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="120" value="true">
+            <loc>text,15,17</loc>
+          </Hit>
+          <Hit doc="121" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="122" value="true">
+            <loc>text,4,6</loc>
+          </Hit>
+          <Hit doc="124" value="true">
+            <loc>text,16,18</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+          <Hit doc="132" value="true">
+            <loc>text,17,19</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_it_BOOLEAN">
+          <Hit doc="0" value="true">
+            <loc>text,0,2</loc>
+          </Hit>
+          <Hit doc="3" value="true">
+            <loc>text,25,27</loc>
+          </Hit>
+          <Hit doc="5" value="true">
+            <loc>text,14,16</loc>
+          </Hit>
+          <Hit doc="23" value="true">
+            <loc>text,25,27</loc>
+          </Hit>
+          <Hit doc="25" value="true">
+            <loc>text,14,16</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,0,2</loc>
+          </Hit>
+          <Hit doc="96" value="true">
+            <loc>text,0,2</loc>
+          </Hit>
+          <Hit doc="99" value="true">
+            <loc>text,25,27</loc>
+          </Hit>
+          <Hit doc="101" value="true">
+            <loc>text,14,16</loc>
+          </Hit>
+          <Hit doc="119" value="true">
+            <loc>text,25,27</loc>
+          </Hit>
+          <Hit doc="121" value="true">
+            <loc>text,14,16</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_less_BOOLEAN">
+          <Hit doc="13" value="true">
+            <loc>text,23,27</loc>
+          </Hit>
+          <Hit doc="17" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="32" value="true">
+            <loc>text,26,30</loc>
+          </Hit>
+          <Hit doc="33" value="true">
+            <loc>text,20,24</loc>
+          </Hit>
+          <Hit doc="34" value="true">
+            <loc>text,24,28</loc>
+          </Hit>
+          <Hit doc="38" value="true">
+            <loc>text,22,26</loc>
+          </Hit>
+          <Hit doc="109" value="true">
+            <loc>text,23,27</loc>
+          </Hit>
+          <Hit doc="113" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="128" value="true">
+            <loc>text,26,30</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,20,24</loc>
+          </Hit>
+          <Hit doc="130" value="true">
+            <loc>text,24,28</loc>
+          </Hit>
+          <Hit doc="134" value="true">
+            <loc>text,22,26</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_make_BOOLEAN">
+          <Hit doc="3" value="true">
+            <loc>text,18,24</loc>
+          </Hit>
+          <Hit doc="5" value="true">
+            <loc>text,7,13</loc>
+          </Hit>
+          <Hit doc="21" value="true">
+            <loc>text,14,18</loc>
+          </Hit>
+          <Hit doc="23" value="true">
+            <loc>text,18,24</loc>
+          </Hit>
+          <Hit doc="25" value="true">
+            <loc>text,7,13</loc>
+          </Hit>
+          <Hit doc="31" value="true">
+            <loc>text,13,17</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,14,18</loc>
+          </Hit>
+          <Hit doc="62" value="true">
+            <loc>text,13,17</loc>
+          </Hit>
+          <Hit doc="99" value="true">
+            <loc>text,18,24</loc>
+          </Hit>
+          <Hit doc="101" value="true">
+            <loc>text,7,13</loc>
+          </Hit>
+          <Hit doc="117" value="true">
+            <loc>text,14,18</loc>
+          </Hit>
+          <Hit doc="119" value="true">
+            <loc>text,18,24</loc>
+          </Hit>
+          <Hit doc="121" value="true">
+            <loc>text,7,13</loc>
+          </Hit>
+          <Hit doc="127" value="true">
+            <loc>text,13,17</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_mayor_BOOLEAN">
+          <Hit doc="69" value="true">
+            <loc>text,4,9</loc>
+          </Hit>
+          <Hit doc="70" value="true">
+            <loc>text,4,9</loc>
+          </Hit>
+          <Hit doc="71" value="true">
+            <loc>text,4,9</loc>
+          </Hit>
+          <Hit doc="72" value="true">
+            <loc>text,4,9</loc>
+          </Hit>
+          <Hit doc="73" value="true">
+            <loc>text,4,9</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_might_BOOLEAN">
+          <Hit doc="32" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="35" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="38" value="true">
+            <loc>text,13,18</loc>
+          </Hit>
+          <Hit doc="128" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="131" value="true">
+            <loc>text,17,22</loc>
+          </Hit>
+          <Hit doc="134" value="true">
+            <loc>text,13,18</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_more_BOOLEAN">
+          <Hit doc="14" value="true">
+            <loc>text,20,24</loc>
+          </Hit>
+          <Hit doc="15" value="true">
+            <loc>text,23,27</loc>
+          </Hit>
+          <Hit doc="18" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="35" value="true">
+            <loc>text,26,30</loc>
+          </Hit>
+          <Hit doc="36" value="true">
+            <loc>text,20,24</loc>
+          </Hit>
+          <Hit doc="37" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="39" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="51" value="true">
+            <loc>text,17,21;text,53,57</loc>
+          </Hit>
+          <Hit doc="75" value="true">
+            <loc>text,22,26</loc>
+          </Hit>
+          <Hit doc="110" value="true">
+            <loc>text,20,24</loc>
+          </Hit>
+          <Hit doc="111" value="true">
+            <loc>text,23,27</loc>
+          </Hit>
+          <Hit doc="114" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="131" value="true">
+            <loc>text,26,30</loc>
+          </Hit>
+          <Hit doc="132" value="true">
+            <loc>text,20,24</loc>
+          </Hit>
+          <Hit doc="133" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+          <Hit doc="135" value="true">
+            <loc>text,17,21</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_now_BOOLEAN">
+          <Hit doc="28" value="true">
+            <loc>text,29,32</loc>
+          </Hit>
+          <Hit doc="124" value="true">
+            <loc>text,29,32</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_n’t_BOOLEAN">
+          <Hit doc="57" value="true">
+            <loc>text,41,44</loc>
+          </Hit>
+          <Hit doc="71" value="true">
+            <loc>text,14,17</loc>
+          </Hit>
+          <Hit doc="72" value="true">
+            <loc>text,14,17</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_out_BOOLEAN">
+          <Hit doc="74" value="true">
+            <loc>text,37,40</loc>
+          </Hit>
+          <Hit doc="76" value="true">
+            <loc>text,17,20</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_peopl_BOOLEAN">
+          <Hit doc="55" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+          <Hit doc="56" value="true">
+            <loc>text,0,6</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_reliabl_BOOLEAN">
+          <Hit doc="18" value="true">
+            <loc>text,22,30</loc>
+          </Hit>
+          <Hit doc="36" value="true">
+            <loc>text,25,33</loc>
+          </Hit>
+          <Hit doc="38" value="true">
+            <loc>text,27,35</loc>
+          </Hit>
+          <Hit doc="114" value="true">
+            <loc>text,22,30</loc>
+          </Hit>
+          <Hit doc="132" value="true">
+            <loc>text,25,33</loc>
+          </Hit>
+          <Hit doc="134" value="true">
+            <loc>text,27,35</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_renew_BOOLEAN">
+          <Hit doc="12" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="13" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="14" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="15" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="16" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="32" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="33" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="34" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="35" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="36" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="41" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="69" value="true">
+            <loc>text,21,30</loc>
+          </Hit>
+          <Hit doc="74" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="81" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="83" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="85" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="87" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="89" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="91" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="108" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="109" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="110" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="111" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="112" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="128" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="130" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="131" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+          <Hit doc="132" value="true">
+            <loc>text,0,9</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_rise_BOOLEAN">
+          <Hit doc="2" value="true">
+            <loc>text,36,40</loc>
+          </Hit>
+          <Hit doc="55" value="true">
+            <loc>text,35,39</loc>
+          </Hit>
+          <Hit doc="57" value="true">
+            <loc>text,48,54</loc>
+          </Hit>
+          <Hit doc="58" value="true">
+            <loc>text,38,42</loc>
+          </Hit>
+          <Hit doc="60" value="true">
+            <loc>text,27,31</loc>
+          </Hit>
+          <Hit doc="62" value="true">
+            <loc>text,31,35</loc>
+          </Hit>
+          <Hit doc="66" value="true">
+            <loc>text,34,38</loc>
+          </Hit>
+          <Hit doc="98" value="true">
+            <loc>text,36,40</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_run_BOOLEAN">
+          <Hit doc="74" value="true">
+            <loc>text,33,36</loc>
+          </Hit>
+          <Hit doc="76" value="true">
+            <loc>text,13,16</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_temperatur_BOOLEAN">
+          <Hit doc="2" value="true">
+            <loc>text,20,32</loc>
+          </Hit>
+          <Hit doc="7" value="true">
+            <loc>text,0,12</loc>
+          </Hit>
+          <Hit doc="20" value="true">
+            <loc>text,6,17</loc>
+          </Hit>
+          <Hit doc="22" value="true">
+            <loc>text,20,32</loc>
+          </Hit>
+          <Hit doc="27" value="true">
+            <loc>text,0,12</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,23,34</loc>
+          </Hit>
+          <Hit doc="55" value="true">
+            <loc>text,19,31</loc>
+          </Hit>
+          <Hit doc="57" value="true">
+            <loc>text,23,35</loc>
+          </Hit>
+          <Hit doc="58" value="true">
+            <loc>text,22,34</loc>
+          </Hit>
+          <Hit doc="60" value="true">
+            <loc>text,11,23</loc>
+          </Hit>
+          <Hit doc="62" value="true">
+            <loc>text,18,30</loc>
+          </Hit>
+          <Hit doc="66" value="true">
+            <loc>text,19,30</loc>
+          </Hit>
+          <Hit doc="67" value="true">
+            <loc>text,0,11</loc>
+          </Hit>
+          <Hit doc="68" value="true">
+            <loc>text,0,11</loc>
+          </Hit>
+          <Hit doc="98" value="true">
+            <loc>text,20,32</loc>
+          </Hit>
+          <Hit doc="103" value="true">
+            <loc>text,0,12</loc>
+          </Hit>
+          <Hit doc="116" value="true">
+            <loc>text,6,17</loc>
+          </Hit>
+          <Hit doc="118" value="true">
+            <loc>text,20,32</loc>
+          </Hit>
+          <Hit doc="123" value="true">
+            <loc>text,0,12</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_textNUM_TOKENS_NUMERIC">
+          <Hit doc="0" value="4.0"/>
+          <Hit doc="1" value="5.0"/>
+          <Hit doc="2" value="6.0"/>
+          <Hit doc="3" value="6.0"/>
+          <Hit doc="4" value="4.0"/>
+          <Hit doc="5" value="5.0"/>
+          <Hit doc="6" value="3.0"/>
+          <Hit doc="7" value="3.0"/>
+          <Hit doc="8" value="5.0"/>
+          <Hit doc="9" value="5.0"/>
+          <Hit doc="10" value="4.0"/>
+          <Hit doc="11" value="5.0"/>
+          <Hit doc="12" value="4.0"/>
+          <Hit doc="13" value="4.0"/>
+          <Hit doc="14" value="5.0"/>
+          <Hit doc="15" value="4.0"/>
+          <Hit doc="16" value="4.0"/>
+          <Hit doc="17" value="5.0"/>
+          <Hit doc="18" value="5.0"/>
+          <Hit doc="19" value="4.0"/>
+          <Hit doc="20" value="3.0"/>
+          <Hit doc="21" value="5.0"/>
+          <Hit doc="22" value="6.0"/>
+          <Hit doc="23" value="6.0"/>
+          <Hit doc="24" value="4.0"/>
+          <Hit doc="25" value="5.0"/>
+          <Hit doc="26" value="3.0"/>
+          <Hit doc="27" value="4.0"/>
+          <Hit doc="28" value="6.0"/>
+          <Hit doc="29" value="6.0"/>
+          <Hit doc="30" value="5.0"/>
+          <Hit doc="31" value="6.0"/>
+          <Hit doc="32" value="6.0"/>
+          <Hit doc="33" value="8.0"/>
+          <Hit doc="34" value="6.0"/>
+          <Hit doc="35" value="6.0"/>
+          <Hit doc="36" value="5.0"/>
+          <Hit doc="37" value="5.0"/>
+          <Hit doc="38" value="6.0"/>
+          <Hit doc="39" value="5.0"/>
+          <Hit doc="40" value="2.0"/>
+          <Hit doc="41" value="2.0"/>
+          <Hit doc="42" value="1.0"/>
+          <Hit doc="43" value="2.0"/>
+          <Hit doc="44" value="2.0"/>
+          <Hit doc="45" value="1.0"/>
+          <Hit doc="46" value="1.0"/>
+          <Hit doc="47" value="1.0"/>
+          <Hit doc="48" value="1.0"/>
+          <Hit doc="49" value="1.0"/>
+          <Hit doc="50" value="2.0"/>
+          <Hit doc="51" value="11.0"/>
+          <Hit doc="52" value="9.0"/>
+          <Hit doc="53" value="10.0"/>
+          <Hit doc="54" value="5.0"/>
+          <Hit doc="55" value="6.0"/>
+          <Hit doc="56" value="4.0"/>
+          <Hit doc="57" value="9.0"/>
+          <Hit doc="58" value="6.0"/>
+          <Hit doc="59" value="5.0"/>
+          <Hit doc="60" value="5.0"/>
+          <Hit doc="61" value="4.0"/>
+          <Hit doc="62" value="5.0"/>
+          <Hit doc="63" value="5.0"/>
+          <Hit doc="64" value="5.0"/>
+          <Hit doc="65" value="5.0"/>
+          <Hit doc="66" value="6.0"/>
+          <Hit doc="67" value="7.0"/>
+          <Hit doc="68" value="6.0"/>
+          <Hit doc="69" value="6.0"/>
+          <Hit doc="70" value="10.0"/>
+          <Hit doc="71" value="6.0"/>
+          <Hit doc="72" value="8.0"/>
+          <Hit doc="73" value="8.0"/>
+          <Hit doc="74" value="6.0"/>
+          <Hit doc="75" value="6.0"/>
+          <Hit doc="76" value="4.0"/>
+          <Hit doc="77" value="5.0"/>
+          <Hit doc="78" value="5.0"/>
+          <Hit doc="79" value="5.0"/>
+          <Hit doc="80" value="2.0"/>
+          <Hit doc="81" value="2.0"/>
+          <Hit doc="82" value="2.0"/>
+          <Hit doc="83" value="2.0"/>
+          <Hit doc="84" value="2.0"/>
+          <Hit doc="85" value="2.0"/>
+          <Hit doc="86" value="2.0"/>
+          <Hit doc="87" value="2.0"/>
+          <Hit doc="88" value="2.0"/>
+          <Hit doc="89" value="2.0"/>
+          <Hit doc="90" value="2.0"/>
+          <Hit doc="91" value="2.0"/>
+          <Hit doc="92" value="2.0"/>
+          <Hit doc="93" value="2.0"/>
+          <Hit doc="94" value="2.0"/>
+          <Hit doc="95" value="2.0"/>
+          <Hit doc="96" value="4.0"/>
+          <Hit doc="97" value="5.0"/>
+          <Hit doc="98" value="6.0"/>
+          <Hit doc="99" value="6.0"/>
+          <Hit doc="100" value="4.0"/>
+          <Hit doc="101" value="5.0"/>
+          <Hit doc="102" value="3.0"/>
+          <Hit doc="103" value="3.0"/>
+          <Hit doc="104" value="5.0"/>
+          <Hit doc="105" value="5.0"/>
+          <Hit doc="106" value="4.0"/>
+          <Hit doc="107" value="5.0"/>
+          <Hit doc="108" value="4.0"/>
+          <Hit doc="109" value="4.0"/>
+          <Hit doc="110" value="5.0"/>
+          <Hit doc="111" value="4.0"/>
+          <Hit doc="112" value="4.0"/>
+          <Hit doc="113" value="5.0"/>
+          <Hit doc="114" value="5.0"/>
+          <Hit doc="115" value="4.0"/>
+          <Hit doc="116" value="3.0"/>
+          <Hit doc="117" value="5.0"/>
+          <Hit doc="118" value="6.0"/>
+          <Hit doc="119" value="6.0"/>
+          <Hit doc="120" value="4.0"/>
+          <Hit doc="121" value="5.0"/>
+          <Hit doc="122" value="3.0"/>
+          <Hit doc="123" value="4.0"/>
+          <Hit doc="124" value="6.0"/>
+          <Hit doc="125" value="6.0"/>
+          <Hit doc="126" value="5.0"/>
+          <Hit doc="127" value="6.0"/>
+          <Hit doc="128" value="6.0"/>
+          <Hit doc="129" value="8.0"/>
+          <Hit doc="130" value="6.0"/>
+          <Hit doc="131" value="6.0"/>
+          <Hit doc="132" value="5.0"/>
+          <Hit doc="133" value="5.0"/>
+          <Hit doc="134" value="6.0"/>
+          <Hit doc="135" value="5.0"/>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_the_BOOLEAN">
+          <Hit doc="33" value="true">
+            <loc>text,35,38</loc>
+          </Hit>
+          <Hit doc="53" value="true">
+            <loc>text,19,22</loc>
+          </Hit>
+          <Hit doc="69" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="70" value="true">
+            <loc>text,0,3;text,25,28</loc>
+          </Hit>
+          <Hit doc="71" value="true">
+            <loc>text,0,3</loc>
+          </Hit>
+          <Hit doc="72" value="true">
+            <loc>text,0,3;text,26,29</loc>
+          </Hit>
+          <Hit doc="73" value="true">
+            <loc>text,0,3;text,27,30</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,35,38</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_to_BOOLEAN">
+          <Hit doc="2" value="true">
+            <loc>text,33,35</loc>
+          </Hit>
+          <Hit doc="22" value="true">
+            <loc>text,33,35</loc>
+          </Hit>
+          <Hit doc="27" value="true">
+            <loc>text,18,20</loc>
+          </Hit>
+          <Hit doc="33" value="true">
+            <loc>text,32,34</loc>
+          </Hit>
+          <Hit doc="55" value="true">
+            <loc>text,32,34</loc>
+          </Hit>
+          <Hit doc="58" value="true">
+            <loc>text,35,37</loc>
+          </Hit>
+          <Hit doc="60" value="true">
+            <loc>text,24,26</loc>
+          </Hit>
+          <Hit doc="66" value="true">
+            <loc>text,31,33</loc>
+          </Hit>
+          <Hit doc="67" value="true">
+            <loc>text,30,32</loc>
+          </Hit>
+          <Hit doc="68" value="true">
+            <loc>text,30,32</loc>
+          </Hit>
+          <Hit doc="72" value="true">
+            <loc>text,23,25</loc>
+          </Hit>
+          <Hit doc="98" value="true">
+            <loc>text,33,35</loc>
+          </Hit>
+          <Hit doc="118" value="true">
+            <loc>text,33,35</loc>
+          </Hit>
+          <Hit doc="123" value="true">
+            <loc>text,18,20</loc>
+          </Hit>
+          <Hit doc="129" value="true">
+            <loc>text,32,34</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_unreli_BOOLEAN">
+          <Hit doc="16" value="true">
+            <loc>text,20,30</loc>
+          </Hit>
+          <Hit doc="112" value="true">
+            <loc>text,20,30</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_us_BOOLEAN">
+          <Hit doc="8" value="true">
+            <loc>text,12,15</loc>
+          </Hit>
+          <Hit doc="28" value="true">
+            <loc>text,12,15</loc>
+          </Hit>
+          <Hit doc="104" value="true">
+            <loc>text,12,15</loc>
+          </Hit>
+          <Hit doc="124" value="true">
+            <loc>text,12,15</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_will_BOOLEAN">
+          <Hit doc="75" value="true">
+            <loc>text,13,17</loc>
+          </Hit>
+          <Hit doc="78" value="true">
+            <loc>text,14,18</loc>
+          </Hit>
+          <Hit doc="79" value="true">
+            <loc>text,10,14</loc>
+          </Hit>
+        </Feature>
+        <Feature value="plugins.features.BasicFeatures_basic_’s_BOOLEAN">
+          <Hit doc="0" value="true">
+            <loc>text,2,4</loc>
+          </Hit>
+          <Hit doc="52" value="true">
+            <loc>text,2,4</loc>
+          </Hit>
+          <Hit doc="73" value="true">
+            <loc>text,9,11</loc>
+          </Hit>
+          <Hit doc="96" value="true">
+            <loc>text,2,4</loc>
+          </Hit>
+        </Feature>
+      </Features>
+    </edu.cmu.side.model.data.FeatureTable>
+    <null/>
+    <edu.cmu.side.model.data.TrainingResult>
+      <name>bayes__1grams_length_4</name>
+      <longDescriptionString>Naive Bayes Classifier
+
+                  Class
+Attribute         FALSE   TRUE
+                 (0.22) (0.78)
+===============================
+and
+  false             28.0  107.0
+  true               4.0    1.0
+  [total]           32.0  108.0
+
+ar
+  false             30.0   91.0
+  true               2.0   17.0
+  [total]           32.0  108.0
+
+be
+  false             31.0   97.0
+  true               1.0   11.0
+  [total]           32.0  108.0
+
+can
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+carbon
+  false             30.0   91.0
+  true               2.0   17.0
+  [total]           32.0  108.0
+
+caus
+  false             30.0   88.0
+  true               2.0   20.0
+  [total]           32.0  108.0
+
+chang
+  false             25.0   93.0
+  true               7.0   15.0
+  [total]           32.0  108.0
+
+cheaper
+  false             31.0  102.0
+  true               1.0    6.0
+  [total]           32.0  108.0
+
+climat
+  false             24.0   93.0
+  true               8.0   15.0
+  [total]           32.0  108.0
+
+co2
+  false             29.0   91.0
+  true               3.0   17.0
+  [total]           32.0  108.0
+
+cooler
+  false             31.0  103.0
+  true               1.0    5.0
+  [total]           32.0  108.0
+
+cost
+  false             31.0  103.0
+  true               1.0    5.0
+  [total]           32.0  108.0
+
+costli
+  false             31.0  103.0
+  true               1.0    5.0
+  [total]           32.0  108.0
+
+creat
+  false             31.0   96.0
+  true               1.0   12.0
+  [total]           32.0  108.0
+
+decreas
+  false             30.0   99.0
+  true               2.0    9.0
+  [total]           32.0  108.0
+
+differ
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+dioxid
+  false             30.0   92.0
+  true               2.0   16.0
+  [total]           32.0  108.0
+
+doe
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+due
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+effect
+  false             29.0   98.0
+  true               3.0   10.0
+  [total]           32.0  108.0
+
+emiss
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+energi
+  false             23.0   85.0
+  true               9.0   23.0
+  [total]           32.0  108.0
+
+environ
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+expens
+  false             30.0   94.0
+  true               2.0   14.0
+  [total]           32.0  108.0
+
+fossil
+  false             23.0   70.0
+  true               9.0   38.0
+  [total]           32.0  108.0
+
+fuel
+  false             22.0   70.0
+  true              10.0   38.0
+  [total]           32.0  108.0
+
+ga
+  false             30.0  103.0
+  true               2.0    5.0
+  [total]           32.0  108.0
+
+get
+  false             30.0  103.0
+  true               2.0    5.0
+  [total]           32.0  108.0
+
+happen
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+have
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+hotter
+  false             30.0  101.0
+  true               2.0    7.0
+  [total]           32.0  108.0
+
+human
+  false             28.0   97.0
+  true               4.0   11.0
+  [total]           32.0  108.0
+
+in
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+increas
+  false             31.0   95.0
+  true               1.0   13.0
+  [total]           32.0  108.0
+
+is
+  false             31.0   74.0
+  true               1.0   34.0
+  [total]           32.0  108.0
+
+it
+  false             30.0   97.0
+  true               2.0   11.0
+  [total]           32.0  108.0
+
+less
+  false             31.0   95.0
+  true               1.0   13.0
+  [total]           32.0  108.0
+
+make
+  false             30.0   94.0
+  true               2.0   14.0
+  [total]           32.0  108.0
+
+mayor
+  false             31.0  102.0
+  true               1.0    6.0
+  [total]           32.0  108.0
+
+might
+  false             31.0  101.0
+  true               1.0    7.0
+  [total]           32.0  108.0
+
+more
+  false             30.0   92.0
+  true               2.0   16.0
+  [total]           32.0  108.0
+
+now
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+n’t
+  false             31.0  104.0
+  true               1.0    4.0
+  [total]           32.0  108.0
+
+out
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+peopl
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+reliabl
+  false             31.0  101.0
+  true               1.0    7.0
+  [total]           32.0  108.0
+
+renew
+  false             24.0   85.0
+  true               8.0   23.0
+  [total]           32.0  108.0
+
+rise
+  false             31.0   99.0
+  true               1.0    9.0
+  [total]           32.0  108.0
+
+run
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+temperatur
+  false             30.0   89.0
+  true               2.0   19.0
+  [total]           32.0  108.0
+
+textNUM_TOKENS
+  mean               2.6 5.1321
+  std. dev.       2.5113 1.2444
+  weight sum          30    106
+  precision            1      1
+
+the
+  false             30.0  100.0
+  true               2.0    8.0
+  [total]           32.0  108.0
+
+to
+  false             31.0   92.0
+  true               1.0   16.0
+  [total]           32.0  108.0
+
+unreli
+  false             31.0  105.0
+  true               1.0    3.0
+  [total]           32.0  108.0
+
+us
+  false             31.0  103.0
+  true               1.0    5.0
+  [total]           32.0  108.0
+
+will
+  false             31.0  104.0
+  true               1.0    4.0
+  [total]           32.0  108.0
+
+’s
+  false             30.0  104.0
+  true               2.0    4.0
+  [total]           32.0  108.0
+
+</longDescriptionString>
+      <train reference="../../edu.cmu.side.model.data.FeatureTable"/>
+      <test reference="../../edu.cmu.side.model.data.FeatureTable"/>
+      <predictions>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>FALSE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+        <string>TRUE</string>
+      </predictions>
+      <confusionMatrix class="tree-map">
+        <entry>
+          <string>FALSE</string>
+          <tree-map>
+            <entry>
+              <string>FALSE</string>
+              <list>
+                <int>40</int>
+                <int>41</int>
+                <int>42</int>
+                <int>44</int>
+                <int>45</int>
+                <int>46</int>
+                <int>47</int>
+                <int>48</int>
+                <int>49</int>
+                <int>50</int>
+                <int>80</int>
+                <int>81</int>
+                <int>82</int>
+                <int>83</int>
+                <int>84</int>
+                <int>85</int>
+                <int>86</int>
+                <int>87</int>
+                <int>88</int>
+                <int>89</int>
+                <int>90</int>
+                <int>91</int>
+                <int>92</int>
+                <int>93</int>
+                <int>94</int>
+                <int>95</int>
+              </list>
+            </entry>
+            <entry>
+              <string>TRUE</string>
+              <list>
+                <int>0</int>
+                <int>1</int>
+                <int>21</int>
+                <int>31</int>
+                <int>56</int>
+                <int>57</int>
+                <int>61</int>
+                <int>70</int>
+                <int>74</int>
+                <int>76</int>
+                <int>77</int>
+                <int>96</int>
+                <int>97</int>
+                <int>117</int>
+                <int>127</int>
+              </list>
+            </entry>
+          </tree-map>
+        </entry>
+        <entry>
+          <string>TRUE</string>
+          <tree-map>
+            <entry>
+              <string>FALSE</string>
+              <list>
+                <int>43</int>
+                <int>51</int>
+                <int>52</int>
+                <int>53</int>
+              </list>
+            </entry>
+            <entry>
+              <string>TRUE</string>
+              <list>
+                <int>2</int>
+                <int>3</int>
+                <int>4</int>
+                <int>5</int>
+                <int>6</int>
+                <int>7</int>
+                <int>8</int>
+                <int>9</int>
+                <int>10</int>
+                <int>11</int>
+                <int>12</int>
+                <int>13</int>
+                <int>14</int>
+                <int>15</int>
+                <int>16</int>
+                <int>17</int>
+                <int>18</int>
+                <int>19</int>
+                <int>20</int>
+                <int>22</int>
+                <int>23</int>
+                <int>24</int>
+                <int>25</int>
+                <int>26</int>
+                <int>27</int>
+                <int>28</int>
+                <int>29</int>
+                <int>30</int>
+                <int>32</int>
+                <int>33</int>
+                <int>34</int>
+                <int>35</int>
+                <int>36</int>
+                <int>37</int>
+                <int>38</int>
+                <int>39</int>
+                <int>54</int>
+                <int>55</int>
+                <int>58</int>
+                <int>59</int>
+                <int>60</int>
+                <int>62</int>
+                <int>63</int>
+                <int>64</int>
+                <int>65</int>
+                <int>66</int>
+                <int>67</int>
+                <int>68</int>
+                <int>69</int>
+                <int>71</int>
+                <int>72</int>
+                <int>73</int>
+                <int>75</int>
+                <int>78</int>
+                <int>79</int>
+                <int>98</int>
+                <int>99</int>
+                <int>100</int>
+                <int>101</int>
+                <int>102</int>
+                <int>103</int>
+                <int>104</int>
+                <int>105</int>
+                <int>106</int>
+                <int>107</int>
+                <int>108</int>
+                <int>109</int>
+                <int>110</int>
+                <int>111</int>
+                <int>112</int>
+                <int>113</int>
+                <int>114</int>
+                <int>115</int>
+                <int>116</int>
+                <int>118</int>
+                <int>119</int>
+                <int>120</int>
+                <int>121</int>
+                <int>122</int>
+                <int>123</int>
+                <int>124</int>
+                <int>125</int>
+                <int>126</int>
+                <int>128</int>
+                <int>129</int>
+                <int>130</int>
+                <int>131</int>
+                <int>132</int>
+                <int>133</int>
+                <int>134</int>
+                <int>135</int>
+              </list>
+            </entry>
+          </tree-map>
+        </entry>
+      </confusionMatrix>
+      <distributions>
+        <entry>
+          <string>TRUE</string>
+          <list>
+            <double>0.2906986785941128</double>
+            <double>0.2585164549485069</double>
+            <double>0.9951804224125215</double>
+            <double>0.9997694416598067</double>
+            <double>0.9966694512425037</double>
+            <double>0.9920305425396232</double>
+            <double>0.95070975327707</double>
+            <double>0.9308573455988054</double>
+            <double>0.9952411796592275</double>
+            <double>0.9743244986665792</double>
+            <double>0.9542252186890098</double>
+            <double>0.6170078073109522</double>
+            <double>0.8550209315072099</double>
+            <double>0.7111986184183833</double>
+            <double>0.9824357783390507</double>
+            <double>0.673303404844765</double>
+            <double>0.792968435563439</double>
+            <double>0.978156312667712</double>
+            <double>0.9788268643656817</double>
+            <double>0.8739210530643244</double>
+            <double>0.9179515516711355</double>
+            <double>0.14972106385577735</double>
+            <double>0.9900417943052134</double>
+            <double>0.9998298554850417</double>
+            <double>0.9902339047112032</double>
+            <double>0.9940974290448227</double>
+            <double>0.8674388858908081</double>
+            <double>0.9519531451966132</double>
+            <double>0.9617923043911981</double>
+            <double>0.9645983640742655</double>
+            <double>0.9585701343346792</double>
+            <double>0.3892320154668236</double>
+            <double>0.9772459531213573</double>
+            <double>0.9951864085954872</double>
+            <double>0.8964785981800176</double>
+            <double>0.9751445463925854</double>
+            <double>0.9848125341143691</double>
+            <double>0.9655302257489957</double>
+            <double>0.993215489076063</double>
+            <double>0.9785905885536558</double>
+            <double>0.18464727016924876</double>
+            <double>0.08752264168559383</double>
+            <double>0.016352932097561845</double>
+            <double>0.580729510238632</double>
+            <double>0.14338404296746962</double>
+            <double>0.01875396453265413</double>
+            <double>0.008292627617499009</double>
+            <double>0.004623001753338593</double>
+            <double>0.025074666369654375</double>
+            <double>0.006957434955779613</double>
+            <double>0.02340366092290458</double>
+            <double>0.7966621805625262</double>
+            <double>0.6510495623606964</double>
+            <double>0.835816871923314</double>
+            <double>0.8664702377560733</double>
+            <double>0.9980861104375953</double>
+            <double>0.3152899121136361</double>
+            <double>0.20217472637729</double>
+            <double>0.9993003303695751</double>
+            <double>0.8976816757949085</double>
+            <double>0.9973422336366317</double>
+            <double>0.3177738326863874</double>
+            <double>0.981036977869193</double>
+            <double>0.7738228898392455</double>
+            <double>0.9412456943669392</double>
+            <double>0.8773551831161386</double>
+            <double>0.9986314575751216</double>
+            <double>0.9984462239964697</double>
+            <double>0.9967831775049958</double>
+            <double>0.9701468139034479</double>
+            <double>0.4098870664389337</double>
+            <double>0.7559928784496033</double>
+            <double>0.8231317019256104</double>
+            <double>0.9329873732743017</double>
+            <double>0.29243785287258095</double>
+            <double>0.8477028466130763</double>
+            <double>0.44740877510528665</double>
+            <double>0.4930564072905999</double>
+            <double>0.6245499140888012</double>
+            <double>0.8795320007244876</double>
+            <double>0.18464727016924876</double>
+            <double>0.08752264168559383</double>
+            <double>0.10750547180710651</double>
+            <double>0.033992949865114114</double>
+            <double>0.14379103275691832</double>
+            <double>0.06780257008672214</double>
+            <double>0.10179687529727237</double>
+            <double>0.08205015533054856</double>
+            <double>0.16794165325504168</double>
+            <double>0.053404378936487994</double>
+            <double>0.18464727016924876</double>
+            <double>0.08752264168559383</double>
+            <double>0.03304398702111982</double>
+            <double>0.0189099000326434</double>
+            <double>0.03578827982619646</double>
+            <double>0.0444803860266995</double>
+            <double>0.28269898616606365</double>
+            <double>0.24277272006828363</double>
+            <double>0.9908638392968909</double>
+            <double>0.9970569101200779</double>
+            <double>0.9966583876999869</double>
+            <double>0.9879485636026013</double>
+            <double>0.971580491697669</double>
+            <double>0.9424632940922071</double>
+            <double>0.9933012437333656</double>
+            <double>0.9799375427501934</double>
+            <double>0.909788220178483</double>
+            <double>0.5307328126820687</double>
+            <double>0.9157218989735957</double>
+            <double>0.7808668084105856</double>
+            <double>0.9844106130922797</double>
+            <double>0.8847771494846894</double>
+            <double>0.6956137601023702</double>
+            <double>0.9753401062154679</double>
+            <double>0.9707623906865047</double>
+            <double>0.834843035602363</double>
+            <double>0.9042021696964575</double>
+            <double>0.16572873792659348</double>
+            <double>0.9837423919265305</double>
+            <double>0.9978202897754845</double>
+            <double>0.9901921105206284</double>
+            <double>0.9910787946457064</double>
+            <double>0.9007380419508707</double>
+            <double>0.9773290041629642</double>
+            <double>0.9455938844510932</double>
+            <double>0.9716343422286466</double>
+            <double>0.9276309165082275</double>
+            <double>0.3255917864123034</double>
+            <double>0.9813974117336367</double>
+            <double>0.9912285426343731</double>
+            <double>0.9068951720420403</double>
+            <double>0.9982190569608856</double>
+            <double>0.9733006168507583</double>
+            <double>0.9680367068885535</double>
+            <double>0.9926499826391173</double>
+            <double>0.95288573544455</double>
+          </list>
+        </entry>
+        <entry>
+          <string>FALSE</string>
+          <list>
+            <double>0.7093013214058872</double>
+            <double>0.741483545051493</double>
+            <double>0.004819577587478466</double>
+            <double>2.305583401931879E-4</double>
+            <double>0.0033305487574963053</double>
+            <double>0.007969457460376844</double>
+            <double>0.04929024672292997</double>
+            <double>0.06914265440119452</double>
+            <double>0.004758820340772477</double>
+            <double>0.025675501333420853</double>
+            <double>0.0457747813109901</double>
+            <double>0.38299219268904794</double>
+            <double>0.14497906849279002</double>
+            <double>0.28880138158161667</double>
+            <double>0.017564221660949408</double>
+            <double>0.3266965951552351</double>
+            <double>0.207031564436561</double>
+            <double>0.021843687332288045</double>
+            <double>0.021173135634318375</double>
+            <double>0.12607894693567553</double>
+            <double>0.08204844832886452</double>
+            <double>0.8502789361442227</double>
+            <double>0.009958205694786563</double>
+            <double>1.7014451495828308E-4</double>
+            <double>0.009766095288796782</double>
+            <double>0.005902570955177337</double>
+            <double>0.13256111410919186</double>
+            <double>0.04804685480338677</double>
+            <double>0.03820769560880193</double>
+            <double>0.03540163592573462</double>
+            <double>0.041429865665320705</double>
+            <double>0.6107679845331764</double>
+            <double>0.02275404687864272</double>
+            <double>0.00481359140451282</double>
+            <double>0.1035214018199824</double>
+            <double>0.0248554536074146</double>
+            <double>0.015187465885630939</double>
+            <double>0.03446977425100423</double>
+            <double>0.006784510923937032</double>
+            <double>0.021409411446344253</double>
+            <double>0.8153527298307512</double>
+            <double>0.9124773583144061</double>
+            <double>0.983647067902438</double>
+            <double>0.41927048976136805</double>
+            <double>0.8566159570325304</double>
+            <double>0.9812460354673458</double>
+            <double>0.991707372382501</double>
+            <double>0.9953769982466614</double>
+            <double>0.9749253336303456</double>
+            <double>0.9930425650442204</double>
+            <double>0.9765963390770954</double>
+            <double>0.20333781943747375</double>
+            <double>0.3489504376393035</double>
+            <double>0.16418312807668595</double>
+            <double>0.13352976224392674</double>
+            <double>0.0019138895624046756</double>
+            <double>0.684710087886364</double>
+            <double>0.7978252736227099</double>
+            <double>6.996696304249621E-4</double>
+            <double>0.10231832420509143</double>
+            <double>0.0026577663633682584</double>
+            <double>0.6822261673136126</double>
+            <double>0.01896302213080711</double>
+            <double>0.22617711016075454</double>
+            <double>0.058754305633060895</double>
+            <double>0.12264481688386131</double>
+            <double>0.0013685424248783184</double>
+            <double>0.0015537760035303743</double>
+            <double>0.0032168224950042705</double>
+            <double>0.029853186096552055</double>
+            <double>0.5901129335610663</double>
+            <double>0.24400712155039675</double>
+            <double>0.1768682980743896</double>
+            <double>0.06701262672569824</double>
+            <double>0.7075621471274189</double>
+            <double>0.15229715338692365</double>
+            <double>0.5525912248947134</double>
+            <double>0.5069435927094001</double>
+            <double>0.3754500859111987</double>
+            <double>0.12046799927551242</double>
+            <double>0.8153527298307512</double>
+            <double>0.9124773583144061</double>
+            <double>0.8924945281928934</double>
+            <double>0.9660070501348859</double>
+            <double>0.8562089672430817</double>
+            <double>0.9321974299132778</double>
+            <double>0.8982031247027276</double>
+            <double>0.9179498446694514</double>
+            <double>0.8320583467449583</double>
+            <double>0.946595621063512</double>
+            <double>0.8153527298307512</double>
+            <double>0.9124773583144061</double>
+            <double>0.9669560129788802</double>
+            <double>0.9810900999673565</double>
+            <double>0.9642117201738035</double>
+            <double>0.9555196139733004</double>
+            <double>0.7173010138339363</double>
+            <double>0.7572272799317163</double>
+            <double>0.009136160703109028</double>
+            <double>0.0029430898799220544</double>
+            <double>0.00334161230001306</double>
+            <double>0.01205143639739857</double>
+            <double>0.028419508302330983</double>
+            <double>0.057536705907792945</double>
+            <double>0.006698756266634411</double>
+            <double>0.020062457249806605</double>
+            <double>0.09021177982151694</double>
+            <double>0.46926718731793127</double>
+            <double>0.08427810102640429</double>
+            <double>0.21913319158941436</double>
+            <double>0.015589386907720182</double>
+            <double>0.11522285051531064</double>
+            <double>0.30438623989762986</double>
+            <double>0.024659893784532125</double>
+            <double>0.02923760931349525</double>
+            <double>0.16515696439763713</double>
+            <double>0.09579783030354244</double>
+            <double>0.8342712620734066</double>
+            <double>0.01625760807346942</double>
+            <double>0.002179710224515492</double>
+            <double>0.00980788947937156</double>
+            <double>0.008921205354293676</double>
+            <double>0.09926195804912936</double>
+            <double>0.02267099583703569</double>
+            <double>0.05440611554890687</double>
+            <double>0.028365657771353282</double>
+            <double>0.0723690834917725</double>
+            <double>0.6744082135876966</double>
+            <double>0.018602588266363275</double>
+            <double>0.008771457365626789</double>
+            <double>0.09310482795795978</double>
+            <double>0.001780943039114305</double>
+            <double>0.026699383149241633</double>
+            <double>0.03196329311144644</double>
+            <double>0.00735001736088272</double>
+            <double>0.04711426455545005</double>
+          </list>
+        </entry>
+      </distributions>
+      <possibleLabels class="sorted-set">
+        <string>FALSE</string>
+        <string>TRUE</string>
+      </possibleLabels>
+    </edu.cmu.side.model.data.TrainingResult>
+    <null/>
+    <tree-map>
+      <entry>
+        <string>foldMethod</string>
+        <string>AUTO</string>
+      </entry>
+      <entry>
+        <string>numFolds</string>
+        <int>10</int>
+      </entry>
+      <entry>
+        <string>source</string>
+        <string>RANDOM</string>
+      </entry>
+      <entry>
+        <string>test</string>
+        <string>true</string>
+      </entry>
+      <entry>
+        <string>testRecipe</string>
+        <edu.cmu.side.model.Recipe serialization="custom">
+          <edu.cmu.side.model.Recipe>
+            <edu.cmu.side.model.RecipeManager_-Stage>DOCUMENT_LIST</edu.cmu.side.model.RecipeManager_-Stage>
+            <string></string>
+            <edu.cmu.side.model.OrderedPluginMap serialization="custom">
+              <edu.cmu.side.model.OrderedPluginMap>
+                <list/>
+                <map/>
+              </edu.cmu.side.model.OrderedPluginMap>
+            </edu.cmu.side.model.OrderedPluginMap>
+            <edu.cmu.side.model.OrderedPluginMap serialization="custom">
+              <edu.cmu.side.model.OrderedPluginMap>
+                <list/>
+                <map/>
+              </edu.cmu.side.model.OrderedPluginMap>
+            </edu.cmu.side.model.OrderedPluginMap>
+            <edu.cmu.side.model.OrderedPluginMap serialization="custom">
+              <edu.cmu.side.model.OrderedPluginMap>
+                <list/>
+                <map/>
+              </edu.cmu.side.model.OrderedPluginMap>
+            </edu.cmu.side.model.OrderedPluginMap>
+            <null/>
+            <null/>
+            <edu.cmu.side.model.data.DocumentList>
+              <filenameList>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+                <string>C:\Users\cp3a\Documents\saymore.csv</string>
+              </filenameList>
+              <allAnnotations class="tree-map">
+                <entry>
+                  <string>class</string>
+                  <list>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>TRUE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                    <string>FALSE</string>
+                  </list>
+                </entry>
+              </allAnnotations>
+              <textColumns class="tree-map">
+                <entry>
+                  <string>text</string>
+                  <list>
+                    <string>it&apos;s getting hotter</string>
+                    <string>human effects cause climate change</string>
+                    <string>human effects cause temperatures to rise</string>
+                    <string>carbon dioxide is making it hotter</string>
+                    <string>carbon dioxide is increasing</string>
+                    <string>co2 is making it hotter</string>
+                    <string>co2 is increasing</string>
+                    <string>temperatures are increasing</string>
+                    <string>fossil fuel use is increasing</string>
+                    <string>fossil fuels create carbon dioxide</string>
+                    <string>fossil fuels create co2</string>
+                    <string>fossil fuels create climate change</string>
+                    <string>renewable energy is cheaper</string>
+                    <string>renewable energy costs less</string>
+                    <string>renewable energy is more expensive</string>
+                    <string>renewable energy costs more</string>
+                    <string>renewable energy is unreliable</string>
+                    <string>fossil fuels are less expensive</string>
+                    <string>fossil fuels are more reliable</string>
+                    <string>fossil fuels are cheaper</string>
+                    <string>cause temperature increase</string>
+                    <string>human effects make climate change</string>
+                    <string>human effects cause temperatures to decrease</string>
+                    <string>carbon dioxide is making it cooler</string>
+                    <string>carbon dioxide is decreasing</string>
+                    <string>co2 is making it cooler</string>
+                    <string>co2 is decreasing</string>
+                    <string>temperatures have to decrease</string>
+                    <string>fossil fuel use is different now</string>
+                    <string>fossil fuels create carbon dioxide gas</string>
+                    <string>fossil fuels create co2 gas</string>
+                    <string>fossil fuels make climate change happen</string>
+                    <string>renewable energy might be less expensive</string>
+                    <string>renewable energy is less costly to the environment</string>
+                    <string>renewable energy can be less costly</string>
+                    <string>renewable energy might be more expensive</string>
+                    <string>renewable energy is more reliable</string>
+                    <string>fossil fuels are more expensive</string>
+                    <string>fossil fuels might be less reliable</string>
+                    <string>fossil fuels are more expensive</string>
+                    <string>fossil fuel</string>
+                    <string>renewable energy</string>
+                    <string>co2</string>
+                    <string>carbon dioxide</string>
+                    <string>human effects</string>
+                    <string>human</string>
+                    <string>fuel</string>
+                    <string>energy</string>
+                    <string>gas</string>
+                    <string>climate</string>
+                    <string>climate change</string>
+                    <string>fossil fuels are more expensive and fossil fuels are more expensive</string>
+                    <string>it&apos;s getting hotter and that causes climate change</string>
+                    <string>human effects make the temperature go up and co2 decrease</string>
+                  </list>
+                </entry>
+              </textColumns>
+              <differentiateTextColumns>false</differentiateTextColumns>
+              <currentAnnotation>class</currentAnnotation>
+              <name>saymore.csv</name>
+              <emptyAnnotationString></emptyAnnotationString>
+              <labelArray>
+                <string>FALSE</string>
+                <string>TRUE</string>
+              </labelArray>
+            </edu.cmu.side.model.data.DocumentList>
+            <null/>
+            <null/>
+            <null/>
+            <null/>
+            <null/>
+          </edu.cmu.side.model.Recipe>
+        </edu.cmu.side.model.Recipe>
+      </entry>
+      <entry>
+        <string>testSet</string>
+        <edu.cmu.side.model.data.DocumentList reference="../../../edu.cmu.side.model.data.DocumentList"/>
+      </entry>
+      <entry>
+        <string>type</string>
+        <string>CV</string>
+      </entry>
+    </tree-map>
+  </edu.cmu.side.model.Recipe>
+</edu.cmu.side.model.Recipe>
