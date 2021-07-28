@@ -31,12 +31,15 @@ services:
     volumes:
     - 'shared:/mysql-files' 
     ports:
+     - "8000:8000"
+     - "8001:8001"
      - "8300:443"
      - "8400:444"
      - "5555:5555"
     volumes:
      - shared:/mysql-files
      - ./agents:/usr/bazaar/agents
+     - ../../LightSide:/usr/bazaar/LightSide
     networks:
     - bazaar-net
 volumes:
