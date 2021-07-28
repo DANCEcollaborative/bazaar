@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="compile" name="lightside-plugins">
     <property environment="env"/>
-    <property name="lightside.location" value="../lightside"/>
+    <property name="lightside.location" value="../LightSide"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
@@ -59,7 +59,7 @@
 	
     <target name="run-tests">
         <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="true" haltonerror="true" haltonfailure="true" showoutput="true" dir="${lightside.location}">
+        <junit fork="yes" printsummary="true" haltonerror="false" haltonfailure="false" showoutput="true" dir="${lightside.location}">
 
             <formatter type="xml"/>
         	
