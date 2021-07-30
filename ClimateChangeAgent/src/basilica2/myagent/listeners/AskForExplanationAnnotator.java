@@ -189,7 +189,7 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 	}
 	
 	
-	protected String topicWordMatch (String text) 
+	protected String topicWordMatchDELETE (String text) 
 	{
 		text = text.toLowerCase(); 
 		for(String can : topicWords)
@@ -198,6 +198,28 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 			if (text.contains(can)) 
 				return text;
 		}
+		return null; 
+	}
+	
+	
+	protected String topicWordMatch (String text) 
+	{
+		System.err.println("AskForExplanationAnnotator, topicWordMatch: enter");
+		text = text.toLowerCase(); 
+		int stringIndex; 
+		for(String can : topicWords)
+		{	
+			can = can.toLowerCase();
+			stringIndex = text.indexOf(can); 
+			// System.err.println("AbstractAccountableActor, topicWordMatch, word = " + can); 
+			// System.err.println("AbstractAccountableActor, topicWordMatch, stringIndex = " + Integer.toString(stringIndex)); 
+			// if (text.contains(can)) 
+			if (stringIndex != -1) {
+				System.err.println("AskForExplanationAnnotator, topicWordMatch: matched, returning: " + text);
+				return text;
+			}
+		}
+		System.err.println("AskForExplanationAnnotator, topicWordMatch: NOT matched, returning null");
 		return null; 
 	}
 	

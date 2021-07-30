@@ -558,13 +558,22 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	
 	protected String topicWordMatch (String text) 
 	{
+		System.err.println("AbstractAccountableActor, topicWordMatch: enter");
 		text = text.toLowerCase(); 
+		int stringIndex; 
 		for(String can : topicWords)
-		{
+		{	
 			can = can.toLowerCase();
-			if (text.contains(can)) 
+			stringIndex = text.indexOf(can); 
+			// System.err.println("AbstractAccountableActor, topicWordMatch, word = " + can); 
+			// System.err.println("AbstractAccountableActor, topicWordMatch, stringIndex = " + Integer.toString(stringIndex)); 
+			// if (text.contains(can)) 
+			if (stringIndex != -1) {
+				System.err.println("AbstractAccountableActor, topicWordMatch: matched, returning: " + text);
 				return text;
+			}
 		}
+		System.err.println("AbstractAccountableActor, topicWordMatch: NOT matched, returning null");
 		return null; 
 	}
 

@@ -92,7 +92,9 @@ public class SayMoreActor extends AbstractAccountableActor
 		}	
 		
 		String match = topicWordMatch(me.getText());
+		System.err.println("SayMoreActor, shouldTriggerOnCandidate, match = " + match); 
 		if (match == null) {
+			System.err.println("SayMoreActor, shouldTriggerOnCandidate, after if test: match == null"); 
 			return false; 
 		}
 
@@ -129,6 +131,26 @@ public class SayMoreActor extends AbstractAccountableActor
 
 		System.err.println("SayMoreActor, shouldAnnotateAsCandidate = true");		
 		return true; 
+	}
+	
+	
+	protected String topicWordMatchDELETE (String text) 
+	{
+		System.err.println("SayMoreActor, topicWordMatch: enter");
+		text = text.toLowerCase(); 
+		int stringIndex; 
+		for(String can : topicWords)
+		{	
+			can = can.toLowerCase();
+			stringIndex = text.indexOf(can); 
+			System.err.println("SayMoreActor, topicWordMatch, word = " + can); 
+			System.err.println("SayMoreActor, topicWordMatch, stringIndex = " + Integer.toString(stringIndex)); 
+			if (text.contains(can)) 
+				System.err.println("SayMoreActor, topicWordMatch: matched, returning: " + text);
+				return text;
+		}
+		System.err.println("SayMoreActor, topicWordMatch: NOT matched, returning null");
+		return null; 
 	}
 
 	
