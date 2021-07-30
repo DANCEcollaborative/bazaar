@@ -89,7 +89,12 @@ public class QuestionActor extends AbstractAccountableActor
 		if ((wordCountMax != -1) && (wordCount > wordCountMax)) {
 			System.err.println("QuestionActor, shouldTriggerOnCandidate = false: wordCount > wordCountMax");
 			return false; 
-		}	
+		}		
+		
+		String match = topicWordMatch(me.getText());
+		if (match == null) {
+			return false; 
+		}
 
 		System.err.println("QuestionActor, shouldTriggerOnCandidate = true");
 		// return ratio < targetRatio;
@@ -100,7 +105,8 @@ public class QuestionActor extends AbstractAccountableActor
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
 		System.err.println("QuestionActor, enter shouldAnnotateAsCandidate"); 
-		Integer wordCount = getWordCount(me.getText());
+		String text = me.getText(); 
+		Integer wordCount = getWordCount(text);
 		if (wordCount < wordCountMin) {
 			System.err.println("QuestionActor, shouldAnnotateAsCandidate = false"); 
 			return false; 
@@ -109,6 +115,12 @@ public class QuestionActor extends AbstractAccountableActor
 			System.err.println("QuestionActor, shouldAnnotateAsCandidate = true"); 
 			return true; 
 		}
+		
+		String match = topicWordMatch(text);
+		if (match == null) {
+			return false; 
+		}
+
 		//System.out.println("ADA: "+shouldAnnotate + " <-- "+me);
 		System.err.println("QuestionActor, shouldAnnotateAsCandidate = true"); 
 		// System.err.println("AgreeDisagreeActor, exit shouldAnnotateAsCandidate"); 

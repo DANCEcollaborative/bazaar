@@ -2,6 +2,7 @@ package basilica2.myagent.listeners;
 import java.io.IOException;
 import java.util.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
@@ -24,6 +25,8 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
     String charset = "UTF-8";
 	String modelPath = "models/";
 	String translationForTrue = "EXPLAIN_CANDIDATE"; 
+	String topicWordPath = "accountable/topic_words.txt";
+	ArrayList<String> topicWords = new ArrayList<String>();
     MultipartUtility mUtil; 
     Hashtable<String, Double> classify_dict = new Hashtable<String, Double>();
 	
@@ -46,6 +49,8 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 		for (int i=0; i<listLength; i+=2) {
 			classify_dict.put(classificationList[i],Double.parseDouble(classificationList[i+1]));
 		}
+		topicWordPath = properties.getProperty("topic_word_file", topicWordPath);
+		loadTopicWords(topicWordPath);
 		
 		try {
 			ProcessBuilder pb = new ProcessBuilder(predictionCommand,port,modelNickname + ":" + modelPath + modelName);
@@ -88,14 +93,14 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 	{
 		MessageEvent me = (MessageEvent) event;
 		System.out.println(me);
-
 		String text = me.getText();
-		String label = annotateText(text);
-
-		if (label != null)
-		{
-			me.addAnnotations(label);
-			
+		String match = topicWordMatch(text);
+		if (match != null) {
+			String label = annotateText(text);
+			if (label != null)
+			{
+				me.addAnnotations(label);				
+			}			
 		}
 	}
 
@@ -161,6 +166,41 @@ public class AskForExplanationAnnotator extends BasilicaAdapter
 		}
 		return annotation.toString(); 	
 	}
+
+	protected void loadTopicWords(String topicWordPath)
+	{
+		File topicWordFile = new File(topicWordPath);
+		try
+		{
+			Scanner s = new Scanner(topicWordFile);
+			// String statement;    				   // TEMPORARY
+			while (s.hasNextLine())
+			{
+				topicWords.add(s.nextLine());   
+				// statement = s.nextLine();     		// TEMPORARY
+				// candidates.add(statement);      	// TEMPORARY
+				// log(Logger.LOG_NORMAL, "expert statement: " + statement);    	 // TEMPORARY
+			}
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	protected String topicWordMatch (String text) 
+	{
+		text = text.toLowerCase(); 
+		for(String can : topicWords)
+		{
+			can = can.toLowerCase();
+			if (text.contains(can)) 
+				return text;
+		}
+		return null; 
+	}
+	
 
 	/**
 	 * @return the classes of events that this Preprocessor cares about

@@ -90,6 +90,11 @@ public class SayMoreActor extends AbstractAccountableActor
 			System.err.println("SayMoreActor, shouldTriggerOnCandidate = false: wordCount > wordCountMax");
 			return false; 
 		}	
+		
+		String match = topicWordMatch(me.getText());
+		if (match == null) {
+			return false; 
+		}
 
 		System.err.println("SayMoreActor, shouldTriggerOnCandidate = true");
 		// return ratio < targetRatio;
@@ -99,8 +104,9 @@ public class SayMoreActor extends AbstractAccountableActor
 	@Override
 	public boolean shouldAnnotateAsCandidate(MessageEvent me)
 	{
+		String text = me.getText(); 
 		// DO NOT ANNOTATE IF WORD COUNT IS TOO LOW OR TOO HIGH
-		Integer wordCount = getWordCount(me.getText()); 
+		Integer wordCount = getWordCount(text); 
 		if (wordCount < wordCountMin) {
 			System.err.println("SayMoreActor, shouldAnnotateAsCandidate = false: wordCount < wordCountMin");
 			return false; 
@@ -113,6 +119,11 @@ public class SayMoreActor extends AbstractAccountableActor
 		// DO NOT ANNOTATE IF QUESTION
 		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
 			System.err.println("SayMoreActor, shouldAnnotateAsCandidate = false: this is a question"); 
+			return false; 
+		}
+		
+		String match = topicWordMatch(text);
+		if (match == null) {
 			return false; 
 		}
 

@@ -55,6 +55,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	protected int wordCountMax = -1; 
 	protected boolean phraseExactMatch = false; 
 	protected boolean promptAlways = false; 
+	protected String topicWordPath = "accountable/topic_words.txt"; 
 
 	protected String promptLabel;
 	protected String candidateLabel;
@@ -74,6 +75,7 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 
 	protected PromptTable accountablePrompts;
 	protected ArrayList<String> candidates = new ArrayList<String>();
+	protected ArrayList<String> topicWords = new ArrayList<String>();
 	protected SynonymSentenceMatcher sentenceMatcher;
 	protected Map<String, String> slots = new HashMap<String, String>();
 
@@ -100,7 +102,9 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			String dictionaryPath = actorProperties.getProperty("synonym_file", "accountable/synonyms.txt");
 			String contentDictionaryPath = actorProperties.getProperty("content_synonym_file", "accountable/content_synonyms.txt");
 			String stopwordsPath = actorProperties.getProperty("stopwords_file", "stopwords.txt");
+			topicWordPath = properties.getProperty("topic_word_file", topicWordPath);
 			loadExpertStatements(expertPath);
+			loadTopicWords(topicWordPath);
 
 			accountablePrompts = new PromptTable(properties.getProperty("accountable_prompt_file", "accountable/accountable_prompts.xml"));
 			sentenceMatcher = new SynonymSentenceMatcher(contentDictionaryPath, stopwordsPath);
@@ -157,6 +161,31 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 			e.printStackTrace();
 		}
 	}
+	
+
+
+	protected void loadTopicWords(String topicWordPath)
+	{
+		File topicWordFile = new File(topicWordPath);
+		try
+		{
+			Scanner s = new Scanner(topicWordFile);
+			// String statement;    				   // TEMPORARY
+			while (s.hasNextLine())
+			{
+				topicWords.add(s.nextLine());   
+				// statement = s.nextLine();     		// TEMPORARY
+				// candidates.add(statement);      	// TEMPORARY
+				// log(Logger.LOG_NORMAL, "expert statement: " + statement);    	 // TEMPORARY
+			}
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	@Override
 	public void processEvent(InputCoordinator source, Event event)
@@ -518,6 +547,19 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		text = text.toLowerCase(); 
 		for(String can : candidates)
+		{
+			can = can.toLowerCase();
+			if (text.contains(can)) 
+				return text;
+		}
+		return null; 
+	}
+	
+	
+	protected String topicWordMatch (String text) 
+	{
+		text = text.toLowerCase(); 
+		for(String can : topicWords)
 		{
 			can = can.toLowerCase();
 			if (text.contains(can)) 
