@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h2>Test send and receive with socket server</h2>
+    <h3>Type a message and click "Submit".</h3>
+    <form>
+      <input autofocus id="input" />
+      <input type="submit" value="Submit" />
+    </form>
+    <p id="interjection"></p>
+    <p id="outcome"></p>
+    <script src="/Users/rcmurray/git/rcmurray/emoji-analysis/node_modules/object-hash/dist/object_hash.js"></script>
+    <script src="/Users/rcmurray/git/rcmurray/emoji-analysis/node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script>
+      const endpoint = 'https://bazaar.lti.cs.cmu.edu';		
+      const transports = ['websocket', 'polling'];
+      const token = objectHash(performance.now());
+      const path = "/bazsocket/";
+      // const clientID = "ClientServer";
+      // const agentName = "climatechange";		
+      // const roomName = "Room1"; 			
+      // const userID = "1";					
+      // const username = "Joe";
+      
+      const auth = {
+        token,
+        agent: {
+        	name: 'climatechange',
+        	configuration: {
+        		clientID: 'ClientServer'
+        	}
+        },
+        chat: {
+        	id: 'Room5'
+        },
+        user: {
+        	id: 1,
+        	name: 'Joe'
+        }
+      };
+      console.log('token', token);
+      console.log('endpoint', endpoint);
+
+      const socket = io(endpoint, {
+        transports,
+        path,
+        auth
+      });;
+
+      const form = document.querySelector('form');
+      const input = document.getElementById('input');
+      const outcome = document.getElementById('outcome');
+      const submit = document.querySelector('input[type=submit]');
+      const interjection = document.getElementById('interjection');
+
+
+      const onSubmit = () => {
+        const value = input.value;
+        socket.emit('sendchat', value); 
+      };
+
+      form.onsubmit = event => {
+        onSubmit();
+        return false;
+      };
+      
+    socket.on('updatechat', function (username, data) 
+	{
+        // appendMessage(new Date(), username, data);
+        interjection.innerHTML = data;
+    });
+    </script>
+  </body>
+</html>
