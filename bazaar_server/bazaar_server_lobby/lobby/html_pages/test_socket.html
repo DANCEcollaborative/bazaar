@@ -9,7 +9,7 @@
       <input autofocus id="input" />
       <input type="submit" value="Submit" />
     </form>
-    <p id="interjection"></p>
+    <p id="received"></p>
     <p id="outcome"></p>
     <script src="/Users/rcmurray/git/rcmurray/emoji-analysis/node_modules/object-hash/dist/object_hash.js"></script>
     <script src="/Users/rcmurray/git/rcmurray/emoji-analysis/node_modules/socket.io/client-dist/socket.io.js"></script>
@@ -20,7 +20,7 @@
       const path = "/bazsocket/";
       // const clientID = "ClientServer";
       // const agentName = "climatechange";		
-      // const roomName = "Room1"; 			
+      // const roomName = "Room10"; 			
       // const userID = "1";					
       // const username = "Joe";
       
@@ -33,7 +33,7 @@
         	}
         },
         chat: {
-        	id: 'Room5'
+        	id: 'Room11'
         },
         user: {
         	id: 1,
@@ -53,7 +53,7 @@
       const input = document.getElementById('input');
       const outcome = document.getElementById('outcome');
       const submit = document.querySelector('input[type=submit]');
-      const interjection = document.getElementById('interjection');
+      const received = document.getElementById('received');
 
 
       const onSubmit = () => {
@@ -66,10 +66,10 @@
         return false;
       };
       
-    socket.on('updatechat', function (username, data) 
+    socket.on('updatechat', function (username, message) 
 	{
-        // appendMessage(new Date(), username, data);
-        interjection.innerHTML = data;
+        // appendMessage(new Date(), username, message);
+        received.innerHTML = message;
     });
     </script>
   </body>
