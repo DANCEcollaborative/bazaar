@@ -1405,7 +1405,6 @@ io.sockets.on('connection', async (socket) => {
 	console.log("clientID = " + clientID);
 	console.log("agent = " + agent);
 	console.log("roomName = " + roomName);
-	console.log("roomid = " + roomid);
 	console.log("userID = " + userID);
 	console.log("username = " + username); 
 				
