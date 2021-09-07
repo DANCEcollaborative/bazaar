@@ -1400,14 +1400,14 @@ io.sockets.on('connection', async (socket) => {
 		  username
 		} = translateClientServerAuthToBazaar(socket.handshake.auth);
 		  
-	//console.log("socket ID: " + socket.id);
-	//console.log("token = " + token);
-	//console.log("clientID = " + clientID);
-	//console.log("agent = " + agent);
-	//console.log("roomName = " + roomName);
-	//console.log("roomid = " + roomid);
-	//console.log("userID = " + userID);
-	//console.log("username = " + username); 
+	console.log("socket ID: " + socket.id);
+	console.log("token = " + token);
+	console.log("clientID = " + clientID);
+	console.log("agent = " + agent);
+	console.log("roomName = " + roomName);
+	console.log("roomid = " + roomid);
+	console.log("userID = " + userID);
+	console.log("username = " + username); 
 				
 	socket.clientID = clientID;    		
 	socket.agent = agent;  				// agent ==> roomName elsewhere in this file
