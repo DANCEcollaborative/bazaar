@@ -103,7 +103,7 @@ class MatchStepHandler implements StepHandler
 			state.setRoles(roles);
 		}
  
-		// Get the IDs of the students currentlyo present
+		// Get the IDs of the students currently present
 		String[] studentIds = state.getStudentIds(); 
 		int numStudents = studentIds.length; 
 		if (maxUsersToMatch > numStudents) {
