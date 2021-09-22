@@ -49,8 +49,10 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
     - Make sure you are using Java 1.8 (aka Java 8) for the 'ant build' steps below:
       - java -version
     - ant build
+      - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
     - cd ../Genesis-Plugins
     - ant build
+      - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
 
 # Detailed Instructions for Installing in Eclipse
 (For other IDEs, use an equivalent procedure)
