@@ -46,18 +46,46 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
   - Commands:
     - git clone https://github.com/DANCEcollaborative/bazaar.git
     - cd bazaar/LightSide
+    - Make sure you are using Java 1.8 (aka Java 8) for the 'ant build' steps below:
+      - java -version
     - ant build
     - cd ../Genesis-Plugins
     - ant build
 
-# Install in Eclipse
+# Detailed Instructions for Installing in Eclipse
 (For other IDEs, use an equivalent procedure)
-  - From Welcome window, select "Import existing projects."
-  - Select root directory: Select the directory into which installed this repository -- e.g., 'bazaar'.
-  - Select "Search for nested projects."
-  - Unselect project 'lightside'.
-    - Explanation (optional): The LightSide project is imported as a subtree directly from the [LightSideWorkBench/LightSide repo](https://github.com/LightSideWorkbench/LightSide), where it has a .project file for use as a stand-alone project. Within Bazaar, the LightSide code needs to be referenced within the Genesis-Plugins project (that's part of what the 'ant build's were for during repository installation) rather than as a stand-alone project.
-  - Click "Finish."
+  - Using Eclipse IDE for Java Developers, version 2021-06
+  - Select from the File menu "Open Projects from File System"
+     - Click "Directory"
+          - Select the just installed ".../bazaar/" directory
+          - Click "Open"
+     - Check "Search for nested projects"
+     - Check "Detect and configure project natures"
+     - Unselect project 'bazaar/Lightside'
+	 - Click "Finish"
+	 - Several errors will be displayed
+  - Make sure your Eclipse is set to use Java 1.8 as the default JRE.
+       - Select Eclipse > Preferences
+       - Select Java > Installed JREs
+            - If more than one JRE is listed, check the box next to JDK 1.8 (a.k.a. JDK 8)
+            - Click "Apply"
+       - Select Java > Compiler
+            - Set Compiler Compliance Level to 1.8
+            - Click "Apply and Close"
+       - If you had to make changes, you'll get a dialog box asking "... Rebuild to apply these changes?"
+            - Click "Yes"
+  - Select from the File menu, New > Java Project
+      - Uncheck "Use default location"
+      - Click "Browse"
+      - Within the just installed ".../bazaar/" directory, select "LightSide"
+      - Click "Open"
+      - Click "Finish"
+      - A dialog box with "Marketplace solutions available" will be displayed. Click "Cancel".
+  - Select from the Project menu, Clean
+      - Check "Clean all projects"
+      - Click "Clean"
+      - 5 errors will be displayed. These can be ignored.
+        - Explanation (optional): The LightSide and Genesis-Plugins project are imported as subtrees directly from the repos [LightSideWorkbench/LightSide](https://github.com/LightSideWorkbench/LightSide) and [LightSideWorkbench/Genesis-Plugins](https://github.com/LightSideWorkbench/Genesis-Plugins). Within Bazaar, the LightSide code needs to be referenced but it is not a stand-alone package.
 
 # Install and run the canonical Docker version in an IDE
 - Installing
