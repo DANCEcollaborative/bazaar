@@ -1,0 +1,199 @@
+<entry timestamp="2021-10-04#17:32:15" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-10-04#17:32:15" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-10-04#17:32:15" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-10-04#17:32:16" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.agents.listeners.EtherpadListener, class basilica2.social.listeners.ActivityTracker, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.myagent.listeners.QuestionActor, class basilica2.myagent.listeners.SayMoreActor, class basilica2.myagent.listeners.AgreeDisagreeAnnotator, class basilica2.myagent.listeners.AskForExplanationAnnotator, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.SocialController]</entry>
+<entry timestamp="2021-10-04#17:32:16" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.myagent.listeners.QuestionActor, class basilica2.myagent.listeners.SayMoreActor, class basilica2.myagent.listeners.AskForExplanationActor, class basilica2.myagent.listeners.AgreeDisagreeActor, class basilica2.tutor.listeners.TutorActor, class basilica2.agents.listeners.PromptActor, class basilica2.social.listeners.SocialController]</entry>
+<entry timestamp="2021-10-04#17:32:17" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-10-04#17:32:17" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-10-04#17:32:18" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-10-04#17:32:18" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-10-04#17:32:18" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-10-04#17:32:18" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-10-04#17:32:18" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-10-04#17:32:18" user="AgentFactory" level="NORMAL">Agent build. Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-10-04#17:32:18" user="NewAgentRunner" level="NORMAL">Adding agent Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-10-04#17:32:18" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-10-04#17:32:18" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-10-04#17:32:18" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-10-04#17:32:19" user="MatchStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-10-04#17:32:19" user="RotateStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-10-04#17:32:19" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-10-04#17:32:19" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-10-04#17:32:19" user="NewAgentRunner" level="NORMAL">Agent added Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-10-04#17:32:19" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-10-04#17:32:19" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-10-04#17:32:19" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-10-04#17:32:19" user="Step" level="NORMAL">Handlers for GREET_AND_WAIT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7bf5087c]</entry>
+<entry timestamp="2021-10-04#17:32:19" user="PromptStepHandler" level="NORMAL">starting 1.6 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:32:19" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-10-04#17:32:19" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 3</entry>
+<entry timestamp="2021-10-04#17:32:20" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Hi! We will start soon. GREET_AND_WAIT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:32:21" user="PromptStepHandler" level="NORMAL">ending 1.6 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:32:21" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>
+<entry timestamp="2021-10-04#17:32:21" user="PlanExecutor" level="NORMAL">Firing Stage 'stageA'</entry>
+<entry timestamp="2021-10-04#17:32:21" user="Step" level="NORMAL">Handlers for PROMPT_STEP_INTRODUCTION(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7bf5087c]</entry>
+<entry timestamp="2021-10-04#17:32:21" user="PromptStepHandler" level="NORMAL">starting 16.6 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:32:22" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. PROMPT_STEP_INTRODUCTION.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:32:37" user="PromptStepHandler" level="NORMAL">ending 16.6 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:32:37" user="Step" level="NORMAL">Handlers for Prompt_Step_A2(match): [basilica2.agents.listeners.plan.MatchStepHandler@5f3eeab0]</entry>
+<entry timestamp="2021-10-04#17:32:37" user="MatchStepHandler" level="NORMAL">adjustedPromptKey: PROMPT_STEP_MATCH_3</entry>
+<entry timestamp="2021-10-04#17:32:37" user="MatchStepHandler" level="NORMAL">adjustedPromptText: We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|001, your role is driver. 002, you will be the navigator, and 003 will be the researcher.</entry>
+<entry timestamp="2021-10-04#17:32:37" user="MatchStepHandler" level="NORMAL">numStudents: 3</entry>
+<entry timestamp="2021-10-04#17:32:37" user="MatchStepHandler" level="NORMAL">starting 10.899999999999999 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:32:40" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|001, your role is driver. 002, you will be the navigator, and 003 will be the researcher. PROMPT_STEP_MATCH.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:32:48" user="MatchStepHandler" level="NORMAL">ending 10.899999999999999 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:32:48" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for Prompt_Step_A2</entry>
+<entry timestamp="2021-10-04#17:32:58" user="PlanExecutor" level="NORMAL">PLAN: current step done: Prompt_Step_A2</entry>
+<entry timestamp="2021-10-04#17:32:58" user="Step" level="NORMAL">Handlers for Prompt_Step_Rotate(rotate): [basilica2.agents.listeners.plan.RotateStepHandler@166d21c2]</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">role: driver</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">Sid: 002</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">role: navigator</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">Sid: 001</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 001:navigator</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 002:driver</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 003:researcher</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">numStudents: 3</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">roles.length: 4</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="FATAL">studentIds.length: 3</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">adjustedPromptKey: PROMPT_STEP_ROTATE_3</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">adjustedPromptText: Let's change your roles.|001, you will be navigator. 002, you will be driver. 003, you will be researcher.</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">numStudents: 3</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">out student1: 001</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">out student2: 002</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">out roles0: driver</entry>
+<entry timestamp="2021-10-04#17:32:58" user="RotateStepHandler" level="NORMAL">starting 5.499999999999999 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:33:00" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Let's change your roles.|001, you will be navigator. 002, you will be driver. 003, you will be researcher. PROMPT_STEP_ROTATE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:33:04" user="RotateStepHandler" level="NORMAL">ending 5.499999999999999 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:33:04" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:33:14" user="PlanExecutor" level="NORMAL">PLAN: current step done: Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:33:14" user="Step" level="NORMAL">Handlers for Prompt_Step_Rotate(rotate): [basilica2.agents.listeners.plan.RotateStepHandler@166d21c2]</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">role: driver</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">Sid: 003</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">role: researcher</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">Sid: 001</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 001:researcher</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 002:navigator</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 003:driver</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">numStudents: 3</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">roles.length: 4</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="FATAL">studentIds.length: 3</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">adjustedPromptKey: PROMPT_STEP_ROTATE_3</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">adjustedPromptText: Let's change your roles.|001, you will be researcher. 002, you will be navigator. 003, you will be driver.</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">numStudents: 3</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">out student1: 001</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">out student2: 002</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">out roles0: driver</entry>
+<entry timestamp="2021-10-04#17:33:14" user="RotateStepHandler" level="NORMAL">starting 5.499999999999999 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:33:14" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Let's change your roles.|001, you will be researcher. 002, you will be navigator. 003, you will be driver. PROMPT_STEP_ROTATE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:33:19" user="RotateStepHandler" level="NORMAL">ending 5.499999999999999 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:33:19" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:33:29" user="PlanExecutor" level="NORMAL">PLAN: current step done: Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:33:29" user="Step" level="NORMAL">Handlers for PROMPT_STEP_TEMPERATURE_CHANGE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7bf5087c]</entry>
+<entry timestamp="2021-10-04#17:33:29" user="PromptStepHandler" level="NORMAL">starting 18.7 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:33:30" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: First, click on the words "Temperature Change Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet been assigned a role, ask them to lead this discussion by sharing their thoughts and asking the team about their ideas. What does the evidence tell you? Does it lead to further questions? PROMPT_STEP_TEMPERATURE_CHANGE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:33:48" user="PromptStepHandler" level="NORMAL">ending 18.7 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:33:48" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_TEMPERATURE_CHANGE</entry>
+<entry timestamp="2021-10-04#17:33:48" user="Step" level="NORMAL">Handlers for WAIT_STEP_TEMPERATURE_CHANGE(gated): [basilica2.agents.listeners.plan.GatedStepHandler@73d86c02]</entry>
+<entry timestamp="2021-10-04#17:33:48" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-10-04#17:33:48" user="Step" level="NORMAL">Handlers for WAIT_STEP_TEMPERATURE_CHANGE(listen): [basilica2.accountable.listeners.ListenStepHandler@c443f79]</entry>
+<entry timestamp="2021-10-04#17:33:50" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished discussing the temperature change data. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-10-04#17:33:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 3</entry>
+<entry timestamp="2021-10-04#17:33:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 3</entry>
+<entry timestamp="2021-10-04#17:33:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 3</entry>
+<entry timestamp="2021-10-04#17:33:59" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 4</entry>
+<entry timestamp="2021-10-04#17:33:59" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 4</entry>
+<entry timestamp="2021-10-04#17:34:04" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Hang on until your team is ready, 002. to:002+ACKNOWLEDGE+PRIVATE_MESSAGE</entry>
+<entry timestamp="2021-10-04#17:34:08" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Okay, 004. Make sure your team agrees. ACKNOWLEDGE+PRIVATE_MESSAGE+to:004</entry>
+<entry timestamp="2021-10-04#17:34:12" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Hang on until your team is ready, 003. ACKNOWLEDGE+PRIVATE_MESSAGE+to:003</entry>
+<entry timestamp="2021-10-04#17:34:15" user="Step" level="NORMAL">Handlers for Prompt_Step_Rotate(rotate): [basilica2.agents.listeners.plan.RotateStepHandler@166d21c2]</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">role: driver</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">Sid: 004</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">role: navigator</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">Sid: 003</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">role: researcher</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">Sid: 002</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">role: program manager</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">Sid: 001</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 001:program manager</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 002:researcher</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 003:navigator</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">roleAssignment[0]: 004:driver</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">numStudents: 4</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">roles.length: 4</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="FATAL">studentIds.length: 4</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">adjustedPromptKey: PROMPT_STEP_ROTATE_4</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">adjustedPromptText: Let's change your roles.|001, you will be program manager. 002, you will be researcher. 003, you will be navigator. And 004, you are the driver.</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">numStudents: 4</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">out student1: 001</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">out student2: 002</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">out roles0: driver</entry>
+<entry timestamp="2021-10-04#17:34:15" user="RotateStepHandler" level="NORMAL">starting 7.6 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:34:16" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Let's change your roles.|001, you will be program manager. 002, you will be researcher. 003, you will be navigator. And 004, you are the driver. PROMPT_STEP_ROTATE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:34:22" user="" level="NORMAL">REJECTED!Message from Clem the Climate Policy Wonk: Moving on... ALL_READY</entry>
+<entry timestamp="2021-10-04#17:34:23" user="RotateStepHandler" level="NORMAL">ending 7.6 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:34:23" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:34:24" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-10-04#17:34:33" user="PlanExecutor" level="NORMAL">PLAN: current step done: Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:34:33" user="Step" level="NORMAL">Handlers for PROMPT_STEP_CARBON_DIOXIDE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7bf5087c]</entry>
+<entry timestamp="2021-10-04#17:34:33" user="PromptStepHandler" level="NORMAL">starting 15.999999999999998 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:34:34" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Next, click on the words "Carbon Dioxide Data" at the upper left. Examine the tables and take about 5 minutes to discuss as a team.|If someone has not yet been assigned a role, ask them to take the lead this time. Is the evidence convincing? Could there be other causes for the effects? PROMPT_STEP_CARBON_DIOXIDE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:34:49" user="PromptStepHandler" level="NORMAL">ending 15.999999999999998 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:34:49" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_CARBON_DIOXIDE</entry>
+<entry timestamp="2021-10-04#17:34:49" user="Step" level="NORMAL">Handlers for WAIT_STEP_CARBON_DIOXIDE(gated): [basilica2.agents.listeners.plan.GatedStepHandler@73d86c02]</entry>
+<entry timestamp="2021-10-04#17:34:49" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-10-04#17:34:49" user="Step" level="NORMAL">Handlers for WAIT_STEP_CARBON_DIOXIDE(listen): [basilica2.accountable.listeners.ListenStepHandler@c443f79]</entry>
+<entry timestamp="2021-10-04#17:34:50" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-10-04#17:34:52" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished discussing the carbon dioxide data. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-10-04#17:34:57" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 4</entry>
+<entry timestamp="2021-10-04#17:34:57" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 4</entry>
+<entry timestamp="2021-10-04#17:34:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 4</entry>
+<entry timestamp="2021-10-04#17:34:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 4</entry>
+<entry timestamp="2021-10-04#17:34:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 5</entry>
+<entry timestamp="2021-10-04#17:34:58" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 5</entry>
+<entry timestamp="2021-10-04#17:35:06" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Thanks, 004. Hang on until your team is ready... ACKNOWLEDGE+PRIVATE_MESSAGE+to:004</entry>
+<entry timestamp="2021-10-04#17:35:10" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Thanks, 005. Hang on until your team is ready... ACKNOWLEDGE+PRIVATE_MESSAGE+to:005</entry>
+<entry timestamp="2021-10-04#17:35:12" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Thanks, 002. Make sure your team is in agreement. to:002+ACKNOWLEDGE+PRIVATE_MESSAGE</entry>
+<entry timestamp="2021-10-04#17:35:18" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Thanks, 003. Make sure your team is in agreement. ACKNOWLEDGE+PRIVATE_MESSAGE+to:003</entry>
+<entry timestamp="2021-10-04#17:35:20" user="Step" level="NORMAL">Handlers for Prompt_Step_Rotate(rotate): [basilica2.agents.listeners.plan.RotateStepHandler@166d21c2]</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">role: driver</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">Sid: 005</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">role: navigator</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">Sid: 004</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">role: program manager</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">Sid: 002</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">numStudents: 5</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">roles.length: 4</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="FATAL">studentIds.length: 5</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">adjustedPromptKey: PROMPT_STEP_ROTATE_MAX</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">adjustedPromptText: Let's change your roles.|001, 002, and 004 will be the researcher, program manager, and navigator. The rest are driver</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">numStudents: 5</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">out student1: 001</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">out student2: 002</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">out roles0: driver</entry>
+<entry timestamp="2021-10-04#17:35:20" user="RotateStepHandler" level="NORMAL">starting 5.8 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:35:20" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Let's change your roles.|001, 002, and 004 will be the researcher, program manager, and navigator. The rest are driver PROMPT_STEP_ROTATE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:35:26" user="RotateStepHandler" level="NORMAL">ending 5.8 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:35:26" user="PlanExecutor" level="NORMAL">starting 10 second delay timer for Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:35:26" user="" level="NORMAL">REJECTED!Message from Clem the Climate Policy Wonk: Okay, let's move on... ALL_READY</entry>
+<entry timestamp="2021-10-04#17:35:26" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-10-04#17:35:36" user="PlanExecutor" level="NORMAL">PLAN: current step done: Prompt_Step_Rotate</entry>
+<entry timestamp="2021-10-04#17:35:36" user="Step" level="NORMAL">Handlers for PROMPT_STEP_FOSSIL_FUELS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@7bf5087c]</entry>
+<entry timestamp="2021-10-04#17:35:36" user="PromptStepHandler" level="NORMAL">starting 14.2 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:35:36" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Now, click on the words "Fossil Fuels Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet led a discussion, it's their turn to take the lead. How does this data relate to climate change? PROMPT_STEP_FOSSIL_FUELS.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-10-04#17:35:50" user="PromptStepHandler" level="NORMAL">ending 14.2 second prompt delay</entry>
+<entry timestamp="2021-10-04#17:35:50" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_FOSSIL_FUELS</entry>
+<entry timestamp="2021-10-04#17:35:50" user="Step" level="NORMAL">Handlers for WAIT_STEP_FOSSIL_FUELS(gated): [basilica2.agents.listeners.plan.GatedStepHandler@73d86c02]</entry>
+<entry timestamp="2021-10-04#17:35:50" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-10-04#17:35:50" user="Step" level="NORMAL">Handlers for WAIT_STEP_FOSSIL_FUELS(listen): [basilica2.accountable.listeners.ListenStepHandler@c443f79]</entry>
+<entry timestamp="2021-10-04#17:35:52" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-10-04#17:35:55" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished discussing the fossil fuels data. WAIT_FOR_CHECKIN</entry>
