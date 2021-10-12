@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+
+  
+    <dialog concept="GET_A_HUG" scenario="scenario-hugs">
+    	<trigger annotation="HUG"/>
+        <intro>Would you like a hug?</intro>
+        <accept annotation="AFFIRMATIVE">Great!</accept>
+        <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
+    </dialog>
+     
+</dialogs>

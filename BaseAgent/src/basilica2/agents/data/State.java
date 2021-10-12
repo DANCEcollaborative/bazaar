@@ -34,10 +34,13 @@ package basilica2.agents.data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import basilica2.agents.events.PoseEvent.poseEventType;
+import java.util.Set;
 
+import basilica2.agents.events.PoseEvent.poseEventType;
+import java.util.Collections;
 /**
  * 
  * @author rohitk
@@ -51,6 +54,7 @@ public class State
 		public String chatId;
 		public String name;
 		public String role = null; 
+		public Set previousRoles = new HashSet();
 		public int activityMetric = 0; 
 		public boolean isPresent;
 		public String speech;
@@ -274,6 +278,7 @@ public class State
 			if (sid.startsWith(students.get(i).chatId))
 			{
 				students.get(i).role = role;
+				students.get(i).previousRoles.add(role);
 			}
 		}
 	}
@@ -289,7 +294,20 @@ public class State
 		}
 		return sid; 
 	}
-
+	
+	public Set getStudentPreviousRoles(String sid)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			if (sid.startsWith(students.get(i).chatId))
+			{
+				return students.get(i).previousRoles; 
+			}
+		}
+		return Collections.emptySet();
+	}
+	
+	
 	public String getRolesString()
 	{
 		String roleString = "";
