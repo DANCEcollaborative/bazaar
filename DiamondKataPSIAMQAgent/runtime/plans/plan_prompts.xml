@@ -37,8 +37,12 @@
         <text>Today, we'll practice pair programming as you collaborate on the Diamond Kata exercise. We'll use test-driven development.</text>
     </prompt>
   
-    <prompt strategy="task" id="ASSIGN_ROLES">
-        <text>Driver::For the first test case, why don't you start as the Driver, Eric?|Navigator::Joe, why don't you start as the Navigator?</text>
+    <prompt strategy="task" id="ASSIGN_ROLES_1">
+        <text>Driver::For the first test case, [NAME1], start as the Driver. If someone joins you later, they will be the Navigator.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="ASSIGN_ROLES_2">
+        <text>Driver::For the first test case, why don't you start as the [ROLE1], [NAME1]?|Navigator::[NAME2], why don't you start as the [ROLE2]?</text>
     </prompt>
   
     <prompt strategy="task" id="ASSIGN_ROLES_MULTI">
