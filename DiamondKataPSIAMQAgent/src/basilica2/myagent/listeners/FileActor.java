@@ -91,8 +91,8 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestB(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestB()"); 
-		String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
-		
+		// String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
+		String prompt = "Now that you've passed the next test case, it's time to switch the Driver and Navigator roles. Swap your positions as well.";  		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, newMe, 1.0, 5, 5);
@@ -108,7 +108,8 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestC(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestC()"); 
-		String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator.";  
+		// String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
+		String prompt = "Now that you've passed the next test case, it's time to switch the Driver and Navigator roles. Swap your positions as well.";  		
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);
@@ -125,7 +126,8 @@ public class FileActor extends BasilicaAdapter
 	
 	private void respondTestD(InputCoordinator source, FileEvent event) {
 		System.err.println("FileActor: entering respondTestD()"); 
-		String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
+		// String prompt = "It's time to switch the Driver and Navigator roles.|Navigator::Why don't you be the Driver, Joe?|Driver::Eric, you'll be the Navigator."; 
+		String prompt = "Now that you've passed the next test case, it's time to switch the Driver and Navigator roles. Swap your positions as well.";  		
 		
 		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), prompt);
 		// newMe.setDestinationUser(identity1 + withinModeDelim + identity2);

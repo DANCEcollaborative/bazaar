@@ -46,7 +46,7 @@ public class MatchStepHandler implements StepHandler
 	public MatchStepHandler()
 	{
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
-		String promptsPath = properties.getProperty("prompt_file","plan/plan_prompts.xml");
+		String promptsPath = properties.getProperty("prompt_file","plans/plan_prompts.xml");
 		prompter = new PromptTable(promptsPath);
 
 		try
