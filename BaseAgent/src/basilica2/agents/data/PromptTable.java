@@ -184,6 +184,40 @@ public class PromptTable
 		}
 	}
 
+	// Version of match with a default role
+	public String match(String promptName, String[] studentIds, String[] roles, String defaultRole, int maxMatches, State state)
+	{
+
+		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
+		if (promptTexts != null)
+		{
+			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
+			String promptText = promptTexts.get(promptIndex);
+			if (studentIds != null && roles != null)			// Replace all [NAME#] and [ROLE#] in prompt with names and roles
+			{
+				String nameKey, roleKey, name, role; 
+				for (int i = 0; i < maxMatches; i++)
+				{
+					nameKey = "[NAME" + Integer.toString(i+1) + "]"; 
+					name = state.getStudentName(studentIds[i]);					
+					roleKey = "[ROLE" + Integer.toString(i+1) + "]"; 
+					role = roles[i];
+					if(name != null && role != null)
+						promptText = promptText.replace(nameKey, name);
+						promptText = promptText.replace(roleKey, role);
+						state.setStudentRole(studentIds[i], roles[i]);
+				}
+				promptText = promptText.replace("[DEFAULTROLE]", defaultRole);
+			}
+			return promptText;
+
+		}
+		else
+		{
+			return promptName;
+		}
+	}
+
 	public Set<String> keySet()
 	{
 		return prompts.keySet();

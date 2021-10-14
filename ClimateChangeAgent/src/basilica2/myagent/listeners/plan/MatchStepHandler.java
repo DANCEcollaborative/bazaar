@@ -1,7 +1,5 @@
 package basilica2.myagent.listeners.plan;
 
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,14 +14,14 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.components.StateMemory;
-import basilica2.myagent.data.PromptTable;
+import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.util.PropertiesLoader;
 import basilica2.agents.listeners.plan.StepHandler;
-import basilica2.agents.listeners.plan.Step;
 import basilica2.agents.listeners.plan.PlanExecutor;
+import basilica2.agents.listeners.plan.Step;
 
 public class MatchStepHandler implements StepHandler
 {
@@ -32,10 +30,9 @@ public class MatchStepHandler implements StepHandler
 	private double constantDelay = 0.1;
 	private boolean rateLimited = true;
 	private double defaultPromptPriority = OutputCoordinator.HIGH_PRIORITY;
-	private int minUsersToMatch = 2;
-	private String defaultRole = new String(); 
+	private int maxUsersToMatch = 2;
 	private String[] roles; 
-	private boolean matchMultipleToDefault = true;
+	private List<String> roleList = new ArrayList<String>(); 
 	private int numRoles; 
 
 	public static String getStepType()
@@ -71,19 +68,23 @@ public class MatchStepHandler implements StepHandler
 		try
 		{
 			roles = properties.getProperty("roles", "").split("[\\s,]+");
-			defaultRole = properties.getProperty("default_role", "");
-			matchMultipleToDefault = Boolean.parseBoolean(properties.getProperty("match_multiple_to_default", "true"));
 		}
 		catch (Exception e){}
 		numRoles = roles.length; 
 		for (int i=0; i< numRoles; i++) {
 			roles[i] = roles[i].replace("_", " "); 
 		}
+		roleList = Arrays.asList(roles);
+		Collections.shuffle(roleList);
+		roleList.toArray(roles);
 		try
 		{
-			minUsersToMatch = Integer.parseInt(properties.getProperty("min_users_to_match",""+minUsersToMatch));
+			maxUsersToMatch = Integer.parseInt(properties.getProperty("max_users_to_match",""+maxUsersToMatch));
 		}
-		catch (Exception e){}
+		catch (Exception e){}	
+		if (maxUsersToMatch > numRoles) {
+			maxUsersToMatch = numRoles; 
+		}
 		
 		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
 		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
@@ -97,7 +98,6 @@ public class MatchStepHandler implements StepHandler
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "Executing MatchStepHandler");
 		State state = StateMemory.getSharedState(overmind.getAgent());
 		
 		// Initialize the agent's state's roles if they haven't been initialized already
@@ -109,7 +109,10 @@ public class MatchStepHandler implements StepHandler
 		// Get the IDs of the students currently present
 		String[] studentIds = state.getStudentIds(); 
 		int numStudents = studentIds.length; 
-		
+		if (maxUsersToMatch > numStudents) {
+			maxUsersToMatch = numStudents; 
+		}
+
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
 		// for various numbers of students & roles to match
 		String promptKey = step.name;
@@ -121,36 +124,13 @@ public class MatchStepHandler implements StepHandler
         // Variable prompt message, if available, depending upon the number of students & roles to match
 		String promptText; 
         String adjustedPromptKey = promptKey;
-        String promptSuffix = new String();
-        int maxMatch = 0;
-    	if (numStudents >= minUsersToMatch && numStudents <= numRoles) {
-    		promptSuffix = "_" + Integer.toString(numStudents); 
-    		maxMatch = numStudents;
-    	}
-    	if (numStudents > numRoles) {
-    		if (matchMultipleToDefault) {
-    			List<String> roleList = new ArrayList<String>(Arrays.asList(roles));
-    			roleList.remove(roleList.indexOf(defaultRole));
-        		for (int i=numRoles-1; i<numStudents; i++) {
-        			roleList.add(new String(defaultRole));
-        		}
-        		roles = roleList.toArray(new String[numStudents]);
-        		promptSuffix = "_MAX_ALL";
-        		maxMatch = numStudents;
-    		}else {
-    			promptSuffix = "_MAX_NONE";
-    			maxMatch = numRoles;
-    		}
-    	}
-        if (numStudents > 0) {
+        String promptSuffix = "_" + Integer.toString(maxUsersToMatch); 
+        if (maxUsersToMatch > 0) {
         	adjustedPromptKey = promptKey + promptSuffix; 
-        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, defaultRole, maxMatch, state);
-        	Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
-        	Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "adjustedPromptText: "+adjustedPromptText);
-        	Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "numStudents: "+Integer.toString(numStudents));
+        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, maxUsersToMatch, state);
         	if (adjustedPromptText == adjustedPromptKey) {
         		System.err.println("MatchStepHandler, execute: first match attempt failed"); 
-        		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, state);
+        		promptText = prompter.match(promptKey, studentIds, roles, maxUsersToMatch, state);
         	}
         	else {
         		promptText = adjustedPromptText; 

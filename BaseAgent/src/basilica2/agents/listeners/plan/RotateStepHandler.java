@@ -1,4 +1,4 @@
-package basilica2.myagent.listeners.plan;
+package basilica2.agents.listeners.plan;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -18,7 +18,7 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.components.StateMemory;
-import basilica2.myagent.data.PromptTable;
+import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
