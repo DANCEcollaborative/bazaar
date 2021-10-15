@@ -143,8 +143,8 @@ public class MultiModalFilter extends BasilicaAdapter
 				case speech:
 					System.out.println("Speech: " + messagePart[1]);
 					// me.setText(messagePart[1]);
-					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
-					source.queueNewEvent(meSpeech);
+//					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
+//					source.queueNewEvent(meSpeech);
 					break;
 				case location:
 					System.out.println("Location: " + messagePart[1]);
