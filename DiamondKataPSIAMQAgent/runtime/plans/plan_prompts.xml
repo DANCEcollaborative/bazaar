@@ -45,8 +45,16 @@
         <text>Driver::For the first test case, why don't you start as the [ROLE1], [NAME1]?|Navigator::[NAME2], why don't you start as the [ROLE2]?</text>
     </prompt>
   
-    <prompt strategy="task" id="ASSIGN_ROLES_MULTI">
-        <text>For the first test case, why don't you start as the Driver, Eric, and Joe, why don't you start as the Navigator? |Remember to stay at least 6 feet apart for social-distancing as you move to your seats.</text>
+    <prompt strategy="task" id="ROTATE_ROLES_1">
+        <text>For the next test case, [NAME1] will be the [ROLE1]. If someone joins you later, they will be the Navigator.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="ROTATE_ROLES_2">
+        <text>For the next test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
+    </prompt>
+  
+    <prompt strategy="task" id="ROTATE_ROLES_MAX_ALL">
+        <text>For the next test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
     </prompt>
   
     <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">

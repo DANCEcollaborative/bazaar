@@ -11,7 +11,10 @@
     
     <stage name="body" type="other" delay="30">
         <step type="match" delay="1" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step>
-        <step type="prompt" delay="0" prompt="NEXT_TESTCASE_WHEN_SEATED" >NEXT_TESTCASE_WHEN_SEATED</step>
+        <step type="prompt" delay="30" prompt="NEXT_TESTCASE_WHEN_SEATED" >NEXT_TESTCASE_WHEN_SEATED</step>
+        
+        <step type="rotate" delay="180" prompt="ROTATE_ROLES" >ROTATE_ROLES_1</step>
+        
     </stage>
     
     <stage name="EndStage" type="other" delay="0" timeout="7200">
