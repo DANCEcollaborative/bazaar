@@ -95,7 +95,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	private String enlistedDialog = null;
 	private InputCoordinator source;
 	
-	private double tutorMessagePriority = 0.75;
+	private double tutorMessagePriority = 0.5;
 	private boolean interruptForNewDialogues = false;
 	private boolean startAnyways = true;
 	private String dialogueFolder = "dialogs";

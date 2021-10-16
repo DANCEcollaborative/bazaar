@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Diamond Kata discussion">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+    <stage name="initiate" type="other" delay="0">  	    
+        <step type="prompt" timeout="15" delay="10" prompt="WELCOME">WELCOME</step>
+        <step type="greet" timeout="25" delay="5">GREETINGS</step>
+        <step type="prompt" delay="5" prompt="INTRODUCE_ACTIVITY" >INTRODUCE_ACTIVITY</step>  
+    </stage>
+    
+    <stage name="body" type="other" delay="30">
+        <step type="match" delay="1" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step>
+        <step type="prompt" delay="30" prompt="NEXT_TESTCASE_WHEN_SEATED" >NEXT_TESTCASE_WHEN_SEATED</step>
+        
+        <step type="rotate" delay="0" prompt="ROTATE_ROLES" >ROTATE_ROLES_1</step>
+        
+    </stage>
+    
+    <stage name="EndStage" type="other" delay="0" timeout="7200">
+        <step type="prompt" delay="30" prompt="PROMPT_END" >PROMPT_END</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>

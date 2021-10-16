@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario_lines_output_iterative">
+	<configuration>
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+
+	
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "t_introduction"  -->
+				<initiation>t_introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>t_question1</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="t_response1_correct">s_answer1_correct</response>
+				<response push="t_elicitate1_1_incorrect" say="t_response1_incorrect">s_answer1_incorrect</response>
+				<response push="t_elicitate1_2_unanticipated" say="t_response1_incorrect">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>t_conclusion1</initiation>
+			</step>
+			
+		</goal>
+		
+
+		<goal name="t_elicitate1_1_incorrect" difficulty="0">
+
+			<step>
+				<initiation>Navigator::Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
+                <response say="t_response1_1_correct">s_answer1_1_correct</response>
+				<response say="t_bottom_out">s_answer1_1_incorrect</response>
+				<response say="t_bottom_out">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="t_elicitate1_2_unanticipated" difficulty="0">
+
+			<step>
+				<initiation>Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
+                <response say="t_response1_2_correct">s_answer1_2_correct</response>
+				<response say="t_bottom_out">s_answer1_2_incorrect</response>
+				<response say="t_bottom_out">unanticipated-response</response>
+			</step>
+		</goal>
+
+	</script>
+
+
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+		<!-- this is a special kind of concept for catching unexpected student responses -->
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+		
+		<!-- tutor concepts. -->
+		<concept label="t_introduction">
+			<phrase>Driver::Let's talk about it. 
+            </phrase>
+		</concept>
+					
+		<concept label="t_question1">
+			<phrase>Driver::Have you thought about a recursive solution? How would you use the number of lines to output?
+            </phrase>
+		</concept>
+	
+		<concept label="t_conclusion1">
+			<phrase>Please feel free to continue discussing among yourselves.</phrase>
+		</concept>
+		
+		<!-- the tutor will choose randomly between multiple phrases for a concept. -->
+		
+		<concept label="unrecognized">
+			<phrase>I don't know what that is.</phrase>
+			<phrase>That doesn't make sense to me.</phrase>
+		</concept>
+		
+		<concept label="correct">
+			<phrase>Well done!</phrase>
+			<phrase>Okeydoke.</phrase>
+			<phrase>Sounds good...</phrase>
+		</concept>
+		
+		<concept label="ok">
+			<phrase>Ok</phrase>
+		</concept>
+	
+		<concept label="t_response1_correct">
+			<phrase>Driver::It sounds like you're on the right track.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+		</concept>
+		<concept label="t_response1_incorrect">
+			<phrase>Navigator::It sounds like you could use some help.</phrase>
+		</concept>
+
+		<concept label="t_response1_1_correct">
+			<phrase>Driver::It sounds like you're on the right track.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+		</concept>
+
+		<concept label="t_response1_2_correct">
+			<phrase>Driver::It sounds like you're on the right track.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+		</concept>
+	
+		<concept label="t_bottom_out">
+			<phrase>Driver::Let me help you out.|You could use the count to iterate over the number of lines to write, but it's not strictly necessary.</phrase>
+		</concept>
+	
+		<!-- end tutor concepts. -->
+		
+		
+		<!-- student concepts. -->
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+		
+		<!-- these match against regular expressions. -->
+
+		<concept label="s_answer1_correct" type="regex">
+			<phrase>don't need|do not need|won't need|will not need|not
+			</phrase>
+		</concept>
+		
+	    <concept label="s_answer1_incorrect" type="regex">
+			<phrase>do need|will need|you need|I need|would need|should need|'ll need|yes|yeah|yep
+			</phrase>
+		</concept>
+
+		<concept label="s_answer1_1_correct" type="regex">
+			<phrase>don't need|do not need|won't need|will not need|wouldn't need|would not need|should not need|shouldn't need|don't|do not|won't|will not|wouldn't|would not|shouldn't|should not|not|no|nah|nope|don't think so
+			</phrase>
+		</concept>
+		
+	    <concept label="s_answer1_1_incorrect" type="regex">
+			<phrase>do need|will need|you need|I need|would need|should need|'ll needd|yes|yeah|yep
+			</phrase>
+		</concept>
+
+		<concept label="s_answer1_2_correct" type="regex">
+			<phrase>on't need|do not need|won't need|will not need|wouldn't need|would not need|should not need|shouldn't need|don't|do not|won't|will not|wouldn't|would not|shouldn't|should not|not|no|nah|nope|don't think so
+			</phrase>
+		</concept>
+		
+	    <concept label="s_answer1_2_incorrect" type="regex">
+			<phrase>do need|will need|you need|I need|would need|should need|'ll need|yes|yeah|yep
+			</phrase>
+		</concept>
+
+	</concepts>
+	
+</scenario>

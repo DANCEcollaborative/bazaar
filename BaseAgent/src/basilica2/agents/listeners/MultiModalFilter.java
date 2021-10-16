@@ -100,7 +100,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	{
 		// TEMP for DEBUGGING
 		State s = StateMemory.getSharedState(agent);
-		// System.out.println("MultiModalFilter, current number of students: " + s.getStudentCount());
+		System.err.println("MultiModalFilter, current number of students: " + s.getStudentCount());
 		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
@@ -115,7 +115,7 @@ public class MultiModalFilter extends BasilicaAdapter
 				tag = multiModalTag.valueOf(messagePart[0]);
 				if (tag == (multiModalTag.identity)) {
 					identityFound = true; 
-					// System.out.println("identify found: " + messagePart[1]);
+					System.err.println("identify found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
 						checkPresence(source,me);	
@@ -125,7 +125,7 @@ public class MultiModalFilter extends BasilicaAdapter
 			
 			// Update the message sender's properties based on multimodal updates
 			for (int i = 0; i < multiModalMessage.length; i++) {
-				// System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
+				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
 				
 				tag = multiModalTag.valueOf(messagePart[0]);
@@ -143,8 +143,8 @@ public class MultiModalFilter extends BasilicaAdapter
 				case speech:
 					System.out.println("Speech: " + messagePart[1]);
 					// me.setText(messagePart[1]);
-					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
-					source.queueNewEvent(meSpeech);
+//					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
+//					source.queueNewEvent(meSpeech);
 					break;
 				case location:
 					System.out.println("Location: " + messagePart[1]);
@@ -155,7 +155,7 @@ public class MultiModalFilter extends BasilicaAdapter
 					System.out.println("Facial expression: " + messagePart[1]);
 					break;
 				case pose:
-					System.out.println("MultimodalFilter, Pose: " + poseEventType.valueOf(messagePart[1]));
+					System.err.println("MultimodalFilter, Pose: " + poseEventType.valueOf(messagePart[1]));
 					poseUpdate(source,me,poseEventType.valueOf(messagePart[1])); 
 					break;
 				case emotion:
@@ -185,7 +185,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	
 	private void poseUpdate(final InputCoordinator source, MessageEvent me, poseEventType poseType)
 	{
-		System.out.println("MultiModalFilter pose update -- from: " + me.getFrom() + " -- pose: " + poseType.toString()); 
+		System.err.println("MultiModalFilter pose update -- from: " + me.getFrom() + " -- pose: " + poseType.toString()); 
 		PoseEvent poseE = new PoseEvent(source,me.getFrom(),poseType);
 		source.pushEvent(poseE);
 	}
@@ -193,10 +193,10 @@ public class MultiModalFilter extends BasilicaAdapter
 	private void locationUpdate(InputCoordinator source, MessageEvent me, String location)
 	{		
 		String identity = me.getFrom();
-		System.out.println("locationUpdate for " + identity + ": " + location);
+		System.err.println("locationUpdate for " + identity + ": " + location);
 		String prevLocation = StateMemory.getSharedState(agent).getLocation(identity); 
 		if (!location.equals(prevLocation)) {
-			System.out.println("Updating location for " + me.getFrom() + ":  was - " + prevLocation + " --  now - " + location);
+			System.err.println("Updating location for " + me.getFrom() + ":  was - " + prevLocation + " --  now - " + location);
 			State s = State.copy(StateMemory.getSharedState(agent));
 	        s.setLocation(identity, location);
 	        StateMemory.commitSharedState(s, agent);
@@ -208,14 +208,14 @@ public class MultiModalFilter extends BasilicaAdapter
 	}
 	
 	private void checkDistances (InputCoordinator source, MessageEvent me, String identity, String myLocation) {
-		System.out.println("===== Checking distances ======");
+		System.err.println("===== Checking distances ======");
 		Double[] myCoordinates = locationStringToDoubles(myLocation);	
 		
 		StringBuilder myCoordinatesString = new StringBuilder("");
 		myCoordinatesString.append("x: " + Double.toString(myCoordinates[0]));
 		myCoordinatesString.append("  --  y: " + Double.toString(myCoordinates[1]));
 		myCoordinatesString.append("  --  z: " + Double.toString(myCoordinates[2]));
-		System.out.println("checkDistances, myCoordinates  --  " + myCoordinatesString.toString());
+		System.err.println("checkDistances, myCoordinates  --  " + myCoordinatesString.toString());
 		
 		Double[] otherCoordinates; 
 		State s = StateMemory.getSharedState(agent);
@@ -233,13 +233,13 @@ public class MultiModalFilter extends BasilicaAdapter
             		otherCoordinatesString.append("x: " + Double.toString(otherCoordinates[0]));
             		otherCoordinatesString.append("  --  y: " + Double.toString(otherCoordinates[1]));
             		otherCoordinatesString.append("  --  z: " + Double.toString(otherCoordinates[2]));
-            		System.out.println("checkDistances, otherCoordinates for " + otherStudentID + ", student " + Integer.toString(i) + "  --  " + otherCoordinatesString.toString());
+            		System.err.println("checkDistances, otherCoordinates for " + otherStudentID + ", student " + Integer.toString(i) + "  --  " + otherCoordinatesString.toString());
             		
                     distance = calculateDistance(myCoordinates,otherCoordinates); 
-                    System.out.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
-                    System.out.println("Minimum distance apart: " + Double.toString(minDistanceApart));
+                    System.err.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
+                    System.err.println("Minimum distance apart: " + Double.toString(minDistanceApart));
                     if (distance > minDistanceApart) {
-                    	System.out.println("Issuing distance warning"); 
+                    	System.err.println("Issuing distance warning"); 
                     	issueDistanceWarning(source,me,identity,otherStudentID);
                     }        			
         		}
@@ -253,7 +253,7 @@ public class MultiModalFilter extends BasilicaAdapter
         State s = StateMemory.getSharedState(agent);
 		String rawLocation = s.getLocation(identity); 
 		if (rawLocation != null) {
-			System.out.println("raw location coordinates for " + identity + ": " + rawLocation);
+			System.err.println("raw location coordinates for " + identity + ": " + rawLocation);
 			return locationStringToDoubles(rawLocation);
 		}
 		else return null;		
