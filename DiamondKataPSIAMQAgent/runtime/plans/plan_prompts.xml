@@ -85,6 +85,10 @@
         <text>Driver::For the first test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
     </prompt>
   
+    <prompt strategy="task" id="ASSIGN_ROLES_MAX_NONE">
+        <text>Driver::For the first test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
+    </prompt>
+  
     <prompt strategy="task" id="ROTATE_ROLES_1">
         <text>For the next test case, [NAME1] will be the [ROLE1]. If someone joins you later, they will be the Navigator.</text>
     </prompt>
