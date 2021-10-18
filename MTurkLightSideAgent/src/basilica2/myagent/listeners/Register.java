@@ -899,7 +899,7 @@ public class Register implements BasilicaPreProcessor, TimeoutReceiver
 	@Override
 	public void timedOut(String arg0) {
 		for(int i =0; i< 4; i++){
-			System.out.println(planflag[i]);
+			System.out.println("Register.java, timedOut - planflag[i] = " + planflag[i]);
 		}
 		
 		totalseconds-=3;
