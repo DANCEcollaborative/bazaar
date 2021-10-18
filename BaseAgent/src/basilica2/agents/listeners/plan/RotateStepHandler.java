@@ -154,7 +154,20 @@ public class RotateStepHandler implements StepHandler
             		try {
             			if (remainingRoles.size()>0) {
                 			for (int i=0; i<remainingRoles.size(); i++) {
-                				roleAssignment.put(remainingStudents.get(i),remainingRoles.get(i));
+                				boolean roleAssigned = false;
+                				for (String Sid: remainingStudents) {
+                					if (!state.getStudentRole(Sid).equalsIgnoreCase(remainingRoles.get(i))) {
+                						roleAssignment.put(Sid,remainingRoles.get(i));
+                						roleAssigned=true;
+                						Logger.commonLog("RotateStepHandler", Logger.LOG_FATAL, "roleAssigned");
+                						remainingStudents.remove(remainingStudents.indexOf(Sid));
+                    					break;
+                					}
+                				}
+                				if (!roleAssigned) {
+                					roleAssignment.put(remainingStudents.get(0),remainingRoles.get(i));
+                					remainingStudents.remove(0);
+                				}
                 			}
                 		}
             		}
