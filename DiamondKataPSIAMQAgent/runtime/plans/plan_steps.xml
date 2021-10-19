@@ -15,7 +15,7 @@
         <step type="prompt" delay="10" prompt="TAKE_SEATS_AND_WORK" >TAKE_SEATS_AND_WORK</step>       
         <step type="file_gated" timeout="120" delay="5" file="test-a" checkin_prompt="FIRST_TESTCASE" >FIRST_TESTCASE</step> 
         <step type="prompt" delay="60" prompt="PASSED_TESTCASE_1_PROMPT" >PASSED_TESTCASE_1_PROMPT</step>     
-        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_MOVING_ON" >PASSED_TESTCASE_MOVING_ON</step>  
+        <!-- <step type="prompt" delay="5" prompt="PASSED_TESTCASE_MOVING_ON" >PASSED_TESTCASE_MOVING_ON</step> -->
            
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_2</step>      
         <step type="file_gated" timeout="90" delay="5" file="test-b" checkin_prompt="SECOND_TESTCASE" >SECOND_TESTCASE</step>  

@@ -22,6 +22,10 @@
         <text>Nice to see you! I'm Agent Rachel. Please take a moment to introduce yourselves.</text>
     </prompt>
     
+    <prompt strategy="task" id="INTRODUCE_AFTER">
+        <text>First, please take a minute to introduce yourselves.</text>
+    </prompt>
+    
     <prompt strategy="task" id="INTRODUCE_NOT_HARDCODED">
         <text>Nice to see you! I'm [AGENT NAME]. Please take a moment to introduce yourselves.</text>
     </prompt>
@@ -37,12 +41,28 @@
         <text>Today, we'll practice pair programming as you collaborate on the Diamond Kata exercise. We'll use test-driven development.</text>
     </prompt>
   
-    <prompt strategy="task" id="PASSED_TESTCASE_1_PROMPT">
+    <prompt strategy="task" id="NEXT_TESTCASE_WHEN_SEATED">
+        <text>When you've reached your seats, you can start on the first test case.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="TAKE_SEATS_AND_WORK">
+        <text>Go ahead and take your positions to begin working.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_END">
+        <text>It is time for us to wrap up now. It has been a pleasure working with you. The activity is now over.|Have a nice day!</text>
+    </prompt>
+  
+    <prompt strategy="task" id="PASSED_TESTCASE_1_PROMPT-PREVIOUS">
         <text>Navigator::You've passed a test case for the number of lines your program will output. Do you need to know the number of output lines? Please discuss.</text>
     </prompt>
   
+    <prompt strategy="task" id="PASSED_TESTCASE_1_PROMPT">
+        <text>Navigator::You've passed a test case for the number of lines your program will output. Next, work on positioning each letter within a line.</text>
+    </prompt>
+  
     <prompt strategy="task" id="PASSED_TESTCASE_2_PROMPT">
-        <text>Navigator::You've passed another test case. For the next text case, we'll work on producing the upper half of the diamond.</text>
+        <text>Navigator::You've passed another test case. Next, we'll work on producing the upper half of the diamond.</text>
     </prompt>
   
     <prompt strategy="task" id="PASSED_TESTCASE_3_PROMPT">
@@ -95,22 +115,6 @@
   
     <prompt strategy="task" id="SOCIAL_DISTANCE_CAUTION">
         <text>As you move about the room, remember to stay at least 6 feet apart for social-distancing.</text>
-    </prompt>
-  
-    <prompt strategy="task" id="NEXT_TESTCASE_WHEN_SEATED">
-        <text>When you've reached your seats, you can start on the first test case.</text>
-    </prompt>
-  
-    <prompt strategy="task" id="TAKE_SEATS_AND_WORK">
-        <text>Go ahead and take your seats to begin working.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="PROMPT_END">
-        <text>It is time for us to wrap up now. It has been a pleasure working with you. The activity is now over.|Have a nice day!</text>
-    </prompt>
-    
-    <prompt strategy="task" id="INTRODUCE_AFTER">
-        <text>First, please take a minute to introduce yourselves.</text>
     </prompt>
     
     <prompt strategy="task" id="SETUP">
