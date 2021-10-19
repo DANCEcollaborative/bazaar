@@ -37,6 +37,14 @@
         <text>Today, we'll practice pair programming as you collaborate on the Diamond Kata exercise. We'll use test-driven development.</text>
     </prompt>
   
+    <prompt strategy="task" id="PASSED_TESTCASE_1_QUESTION">
+        <text>Navigator::You've passed a test case for the number of lines your program will output. Do you need to know the number of output lines? Please share your thoughts?</text>
+    </prompt>
+  
+    <prompt strategy="task" id="PASSED_TESTCASE_MOVING_ON">
+        <text>It's time to move on.</text>
+    </prompt>
+
     <prompt strategy="task" id="ASSIGN_ROLES_1">
         <text>Driver::For the first test case, [NAME1], start as the Driver. If someone joins you later, they will be the Navigator.</text>
     </prompt>
@@ -79,6 +87,10 @@
   
     <prompt strategy="task" id="NEXT_TESTCASE_WHEN_SEATED">
         <text>When you've reached your seats, you can start on the first test case.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="TAKE_SEATS_AND_WORK">
+        <text>Go ahead and take your seats so you can begin working.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_END">

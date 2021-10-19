@@ -29,60 +29,6 @@
 	</transitions>
 
 	
-	<script>
-		<goal name="start" difficulty="1">
-			
-			<step>
-				<!-- deliver a statement from the concept named "t_introduction"  -->
-				<initiation>t_introduction</initiation>
-			</step>
-			
-			<step>
-				<!-- Every step begins with an initiating concept or literal phrase -->
-				<initiation>t_question1</initiation>
-				
-				<!-- These are the "response" options. 
-					If the concept between the tags matches the student statement, 
-				    the "say" concept/phrase will be delivered by the tutor.
-				    "push" adds another goal to the dialogue's stack. 
-					 Note that goals should NOT be recursively nested. -->
-					
-				<response say="t_response1_correct">s_answer1_correct</response>
-				<response push="t_elicitate1_1_incorrect" say="t_response1_incorrect">s_answer1_incorrect</response>
-				<response push="t_elicitate1_2_unanticipated" say="t_response1_incorrect">unanticipated-response</response>
-			</step>
-			
-			<step>
-				<initiation>t_conclusion1</initiation>
-			</step>
-			
-		</goal>
-		
-
-		<goal name="t_elicitate1_1_incorrect" difficulty="0">
-
-			<step>
-				<initiation>Navigator::Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
-                <response say="t_response1_1_correct">s_answer1_1_correct</response>
-				<response say="t_bottom_out">s_answer1_1_incorrect</response>
-				<response say="t_bottom_out">unanticipated-response</response>
-			</step>
-		</goal>
-
-		<goal name="t_elicitate1_2_unanticipated" difficulty="0">
-
-			<step>
-				<initiation>Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
-                <response say="t_response1_2_correct">s_answer1_2_correct</response>
-				<response say="t_bottom_out">s_answer1_2_incorrect</response>
-				<response say="t_bottom_out">unanticipated-response</response>
-			</step>
-		</goal>
-
-	</script>
-
-
-	
 	<!-- 'Concepts' define things that students might say,
 	     AND things that the tutor might say back. 
 	     Tutor concepts should take the form of phrase lists.
@@ -195,5 +141,59 @@
 		</concept>
 
 	</concepts>
+
+	
+	<script>
+		<goal name="start" difficulty="1">
+			
+			<step>
+				<!-- deliver a statement from the concept named "t_introduction"  -->
+				<initiation>t_introduction</initiation>
+			</step>
+			
+			<step>
+				<!-- Every step begins with an initiating concept or literal phrase -->
+				<initiation>t_question1</initiation>
+				
+				<!-- These are the "response" options. 
+					If the concept between the tags matches the student statement, 
+				    the "say" concept/phrase will be delivered by the tutor.
+				    "push" adds another goal to the dialogue's stack. 
+					 Note that goals should NOT be recursively nested. -->
+					
+				<response say="t_response1_correct">s_answer1_correct</response>
+				<response push="t_elicitate1_1_incorrect" say="t_response1_incorrect">s_answer1_incorrect</response>
+				<response push="t_elicitate1_2_unanticipated" say="t_response1_incorrect">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>t_conclusion1</initiation>
+			</step>
+			
+		</goal>
+		
+
+		<goal name="t_elicitate1_1_incorrect" difficulty="0">
+
+			<step>
+				<initiation>Navigator::Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
+                <response say="t_response1_1_correct">s_answer1_1_correct</response>
+				<response say="t_bottom_out">s_answer1_1_incorrect</response>
+				<response say="t_bottom_out">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<goal name="t_elicitate1_2_unanticipated" difficulty="0">
+
+			<step>
+				<initiation>Another way to control iteration would be to use the order of the alphabet. Would you still need to calculate the number of lines to output?</initiation>
+                <response say="t_response1_2_correct">s_answer1_2_correct</response>
+				<response say="t_bottom_out">s_answer1_2_incorrect</response>
+				<response say="t_bottom_out">unanticipated-response</response>
+			</step>
+		</goal>
+
+	</script>
+	
 	
 </scenario>
