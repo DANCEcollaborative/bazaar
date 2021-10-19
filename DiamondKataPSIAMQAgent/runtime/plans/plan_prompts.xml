@@ -37,8 +37,20 @@
         <text>Today, we'll practice pair programming as you collaborate on the Diamond Kata exercise. We'll use test-driven development.</text>
     </prompt>
   
-    <prompt strategy="task" id="PASSED_TESTCASE_1_QUESTION">
-        <text>Navigator::You've passed a test case for the number of lines your program will output. Do you need to know the number of output lines? Please share your thoughts?</text>
+    <prompt strategy="task" id="PASSED_TESTCASE_1_PROMPT">
+        <text>Navigator::You've passed a test case for the number of lines your program will output. Do you need to know the number of output lines? Please discuss.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="PASSED_TESTCASE_2_PROMPT">
+        <text>Navigator::You've passed another test case. For the next text case, we'll work on producing the upper half of the diamond.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="PASSED_TESTCASE_3_PROMPT">
+        <text>Navigator::You've passed yet another test case. For the final case, we'll work on producing a complete diamond.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="PASSED_TESTCASE_4_PROMPT">
+        <text>Navigator::You've passed all the test cases! Would you code any of your solution differently if you did it again?</text>
     </prompt>
   
     <prompt strategy="task" id="PASSED_TESTCASE_MOVING_ON">
@@ -90,7 +102,7 @@
     </prompt>
   
     <prompt strategy="task" id="TAKE_SEATS_AND_WORK">
-        <text>Go ahead and take your seats so you can begin working.</text>
+        <text>Go ahead and take your seats to begin working.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_END">
