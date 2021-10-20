@@ -9,23 +9,25 @@
         <step type="prompt" delay="5" prompt="INTRODUCE_ACTIVITY" >INTRODUCE_ACTIVITY</step>  
     </stage>
     
-    <stage name="body" type="other" delay="30">
-    
+    <stage name="body1" type="other" delay="10">  
         <step type="match" delay="1" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step>       
-        <step type="prompt" delay="10" prompt="TAKE_SEATS_AND_WORK" >TAKE_SEATS_AND_WORK</step>       
-        <step type="file_gated" timeout="60" delay="5" file="test-a" checkin_prompt="FIRST_TESTCASE" >FIRST_TESTCASE</step> 
+        <step type="prompt" delay="10" prompt="TAKE_POSITIONS" >TAKE_SEATS_AND_WORK</step>       
+        <step type="file_gated" timeout="90" delay="0" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
+    </stage>
+    
+    <stage name="body2" type="other" delay="30">    
         <step type="prompt" delay="5" prompt="PASSED_TESTCASE_1_PROMPT" >PASSED_TESTCASE_1_PROMPT</step>   
            
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_2</step>      
-        <step type="file_gated" timeout="90" delay="5" file="test-b" checkin_prompt="SECOND_TESTCASE" >SECOND_TESTCASE</step>  
+        <step type="file_gated" timeout="90" delay="15" file="test-b" checkin_prompt="NONE" >SECOND_TESTCASE</step>  
         <step type="prompt" delay="5" prompt="PASSED_TESTCASE_2_PROMPT" >PASSED_TESTCASE_2_PROMPT</step>   
            
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_3</step>    
-        <step type="file_gated" timeout="90" delay="5" file="test-c" checkin_prompt="THIRD_TESTCASE" >THIRD_TESTCASE</step> 
+        <step type="file_gated" timeout="90" delay="15" file="test-c" checkin_prompt="NONE" >THIRD_TESTCASE</step> 
         <step type="prompt" delay="5" prompt="PASSED_TESTCASE_3_PROMPT" >PASSED_TESTCASE_3_PROMPT</step>    
            
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_3</step>    
-        <step type="file_gated" timeout="90" delay="5" file="test-d" checkin_prompt="FOURTH_TESTCASE" >THIRD_TESTCASE</step> 
+        <step type="file_gated" timeout="90" delay="15" file="test-d" checkin_prompt="NONE" >THIRD_TESTCASE</step> 
         <step type="prompt" delay="30" prompt="PASSED_TESTCASE_4_PROMPT" >PASSED_TESTCASE_4_PROMPT</step>     
         
     </stage>
