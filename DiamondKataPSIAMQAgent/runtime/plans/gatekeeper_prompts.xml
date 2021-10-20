@@ -29,6 +29,7 @@
     
     <prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING">
        <text>Okay, we need to start wrapping this testcase up.</text>
+       <text>Time is almost up for this testcase. Complete it if you can.</text>
     </prompt>
     
     <prompt strategy="task" id="FILE_STEP_TIMED_OUT">
@@ -64,10 +65,10 @@
     </prompt>
     
     <prompt strategy="task" id="FILE_STEP_COMPLETE">
-       <text>Way to go, team!</text>
+       <text>You've past the testcase!</text>
        <text>Testcase passed!</text>
-       <text>You've done it!</text>
-       <text>Good job.</text>
+       <text>Way to go! You've passed the testcase.</text>
+       <text>Good job. You've passed the testcase.</text>
     </prompt>
   
   

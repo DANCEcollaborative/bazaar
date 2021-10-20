@@ -48,6 +48,26 @@
     <prompt strategy="task" id="TAKE_POSITIONS">
         <text>Go ahead and take your positions as Driver and Navigator.</text>
     </prompt>
+  
+    <prompt strategy="task" id="INTRO_TESTCASE_1">
+        <text>The first testcase is for calculating the number of lines to output. Assume your roles as you work together.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="INTRO_TESTCASE_2">
+        <text>The next testcase is for positioning each letter within a line.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="INTRO_TESTCASE_3">
+        <text>For the next testcase, work on producing the upper half of the diamond.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="INTRO_TESTCASE_4">
+        <text>The final testcase is for producing a complete diamond.</text>
+    </prompt>
+  
+    <prompt strategy="task" id="FINAL_EXERCISE_PROMPT">
+        <text>Navigator::You've completed the exercise! Would you design any of your solution differently if you did it again?</text>
+    </prompt>
     
     <prompt strategy="task" id="PROMPT_END">
         <text>It is time for us to wrap up now. It has been a pleasure working with you. The activity is now over.|Have a nice day!</text>
@@ -67,10 +87,6 @@
   
     <prompt strategy="task" id="PASSED_TESTCASE_3_PROMPT">
         <text>Navigator::You've passed yet another test case. For the final case, we'll work on producing a complete diamond.</text>
-    </prompt>
-  
-    <prompt strategy="task" id="PASSED_TESTCASE_4_PROMPT">
-        <text>Navigator::You've passed all the test cases! Would you code any of your solution differently if you did it again?</text>
     </prompt>
   
     <prompt strategy="task" id="PASSED_TESTCASE_MOVING_ON">
@@ -94,19 +110,19 @@
     </prompt>
   
     <prompt strategy="task" id="ROTATE_ROLES_1">
-        <text>For the next test case, [NAME1] will be the [ROLE1]. If someone joins you later, they will be the Navigator.</text>
+        <text>For this testcase, [NAME1] will be the [ROLE1]. If someone joins you later, they will be the Navigator.</text>
     </prompt>
   
     <prompt strategy="task" id="ROTATE_ROLES_2">
-        <text>For the next test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
+        <text>For this testcase, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
     </prompt>
   
     <prompt strategy="task" id="ROTATE_ROLES_MAX_ALL">
-        <text>For the next test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
+        <text>For this testcase, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
     </prompt>
   
     <prompt strategy="task" id="ROTATE_ROLES_MAX_NONE">
-        <text>For the next test case, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
+        <text>For this testcase, [NAME1] will be the [ROLE1] and [NAME2] will be the [ROLE2].</text>
     </prompt>
   
     <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
