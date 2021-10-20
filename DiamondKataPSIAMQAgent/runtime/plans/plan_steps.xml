@@ -15,21 +15,26 @@
         <step type="file_gated" timeout="90" delay="0" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
     </stage>
     
-    <stage name="body2" type="other" delay="30">    
-        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_1_PROMPT" >PASSED_TESTCASE_1_PROMPT</step>   
-           
+    <stage name="body2" type="other" delay="10">    
+        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_1_PROMPT" >PASSED_TESTCASE_1_PROMPT</step>             
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_2</step>      
         <step type="file_gated" timeout="90" delay="15" file="test-b" checkin_prompt="NONE" >SECOND_TESTCASE</step>  
-        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_2_PROMPT" >PASSED_TESTCASE_2_PROMPT</step>   
-           
+    </stage>
+    
+    <stage name="body3" type="other" delay="10">    
+        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_2_PROMPT" >PASSED_TESTCASE_2_PROMPT</step>             
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_3</step>    
         <step type="file_gated" timeout="90" delay="15" file="test-c" checkin_prompt="NONE" >THIRD_TESTCASE</step> 
-        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_3_PROMPT" >PASSED_TESTCASE_3_PROMPT</step>    
-           
+    </stage>
+    
+    <stage name="body4" type="other" delay="10">    
+        <step type="prompt" delay="5" prompt="PASSED_TESTCASE_3_PROMPT" >PASSED_TESTCASE_3_PROMPT</step>              
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_3</step>    
-        <step type="file_gated" timeout="90" delay="15" file="test-d" checkin_prompt="NONE" >THIRD_TESTCASE</step> 
-        <step type="prompt" delay="30" prompt="PASSED_TESTCASE_4_PROMPT" >PASSED_TESTCASE_4_PROMPT</step>     
-        
+        <step type="file_gated" timeout="90" delay="15" file="test-d" checkin_prompt="NONE" >FOURTH_TESTCASE</step> 
+    </stage>
+    
+    <stage name="body5" type="other" delay="10">    
+        <step type="prompt" delay="30" prompt="PASSED_TESTCASE_4_PROMPT" >PASSED_TESTCASE_4_PROMPT</step>            
     </stage>
     
     <stage name="EndStage" type="other" delay="0" timeout="900">
