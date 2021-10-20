@@ -13,7 +13,7 @@
         <step type="match" delay="1" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step>       
         <step type="prompt" delay="10" prompt="TAKE_POSITIONS" >TAKE_SEATS_AND_WORK</step>     
         <step type="prompt" delay="0" prompt="INTRO_TESTCASE_1" >INTRO_TESTCASE_1</step>        
-        <step type="file_gated" timeout="90" delay="0" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
+        <step type="file_gated" timeout="210" delay="0" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
     </stage>
     
     <stage name="testcase2" type="other" delay="5">      
@@ -29,12 +29,12 @@
     </stage>
     
     <stage name="testcase4" type="other" delay="5">   
-        <step type="prompt" delay="5" prompt="INTRO_TESTCASE_4" >INTRO_TESTCASE_4</step>   \        
+        <step type="prompt" delay="5" prompt="INTRO_TESTCASE_4" >INTRO_TESTCASE_4</step>        
         <step type="rotate" delay="5" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_4</step>    
         <step type="file_gated" timeout="90" delay="0" file="test-d" checkin_prompt="NONE" >FOURTH_TESTCASE</step> 
     </stage>
     
-    <stage name="exercise_complete" type="other" delay="10">    
+    <stage name="exercise_complete" type="other" delay="0">    
         <step type="prompt" delay="30" prompt="FINAL_EXERCISE_PROMPT" >FINAL_EXERCISE_PROMPT</step>            
     </stage>
     
