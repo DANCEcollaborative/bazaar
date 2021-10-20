@@ -13,7 +13,7 @@
         <step type="match" delay="10" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step>       
         <step type="prompt" delay="15" prompt="TAKE_POSITIONS" >TAKE_SEATS_AND_WORK</step>     
         <step type="prompt" delay="0" prompt="INTRO_TESTCASE_1" >INTRO_TESTCASE_1</step>        
-        <step type="file_gated" timeout="90" delay="10" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
+        <step type="file_gated" timeout="180" delay="10" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
     </stage>
     
     <stage name="testcase2" type="other" delay="10">      
