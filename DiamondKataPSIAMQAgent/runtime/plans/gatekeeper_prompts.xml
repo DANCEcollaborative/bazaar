@@ -6,7 +6,7 @@
     </prompt>
     
     <prompt strategy="task" id="FIRST_TESTCASE">
-        <text>Let's start on the first test case.</text>
+        <text>Let's start on the first test case, calculating the number of lines to output.</text>
     </prompt>
     
     <prompt strategy="task" id="SECOND_TESTCASE">
@@ -29,6 +29,10 @@
     
     <prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING">
        <text>Okay, we need to start wrapping this testcase up.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FILE_STEP_TIMED_OUT">
+       <text>It's time to move on from this testcase. You can come back to it later if there's time.</text>
     </prompt>
         
     <!-- for READY_GENERIC -->    
