@@ -28,6 +28,10 @@
     </prompt>
     
     <prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING">
+       <text>It's time to move on from this testcase. You can come back to it later if there's time.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="FILE_STEP_TIMED_OUT">
        <text>Okay, we need to start wrapping this testcase up.</text>
     </prompt>
         

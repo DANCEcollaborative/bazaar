@@ -61,6 +61,19 @@ public class FileStepHandler implements StepHandler
 			}
 		}).start();
 		
+		new Timer(currentStep.timeout, currentStep.name, new TimeoutAdapter()
+		{
+			@Override
+			public void timedOut(String id)
+			{
+				if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+				{
+					MessageEvent timeoutMsgEvent = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("FILE_STEP_TIMED_OUT"), "FILE_STEP_TIMED_OUT");
+					source.pushEventProposal(timeoutMsgEvent, OutputCoordinator.HIGHEST_PRIORITY, 20);
+				}
+			}
+		}).start();
+		
 	}
 	
 }
