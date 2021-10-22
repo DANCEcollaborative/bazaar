@@ -17,9 +17,18 @@
         <text>Great! Now, share one reason why you are pursuing a WGU degree.</text>
     </prompt>
 
-	<prompt strategy="task" id="DIRECTIONS">
-        <text>Welcome to WGU. :-) I'll be guiding you through some fun collaborative activities. I am only here to facilitate your conversation. During this activity, you two should chat with each other, work as a team, and get to know each other. |As a heads-up: you'll both need to stick around until the VERY END in order to get the directions to fill out a Google Form to mark your participation for this activity, so please don't leave early.</text>
+	<prompt strategy="task" id="THIS_IS_A_PILOT">
+        <text>Before we start: You’re piloting a brand new activity! If Sage the Owl should suddenly have to go lie down, don’t worry; you’ll still get credit.</text>
     </prompt>
+
+	<prompt strategy="task" id="DIRECTIONS">
+        <text>Welcome to WGU. :-) I'll be guiding you through some fun collaborative activities. I am only here to facilitate your conversation. During this activity, you two should chat with each other, work as a team, and get to know each other.|As a heads-up: you'll both need to stick around until the VERY END in order to get the directions to fill out a Google Form to mark your participation for this activity, so please don't leave early.</text>
+    </prompt>
+
+	<prompt strategy="task" id="DIRECTIONS_PLUS_SAGE_LEAVING">
+        <text>Welcome to WGU. :-) I'll be guiding you through some fun collaborative activities. I am only here to facilitate your conversation. During this activity, you two should chat with each other, work as a team, and get to know each other.|As a heads-up: you'll both need to stick around until the VERY END in order to get the directions to fill out a Google Form to mark your participation for this activity, so please don't leave early. But if SAGE leaves the activity, you'll still get credit.</text>
+    </prompt>
+    
     <prompt strategy="task" id="WGU_GOODBYE">
         <text>Thank you for your participation! For further information about WGU, FAQs, and more, please visit: https://wgu.edu/.</text>
     </prompt>

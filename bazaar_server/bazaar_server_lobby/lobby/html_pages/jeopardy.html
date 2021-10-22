@@ -349,8 +349,15 @@ ver_lobby/lobby/html_pages/jeopardyColors.js"></script>
 
 	    // listener, whenever the server emits 'updatepresence', this updates the image list
 	socket.on('updatepresence', function (username, data) 
-	{
-        appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	 
+	{    
+		// appendNote(new Date(), username, " -- updatepresence"); 
+		if (data == "leave")
+			if (username == "Sage the Owl")
+				appendNote(new Date(), username, " Sorry; I'm suddenly feeling unwell. :-( I'm going to lie down for the rest of the day. You can continue to chat if you like.");       			
+			if (username != "Sage the Owl")  
+				appendNote(new Date(), username, " has disconnected.");        		
+		if (data != "leave")          	
+			appendNote(new Date(), username, " has joined the discussion.");	 
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
 	

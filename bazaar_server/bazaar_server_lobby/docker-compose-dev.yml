@@ -42,6 +42,11 @@ services:
       - "443:443"
     depends_on:
      - bazaar
+    volumes:
+     - shared:/mysql-files
+     - ./agents:/usr/bazaar/agents
+     - ./lobby:/usr/bazaar/lobby
+     - ../../LightSide:/usr/bazaar/LightSide
     networks:
      - bazaar-net
 volumes:
