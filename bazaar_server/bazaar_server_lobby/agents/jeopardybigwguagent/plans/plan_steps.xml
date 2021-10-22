@@ -6,13 +6,14 @@
     <stage name="initiate" type="other" delay="10">
     <!-- 1NewImage: Welcome to the Activity -->
     	<step type="whiteboard" delay="5" path="https://i.imgur.com/qpwcIkA.png">SHOW_IMAGE</step>
+        <step type="prompt" delay="5" prompt="THIS_IS_A_PILOT" >JEOPARDY_INSTRUCTIONS</step>
         <step type="greet" timeout="40" delay="30">GREET</step>
-      	<!--   <step type="prompt" delay="30" prompt="ICEBREAKER" >ICEBREAKER</step> -->
+      	<!-- <step type="prompt" delay="30" prompt="ICEBREAKER" >ICEBREAKER</step> -->
         <!-- <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step>  -->
         
         <!-- WGU ACADEMY INFO -->
         <step type="prompt" delay="5" prompt="DIRECTIONS">DIRECTIONS</step>
-        
+        <!-- <step type="prompt" delay="5" prompt="DIRECTIONS_PLUS_SAGE_LEAVING">DIRECTIONS_PLUS_SAGE_LEAVING</step>  -->        
         
         <!-- JEOPARDY GAME -->
         <!-- TOTO: INSERT JEOP IMAGE  -->
