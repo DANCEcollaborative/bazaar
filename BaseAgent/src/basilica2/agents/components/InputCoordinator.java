@@ -193,7 +193,7 @@ public class InputCoordinator extends Component
 
 	public boolean isAgentName(String from)
 	{
-		return from.trim().contains(getAgent().getUsername().trim()) || from.contains("Tutor") || from.trim().contains(System.getProperty("loginHandle", "Tutor"));
+		return from.trim().contains(getAgent().getUsername().trim()) || from.contains("Tutor")  || from.contains("Agent") || from.trim().contains(System.getProperty("loginHandle", "Tutor"));
 	}
 
     private void processAllEvents()

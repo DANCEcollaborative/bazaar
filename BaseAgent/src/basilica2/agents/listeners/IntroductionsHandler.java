@@ -178,26 +178,33 @@ public class IntroductionsHandler extends BasilicaAdapter
     private void recognizeUser(String name, String username, InputCoordinator source)
     {
         name = toProperCase(name);
-        synchronized(users)
-        {
-            updateUsers();
-
-            State s = State.copy(StateMemory.getSharedState(agent));
-            s.setName(username, name);
-            StateMemory.commitSharedState(s, agent);
-
-            users.remove(username);
-            
-//            if(users.isEmpty())
-//                this.stopListening(source);
+        if (!isAgentName(name)) {
+	        synchronized(users)
+	        {
+	            updateUsers();
+	
+	            State s = State.copy(StateMemory.getSharedState(agent));
+	            s.setName(username, name);
+	            StateMemory.commitSharedState(s, agent);
+	
+	            users.remove(username);
+	            
+	//            if(users.isEmpty())
+	//                this.stopListening(source);
+	        }
+	                
+	        HashMap<String, String> slots = new HashMap<String, String>();
+	        slots.put("[NAME]", name);
+	        MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GREET", slots), "GREET");
+	        me.setDestinationUser(username);
+	        source.addProposal(new PriorityEvent(source, me, 0.3, prioritySource));        	
         }
-                
-        HashMap<String, String> slots = new HashMap<String, String>();
-        slots.put("[NAME]", name);
-        MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GREET", slots), "GREET");
-        me.setDestinationUser(username);
-        source.addProposal(new PriorityEvent(source, me, 0.3, prioritySource));
     }
+
+	public boolean isAgentName(String name)
+	{
+		return name.trim().contains(getAgent().getUsername().trim()) || name.contains("Tutor")  || name.contains("Agent") || name.trim().contains(System.getProperty("loginHandle", "Tutor"));
+	}
 
     public static String toProperCase(String name) 
     {
