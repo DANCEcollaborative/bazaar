@@ -242,7 +242,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
-						Thread.sleep(2000);
+						Thread.sleep(5000);
 						tick();
 					}
 					catch (Exception e)
