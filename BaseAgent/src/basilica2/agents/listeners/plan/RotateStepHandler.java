@@ -202,7 +202,19 @@ public class RotateStepHandler implements StepHandler
             		try {
             			if (remainingRoles.size()>0) {
                 			for (int i=0; i<remainingRoles.size(); i++) {
-                				roleAssignment.put(remainingStudents.get(i),remainingRoles.get(i));
+                				boolean roleAssigned = false;
+                				for (String Sid: remainingStudents) {
+                					if (!state.getStudentRole(Sid).equalsIgnoreCase(remainingRoles.get(i))) {
+                						roleAssignment.put(Sid,remainingRoles.get(i));
+                						roleAssigned=true;
+                						remainingStudents.remove(remainingStudents.indexOf(Sid));
+                    					break;
+                					}
+                				}
+                				if (!roleAssigned) {
+                					roleAssignment.put(remainingStudents.get(0),remainingRoles.get(i));
+                					remainingStudents.remove(0);
+                				}
                 			}
                 		}
             		}
@@ -216,7 +228,7 @@ public class RotateStepHandler implements StepHandler
             			i++;
             		}
             		if (matchMultipleToDefault) {
-                		for (int j=remainingRoles.size();j<remainingStudents.size();j++) {
+                		for (int j=0;j<remainingStudents.size();j++) {
                 			newRoles.add(new String(defaultRole));
                 			studentIds[i]=remainingStudents.get(j);
                 			i++;
