@@ -107,7 +107,8 @@ public class MatchStepHandler implements StepHandler
 		}
  
 		// Get the IDs of the students currently present
-		String[] studentIds = state.getStudentIds(); 
+		// String[] studentIds = state.getStudentIds(); 
+		String[] studentIds = state.getStudentIdsPresentOrNot(); 
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
@@ -122,9 +123,10 @@ public class MatchStepHandler implements StepHandler
 		String promptText; 
         String adjustedPromptKey = promptKey;
         String promptSuffix = new String();
+		promptSuffix = "_" + Integer.toString(numStudents); 
         int maxMatch = 0;
     	if (numStudents >= minUsersToMatch && numStudents <= numRoles) {
-    		promptSuffix = "_" + Integer.toString(numStudents); 
+    		// promptSuffix = "_" + Integer.toString(numStudents); 
     		maxMatch = numStudents;
     	}
     	if (numStudents > numRoles) {
@@ -142,12 +144,13 @@ public class MatchStepHandler implements StepHandler
     			maxMatch = numRoles;
     		}
     	}
+		System.out.println("MatchStepHandler execute - numStudents: " + Integer.toString(numStudents)); 
+		System.out.println("MatchStepHandler execute - numRoles: " + Integer.toString(numRoles)); 
         if (numStudents > 0) {
         	adjustedPromptKey = promptKey + promptSuffix; 
         	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, defaultRole, maxMatch, state);
-        	Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
-        	Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "adjustedPromptText: "+adjustedPromptText);
-        	Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "numStudents: "+Integer.toString(numStudents));
+    		System.out.println("MatchStepHandler execute - adjustedPromptKey: " + adjustedPromptKey); 
+    		System.out.println("MatchStepHandler execute - adjustedPromptText: " + adjustedPromptText); 
         	if (adjustedPromptText == adjustedPromptKey) {
         		System.err.println("MatchStepHandler, execute: first match attempt failed"); 
         		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, state);

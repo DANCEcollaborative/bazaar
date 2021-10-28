@@ -111,7 +111,8 @@ public class RotateStepHandler implements StepHandler
 		}
  
 		// Get the IDs of the students currently present
-		String[] studentIds = state.getStudentIds(); 
+		// String[] studentIds = state.getStudentIds(); 
+		String[] studentIds = state.getStudentIdsPresentOrNot(); 
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,

@@ -175,7 +175,8 @@ public class State
 		for (int i = 0; i < students.size(); i++)
 		{
 			Student s = students.get(i);
-			if (s.isPresent)
+			// if (s.isPresent)				// No need to check if student is present to return name
+			if (true)
 			{
 				if (s.chatId.equalsIgnoreCase(sid)) { return s.name; }
 			}
@@ -339,6 +340,20 @@ public class State
 		for (int i = 0; i < students.size(); i++)
 		{
 			if (students.get(i).isPresent)
+			{
+				ids.add(students.get(i).chatId);
+			}
+		}
+		return ids.toArray(new String[0]);
+	}
+
+	public String[] getStudentIdsPresentOrNot()
+	{
+		List<String> ids = new ArrayList<String>();
+		for (int i = 0; i < students.size(); i++)
+		{
+			// if (students.get(i).isPresent)
+			if (true)
 			{
 				ids.add(students.get(i).chatId);
 			}
