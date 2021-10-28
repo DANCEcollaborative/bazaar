@@ -224,7 +224,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 	}
 
 	public void setCallbacks() {
-		socket.on(Socket.EVENT_ERROR, new Emitter.Listener() {
+		socket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args)
