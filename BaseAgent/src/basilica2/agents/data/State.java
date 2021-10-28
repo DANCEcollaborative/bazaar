@@ -38,6 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.time.LocalDateTime;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
 import java.util.Collections;
@@ -81,6 +82,7 @@ public class State
 	private poseEventType groupPose = poseEventType.none;
 	private String identityAllUsers = "group";
 	private int jointActivityMetric = 0; 
+	private LocalDateTime multimodalPauseEnd; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -510,6 +512,16 @@ public class State
 	public void setGroupPose(poseEventType pose)
 	{
 		this.groupPose = pose;
+	}
+
+	public LocalDateTime getMultimodalPauseEnd()
+	{
+		return multimodalPauseEnd;
+	}
+
+	public void setMultimodalPauseEnd(LocalDateTime pauseEnd)
+	{
+		this.multimodalPauseEnd = pauseEnd;
 	}
 
 	@Override

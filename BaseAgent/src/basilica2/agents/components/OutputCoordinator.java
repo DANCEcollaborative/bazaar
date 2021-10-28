@@ -53,6 +53,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 // 	private String psiHost = "*";							// This machine 
 // 	private String psiPort = "5555"; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
+	private Integer multimodalWordsPerMinute;
+	private Double multimodalWordsPerSecond; 
+	private Integer multimodalWordsPerSecondInt; 
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
@@ -61,17 +64,22 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
 		
-		if(myProperties!=null)
+		if(myProperties!=null) {
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{multimodalWordsPerMinute = Integer.valueOf(myProperties.getProperty("multimodal_words_per_minute", "200"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 // 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
 // 			catch(Exception e) {e.printStackTrace();}
-			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
-			catch(Exception e) {e.printStackTrace();}
+		}
+		multimodalWordsPerSecond = multimodalWordsPerMinute/60.0; 	
+		// multimodalWordsPerSecondInt = Math. .Ceiling(multimodalWordsPerSecond); 
 		if (outputToPSI) {
 			initializePSI(); 			
 		}
