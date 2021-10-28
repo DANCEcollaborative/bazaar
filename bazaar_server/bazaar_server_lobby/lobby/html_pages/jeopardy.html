@@ -352,11 +352,11 @@ ver_lobby/lobby/html_pages/jeopardyColors.js"></script>
 	{    
 		// appendNote(new Date(), username, " -- updatepresence"); 
 		if (data == "leave")
-			// if (username == "Sage the Owl")
-			//	appendNote(new Date(), username, " Sorry; I'm suddenly feeling unwell. :-( I'm going to lie down for the rest of the day. You can continue to chat if you like.");       			
-			// if (username != "Sage the Owl")  
-			// 	appendNote(new Date(), username, " has disconnected.");     
-			appendNote(new Date(), username, " is taking a break.");        		
+			if (username == "Sage the Owl")
+				appendNote(new Date(), username, " is taking a break.");       			
+			if (username != "Sage the Owl")  
+			 	appendNote(new Date(), username, " has disconnected.");     
+			// appendNote(new Date(), username, " is taking a break.");        		
 		if (data != "leave")          	
 			appendNote(new Date(), username, " has joined the discussion.");	 
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
