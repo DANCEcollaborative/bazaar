@@ -264,7 +264,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
-						Thread.sleep(2000);
+						Thread.sleep(5000);
 						tick();
 					}
 					catch (Exception e)
@@ -316,7 +316,25 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
-		psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		if (!separateOutputToPSI) {
+			MessageEvent newme;
+			String[] allAnnotations = me.getAllAnnotations();
+			try
+			{
+				newme = me.cloneMessage(messageString);
+			}
+			catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
+			}
+			broadcast(newme);
+			MessageEventLogger.logMessageEvent(newme);
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		} else {
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		}
 		
 // 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
 // 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
