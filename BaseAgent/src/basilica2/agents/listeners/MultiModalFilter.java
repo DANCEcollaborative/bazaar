@@ -86,6 +86,7 @@ public class MultiModalFilter extends BasilicaAdapter
 					news = new State();
 				}
 			LocalDateTime now = LocalDateTime.now();
+			news.setMultimodalPauseWhileSpeaking(true);
 			news.setMultimodalPauseEnd(now);
 			StateMemory.commitSharedState(news, a);
 		}

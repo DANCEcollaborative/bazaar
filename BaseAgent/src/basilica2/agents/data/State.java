@@ -82,6 +82,7 @@ public class State
 	private poseEventType groupPose = poseEventType.none;
 	private String identityAllUsers = "group";
 	private int jointActivityMetric = 0; 
+	private Boolean multimodalPauseWhileSpeaking; 
 	private LocalDateTime multimodalPauseEnd; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
@@ -512,6 +513,16 @@ public class State
 	public void setGroupPose(poseEventType pose)
 	{
 		this.groupPose = pose;
+	}
+
+	public void setMultimodalPauseWhileSpeaking(Boolean pauseWhileSpeaking)
+	{
+		multimodalPauseWhileSpeaking = pauseWhileSpeaking;
+	}
+
+	public Boolean getMultimodalPauseWhileSpeaking()
+	{
+		return this.multimodalPauseWhileSpeaking;
 	}
 
 	public LocalDateTime getMultimodalPauseEnd()
