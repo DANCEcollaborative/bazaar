@@ -91,6 +91,7 @@ public class State
 
 	public static State copy(State s)
 	{
+//		System.err.println("State.java, copy -- COPYING STATE");
 		State news = new State();
 
 		news.initiated = s.initiated;
@@ -99,6 +100,13 @@ public class State
 		news.stepName = s.stepName;
 		news.stepType = s.stepType;
 		news.groupPose = s.groupPose;
+		if (s.multimodalPauseEnd != null) 
+			System.err.println(">>> State.java copy: multimodalPauseEnd = " + s.multimodalPauseEnd.toString()); 
+		else 
+			System.err.println(">>> State.java copy: multimodalPauseEnd = null"); 
+			
+		news.multimodalPauseWhileSpeaking = s.multimodalPauseWhileSpeaking;
+		news.multimodalPauseEnd = s.multimodalPauseEnd;
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
 			news.stateMap.put(k, map.get(k));
@@ -517,22 +525,24 @@ public class State
 
 	public void setMultimodalPauseWhileSpeaking(Boolean pauseWhileSpeaking)
 	{
-		multimodalPauseWhileSpeaking = pauseWhileSpeaking;
+		this.multimodalPauseWhileSpeaking = pauseWhileSpeaking;
 	}
 
 	public Boolean getMultimodalPauseWhileSpeaking()
 	{
-		return this.multimodalPauseWhileSpeaking;
+		return multimodalPauseWhileSpeaking;
 	}
 
 	public LocalDateTime getMultimodalPauseEnd()
 	{
+		System.err.println("State, getMultimodalPauseEnd: " + multimodalPauseEnd.toString());
 		return multimodalPauseEnd;
 	}
 
 	public void setMultimodalPauseEnd(LocalDateTime pauseEnd)
 	{
 		this.multimodalPauseEnd = pauseEnd;
+		System.err.println("State, setMultimodalPauseEnd: " + pauseEnd.toString());
 	}
 
 	@Override

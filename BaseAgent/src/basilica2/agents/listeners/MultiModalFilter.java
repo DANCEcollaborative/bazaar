@@ -48,18 +48,20 @@ public class MultiModalFilter extends BasilicaAdapter
 	private boolean trackLocation = true;
 	private boolean checkDistances = true;
 	private Double minDistanceApart = 182.88;
-	private boolean pauseWhileSpeaking = true;
 	private InputCoordinator source;
 	private String status = "";
 	private boolean isTrackingLocation = false;
 	private String sourceName; 
 	private String identityAllUsers = "group";
 	private String subscribeTopic; 
+	private boolean pauseWhileSpeaking = true;
 	private LocalDateTime multimodalPauseEnd; 
+	private Agent thisAgent; 
 
 	public MultiModalFilter(Agent a) 
 	{
 		super(a);
+		thisAgent = a; 
 		
 		// get location-related properties
 		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}
@@ -76,19 +78,25 @@ public class MultiModalFilter extends BasilicaAdapter
 		catch(Exception e) {e.printStackTrace();}
 		if (pauseWhileSpeaking) {
 			State olds = StateMemory.getSharedState(a);
-			State news;
-			if (olds != null)
-				{
-					news = State.copy(olds);
-				}
-				else
-				{
-					news = new State();
-				}
+			// State news;
+			State news = State.copy(olds);
+//			if (olds != null)
+//				{
+//					news = State.copy(olds);
+//				}
+//				else
+//				{
+//					news = new State();
+//				}
 			LocalDateTime now = LocalDateTime.now();
 			news.setMultimodalPauseWhileSpeaking(true);
 			news.setMultimodalPauseEnd(now);
+//			this.multimodalPauseEnd = now; 
+			System.err.println("MultimodalFilter init, agent name: " + a.getName());	
+			System.err.println("MultimodalFilter init, getMultimodalPauseEnd #1: " + news.getMultimodalPauseEnd().toString());	
 			StateMemory.commitSharedState(news, a);
+			State news2 = State.copy(StateMemory.getSharedState(a));
+			System.err.println("MultimodalFilter init, getMultimodalPauseEnd #2: " + news2.getMultimodalPauseEnd().toString());	
 		}
 	}
 
@@ -120,8 +128,10 @@ public class MultiModalFilter extends BasilicaAdapter
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
 		// TEMP for DEBUGGING
-		State s = StateMemory.getSharedState(agent);
-		System.err.println("MultiModalFilter, current number of students: " + s.getStudentCount());
+//		State s = StateMemory.getSharedState(source.getAgent());
+		// State currentState = StateMemory.getSharedState(thisAgent);
+		State currentState = StateMemory.getSharedState(agent);
+		System.err.println("MultiModalFilter, current number of students: " + currentState.getStudentCount());
 		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
@@ -169,7 +179,6 @@ public class MultiModalFilter extends BasilicaAdapter
 				case speech:
 					processSpeech = true; 
 					speechText = messagePart[1]; 
-					System.out.println("Speech: " + speechText);	
 					// me.setText(messagePart[1]);
 //					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
 //					source.queueNewEvent(meSpeech);	
@@ -198,7 +207,15 @@ public class MultiModalFilter extends BasilicaAdapter
 				// So that the agent doesn't hear itself, ignore speech heard while the agent is speaking 
 				if (pauseWhileSpeaking) {
 					LocalDateTime now = LocalDateTime.now();
-					LocalDateTime pauseEnd = StateMemory.getSharedState(agent).getMultimodalPauseEnd(); 
+					// LocalDateTime pauseEnd = StateMemory.getSharedState(agent).getMultimodalPauseEnd(); 
+					// State currentState = StateMemory.getSharedState(agent); 
+//					System.err.println("MultimodalFilter handleMessageEvent, agent name: " + thisAgent.getName());	
+					System.err.println("MultimodalFilter handleMessageEvent, agent name: " + agent.getName());	
+
+					LocalDateTime pauseEnd = currentState.getMultimodalPauseEnd(); 
+					// LocalDateTime pauseEnd = StateMemory.getSharedState(agent).getMultimodalPauseEnd(); 
+					System.err.println("MultimodalFilter handleMessageEvent: now = " + now.toString());
+					System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = " + pauseEnd.toString());
 					if (now.isBefore(pauseEnd)) {
 						me.invalidate();
 						return; 
