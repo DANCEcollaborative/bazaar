@@ -29,6 +29,7 @@ import basilica2.agents.listeners.plan.PlanExecutor;
 
 public class RotateStepHandler implements StepHandler
 {
+	// Please refer to RoleStepHandler.properties for the meaning of the following variables
 	private PromptTable prompter;
 	private double wordsPerSecond = 200/60.0;
 	private double constantDelay = 0.1;
@@ -112,6 +113,7 @@ public class RotateStepHandler implements StepHandler
  
 		// Get the IDs of the students currently present
 		// String[] studentIds = state.getStudentIds(); 
+		// Get the IDs of the students ever present
 		String[] studentIds = state.getStudentIdsPresentOrNot(); 
 		int numStudents = studentIds.length; 
 		
@@ -131,6 +133,7 @@ public class RotateStepHandler implements StepHandler
         List<String> newRoles = new ArrayList<String>();
         if (numStudents > 0) {
         	if (numStudents < minUsersToMatch) {
+        		// No role assignment if there are not enough students to start role assignment; No prompt suffix
         		newRoles = new ArrayList<String>(Arrays.asList(roles));
             }else {
             	Map<String, String> roleAssignment = new LinkedHashMap<String, String>();
@@ -138,9 +141,13 @@ public class RotateStepHandler implements StepHandler
             	List<String> remainingRoles = new ArrayList<String>();
             	Collections.shuffle(remainingStudents);
             	if (numStudents <= numRoles) {
-            		for (int i=0;i<numStudents;i++) { //roles[i]
+            		// When there are less students than roles, every student will take a different role
+            		// prompt suffix = "_" + numStudents
+            		// For every role, check which student hasn't taken it so far and assign it to that student
+            		// If everyone has taken this role, save the role in remainingRoles
+            		for (int i=0;i<numStudents;i++) {
             			boolean roleAssigned = false;
-            			for (String Sid: remainingStudents) { //student[j]
+            			for (String Sid: remainingStudents) {
             				if ((!state.getStudentPreviousRoles(Sid).contains(roles[i])) && (!roleAssignment.containsKey(Sid))) {
             					roleAssignment.put(Sid,roles[i]);
             					roleAssigned=true;
@@ -153,6 +160,8 @@ public class RotateStepHandler implements StepHandler
             			}
             		}
             		try {
+            			// For the roles that everyone has taken before, choose a student who doesn't take this role in the last round
+            			
             			if (remainingRoles.size()>0) {
                 			for (int i=0; i<remainingRoles.size(); i++) {
                 				boolean roleAssigned = false;
@@ -185,10 +194,13 @@ public class RotateStepHandler implements StepHandler
             		promptSuffix = "_" + Integer.toString(numStudents); 
             		maxMatch = numStudents;
             	}else {
-        			for (int i=0; i<numRoles; i++) { //roles[i]
+            		// When there are more students than roles, some students will take roles while the others may or may not take roles
+            		// Same as the above, guarantee that one role is taken by different students in different rounds
+        			
+        			for (int i=0; i<numRoles; i++) {
             			if (matchMultipleToDefault && roles[i].equalsIgnoreCase(defaultRole)) {continue;}
             			boolean roleAssigned = false;
-            			for (String Sid: remainingStudents) { //student[j]
+            			for (String Sid: remainingStudents) {
             				if ((!state.getStudentPreviousRoles(Sid).contains(roles[i])) && (!roleAssignment.containsKey(Sid))) {
             					roleAssignment.put(Sid,roles[i]);
             					roleAssigned=true;
@@ -229,6 +241,8 @@ public class RotateStepHandler implements StepHandler
             			i++;
             		}
             		if (matchMultipleToDefault) {
+            			// If every student needs to have a role, the remaining students who haven't got a role will take the default role
+            			// prompt suffix = "_MAX_ALL"
                 		for (int j=0;j<remainingStudents.size();j++) {
                 			newRoles.add(new String(defaultRole));
                 			studentIds[i]=remainingStudents.get(j);
@@ -237,6 +251,8 @@ public class RotateStepHandler implements StepHandler
                 		promptSuffix = "_MAX_ALL";
                 		maxMatch = numStudents;
             		}else {
+            			// One role is assigned to exactly one student and the others will not take roles
+            			// prompt suffix = "_MAX_NONE"
             			promptSuffix = "_MAX_NONE";
             			maxMatch = numRoles;
             		}
