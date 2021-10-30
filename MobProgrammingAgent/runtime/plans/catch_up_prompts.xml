@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<prompt strategy="task" id="PROMPT_ROLE_MATCH">
+       <text>Now you can take different roles in this task. |[NAME1], your role is [ROLE1], and [NAME2], you will be the [ROLE2]. If someone joins you later, they will take other roles.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_ROLE_MATCH_SINGLE">
+       <text>Let's welcome our new member [NAME]! [NAME], you will take the role of [ROLE].</text>
+    </prompt>
+
+    <prompt strategy="task" id="stageA_PROMPT_STEP_TEMPERATURE_CHANGE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how temperature change may play a role in climate change. Please click on the words "Temperature Change Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_WAIT_STEP_TEMPERATURE_CHANGE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how temperature change may play a role in climate change. Please click on the words "Temperature Change Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_PROMPT_STEP_CARBON_DIOXIDE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how carbon dioxide may play a role in climate change. Please click on the words "Carbon Dioxide Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_WAIT_STEP_CARBON_DIOXIDE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how carbon dioxide may play a role in climate change. Please click on the words "Carbon Dioxide Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_PROMPT_STEP_FOSSIL_FUELS">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how fossil fuels may play a role in climate change. Please click on the words "Fossil Fuels Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_WAIT_STEP_FOSSIL_FUELS">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how fossil fuels may play a role in climate change. Please click on the words "Fossil Fuels Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_PROMPT_STEP_READ_LETTER">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Type "ready" when you are ready to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_WAIT_STEP_READ_LETTER">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Type "ready" when you are ready to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_PROMPT_STEP_MAYORAL_PERSPECTIVE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left, summarize her perspective, and discuss with your team about the benefits of using fossil fuels and what evidence and reasoning she uses to support her decision. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_WAIT_STEP_MAYORAL_PERSPECTIVE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left, summarize her perspective, and discuss with your team about the benefits of using fossil fuels and what evidence and reasoning she uses to support her decision. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_PROMPT_STEP_MAYORAL_RESPONSE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Now, spend the rest of your time discussing and developing a response to the mayor. Click on "Joint Response" at the left for the form you will complete together with your team. How would you respond to the mayor from the standpoint of the discussion you led on a climate change role? Make sure to support your ideas with evidence. |You can logout of the agent when you're done.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_LISTEN_STEP_MAYORAL_RESPONSE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Now, spend the rest of your time discussing and developing a response to the mayor. Click on "Joint Response" at the left for the form you will complete together with your team. How would you respond to the mayor from the standpoint of the discussion you led on a climate change role? Make sure to support your ideas with evidence. |You can logout of the agent when you're done.</text>
+    </prompt>
+    
+</prompts>
+
