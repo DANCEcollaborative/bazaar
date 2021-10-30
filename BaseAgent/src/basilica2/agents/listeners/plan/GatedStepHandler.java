@@ -46,7 +46,7 @@ public class GatedStepHandler implements StepHandler
 		
 		if(!checkinPrompt.equals("NONE"))
 		{
-			source.pushEventProposal(new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(checkinPrompt), "WAIT_FOR_CHECKIN"), OutputCoordinator.LOW_PRIORITY, 10);
+			source.pushEventProposal(new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(checkinPrompt), "WAIT_FOR_CHECKIN"), OutputCoordinator.HIGH_PRIORITY, 10);
 		}
 		currentStep.executeStepHandlers(source, type);
 		
@@ -58,7 +58,7 @@ public class GatedStepHandler implements StepHandler
 				if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 				{
 					MessageEvent softWarning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("TIMEOUT_WARNING"), "TIMEOUT_WARNING");
-					source.pushEventProposal(softWarning, OutputCoordinator.LOW_PRIORITY, 20);
+					source.pushEventProposal(softWarning, OutputCoordinator.MEDIUM_PRIORITY, 20);
 				}
 			}
 		}).start();

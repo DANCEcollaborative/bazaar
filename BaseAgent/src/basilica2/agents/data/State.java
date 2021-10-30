@@ -183,6 +183,16 @@ public class State
 		}
 		return sid;
 	}
+	
+	public List<String> getAllStudentNames()
+	{
+		List<String> ids = new ArrayList<String>();
+		for (int i = 0; i < students.size(); i++)
+		{
+			ids.add(students.get(i).name);
+		}
+		return ids;
+	}
 
 	public void setName(String sid, String name)
 	{
