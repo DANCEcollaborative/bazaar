@@ -38,6 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.time.LocalDateTime;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
 import java.util.Collections;
@@ -81,6 +82,8 @@ public class State
 	private poseEventType groupPose = poseEventType.none;
 	private String identityAllUsers = "group";
 	private int jointActivityMetric = 0; 
+	private Boolean multimodalPauseWhileSpeaking; 
+	private LocalDateTime multimodalPauseEnd = null; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -88,6 +91,7 @@ public class State
 
 	public static State copy(State s)
 	{
+//		System.err.println("State.java, copy -- COPYING STATE");
 		State news = new State();
 
 		news.initiated = s.initiated;
@@ -96,6 +100,13 @@ public class State
 		news.stepName = s.stepName;
 		news.stepType = s.stepType;
 		news.groupPose = s.groupPose;
+//		if (s.multimodalPauseEnd != null) 
+//			System.err.println(">>> State.java copy: multimodalPauseEnd = " + s.multimodalPauseEnd.toString()); 
+//		else 
+//			System.err.println(">>> State.java copy: multimodalPauseEnd = null"); 
+			
+		news.multimodalPauseWhileSpeaking = s.multimodalPauseWhileSpeaking;
+		news.multimodalPauseEnd = s.multimodalPauseEnd;
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
 			news.stateMap.put(k, map.get(k));
@@ -510,6 +521,26 @@ public class State
 	public void setGroupPose(poseEventType pose)
 	{
 		this.groupPose = pose;
+	}
+
+	public void setMultimodalPauseWhileSpeaking(Boolean pauseWhileSpeaking)
+	{
+		this.multimodalPauseWhileSpeaking = pauseWhileSpeaking;
+	}
+
+	public Boolean getMultimodalPauseWhileSpeaking()
+	{
+		return multimodalPauseWhileSpeaking;
+	}
+
+	public LocalDateTime getMultimodalPauseEnd()
+	{
+		return multimodalPauseEnd;
+	}
+
+	public void setMultimodalPauseEnd(LocalDateTime pauseEnd)
+	{
+		this.multimodalPauseEnd = pauseEnd;
 	}
 
 	@Override

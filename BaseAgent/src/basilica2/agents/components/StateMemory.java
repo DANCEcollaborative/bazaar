@@ -53,12 +53,16 @@ public class StateMemory extends Memory<State> {
     	if(!a.getAllConnections().isEmpty())
     	{
 	    	State s = ((StateMemory)a.getComponent(stateMemoryName)).retrieve();
-	    	if(s == null)
+	    	if(s == null) {
 	    		return new State();
-	    	else
+	    	}
+	    	else {
 	    		return State.copy(s);
+	    	}
     	}
-    	else return dummyState;
+    	else {
+    		return dummyState;
+    	}
     }
     
     public static void commitSharedState(State s, Agent a)
@@ -67,7 +71,10 @@ public class StateMemory extends Memory<State> {
     	{
     		((StateMemory)a.getComponent(stateMemoryName)).commit(s);
     	}
-    	else dummyState = s;
+    	else {
+    		dummyState = s;
+//        	System.err.println(">>> StateMemory commitSharedState: DUMMY STATE! <<<");
+    	}
     }
     
 }

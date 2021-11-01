@@ -31,6 +31,7 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 import java.util.Hashtable;
 import java.util.Map;
 import java.lang.Math; 
+import java.time.LocalDateTime;
 
 
 public class MultiModalFilter extends BasilicaAdapter
@@ -53,10 +54,14 @@ public class MultiModalFilter extends BasilicaAdapter
 	private String sourceName; 
 	private String identityAllUsers = "group";
 	private String subscribeTopic; 
+	private boolean pauseWhileSpeaking = true;
+	private LocalDateTime multimodalPauseEnd; 
+	private Agent thisAgent; 
 
 	public MultiModalFilter(Agent a) 
 	{
 		super(a);
+		thisAgent = a; 
 		
 		// get location-related properties
 		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}
@@ -65,10 +70,34 @@ public class MultiModalFilter extends BasilicaAdapter
 		catch(Exception e) {e.printStackTrace();}
 		try{minDistanceApart = Double.valueOf(getProperties().getProperty("minimum_distance_apart", "182.88"));}
 		catch(Exception e) {e.printStackTrace();}
+		try{pauseWhileSpeaking = Boolean.parseBoolean(getProperties().getProperty("pause_while_speaking", "true"));}
+		catch(Exception e) {e.printStackTrace();}
 		try{sourceName = getProperties().getProperty("source_name", "agent");}
 		catch(Exception e) {e.printStackTrace();}
 		try{subscribeTopic = getProperties().getProperty("subscribeTopic", "PSI_Bazaar_Text");}
 		catch(Exception e) {e.printStackTrace();}
+		if (pauseWhileSpeaking) {
+			State olds = StateMemory.getSharedState(a);
+			// State news;
+			State news = State.copy(olds);
+//			if (olds != null)
+//				{
+//					news = State.copy(olds);
+//				}
+//				else
+//				{
+//					news = new State();
+//				}
+			LocalDateTime now = LocalDateTime.now();
+			news.setMultimodalPauseWhileSpeaking(true);
+			news.setMultimodalPauseEnd(now);
+//			this.multimodalPauseEnd = now; 
+			System.err.println("MultimodalFilter init, agent name: " + a.getName());	
+			System.err.println("MultimodalFilter init, getMultimodalPauseEnd #1: " + news.getMultimodalPauseEnd().toString());	
+			StateMemory.commitSharedState(news, a);
+			State news2 = State.copy(StateMemory.getSharedState(a));
+			System.err.println("MultimodalFilter init, getMultimodalPauseEnd #2: " + news2.getMultimodalPauseEnd().toString());	
+		}
 	}
 
 	public void setTrackMode(boolean m)
@@ -99,12 +128,17 @@ public class MultiModalFilter extends BasilicaAdapter
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
 		// TEMP for DEBUGGING
-		State s = StateMemory.getSharedState(agent);
-		System.err.println("MultiModalFilter, current number of students: " + s.getStudentCount());
+//		State s = StateMemory.getSharedState(source.getAgent());
+		// State currentState = StateMemory.getSharedState(thisAgent);
+		State currentState = StateMemory.getSharedState(agent);
+		System.err.println("MultiModalFilter, current number of students: " + currentState.getStudentCount());
 		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
+
+		// If this is a multimodal message
 		if (multiModalMessage.length > 1) {
+			
 			multiModalTag tag; 
 			String [] messagePart; 
 
@@ -124,6 +158,8 @@ public class MultiModalFilter extends BasilicaAdapter
 			}
 			
 			// Update the message sender's properties based on multimodal updates
+			boolean processSpeech = false; 
+			String speechText = ""; 
 			for (int i = 0; i < multiModalMessage.length; i++) {
 				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
@@ -139,13 +175,14 @@ public class MultiModalFilter extends BasilicaAdapter
 					break;
 				case identity:  // already handled above 
 					System.out.println("Identity: " + messagePart[1]);
-					break;
+					break;					
 				case speech:
-					System.out.println("Speech: " + messagePart[1]);
+					processSpeech = true; 
+					speechText = messagePart[1]; 
 					// me.setText(messagePart[1]);
 //					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
-//					source.queueNewEvent(meSpeech);
-					break;
+//					source.queueNewEvent(meSpeech);	
+					break;			
 				case location:
 					System.out.println("Location: " + messagePart[1]);
 					if (trackLocation)
@@ -161,8 +198,31 @@ public class MultiModalFilter extends BasilicaAdapter
 				case emotion:
 					System.out.println("Emotion: " + messagePart[1]);
 					break;
+					
 				default:
 					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
+				}
+			}
+			if (processSpeech) {				
+				// So that the agent doesn't hear itself, ignore speech heard while the agent is speaking 
+				if (pauseWhileSpeaking) {
+					
+					LocalDateTime now = LocalDateTime.now();
+					LocalDateTime pauseEnd = currentState.getMultimodalPauseEnd(); 
+					System.err.println("MultimodalFilter handleMessageEvent: now = " + now.toString());
+					if (pauseEnd != null) {
+						System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = " + pauseEnd.toString());
+						if (now.isBefore(pauseEnd)) {
+							System.err.println("MultimodalFilter handleMessageEvent: QUASHING speech input");
+							me.invalidate();
+							return; 
+						} else {
+							System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
+						}
+					} else {
+						System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = NULL");
+						System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
+					}
 				}
 			}
 		}  

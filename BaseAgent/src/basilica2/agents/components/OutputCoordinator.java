@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 import org.jivesoftware.smack.packet.Message;
 
@@ -33,6 +34,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 {
 	public static final int HISTORY_SIZE = 3;
 
+	private Agent agent; 
 	final private ArrayList<PriorityEvent> proposalQueue = new ArrayList<PriorityEvent>();
 	private double delay = 2.0;
 	private ArrayList<AbstractPrioritySource> recentSources = new ArrayList<AbstractPrioritySource>();
@@ -53,25 +55,39 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 // 	private String psiHost = "*";							// This machine 
 // 	private String psiPort = "5555"; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
+	private Boolean pauseWhileSpeaking = true; 
+	private Integer multimodalWordsPerMinute;
+	private Double multimodalWordsPerSecond; 
+	private Double multimodalConstantDelay; 
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
 		// s1 = name; s2 = properties file name
 		super(agent, s1, s2);
+		this.agent = agent; 
 		Timer timer = new Timer(delay, "Output Queue", this);
 		timer.start();
 		
-		if(myProperties!=null)
+		if(myProperties!=null) {
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{pauseWhileSpeaking = Boolean.parseBoolean(myProperties.getProperty("pause_while_speaking", "true"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{multimodalWordsPerMinute = Integer.valueOf(myProperties.getProperty("multimodal_words_per_minute", "150"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{multimodalConstantDelay = Double.valueOf(myProperties.getProperty("multimodal_words_constant_delay", "0.5"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 // 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
 // 			catch(Exception e) {e.printStackTrace();}
-			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
-			catch(Exception e) {e.printStackTrace();}
+		}
+		// multimodalWordsPerSecond = (int)Math.ceil(multimodalWordsPerMinute/60.0); 
+		multimodalWordsPerSecond = multimodalWordsPerMinute/60.0; 
 		if (outputToPSI) {
 			initializePSI(); 			
 		}
@@ -313,7 +329,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				to = identityAllUsers; 
 			}	
 		}
-		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		if (!separateOutputToPSI) {
@@ -331,14 +346,36 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 			broadcast(newme);
 			MessageEventLogger.logMessageEvent(newme);
+			setMultimodalPause(speechField); 
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		} else {
+			setMultimodalPause(speechField); 
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		}
 		
 // 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
 // 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
 //         publisher.send(topicMessage, 0);
+	}
+	
+	public void setMultimodalPause(String speechString) {
+		State olds = StateMemory.getSharedState(agent); 
+		if (pauseWhileSpeaking) {
+			State news;
+			if (olds != null)
+				news = State.copy(olds);
+			else
+				news = new State();
+			LocalDateTime now = LocalDateTime.now();
+			System.err.println("=== OutputCoordinator, pause while speaking -- now:     " + now.toString() + " <<<"); 
+			Double sentenceDelay = speechString.split(" ").length/multimodalWordsPerSecond; 
+			Double pauseSecondsDouble = multimodalConstantDelay + sentenceDelay;
+			Long pauseSeconds = (long)Math.ceil(pauseSecondsDouble); 
+			LocalDateTime pauseEnd = now.plusSeconds(pauseSeconds); 
+			news.setMultimodalPauseEnd(pauseEnd);
+			System.err.println("=== OutputCoordinator, pause while speaking -- pauseEnd: " + pauseEnd.toString() + " <<<"); 
+			StateMemory.commitSharedState(news, agent);
+		}
 	}
 
 	
