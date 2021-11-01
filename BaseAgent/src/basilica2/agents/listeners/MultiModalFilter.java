@@ -206,6 +206,7 @@ public class MultiModalFilter extends BasilicaAdapter
 			if (processSpeech) {				
 				// So that the agent doesn't hear itself, ignore speech heard while the agent is speaking 
 				if (pauseWhileSpeaking) {
+					
 					LocalDateTime now = LocalDateTime.now();
 					// LocalDateTime pauseEnd = StateMemory.getSharedState(agent).getMultimodalPauseEnd(); 
 					// State currentState = StateMemory.getSharedState(agent); 
@@ -215,10 +216,17 @@ public class MultiModalFilter extends BasilicaAdapter
 					LocalDateTime pauseEnd = currentState.getMultimodalPauseEnd(); 
 					// LocalDateTime pauseEnd = StateMemory.getSharedState(agent).getMultimodalPauseEnd(); 
 					System.err.println("MultimodalFilter handleMessageEvent: now = " + now.toString());
-					System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = " + pauseEnd.toString());
-					if (now.isBefore(pauseEnd)) {
-						me.invalidate();
-						return; 
+					if (pauseEnd != null) {
+						System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = " + pauseEnd.toString());
+						if (now.isBefore(pauseEnd)) {
+							System.err.println("MultimodalFilter handleMessageEvent: QUASHING speech input");
+							me.invalidate();
+							return; 
+						} else {
+							System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
+						}
+					} else {
+						System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = NULL");
 					}
 				}
 			}

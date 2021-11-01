@@ -55,6 +55,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 // 	private String psiHost = "*";							// This machine 
 // 	private String psiPort = "5555"; 
 	private String bazaarToPSITopic = "Bazaar_PSI_Text";
+	private Boolean pauseWhileSpeaking = true; 
 	private Integer multimodalWordsPerMinute;
 	private Double multimodalWordsPerSecond; 
 	private Double multimodalConstantDelay; 
@@ -71,6 +72,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{pauseWhileSpeaking = Boolean.parseBoolean(myProperties.getProperty("pause_while_speaking", "true"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{multimodalWordsPerMinute = Integer.valueOf(myProperties.getProperty("multimodal_words_per_minute", "150"));}
 			catch(Exception e) {e.printStackTrace();}
@@ -357,8 +360,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	}
 	
 	public void setMultimodalPause(String speechString) {
+//		Boolean pauseWhileSpeaking = olds.getMultimodalPauseWhileSpeaking(); 
 		State olds = StateMemory.getSharedState(agent); 
-		Boolean pauseWhileSpeaking = olds.getMultimodalPauseWhileSpeaking(); 
 		if (pauseWhileSpeaking) {
 			State news;
 			if (olds != null)
@@ -366,10 +369,16 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			else
 				news = new State();
 			LocalDateTime now = LocalDateTime.now();
-			Double pauseSecondsDouble = multimodalConstantDelay + speechString.split(" ").length/multimodalWordsPerSecond; 
+			System.err.println("=== OutputCoordinator, now:     " + now.toString() + " <<<"); 
+			System.err.println("OutputCoordinator, multimodalContantDelay: " + multimodalConstantDelay.toString()); 
+			Double sentenceDelay = speechString.split(" ").length/multimodalWordsPerSecond; 
+			System.err.println("OutputCoordinator, multimodal sentence delay: " + sentenceDelay.toString()); 
+			Double pauseSecondsDouble = multimodalConstantDelay + sentenceDelay; 
+			System.err.println("OutputCoordinator, multimodal total delay: " + pauseSecondsDouble.toString()); 
 			Long pauseSeconds = (long)Math.ceil(pauseSecondsDouble); 
 			LocalDateTime pauseEnd = now.plusSeconds(pauseSeconds); 
 			news.setMultimodalPauseEnd(pauseEnd);
+			System.err.println("=== OutputCoordinator, pauseEnd: " + pauseEnd.toString() + " <<<"); 
 			StateMemory.commitSharedState(news, agent);
 		}
 	}

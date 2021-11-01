@@ -172,7 +172,8 @@ public class InputCoordinator extends Component
 		            for(BasilicaPreProcessor prep : preprocessors.get(keyClass))
 		            {
 		            	// System.err.println("****\n\nprocessing "+event+" for "+prep.getClass().getSimpleName()+": ");
-		                prep.preProcessEvent(this, event);
+		            	if (event.isValid()) 
+		            		prep.preProcessEvent(this, event);
 		                // System.err.println(preprocessedEvents+"\n\n****");
 		            }
             	}

@@ -83,7 +83,7 @@ public class State
 	private String identityAllUsers = "group";
 	private int jointActivityMetric = 0; 
 	private Boolean multimodalPauseWhileSpeaking; 
-	private LocalDateTime multimodalPauseEnd; 
+	private LocalDateTime multimodalPauseEnd = null; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -100,10 +100,10 @@ public class State
 		news.stepName = s.stepName;
 		news.stepType = s.stepType;
 		news.groupPose = s.groupPose;
-		if (s.multimodalPauseEnd != null) 
-			System.err.println(">>> State.java copy: multimodalPauseEnd = " + s.multimodalPauseEnd.toString()); 
-		else 
-			System.err.println(">>> State.java copy: multimodalPauseEnd = null"); 
+//		if (s.multimodalPauseEnd != null) 
+//			System.err.println(">>> State.java copy: multimodalPauseEnd = " + s.multimodalPauseEnd.toString()); 
+//		else 
+//			System.err.println(">>> State.java copy: multimodalPauseEnd = null"); 
 			
 		news.multimodalPauseWhileSpeaking = s.multimodalPauseWhileSpeaking;
 		news.multimodalPauseEnd = s.multimodalPauseEnd;
@@ -535,14 +535,17 @@ public class State
 
 	public LocalDateTime getMultimodalPauseEnd()
 	{
-		System.err.println("State, getMultimodalPauseEnd: " + multimodalPauseEnd.toString());
+//		if (multimodalPauseEnd != null)
+//			System.err.println("State, getMultimodalPauseEnd: " + multimodalPauseEnd.toString());
+//		else
+//			System.err.println("State, getMultimodalPauseEnd: NULL");
 		return multimodalPauseEnd;
 	}
 
 	public void setMultimodalPauseEnd(LocalDateTime pauseEnd)
 	{
 		this.multimodalPauseEnd = pauseEnd;
-		System.err.println("State, setMultimodalPauseEnd: " + pauseEnd.toString());
+//		System.err.println("State, setMultimodalPauseEnd: " + pauseEnd.toString());
 	}
 
 	@Override
