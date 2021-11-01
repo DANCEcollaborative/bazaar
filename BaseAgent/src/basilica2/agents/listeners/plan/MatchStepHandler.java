@@ -27,6 +27,7 @@ import basilica2.agents.listeners.plan.PlanExecutor;
 
 public class MatchStepHandler implements StepHandler
 {
+	// Please refer to MatchStepHandler.properties for the meaning of the following variables
 	private PromptTable prompter;
 	private double wordsPerSecond = 200/60.0;
 	private double constantDelay = 0.1;
@@ -108,6 +109,7 @@ public class MatchStepHandler implements StepHandler
  
 		// Get the IDs of the students currently present
 		// String[] studentIds = state.getStudentIds(); 
+		// Get the IDs of the students ever present
 		String[] studentIds = state.getStudentIdsPresentOrNot(); 
 		int numStudents = studentIds.length; 
 		
@@ -126,11 +128,14 @@ public class MatchStepHandler implements StepHandler
 		promptSuffix = "_" + Integer.toString(numStudents); 
         int maxMatch = 0;
     	if (numStudents >= minUsersToMatch && numStudents <= numRoles) {
-    		// promptSuffix = "_" + Integer.toString(numStudents); 
+    		// Each student will take a different role
+    		// promptSuffix = "_" + Integer.toString(numStudents)
     		maxMatch = numStudents;
     	}
     	if (numStudents > numRoles) {
     		if (matchMultipleToDefault) {
+    			// Every student need to take a role. There are more students than roles, so after assigning the roles to different students, the rest of them will take the default role.
+    			// promptSuffix = "_MAX_ALL"
     			List<String> roleList = new ArrayList<String>(Arrays.asList(roles));
     			roleList.remove(roleList.indexOf(defaultRole));
         		for (int i=numRoles-1; i<numStudents; i++) {
@@ -140,6 +145,8 @@ public class MatchStepHandler implements StepHandler
         		promptSuffix = "_MAX_ALL";
         		maxMatch = numStudents;
     		}else {
+    			// After assigning the roles to different students, the rest of the students will not take roles.
+    			// promptSuffix = "_MAX_NONE"
     			promptSuffix = "_MAX_NONE";
     			maxMatch = numRoles;
     		}
