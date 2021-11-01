@@ -329,7 +329,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				to = identityAllUsers; 
 			}	
 		}
-		System.err.println("OutputCoordinator, publishMessageToPSI, me.getDestinationUser(): " + to); 
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		if (!separateOutputToPSI) {
@@ -360,7 +359,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	}
 	
 	public void setMultimodalPause(String speechString) {
-//		Boolean pauseWhileSpeaking = olds.getMultimodalPauseWhileSpeaking(); 
 		State olds = StateMemory.getSharedState(agent); 
 		if (pauseWhileSpeaking) {
 			State news;
@@ -369,16 +367,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			else
 				news = new State();
 			LocalDateTime now = LocalDateTime.now();
-			System.err.println("=== OutputCoordinator, now:     " + now.toString() + " <<<"); 
-			System.err.println("OutputCoordinator, multimodalContantDelay: " + multimodalConstantDelay.toString()); 
+			System.err.println("=== OutputCoordinator, pause while speaking -- now:     " + now.toString() + " <<<"); 
 			Double sentenceDelay = speechString.split(" ").length/multimodalWordsPerSecond; 
-			System.err.println("OutputCoordinator, multimodal sentence delay: " + sentenceDelay.toString()); 
-			Double pauseSecondsDouble = multimodalConstantDelay + sentenceDelay; 
-			System.err.println("OutputCoordinator, multimodal total delay: " + pauseSecondsDouble.toString()); 
+			Double pauseSecondsDouble = multimodalConstantDelay + sentenceDelay;
 			Long pauseSeconds = (long)Math.ceil(pauseSecondsDouble); 
 			LocalDateTime pauseEnd = now.plusSeconds(pauseSeconds); 
 			news.setMultimodalPauseEnd(pauseEnd);
-			System.err.println("=== OutputCoordinator, pauseEnd: " + pauseEnd.toString() + " <<<"); 
+			System.err.println("=== OutputCoordinator, pause while speaking -- pauseEnd: " + pauseEnd.toString() + " <<<"); 
 			StateMemory.commitSharedState(news, agent);
 		}
 	}

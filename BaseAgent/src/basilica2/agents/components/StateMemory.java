@@ -50,21 +50,17 @@ public class StateMemory extends Memory<State> {
     
     public static State getSharedState(Agent a)
     {
-//    	System.err.println(">>> StateMemory getSharedState: agent name = " + a.getName());
     	if(!a.getAllConnections().isEmpty())
     	{
 	    	State s = ((StateMemory)a.getComponent(stateMemoryName)).retrieve();
 	    	if(s == null) {
-//	    		System.err.println(">>> StateMemory getSharedState: returning new State()! <<<");
 	    		return new State();
 	    	}
 	    	else {
-//	    		System.err.println(">>> StateMemory getSharedState: returning copy of state <<<");
 	    		return State.copy(s);
 	    	}
     	}
     	else {
-//    		System.err.println(">>> StateMemory getSharedState: returning new DUMMY STATE! <<<");
     		return dummyState;
     	}
     }

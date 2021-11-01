@@ -535,17 +535,12 @@ public class State
 
 	public LocalDateTime getMultimodalPauseEnd()
 	{
-//		if (multimodalPauseEnd != null)
-//			System.err.println("State, getMultimodalPauseEnd: " + multimodalPauseEnd.toString());
-//		else
-//			System.err.println("State, getMultimodalPauseEnd: NULL");
 		return multimodalPauseEnd;
 	}
 
 	public void setMultimodalPauseEnd(LocalDateTime pauseEnd)
 	{
 		this.multimodalPauseEnd = pauseEnd;
-//		System.err.println("State, setMultimodalPauseEnd: " + pauseEnd.toString());
 	}
 
 	@Override
