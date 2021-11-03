@@ -15,13 +15,13 @@
         -->
         <step type="prompt" delay="5" prompt="INTRODUCE" >INTRODUCE</step>
         <!--  <step type="prompt" delay="10" prompt="GREET" >GREET</step>  -->
-        <step type="greet" timeout="180" delay="00">GREETINGS</step>
+        <step type="greet" timeout="300" delay="0">GREETINGS</step>
         <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step> 
         <step type="prompt" delay="45" prompt="WEATHER_TOPIC_SPECIFICS" >WEATHER_TOPIC_SPECIFICS</step> 
         
     </stage>
     
-    <stage name="EndStage" type="other" delay="0" timeout="300">
+    <stage name="EndStage" type="other" delay="0" timeout="400">
         <step type="prompt" delay="5" prompt="GOODBYE">WGU_GOODBYE</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
