@@ -17,11 +17,8 @@
         <!--  <step type="prompt" delay="10" prompt="GREET" >GREET</step>  -->
         <step type="greet" timeout="180" delay="00">GREETINGS</step>
         <step type="prompt" delay="10" prompt="GIVE_UP_ON_INTRODUCTIONS" >GIVE_UP_ON_INTRODUCTIONS</step> 
-        <step type="prompt" delay="10" prompt="WEATHER_TOPIC_SPECIFICS" >WEATHER_TOPIC_SPECIFICS</step> 
+        <step type="prompt" delay="45" prompt="WEATHER_TOPIC_SPECIFICS" >WEATHER_TOPIC_SPECIFICS</step> 
         
-    </stage>
-    <stage name="body" type="other" delay="0">
-    	<step type="dialogue" delay="30" dialogue="LP_PRECIPITATION">LP_PRECIPITATION</step> 
     </stage>
     
     <stage name="EndStage" type="other" delay="0" timeout="300">
