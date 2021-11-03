@@ -521,7 +521,7 @@ function getUserInstructionText(nick, i, condition)
 }
 
 let conditionOffset = -1;
-let numTeams = 2200;
+let numTeams = 2300;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
@@ -1220,7 +1220,7 @@ function isClientServerConnection(auth) {
   // which is an object that itself has a "clientID" property, whose value
   // is equal to 'DCSS', then this is a DCSS client connection.
   return auth && auth.agent && auth.agent.configuration && 
-  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'DCSS');
+  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'ClientServer-NoEcho' || auth.agent.configuration.clientID === 'DCSS');
 }
 
 function translateClientServerAuthToBazaar(auth) {
@@ -1332,10 +1332,7 @@ function loadHistory(socket, secret)
 }
 
 function logMessage(socket, content, type) {   
-//console.log("Enter logMessage");	
-//console.log("logMessage, socket.room = " + socket.room);
-//console.log("logMessage, socket.roomid = " + socket.roomid);
-//console.log("logMessage, socket.username = " + socket.username);
+	//console.log("logMessage, socket.room = " + socket.room);
 
     if(socket.temporary) return;
 
@@ -1352,23 +1349,14 @@ function logMessage(socket, content, type) {
     if(socket.handshake)
 		endpoint = socket.handshake.address;
 		
-//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
-//console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
-//console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
-//console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
-//console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
-//console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
-//console.log("logMessage, pool.escape(content) = " + pool.escape(content));
-//console.log("logMessage, pool.escape(type) = " + pool.escape(type));
-	
-	
+	//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
 	
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)' 
     		+ 'values ((select id from nodechat.room where name=' + pool.escape(socket.room) + '), '
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
     		+ pool.escape(type) + ', now());';                   
 
-//console.log("logMessage: starting pool.query to mysql2");  
+	//console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
          if (err) {
          //console.log("Error on pool.query(query, function (err, rows, fields)")
@@ -1376,9 +1364,9 @@ function logMessage(socket, content, type) {
         }
             
     });   
-//   connection.end()  
-  //console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
-//console.log("Exit logMessage");  
+	//   connection.end()  
+  	//console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
+	//console.log("Exit logMessage");  
 }
 
 // io.set('log level', 1);
@@ -1467,44 +1455,21 @@ io.sockets.on('connection', async (socket) => {
 	  //console.log("info", "Exit socket.on_adduser");
 	});
 
+
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
-	//console.log("Enter socket.on('sendchat')'"); 
-	//console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
-	//console.log("socket.on('sendchat'): socket.room = " + socket.room);
+		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
-  
-		if (socket.username == "MLAgent") {
-		// if (socket.username == "DCSSLightSideAgent") {
-                // if (socket.clientID == "DCSS") {		
-		// if (socket.username == "DCSSLightSideAgent") {
-		//console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
+
+		if (socket.clientID == "ClientServer-NoEcho") {
+			// Do nothing for no echo
+		else if (socket.username == "MLAgent") 
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
-		} else {	
-		//console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
-			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-		}
-		
-		
-		// if (typeof socket.clientID !== 'undefined' ) {
-		// //console.log("socket.on('sendchat'): socket.clientID NOT undefined");
-		// 	if (socket.clientID == "DCSS") {
-		// 	// if (socket.clientID == "DO_NOT_GO_HERE") {
-		// 	//console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
-		// 		io.sockets.in(socket.room).emit('interjection', socket.username, data); 
-		// 	} else {	
-		// 	//console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
-		// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	// 		}
-	// 	} else {	
-	// 	//console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
-	// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	// 	}
-	//console.log("Exit socket.on('sendchat')"); 
-			
+		else	
+			io.sockets.in(socket.room).emit('updatechat', socket.username, data);			
 	});
 
 
