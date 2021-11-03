@@ -1220,7 +1220,8 @@ function isClientServerConnection(auth) {
   // which is an object that itself has a "clientID" property, whose value
   // is equal to 'DCSS', then this is a DCSS client connection.
   return auth && auth.agent && auth.agent.configuration && 
-  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'ClientServer-NoEcho' || auth.agent.configuration.clientID === 'DCSS');
+  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'DCSS');
+//   		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'ClientServer-NoEcho' || auth.agent.configuration.clientID === 'DCSS');
 }
 
 function translateClientServerAuthToBazaar(auth) {
@@ -1464,9 +1465,10 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "text");
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
 
-		if (socket.clientID == "ClientServer-NoEcho") {
-			// Do nothing for no echo
-		else if (socket.username == "MLAgent") 
+// 		if (socket.clientID == "ClientServer-NoEcho") {
+// 			// Do nothing for no echo
+// 		else if (socket.username == "MLAgent") 
+		if (socket.username == "MLAgent") 
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		else	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);			
