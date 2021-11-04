@@ -56,23 +56,26 @@ public class PresenceWatcher extends BasilicaAdapter
 	private int launch_timeout = 60;
 	private boolean initiated = false;
 	private String agent_name = "Tutor";
+	private Boolean includeUnderscoreInAgentName = false; 
 
 	public PresenceWatcher(Agent a)
 	{
 		super(a);
-
-		String name = a.getName();
-		int underscore = name.indexOf("_");
-		if (underscore > -1)
-			agent_name = name.substring(0, underscore);
-		else
-			agent_name = name;
-
 		if (properties != null)
 		{
 			launch_timeout = Integer.parseInt(properties.getProperty("launch_timeout", "60"));
 			expected_number_of_students = Integer.parseInt(properties.getProperty("expected_number_of_students", "1"));
+			includeUnderscoreInAgentName = Boolean.parseBoolean(properties.getProperty("include_underscore_in_agent_name", "false"));
 		}
+
+		String name = a.getName();
+		agent_name = name;
+		if (!includeUnderscoreInAgentName) {
+			int underscore = name.indexOf("_");
+			if (underscore > -1)
+				agent_name = name.substring(0, underscore);			
+		}
+		System.err.println("PresenceWatcher, agent_name: " + agent_name);
 	}
 
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
