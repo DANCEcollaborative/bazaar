@@ -73,6 +73,10 @@ public class PresenceWatcher extends BasilicaAdapter
 		agent_name = name;
 		System.err.println("PresenceWatcher, agent_name: " + agent_name);
 		System.err.println("PresenceWatcher, agent_names list: " + Arrays.toString(agent_names));
+		State olds = StateMemory.getSharedState(a);
+		State news = new State(); 
+		if (!olds.isAgentName(agent_name))
+			news.addAgentName(agent_name);
 	}
 
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
