@@ -44,6 +44,7 @@ import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.PresenceEvent;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Arrays;
 
 /**
  * updates student presence information in StateMemory
@@ -56,7 +57,7 @@ public class PresenceWatcher extends BasilicaAdapter
 	private int launch_timeout = 60;
 	private boolean initiated = false;
 	private String agent_name = "Tutor";
-	private Boolean includeUnderscoreInAgentName = false; 
+	String[] agent_names;  
 
 	public PresenceWatcher(Agent a)
 	{
@@ -65,23 +66,22 @@ public class PresenceWatcher extends BasilicaAdapter
 		{
 			launch_timeout = Integer.parseInt(properties.getProperty("launch_timeout", "60"));
 			expected_number_of_students = Integer.parseInt(properties.getProperty("expected_number_of_students", "1"));
-			includeUnderscoreInAgentName = Boolean.parseBoolean(properties.getProperty("include_underscore_in_agent_name", "false"));
+			agent_names = properties.getProperty("agent_names", "").split("[\\s,]+");
 		}
 
 		String name = a.getName();
 		agent_name = name;
-		if (!includeUnderscoreInAgentName) {
-			int underscore = name.indexOf("_");
-			if (underscore > -1)
-				agent_name = name.substring(0, underscore);			
-		}
 		System.err.println("PresenceWatcher, agent_name: " + agent_name);
+		System.err.println("PresenceWatcher, agent_names list: " + Arrays.toString(agent_names));
 	}
 
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
 	{
-		if (!pe.getUsername().contains(agent_name) && !source.isAgentName(pe.getUsername()))
+		String userName = pe.getUsername(); 
+		System.err.println("PresenceWatcher, pe.getUsername(): " + pe.getUsername());
+		if (!userName.contains(agent_name) && !source.isAgentName(userName) && (!Arrays.asList(agent_names).contains(userName)))
 		{
+			System.err.println("PresenceWatcher: New student found");
 			State olds = StateMemory.getSharedState(agent);
 			State news;
 			if (pe.getType().equals(PresenceEvent.PRESENT))

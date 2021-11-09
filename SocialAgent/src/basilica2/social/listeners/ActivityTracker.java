@@ -125,6 +125,7 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 			Map<String, Integer> newMCs = new Hashtable<String, Integer>();
 			State s = StateMemory.getSharedState(agent);
 			String[] sids = s.getStudentIds();
+//			System.err.println("ActivityTracker, adding student: " + from);
 			s.addStudent(from);
 			StateMemory.commitSharedState(s, getAgent());
 			for (int i = 0; i < sids.length; i++)

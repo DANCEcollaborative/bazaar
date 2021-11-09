@@ -72,6 +72,7 @@ public class State
 		}
 	}
 
+	private List<String> agentNames = new ArrayList<String>();
 	private List<Student> students = new ArrayList<Student>();
 	private List<String> roles = new ArrayList<String>();
 	private boolean initiated = false;
@@ -142,6 +143,22 @@ public class State
 		this.stageType = stageType;
 		this.stepName = stepName;
 		this.stepType = type;
+	}
+	
+	public void addAgentName(String name)
+	{
+		if (!agentNames.contains(name)) {
+			agentNames.add(name);	
+			System.err.println("State.java, addAgentName - added: " + name);
+		}			
+	}
+	
+	public Boolean isAgentName(String name)
+	{
+		if (agentNames.contains(name)) 
+			return true;
+		else
+			return false; 
 	}
 
 	public void addStudent(String sid)
