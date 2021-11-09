@@ -53,7 +53,6 @@ public class MultiModalFilter extends BasilicaAdapter
 	private boolean isTrackingLocation = false;
 	private String sourceName; 
 	private String identityAllUsers = "group";
-	private String subscribeTopic; 
 	private boolean pauseWhileSpeaking = true;
 	private LocalDateTime multimodalPauseEnd; 
 	private Agent thisAgent; 
@@ -73,8 +72,6 @@ public class MultiModalFilter extends BasilicaAdapter
 		try{pauseWhileSpeaking = Boolean.parseBoolean(getProperties().getProperty("pause_while_speaking", "true"));}
 		catch(Exception e) {e.printStackTrace();}
 		try{sourceName = getProperties().getProperty("source_name", "agent");}
-		catch(Exception e) {e.printStackTrace();}
-		try{subscribeTopic = getProperties().getProperty("subscribeTopic", "PSI_Bazaar_Text");}
 		catch(Exception e) {e.printStackTrace();}
 		if (pauseWhileSpeaking) {
 			State olds = StateMemory.getSharedState(a);
@@ -167,9 +164,6 @@ public class MultiModalFilter extends BasilicaAdapter
 				tag = multiModalTag.valueOf(messagePart[0]);
 				
 				switch (tag) {
-				case PSI_Bazaar_Text: 
-					// System.out.println("MultiModalFilter, handleMessageEvent - subscribeTopic = " + messagePart[0]); 
-					break; 
 				case multimodal:
 					System.out.println("=========== multimodal message ===========");
 					break;
@@ -179,9 +173,6 @@ public class MultiModalFilter extends BasilicaAdapter
 				case speech:
 					processSpeech = true; 
 					speechText = messagePart[1]; 
-					// me.setText(messagePart[1]);
-//					MessageEvent meSpeech = new MessageEvent(source, "psiClient", messagePart[1]);
-//					source.queueNewEvent(meSpeech);	
 					break;			
 				case location:
 					System.out.println("Location: " + messagePart[1]);
