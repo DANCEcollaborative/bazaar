@@ -4,11 +4,57 @@
         <text>Can you say more about that, [STUDENT]?</text>
         <text>Okay, [STUDENT]. Can you say a little more about that?</text>
         <text>Tell us more, [STUDENT].</text>
-        <text>Okay, [STUDENT]. Can you explain that a bit more?</text>
+        <text>Thanks, [STUDENT]. Can you explain your reasoning in more detail?</text>
+        <text>Can you explain your thought a bit more, [STUDENT]?</text>
+        <text>Can you expand on that, [STUDENT]?</text>
     </prompt>
-        <prompt id="EXPLAIN_OTHER">
+    
+    <prompt id="EXPLAIN_OTHER">
         <text>Thanks, [STUDENT]. Can anyone explain that another way?</text>
-        <text>What do you think about [STUDENT]'s idea? Can you explain it?</text>
+        <text>Team, what do you think about [STUDENT]'s idea? Can you explain it?</text>
+        <text>Can someone on the team explain [STUDENT]'s idea in another way?</text>
+        <text>[STUDENT], that's an interesting idea - tell us more about your reasoning.</text>
+        <text>[STUDENT], can you tell us why you think that?</text>
+        <text>Okay, [STUDENT]. How did you arrive at that conclusion?</text>
+        <text>Does anyone have a different interpretation, or do you agree with [STUDENT]?</text>
+        <text>Okay, [STUDENT]. Are there other possible interpretations?</text>
+        <text>Thanks, [STUDENT]. Is there any other interpretation that could be valid?</text>
+        <text>Can anyone on the team think of a competing interpretation?</text>
+        <text>Thanks, [STUDENT]. Can anyone come up with a different interpretation?</text>
+        <text>Thanks, [STUDENT]. Can someone on the team expand on that?</text>
+    </prompt>
+      
+    <prompt id="AGREE_DISAGREE">
+        <text>Team, do you agree with what [STUDENT] said? Why, or why not?</text>
+        <text>Team, can you weigh in on what [STUDENT] said?</text>
+        <text>Thanks, [STUDENT]. Do the rest of you agree or disagree with that idea? Why, or why not? </text>
+        <text>Team, what do you think about [STUDENT]'s idea?</text>
+        <text>Team, can you say why you agree with [STUDENT]'s idea, or why you don't?</text>
+        <text>Thanks, [STUDENT]. Do the rest of you buy that?</text>
+        <text>Okay, [STUDENT]. How does that sound to the rest of you?</text>
+        <text>What do you the rest of you think about [STUDENT]'s idea?</text>
+        <text>Thanks, [STUDENT]. Team, what do you think about that?</text>
+        <text>Does anyone have a similar thought?</text>
+    </prompt>
+    
+    <prompt id="QUESTION_PROMPT">
+        <text>Would someone like to jump in with insights?</text>
+        <text>Does someone have information that sheds light on this?</text>
+        <text>What information would someone like to contribute in response?</text>
+        <text>Who has an insight about this?</text>
+        <text>Any ideas from the team about this?</text>
+        <text>How about a contribution from the team in response?</text>
+        <text>Who on the team has an idea about this?</text>
+        <text>Does someone on the team have a response?</text>
+        <text>Any insights in response from the team?</text>
+        <text>How about a response from someone on the team?</text>
+    </prompt>
+    
+    <prompt id="AGREE_DISAGREE_TWO">
+        <text>Team, what do you think about [STUDENT]'s idea? Do you agree or disagree?</text>
+        <text>Team - do you agree or disagree with [STUDENT]?</text>
+        <text>Team, do you agree or disagree with [STUDENT]'s idea?</text>
+        <text>Thanks, [STUDENT]. Team, what do you think about that?</text>
     </prompt>
    
     <prompt id="RESTATE_OTHER">
@@ -22,19 +68,7 @@
         <text>[STUDENT], that's an interesting idea - tell us more about your reasoning.</text>
         <text>[STUDENT], can you tell us why you think that? How did you arrive at that conclusion?</text>
     </prompt> 
-      
-    <prompt id="AGREE_DISAGREE">
-        <text>Do you agree or disagree with [STUDENT]? Why, or why not?</text>
-        <text>Can you weigh in on what [STUDENT] said? Do you agree or disagree? Why?</text>
-        <text>Thanks, [STUDENT]. Do the rest of you agree or disagree with that idea? Why, or why not? </text>
-        <text>What do you think about [STUDENT]'s idea? Can you say why you agree with it, or why you don't?</text>
-    </prompt>
-    <prompt id="AGREE_DISAGREE_TWO">
-        <text>What do you think about [STUDENT]'s idea? Do you agree or disagree?</text>
-        <text>[OTHERSTUDENT] - do you agree or disagree with [STUDENT]?</text>
-        <text>Do you agree or disagree with [STUDENT]'s idea?</text>
-        <text>Thanks, [STUDENT]. [OTHERSTUDENT], what do you think about that?</text>
-    </prompt>
+    
     <prompt id="REQUEST_EXPLANATION">
         <text>[STUDENT], can you explain why?</text>
         <text>[STUDENT], please explain.</text>
@@ -54,4 +88,11 @@
         <text>What I hear [STUDENT] saying is [CONCEPT]. [STUDENT], is that what you meant?</text>
         <text>So are you telling us that [CONCEPT]?</text>
     </prompt>
+    
+    <prompt id="AT_MOVE">
+        <text>Okay, [STUDENT]. Can you explain your reasoning in more detail?</text>
+        <text>[STUDENT], that's an interesting idea - tell us more about your reasoning.</text>
+        <text>[STUDENT], can you tell us why you think that? How did you arrive at that conclusion?</text>
+    </prompt> 
+    
 </prompts>
