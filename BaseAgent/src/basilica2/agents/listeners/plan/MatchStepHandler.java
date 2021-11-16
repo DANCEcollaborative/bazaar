@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 import edu.cmu.cs.lti.project911.utils.time.Timer;
@@ -19,6 +20,7 @@ import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.util.PropertiesLoader;
 import basilica2.agents.listeners.plan.StepHandler;
@@ -95,7 +97,8 @@ public class MatchStepHandler implements StepHandler
 	{
 		prompter = new PromptTable(promptsPath);
 	}
-
+	
+	
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
 		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "Executing MatchStepHandler");
@@ -221,4 +224,51 @@ public class MatchStepHandler implements StepHandler
 			source.pushProposal(PriorityEvent.makeOpportunisticEvent("PromptStep", me, priority, lagTime, timeout, delay, ""));
 		}
 	}
+	
+	public void NewRoleAssignment(InputCoordinator source, State news, PresenceEvent pe, String from) {
+		// Assign a role to the new student following the same logic in MatchStepHandler/RotateStepHandler 
+		// and broadcast the message to the whole group.
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler NewRoleAssignment");
+
+		// Get present students, including the new student
+		String[] student_ids = news.getStudentIds(); 
+		int num_students = student_ids.length;
+		String prompt_text = new String();
+		
+		if (num_students<minUsersToMatch) {
+			return ;
+		}
+		if (num_students==minUsersToMatch) { // start role assignment for the whole group
+			String prompt_name = "PROMPT_MID_ROLE_MATCH";
+			prompt_text = prompter.match(prompt_name, student_ids, roles, num_students, news);
+			
+		}else {
+			if (num_students<=numRoles) { // the new student will take a new role
+				Map<String, String> slots = new HashMap<String, String>();
+				slots.put("[NAME]", pe.getUsername());
+				slots.put("[ROLE]", roles[num_students-1]);
+				String prompt_name = "PROMPT_SINGLE_ROLE_MATCH";
+				prompt_text = prompter.lookup(prompt_name, slots);
+				
+				news.setStudentRole(pe.getUsername(), roles[num_students-1]);
+			}else {
+				if (matchMultipleToDefault) { // the new student will take the default role
+					Map<String, String> slots = new HashMap<String, String>();
+					slots.put("[NAME]", pe.getUsername());
+					slots.put("[ROLE]", defaultRole);
+					String prompt_name = "PROMPT_SINGLE_ROLE_MATCH";
+					prompt_text = prompter.lookup(prompt_name, slots);
+					news.setStudentRole(pe.getUsername(), defaultRole);
+				}
+			}
+		}
+		if (prompt_text.length()>0) {
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompt_text: " + prompt_text);
+			Event e = new MessageEvent(source, from, prompt_text, "NEWROLEASSIGNMENT");
+			double p = OutputCoordinator.LOW15_PRIORITY;
+			double timeout = 60;
+			source.addEventProposal(e, p, timeout);
+		}
+	}
+	
 }

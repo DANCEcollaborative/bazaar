@@ -352,6 +352,11 @@ public class InputCoordinator extends Component
         return myAgent;
     }
     
+    public HashMap getListeners()
+    {
+    	return listeners;
+    }
+    
     public void removeListener(Class key, BasilicaListener blister)
     {
         listeners.get(key).remove(blister);

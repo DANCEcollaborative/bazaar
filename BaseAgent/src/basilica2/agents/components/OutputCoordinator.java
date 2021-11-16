@@ -41,6 +41,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Map<String, AbstractPrioritySource> activeSources = new HashMap<String, AbstractPrioritySource>();
 
 	public static final double LEAST_PRIORITY = 0.001;
+	public static final double LOW10_PRIORITY = 0.1;
+	public static final double LOW15_PRIORITY = 0.15;
 	public static final double LOW_PRIORITY = 0.25;
 	public static final double MEDIUM_PRIORITY = 0.5;
 	public static final double HIGH_PRIORITY = .75;
