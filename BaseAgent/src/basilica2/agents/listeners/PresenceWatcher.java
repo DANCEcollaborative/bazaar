@@ -96,7 +96,7 @@ public class PresenceWatcher extends BasilicaAdapter
 			if (use_catch_up) {
 				catch_up_stages = properties.getProperty("catch_up_stages", "").split("[\\s,]+");
 				catch_up_steps = properties.getProperty("catch_up_steps", "").split("[\\s,]+");
-				String promptsPath = properties.getProperty("prompt_file","plans/catch_up_prompts.xml");
+				String promptsPath = properties.getProperty("prompt_file","plans/plan_prompts.xml");
 				catch_up_prompter = new PromptTable(promptsPath);
 			}
 		}
