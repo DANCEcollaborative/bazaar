@@ -304,20 +304,26 @@ function setTeam(teamNumber,req,provider,logger,res)
 
 
 function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
-  //console.log("Enter setTeam_fromSocket");
+  	console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
 	if ( (!(roomNameAndNumber in numUsers)) )
 	{
-			numUsers[roomNameAndNumber] = 0;
-			// console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
-		//console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
-			agentLaunch(roomName, teamNumber);
+		numUsers[roomNameAndNumber] = 0;
+		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+		agentLaunch(roomName, teamNumber);
+	}
+	else
+	{	
+		console.log("setTeam_fromSocket: NOT EXECUTING agentLaunch(" + roomName + "," + teamNumber + ")");
 	}
 	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
-  //console.log("Exit setTeam_fromSocket");
+	
+	console.log("Number of users : " + numUsers[roomNameAndNumber]);
+	console.log("Team number : " + teamNumber);
+  	//console.log("Exit setTeam_fromSocket");
 }
 
 
@@ -1375,41 +1381,41 @@ function logMessage(socket, content, type) {
 
 io.sockets.on('connection', async (socket) => {
 
-	// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
+		// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
+		// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
 
- 	if (isClientServerConnection(socket.handshake.auth)) {
+		if (isClientServerConnection(socket.handshake.auth)) {
 
-		const {
-		  token,
-		  clientID, 
-		  agent,
-		  roomName,
-		  userID,
-		  username
-		} = translateClientServerAuthToBazaar(socket.handshake.auth);
+			const {
+			  token,
+			  clientID, 
+			  agent,
+			  roomName,
+			  userID,
+			  username
+			} = translateClientServerAuthToBazaar(socket.handshake.auth);
 		  
-	console.log("socket ID: " + socket.id);
-	console.log("token = " + token);
-	console.log("clientID = " + clientID);
-	console.log("agent = " + agent);
-	console.log("roomName = " + roomName);
-	console.log("userID = " + userID);
-	console.log("username = " + username); 
+		console.log("socket ID: " + socket.id);
+		console.log("token = " + token);
+		console.log("clientID = " + clientID);
+		console.log("agent = " + agent);
+		console.log("roomName = " + roomName);
+		console.log("userID = " + userID);
+		console.log("username = " + username); 
 				
-	socket.clientID = clientID;    		
-	socket.agent = agent;  				// agent ==> roomName elsewhere in this file
-	socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
-	socket.userID = userID;  
-	room = agent + roomName; 
-	//console.log("room: " + room); 
+		socket.clientID = clientID;    		
+		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
+		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
+		socket.userID = userID;  
+		room = agent + roomName; 
+		//console.log("room: " + room); 
 		
 		logger = winston.createLogger({
-    		transports: [
-      			new (winston.transports.Console)()]
-  		});	
+			transports: [
+				new (winston.transports.Console)()]
+		});	
 		setTeam_fromSocket(agent,roomName,userID,username,logger);
-		
+	
 		let temporary = false; 
 		let perspective = null; 
 		addUser(socket, room, username, temporary, userID, perspective)
