@@ -21,23 +21,23 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_INTRODUCTION">
-        <text>Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response.</text>
+        <text>Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. |Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
         <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.</text>
     </prompt>
     
-    <!--  <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], your role is [ROLE1].|If others join you later, they will take other roles.</text>
-    </prompt> -->
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change. |[NAME1], your role is [ROLE1]. |If others join you later, they will take other roles.</text>
+    </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
         <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], your role is [ROLE1], and [NAME2], you will be the [ROLE2].|If someone joins you later, they will take other roles.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
-        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], your role is [ROLE1]. [NAME2], you will be the [ROLE2], and [NAME3] will be the [ROLE3].</text>
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], your role is [ROLE1]. [NAME2], you will be the [ROLE2], and [NAME3] will be the [ROLE3].|If someone joins you later, they will take other roles.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_4">
@@ -50,6 +50,14 @@
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
         <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], your role is [ROLE1]. [NAME2], you will be the [ROLE2]. [NAME3] will be the [ROLE3]. The rest of you are [DEFAULTROLE]</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_MID_ROLE_MATCH">
+       <text>Now you start to take roles in this task. |[NAME1], your role is [ROLE1], and [NAME2], you will be the [ROLE2]. If someone joins you later, they will take other roles.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_SINGLE_ROLE_MATCH">
+       <text>Let's welcome our new member [NAME]! [NAME], you will take the role of [ROLE].</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE">
@@ -142,6 +150,56 @@
    
     <prompt strategy="task" id="ABOUT_LISTENING">
     	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+    
+    <!-- The following prompts are catch-up messages -->
+    
+    <prompt strategy="task" id="stageA_PROMPT_STEP_TEMPERATURE_CHANGE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how temperature change may play a role in climate change. Please click on the words "Temperature Change Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_WAIT_STEP_TEMPERATURE_CHANGE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how temperature change may play a role in climate change. Please click on the words "Temperature Change Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_PROMPT_STEP_CARBON_DIOXIDE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how carbon dioxide may play a role in climate change. Please click on the words "Carbon Dioxide Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_WAIT_STEP_CARBON_DIOXIDE">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how carbon dioxide may play a role in climate change. Please click on the words "Carbon Dioxide Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_PROMPT_STEP_FOSSIL_FUELS">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how fossil fuels may play a role in climate change. Please click on the words "Fossil Fuels Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageA_WAIT_STEP_FOSSIL_FUELS">
+       <text>Welcome [NAME]! In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. |Now your team is discussing about how fossil fuels may play a role in climate change. Please click on the words "Fossil Fuels Data" at the upper left. Examine the graph and join the discussion. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_PROMPT_STEP_READ_LETTER">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Type "ready" when you are ready to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_WAIT_STEP_READ_LETTER">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Type "ready" when you are ready to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_PROMPT_STEP_MAYORAL_PERSPECTIVE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left, summarize her perspective, and discuss with your team about the benefits of using fossil fuels and what evidence and reasoning she uses to support her decision. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_WAIT_STEP_MAYORAL_PERSPECTIVE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. |Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left, summarize her perspective, and discuss with your team about the benefits of using fossil fuels and what evidence and reasoning she uses to support her decision. |Type "ready" after discussion to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_PROMPT_STEP_MAYORAL_RESPONSE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Now, spend the rest of your time discussing and developing a response to the mayor. Click on "Joint Response" at the left for the form you will complete together with your team. How would you respond to the mayor from the standpoint of the discussion you led on a climate change role? Make sure to support your ideas with evidence. |You can logout of the agent when you're done.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="stageB_LISTEN_STEP_MAYORAL_RESPONSE">
+       <text>Welcome [NAME]! In this activity, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. Please read the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. |Now, spend the rest of your time discussing and developing a response to the mayor. Click on "Joint Response" at the left for the form you will complete together with your team. How would you respond to the mayor from the standpoint of the discussion you led on a climate change role? Make sure to support your ideas with evidence. |You can logout of the agent when you're done.</text>
     </prompt>
     
 <!--     

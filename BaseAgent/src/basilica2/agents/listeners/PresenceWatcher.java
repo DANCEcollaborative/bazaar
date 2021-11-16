@@ -43,7 +43,24 @@ import basilica2.agents.data.State;
 import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.PresenceEvent;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
+
+import basilica2.agents.data.PromptTable;
+import basilica2.agents.components.OutputCoordinator;
+import basilica2.agents.events.PrivateMessageEvent;
+import basilica2.agents.events.MessageEvent;
+import basilica2.util.PropertiesLoader;
+import basilica2.agents.listeners.plan.MatchStepHandler;
+import basilica2.agents.listeners.plan.PlanExecutor;
+import basilica2.agents.listeners.plan.StepHandler;
+import basilica2.agents.listeners.BasilicaListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Properties;
+
 
 /**
  * updates student presence information in StateMemory
@@ -57,15 +74,31 @@ public class PresenceWatcher extends BasilicaAdapter
 	private boolean initiated = false;
 	private String agent_name = "Tutor";
 	private Boolean includeUnderscoreInAgentName = false; 
+	
+	private boolean use_catch_up = false; //whether to use the catch_up_message function
+	private PromptTable catch_up_prompter;
+	private String[] catch_up_stages;
+	private String[] catch_up_steps;
 
 	public PresenceWatcher(Agent a)
 	{
 		super(a);
+		
+		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
+		
 		if (properties != null)
 		{
 			launch_timeout = Integer.parseInt(properties.getProperty("launch_timeout", "60"));
 			expected_number_of_students = Integer.parseInt(properties.getProperty("expected_number_of_students", "1"));
 			includeUnderscoreInAgentName = Boolean.parseBoolean(properties.getProperty("include_underscore_in_agent_name", "false"));
+			
+			use_catch_up = Boolean.parseBoolean(properties.getProperty("use_catch_up", "false"));
+			if (use_catch_up) {
+				catch_up_stages = properties.getProperty("catch_up_stages", "").split("[\\s,]+");
+				catch_up_steps = properties.getProperty("catch_up_steps", "").split("[\\s,]+");
+				String promptsPath = properties.getProperty("prompt_file","plans/plan_prompts.xml");
+				catch_up_prompter = new PromptTable(promptsPath);
+			}
 		}
 
 		String name = a.getName();
@@ -94,7 +127,18 @@ public class PresenceWatcher extends BasilicaAdapter
 				{
 					news = new State();
 				}
+				boolean catchup = false;
+				if (use_catch_up) {
+					if ((!news.getAllStudentNames().contains(pe.getUsername())) && Arrays.asList(catch_up_stages).contains(news.getStageName()) && Arrays.asList(catch_up_steps).contains(news.getStepName())) {
+						catchup = true;
+					}
+				}
 				news.addStudent(pe.getUsername());
+				if (catchup) {
+					sendCatchUpMessage(source, news, pe);
+					NewRoleAssignment(source, news, pe);
+					
+				}
 				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
 				StateMemory.commitSharedState(news, agent);
 				initiate(source, news);
@@ -205,5 +249,54 @@ public class PresenceWatcher extends BasilicaAdapter
 		news.initiate();
 		initiated = true;
 		StateMemory.commitSharedState(news, getAgent());
+	}
+	
+	private void sendCatchUpMessage(InputCoordinator source, State news, PresenceEvent pe) {
+		// Send private message to the new student. The private message prompts are defined in catch_up_prompter
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Send catch up message to " + pe.getUsername());
+		
+		Map<String, String> slots = new HashMap<String, String>();
+		slots.put("[NAME]", pe.getUsername());
+		String prompt_name = news.getStageName() + "_" + news.getStepName();
+		String prompt_text = catch_up_prompter.lookup(prompt_name, slots);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Catch Up Message: " + prompt_name + " " + prompt_text);
+		// This private message event has low priority and large timeout, so it will be sent after public messages
+		Event e = new PrivateMessageEvent(source, pe.getUsername(), getAgent().getName(), prompt_text, "CATCHUPMESSAGE");
+		double p = OutputCoordinator.LOW10_PRIORITY;
+		double timeout = 60;
+		source.addEventProposal(e, p, timeout);
+		
+	}
+	
+	private void NewRoleAssignment(InputCoordinator source, State news, PresenceEvent pe) {
+		// Assign a role to the new student following the same logic in MatchStepHandler/RotateStepHandler 
+		// and broadcast the message to the whole group.
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"InputCoordinator NewRoleAssignment");
+		
+		// Find the PlanExecutor in InputCoordinator's listeners, and find the MatchStepHandler in PlanExecutor's handlers.
+		for(Object keyClass : source.getListeners().keySet())
+		{
+			Object val = source.getListeners().get(keyClass);
+			for (Object o: (List<?>) val) {
+				BasilicaListener ca = BasilicaListener.class.cast(o);
+				if (ca.getClass()==PlanExecutor.class) {
+					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"casted BasilicaListener "+ca+" is PlanExecutor = "+(ca.getClass()==PlanExecutor.class)+" "+ca.getListenerEventClasses());
+					PlanExecutor plan_executor = PlanExecutor.class.cast(ca);
+					String typestring = "match";
+					Collection<StepHandler> stephandlers = plan_executor.getHandlers(typestring);
+					
+					for (Object obj: stephandlers) {
+						if (obj.getClass()==MatchStepHandler.class) {
+							Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL, "get MatchStepHandler");
+							MatchStepHandler match_step_handler = MatchStepHandler.class.cast(obj);
+							match_step_handler.NewRoleAssignment(source, news, pe, getAgent().getName());
+							return ;
+						}
+					}
+					
+				}
+			}
+		}
+		
 	}
 }
