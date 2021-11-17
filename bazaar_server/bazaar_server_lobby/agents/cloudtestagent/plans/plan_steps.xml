@@ -14,34 +14,8 @@ use -->
 	</stage> 
     
     <stage name="stageA" type="other" delay="0">
-       <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step> 
-        
-        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
-              
-        <step type="prompt" delay="0" prompt="PROMPT_STEP_TEMPERATURE_CHANGE" role="temperature_change">PROMPT_STEP_TEMPERATURE_CHANGE</step>
-        <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_TEMPERATURE_CHANGE</step> -->
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_TEMPERATURE_CHANGE">WAIT_STEP_TEMPERATURE_CHANGE</step> 
-        
-        <step type="prompt" delay="0" prompt="PROMPT_STEP_CARBON_DIOXIDE" role="carbon_dioxide">PROMPT_STEP_CARBON_DIOXIDE</step>
-        <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_CARBON_DIOXIDE</step>  -->
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_CARBON_DIOXIDE">WAIT_STEP_CARBON_DIOXIDE</step>
-        
-        <step type="prompt" delay="0" prompt="PROMPT_STEP_FOSSIL_FUELS" role="fossil_fuels">PROMPT_STEP_FOSSIL_FUELS</step>
-        <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_FOSSIL_FUELS</step>  -->
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_FOSSIL_FUELS">WAIT_STEP_FOSSIL_FUELS</step>
-    </stage>
-     
-    <stage name="stageB" type="other" delay="0">  
-        <step type="prompt" delay="30" prompt="PROMPT_STEP_READ_LETTER" >PROMPT_STEP_READ_LETTER</step>
-        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="READY_READ_LETTER">WAIT_STEP_READ_LETTER</step>
-        
-        <step type="prompt" delay="0" prompt="PROMPT_STEP_MAYORAL_PERSPECTIVE" >PROMPT_STEP_MAYORAL_PERSPECTIVE</step>
-        <!-- <step type="listen" timeout="120" delay="1">LISTEN_STEP_MAYORAL_PERSPECTIVE</step>  -->
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_MAYORAL_PERSPECTIVE">WAIT_STEP_MAYORAL_PERSPECTIVE</step>
-        
-        <step type="prompt" delay="0" prompt="PROMPT_STEP_MAYORAL_RESPONSE" >PROMPT_STEP_MAYORAL_RESPONSE</step>
-        <step type="listen" timeout="300" delay="1">LISTEN_STEP_MAYORAL_RESPONSE</step>
-        <!-- <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="READY_MAYORAL_RESPONSE">WAIT_STEP_MAYORAL_RESPONSE</step>  -->
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step>       
+        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>pt="READY_MAYORAL_RESPONSE">WAIT_STEP_MAYORAL_RESPONSE</step>  -->
     </stage>
     
     <stage name="EndStage" type="other" delay="0" timeout="2400">
