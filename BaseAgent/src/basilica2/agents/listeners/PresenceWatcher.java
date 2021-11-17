@@ -73,6 +73,7 @@ public class PresenceWatcher extends BasilicaAdapter
 	private int launch_timeout = 60;
 	private boolean initiated = false;
 	private String agent_name = "Tutor";
+	private String non_user_client_name = ""; 
 	private Boolean includeUnderscoreInAgentName = false; 
 	
 	private boolean use_catch_up = false; //whether to use the catch_up_message function
@@ -90,6 +91,7 @@ public class PresenceWatcher extends BasilicaAdapter
 		{
 			launch_timeout = Integer.parseInt(properties.getProperty("launch_timeout", "60"));
 			expected_number_of_students = Integer.parseInt(properties.getProperty("expected_number_of_students", "1"));
+			non_user_client_name = properties.getProperty("non_user_client_name", non_user_client_name);
 			includeUnderscoreInAgentName = Boolean.parseBoolean(properties.getProperty("include_underscore_in_agent_name", "false"));
 			
 			use_catch_up = Boolean.parseBoolean(properties.getProperty("use_catch_up", "false"));
@@ -113,7 +115,8 @@ public class PresenceWatcher extends BasilicaAdapter
 
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
 	{
-		if (!pe.getUsername().contains(agent_name) && !source.isAgentName(pe.getUsername()))
+		String userName = pe.getUsername(); 
+		if (!userName.contains(agent_name) && !source.isAgentName(userName) && !userName.equals(non_user_client_name)) 
 		{
 			State olds = StateMemory.getSharedState(agent);
 			State news;
@@ -129,11 +132,11 @@ public class PresenceWatcher extends BasilicaAdapter
 				}
 				boolean catchup = false;
 				if (use_catch_up) {
-					if ((!news.getAllStudentNames().contains(pe.getUsername())) && Arrays.asList(catch_up_stages).contains(news.getStageName()) && Arrays.asList(catch_up_steps).contains(news.getStepName())) {
+					if ((!news.getAllStudentNames().contains(userName)) && Arrays.asList(catch_up_stages).contains(news.getStageName()) && Arrays.asList(catch_up_steps).contains(news.getStepName())) {
 						catchup = true;
 					}
 				}
-				news.addStudent(pe.getUsername());
+				news.addStudent(userName);
 				if (catchup) {
 					sendCatchUpMessage(source, news, pe);
 					NewRoleAssignment(source, news, pe);
@@ -147,12 +150,12 @@ public class PresenceWatcher extends BasilicaAdapter
 			else if (pe.getType().equals(PresenceEvent.ABSENT))
 			{
 				State updateState = State.copy(olds);
-				updateState.removeStudent(pe.getUsername());
+				updateState.removeStudent(userName);
 				StateMemory.commitSharedState(updateState, agent);
 			}
 		}
 		// Start as soon as agent is present if not waiting for students
-		else if ((source.isAgentName(pe.getUsername())) && expected_number_of_students == 0)
+		else if (((source.isAgentName(userName)) || userName.equals(non_user_client_name)) && expected_number_of_students == 0)
 		{
 			State olds = StateMemory.getSharedState(agent);
 			State news;
@@ -166,7 +169,7 @@ public class PresenceWatcher extends BasilicaAdapter
 				{
 					news = new State();
 				}
-				news.addStudent(pe.getUsername());
+				news.addStudent(userName);
 				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
 				StateMemory.commitSharedState(news, agent);
 				initiate(source, news);
