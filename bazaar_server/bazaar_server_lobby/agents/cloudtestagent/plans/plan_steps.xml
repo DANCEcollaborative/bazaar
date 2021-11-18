@@ -4,7 +4,7 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
 	
-   <stage name="initiate" type="other" delay="0">   -->	
+   <stage name="initiate" type="other" delay="0"> 
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
@@ -15,7 +15,7 @@ use -->
     
     <stage name="stageA" type="other" delay="0">
         <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step>       
-        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>pt="READY_MAYORAL_RESPONSE">WAIT_STEP_MAYORAL_RESPONSE</step>  -->
+        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
     </stage>
     
     <stage name="EndStage" type="other" delay="0" timeout="2400">
