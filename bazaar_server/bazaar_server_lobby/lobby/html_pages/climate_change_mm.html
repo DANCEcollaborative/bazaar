@@ -222,13 +222,20 @@ ul.tab li a:focus, .active {
     function getMultimodalValue(field, data) 
     {
     	var fields = data.split(";%;");
-    	var numFields = fields.length; 
+    	var numFields = fields.length; 	
+		console.log("getMultimodalValue - search field: " + field);   		
+		console.log("getMultimodalValue - data: " + data);   	
+		console.log("getMultimodalValue - numFields: " + numFields.toString());
     	var i = 0; 
     	var value = ""; 
     	while (i < numFields) {
-    		var fieldWithValue = fields[i].split(":"); 
+    		var fieldWithValue = fields[i].split(":");   
+			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);   
+    		i =	i + 1; 	
     		if (fieldWithValue[0] == field) {
+    			console.log("getMultimodalValue - field found");  
     			value = fieldWithValue[1];
+    			console.log("getMultimodalValue - value: " + value);  
     			i = numFields;
     		}
     	}
@@ -286,10 +293,15 @@ ul.tab li a:focus, .active {
 	// listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('updatechat', function (username, data) 
 	{
-		if (data.search("multimodal:true;%;") > 0) {
+		if (data.search("multimodal:true;%;") > -1) {
+			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("identity",data);
 			data = getMultimodalValue("speech",data);
+		} else {
+			console.log("updatechat - multimodal message NOT found");
 		}
+		console.log("updatechat - username: " + username);
+		console.log("updatechat - data:     " + data);
         appendMessage(new Date(), username, data);
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
