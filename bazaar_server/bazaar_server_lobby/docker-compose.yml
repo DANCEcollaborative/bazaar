@@ -39,6 +39,7 @@ services:
     volumes:
      - shared:/mysql-files
      - ./agents:/usr/bazaar/agents
+     - ./lobby:/usr/bazaar/lobby
      - ../../LightSide:/usr/bazaar/LightSide
     networks:
     - bazaar-net
