@@ -294,44 +294,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
-	// Designed for multiple fields. Currently only location and message text are supported.
+	// Designed for multiple fields. Currently only message text is supported.
 	private void publishMessageToPSI(MessageEvent me)
 	{
 		Boolean multimodalMessage = true; 
-		String multiModalField = "multimodal"; 
 		String speechField = "speech";
-		String identityField = "identity";
-		// String locationField = "location";
-		// String location = null; 
-	    String multiModalDelim = ";%;";
-		String withinModeDelim = ":";	
-		String identityAllUsers = "group";
-		String messageString; 
-		
-		String text; 
-		String to; 
-		String textOrig = me.getText();	
-		if (textOrig.contains("Navigator::"))
-		{
-			text = textOrig.substring(11);
-			to = "navigator";
-		} else if (textOrig.contains("Driver::"))
-		{
-			text = textOrig.substring(8);
-			to = "driver";
-		} else if (textOrig.contains("Group::"))
-		{
-			text = textOrig.substring(8);
-			to = "group";
-		} else {
-			text = textOrig; 
-			// To specific user if known.
-			to = me.getDestinationUser();
-			if (to == null) {
-				to = identityAllUsers; 
-			}	
-		}
-		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
+		String messageString = formatMultimodalMessage(me); 
 		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		if (!separateOutputToPSI) {
 			MessageEvent newme;
@@ -354,10 +322,44 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			setMultimodalPause(speechField); 
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		}
+	}
+	
+	
+	public String formatMultimodalMessage(MessageEvent me) {
+		String textOrig = me.getText();	
+		String multiModalField = "multimodal"; 
+		String speechField = "speech";
+		String identityField = "identity";
+	    String multiModalDelim = ";%;";
+		String withinModeDelim = ":";	
+		String identityAllUsers = "group";
+		String messageString; 
 		
-// 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
-// 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
-//         publisher.send(topicMessage, 0);
+		String text; 
+		String to; 
+		textOrig = me.getText();	
+		if (textOrig.contains("Navigator::"))
+		{
+			text = textOrig.substring(11);
+			to = "navigator";
+		} else if (textOrig.contains("Driver::"))
+		{
+			text = textOrig.substring(8);
+			to = "driver";
+		} else if (textOrig.contains("Group::"))
+		{
+			text = textOrig.substring(8);
+			to = "group";
+		} else {
+			text = textOrig; 
+			// To specific user if known.
+			to = me.getDestinationUser();
+			if (to == null) {
+				to = identityAllUsers; 
+			}	
+		}
+		return multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text;
+					
 	}
 	
 	public void setMultimodalPause(String speechString) {
