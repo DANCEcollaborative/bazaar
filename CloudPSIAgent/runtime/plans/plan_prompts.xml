@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="GREET_AND_WAIT">
+        <text>Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GIVE_UP_ON_INTRODUCTIONS">
+        <text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Welcome! I'm [AGENT NAME].|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_INTRODUCTION">
+        <text>Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], you will lead a discussion about [ROLE1] and climate change.|If others join you later, they will lead discussions on the other roles.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], you will lead a discussion about [ROLE1] and climate change. ... [NAME2], you will lead a discussion about [ROLE2].|If someone joins you later, they will lead discussion on the remaining role.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
+        <text>We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|[NAME1], you will lead a discussion about [ROLE1] and climate change. ... [NAME2], you will lead a discussion about [ROLE2]. ... [NAME3], you will lead a discussion about [ROLE3].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_TEMPERATURE_CHANGE">
+        <text>First, click on the words "Temperature Change Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet been assigned a role, ask them to lead this discussion by sharing their thoughts and asking the team about their ideas. What does the evidence tell you? Does it lead to further questions?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_TEMPERATURE_CHANGE_STUDENT">
+        <text>First, click on the words "Temperature Change Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|[NAME1], take the lead by sharing your thoughts and asking the team about their ideas. What does the evidence tell you? Does it lead to further questions?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_CARBON_DIOXIDE">
+        <text>Next, click on the words "Carbon Dioxide Data" at the upper left. Examine the tables and take about 5 minutes to discuss as a team.|If someone has not yet been assigned a role, ask them to take the lead this time. Is the evidence convincing? Could there be other causes for the effects?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_CARBON_DIOXIDE_STUDENT">
+        <text>Next, click on the words "Carbon Dioxide Data" at the upper left. Examine the tables and take about 5 minutes to discuss as a team.|[NAME1], you take the lead this time. Is the evidence convincing? Could there be other causes for the effects?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_FOSSIL_FUELS">
+        <text>Now, click on the words "Fossil Fuels Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet led a discussion, it's their turn to take the lead. How does this data relate to climate change?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_FOSSIL_FUELS_STUDENT">
+        <text>Now, click on the words "Fossil Fuels Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|[NAME1], it's your turn to take the lead. How does this data relate to climate change?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_READ_LETTER">
+        <text>Okay, it's time to move on to the next part of the activity. First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MAYORAL_PERSPECTIVE">
+        <text>Before developing your response to Mayor Williams, summarize her perspective. What are the benefits of using fossil fuels? What evidence and reasoning does she use to support her decision? Discuss for a few minutes.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MAYORAL_RESPONSE">
+        <text>Now, spend the rest of your time discussing and developing a response to the mayor. Click on "Joint Response" at the left for the form you will complete together. You can logout of the agent when you're done.|How would you respond to the mayor from the standpoint of the discussion you led on a climate change role? Make sure to support your ideas with evidence.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_END">
+        <text>It is time for us to wrap up now. It has been a pleasure working with you. The activity is now over.|Have a nice day!</text>
+    </prompt>
+       
+    <prompt strategy="task" id="SETUP">
+        <text>While I won't tell you answers directly, I can help guide the team's discussion.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INSTRUCTIONS">
+    	<text>Once you get an idea of what's going on, replace these prompts with something domain appropriate!</text>
+    </prompt>
+   
+    <prompt strategy="task" id="WHITEBOARD_INSTRUCTIONS">
+    	<text>I will share images to the whiteboard to help/guide you</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="END_MACRO">
+    	<text>...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ABOUT_TUTORIALS">
+    	<text>Now I'll start an interactive dialogue.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRO_SHORT">
+    	<text>Welcome! I'm [AGENT NAME]. I'm here to have an interactive dialogue with you to assist you in your programming task.</text>
+    </prompt>
+   
+    <prompt strategy="task" id="ABOUT_LISTENING">
+    	<text>Note that other agent behaviors (like accountable-talk style listening) will be suppressed while the dialogue is underway.</text>
+    </prompt>
+    
+<!--     
+    <prompt strategy="task" id="END_GREETINGS">
+        <text>When you've finished introducing yourself, type "I'm Ready" or press the "I'm Ready" button to begin.</text>
+    </prompt>
+ -->    
+
+</prompts>
