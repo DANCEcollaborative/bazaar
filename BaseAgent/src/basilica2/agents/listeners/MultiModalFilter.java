@@ -61,6 +61,8 @@ public class MultiModalFilter extends BasilicaAdapter
 	{
 		super(a);
 		thisAgent = a; 
+
+        System.err.println("*** MultiModalFilter: agent name: " + thisAgent.getName());
 		
 		// get location-related properties
 		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}

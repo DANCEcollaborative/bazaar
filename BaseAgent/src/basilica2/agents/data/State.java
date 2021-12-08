@@ -82,7 +82,7 @@ public class State
 	private poseEventType groupPose = poseEventType.none;
 	private String identityAllUsers = "group";
 	private int jointActivityMetric = 0; 
-	private Boolean multimodalDontListenWhileSpeaking; 
+	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;

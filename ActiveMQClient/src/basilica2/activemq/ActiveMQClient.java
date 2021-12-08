@@ -65,6 +65,8 @@ public class ActiveMQClient extends Component implements ChatClient
         textSubscriber = new psiTextSubscriber("psiSubscriber",this,psiAgent); 
         // System.out.println("*** ActiveMQServer: subscribing to 'test' ***");
         subscribe(textSubscriber, "PSI_Bazaar_Text");
+        System.err.println("*** ActiveMQServer: agent name: " + psiAgent.getName());
+        
         // System.out.println("*** ActiveMQServer: subscribe to 'test' complete ***");
     }
 
@@ -122,19 +124,23 @@ public class ActiveMQClient extends Component implements ChatClient
     @Override
 	protected void broadcast(Event e)
 	{
+    	System.err.println("ActiveMQClient, broadcast - enter"); 
 		if (e.getSender() == null || !e.getSender().equals(this)) 
 			e.setSender(this);
 
 		// Do not broadcast message if it is simply speech while the agent is speaking
     	Boolean doBroadcast = true; 
 		if (e instanceof MessageEvent) {
+	    	System.err.println("ActiveMQClient, broadcast - this is a message event"); 
 			MessageEvent trimmedE = trimSpeechIfNotListening((MessageEvent)e);
 			if (trimmedE.getText().equals("")) {
+		    	System.err.println("ActiveMQClient, broadcast - trimmedE text is empty; don't broadcast"); 
 				doBroadcast = false; 
 			}
 		}
 		
 		if (doBroadcast) {	
+	    	System.err.println("ActiveMQClient, broadcast - BROADCASTING"); 
 			log(Logger.LOG_LOW, "<broadcasting>" + e.getName() + " on " + myOutgoingConnections.size() + " connections</broadcasting>");		
 			for (int i = 0; i < myOutgoingConnections.size(); i++)
 			{
@@ -146,8 +152,10 @@ public class ActiveMQClient extends Component implements ChatClient
     
     private MessageEvent trimSpeechIfNotListening(MessageEvent me) {
     	
+		System.err.println("ActiveMQClient trimSpeechIfNotListening: Enter ");
 		State currentState = StateMemory.getSharedState(psiAgent);
-		if (!(currentState.getMultimodalDontListenWhileSpeaking())) {		
+		Boolean dontListenWhileSpeaking = currentState.getMultimodalDontListenWhileSpeaking(); 
+		if (!dontListenWhileSpeaking) {		
 			System.err.println("ActiveMQClient trimSpeechIfNotListening: OKAY to listen while speaking ");
 			return me; 
 			
