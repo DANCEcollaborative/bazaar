@@ -82,8 +82,8 @@ public class State
 	private poseEventType groupPose = poseEventType.none;
 	private String identityAllUsers = "group";
 	private int jointActivityMetric = 0; 
-	private Boolean multimodalPauseWhileSpeaking; 
-	private LocalDateTime multimodalPauseEnd = null; 
+	private Boolean multimodalDontListenWhileSpeaking = true; 
+	private LocalDateTime multimodalDontListenEnd = null; 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -100,13 +100,9 @@ public class State
 		news.stepName = s.stepName;
 		news.stepType = s.stepType;
 		news.groupPose = s.groupPose;
-//		if (s.multimodalPauseEnd != null) 
-//			System.err.println(">>> State.java copy: multimodalPauseEnd = " + s.multimodalPauseEnd.toString()); 
-//		else 
-//			System.err.println(">>> State.java copy: multimodalPauseEnd = null"); 
 			
-		news.multimodalPauseWhileSpeaking = s.multimodalPauseWhileSpeaking;
-		news.multimodalPauseEnd = s.multimodalPauseEnd;
+		news.multimodalDontListenWhileSpeaking = s.multimodalDontListenWhileSpeaking;
+		news.multimodalDontListenEnd = s.multimodalDontListenEnd;
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
 			news.stateMap.put(k, map.get(k));
@@ -533,24 +529,24 @@ public class State
 		this.groupPose = pose;
 	}
 
-	public void setMultimodalPauseWhileSpeaking(Boolean pauseWhileSpeaking)
+	public void setMultimodalDontListenWhileSpeaking(Boolean dontListenWhileSpeaking)
 	{
-		this.multimodalPauseWhileSpeaking = pauseWhileSpeaking;
+		this.multimodalDontListenWhileSpeaking = dontListenWhileSpeaking;
 	}
 
-	public Boolean getMultimodalPauseWhileSpeaking()
+	public Boolean getMultimodalDontListenWhileSpeaking()
 	{
-		return multimodalPauseWhileSpeaking;
+		return multimodalDontListenWhileSpeaking;
 	}
 
-	public LocalDateTime getMultimodalPauseEnd()
+	public LocalDateTime getMultimodalDontListenWhileSpeakingEnd()
 	{
-		return multimodalPauseEnd;
+		return multimodalDontListenEnd;
 	}
 
-	public void setMultimodalPauseEnd(LocalDateTime pauseEnd)
+	public void setMultimodalDontListenWhileSpeakingEnd(LocalDateTime dontListenEnd)
 	{
-		this.multimodalPauseEnd = pauseEnd;
+		this.multimodalDontListenEnd = dontListenEnd;
 	}
 
 	@Override

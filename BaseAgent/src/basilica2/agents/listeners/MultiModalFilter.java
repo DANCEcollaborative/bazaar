@@ -53,14 +53,16 @@ public class MultiModalFilter extends BasilicaAdapter
 	private boolean isTrackingLocation = false;
 	private String sourceName; 
 	private String identityAllUsers = "group";
-	private boolean pauseWhileSpeaking = true;
-	private LocalDateTime multimodalPauseEnd; 
+	private boolean dontListenWhileSpeaking = true;
+	private LocalDateTime multimodalDontListenEnd; 
 	private Agent thisAgent; 
 
 	public MultiModalFilter(Agent a) 
 	{
 		super(a);
 		thisAgent = a; 
+
+        System.err.println("*** MultiModalFilter: agent name: " + thisAgent.getName());
 		
 		// get location-related properties
 		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}
@@ -69,11 +71,11 @@ public class MultiModalFilter extends BasilicaAdapter
 		catch(Exception e) {e.printStackTrace();}
 		try{minDistanceApart = Double.valueOf(getProperties().getProperty("minimum_distance_apart", "182.88"));}
 		catch(Exception e) {e.printStackTrace();}
-		try{pauseWhileSpeaking = Boolean.parseBoolean(getProperties().getProperty("pause_while_speaking", "true"));}
+		try{dontListenWhileSpeaking = Boolean.parseBoolean(getProperties().getProperty("dont_listen_while_speaking", "true"));}
 		catch(Exception e) {e.printStackTrace();}
 		try{sourceName = getProperties().getProperty("source_name", "agent");}
 		catch(Exception e) {e.printStackTrace();}
-		if (pauseWhileSpeaking) {
+		if (dontListenWhileSpeaking) {
 			State olds = StateMemory.getSharedState(a);
 			// State news;
 			State news = State.copy(olds);
@@ -86,14 +88,14 @@ public class MultiModalFilter extends BasilicaAdapter
 //					news = new State();
 //				}
 			LocalDateTime now = LocalDateTime.now();
-			news.setMultimodalPauseWhileSpeaking(true);
-			news.setMultimodalPauseEnd(now);
-//			this.multimodalPauseEnd = now; 
+			news.setMultimodalDontListenWhileSpeaking(true);
+			news.setMultimodalDontListenWhileSpeakingEnd(now);
+//			this.multimodalDontListenEnd = now; 
 			System.err.println("MultimodalFilter init, agent name: " + a.getName());	
-			System.err.println("MultimodalFilter init, getMultimodalPauseEnd #1: " + news.getMultimodalPauseEnd().toString());	
+			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #1: " + news.getMultimodalDontListenWhileSpeakingEnd().toString());	
 			StateMemory.commitSharedState(news, a);
 			State news2 = State.copy(StateMemory.getSharedState(a));
-			System.err.println("MultimodalFilter init, getMultimodalPauseEnd #2: " + news2.getMultimodalPauseEnd().toString());	
+			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #2: " + news2.getMultimodalDontListenWhileSpeakingEnd().toString());	
 		}
 	}
 
@@ -194,16 +196,17 @@ public class MultiModalFilter extends BasilicaAdapter
 					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
 				}
 			}
+			
 			if (processSpeech) {				
 				// So that the agent doesn't hear itself, ignore speech heard while the agent is speaking 
-				if (pauseWhileSpeaking) {
+				if (dontListenWhileSpeaking) {
 					
 					LocalDateTime now = LocalDateTime.now();
-					LocalDateTime pauseEnd = currentState.getMultimodalPauseEnd(); 
+					LocalDateTime dontListenWhileSpeakingEnd = currentState.getMultimodalDontListenWhileSpeakingEnd(); 
 					System.err.println("MultimodalFilter handleMessageEvent: now = " + now.toString());
-					if (pauseEnd != null) {
-						System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = " + pauseEnd.toString());
-						if (now.isBefore(pauseEnd)) {
+					if (dontListenWhileSpeakingEnd != null) {
+						System.err.println("MultimodalFilter handleMessageEvent: dontListenWhileSpeakingEnd = " + dontListenWhileSpeakingEnd.toString());
+						if (now.isBefore(dontListenWhileSpeakingEnd)) {
 							System.err.println("MultimodalFilter handleMessageEvent: QUASHING speech input");
 							me.invalidate();
 							return; 
@@ -211,7 +214,7 @@ public class MultiModalFilter extends BasilicaAdapter
 							System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
 						}
 					} else {
-						System.err.println("MultimodalFilter handleMessageEvent: pauseEnd = NULL");
+						System.err.println("MultimodalFilter handleMessageEvent: dontListenWhileSpeakingEnd = NULL");
 						System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
 					}
 				}
