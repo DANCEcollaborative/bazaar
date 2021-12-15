@@ -311,10 +311,12 @@ function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
 	if ( (!(roomNameAndNumber in numUsers)) )
 	{
 		numUsers[roomNameAndNumber] = 0;
+		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+		agentLaunch(roomName, teamNumber);
 	}
 	
-	console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
-	agentLaunch(roomName, teamNumber);
+	// 	console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+	// 	agentLaunch(roomName, teamNumber);
 
 	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
