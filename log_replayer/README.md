@@ -12,24 +12,18 @@ source <name_of_virtualenv>/bin/activate
 
 # Instructions
 ```
-BazaarSocket.driver = webdriver.Firefox(
-            options=self.options, executable_path='</usr/local/bin/geckodriver>') # use your path to geckodriver
+Arguments:
 
-log_folder_path = '<path to log folder>' or None
-log_file_path = '<path to a single log file>' or None
-config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu', # The name or IP address of your Linux server
-          'agentName': 'cloudtest', # your agent’s name without the ‘agent’ at the end
-          'clientID': 'ClientServer', 
-          'environmentID': 'Replay',
-          'BotName': 'OPEBot' # The name of the online tutor
-         } 
+--replay_path	#A folder or a single log file to replay.
+--agent_name	#Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'
+--bot_name	#The name of the online tutor. e.g. 'Sage the Owl'
 ```
 
-- To replay a single log file, set log_file_path to the path of the log file and set log_folder_path=None. To replay all the log files in a folder, set log_folder_path to the path of the folder and set log_file_path=None. If log_file_path contains log_folder_path, it will replay the single file at log_file_path. In other cases, the log replayer will throw error and terminate. 
+- If a single log is being replayed, the environmentID (a.k.a. roomID) is "ReplayAt+timestamp". Multiple logs can be replayed concurrently using multiple threads. If multiple logs are being replayed, the environmentID for each chat is formatted as "Replay+chatID+At+timestamp" where chatID is a unique number for each log.
 
-- Multiple logs are replayed concurrently using multiple threads. The environmentID of each chat is formatted as "Replay+chatID+datetime.now"
+- There will be a replayed log file created by the log replayer for each log. The name of the replayed log file is 'path_to_log_file+environmentID.csv', so you can find the replayed log file at the same place where the log is. The replayed log files record what the users see, so the replayed log files contain text messages before all the users leave the room. The replayed log files only contain text and presence messages, not images.
 
-- Any system error during the replay will be printed to the console starting with "* Error:".
+- System errors during the replay will be printed to the console starting with "* Error:", and also be recorded in the replayed log files.
 
 - You can get environmentID, userID, and userName when you run the log_replayer. It is printed in the format ("environmentID: ", #, "userID: ", #, " userName: ", #) at the beginning. 
 
@@ -64,5 +58,5 @@ environmentID:  Replay2at20211117194818 userID:  2  userName:  RachelMyron
 
 - The order of the bazaar agent's presence may be different because the log replayer's bazaar agent is started together with the first user's presence, so bazaar agent will not be the first one to appear. In this way, it is guaranteed that the user socket can always catch the first message from the bazaar agent. The time of emitting user messages in the following entries is aligned with the time of bazaar agent's first message. 
 
-- There may be errors in the original chat logs. For example, a user shown disconnected can still talk in the chat and create entries in the log, but in the replayer, this will raise errors because the socket is aleady disconnected. The errors are printed in the replay console. 
+- There may be errors in the original chat logs. For example, a user shown disconnected can still talk in the chat and create entries in the log, but in the replayer, this will raise errors because the socket is aleady disconnected. The errors are printed in the console and replayed log files. 
 
