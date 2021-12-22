@@ -31,7 +31,7 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
         - Includes Java program 'WebsocketChatClient.java'.
     - Include file 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties'.
 
-# Install Java JDK 1.8
+# Install Java JDK 1.8 and Apache Ant
 Java 1.8 is recommended for running Bazaar. Older and newer versions may not work. Following are instructions for installing Java 1.8 in addition to any other Javas you may have installed. Some of these instructions are specific to Mac but can be generalized to Windows, etc.
 - On Mac:
   - [Install 'brew'](https://brew.sh) if not already installed. This tool makes it easy to install a lot of other things.
@@ -39,8 +39,11 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
   - [Install Java JDK 1.8](https://installvirtual.com/install-openjdk-8-on-mac-using-brew-adoptopenjdk/).
   - Set your environment to JDK 1.8.
     - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
+  - [Install a version 1.10.xx of Apache Ant](https://formulae.brew.sh/formula/ant).
+	
 - On PC:
-  - Follow [these instructions](https://adoptopenjdk.net/installation.html).
+  - [Install JDK 1.8](https://adoptopenjdk.net/installation.html).
+  - [Install a version 1.10.xx of Apache Ant](https://ant.apache.org/bindownload.cgi). 
 
 # Install this repository
   - Commands:
