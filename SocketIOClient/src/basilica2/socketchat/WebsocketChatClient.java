@@ -55,6 +55,9 @@ public class WebsocketChatClient extends Component implements ChatClient
 	@Override
 	public void disconnect()
 	{
+		System.err.println(">>> DISCONNECTING! <<<"); 
+		System.err.println(">>> DISCONNECTING! <<<"); 
+		System.err.println(">>> DISCONNECTING! <<<"); 
 		socket.disconnect();
 	}
 
@@ -267,7 +270,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.out.println("Connection terminated.");
+					System.err.println("Connection terminated.");
 				}
 			}).on(Socket.EVENT_CONNECT, new Emitter.Listener() { 
 

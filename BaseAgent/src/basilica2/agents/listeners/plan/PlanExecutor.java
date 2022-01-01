@@ -151,6 +151,7 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 
 	void activateStage(String id)
 	{
+		System.err.println("PlanExecutor, activateStage: Enter"); 
 		Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "Firing Stage '" + id + "'");
 
 		if (currentPlan.currentStage != null)
@@ -226,6 +227,7 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 	 */
 	public void stepDone()
 	{
+		System.err.println("PlanExecutor, stepDone: Enter"); 
 
 		clearHelpers();
 		if (interstepDelay > 0)
@@ -247,6 +249,7 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 
 	public void timedOut(String id)
 	{
+		System.err.println("PlanExecutor, timedOut: Enter"); 
 		// informObservers("<timedout id=\"" + id + "\" />");
 		if (id.equals(PROGRESS_TIMER_ID)
 				|| (currentPlan != null && currentPlan.currentStage != null && id.equals(currentPlan.currentStage.currentStep.name)))

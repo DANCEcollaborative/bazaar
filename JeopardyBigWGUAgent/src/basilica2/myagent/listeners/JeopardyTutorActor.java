@@ -254,12 +254,14 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 			    Thread.currentThread().interrupt();
 			}
 			System.out.println("OUT OF SLEEP!");*/
+			System.err.println("JeopardyTutorActor, processEvent: block=true; setting block=false");
 			block = false;
 		}
 		if (e instanceof DoTutoringEvent)
 		{
 			//queue up the start of the tutoring engine.
 			
+			System.err.println("JeopardyTutorActor, processEvent: About to call handleDoTutoringEvent");
 			handleDoTutoringEvent((DoTutoringEvent) e);
 			//MessageEvent me = ((DoTutoringEvent) e).getMessageEvent();
 			//if(me != null)
@@ -270,6 +272,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		else if (e instanceof TutoringStartedEvent)
 		{
 			//start dialog engine
+			System.err.println("JeopardyTutorActor, processEvent: About to call handleTutoringStartedEvent");
 			handleTutoringStartedEvent((TutoringStartedEvent) e);
 		}
 		else if (e instanceof PresenceEvent)
@@ -280,6 +283,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		}
 		else if (e instanceof PromptEvent)
 		{
+			System.err.println("JeopardyTutorActor, processEvent: e is a PromptEvent");
 			PromptEvent event  = (PromptEvent) e;
 			if(event.from.equals("INTRODUCTION"))
 			{
@@ -290,6 +294,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		else if (e instanceof MessageEvent)
 		{
 			//check for concept match and start specific dialog - mostly used for affirmative to 'are you ready'
+			System.err.println("JeopardyTutorActor, processEvent: About to call handleRequestDetectedEvent");
 			handleRequestDetectedEvent((MessageEvent) e);
 		}
 		else if (e instanceof StudentTurnsEvent)
@@ -299,6 +304,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		}
 		else if (e instanceof MoveOnEvent)
 		{
+			System.err.println("JeopardyTutorActor, processEvent: About to call handleMoveOnEvent");
 			//someone's decided we should progress the dialog
 			handleMoveOnEvent((MoveOnEvent) e);
 		}
@@ -346,6 +352,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 			else
 			{
 				if(!answeredAlready) {
+					System.err.println("JeopardyTutorActor, handleDoTutoringEvent: About to call launchDialogOffer");
 					launchDialogOffer(d);
 				} else {
 					sendTutorMessage(already_answered_text);
@@ -673,6 +680,7 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 
 	public void timedOut(String id)
 	{
+		System.err.println("JeopardyTutorActor, timedOut: Enter"); 
 		Dialog d = null;
 		if(proposedDialogs.get(id) == null)
 		{
@@ -688,12 +696,14 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		{
 			// If it doesnt match for sometime , poke students once and then
 			// forget about it
+			System.err.println("JeopardyTutorActor, timedOut: About to poke"); 
 			String pokePrompt = request_poke_prompt_text;
 			//TODONE: Nudge participants if nobody's been responding (correctly, or at all)
 //			TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { pokePrompt, d.cueText });
 //			this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
 			sendTutorMessage(pokePrompt);
 			// Start another timer to wait request. If none, then cancel request
+			System.err.println("JeopardyTutorActor, timedOut: setting timer: introduction_cue_timeout2 = " + Integer.toString(introduction_cue_timeout2)); 
 			Timer t = new Timer(introduction_cue_timeout2, "CANCEL:" + id, this);
 			t.start();
 			log(Logger.LOG_NORMAL, "Delaying dialog "+id+" once...");
@@ -702,12 +712,14 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 		{
 			if (id.startsWith("CANCEL:"))
 			{
+				System.err.println("JeopardyTutorActor, timedOut: id.startsWith(\"CANCEL:\""); 
 				String[] tokens = id.split(":");
 				Dialog d2 = proposedDialogs.get(tokens[1]);
 				
 				d2 = pendingDialogs.remove(d2.acceptAnnotation);
 				if (d2 != null)
 				{
+					System.err.println("JeopardyTutorActor, timedOut: d2 != null"); 
 					//TODONE: continue dialog even if students haven't responded approrpriately.
 //					CancelRequestEvent cre = new CancelRequestEvent(this, tokens[1]);
 //					this.dispatchEvent(myAgent.getComponent(request_detector_name), cre);
@@ -718,6 +730,8 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 					
 					if(startAnyways)
 					{
+
+						System.err.println("JeopardyTutorActor, timedOut: startAnyways; send goahead_prompt_text"); 
 						sendTutorMessage(goahead_prompt_text);
 	
 						log(Logger.LOG_NORMAL, "Not delaying "+tokens[1]+" anymore - beginning dialog");
@@ -725,12 +739,16 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 					}
 					else
 					{
+						System.err.println("JeopardyTutorActor, timedOut: NOT startAnyways; send cancelText"); 
 						sendTutorMessage(d2.cancelText);
 						prioritySource.setBlocking(false);
 					}
 				}
-				else
+				else {
+
+					System.err.println("JeopardyTutorActor, timedOut: d2 = null; setBlocking(false)"); 
 					prioritySource.setBlocking(false);
+				}
 			}
 		}
 	}

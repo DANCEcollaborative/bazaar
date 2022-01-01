@@ -69,6 +69,7 @@ class PromptStepHandler implements StepHandler
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
+		System.err.println("PromptStepHandler, execute - enter"); 
 		if(slots == null)
 		{
 			slots = new HashMap<String, String>();
@@ -97,7 +98,7 @@ class PromptStepHandler implements StepHandler
 		String promptRole = null; 
 		if(step.attributes.containsKey("role"))
 		{
-			System.err.println("PromptStepHandler: step contains key 'role'.");
+			System.err.println("PromptStepHandler, execute: step contains key 'role'.");
 			String role = step.attributes.get("role");
 			promptRole = role.replace("_", " "); 
 			System.err.println("PromptStepHandler: adjusted role = " + promptRole);
@@ -136,9 +137,11 @@ class PromptStepHandler implements StepHandler
         }
 		
 		final double delay = constantDelay + (rateLimited?(promptText.split(" ").length/wordsPerSecond):0);
-		
+
+		System.err.println("PromptStepHandler, execute - creating message event"); 
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
 		makePromptProposal(source, delay, me, step.attributes);
+		System.err.println("PromptStepHandler, execute - starting " + delay + " second prompt delay"); 
 		Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
 		
 		new Timer(delay, new TimeoutReceiver()
@@ -147,6 +150,7 @@ class PromptStepHandler implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
+				System.err.println("PromptStepHandler, execute - ending " + delay + " second prompt delay"); 
 				Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
 				overmind.stepDone();
 			}
@@ -168,6 +172,7 @@ class PromptStepHandler implements StepHandler
 	 */
 	protected void makePromptProposal(InputCoordinator source, final double delay, final MessageEvent me, Map<String, String> attributes)
 	{
+		System.err.println("PromptStepHandler, makePromptProposal - Enter"); 
 		double priority = defaultPromptPriority;
 
 		if(attributes.containsKey("priority"))
@@ -177,10 +182,12 @@ class PromptStepHandler implements StepHandler
 		
 		if(!attributes.containsKey("lag"))
 		{
+			System.err.println("PromptStepHandler, makePromptProposal - NOT lag, pushPropsal"); 
 			source.pushProposal(PriorityEvent.makeBlackoutEvent("PromptStep", me, priority, 30.0, delay));
 		}
 		else
 		{
+			System.err.println("PromptStepHandler, makePromptProposal - lag, pushPropsal"); 
 			double lagTime = Double.parseDouble(attributes.get("lag"));
 			double timeout = Double.parseDouble(attributes.get("expires"));
 			source.pushProposal(PriorityEvent.makeOpportunisticEvent("PromptStep", me, priority, lagTime, timeout, delay, ""));
