@@ -134,7 +134,7 @@ public class PresenceWatcher extends BasilicaAdapter
 				}
 				boolean catchup = false;
 				if (use_catch_up) {
-					if ((!news.getAllStudentNames().contains(userName)) && Arrays.asList(catch_up_stages).contains(news.getStageName()) && Arrays.asList(catch_up_steps).contains(news.getStepName())) {
+					if ((!news.getStudentIdList().contains(userName)) && Arrays.asList(catch_up_stages).contains(news.getStageName()) && Arrays.asList(catch_up_steps).contains(news.getStepName())) {
 						catchup = true;
 					}
 				}
