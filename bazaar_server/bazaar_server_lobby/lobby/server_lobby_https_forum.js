@@ -40,7 +40,7 @@ const Crypto = require("crypto");
 
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true});
+const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true, pingTimeout: 20000});
 const path = require('path'); 
 
 server.listen(localPort);
@@ -1551,11 +1551,15 @@ io.sockets.on('connection', async (socket) => {
 	    socket.emit('updaterooms', [room,], newroom);
 	    logMessage(socket, "join", "presence");
 	});
+	
+	socket.on("connect_error", (err) => {
+	  console.log(`>>> ERROR >>> connect_error due to ${err.message}`);
+	});
 
 	// when the user disconnects... perform this
 	socket.on('disconnect', async () => {
     try {
-    //console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    	console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
     } catch (e) {
     }
 
