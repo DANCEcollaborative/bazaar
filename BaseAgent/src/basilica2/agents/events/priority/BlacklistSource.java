@@ -24,25 +24,25 @@ public class BlacklistSource extends AbstractPrioritySource
 
     public boolean allows(PriorityEvent p)
     {
-//    	System.out.println("SOURCE: "+p.getSource());
-//    	System.out.println("WHITELIST: "+whitelist);
-//    	System.out.println("BLACKLIST: "+blacklist);
     	
-    	for(String exception : whitelist)
-    		if(p.getSource().getName().contains(exception))
+    	//System.out.println("BlacklistSource WHITELIST: "+whitelist);
+    	//System.out.println("BlacklistSource BLACKLIST: "+blacklist);
+    	for(String exception : whitelist) {
+    		if(exception.length()>0 && p.getSource().getName().contains(exception))
 				return true;
-    		
-    	for(String verboten : blacklist)
-    		if(p.getSource().getName().contains(verboten))
+    	}
+    	for(String verboten : blacklist) {
+    		if(verboten.length()>0 && p.getSource().getName().contains(verboten))
     				return false;
-    			
+    	}
     	return true;
     }
     
     public double likelyNext(PriorityEvent p)
     {
-        double permitted = allows(p)?1.333:0.5;
-        double similar = p.getName().equals(this.getName()) ? 1.333:0.75;
+    	double permitted = allows(p)?1.0:0.5;
+        double similar = p.getSource().getName().equals(this.getName()) ? 0.667:1.0;
+        System.out.println("BlacklistSource permitted * similar: "+permitted+" * "+similar);
         return permitted * similar;
     }
 
