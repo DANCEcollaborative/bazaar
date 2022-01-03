@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Physics Module 1">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+    <stage name="initiate" type="other" delay="0">  	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.--> 
+        <step type="prompt" delay="45" prompt="INTRODUCE_SESSION" >INTRODUCE_SESSION</step>
+        <!-- <step type="greet" timeout="30" delay="0">GREETINGS</step>   -->
+        
+        <step type="prompt" delay="0" prompt="PROMPT_INTRO_1" >PROMPT_INTRO_1</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_INTRO_1</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_INTRO_2" >PROMPT_INTRO_2</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_INTRO_2</step>
+    </stage>
+    
+    <stage name="stageA" type="other" delay="0">
+        <step type="prompt" delay="20" prompt="PROMPT_STEP_A1" >PROMPT_STEP_A1</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A2" >Prompt_Step_A2</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A2</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A3" >Prompt_Step_A3</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A3</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A4" >Prompt_Step_A4</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picA1.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A4a" >Prompt_Step_A4a</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A4a</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A5" >Prompt_Step_A5</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A5</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A6" >Prompt_Step_A6</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picA2.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A6a" >Prompt_Step_A6a</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A6a</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A7" >Prompt_Step_A7</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picA3.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A7a" >Prompt_Step_A7a</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A7a</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_A8" >Prompt_Step_A8</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_A8</step>
+
+    </stage>
+     
+    <stage name="stageB" type="other" delay="0">  
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_B1" >PROMPT_STEP_B1</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B2" >PROMPT_STEP_B2</step>
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B2</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B3" >PROMPT_STEP_B3</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B3</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B4" >PROMPT_STEP_B4</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B4</step>
+
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B5" >Prompt_Step_B5</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picB1.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B5a" >Prompt_Step_B5a</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B5a</step>
+
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B6" >Prompt_Step_B6</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picB2.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B6a" >Prompt_Step_B6a</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B6a</step>
+
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B7" >Prompt_Step_B7</step>
+        <step type="prompt" delay="120" prompt="PROMPT_STEP_B8" >Prompt_Step_B9</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B9" >Prompt_Step_B9</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B9</step>
+
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B10" >Prompt_Step_B10</step>
+    	<step type="whiteboard" delay="0" path="https://exodar.oli.cmu.edu/baz/static/Physics_Module1_picB3.jpg">SHOW_IMAGE</step>
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_B10a" >Prompt_Step_B10a</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_B10a</step>
+        
+    </stage>
+    
+    <stage name="stageC" type="other" delay="0">
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_C1" >PROMPT_STEP_C1</step>
+        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="MOVE_ON_GENERIC">WAIT_STEP_C1</step>
+    </stage>
+    
+    <stage name="stageD" type="other" delay="0">
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_D1" >PROMPT_STEP_D1</step>
+        <step type="chatlog" delay="2" >CHAT_LOGS</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
