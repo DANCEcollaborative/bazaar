@@ -303,18 +303,22 @@ function setTeam(teamNumber,req,provider,logger,res)
 }
 
 
-function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
+function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger) {
   	console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
-	if ( (!(roomNameAndNumber in numUsers)) )
+	if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
 	{
 		numUsers[roomNameAndNumber] = 0;
 		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
 		agentLaunch(roomName, teamNumber);
 	}
-	
+    else
+    {       
+	   console.log("setTeam_fromSocket: NOT EXECUTING agentLaunch(" + roomName + "," + teamNumber + ")");
+	}
+        	
 	// 	console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
 	// 	agentLaunch(roomName, teamNumber);
 
@@ -1226,7 +1230,7 @@ function isClientServerConnection(auth) {
   // which is an object that itself has a "clientID" property, whose value
   // is equal to 'DCSS', then this is a DCSS client connection.
   return auth && auth.agent && auth.agent.configuration && 
-  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'DCSS');
+  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'LogReplayer' || auth.agent.configuration.clientID === 'DCSS');
 //   		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'ClientServer-NoEcho' || auth.agent.configuration.clientID === 'DCSS');
 }
 
@@ -1414,7 +1418,7 @@ io.sockets.on('connection', async (socket) => {
 			transports: [
 				new (winston.transports.Console)()]
 		});	
-		setTeam_fromSocket(agent,roomName,userID,username,logger);
+		setTeam_fromSocket(clientID,agent,roomName,userID,username,logger);
 	
 		let temporary = false; 
 		let perspective = null; 
