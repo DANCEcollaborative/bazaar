@@ -167,15 +167,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 		try
 		{
 			if (socketSubURL != null) {
-				IO.Options o = new IO.Options();
-				o.path = socketSubURL;
-				socket = IO.socket(socketURL, o);
-//				IO.Options options = new IO.Options().builder()
-//					// ...
-//					.build(); 
-//				options.path = socketSubURL;
-//				URI uri = URI.create(socketURL); 
-//				socket = IO.socket(uri, options);
+//				IO.Options o = new IO.Options();
+//				o.path = socketSubURL;
+//				socket = IO.socket(socketURL, o);
+				IO.Options options = new IO.Options().builder()
+					// ...
+					.build(); 
+				options.path = socketSubURL;
+				URI uri = URI.create(socketURL); 
+				socket = IO.socket(uri, options);
 			} else {
 				socket = IO.socket(socketURL);
 			}
@@ -242,15 +242,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 				try
 				{
 					if (socketSubURL != null) {
-						IO.Options o = new IO.Options();
-						o.path = socketSubURL;
-						socket = IO.socket(socketURL, o);
-//						IO.Options options = new IO.Options().builder()
-//							// ...
-//							.build(); 
-//						options.path = socketSubURL;
-//						URI uri = URI.create(socketURL); 
-//						socket = IO.socket(uri, options);
+//						IO.Options o = new IO.Options();
+//						o.path = socketSubURL;
+//						socket = IO.socket(socketURL, o);
+						IO.Options options = new IO.Options().builder()
+							// ...
+							.build(); 
+						options.path = socketSubURL;
+						URI uri = URI.create(socketURL); 
+						socket = IO.socket(uri, options);
 					} else {
 						socket = IO.socket(socketURL);
 					}

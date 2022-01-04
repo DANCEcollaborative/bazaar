@@ -278,10 +278,11 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					broadcast(newme);			
 					MessageEventLogger.logMessageEvent(newme);					
 				}
-				if (outputToPSI)
+				if (outputToPSI) {
 					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
+						System.err.println("Sleeping for 5s before sending next part of message");
 						Thread.sleep(5000);
 						tick();
 					}
@@ -289,7 +290,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					{
 						log(Logger.LOG_WARNING, "<warning>Throttling problem</warning>");
 						e.printStackTrace();
-					}		
+					}
+				}
 			}
 		}
 	}
