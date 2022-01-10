@@ -1485,6 +1485,14 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 
+	// when the client emits 'sendfile', this listens and executes
+	socket.on('sendfile', async (data)  => {
+		logMessage(socket, data, "sendfile");
+        console.log("socket.on('sendfile'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+        io.sockets.in(socket.room).emit('sendfile', socket.username, data);		
+	});
+
+
 	// when the client emits 'request', this listens and executes
 	socket.on('request', async (data)  => {	
 	//console.log("Enter socket.on_request"); 	

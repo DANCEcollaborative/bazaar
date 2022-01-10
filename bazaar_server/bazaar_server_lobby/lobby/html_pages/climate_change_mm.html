@@ -403,6 +403,13 @@ ul.tab li a:focus, .active {
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
 	
+		// listener, when the server emits 'sendfile', this logs the message and otherwise ignores it
+	socket.on('sendfile', function (username, data) 
+	{
+		console.log("sendfile - username: " + username);
+		console.log("sendfile - data:     " + data);
+	});
+	
 	
 	function switchRoom(room)
 	{
