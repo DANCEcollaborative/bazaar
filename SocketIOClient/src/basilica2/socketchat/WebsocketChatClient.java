@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import basilica2.agents.components.ChatClient;
+import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
@@ -336,6 +337,18 @@ public class WebsocketChatClient extends Component implements ChatClient
 					message = StringEscapeUtils.unescapeHtml4(message);
 					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
 					WebsocketChatClient.this.broadcast(me);
+				}
+			}).on("sendfile", new Emitter.Listener() { 
+
+				@Override
+				public void call(Object... args)
+				{
+					String filename = (String)args[1];
+//					filename = StringEscapeUtils.unescapeHtml4(message);
+					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
+					FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
+					FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
+					WebsocketChatClient.this.broadcast(fe);
 				}
 			}).on("updateimage", new Emitter.Listener() { 
 
