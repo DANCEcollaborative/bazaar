@@ -1,0 +1,135 @@
+<entry timestamp="2021-11-07#18:46:27" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2021-11-07#18:46:27" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2021-11-07#18:46:27" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2021-11-07#18:46:27" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.agents.listeners.EtherpadListener, class basilica2.social.listeners.ActivityTracker, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.myagent.listeners.QuestionActor, class basilica2.myagent.listeners.SayMoreActor, class basilica2.myagent.listeners.AgreeDisagreeAnnotator, class basilica2.myagent.listeners.AskForExplanationAnnotator, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.SocialController]</entry>
+<entry timestamp="2021-11-07#18:46:27" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2021-11-07#18:46:27" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.agents.listeners.plan.PlanExecutor, class basilica2.myagent.listeners.QuestionActor, class basilica2.myagent.listeners.SayMoreActor, class basilica2.myagent.listeners.AskForExplanationActor, class basilica2.myagent.listeners.AgreeDisagreeActor, class basilica2.tutor.listeners.TutorActor, null, class basilica2.social.listeners.SocialController]</entry>
+<entry timestamp="2021-11-07#18:46:29" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-11-07#18:46:29" user="NewAgentRunner" level="NORMAL">Operation started</entry>
+<entry timestamp="2021-11-07#18:50:24" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2021-11-07#18:50:24" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2021-11-07#18:50:24" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2021-11-07#18:50:24" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2021-11-07#18:50:24" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2021-11-07#18:50:24" user="AgentFactory" level="NORMAL">Agent build. Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-11-07#18:50:24" user="NewAgentRunner" level="NORMAL">Adding agent Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-11-07#18:50:24" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2021-11-07#18:50:24" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2021-11-07#18:50:26" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-11-07#18:50:26" user="MatchStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2021-11-07#18:50:26" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2021-11-07#18:50:26" user="NewAgentRunner" level="NORMAL">notified UI of agent launch for Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-11-07#18:50:26" user="NewAgentRunner" level="NORMAL">Agent added Clem the Climate Policy Wonk_Test01</entry>
+<entry timestamp="2021-11-07#18:50:28" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-11-07#18:50:28" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: initiate</entry>
+<entry timestamp="2021-11-07#18:50:28" user="PlanExecutor" level="NORMAL">Firing Stage 'initiate'</entry>
+<entry timestamp="2021-11-07#18:50:28" user="Step" level="NORMAL">Handlers for GREET_AND_WAIT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#18:50:28" user="PromptStepHandler" level="NORMAL">starting 1.6 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:50:28" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-11-07#18:50:28" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Hi! We will start soon. GREET_AND_WAIT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#18:50:30" user="PromptStepHandler" level="NORMAL">ending 1.6 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:50:30" user="PlanExecutor" level="NORMAL">starting 45 second delay timer for GREET_AND_WAIT</entry>
+<entry timestamp="2021-11-07#18:50:34" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2021-11-07#18:50:34" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-11-07#18:50:34" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-11-07#18:51:15" user="PlanExecutor" level="NORMAL">PLAN: current step done: GREET_AND_WAIT</entry>
+<entry timestamp="2021-11-07#18:51:15" user="Step" level="NORMAL">starting 90 second timeout for GREETINGS</entry>
+<entry timestamp="2021-11-07#18:51:15" user="Step" level="NORMAL">Handlers for GREETINGS(greet): [basilica2.agents.listeners.plan.GreetStepHandler@137c2aae]</entry>
+<entry timestamp="2021-11-07#18:51:15" user="GreetStepHandler" level="NORMAL">starting greet step...</entry>
+<entry timestamp="2021-11-07#18:51:17" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Welcome! I'm Clem.|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other. INTRODUCE</entry>
+<entry timestamp="2021-11-07#18:51:29" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Howdy, Jack. GREET</entry>
+<entry timestamp="2021-11-07#18:52:15" user="EndStepOnStopListeningDelegate" level="NORMAL">ending step GREETINGS...</entry>
+<entry timestamp="2021-11-07#18:52:15" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage initiate</entry>
+<entry timestamp="2021-11-07#18:52:15" user="PlanExecutor" level="NORMAL">Firing Stage 'stageA'</entry>
+<entry timestamp="2021-11-07#18:52:15" user="Step" level="NORMAL">Handlers for PROMPT_STEP_INTRODUCTION(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#18:52:15" user="PromptStepHandler" level="NORMAL">starting 16.6 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:52:17" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Okay, we're starting.|In this activity, your team will examine evidence of climate change in the form of graphs and experimental data. You will be asked to identify what the evidence tells you and what questions you still have. Then, you will read a local mayor’s opinion on fossil fuels and develop an argument in response. PROMPT_STEP_INTRODUCTION.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#18:52:32" user="PromptStepHandler" level="NORMAL">ending 16.6 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:52:32" user="PlanExecutor" level="NORMAL">starting 30 second delay timer for PROMPT_STEP_INTRODUCTION</entry>
+<entry timestamp="2021-11-07#18:52:45" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key GREETINGS</entry>
+<entry timestamp="2021-11-07#18:53:02" user="PlanExecutor" level="NORMAL">PLAN: current step done: PROMPT_STEP_INTRODUCTION</entry>
+<entry timestamp="2021-11-07#18:53:02" user="Step" level="NORMAL">Handlers for Prompt_Step_A2(match): [basilica2.myagent.listeners.plan.MatchStepHandler@1d0e4d7b]</entry>
+<entry timestamp="2021-11-07#18:53:02" user="MatchStepHandler" level="NORMAL">starting 15.999999999999998 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:53:03" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: We will examine data about how temperature change, carbon dioxide, and fossil fuels may play a role in climate change.|S001, you will lead a discussion about temperature change and climate change. ... Jack, you will lead a discussion about carbon dioxide.|If someone joins you later, they will lead discussion on the remaining role. PROMPT_STEP_MATCH.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#18:53:18" user="MatchStepHandler" level="NORMAL">ending 15.999999999999998 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:53:18" user="PlanExecutor" level="NORMAL">starting 30 second delay timer for Prompt_Step_A2</entry>
+<entry timestamp="2021-11-07#18:53:48" user="PlanExecutor" level="NORMAL">PLAN: current step done: Prompt_Step_A2</entry>
+<entry timestamp="2021-11-07#18:53:48" user="Step" level="NORMAL">Handlers for PROMPT_STEP_TEMPERATURE_CHANGE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#18:53:48" user="PromptStepHandler" level="NORMAL">starting 15.399999999999999 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:53:48" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: First, click on the words "Temperature Change Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|S001, take the lead by sharing your thoughts and asking the team about their ideas. What does the evidence tell you? Does it lead to further questions? PROMPT_STEP_TEMPERATURE_CHANGE_STUDENT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#18:54:03" user="PromptStepHandler" level="NORMAL">ending 15.399999999999999 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:54:03" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_TEMPERATURE_CHANGE</entry>
+<entry timestamp="2021-11-07#18:54:03" user="Step" level="NORMAL">Handlers for WAIT_STEP_TEMPERATURE_CHANGE(gated): [basilica2.agents.listeners.plan.GatedStepHandler@2e60314a]</entry>
+<entry timestamp="2021-11-07#18:54:03" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-11-07#18:54:03" user="Step" level="NORMAL">Handlers for WAIT_STEP_TEMPERATURE_CHANGE(listen): [basilica2.accountable.listeners.ListenStepHandler@416ad989]</entry>
+<entry timestamp="2021-11-07#18:54:04" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished discussing the temperature change data. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-11-07#18:57:51" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: We need to start wrapping up. Remember to type "ready" when you're ready to move on. TIMEOUT_WARNING</entry>
+<entry timestamp="2021-11-07#18:59:04" user="PlanExecutor" level="NORMAL">PLAN: current step done: WAIT_STEP_TEMPERATURE_CHANGE</entry>
+<entry timestamp="2021-11-07#18:59:04" user="Step" level="NORMAL">Handlers for PROMPT_STEP_CARBON_DIOXIDE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#18:59:04" user="PromptStepHandler" level="NORMAL">starting 12.999999999999998 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:59:05" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Next, click on the words "Carbon Dioxide Data" at the upper left. Examine the tables and take about 5 minutes to discuss as a team.|Jack, you take the lead this time. Is the evidence convincing? Could there be other causes for the effects? PROMPT_STEP_CARBON_DIOXIDE_STUDENT.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#18:59:17" user="PromptStepHandler" level="NORMAL">ending 12.999999999999998 second prompt delay</entry>
+<entry timestamp="2021-11-07#18:59:17" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_CARBON_DIOXIDE</entry>
+<entry timestamp="2021-11-07#18:59:17" user="Step" level="NORMAL">Handlers for WAIT_STEP_CARBON_DIOXIDE(gated): [basilica2.agents.listeners.plan.GatedStepHandler@2e60314a]</entry>
+<entry timestamp="2021-11-07#18:59:17" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-11-07#18:59:17" user="Step" level="NORMAL">Handlers for WAIT_STEP_CARBON_DIOXIDE(listen): [basilica2.accountable.listeners.ListenStepHandler@416ad989]</entry>
+<entry timestamp="2021-11-07#18:59:19" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-11-07#18:59:21" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished discussing the carbon dioxide data. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-11-07#19:00:14" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-11-07#19:00:16" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-11-07#19:00:16" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-11-07#19:00:16" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 2</entry>
+<entry timestamp="2021-11-07#19:03:04" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Okay, let's get ready to move on. Remember to type "ready" if you're done with this step. TIMEOUT_WARNING</entry>
+<entry timestamp="2021-11-07#19:03:10" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk_Test01: Thanks, Jack. Make sure your team is in agreement. ACKNOWLEDGE+to:S002+PRIVATE_MESSAGE</entry>
+<entry timestamp="2021-11-07#19:03:15" user="Step" level="NORMAL">Handlers for PROMPT_STEP_FOSSIL_FUELS(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#19:03:15" user="PromptStepHandler" level="NORMAL">starting 14.2 second prompt delay</entry>
+<entry timestamp="2021-11-07#19:03:16" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Now, click on the words "Fossil Fuels Data" at the upper left. Examine the graph and take about 5 minutes to discuss as a team.|If someone has not yet led a discussion, it's their turn to take the lead. How does this data relate to climate change? PROMPT_STEP_FOSSIL_FUELS.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#19:03:28" user="" level="NORMAL">REJECTED!Message from Clem the Climate Policy Wonk: Moving on... ALL_READY</entry>
+<entry timestamp="2021-11-07#19:03:30" user="PromptStepHandler" level="NORMAL">ending 14.2 second prompt delay</entry>
+<entry timestamp="2021-11-07#19:03:30" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_FOSSIL_FUELS</entry>
+<entry timestamp="2021-11-07#19:03:30" user="Step" level="NORMAL">Handlers for WAIT_STEP_FOSSIL_FUELS(gated): [basilica2.agents.listeners.plan.GatedStepHandler@2e60314a]</entry>
+<entry timestamp="2021-11-07#19:03:30" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-11-07#19:03:30" user="Step" level="NORMAL">Handlers for WAIT_STEP_FOSSIL_FUELS(listen): [basilica2.accountable.listeners.ListenStepHandler@416ad989]</entry>
+<entry timestamp="2021-11-07#19:03:32" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-11-07#19:03:34" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-11-07#19:03:36" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished discussing the fossil fuels data. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-11-07#19:04:18" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key WAIT_STEP_CARBON_DIOXIDE</entry>
+<entry timestamp="2021-11-07#19:07:16" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Okay, let's get ready to move on. Remember to type "ready" if you're done with this step. TIMEOUT_WARNING</entry>
+<entry timestamp="2021-11-07#19:08:30" user="PlanExecutor" level="NORMAL">PLAN: current step done: WAIT_STEP_FOSSIL_FUELS</entry>
+<entry timestamp="2021-11-07#19:08:30" user="basilica2.agents.listeners.plan.Stage" level="NORMAL">finished stage stageA</entry>
+<entry timestamp="2021-11-07#19:08:30" user="PlanExecutor" level="NORMAL">Firing Stage 'stageB'</entry>
+<entry timestamp="2021-11-07#19:08:30" user="Step" level="NORMAL">Handlers for PROMPT_STEP_READ_LETTER(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#19:08:30" user="PromptStepHandler" level="NORMAL">starting 11.799999999999999 second prompt delay</entry>
+<entry timestamp="2021-11-07#19:08:31" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Okay, it's time to move on to the next part of the activity. First, spend a few minutes reading and thinking about the letter from the mayor that you'll find when you click on "Mayoral Letter" at the left. PROMPT_STEP_READ_LETTER.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#19:08:42" user="PromptStepHandler" level="NORMAL">ending 11.799999999999999 second prompt delay</entry>
+<entry timestamp="2021-11-07#19:08:42" user="PlanExecutor" level="NORMAL">starting 30 second delay timer for PROMPT_STEP_READ_LETTER</entry>
+<entry timestamp="2021-11-07#19:09:12" user="PlanExecutor" level="NORMAL">PLAN: current step done: PROMPT_STEP_READ_LETTER</entry>
+<entry timestamp="2021-11-07#19:09:12" user="Step" level="NORMAL">starting 240 second timeout for WAIT_STEP_READ_LETTER</entry>
+<entry timestamp="2021-11-07#19:09:12" user="Step" level="NORMAL">Handlers for WAIT_STEP_READ_LETTER(gated): [basilica2.agents.listeners.plan.GatedStepHandler@2e60314a]</entry>
+<entry timestamp="2021-11-07#19:09:12" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-11-07#19:09:12" user="Step" level="NORMAL">Handlers for WAIT_STEP_READ_LETTER(listen): [basilica2.accountable.listeners.ListenStepHandler@416ad989]</entry>
+<entry timestamp="2021-11-07#19:09:13" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-11-07#19:09:15" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished examining the mayor's letter. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-11-07#19:12:13" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Okay, let's get ready to move on. Remember to type "ready" if you're done with this step. TIMEOUT_WARNING</entry>
+<entry timestamp="2021-11-07#19:13:13" user="PlanExecutor" level="NORMAL">PLAN: current step done: WAIT_STEP_READ_LETTER</entry>
+<entry timestamp="2021-11-07#19:13:13" user="Step" level="NORMAL">Handlers for PROMPT_STEP_MAYORAL_PERSPECTIVE(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@4ffc3ae2]</entry>
+<entry timestamp="2021-11-07#19:13:13" user="PromptStepHandler" level="NORMAL">starting 10.299999999999999 second prompt delay</entry>
+<entry timestamp="2021-11-07#19:13:13" user="" level="NORMAL">accepted. Message from Clem the Climate Policy Wonk: Before developing your response to Mayor Williams, summarize her perspective. What are the benefits of using fossil fuels? What evidence and reasoning does she use to support her decision? Discuss for a few minutes. PROMPT_STEP_MAYORAL_PERSPECTIVE.
+Starting blockout countdown... </entry>
+<entry timestamp="2021-11-07#19:13:23" user="PromptStepHandler" level="NORMAL">ending 10.299999999999999 second prompt delay</entry>
+<entry timestamp="2021-11-07#19:13:23" user="Step" level="NORMAL">starting 300 second timeout for WAIT_STEP_MAYORAL_PERSPECTIVE</entry>
+<entry timestamp="2021-11-07#19:13:23" user="Step" level="NORMAL">Handlers for WAIT_STEP_MAYORAL_PERSPECTIVE(gated): [basilica2.agents.listeners.plan.GatedStepHandler@2e60314a]</entry>
+<entry timestamp="2021-11-07#19:13:23" user="GatedStepHandler" level="NORMAL">starting gated step...</entry>
+<entry timestamp="2021-11-07#19:13:23" user="Step" level="NORMAL">Handlers for WAIT_STEP_MAYORAL_PERSPECTIVE(listen): [basilica2.accountable.listeners.ListenStepHandler@416ad989]</entry>
+<entry timestamp="2021-11-07#19:13:25" user="" level="NORMAL">ACCEPTED! Unready Event: Global</entry>
+<entry timestamp="2021-11-07#19:13:27" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: Type "ready" when you have finished summarizing and discussing the mayor's letter. WAIT_FOR_CHECKIN</entry>
+<entry timestamp="2021-11-07#19:17:10" user="" level="NORMAL">ACCEPTED! Message from Clem the Climate Policy Wonk: We need to start wrapping up. Remember to type "ready" when you're ready to move on. TIMEOUT_WARNING</entry>
+<entry timestamp="2021-11-07#19:17:49" user="NewAgentRunner" level="NORMAL">Starting operation</entry>
+<entry timestamp="2021-11-07#19:17:49" user="NewAgentRunner" level="NORMAL">Operation started</entry>
