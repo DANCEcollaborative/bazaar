@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Climate Change">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+   <stage name="initiate" type="other" delay="0">   -->	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
+        <step type="prompt" delay="20" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>     <!-- Increase to {30 or 45} for actual 
+use -->
+       <step type="greet" timeout="90" delay="0">GREETINGS</step>    <!-- Increase to {120} for actual use -->
+	</stage> 
+    
+    <stage name="stageA" type="other" delay="0">
+       <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step> 
+        
+        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
+              
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_TEMPERATURE_CHANGE" role="temperature_change">PROMPT_STEP_TEMPERATURE_CHANGE</step>
+        <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_TEMPERATURE_CHANGE</step> -->
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_TEMPERATURE_CHANGE">WAIT_STEP_TEMPERATURE_CHANGE</step> 
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_CARBON_DIOXIDE" role="carbon_dioxide">PROMPT_STEP_CARBON_DIOXIDE</step>
+        <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_CARBON_DIOXIDE</step>  -->
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_CARBON_DIOXIDE">WAIT_STEP_CARBON_DIOXIDE</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_FOSSIL_FUELS" role="fossil_fuels">PROMPT_STEP_FOSSIL_FUELS</step>
+        <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_FOSSIL_FUELS</step>  -->
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_FOSSIL_FUELS">WAIT_STEP_FOSSIL_FUELS</step>
+    </stage>
+     
+    <stage name="stageB" type="other" delay="0">  
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_READ_LETTER" >PROMPT_STEP_READ_LETTER</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="READY_READ_LETTER">WAIT_STEP_READ_LETTER</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_MAYORAL_PERSPECTIVE" >PROMPT_STEP_MAYORAL_PERSPECTIVE</step>
+        <!-- <step type="listen" timeout="120" delay="1">LISTEN_STEP_MAYORAL_PERSPECTIVE</step>  -->
+        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="READY_MAYORAL_PERSPECTIVE">WAIT_STEP_MAYORAL_PERSPECTIVE</step>
+        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_MAYORAL_RESPONSE" >PROMPT_STEP_MAYORAL_RESPONSE</step>
+        <step type="listen" timeout="300" delay="1">LISTEN_STEP_MAYORAL_RESPONSE</step>
+        <!-- <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="READY_MAYORAL_RESPONSE">WAIT_STEP_MAYORAL_RESPONSE</step>  -->
+    </stage>
+    
+    <stage name="EndStage" type="other" delay="0" timeout="2400">
+        <step type="prompt" delay="30" prompt="PROMPT_END" >PROMPT_END</step>
+        <step type="chatlog" delay="2" >CHAT_LOGS</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
