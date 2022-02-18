@@ -3,8 +3,8 @@
     <property environment="env"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
+    <property name="target" value="11"/>
+    <property name="source" value="11"/>
     <property name="lightside.location" value="."/>
     <!--<property name="ECLIPSE_HOME" value="/Applications/eclipse"/>-->
 	<!-- ECLIPSE_HOME is only used to reference where the junit JARs live - if your JUnit is elsewhere, you don't need this variable. -->
@@ -100,7 +100,7 @@
 	
     <target depends="compile" name="run">
         <java classname="edu.cmu.side.Workbench" failonerror="true" fork="yes">
-            <jvmarg line="-Xmx8G -Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide -splash:toolkits/icons/logo.png -XX:+UseConcMarkSweepGC" />
+            <jvmarg line="-Xmx8G -Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide -splash:toolkits/icons/logo.png" />
             <classpath refid="lightside.classpath"/>
         </java>
     </target>
@@ -123,7 +123,7 @@
         	    </fileset>
         	  </batchtest>
         	    	
-            <jvmarg line="-Xmx4G -XX:+UseConcMarkSweepGC  -Djava.awt.headless=true"/>
+            <jvmarg line="-Xmx4G -Djava.awt.headless=true"/>
 
 
         </junit>

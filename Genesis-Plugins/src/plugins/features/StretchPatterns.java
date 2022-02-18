@@ -587,6 +587,7 @@ public class StretchPatterns<T> extends FeaturePlugin
 				+ (docHits.isEmpty() ? "0" : (1000 * delta / docHits.size())) + " ms/kilohit.");
 
 		progress.update("");
+		categories.clear();
 
 		return docHits;
 	}

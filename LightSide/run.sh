@@ -2,8 +2,8 @@
 
 MAXHEAP="8g"
 OS_ARGS=""
-#OTHER_ARGS=""
-OTHER_ARGS="-XX:+UseConcMarkSweepGC"
+OTHER_ARGS=""
+#OTHER_ARGS="-XX:+UseConcMarkSweepGC"
 
 if [ `uname` == "Darwin" ]; then
     OS_ARGS="-Xdock:icon=toolkits/icons/bulbs/bulb_128.png -Xdock:name=LightSide"
