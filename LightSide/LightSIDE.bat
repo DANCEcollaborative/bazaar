@@ -3,7 +3,7 @@
 
 set memory=1G
 
-set other_args=-XX:+UseConcMarkSweepGC -Dswing.defaultlaf=com.sun.java.swing.plaf.windows.WindowsLookAndFeel
+set other_args=-Dswing.defaultlaf=com.sun.java.swing.plaf.windows.WindowsLookAndFeel
 
 set classpath="bin;plugins/genesis.jar;lib/*;lib/xstream/*"
 
