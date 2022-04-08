@@ -295,7 +295,7 @@ ul.tab li a:focus, .active {
 	{
 		if (data.search("multimodal:true;%;") > -1) {
 			console.log("updatechat - multimodal message found");
-			username = getMultimodalValue("identity",data);
+			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("speech",data);
 		} else {
 			console.log("updatechat - multimodal message NOT found");
