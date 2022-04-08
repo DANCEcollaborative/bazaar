@@ -60,6 +60,7 @@ public class PromptTable
 	protected String prompt_filename = "prompts.xml";
 	protected String output_component_name = "myOutputCordinator";
 	protected Map<String, List<String>> prompts = null;
+	protected Map<String, String> intentions = null;
 
 	public PromptTable()
 	{
@@ -75,6 +76,7 @@ public class PromptTable
 	{
 		prompt_filename = filename;
 		loadPrompts(prompt_filename);
+		loadIntentions(prompt_filename);
 	}
 
 	protected void loadPrompts(String filename)
@@ -120,6 +122,54 @@ public class PromptTable
 		}
 	}
 
+
+	protected void loadIntentions(String filename)
+	{
+		intentions = new Hashtable<String, String>();
+		try
+		{
+			DOMParser parser = new DOMParser();
+			parser.parse(filename);
+			Document dom = parser.getDocument();
+			NodeList ns1 = dom.getElementsByTagName("prompts");
+			if ((ns1 != null) && (ns1.getLength() != 0))
+			{
+				Element promptsElement = (Element) ns1.item(0);
+				NodeList ns2 = promptsElement.getElementsByTagName("prompt");
+				if ((ns2 != null) && (ns2.getLength() != 0))
+				{
+					for (int i = 0; i < ns2.getLength(); i++)
+					{
+						Element promptElement = (Element) ns2.item(i);
+						String promptId = promptElement.getAttribute("id");
+						String intention = promptElement.getAttribute("intention");
+						intentions.put(promptId,intention);
+					}
+				}
+			}
+			System.out.println("=== INTENTIONS ==="); 
+			
+			// ============ TEMPORARY FOR DEBUGGING =========== //
+			for (Map.Entry<String,String> entry : intentions.entrySet()) {			
+				String intention = entry.getValue();
+				if (intention == null) 
+					intention = ""; 
+	            System.out.println("prompt ID:  " + entry.getKey() +
+	                             "    Intention: " + intention);
+			}
+			// ============ TEMPORARY FOR DEBUGGING =========== //
+		}
+		
+		catch (Exception e)
+		{
+			// log
+
+			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Unable to load intentions (" + e.toString() + ")");
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public String lookup(String promptName)
 	{
 		return lookup(promptName, null);
@@ -151,6 +201,20 @@ public class PromptTable
 			return promptName;
 		}
 	}
+	
+	public String lookupIntention(String promptName)
+	{
+		// Do the Prompt
+		String intention = intentions.get(promptName);	 	
+		if (intention != null && intention.length() > 0)
+		{
+			return intention;
+		}
+		else
+		{
+			return "";
+		}
+	}	
 
 	public String match(String promptName, String[] studentIds, String[] roles, int maxMatches, State state)
 	{
