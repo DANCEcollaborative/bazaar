@@ -182,9 +182,6 @@ public class PromptTable
 
 	public String lookup(String promptName, Map<String, String> slotFillers)
 	{
-		String intentionTag = "intention"; 
-	    String multiModalDelim = ";%;";
-		String withinModeDelim = ":";	
 		// Do the Prompt
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		if (promptTexts != null)
@@ -202,10 +199,7 @@ public class PromptTable
 				}
 			}
 			if (includeIntention) {
-				String intention = lookupIntention(promptName);
-				if (intention != null && intention.length() > 0) {
-					promptText += multiModalDelim + intentionTag + withinModeDelim + intention;  					
-				}
+				promptText = addIntention(promptName,promptText); 
 			}
 			return promptText;
 
@@ -213,6 +207,32 @@ public class PromptTable
 		else
 		{
 			return promptName;
+		}
+	}
+	
+	public String addIntention(String promptName, String promptText) {
+		String intentionTag = "intention"; 
+	    String multiModalDelim = ";%;";
+		String withinModeDelim = ":";	
+		
+		String intention = lookupIntention(promptName);
+		if (intention.length() == 0) {
+			return promptText; 
+		} else {
+			String intentionString = multiModalDelim + intentionTag + withinModeDelim + intention; 
+			if (!promptText.contains("|")) {
+				return promptText + intentionString; 
+			} else {
+				String returnText = ""; 
+				String[] textParts = promptText.split("\\|");
+				String textPart; 
+				for (int i = 0; i < textParts.length; i++)
+				{
+					textPart = textParts[i].trim();
+					returnText += textPart + intentionString + "|"; 
+				}
+				return returnText; 
+			}					
 		}
 	}
 	
