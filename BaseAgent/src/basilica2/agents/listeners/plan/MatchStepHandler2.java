@@ -1,4 +1,4 @@
-package basilica2.myagent.listeners.plan;
+package basilica2.agents.listeners.plan;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +23,7 @@ import basilica2.agents.listeners.plan.StepHandler;
 import basilica2.agents.listeners.plan.PlanExecutor;
 import basilica2.agents.listeners.plan.Step;
 
-public class MatchStepHandler implements StepHandler
+public class MatchStepHandler2 implements StepHandler
 {
 	private PromptTable prompter;
 	private double wordsPerSecond = 200/60.0;
@@ -40,7 +40,7 @@ public class MatchStepHandler implements StepHandler
 		return "match";
 	}
 
-	public MatchStepHandler()
+	public MatchStepHandler2()
 	{
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		String promptsPath = properties.getProperty("prompt_file","plan/plan_prompts.xml");
@@ -87,11 +87,11 @@ public class MatchStepHandler implements StepHandler
 		}
 		
 		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
-		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
+		Logger.commonLog("MatchStepHandler2", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
 		+(rateLimited?", +"+wordsPerSecond+" wps":""));
 	}
 
-	public MatchStepHandler(String promptsPath)
+	public MatchStepHandler2(String promptsPath)
 	{
 		prompter = new PromptTable(promptsPath);
 	}
@@ -129,7 +129,7 @@ public class MatchStepHandler implements StepHandler
         	adjustedPromptKey = promptKey + promptSuffix; 
         	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, maxUsersToMatch, state);
         	if (adjustedPromptText == adjustedPromptKey) {
-        		System.err.println("MatchStepHandler, execute: first match attempt failed"); 
+        		System.err.println("MatchStepHandler2, execute: first match attempt failed"); 
         		promptText = prompter.match(promptKey, studentIds, roles, maxUsersToMatch, state);
         	}
         	else {
@@ -143,7 +143,7 @@ public class MatchStepHandler implements StepHandler
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
 		makePromptProposal(source, delay, me, step.attributes);
-		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
+		Logger.commonLog("MatchStepHandler2", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
 		
 		new Timer(delay, new TimeoutReceiver()
 		{
@@ -151,7 +151,7 @@ public class MatchStepHandler implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
-				Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+				Logger.commonLog("MatchStepHandler2", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
 				overmind.stepDone();
 			}
 

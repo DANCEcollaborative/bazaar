@@ -48,8 +48,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
 
+	private Boolean outputMultimodal = false; 
 	private Boolean outputToPSI = false; 
-	private Boolean separateOutputToPSI = false; 
+	private Boolean separateOutputToPSI = false;
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -71,6 +72,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		timer.start();
 		
 		if(myProperties!=null) {
+			try{outputMultimodal = Boolean.parseBoolean(myProperties.getProperty("output_multimodal", "false"));}
+			catch(Exception e) {e.printStackTrace();}
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
@@ -236,9 +239,14 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
 
+		String messageText; 
 		if (!me.getText().contains("|"))
 		{
 			if ((!outputToPSI) || (separateOutputToPSI)) {
+				if (outputMultimodal) {
+					messageText = formatMultimodalMessage(me);
+					me.setText(messageText);					
+				}
 				broadcast(me);
 			}		
 			if (outputToPSI) {
@@ -275,6 +283,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}
 				newme.setReference(me.getReference());
 				if ((!outputToPSI) || (separateOutputToPSI)) {
+					if (outputMultimodal) {
+						messageText = formatMultimodalMessage(newme);
+						newme.setText(messageText);					
+					}
 					broadcast(newme);			
 					MessageEventLogger.logMessageEvent(newme);					
 				}
@@ -296,23 +308,60 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		}
 	}
 
-	// Designed for multiple fields. Currently only location and message text are supported.
+	
 	private void publishMessageToPSI(MessageEvent me)
 	{
-		Boolean multimodalMessage = true; 
-		String multiModalField = "multimodal"; 
+		String text = me.getText();	
+		String messageString = formatMultimodalMessage(me); 
+//		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
+		setMultimodalDontListenWhileSpeaking(text); 
+		if (!separateOutputToPSI) {
+			MessageEvent newme;
+			String[] allAnnotations = me.getAllAnnotations();
+			try
+			{
+				newme = me.cloneMessage(messageString);
+			}
+			catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
+			}
+			broadcast(newme);
+			MessageEventLogger.logMessageEvent(newme);
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		} else {
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		}
+		
+// 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
+// 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
+//         publisher.send(topicMessage, 0);
+	}
+	
+	
+// Sample formatted multimodal message follows. Currently, only the tags 'from', 'to', and 'speech' are supported for output. 
+// multimodal:true;%;from:Jamie;%;to:group;%;speech:"I'm Jamie";%;location:30:60:90;%;facialExp:smile;%;pose:sitting;%;emotion:happy
+	private String formatMultimodalMessage(MessageEvent me)
+	{
+		String multiModalField = "multimodal";  
+		String fromField = "from";
+		String toField = "to";
 		String speechField = "speech";
-		String identityField = "identity";
 		// String locationField = "location";
 		// String location = null; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":";	
-		String identityAllUsers = "group";
+		String toAllUsers = "group";
 		String messageString; 
 		
 		String text; 
+		String from = agent.getUsername();
 		String to; 
 		String textOrig = me.getText();	
+		
+		// Special processing for Mob Programming 
 		if (textOrig.contains("Navigator::"))
 		{
 			text = textOrig.substring(11);
@@ -330,37 +379,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			// To specific user if known.
 			to = me.getDestinationUser();
 			if (to == null) {
-				to = identityAllUsers; 
+				to = toAllUsers; 
 			}	
 		}
-		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
-		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
-		if (!separateOutputToPSI) {
-			MessageEvent newme;
-			String[] allAnnotations = me.getAllAnnotations();
-			try
-			{
-				newme = me.cloneMessage(messageString);
-			}
-			catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
-			}
-			broadcast(newme);
-			MessageEventLogger.logMessageEvent(newme);
-			setMultimodalDontListenWhileSpeaking(speechField); 
-			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
-		} else {
-			setMultimodalDontListenWhileSpeaking(speechField); 
-			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
-		}
-		
-// 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
-// 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
-//         publisher.send(topicMessage, 0);
-	}
+		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + fromField + withinModeDelim + from + multiModalDelim + toField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
+		System.err.println("OutputCoordinator, formatMultimodalMessage, message: " + messageString);
+		return messageString; 
+	}	
 	
 	public void setMultimodalDontListenWhileSpeaking(String speechString) {
 		State olds = StateMemory.getSharedState(agent); 
