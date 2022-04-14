@@ -147,9 +147,9 @@ public class PromptTable
 					}
 				}
 			}
-			System.out.println("=== INTENTIONS ==="); 
 			
 			// ============ TEMPORARY FOR DEBUGGING =========== //
+			System.out.println("=== INTENTIONS ==="); 
 			for (Map.Entry<String,String> entry : intentions.entrySet()) {			
 				String intention = entry.getValue();
 				if (intention == null) 

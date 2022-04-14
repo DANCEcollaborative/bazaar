@@ -10,15 +10,15 @@
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
         <step type="prompt" delay="20" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>     <!-- Increase to {30 or 45} for actual 
 use -->
-       <step type="greet" timeout="60" delay="0">GREETINGS</step>    <!-- Increase to {120} for actual use -->
+       <step type="greet" timeout="90" delay="0">GREETINGS</step>    <!-- Increase to {120} for actual use -->
 	</stage> 
     
     <stage name="stageA" type="other" delay="0">
-        <step type="prompt" delay="5" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step>       
-        <step type="match" delay="20" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step>       
+        <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
     </stage>
     
-    <stage name="EndStage" type="other" delay="0" timeout="150">
+    <stage name="EndStage" type="other" delay="0" timeout="2400">
         <step type="prompt" delay="30" prompt="PROMPT_END" >PROMPT_END</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
