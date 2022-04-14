@@ -61,6 +61,7 @@ public class PromptTable
 	protected String output_component_name = "myOutputCordinator";
 	protected Map<String, List<String>> prompts = null;
 	protected Map<String, String> intentions = null;
+	protected Boolean includeIntention = false; 
 
 	public PromptTable()
 	{
@@ -143,6 +144,10 @@ public class PromptTable
 						Element promptElement = (Element) ns2.item(i);
 						String promptId = promptElement.getAttribute("id");
 						String intention = promptElement.getAttribute("intention");
+						if (intention != null && intention.length() > 0)
+						{
+							includeIntention = true; 
+						}
 						intentions.put(promptId,intention);
 					}
 				}
@@ -177,6 +182,9 @@ public class PromptTable
 
 	public String lookup(String promptName, Map<String, String> slotFillers)
 	{
+		String intentionTag = "intention"; 
+	    String multiModalDelim = ";%;";
+		String withinModeDelim = ":";	
 		// Do the Prompt
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		if (promptTexts != null)
@@ -191,6 +199,12 @@ public class PromptTable
 					String filler = slotFillers.get(slots[i]);
 					if(filler != null)
 						promptText = promptText.replace(slots[i], filler);
+				}
+			}
+			if (includeIntention) {
+				String intention = lookupIntention(promptName);
+				if (intention != null && intention.length() > 0) {
+					promptText += multiModalDelim + intentionTag + withinModeDelim + intention;  					
 				}
 			}
 			return promptText;
