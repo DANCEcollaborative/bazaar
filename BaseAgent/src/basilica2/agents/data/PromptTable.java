@@ -273,6 +273,9 @@ public class PromptTable
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 			}
+			if (includeIntention) {
+				promptText = addIntention(promptName,promptText); 
+			}
 			return promptText;
 
 		}
@@ -306,6 +309,9 @@ public class PromptTable
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 				promptText = promptText.replace("[DEFAULTROLE]", defaultRole);
+			}
+			if (includeIntention) {
+				promptText = addIntention(promptName,promptText); 
 			}
 			return promptText;
 
