@@ -1,0 +1,196 @@
+package basilica2.myagent.listeners.plan;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.OutputCoordinator;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.PromptTable;
+import basilica2.agents.data.State;
+import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.priority.PriorityEvent;
+//import basilica2.agents.listeners.plan.Step;
+//import basilica2.agents.listeners.plan.StepHandler;
+//import basilica2.agents.listeners.plan.PlanExecutor;
+import basilica2.util.PropertiesLoader;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
+import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
+import edu.cmu.cs.lti.project911.utils.time.Timer;
+
+class PromptStepHandler implements StepHandler
+{
+	private PromptTable prompter;
+	private double wordsPerSecond = 200/60.0;
+	private double constantDelay = 0.1;
+	private boolean rateLimited = true;
+	private double defaultPromptPriority = OutputCoordinator.HIGH_PRIORITY;
+	private double defaultPromptTimeout = 30.0;
+	
+	private HashMap<String, String> slots = null;
+
+	public static String getStepType()
+	{
+		return "prompt";
+	}
+
+	public PromptStepHandler()
+	{
+		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
+		String promptsPath = properties.getProperty("prompt_file","plans/plan_prompts.xml");
+		prompter = new PromptTable(promptsPath);
+
+		try
+		{
+			defaultPromptPriority = Double.parseDouble(properties.getProperty("default_prompt_priority",""+defaultPromptPriority));
+			defaultPromptTimeout = Double.parseDouble(properties.getProperty("default_prompt_timeout",""+defaultPromptTimeout));
+		}
+		catch (Exception e){}
+
+		
+		try
+		{
+			wordsPerSecond = Double.parseDouble(properties.getProperty("words_per_minute"))/60.0;
+		}
+		catch (Exception e){}
+		
+		try
+		{
+			constantDelay = Double.parseDouble(properties.getProperty("delay_after_prompt"));
+		}
+		catch (Exception e){}
+		
+		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
+		Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
+		+(rateLimited?", +"+wordsPerSecond+" wps":""));
+	}
+
+	public PromptStepHandler(String promptsPath)
+	{
+		prompter = new PromptTable(promptsPath);
+	}
+
+	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
+	{
+		if(slots == null)
+		{
+			slots = new HashMap<String, String>();
+			slots.put("[AGENT NAME]", source.getAgent().getUsername().split(" ")[0]);
+		}
+
+		State news = StateMemory.getSharedState(overmind.getAgent());
+		slots.put("[NAMES]", news.getStudentNamesString());
+		List<String> studentNames = news.getStudentNames();
+		for (int i = 0; i < studentNames.size(); i++)
+		{
+			String studentName = studentNames.get(i);
+			slots.put("[NAME" + (i + 1) + "]", studentName);
+		}
+
+		String promptKey = step.name;
+		if(step.attributes.containsKey("prompt"))
+		{
+			promptKey = step.attributes.get("prompt");
+		}
+
+		// If prompt in plan file contains the key 'role'
+		//    1. try to fill in the student name for that role
+		//    2. Append the prompt key with '_STUDENT'. 
+		Boolean studentForRoleFound = false; 
+		String promptRole = null; 
+		if(step.attributes.containsKey("role"))
+		{
+			System.err.println("PromptStepHandler: step contains key 'role'.");
+			String role = step.attributes.get("role");
+			promptRole = role.replace("_", " "); 
+			System.err.println("PromptStepHandler: adjusted role = " + promptRole);
+			slots.put("[ROLE]", promptRole);
+			String sid = news.getStudentByRole(promptRole); 
+			System.err.println("PromptStepHandler: getStudentByRole result = " + sid);
+			if (sid != null) {
+				String studentName = news.getStudentName(sid); 
+				System.err.println("PromptStepHandler: studentName = " + studentName);
+				slots.put("[NAME1]", studentName);
+				studentForRoleFound = true; 
+				System.err.println("PromptStepHandler: studentForRoleFound = true");
+			}
+		}
+		if (studentForRoleFound) {
+			promptKey = promptKey + "_STUDENT"; 
+		}
+		System.err.println("PromptStepHandler: promptKey after role processing = " + promptKey);
+		
+		
+        // Variable prompt message, if available, depending upon a single student vs. multiple students
+		String promptText; 
+        int numStudents = StateMemory.getSharedState(overmind.getAgent()).getStudentCount(); 
+        String adjustedPromptKey = promptKey; 
+        if (numStudents == 1) {
+        	adjustedPromptKey = promptKey + "_1"; 
+        	String adjustedPromptText = prompter.lookup(adjustedPromptKey, slots);
+        	if (adjustedPromptText == adjustedPromptKey) {
+        		promptText = prompter.lookup(promptKey, slots);
+        	}
+        	else {
+        		promptText = adjustedPromptText; 
+        	}
+        } else {
+        	promptText = prompter.lookup(promptKey, slots);
+        }
+		
+		final double delay = constantDelay + (rateLimited?(promptText.split(" ").length/wordsPerSecond):0);
+		
+		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
+		makePromptProposal(source, delay, me, step.attributes);
+		Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
+		
+		new Timer(delay, new TimeoutReceiver()
+		{
+
+			@Override
+			public void timedOut(String id)
+			{
+				Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+				overmind.stepDone();
+			}
+
+			@Override
+			public void log(String from, String level, String msg)
+			{}
+			
+		}){}.start();
+		//overmind.stepDone();// other types have different "done" conditions -
+							// this one is easy.
+		// the Step sets the after-step-is-done delay on its own, from steps.xml
+	}
+
+	/**
+	 * @param source
+	 * @param me
+	 * @param delay
+	 */
+	protected void makePromptProposal(InputCoordinator source, final double delay, final MessageEvent me, Map<String, String> attributes)
+	{
+		Logger.commonLog("PromptStepHandler", Logger.LOG_NORMAL, "makePromptProposal: "+me);
+		double priority = defaultPromptPriority;
+		double timeout = defaultPromptTimeout;
+		
+		if(attributes.containsKey("priority"))
+		{
+			priority = Double.parseDouble(attributes.get("priority"));
+		}
+		
+		if(!attributes.containsKey("lag"))
+		{
+			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "PromptStep", me, priority, timeout, delay));
+		}
+		else
+		{
+			double lagTime = Double.parseDouble(attributes.get("lag"));
+			timeout = Double.parseDouble(attributes.get("expires"));
+			source.pushProposal(PriorityEvent.makeOpportunisticEvent("macro", "PromptStep", me, priority, lagTime, timeout, delay, ""));
+		}
+	}
+}

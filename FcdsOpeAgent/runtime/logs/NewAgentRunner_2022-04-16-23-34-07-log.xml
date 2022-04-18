@@ -1,0 +1,79 @@
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="INFO">Logger initialized</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="NORMAL">AgentOperator NewAgentRunner created</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="NORMAL">Operation Created</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.agents.listeners.PresenceWatcher, class basilica2.agents.listeners.MessageAnnotator, class basilica2.social.listeners.ActivityTracker, class basilica2.social.listeners.RuleBasedTriggerComputer, class basilica2.social.listeners.StrategyScoreComputer, class basilica2.myagent.listeners.QuestionActor, class basilica2.myagent.listeners.SayMoreActor, class basilica2.myagent.listeners.AgreeDisagreeAnnotator, class basilica2.myagent.listeners.AskForExplanationAnnotator, class basilica2.tutor.listeners.TutorialTriggerWatcher, class basilica2.tutor.listeners.TutorTurnWatcher, class basilica2.social.listeners.SocialController]</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="ERROR">Couldn't find class basilica2.myagent.listeners.PromptActor</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="NORMAL">Classes: [class basilica2.social.listeners.SocialController, class basilica2.myagent.listeners.plan.PlanExecutor, class basilica2.myagent.listeners.QuestionActor, class basilica2.myagent.listeners.SayMoreActor, class basilica2.myagent.listeners.AskForExplanationActor, class basilica2.myagent.listeners.AgreeDisagreeActor, class basilica2.tutor.listeners.TutorActor, null, class basilica2.social.listeners.SocialController]</entry>
+<entry timestamp="2022-04-16#23:34:07" user="AgentFactory" level="NORMAL">Making Agent from agent.xml</entry>
+<entry timestamp="2022-04-16#23:34:07" user="AgentFactory" level="NORMAL">File Read</entry>
+<entry timestamp="2022-04-16#23:34:07" user="AgentFactory" level="NORMAL">Agent Tag Read</entry>
+<entry timestamp="2022-04-16#23:34:07" user="AgentFactory" level="NORMAL">Components Tag Read</entry>
+<entry timestamp="2022-04-16#23:34:07" user="AgentFactory" level="NORMAL">Components read. N=5</entry>
+<entry timestamp="2022-04-16#23:34:07" user="AgentFactory" level="NORMAL">Agent build. FCDS OPE_Bot_ROOM</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="NORMAL">Adding agent FCDS OPE_Bot_ROOM</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="INFO">Added. 1 agents now working</entry>
+<entry timestamp="2022-04-16#23:34:07" user="NewAgentRunner" level="INFO">Initializing new agent</entry>
+<entry timestamp="2022-04-16#23:34:08" user="PromptStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2022-04-16#23:34:08" user="MatchStepHandler" level="NORMAL">default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps</entry>
+<entry timestamp="2022-04-16#23:34:08" user="NewAgentRunner" level="INFO">Starting new Agent</entry>
+<entry timestamp="2022-04-16#23:34:08" user="NewAgentRunner" level="NORMAL">Agent added FCDS OPE_Bot_ROOM</entry>
+<entry timestamp="2022-04-16#23:34:09" user="PresenceWatcher" level="NORMAL">STUDENTS COUNT: 1</entry>
+<entry timestamp="2022-04-16#23:34:09" user="PlanExecutor" level="NORMAL">PLAN: activating next stage: INITIALIZATION</entry>
+<entry timestamp="2022-04-16#23:34:09" user="PlanExecutor" level="NORMAL">Firing Stage 'INITIALIZATION'</entry>
+<entry timestamp="2022-04-16#23:34:09" user="Step" level="NORMAL">starting 60 second timeout for Prompt_Initial_Introduction</entry>
+<entry timestamp="2022-04-16#23:34:09" user="Step" level="NORMAL">Handlers for Prompt_Initial_Introduction(prompt): [basilica2.myagent.listeners.plan.PromptStepHandler@43a6b969]</entry>
+<entry timestamp="2022-04-16#23:34:09" user="PromptStepHandler" level="NORMAL">makePromptProposal: Message from FCDS OPE: Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes \\| sh env_setup_oneshot.sh" | Once that's done, EVERYONE should run "source ~/.bashrc" | At the end of the session, execute the submitter script ONE PERSON AT A TIME using './submitter'. Even if the submission fails, you will get the post-quiz token for accessing the post-quiz. | We will rotate roles every time a new test case passes. PROMPT_INITIAL_INTRODUCTION</entry>
+<entry timestamp="2022-04-16#23:34:09" user="PromptStepHandler" level="NORMAL">starting 27.7 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:34:10" user="" level="NORMAL">accepted. Message from FCDS OPE: Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes \\| sh env_setup_oneshot.sh" | Once that's done, EVERYONE should run "source ~/.bashrc" | At the end of the session, execute the submitter script ONE PERSON AT A TIME using './submitter'. Even if the submission fails, you will get the post-quiz token for accessing the post-quiz. | We will rotate roles every time a new test case passes. PROMPT_INITIAL_INTRODUCTION.
+Starting blockout countdown... </entry>
+<entry timestamp="2022-04-16#23:34:37" user="PromptStepHandler" level="NORMAL">ending 27.7 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:34:37" user="basilica2.myagent.listeners.plan.Stage" level="NORMAL">finished stage INITIALIZATION</entry>
+<entry timestamp="2022-04-16#23:34:37" user="PlanExecutor" level="NORMAL">Firing Stage 'LO1'</entry>
+<entry timestamp="2022-04-16#23:34:37" user="Step" level="NORMAL">Handlers for Prompt_Step_LO1_Match(match): [basilica2.myagent.listeners.plan.MatchStepHandler@f2eac75]</entry>
+<entry timestamp="2022-04-16#23:34:37" user="MatchStepHandler" level="NORMAL">starting 2.2 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:34:38" user="" level="NORMAL">accepted. Message from FCDS OPE: The new roles are -
+Program - S002 PROMPT_STEP_MATCH.
+Starting blockout countdown... </entry>
+<entry timestamp="2022-04-16#23:34:39" user="MatchStepHandler" level="NORMAL">ending 2.2 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:34:39" user="Step" level="NORMAL">starting 60 second timeout for Wait_Step_LO1_Programming</entry>
+<entry timestamp="2022-04-16#23:34:39" user="Step" level="NORMAL">Handlers for Wait_Step_LO1_Programming(gated): null</entry>
+<entry timestamp="2022-04-16#23:34:39" user="Step" level="WARNING">No step handlers for step type gated (Wait_Step_LO1_Programming)</entry>
+<entry timestamp="2022-04-16#23:35:09" user="PlanExecutor" level="WARNING">PLAN: no idea what to do with timeout key Prompt_Initial_Introduction</entry>
+<entry timestamp="2022-04-16#23:35:39" user="PlanExecutor" level="NORMAL">PLAN: current step done: Wait_Step_LO1_Programming</entry>
+<entry timestamp="2022-04-16#23:35:39" user="Step" level="NORMAL">Handlers for Prompt_Step_LO1_Solution(prompt): [basilica2.myagent.listeners.plan.PromptStepHandler@43a6b969]</entry>
+<entry timestamp="2022-04-16#23:35:39" user="PromptStepHandler" level="NORMAL">makePromptProposal: Message from FCDS OPE: "A concise way to solve this problem - 
+
+    preprocessor = StandardScaler()
+    train_X, test_X, train_y, test_y = train_test_split(X, y, random_state = seed)
+    model = LogisticRegression(random_state = seed)
+    train_X = preprocessor.fit_transform(train_X)
+    test_X = preprocessor.transform(test_X)
+    model.fit(train_X, train_y)
+    return model.score(test_X, test_y)" PROMPT_STEP_LO1_SOLUTION</entry>
+<entry timestamp="2022-04-16#23:35:39" user="PromptStepHandler" level="NORMAL">starting 17.8 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:35:40" user="" level="NORMAL">accepted. Message from FCDS OPE: "A concise way to solve this problem - 
+
+    preprocessor = StandardScaler()
+    train_X, test_X, train_y, test_y = train_test_split(X, y, random_state = seed)
+    model = LogisticRegression(random_state = seed)
+    train_X = preprocessor.fit_transform(train_X)
+    test_X = preprocessor.transform(test_X)
+    model.fit(train_X, train_y)
+    return model.score(test_X, test_y)" PROMPT_STEP_LO1_SOLUTION.
+Starting blockout countdown... </entry>
+<entry timestamp="2022-04-16#23:35:57" user="PromptStepHandler" level="NORMAL">ending 17.8 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:35:57" user="Step" level="NORMAL">Handlers for Prompt_Step_LO1_Discussion_1(prompt): [basilica2.myagent.listeners.plan.PromptStepHandler@43a6b969]</entry>
+<entry timestamp="2022-04-16#23:35:57" user="PromptStepHandler" level="NORMAL">makePromptProposal: Message from FCDS OPE: Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes. | Project Manager, please lead the discussion - You already know why it's extremely bad practice to use part of the train set as test set. Now, discuss why usage of preprocessor should follow same logic. PROMPT_STEP_LO1_DISCUSSION_1</entry>
+<entry timestamp="2022-04-16#23:35:57" user="PromptStepHandler" level="NORMAL">starting 18.7 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:35:58" user="" level="NORMAL">accepted. Message from FCDS OPE: Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes. | Project Manager, please lead the discussion - You already know why it's extremely bad practice to use part of the train set as test set. Now, discuss why usage of preprocessor should follow same logic. PROMPT_STEP_LO1_DISCUSSION_1.
+Starting blockout countdown... </entry>
+<entry timestamp="2022-04-16#23:36:16" user="PromptStepHandler" level="NORMAL">ending 18.7 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:36:16" user="Step" level="NORMAL">Handlers for Prompt_Step_LO1_Discussion_2(prompt): [basilica2.myagent.listeners.plan.PromptStepHandler@43a6b969]</entry>
+<entry timestamp="2022-04-16#23:36:16" user="PromptStepHandler" level="NORMAL">makePromptProposal: Message from FCDS OPE: As a follow-up, discuss why you should not fit StandardScaler on test data. PROMPT_STEP_LO1_DISCUSSION_2</entry>
+<entry timestamp="2022-04-16#23:36:16" user="PromptStepHandler" level="NORMAL">starting 4.0 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:36:16" user="" level="NORMAL">accepted. Message from FCDS OPE: As a follow-up, discuss why you should not fit StandardScaler on test data. PROMPT_STEP_LO1_DISCUSSION_2.
+Starting blockout countdown... </entry>
+<entry timestamp="2022-04-16#23:36:20" user="PromptStepHandler" level="NORMAL">ending 4.0 second prompt delay</entry>
+<entry timestamp="2022-04-16#23:36:20" user="Step" level="NORMAL">starting 60 second timeout for Wait_Step_LO1_Reflection</entry>
+<entry timestamp="2022-04-16#23:36:20" user="Step" level="NORMAL">Handlers for Wait_Step_LO1_Reflection(gated): null</entry>
+<entry timestamp="2022-04-16#23:36:20" user="Step" level="WARNING">No step handlers for step type gated (Wait_Step_LO1_Reflection)</entry>

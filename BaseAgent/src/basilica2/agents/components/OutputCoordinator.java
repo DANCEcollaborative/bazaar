@@ -48,9 +48,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	public static final double HIGH_PRIORITY = .75;
 	public static final double HIGHEST_PRIORITY = 1.0;
 
-	private Boolean outputMultimodal = false; 
 	private Boolean outputToPSI = false; 
-	private Boolean separateOutputToPSI = false;
+	private Boolean separateOutputToPSI = false; 
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -62,6 +61,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Integer multimodalWordsPerMinute;
 	private Double multimodalWordsPerSecond; 
 	private Double multimodalConstantDelay; 
+	private String lastStepName=null;
+	private String removeStepName=null;
 	
 	public OutputCoordinator(Agent agent, String s1, String s2)
 	{
@@ -72,8 +73,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		timer.start();
 		
 		if(myProperties!=null) {
-			try{outputMultimodal = Boolean.parseBoolean(myProperties.getProperty("output_multimodal", "false"));}
-			catch(Exception e) {e.printStackTrace();}
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
@@ -115,7 +114,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		synchronized (proposalQueue)
 		{
 			proposalQueue.addAll(events);
-			log(Logger.LOG_NORMAL, "Added to Proposal Queue: " + events);
+			//log(Logger.LOG_NORMAL, "addAll to Proposal Queue: " + proposalQueue);
 		}
 	}
 
@@ -138,7 +137,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			if (!proposalQueue.isEmpty())
 			{
 
-				log(Logger.LOG_LOW, "Proposal Queue: " + proposalQueue);
+				log(Logger.LOG_NORMAL, "==================== Proposal Queue ==========================");
 				cleanUp();
 
 				PriorityEvent best = null;
@@ -149,7 +148,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					double belief = beliefGivenHistory(p);
 					double d = belief * p.getPriority();
 
-					log(Logger.LOG_LOW, "Proposal " + p + "belief*priority: " + belief + "*" + p.getPriority() + "=" + d);
+					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
 
 					if (d > 0 && (d > bestBelief))// || (bestBelief - d) < Math.random() / 100.0))
 					{
@@ -161,6 +160,14 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (best != null)
 				{
+					log(Logger.LOG_NORMAL, "Execute: " + best);
+					if (lastStepName!=null && (!best.getMicroStepName().equals(lastStepName)))
+					{
+						removeStepName = lastStepName;
+						log(Logger.LOG_NORMAL, "removeStepName: " + removeStepName);
+					}
+					lastStepName = best.getMicroStepName();
+					log(Logger.LOG_NORMAL, "lastStepName: " + lastStepName);
 					best.getCallback().accepted(best);
 					publishEvent(best.getEvent());
 					proposalQueue.remove(best);
@@ -169,10 +176,11 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 					activeSources.put(source.getName(), source);
 
-					if (recentSources.size() > HISTORY_SIZE) recentSources.remove(0);
+					if (recentSources.size() >= HISTORY_SIZE) recentSources.remove(0);
 
-					recentSources.add(source);
+					recentSources.add(source); 
 				}
+				log(Logger.LOG_NORMAL, "==================== DONE ==========================");
 			}
 		}
 
@@ -190,8 +198,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			{
 				PriorityEvent p = pit.next();
 
-				if (p.getInvalidTime() < now)
+				if (p.getInvalidTime() < now && !p.getEventType().equals("macro"))
 				{
+					log(Logger.LOG_NORMAL, "cleanUp micro timeout: " + p);
 					p.getCallback().rejected(p);
 					pit.remove();
 
@@ -201,6 +210,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					// activeSources.remove(sourceName); //this is weird -
 					// presumes only one active source of the same name at once.
 					// }
+				}else if (p.getEventType().equals("micro_local") && removeStepName!=null && p.getMicroStepName().equals(removeStepName))
+				{
+					log(Logger.LOG_NORMAL, "cleanUp micro_local removeStepName: " + p);
+					p.getCallback().rejected(p);
+					pit.remove();
+					removeStepName=null;
 				}
 			}
 
@@ -220,7 +235,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 	protected void publishEvent(Event e)
 	{
-
+		//log(Logger.LOG_NORMAL, "publishEvent: " + e);
 		if (e instanceof MessageEvent)
 		{
 			publishMessage((MessageEvent) e);
@@ -238,15 +253,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// to delete/re-order certain messages
 		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
-
-		String messageText; 
+		log(Logger.LOG_NORMAL, "publishMessage: " + me);
 		if (!me.getText().contains("|"))
 		{
 			if ((!outputToPSI) || (separateOutputToPSI)) {
-				if (outputMultimodal) {
-					messageText = formatMultimodalMessage(me);
-					me.setText(messageText);					
-				}
 				broadcast(me);
 			}		
 			if (outputToPSI) {
@@ -258,10 +268,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		else
 		{
 			String[] messageParts = me.getParts();
+			log(Logger.LOG_NORMAL, "messageParts: " + messageParts);
 			String[] allAnnotations = me.getAllAnnotations();
 			for (int i = 0; i < messageParts.length; i++)
 			{
 				String mappedPrompt = messageParts[i].trim();
+				log(Logger.LOG_NORMAL, "mappedPrompt: " + mappedPrompt);
 				MessageEvent newme;
 				try
 				{
@@ -283,18 +295,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}
 				newme.setReference(me.getReference());
 				if ((!outputToPSI) || (separateOutputToPSI)) {
-					if (outputMultimodal) {
-						messageText = formatMultimodalMessage(newme);
-						newme.setText(messageText);					
-					}
 					broadcast(newme);			
 					MessageEventLogger.logMessageEvent(newme);					
 				}
-				if (outputToPSI) {
+				if (outputToPSI)
 					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
-						System.err.println("Sleeping for 5s before sending next part of message");
 						Thread.sleep(5000);
 						tick();
 					}
@@ -302,66 +309,28 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					{
 						log(Logger.LOG_WARNING, "<warning>Throttling problem</warning>");
 						e.printStackTrace();
-					}
-				}
+					}		
 			}
 		}
 	}
 
-	
+	// Designed for multiple fields. Currently only location and message text are supported.
 	private void publishMessageToPSI(MessageEvent me)
 	{
-		String text = me.getText();	
-		String messageString = formatMultimodalMessage(me); 
-//		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
-		setMultimodalDontListenWhileSpeaking(text); 
-		if (!separateOutputToPSI) {
-			MessageEvent newme;
-			String[] allAnnotations = me.getAllAnnotations();
-			try
-			{
-				newme = me.cloneMessage(messageString);
-			}
-			catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
-			}
-			broadcast(newme);
-			MessageEventLogger.logMessageEvent(newme);
-			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
-		} else {
-			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
-		}
-		
-// 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
-// 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
-//         publisher.send(topicMessage, 0);
-	}
-	
-	
-// Sample formatted multimodal message follows. Currently, only the tags 'from', 'to', and 'speech' are supported for output. 
-// multimodal:true;%;from:Jamie;%;to:group;%;speech:"I'm Jamie";%;location:30:60:90;%;facialExp:smile;%;pose:sitting;%;emotion:happy
-	private String formatMultimodalMessage(MessageEvent me)
-	{
-		String multiModalField = "multimodal";  
-		String fromField = "from";
-		String toField = "to";
+		Boolean multimodalMessage = true; 
+		String multiModalField = "multimodal"; 
 		String speechField = "speech";
+		String identityField = "identity";
 		// String locationField = "location";
 		// String location = null; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":";	
-		String toAllUsers = "group";
+		String identityAllUsers = "group";
 		String messageString; 
 		
 		String text; 
-		String from = agent.getUsername();
 		String to; 
 		String textOrig = me.getText();	
-		
-		// Special processing for Mob Programming 
 		if (textOrig.contains("Navigator::"))
 		{
 			text = textOrig.substring(11);
@@ -379,13 +348,37 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			// To specific user if known.
 			to = me.getDestinationUser();
 			if (to == null) {
-				to = toAllUsers; 
+				to = identityAllUsers; 
 			}	
 		}
-		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + fromField + withinModeDelim + from + multiModalDelim + toField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
-		System.err.println("OutputCoordinator, formatMultimodalMessage, message: " + messageString);
-		return messageString; 
-	}	
+		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + identityField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
+		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
+		if (!separateOutputToPSI) {
+			MessageEvent newme;
+			String[] allAnnotations = me.getAllAnnotations();
+			try
+			{
+				newme = me.cloneMessage(messageString);
+			}
+			catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				newme = new MessageEvent(this, me.getFrom(), messageString, allAnnotations);
+			}
+			broadcast(newme);
+			MessageEventLogger.logMessageEvent(newme);
+			setMultimodalDontListenWhileSpeaking(speechField); 
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		} else {
+			setMultimodalDontListenWhileSpeaking(speechField); 
+			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
+		}
+		
+// 		String topicMessage = bazaarToPSITopic + ":true" + multiModalDelim + messageString; 
+// 		System.err.println("OutputCoordinator, publishMessageToPSI, topic message: " + topicMessage);
+//         publisher.send(topicMessage, 0);
+	}
 	
 	public void setMultimodalDontListenWhileSpeaking(String speechString) {
 		State olds = StateMemory.getSharedState(agent); 
@@ -421,15 +414,20 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		{
 			if (!source.allows(p))
 			{
-				log(Logger.LOG_LOW, "Proposal not allowed by " + source + ": " + p);
+				log(Logger.LOG_NORMAL, "Proposal not allowed by " + source + ": " + p);
 				belief = 0;
 				return belief;
 			}
 		}
-
+		if (p.getEventType().equals("macro"))
+		{
+			return belief;
+		}
 		for (AbstractPrioritySource source : recentSources)
 		{
-			belief *= source.likelyNext(p);
+			Double likelihood = source.likelyNext(p);
+			log(Logger.LOG_NORMAL, "beliefGivenHistory: recentSources=" + source +" on p="+p.getSource().getName()+ " impact=" + likelihood);
+			belief *= likelihood;
 		}
 		// log(Logger.LOG_NORMAL,("belief = "+belief + " for "+p);
 		return belief;
@@ -440,6 +438,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		synchronized (proposalQueue)
 		{
 			proposalQueue.add(pe);
+			//log(Logger.LOG_NORMAL, "after addProposal: " + proposalQueue);
 		}
 	}
 }

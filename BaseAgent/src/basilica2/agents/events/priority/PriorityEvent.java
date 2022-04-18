@@ -28,6 +28,7 @@ public class PriorityEvent extends Event
         this.callback = e.callback;
         this.priority = e.priority;
         this.source = e.source;
+        this.eventtype = e.eventtype;
     }
 
     @Override
@@ -54,12 +55,21 @@ public class PriorityEvent extends Event
     private Event decoree;
     private AbstractPrioritySource source;
     private double lifetime; //seconds
+    private String eventtype;
+    private String microstepname;
     
     public PriorityEvent(Component c, Event decoree, double priority, AbstractPrioritySource source)
     {
-        this(c, decoree, priority, source, 10);
+        this("micro_local", c, decoree, priority, source, 10);
     }
-    
+    public PriorityEvent(String eventtype, Component c, Event decoree, double priority, AbstractPrioritySource source)
+    {
+        this(eventtype, c, decoree, priority, source, 10);
+    }
+    public PriorityEvent(Component c, Event decoree, double priority, AbstractPrioritySource source, double lifetime)
+    {
+        this("micro_local", c, decoree, priority, source, lifetime);
+    }
     /**
      * 
      * @param c the originating component
@@ -68,12 +78,13 @@ public class PriorityEvent extends Event
      * @param source the arbiter of competing priorities
      * @param lifetime in seconds, until the event expires and is discarded.
      */
-    public PriorityEvent(Component c, Event decoree, double priority, AbstractPrioritySource source, double lifetime)
+    public PriorityEvent(String eventtype, Component c, Event decoree, double priority, AbstractPrioritySource source, double lifetime)
     {
         super(c);
         this.priority = priority;
         this.lifetime = lifetime;
         timeout = Timer.currentTimeMillis()+(long)(lifetime*1000);
+        this.eventtype = eventtype;
         this.callback  = new Callback()
         {
             public void accepted(PriorityEvent p)
@@ -99,6 +110,18 @@ public class PriorityEvent extends Event
     {
         this.source = source;
     }
+    public void setEventType(String eventtype)
+    {
+        this.eventtype = eventtype;
+    }
+    public void setMicroStepName(String microstepname)
+    {
+        this.microstepname = microstepname;
+    }
+    public String getMicroStepName()
+    {
+        return this.microstepname;
+    }
     
     public void setPriority(double c)
     {
@@ -107,8 +130,12 @@ public class PriorityEvent extends Event
     
     public double getPriority()
     {
-        double timeFactor = (0.5*1000*lifetime)/(1+timeout - Timer.currentTimeMillis());
-        return this.priority * Math.min(1.0, 1.0/timeFactor);
+    	if(this.eventtype.equals("macro")) {
+    		return this.priority;
+    	}else {
+    		double timeFactor = (0.5*1000*lifetime)/(1+timeout - Timer.currentTimeMillis());
+            return this.priority * Math.min(1.0, 1.0/timeFactor);
+    	}
     }
 
     public Callback getCallback()
@@ -140,21 +167,38 @@ public class PriorityEvent extends Event
     {
         return decoree;
     }
+    
+    public String getEventType()
+    {
+        return eventtype;
+    }
 
 	public static PriorityEvent makeSelfBlockingSourceEvent(String sourceName, Event e, double priority, double timeout, double blockout)
 	{
 		return makeBlockingEvent(sourceName, e, priority, timeout, blockout, sourceName);
+	}
+	public static PriorityEvent makeSelfBlockingSourceEvent(String eventtype, String sourceName, Event e, double priority, double timeout, double blockout)
+	{
+		return makeBlockingEvent(eventtype,sourceName, e, priority, timeout, blockout, sourceName);
 	}
 
 	public static PriorityEvent makeBlackoutEvent(String sourceName, Event e, double priority, double timeout, double blockout)
 	{
 		return makeBlockingEvent(sourceName, e, priority, timeout, blockout, "");
 	}
+	public static PriorityEvent makeBlackoutEvent(String eventtype, String sourceName, Event e, double priority, double timeout, double blockout)
+	{
+		return makeBlockingEvent(eventtype, sourceName, e, priority, timeout, blockout, "");
+	}
 	
 	public static PriorityEvent makeBlockingEvent(String sourceName, Event e, double priority, double timeout, final double blockout, String... blacklist)
 	{
+		return makeBlockingEvent("micro", sourceName, e, priority, timeout, blockout, blacklist);
+	}
+	public static PriorityEvent makeBlockingEvent(String eventtype, String sourceName, Event e, double priority, double timeout, final double blockout, String... blacklist)
+	{
 		final AbstractPrioritySource ps = new BlacklistSource(sourceName, blacklist);
-		PriorityEvent pe = new PriorityEvent(e.getSender(), e, priority, ps, timeout);
+		PriorityEvent pe = new PriorityEvent(eventtype, e.getSender(), e, priority, ps, timeout);
 		pe.setCallback(new Callback()
 		{
 			public void rejected(PriorityEvent p)
@@ -170,11 +214,14 @@ public class PriorityEvent extends Event
 		});
 		return pe;
 	}
-	
 	public static PriorityEvent makeOpportunisticEvent(final String sourceName, final Event e, final double priority, final double lagTime, final double timeout, final double blockout, final String... blacklist)
 	{
+		return makeOpportunisticEvent("micro", sourceName, e, priority, lagTime, timeout, blockout, blacklist);
+	}
+	public static PriorityEvent makeOpportunisticEvent(String eventtype, final String sourceName, final Event e, final double priority, final double lagTime, final double timeout, final double blockout, final String... blacklist)
+	{
 		final AbstractPrioritySource ps = new BlacklistSource(sourceName, blacklist);
-		PriorityEvent pe = new PriorityEvent(e.getSender(), e, priority, ps, timeout)
+		PriorityEvent pe = new PriorityEvent(eventtype, e.getSender(), e, priority, ps, timeout)
 		{
 			@Override
 			public double getPriority()

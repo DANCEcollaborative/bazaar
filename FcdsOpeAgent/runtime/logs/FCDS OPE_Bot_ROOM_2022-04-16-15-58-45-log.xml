@@ -1,0 +1,209 @@
+<entry timestamp="2022-04-16#15:58:45" user="FactoryBuiltAgent" level="NORMAL">CONFIGURING AGENT FCDS OPE_Bot_ROOM</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.AGENT" level="NORMAL"><created>FCDS OPE_Bot_ROOM</created></entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.stateMemory" level="NORMAL"><created>stateMemory</created></entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.client" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.client" level="NORMAL"><created>client</created></entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.client" level="NORMAL">Property read: socket_url =	http://127.0.0.1</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.client" level="NORMAL">Property read: socket_suburl =	/bazsocket/socket.io</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.ccActor" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.ccActor" level="NORMAL"><created>ccActor</created></entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.ccActor" level="NORMAL">Property read: typingScale =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="NORMAL"><created>inputCoordinator</created></entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO">Informing 0 Observers of CREATED</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL"><created>outputCoordinator</created></entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Property read: output_to_PSI =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Property read: separate_output_to_PSI =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Property read: dont_listen_while_speaking =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Property read: multimodal_words_per_minute =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Property read: multimodal_words_constant_delay =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Property read: Bazaar_to_PSI_Topic =	null</entry>
+<entry timestamp="2022-04-16#15:58:45" user="(client->inputCoordinator)" level="INFO">Connection initialized. Id=1650139125825</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.client" level="INFO">Outgoing connection added from client to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO">Inward connection added from inputCoordinator to client</entry>
+<entry timestamp="2022-04-16#15:58:45" user="(inputCoordinator->inputCoordinator)" level="INFO">Connection initialized. Id=1650139125825</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:45" user="(inputCoordinator->outputCoordinator)" level="INFO">Connection initialized. Id=1650139125825</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO">Outgoing connection added from inputCoordinator to outputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO">Inward connection added from outputCoordinator to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:45" user="(outputCoordinator->client)" level="INFO">Connection initialized. Id=1650139125825</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO">Outgoing connection added from outputCoordinator to client</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.client" level="INFO">Inward connection added from client to outputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:45" user="FCDS OPE_Bot_ROOM.AGENT" level="NORMAL"><initialized>FCDS OPE_Bot_ROOM</initialized></entry>
+<entry timestamp="2022-04-16#15:58:45" user="QuestionActor" level="NORMAL">agree condition: true</entry>
+<entry timestamp="2022-04-16#15:58:46" user="SayMoreActor" level="NORMAL">say_more condition: true</entry>
+<entry timestamp="2022-04-16#15:58:46" user="PlanExecutor" level="NORMAL"><configuration planfile="plans/plan_steps.xml"></entry>
+<entry timestamp="2022-04-16#15:58:46" user="PlanExecutor" level="ERROR">PlanExecutor: Can't do that...java.io.IOException: No such file or directory</entry>
+<entry timestamp="2022-04-16#15:58:46" user="PlanExecutor" level="ERROR">Error while reading Status File (java.io.FileNotFoundException: planstatus/FCDS OPE_Bot_ROOM.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2022-04-16#15:58:46" user="AskForExplanationActor" level="NORMAL">explain_other condition: true</entry>
+<entry timestamp="2022-04-16#15:58:46" user="AgreeDisagreeActor" level="NORMAL">agree condition: true</entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></commit></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.AGENT" level="NORMAL"><starting>Initializing each component</starting></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of STARTED</entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.stateMemory" level="NORMAL"><initialized>stateMemory</initialized></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO">Informing 0 Observers of STARTED</entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="NORMAL"><initialized>inputCoordinator</initialized></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.client" level="INFO">Informing 0 Observers of STARTED</entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.client" level="NORMAL"><initialized>client</initialized></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO">Informing 0 Observers of STARTED</entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL"><initialized>outputCoordinator</initialized></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.ccActor" level="INFO">Informing 0 Observers of STARTED</entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.ccActor" level="NORMAL"><initialized>ccActor</initialized></entry>
+<entry timestamp="2022-04-16#15:58:46" user="FCDS OPE_Bot_ROOM.AGENT" level="NORMAL"><starting>All components initialized</starting></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2022-04-16#15:58:47" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO">Informing 0 Observers of Event Sending</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: S002 is now PRESENT</processing></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="0" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+</State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="false">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2022-04-16#15:58:47" user="PlanExecutor" level="NORMAL">Plan: <stage name="initiate" timeout="0">set</stage></entry>
+<entry timestamp="2022-04-16#15:58:47" user="PlanExecutor" level="NORMAL">Plan: <stage name="EndStage" timeout="2400">set</stage></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="null" type="null" />
+	<Step name="null" type="null"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="NORMAL">pushProposal: Message from FCDS OPE: Hi! We will start soon. GREET_AND_WAIT</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/FCDS OPE_Bot_ROOM.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO"><broadcasting>PRESENCE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2022-04-16#15:58:47" user="(client->inputCoordinator)" level="INFO">Communicate PRESENCE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><queued name="PRESENCE_EVENT" from="client"></queued></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO">Informing 0 Observers of Event Sending</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processing name="PRESENCE_EVENT" from="client">Presence: FCDS OPE is now PRESENT</processing></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processed name="PRESENCE_EVENT" from="client"></processed></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">==================== Proposal Queue ==========================</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">EventType: micro StepName: GREET_AND_WAIT belief*priority: 1.0*0.75=0.75 p=Message from FCDS OPE: Hi! We will start soon. GREET_AND_WAIT</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Execute: Message from FCDS OPE: Hi! We will start soon. GREET_AND_WAIT</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">lastStepName: GREET_AND_WAIT</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">publishMessage: Message from FCDS OPE: Hi! We will start soon. GREET_AND_WAIT</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2022-04-16#15:58:47" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO">Informing 0 Observers of Event Sending</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">==================== DONE ==========================</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from FCDS OPE: Hi! We will start soon. GREET_AND_WAIT</processing></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2022-04-16#15:58:47" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.client" level="INFO">Informing 0 Observers of Event Sending</entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from FCDS OPE: Hi! We will start soon. </processing></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:58:47" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processed name="MESSAGE_EVENT" from="client"></processed></entry>
+<entry timestamp="2022-04-16#15:59:08" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREET_AND_WAIT" type="prompt"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:59:08" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2022-04-16#15:59:08" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:59:08" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="NORMAL">pushProposal: Message from FCDS OPE: Welcome! I'm FCDS.|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other. INTRODUCE</entry>
+<entry timestamp="2022-04-16#15:59:08" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:59:08" user="PlanExecutor" level="ERROR">Error while updating Status File (java.io.FileNotFoundException: planstatus/FCDS OPE_Bot_ROOM.planstatus.txt (No such file or directory))</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">==================== Proposal Queue ==========================</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">beliefGivenHistory: recentSources=Source: PromptStep on p=INTRODUCTION impact=1.0</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">EventType: micro_local StepName: GREETINGS belief*priority: 1.0*0.3=0.3 p=Message from FCDS OPE: Welcome! I'm FCDS.|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other. INTRODUCE</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">Execute: Message from FCDS OPE: Welcome! I'm FCDS.|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other. INTRODUCE</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">removeStepName: GREET_AND_WAIT</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">lastStepName: GREETINGS</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="NORMAL">publishMessage: Message from FCDS OPE: Welcome! I'm FCDS.|Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other. INTRODUCE</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2022-04-16#15:59:09" user="(outputCoordinator->client)" level="INFO">Communicate MESSAGE_EVENT from outputCoordinator to client</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.client" level="INFO"><queued name="MESSAGE_EVENT" from="outputCoordinator"></queued></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.outputCoordinator" level="INFO">Informing 0 Observers of Event Sending</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.client" level="INFO"><processing name="MESSAGE_EVENT" from="outputCoordinator">Message from FCDS OPE: Welcome! I'm FCDS. INTRODUCE</processing></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.client" level="INFO"><processed name="MESSAGE_EVENT" from="outputCoordinator"></processed></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.client" level="INFO"><broadcasting>MESSAGE_EVENT on 1 connections</broadcasting></entry>
+<entry timestamp="2022-04-16#15:59:09" user="(client->inputCoordinator)" level="INFO">Communicate MESSAGE_EVENT from client to inputCoordinator</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><queued name="MESSAGE_EVENT" from="client"></queued></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.client" level="INFO">Informing 0 Observers of Event Sending</entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.inputCoordinator" level="INFO"><processing name="MESSAGE_EVENT" from="client">Message from FCDS OPE: Welcome! I'm FCDS. </processing></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>
+<entry timestamp="2022-04-16#15:59:09" user="SocialController" level="NORMAL">ratio 0.0, </entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <commit type="basilica2.agents.data.State"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></commit></entry>
+<entry timestamp="2022-04-16#15:59:09" user="FCDS OPE_Bot_ROOM.stateMemory" level="INFO">Informing 0 Observers of <retrieve position="0"><State students="1" initiated="true">
+	<Stage name="initiate" type="other" />
+	<Step name="GREETINGS" type="greet"/>
+	<student id="S002" name="S002" role="UNASSIGNED" present="true" /></State></retrieve></entry>

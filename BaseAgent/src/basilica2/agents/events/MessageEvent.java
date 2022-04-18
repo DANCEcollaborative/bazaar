@@ -35,12 +35,14 @@ import de.fhg.ipsi.chatblocks2.model.IReferenceableDocument;
 import de.fhg.ipsi.chatblocks2.model.messagebased.ChatMessage;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
@@ -108,6 +110,9 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 
 	public String getText()
 	{
+		if(text.contains("\\\\and")) {
+			text = text.replace("\\\\and", "&");
+		}
 		return text;
 	}
 
@@ -271,7 +276,23 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 
 	public String[] getParts()
 	{
-		return this.getText().split("\\|");
+		String[] messageParts = this.getText().split("\\|");
+		List<String> combinedMessageParts = new ArrayList<String>();
+		String msg = "";
+		
+		for (int i = 0; i < messageParts.length; i++)
+		{
+			if(i>0 && messageParts[i-1].trim().endsWith("\\\\")) {
+				msg = msg.replace("\\\\", "| ") + messageParts[i].trim();
+			}else {
+				if(msg.length()>0) {
+					combinedMessageParts.add(msg);
+				}
+				msg = messageParts[i].trim();
+			}
+		}
+		combinedMessageParts.add(msg);
+		return combinedMessageParts.toArray(new String[0]);
 	}
 
 	public void setText(String t)
