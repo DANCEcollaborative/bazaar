@@ -36,11 +36,16 @@ import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.xerces.parsers.DOMParser;
@@ -48,11 +53,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+
 /**
  * 
  * @author dadamson
  */
-public class PromptTable
+public class PromptTable 
 {
 
 	public static String GENERIC_NAME = "PromptingActor";
@@ -60,6 +66,8 @@ public class PromptTable
 	protected String prompt_filename = "prompts.xml";
 	protected String output_component_name = "myOutputCordinator";
 	protected Map<String, List<String>> prompts = null;
+
+    protected Properties properties;
 	protected Map<String, String> intentions = null;
 	protected Boolean includeIntention = false; 
 
@@ -70,14 +78,21 @@ public class PromptTable
 
 	public PromptTable(String filename)
 	{
+		initProperties("PromptTable.properties"); 
+		try{includeIntention = Boolean.parseBoolean(getProperties().getProperty("include_intention", "false"));}
+		catch(Exception e) {e.printStackTrace();}
+		
 		setPromptsFilename(filename);
+		
 	}
 
 	public void setPromptsFilename(String filename)
 	{
 		prompt_filename = filename;
 		loadPrompts(prompt_filename);
-		loadIntentions(prompt_filename);
+		if (includeIntention) {
+			loadIntentions(prompt_filename);
+		}
 	}
 
 	protected void loadPrompts(String filename)
@@ -144,24 +159,20 @@ public class PromptTable
 						Element promptElement = (Element) ns2.item(i);
 						String promptId = promptElement.getAttribute("id");
 						String intention = promptElement.getAttribute("intention");
-						if (intention != null && intention.length() > 0)
-						{
-							includeIntention = true; 
-						}
 						intentions.put(promptId,intention);
 					}
 				}
 			}
 			
 			// ============ TEMPORARY FOR DEBUGGING =========== //
-			System.out.println("=== INTENTIONS ==="); 
-			for (Map.Entry<String,String> entry : intentions.entrySet()) {			
-				String intention = entry.getValue();
-				if (intention == null) 
-					intention = ""; 
-	            System.out.println("prompt ID:  " + entry.getKey() +
-	                             "    Intention: " + intention);
-			}
+//			System.out.println("=== INTENTIONS ==="); 
+//			for (Map.Entry<String,String> entry : intentions.entrySet()) {			
+//				String intention = entry.getValue();
+//				if (intention == null) 
+//					intention = ""; 
+//	            System.out.println("prompt ID:  " + entry.getKey() +
+//	                             "    Intention: " + intention);
+//			}
 			// ============ TEMPORARY FOR DEBUGGING =========== //
 		}
 		
@@ -332,5 +343,35 @@ public class PromptTable
 		if(!prompts.containsKey(key))
 			prompts.put(key, new ArrayList<String>());
 		prompts.get(key).add(value);
+	}
+
+    
+    public void initProperties(String pf)
+    {
+        properties = new Properties();
+        if ((pf != null) && (pf.trim().length() != 0)) 
+        {
+        	File propertiesFile = new File(pf);
+			if(!propertiesFile.exists())
+			{
+				propertiesFile = new File("properties"+File.separator+pf);
+				if(!propertiesFile.exists())
+					return;
+			}
+            try 
+            {
+                properties.load(new FileReader(propertiesFile));
+            } 
+            catch (IOException ex) 
+            {
+                ex.printStackTrace();
+                return;
+            }
+        }
+    }
+
+	public Properties getProperties()
+	{
+		return properties;
 	}
 }
