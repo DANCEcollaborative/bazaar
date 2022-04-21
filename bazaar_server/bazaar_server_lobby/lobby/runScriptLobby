@@ -1,2 +1,2 @@
 #!/bin/sh
-export STOP=0; while [ $STOP -eq 0 ]; do nodejs server_lobby_https.js; done 
+export STOP=0; while [ $STOP -eq 0 ]; do node server_lobby_https.js; done 

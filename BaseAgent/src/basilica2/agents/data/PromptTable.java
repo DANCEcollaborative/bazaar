@@ -61,6 +61,7 @@ public class PromptTable
 	protected String output_component_name = "myOutputCordinator";
 	protected Map<String, List<String>> prompts = null;
 	protected Map<String, String> intentions = null;
+	protected Boolean includeIntention = false; 
 
 	public PromptTable()
 	{
@@ -143,6 +144,10 @@ public class PromptTable
 						Element promptElement = (Element) ns2.item(i);
 						String promptId = promptElement.getAttribute("id");
 						String intention = promptElement.getAttribute("intention");
+						if (intention != null && intention.length() > 0)
+						{
+							includeIntention = true; 
+						}
 						intentions.put(promptId,intention);
 					}
 				}
@@ -193,12 +198,41 @@ public class PromptTable
 						promptText = promptText.replace(slots[i], filler);
 				}
 			}
+			if (includeIntention) {
+				promptText = addIntention(promptName,promptText); 
+			}
 			return promptText;
 
 		}
 		else
 		{
 			return promptName;
+		}
+	}
+	
+	public String addIntention(String promptName, String promptText) {
+		String intentionTag = "intention"; 
+	    String multiModalDelim = ";%;";
+		String withinModeDelim = ":";	
+		
+		String intention = lookupIntention(promptName);
+		if (intention.length() == 0) {
+			return promptText; 
+		} else {
+			String intentionString = multiModalDelim + intentionTag + withinModeDelim + intention; 
+			if (!promptText.contains("|")) {
+				return promptText + intentionString; 
+			} else {
+				String returnText = ""; 
+				String[] textParts = promptText.split("\\|");
+				String textPart; 
+				for (int i = 0; i < textParts.length; i++)
+				{
+					textPart = textParts[i].trim();
+					returnText += textPart + intentionString + "|"; 
+				}
+				return returnText; 
+			}					
 		}
 	}
 	
@@ -239,6 +273,9 @@ public class PromptTable
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 			}
+			if (includeIntention) {
+				promptText = addIntention(promptName,promptText); 
+			}
 			return promptText;
 
 		}
@@ -272,6 +309,9 @@ public class PromptTable
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 				promptText = promptText.replace("[DEFAULTROLE]", defaultRole);
+			}
+			if (includeIntention) {
+				promptText = addIntention(promptName,promptText); 
 			}
 			return promptText;
 
