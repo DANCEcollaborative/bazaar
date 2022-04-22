@@ -16,7 +16,7 @@
        
         <step type="match" delay="0" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>
         
-        <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="NONE">Wait_Step_LO1_Programming</step> 
+        <step type="gated" gated_type="listen" timeout="1020" delay="0" checkin_prompt="NONE">Wait_Step_LO1_Programming</step> 
               
         <step type="prompt" delay="0" prompt="PROMPT_STEP_LO1_SOLUTION">Prompt_Step_LO1_Solution</step>
         <!-- <step type="listen" timeout="60" delay="1">LISTEN_STEP_TEMPERATURE_CHANGE</step> -->
