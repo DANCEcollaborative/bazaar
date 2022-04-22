@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>Okay, we're about to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
+       <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
+    </prompt>
+        
+    <!-- for READY_GENERIC -->    
+    <prompt strategy="task" id="READY_GENERIC">
+       <text>Type "ready" when you are ready to move on.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_GENERIC_NO_READY">
+       <text>We will move on after a while or when everyone is ready.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_SPECIALIZATIONS_SELECTED">
+       <text>Type "ready" when you have decided who will cover which specialization.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_DATA_FOUND">
+       <text>Type "ready" when you have found the data for your specialization.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_SPECIALIZATIONS_COMPLETED">
+       <text>Type "ready" when you have finished researching and writing about your specialization.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_TEMPERATURE_CHANGE">
+       <text>Type "ready" when you have finished discussing the temperature change data.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_CARBON_DIOXIDE">
+       <text>Type "ready" when you have finished discussing the carbon dioxide data.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_FOSSIL_FUELS">
+       <text>Type "ready" when you have finished discussing the fossil fuels data.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_READ_LETTER">
+       <text>Type "ready" when you have finished examining the mayor's letter.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_MAYORAL_PERSPECTIVE">
+       <text>Type "ready" when you have finished summarizing and discussing the mayor's letter.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your team is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay, let's move on...</text>
+       <text>Moving on...</text>
+       <text>Onward!</text>
+    </prompt>
+  
+  
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+      
+    <!-- for PROMPT_STEP_1 -->    
+    <prompt strategy="task" id="WAIT_FOR_SPREADSHEET_COPIES">
+       <text>When you have copied your data into the spreadsheets, we'll continue.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>We'll move on when everyone is ready.</text>
+    </prompt>
+       
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, type "ready".</text>
+       <text>When everyone is comfortable with this material, type "ready".</text>
+    </prompt>
+    
+</prompts>
+
