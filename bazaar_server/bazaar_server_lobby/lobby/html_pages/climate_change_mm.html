@@ -229,7 +229,7 @@ ul.tab li a:focus, .active {
     	var i = 0; 
     	var value = ""; 
     	while (i < numFields) {
-    		var fieldWithValue = fields[i].split(":");   
+    		var fieldWithValue = fields[i].split(":::");   
 			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);   
     		i =	i + 1; 	
     		if (fieldWithValue[0] == field) {
@@ -293,7 +293,7 @@ ul.tab li a:focus, .active {
 	// listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('updatechat', function (username, data) 
 	{
-		if (data.search("multimodal:true;%;") > -1) {
+		if (data.search("multimodal:::true;%;") > -1) {
 			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("speech",data);

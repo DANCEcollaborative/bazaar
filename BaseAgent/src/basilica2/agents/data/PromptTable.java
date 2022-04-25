@@ -225,7 +225,7 @@ public class PromptTable
 		String intentionTag = "intention"; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":::";	
-		String withinPromptDelim = "|||";	
+		String withinPromptDelim = "\\|\\|\\|";	
 		
 		String intention = lookupIntention(promptName);
 		if (intention.length() == 0) {

@@ -62,7 +62,7 @@ public class ReplacementVariables {
     }
 
     public void compileReplacementVariables() {
-    	// TO-DO: How is "|" used? Does "|" need to be replaced by the new prompt separator, "|||"?
+    	// TO-DO: How is "|" used? Does "|" need to be replaced by the new prompt separator, "\\|\\|\\|" (unescaped, that is "|||")?
         String patternString = "(" + StringUtils.join(tokens.keySet(), "|") + ")";
         pattern = Pattern.compile(patternString);
         isDirty = false;

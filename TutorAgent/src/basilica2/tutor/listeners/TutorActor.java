@@ -699,7 +699,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 
 	public String join(String... promptStrings)
 	{
-		String withinPromptDelimiter = "|||";
+		String withinPromptDelimiter = "\\|\\|\\|";
 		String combo = "";
 		for(String text : promptStrings)
 		{

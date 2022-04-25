@@ -239,7 +239,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
 				
-		String withinPromptDelimiter = "|||"; 
+		String withinPromptDelimiter = "\\|\\|\\|"; 
 		String messageText; 
 		if (!me.getText().contains(withinPromptDelimiter))
 		{
