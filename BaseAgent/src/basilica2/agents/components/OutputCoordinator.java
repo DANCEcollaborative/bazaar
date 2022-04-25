@@ -342,7 +342,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	
 	
 // Sample formatted multimodal message follows. Currently, only the tags 'from', 'to', and 'speech' are supported for output. 
-// multimodal:true;%;from:Jamie;%;to:group;%;speech:"I'm Jamie";%;location:30:60:90;%;facialExp:smile;%;pose:sitting;%;emotion:happy
+// multimodal:::true;%;from:::Jamie;%;to:::group;%;speech:::"I'm Jamie";%;location:::30:::60:::90;%;facialExp:::smile;%;pose:::sitting;%;emotion:::happy
 	private String formatMultimodalMessage(MessageEvent me)
 	{
 		String multiModalField = "multimodal";  
@@ -352,7 +352,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// String locationField = "location";
 		// String location = null; 
 	    String multiModalDelim = ";%;";
-		String withinModeDelim = ":";	
+		String withinModeDelim = ":::";	
 		String toAllUsers = "group";
 		String messageString; 
 		

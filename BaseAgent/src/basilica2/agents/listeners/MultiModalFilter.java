@@ -44,7 +44,7 @@ public class MultiModalFilter extends BasilicaAdapter
 		PSI_Bazaar_Text, multimodal, identity, from, to, speech, intention, location, facialExp, pose, emotion;
 	}
 	private String multiModalDelim = ";%;";
-	private String withinModeDelim = ":";	
+	private String withinModeDelim = ":::";	
 	private boolean trackLocation = true;
 	private boolean checkDistances = true;
 	private Double minDistanceApart = 182.88;
