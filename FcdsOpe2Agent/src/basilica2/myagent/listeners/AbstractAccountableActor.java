@@ -624,20 +624,29 @@ public abstract class AbstractAccountableActor extends BasilicaAdapter
 	{
 		System.err.println("AbstractAccountableActor, topicWordMatch: enter");
 		text = text.toLowerCase(); 
-		int stringIndex; 
+//		int stringIndex; 
+		Set<String> matched_term = new HashSet<String>();
+		double minMatchedWord = (text.trim().split("\\s+").length) * minimumMatch;
 		for(String can : topicWords)
 		{	
 			can = can.toLowerCase();
-			stringIndex = text.indexOf(can); 
-			// System.err.println("AbstractAccountableActor, topicWordMatch, word = " + can); 
-			// System.err.println("AbstractAccountableActor, topicWordMatch, stringIndex = " + Integer.toString(stringIndex)); 
-			// if (text.contains(can)) 
-			if (stringIndex != -1) {
-				System.err.println("AbstractAccountableActor, topicWordMatch: matched, returning: " + text);
-				return text;
+			if (text.contains(can)) {
+				String[] wordArray = can.trim().split("\\s+");
+				Collections.addAll(matched_term, wordArray);
 			}
+//			stringIndex = text.indexOf(can); 
+//			// System.err.println("AbstractAccountableActor, topicWordMatch, word = " + can); 
+//			// System.err.println("AbstractAccountableActor, topicWordMatch, stringIndex = " + Integer.toString(stringIndex)); 
+//			// if (text.contains(can)) 
+//			if (stringIndex != -1) {
+//				System.err.println("AbstractAccountableActor, topicWordMatch: matched, returning: " + text);
+//				return text;
+//			}
 		}
-		System.err.println("AbstractAccountableActor, topicWordMatch: NOT matched, returning null");
+		System.err.println("AbstractAccountableActor, topicWordMatch: matched_term = "+matched_term.size()+" minMatchedWord = "+minMatchedWord);
+		if(matched_term.size()>minMatchedWord) {
+			return text;
+		}
 		return null; 
 	}
 

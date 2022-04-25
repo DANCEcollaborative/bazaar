@@ -59,9 +59,9 @@ public class AskForExplanationActor extends AbstractAccountableActor
 		
 		System.err.println("AskForExplanationActor, shouldTriggerOnCandidate, ratio: " + Double.toString(ratio));
 
-		System.err.println("AskForExplanationActor, shouldTriggerOnCandidate = true");
-		// return ratio < targetRatio;
-		return true; 
+		System.err.println("AskForExplanationActor, shouldTriggerOnCandidate = "+ratio+"<"+targetRatio+"="+(ratio < targetRatio));
+		return ratio < targetRatio;
+//		return true; 
 	}
 
 	@Override
@@ -81,10 +81,10 @@ public class AskForExplanationActor extends AbstractAccountableActor
 		}	
 		
 		// DO NOT ANNOTATE IF QUESTION
-		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
-			System.err.println("AskForExplanationActor, shouldAnnotateAsCandidate = false: this is a question"); 
-			return false; 
-		}
+//		if ((me.hasAnnotations("QUESTION")) || (me.getText().contains("?"))) {
+//			System.err.println("AskForExplanationActor, shouldAnnotateAsCandidate = false: this is a question"); 
+//			return false; 
+//		}
 
 		System.err.println("AskForExplanationActor, shouldAnnotateAsCandidate = true");		
 		return true; 
