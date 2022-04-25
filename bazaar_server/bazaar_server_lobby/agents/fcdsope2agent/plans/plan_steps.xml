@@ -14,7 +14,10 @@
         
     <stage name="LO1" type="other" delay="0">
        
-        <step type="match" delay="60" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>
+        <step type="match" delay="0" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>
+        
+        <!-- <step type="gated" gated_type="listen" timeout="300" delay="0" checkin_prompt="NONE">Wait_Step_Programming</step>  -->
+        <step type="file_gated" timeout="300" delay="0" file="task-1" checkin_prompt="NONE" >Wait_Step_Task1</step>
         
        	<step type="prompt" delay="0" prompt="PROMPT_STEP_LO1_SOLUTION">Prompt_Step_LO1_Solution</step>
        
@@ -27,7 +30,7 @@
     
     
     <stage name="EndStage" type="other" delay="0" timeout="300">
-        
+        <step type="prompt" delay="0" prompt="PROMPT_STEP_END" >Prompt_Step_End</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
