@@ -34,7 +34,7 @@ public class ActiveMQClient extends Component implements ChatClient
 		PSI_Bazaar_Text, multimodal, identity, speech, location, facialExp, pose, emotion;
 	}
 	private String multiModalDelim = ";%;";
-	private String withinModeDelim = ":";	
+	private String withinModeDelim = ":::";	
 
     private ArrayList<MessageConsumer> consumers;
     

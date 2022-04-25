@@ -224,7 +224,7 @@ public class PromptTable
 	public String addIntention(String promptName, String promptText) {
 		String intentionTag = "intention"; 
 	    String multiModalDelim = ";%;";
-		String withinModeDelim = ":";	
+		String withinModeDelim = ":::";	
 		
 		String intention = lookupIntention(promptName);
 		if (intention.length() == 0) {
