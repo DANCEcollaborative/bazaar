@@ -367,7 +367,8 @@ public class ModelBasedTriggerComputer extends BasilicaAdapter
 
     private void handleSocialTurnPerformedEvent(SocialTurnPerformedEvent stpe) 
     {
-        String[] turns = stpe.getText().split("\\|");
+		String withinPromptDelimiter = "|||";
+        String[] turns = stpe.getText().split(withinPromptDelimiter);
         for (int i = 0; i < turns.length; i++) 
         {
             performedSocialTurns.add(turns[i].trim());

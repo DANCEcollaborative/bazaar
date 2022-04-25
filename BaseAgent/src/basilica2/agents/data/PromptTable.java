@@ -225,22 +225,23 @@ public class PromptTable
 		String intentionTag = "intention"; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":::";	
+		String withinPromptDelim = "|||";	
 		
 		String intention = lookupIntention(promptName);
 		if (intention.length() == 0) {
 			return promptText; 
 		} else {
 			String intentionString = multiModalDelim + intentionTag + withinModeDelim + intention; 
-			if (!promptText.contains("|")) {
+			if (!promptText.contains(withinPromptDelim)) {
 				return promptText + intentionString; 
 			} else {
 				String returnText = ""; 
-				String[] textParts = promptText.split("\\|");
+				String[] textParts = promptText.split(withinPromptDelim);
 				String textPart; 
 				for (int i = 0; i < textParts.length; i++)
 				{
 					textPart = textParts[i].trim();
-					returnText += textPart + intentionString + "|"; 
+					returnText += textPart + intentionString + withinPromptDelim; 
 				}
 				return returnText; 
 			}					

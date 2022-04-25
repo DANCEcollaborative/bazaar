@@ -238,9 +238,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// to delete/re-order certain messages
 		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
-
+				
+		String withinPromptDelimiter = "|||"; 
 		String messageText; 
-		if (!me.getText().contains("|"))
+		if (!me.getText().contains(withinPromptDelimiter))
 		{
 			if ((!outputToPSI) || (separateOutputToPSI)) {
 				if (outputMultimodal) {
