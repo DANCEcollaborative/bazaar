@@ -53,7 +53,8 @@ public abstract class Concept
 
     protected String sanitize(String phrase) 
     {
-    	String withinPromptDelimiter = "\\|\\|\\|";
+    	// TO-DO: Should this delimiter be escaped as "\\|\\|\\|" ? 
+    	String withinPromptDelimiter = "|||";
         return " "+phrase.toLowerCase().replaceAll("\\s+", " ").replaceAll(withinPromptDelimiter, " ");
     }
 }
