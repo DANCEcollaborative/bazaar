@@ -90,9 +90,9 @@ public class AgreeDisagreeActor extends AbstractAccountableActor
 			return false; 
 		}	
 
-		System.err.println("AgreeDisagreeActor, shouldTriggerOnCandidate = true");
-		// return ratio < targetRatio;
-		return true; 
+		System.err.println("AgreeDisagreeActor, shouldTriggerOnCandidate = "+ratio+"<"+targetRatio+"="+(ratio < targetRatio));
+		return ratio < targetRatio;
+//		return true; 
 	}
 
 	@Override
