@@ -748,10 +748,11 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 
 	public String join(String... promptStrings)
 	{
+		String withinPromptDelimiter = "|||";
 		String combo = "";
 		for(String text : promptStrings)
 		{
-			combo += "|"+text;
+			combo += withinPromptDelimiter+text;
 		}
 		return combo.substring(1);
 	}

@@ -53,6 +53,7 @@ public abstract class Concept
 
     protected String sanitize(String phrase) 
     {
-        return " "+phrase.toLowerCase().replaceAll("\\s+", " ").replaceAll("\\|", " ");
+    	String withinPromptDelimiter = "|||";
+        return " "+phrase.toLowerCase().replaceAll("\\s+", " ").replaceAll(withinPromptDelimiter, " ");
     }
 }
