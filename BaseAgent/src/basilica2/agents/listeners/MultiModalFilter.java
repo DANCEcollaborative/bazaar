@@ -158,7 +158,7 @@ public class MultiModalFilter extends BasilicaAdapter
 					System.err.println("from/identity found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
-						checkPresence(source,messagePart[1]);	
+						checkPresence(source,me);	
 					}									
 				}
 			}
@@ -244,8 +244,8 @@ public class MultiModalFilter extends BasilicaAdapter
     }
 		
 
-	private void checkPresence(InputCoordinator source, String identity) {
-//		String identity = me.getFrom();
+	private void checkPresence(InputCoordinator source, MessageEvent me) {
+		String identity = me.getFrom();
 		if (identity != identityAllUsers)
 		{
 	        State state = State.copy(StateMemory.getSharedState(agent));
