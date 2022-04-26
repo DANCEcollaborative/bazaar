@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
     
+    <prompt strategy="task" id="PROMPT_DUMMY">
+    <text> Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Welcome! I'm [AGENT NAME].|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other.</text>
+    </prompt>
+    
+    
     <prompt strategy="task" id="PROMPT_INITIAL_INTRODUCTION">
         <text>Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh"|||Once that's done, EVERYONE should run "source ~/.bashrc"|||At the end of the session, execute the submitter script ONE PERSON AT A TIME using './submitter'. Even if the submission fails, you will get the post-quiz token for accessing the post-quiz.|||We will rotate roles every time a new test case passes.</text>
     </prompt>
