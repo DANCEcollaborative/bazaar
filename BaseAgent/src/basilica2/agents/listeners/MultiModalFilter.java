@@ -153,9 +153,9 @@ public class MultiModalFilter extends BasilicaAdapter
 			for (int i = 0; i < multiModalMessage.length && !identityFound; i++) {
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
 				tag = multiModalTag.valueOf(messagePart[0]);
-				if (tag == (multiModalTag.identity)) {
+				if ((tag == (multiModalTag.identity)) || (tag == (multiModalTag.from))) {
 					identityFound = true; 
-					System.err.println("identify found: " + messagePart[1]);
+					System.err.println("from/identity found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
 						checkPresence(source,me);	
