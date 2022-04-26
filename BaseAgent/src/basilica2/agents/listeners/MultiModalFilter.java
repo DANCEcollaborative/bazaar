@@ -134,12 +134,6 @@ public class MultiModalFilter extends BasilicaAdapter
 		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
-
-		// TEMP
-
-		if (multiModalMessage.length <= 1) {	
-			log(Logger.LOG_NORMAL, "MultiModalFilter, handleMessageEvent - multimodal text NOT FOUND: " + text);
-		}
 		
 		// If this is a multimodal message
 		if (multiModalMessage.length > 1) {
@@ -158,14 +152,14 @@ public class MultiModalFilter extends BasilicaAdapter
 					System.err.println("from/identity found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
-						checkPresence(source,me);	
+//						checkPresence(source,me);	
 					}									
 				}
 			}
 			
 			// Update the message sender's properties based on multimodal updates
 			boolean processSpeech = false; 
-			String speechText = ""; 
+//			String speechText = ""; 
 			for (int i = 0; i < multiModalMessage.length; i++) {
 				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
@@ -190,8 +184,9 @@ public class MultiModalFilter extends BasilicaAdapter
 					break;									
 				case speech:
 					processSpeech = true; 
-					speechText = messagePart[1]; 	
-					log(Logger.LOG_NORMAL, "speech: " + messagePart[1]);
+					String speechText = messagePart[1]; 
+					me.setText(speechText); 
+					log(Logger.LOG_NORMAL, "speech: " + speechText);
 					break;		
 				case intention:  
 					System.out.println("intention: " + messagePart[1]);	
