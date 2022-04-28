@@ -17,7 +17,7 @@ def replay_csv_file_writer(replay_csv_file, log_entries):
             writer.writerow({'timestamp':e[0].strftime("%Y-%m-%d %H:%M:%S"), 'username':e[1], 'type':e[2], 'content':e[3]})
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='ClientServer', environmentID='Room126', userID=1, bazaarAgent='User1', BotName='OPEBot'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', environmentID='Room126', userID=1, bazaarAgent='User1', BotName='OPEBot'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
@@ -37,7 +37,7 @@ class BazaarSocketWrapper():
         self.socket.disconnect_chat()
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='ClientServer', environmentID='Room126', userID=1, bazaarAgent='User1', BotName='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', environmentID='Room126', userID=1, bazaarAgent='User1', BotName='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.replay_log_entries = []
@@ -119,7 +119,7 @@ class BazaarSocket(socketio.ClientNamespace):
     
 
 class LogReplayer():
-    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='ClientServer', environmentID='Replayer', BotName='OPEBot'):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', environmentID='Replayer', BotName='OPEBot'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -252,7 +252,7 @@ def main(args):
     
     config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu', 
                 'agentName': agent_name,
-                'clientID': 'ClientServer', 
+                'clientID': 'LogReplayer', 
                 'environmentID': 'Replay', 
                 'BotName': bot_name}
     

@@ -41,10 +41,10 @@ public class MultiModalFilter extends BasilicaAdapter
 	public static String GENERIC_TYPE = "Filter";
 	protected enum multiModalTag  
 	{
-		PSI_Bazaar_Text, multimodal, identity, speech, location, facialExp, pose, emotion;
+		PSI_Bazaar_Text, multimodal, identity, from, to, speech, intention, location, facialExp, pose, emotion;
 	}
 	private String multiModalDelim = ";%;";
-	private String withinModeDelim = ":";	
+	private String withinModeDelim = ":::";	
 	private boolean trackLocation = true;
 	private boolean checkDistances = true;
 	private Double minDistanceApart = 182.88;
@@ -134,10 +134,11 @@ public class MultiModalFilter extends BasilicaAdapter
 		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
-
+		
 		// If this is a multimodal message
 		if (multiModalMessage.length > 1) {
 			
+			log(Logger.LOG_NORMAL, "MultiModalFilter, handleMessageEvent - found multimodal text: " + text);
 			multiModalTag tag; 
 			String [] messagePart; 
 
@@ -146,19 +147,19 @@ public class MultiModalFilter extends BasilicaAdapter
 			for (int i = 0; i < multiModalMessage.length && !identityFound; i++) {
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
 				tag = multiModalTag.valueOf(messagePart[0]);
-				if (tag == (multiModalTag.identity)) {
+				if ((tag == (multiModalTag.identity)) || (tag == (multiModalTag.from))) {
 					identityFound = true; 
-					System.err.println("identify found: " + messagePart[1]);
+					System.err.println("from/identity found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
-						checkPresence(source,me);	
+//						checkPresence(source,me);	
 					}									
 				}
 			}
 			
 			// Update the message sender's properties based on multimodal updates
 			boolean processSpeech = false; 
-			String speechText = ""; 
+//			String speechText = ""; 
 			for (int i = 0; i < multiModalMessage.length; i++) {
 				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
@@ -167,29 +168,44 @@ public class MultiModalFilter extends BasilicaAdapter
 				
 				switch (tag) {
 				case multimodal:
-					System.out.println("=========== multimodal message ===========");
+					System.out.println("=========== multimodal message ===========");	
+					log(Logger.LOG_NORMAL, "=========== multimodal message ===========");
 					break;
 				case identity:  // already handled above 
-					System.out.println("Identity: " + messagePart[1]);
-					break;					
+					System.out.println("identity: " + messagePart[1]);	
+					break;	
+				case from:  
+					System.out.println("from: " + messagePart[1]);	
+					log(Logger.LOG_NORMAL, "from: " + messagePart[1]);
+					break;		
+				case to:  
+					System.out.println("to: " + messagePart[1]);	
+					log(Logger.LOG_NORMAL, "to: " + messagePart[1]);
+					break;									
 				case speech:
 					processSpeech = true; 
-					speechText = messagePart[1]; 
+					String speechText = messagePart[1]; 
+					me.setText(speechText); 
+					log(Logger.LOG_NORMAL, "speech: " + speechText);
+					break;		
+				case intention:  
+					System.out.println("intention: " + messagePart[1]);	
+					log(Logger.LOG_NORMAL, "intention: " + messagePart[1]);
 					break;			
 				case location:
-					System.out.println("Location: " + messagePart[1]);
+					System.out.println("location: " + messagePart[1]);
 					if (trackLocation)
 						locationUpdate(source,me,messagePart[1]);
 					break;
 				case facialExp:
-					System.out.println("Facial expression: " + messagePart[1]);
+					System.out.println("facial expression: " + messagePart[1]);
 					break;
 				case pose:
-					System.err.println("MultimodalFilter, Pose: " + poseEventType.valueOf(messagePart[1]));
+					System.err.println("pose: " + poseEventType.valueOf(messagePart[1]));
 					poseUpdate(source,me,poseEventType.valueOf(messagePart[1])); 
 					break;
 				case emotion:
-					System.out.println("Emotion: " + messagePart[1]);
+					System.out.println("emotion: " + messagePart[1]);
 					break;
 					
 				default:

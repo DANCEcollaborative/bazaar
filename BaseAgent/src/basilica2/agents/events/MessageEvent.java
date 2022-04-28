@@ -65,6 +65,7 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 	protected boolean ackExpected = false;
 	protected long typingDuration;
 	protected Event referent; 
+	String withinPromptDelimiterEscaped = "\\|\\|\\|"; 
 
 	public MessageEvent(Component source, String from, String message)
 	{
@@ -276,23 +277,8 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 
 	public String[] getParts()
 	{
-		String[] messageParts = this.getText().split("\\|");
-		List<String> combinedMessageParts = new ArrayList<String>();
-		String msg = "";
-		
-		for (int i = 0; i < messageParts.length; i++)
-		{
-			if(i>0 && messageParts[i-1].trim().endsWith("\\\\")) {
-				msg = msg.replace("\\\\", "| ") + messageParts[i].trim();
-			}else {
-				if(msg.length()>0) {
-					combinedMessageParts.add(msg);
-				}
-				msg = messageParts[i].trim();
-			}
-		}
-		combinedMessageParts.add(msg);
-		return combinedMessageParts.toArray(new String[0]);
+
+		return this.getText().split(withinPromptDelimiterEscaped);
 	}
 
 	public void setText(String t)

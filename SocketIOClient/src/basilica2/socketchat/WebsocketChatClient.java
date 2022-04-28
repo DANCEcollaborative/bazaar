@@ -8,6 +8,7 @@ import io.socket.SocketIOException;
 import io.socket.client.*;
 import io.socket.emitter.Emitter;
 
+import java.net.URI; 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Iterator;
@@ -24,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import basilica2.agents.components.ChatClient;
+import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
@@ -47,7 +49,6 @@ public class WebsocketChatClient extends Component implements ChatClient
 	boolean connected = false;
 
 	Socket socket;
-
 
 	/* (non-Javadoc)
 	 * @see basilica2.agents.components.ChatClient#disconnect()
@@ -167,9 +168,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 		try
 		{
 			if (socketSubURL != null) {
-				IO.Options o = new IO.Options();
-				o.path = socketSubURL;
-				socket = IO.socket(socketURL, o);
+//				IO.Options o = new IO.Options();
+//				o.path = socketSubURL;
+//				socket = IO.socket(socketURL, o);
+				IO.Options options = new IO.Options().builder()
+					// ...
+					.build(); 
+				options.path = socketSubURL;
+				URI uri = URI.create(socketURL); 
+				socket = IO.socket(uri, options);
 			} else {
 				socket = IO.socket(socketURL);
 			}
@@ -229,16 +236,22 @@ public class WebsocketChatClient extends Component implements ChatClient
 			@Override
 			public void call(Object... args)
 			{
-				System.out.println("an Error occurred...");
+				System.err.println("an Error occurred...");
 				//socketIOException.printStackTrace();
 
-				System.out.println("attempting to reconnect...");
+				System.err.println("attempting to reconnect...");
 				try
 				{
 					if (socketSubURL != null) {
-						IO.Options o = new IO.Options();
-						o.path = socketSubURL;
-						socket = IO.socket(socketURL, o);
+//						IO.Options o = new IO.Options();
+//						o.path = socketSubURL;
+//						socket = IO.socket(socketURL, o);
+						IO.Options options = new IO.Options().builder()
+							// ...
+							.build(); 
+						options.path = socketSubURL;
+						URI uri = URI.create(socketURL); 
+						socket = IO.socket(uri, options);
 					} else {
 						socket = IO.socket(socketURL);
 					}
@@ -267,14 +280,14 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.out.println("Connection terminated.");
+					System.err.println("Connection terminated.");
 				}
 			}).on(Socket.EVENT_CONNECT, new Emitter.Listener() { 
 
 				@Override
 				public void call(Object... args)
 				{
-					System.out.println("Connection established");
+					System.err.println("Connection established");
 				}
 			}).on("updateusers", new Emitter.Listener() { 
 
@@ -324,6 +337,18 @@ public class WebsocketChatClient extends Component implements ChatClient
 					message = StringEscapeUtils.unescapeHtml4(message);
 					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
 					WebsocketChatClient.this.broadcast(me);
+				}
+			}).on("sendfile", new Emitter.Listener() { 
+
+				@Override
+				public void call(Object... args)
+				{
+					String filename = (String)args[1];
+//					filename = StringEscapeUtils.unescapeHtml4(message);
+					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
+					FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
+					FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
+					WebsocketChatClient.this.broadcast(fe);
 				}
 			}).on("updateimage", new Emitter.Listener() { 
 

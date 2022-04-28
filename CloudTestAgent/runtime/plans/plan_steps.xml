@@ -8,13 +8,13 @@
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
-        <step type="prompt" delay="20" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>     <!-- Increase to {30 or 45} for actual 
+        <step type="prompt" delay="5" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>     <!-- Increase to {30 or 45} for actual 
 use -->
-       <step type="greet" timeout="90" delay="0">GREETINGS</step>    <!-- Increase to {120} for actual use -->
+       <step type="greet" timeout="30" delay="0">GREETINGS</step>    <!-- Increase to {120} for actual use -->
 	</stage> 
     
     <stage name="stageA" type="other" delay="0">
-        <step type="prompt" delay="30" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step>       
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_INTRODUCTION" >PROMPT_STEP_INTRODUCTION</step>       
         <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
     </stage>
     

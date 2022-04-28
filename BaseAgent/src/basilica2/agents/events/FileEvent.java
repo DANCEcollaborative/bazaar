@@ -33,6 +33,7 @@ package basilica2.agents.events;
 
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 /**
  *
@@ -53,6 +54,7 @@ public class FileEvent extends Event {
         fileName = n;
         eventType = t; 
         System.err.println("FileEvent created: file: " + n + " -- event type:" + t);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileEvent created - file: " + n + "   -- event type: " + t);
     }
 
     public String getFileName() {

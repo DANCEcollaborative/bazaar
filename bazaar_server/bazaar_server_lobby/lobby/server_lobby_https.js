@@ -40,7 +40,7 @@ const Crypto = require("crypto");
 
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true});
+const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true, pingTimeout: 20000});
 const path = require('path'); 
 
 server.listen(localPort);
@@ -100,7 +100,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com/ https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/ https://cdn.jsdelivr.net/gh/DANCECollaborative/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://rawgit.com/gtomar/ 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/ https://rawgit.com/marinawang/ https://cdnjs.cloudflare.com/ajax/libs/socket.io/ 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/; img-src * data"); 
+    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com/ https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://exodar.oli.cmu.edu/baz/static/; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/ https://cdn.jsdelivr.net/gh/DANCECollaborative/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://rawgit.com/gtomar/ 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/ https://rawgit.com/marinawang/ https://cdnjs.cloudflare.com/ajax/libs/socket.io/ 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/; img-src * data"); 
     return next();
 });
 
@@ -303,18 +303,22 @@ function setTeam(teamNumber,req,provider,logger,res)
 }
 
 
-function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
+function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger) {
   	console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
-	if ( (!(roomNameAndNumber in numUsers)) )
+	if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
 	{
 		numUsers[roomNameAndNumber] = 0;
 		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
 		agentLaunch(roomName, teamNumber);
 	}
-	
+    else
+    {       
+	   console.log("setTeam_fromSocket: NOT EXECUTING agentLaunch(" + roomName + "," + teamNumber + ")");
+	}
+        	
 	// 	console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
 	// 	agentLaunch(roomName, teamNumber);
 
@@ -1226,7 +1230,7 @@ function isClientServerConnection(auth) {
   // which is an object that itself has a "clientID" property, whose value
   // is equal to 'DCSS', then this is a DCSS client connection.
   return auth && auth.agent && auth.agent.configuration && 
-  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'DCSS');
+  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'LogReplayer' || auth.agent.configuration.clientID === 'DCSS');
 //   		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'ClientServer-NoEcho' || auth.agent.configuration.clientID === 'DCSS');
 }
 
@@ -1414,7 +1418,7 @@ io.sockets.on('connection', async (socket) => {
 			transports: [
 				new (winston.transports.Console)()]
 		});	
-		setTeam_fromSocket(agent,roomName,userID,username,logger);
+		setTeam_fromSocket(clientID,agent,roomName,userID,username,logger);
 	
 		let temporary = false; 
 		let perspective = null; 
@@ -1478,6 +1482,14 @@ io.sockets.on('connection', async (socket) => {
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		else	
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);			
+	});
+
+
+	// when the client emits 'sendfile', this listens and executes
+	socket.on('sendfile', async (data)  => {
+		logMessage(socket, data, "sendfile");
+        console.log("socket.on('sendfile'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+        io.sockets.in(socket.room).emit('sendfile', socket.username, data);		
 	});
 
 
@@ -1551,11 +1563,15 @@ io.sockets.on('connection', async (socket) => {
 	    socket.emit('updaterooms', [room,], newroom);
 	    logMessage(socket, "join", "presence");
 	});
+	
+	socket.on("connect_error", (err) => {
+	  console.log(`>>> ERROR >>> connect_error due to ${err.message}`);
+	});
 
 	// when the user disconnects... perform this
 	socket.on('disconnect', async () => {
     try {
-    //console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    	console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
     } catch (e) {
     }
 

@@ -40,10 +40,10 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
   - Set your environment to JDK 1.8.
     - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
   - [Install a version 1.10.xx of Apache Ant](https://formulae.brew.sh/formula/ant).
-	
+
 - On PC:
   - [Install JDK 1.8](https://adoptopenjdk.net/installation.html).
-  - [Install a version 1.10.xx of Apache Ant](https://ant.apache.org/bindownload.cgi). 
+  - [Install a version 1.10.xx of Apache Ant](https://ant.apache.org/bindownload.cgi).
 
 # Install this repository
   - Commands:
@@ -58,71 +58,54 @@ Java 1.8 is recommended for running Bazaar. Older and newer versions may not wor
       - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
 
 # Detailed Instructions for Installing in Eclipse
-(For other IDEs, use an equivalent procedure)
-  - Using Eclipse IDE for Java Developers, version 2021-06
-  - Select from the File menu "Open Projects from File System"
-     - Click "Directory"
-          - Select the just installed ".../bazaar/" directory
-          - Click "Open"
-     - Check "Search for nested projects"
-     - Check "Detect and configure project natures"
-     - Unselect project 'bazaar/Lightside'
-	 - Click "Finish"
-	 - Several errors will be displayed
+These instructions were created using Eclipse IDE for Java Developers, version 2021-12 (4.22.0). For other IDEs, use an equivalent procedure
   - Make sure your Eclipse is set to use Java 1.8 as the default JRE.
-       - Select Eclipse > Preferences
-       - Select Java > Installed JREs
-            - If more than one JRE is listed, check the box next to JDK 1.8 (a.k.a. JDK 8)
-            - Click "Apply"
-       - Select Java > Compiler
-            - Set Compiler Compliance Level to 1.8
-            - Click "Apply and Close"
-       - If you had to make changes, you'll get a dialog box asking "... Rebuild to apply these changes?"
-            - Click "Yes"
-  - Select from the File menu, New > Java Project
-      - Uncheck "Use default location"
-      - Click "Browse"
-      - Within the just installed ".../bazaar/" directory, select "LightSide"
+    - Select Eclipse > Preferences
+      - Select Java > Installed JREs
+        - If more than one JRE is listed, check the box next to JDK 1.8 (a.k.a. JDK 8)
+        - Click "Apply"
+      - Select Java > Compiler
+        - Set Compiler Compliance Level to 1.8
+        - Click "Apply and Close"
+  - Select from the File menu "Open Projects from File System"
+    - Click "Directory"
+      - Select the just installed ".../bazaar/" directory
       - Click "Open"
-      - Click "Finish"
-      - A dialog box with "Marketplace solutions available" will be displayed. Click "Cancel".
-  - Select from the Project menu, Clean
-      - Check "Clean all projects"
-      - Click "Clean"
-      - 5 errors will be displayed. These can be ignored.
-        - Explanation (optional): The LightSide and Genesis-Plugins project are imported as subtrees directly from the repos [LightSideWorkbench/LightSide](https://github.com/LightSideWorkbench/LightSide) and [LightSideWorkbench/Genesis-Plugins](https://github.com/LightSideWorkbench/Genesis-Plugins). Within Bazaar, the LightSide code needs to be referenced but it is not a stand-alone package.
+    - Check "Search for nested projects"
+      - Check "Detect and configure project natures"
+    - Click "Finish"
 
 # Install and run the canonical Docker version in an IDE
 - Installing
- - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
- - [Install this repository](https://github.com/DANCEcollaborative/bazaar/tree/master).
+  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
+  - [Install this repository](https://github.com/DANCEcollaborative/bazaar/tree/master).
  - Install Eclipse Java Enterprise or another IDE.
  - [Install and run Docker Desktop](https://docs.docker.com)
 - Running
- - In a terminal window
-   - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
-     - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_lobby
-   - Enter: docker-compose -f docker-compose-dev.yml build
-     - This command will take longer the first time it is executed as it downloads several things.
-   - Enter: docker-compose -f docker-compose-dev.yml up -d
-     - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
- - Within the IDE, run a Docker agent, such as ClimateChangeAgent.
- - A chat room startup window will be displayed.
-   - Select the agent’s behavior conditions.
-   - Set a “Room Name”.
-   - Press ’Start Agent’
- - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
-   - http://localhost/chat/ROOM/1/STUDENT/1/?html=climate_change
-   - Use the ROOM you selected in the chat room window.
-    - Use your choice for STUDENT. For multiple students:
-      - Use a unique STUDENT name for each.
-      - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
-        - The first number is the student ID, and must be unique.
-        - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
-        - E.g., for multiple students, :
-          - .../1/STUDENTA/1/…
-          - .../2/STUDENTB/2/...
-          - .../3/STUDENTC/3/…
+   - In a terminal window
+     - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
+       - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_lobby
+     - Enter: docker-compose -f docker-compose-dev.yml build
+       - This command will take longer the first time it is executed as it downloads several things.
+     - Enter: docker-compose -f docker-compose-dev.yml up -d
+       - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
+   - Within the IDE, run a Docker agent, such as ClimateChangeAgent.
+     - A chat room startup window will be displayed.
+     - Select the agent’s behavior conditions.
+     - Set a “Room Name”.
+     - Press ’Start Agent’
+   - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
+     - http://localhost/chat/ROOM/1/STUDENT/1/?html=climate_change
+     - Use the ROOM you selected in the chat room window.
+     - Use your choice for STUDENT. For multiple students:
+        - Use a unique STUDENT name for each.
+        - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
+          - The first number is the student ID, and must be unique.
+          - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
+          - E.g., for multiple students, :
+            - .../1/STUDENTA/1/…
+            - .../2/STUDENTB/2/...
+            - .../3/STUDENTC/3/…
 
 # Install and run the legacy version in an IDE
 A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherLegacyAgent and MTurkLegacyAgent.

@@ -40,7 +40,7 @@ const Crypto = require("crypto");
 
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true});
+const io = require('socket.io')(server, {path: '/bazsocket', allowEIO3: true, pingTimeout: 20000});
 const path = require('path'); 
 
 server.listen(localPort);
@@ -100,7 +100,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com/ https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/ https://cdn.jsdelivr.net/gh/DANCECollaborative/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://rawgit.com/gtomar/ 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/ https://rawgit.com/marinawang/ https://cdnjs.cloudflare.com/ajax/libs/socket.io/ 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/; img-src * data"); 
+    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com/ https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://exodar.oli.cmu.edu/baz/static/; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bazaar.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/ https://cdn.jsdelivr.net/gh/DANCECollaborative/; style-src 'self' https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://rawgit.com/gtomar/ 'unsafe-inline'; script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/ https://rawgit.com/marinawang/ https://cdnjs.cloudflare.com/ajax/libs/socket.io/ 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/; img-src * data"); 
     return next();
 });
 
@@ -303,21 +303,31 @@ function setTeam(teamNumber,req,provider,logger,res)
 }
 
 
-function setTeam_fromSocket(roomName,teamNumber,userID,username,logger) {
-  //console.log("Enter setTeam_fromSocket");
+function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger) {
+  	console.log("Enter setTeam_fromSocket");
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
-	if ( (!(roomNameAndNumber in numUsers)) )
+	if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
 	{
-			numUsers[roomNameAndNumber] = 0;
-			// console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + paddedTeamNumber + ")");
-		//console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
-			agentLaunch(roomName, teamNumber);
+		numUsers[roomNameAndNumber] = 0;
+		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+		agentLaunch(roomName, teamNumber);
 	}
+    else
+    {       
+	   console.log("setTeam_fromSocket: NOT EXECUTING agentLaunch(" + roomName + "," + teamNumber + ")");
+	}
+        	
+	// 	console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
+	// 	agentLaunch(roomName, teamNumber);
+
 	logger.log("info","Number of users : " + numUsers[roomNameAndNumber]);
 	logger.log("info","Team number : " + teamNumber);
-  //console.log("Exit setTeam_fromSocket");
+	
+	console.log("Number of users : " + numUsers[roomNameAndNumber]);
+	console.log("Team number : " + teamNumber);
+  	//console.log("Exit setTeam_fromSocket");
 }
 
 
@@ -499,7 +509,7 @@ let LOCKDOWN_TIME = 0;
 // let LOCKDOWN_TIME = 365*24*60*60*1000; //lobby open for 1 year
 let START_TIME = new Date().getTime();
 const chat_url = "https://forum.lti.cs.cmu.edu/bazaar/chat/";
-const roomname_prefix = "jeopardy";
+const roomname_prefix = "jeopardybigwgu";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started
@@ -510,7 +520,7 @@ let teamMemberNames = {};
 function getLoginInstructionText(nick)
 {
     const now = new Date().getTime();
-    message = "<p>Welcome to the matchmaker lobby. Hang on for a few minutes. We'll match you up with a partner as soon as enough students join.</p><p>Please confirm that you are in the lobby during your assigned activity time (Friday at 6pm <b>Mountain Time</b>). Any participation outside the designated activity time will not count as participation in this study.</p>"
+    message = "<p>Welcome to the matchmaker lobby. Hang on &#8212; it may take up to 10 minutes to match you as we wait for other students to arrive. We'll match you up with a WGU peer as soon as we can.</p><p>Please confirm that you are here at 6pm Mountain Time (5pm Pacific, 7pm Central, 8pm Eastern).</p><p>Follow the instructions on screen as they appear!</p>"
     return message;
 }
 
@@ -521,7 +531,7 @@ function getUserInstructionText(nick, i, condition)
 }
 
 let conditionOffset = -1;
-let numTeams = 260;
+let numTeams = 2300;
 let nextID = 0;
 let teams = [];
 let supplicants = [];
@@ -1215,37 +1225,41 @@ const header_stuff = "<head>\n"+
 "</head>";
 
 
-function isDCSSConnection(auth) {
+function isClientServerConnection(auth) {
   // If the auth object is present, and has a "configuration" property,
   // which is an object that itself has a "clientID" property, whose value
   // is equal to 'DCSS', then this is a DCSS client connection.
-  return auth && auth.agent && auth.agent.configuration && auth.agent.configuration.clientID === 'DCSS';
+  return auth && auth.agent && auth.agent.configuration && 
+  		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'LogReplayer' || auth.agent.configuration.clientID === 'DCSS');
+//   		 (auth.agent.configuration.clientID === 'ClientServer' || auth.agent.configuration.clientID === 'ClientServer-NoEcho' || auth.agent.configuration.clientID === 'DCSS');
 }
 
-function translateDCSSAuthToBazaar(auth) {
+function translateClientServerAuthToBazaar(auth) {
   /*
-    auth looks, at minimum, like this: 
+    auth format follows. *** indicates property is currently used
     {
       agent: {
-        id: int,
-        name: "dcsslightside",
+        id: int,      			***
+        name: string,			***
         configuration: {
-          // key value
+          clientID: string		***
         }
-      },
+      }
       chat: {
-        id: int
-      },
+        id: int					***
+      }
       run: {
         id: int
       },
       user: {
         id: int,
         name: string
+        role: {
+        	id, name, description
+        },
       }
     }    
   */  
- //console.log("In Translate..., auth = " + auth);
 
   return {
     clientID: auth.agent.configuration.clientID,
@@ -1329,10 +1343,7 @@ function loadHistory(socket, secret)
 }
 
 function logMessage(socket, content, type) {   
-//console.log("Enter logMessage");	
-//console.log("logMessage, socket.room = " + socket.room);
-//console.log("logMessage, socket.roomid = " + socket.roomid);
-//console.log("logMessage, socket.username = " + socket.username);
+	//console.log("logMessage, socket.room = " + socket.room);
 
     if(socket.temporary) return;
 
@@ -1349,23 +1360,14 @@ function logMessage(socket, content, type) {
     if(socket.handshake)
 		endpoint = socket.handshake.address;
 		
-//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
-//console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
-//console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
-//console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
-//console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
-//console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
-//console.log("logMessage, pool.escape(content) = " + pool.escape(content));
-//console.log("logMessage, pool.escape(type) = " + pool.escape(type));
-	
-	
+	//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
 	
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)' 
     		+ 'values ((select id from nodechat.room where name=' + pool.escape(socket.room) + '), '
     		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
     		+ pool.escape(type) + ', now());';                   
 
-//console.log("logMessage: starting pool.query to mysql2");  
+	//console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
          if (err) {
          //console.log("Error on pool.query(query, function (err, rows, fields)")
@@ -1373,9 +1375,9 @@ function logMessage(socket, content, type) {
         }
             
     });   
-//   connection.end()  
-  //console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
-//console.log("Exit logMessage");  
+	//   connection.end()  
+  	//console.log("logMessage: completed pool.query to mysql2 {by giving to worker thread}");  
+	//console.log("Exit logMessage");  
 }
 
 // io.set('log level', 1);
@@ -1383,58 +1385,48 @@ function logMessage(socket, content, type) {
 
 io.sockets.on('connection', async (socket) => {
 
-//console.log("info", "socket.on_connection: -- start");
+		// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
+		// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
 
-	// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
-	// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
+		if (isClientServerConnection(socket.handshake.auth)) {
 
- 	if (isDCSSConnection(socket.handshake.auth)) {
-
-		const {
-		  token,
-		  clientID, 
-		  agent,
-		  roomName,
-		  userID,
-		  username
-		} = translateDCSSAuthToBazaar(socket.handshake.auth);
+			const {
+			  token,
+			  clientID, 
+			  agent,
+			  roomName,
+			  userID,
+			  username
+			} = translateClientServerAuthToBazaar(socket.handshake.auth);
 		  
-	//console.log("socket ID: " + socket.id);
-	//console.log("token = " + token);
-	//console.log("clientID = " + clientID);
-	//console.log("agent = " + agent);
-	//console.log("roomName = " + roomName);
-		// console.log("roomid = " + roomid);
-	//console.log("userID = " + userID);
-	//console.log("username = " + username); 
-		
-		// socket.roomid = agent + roomName;
-		// console.log("socket.roomid = " + socket.roomid);
-				
-		// socket.join(token);  				// DCSS wants this	
-		// console.log("socket rooms: " + socket.rooms);
+		console.log("socket ID: " + socket.id);
+		console.log("token = " + token);
+		console.log("clientID = " + clientID);
+		console.log("agent = " + agent);
+		console.log("roomName = " + roomName);
+		console.log("userID = " + userID);
+		console.log("username = " + username); 
 				
 		socket.clientID = clientID;    		
 		socket.agent = agent;  				// agent ==> roomName elsewhere in this file
 		socket.roomName = roomName;         // roomName ==> teamNumber elsewhere in this file 
 		socket.userID = userID;  
 		room = agent + roomName; 
-	//console.log("room: " + room);    						
-		// socket.username = username; 
+		//console.log("room: " + room); 
 		
 		logger = winston.createLogger({
-    		transports: [
-      			new (winston.transports.Console)()]
-  		});	
-	//console.log("socket.on_connection w/ auth token: calling setTeam_fromSocket");	
-		setTeam_fromSocket(agent,roomName,userID,username,logger);
-		
+			transports: [
+				new (winston.transports.Console)()]
+		});	
+		setTeam_fromSocket(clientID,agent,roomName,userID,username,logger);
+	
 		let temporary = false; 
 		let perspective = null; 
 		addUser(socket, room, username, temporary, userID, perspective)
 	}
+	
 
-        // when the client emits 'snoop', this listens and executes
+    // when the client emits 'snoop', this listens and executes
 	socket.on('snoop', async (room, id, perspective) => {
 	
 	   origin = socket.handshake.address
@@ -1474,40 +1466,30 @@ io.sockets.on('connection', async (socket) => {
 	  //console.log("info", "Exit socket.on_adduser");
 	});
 
+
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', async (data)  => {
-	//console.log("Enter socket.on('sendchat')'"); 
-	//console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID);
-	//console.log("socket.on('sendchat'): socket.room = " + socket.room);
+		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
 		logMessage(socket, data, "text");
-		
-		if (socket.username == "MLAgent") {
-		//console.log("socket.on('sendchat'): socket.username == DCSSLightSideAgent; about to emit 'interjection'");
+                console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+
+// 		if (socket.clientID == "ClientServer-NoEcho") {
+// 			// Do nothing for no echo
+// 		else if (socket.username == "MLAgent") 
+		if (socket.username == "MLAgent") 
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
-		} else {	
-		//console.log("socket.on('sendchat'): socket.username *** NOT *** == DCSSLightSideAgent; about to emit 'updatechat'");	
-			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-		}
-		
-		
-		// if (typeof socket.clientID !== 'undefined' ) {
-		// //console.log("socket.on('sendchat'): socket.clientID NOT undefined");
-		// 	if (socket.clientID == "DCSS") {
-		// 	// if (socket.clientID == "DO_NOT_GO_HERE") {
-		// 	//console.log("socket.on('sendchat'): socket.clientID = DCSS; about to emit 'interjection'");
-		// 		io.sockets.in(socket.room).emit('interjection', socket.username, data); 
-		// 	} else {	
-		// 	//console.log("socket.on('sendchat'): socket.clientID NOT = DCSS");	
-		// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	// 		}
-	// 	} else {	
-	// 	//console.log("socket.on('sendchat'): socket.clientID is UNDEFINED");         // This is the current path 
-	// 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	// 	}
-	//console.log("Exit socket.on('sendchat')"); 
-			
+		else	
+			io.sockets.in(socket.room).emit('updatechat', socket.username, data);			
+	});
+
+
+	// when the client emits 'sendfile', this listens and executes
+	socket.on('sendfile', async (data)  => {
+		logMessage(socket, data, "sendfile");
+        console.log("socket.on('sendfile'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+        io.sockets.in(socket.room).emit('sendfile', socket.username, data);		
 	});
 
 
@@ -1581,11 +1563,15 @@ io.sockets.on('connection', async (socket) => {
 	    socket.emit('updaterooms', [room,], newroom);
 	    logMessage(socket, "join", "presence");
 	});
+	
+	socket.on("connect_error", (err) => {
+	  console.log(`>>> ERROR >>> connect_error due to ${err.message}`);
+	});
 
 	// when the user disconnects... perform this
 	socket.on('disconnect', async () => {
     try {
-    //console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    	console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
     } catch (e) {
     }
 
