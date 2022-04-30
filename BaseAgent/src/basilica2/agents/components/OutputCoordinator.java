@@ -153,9 +153,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
 
-					if (d > 0 && (d > bestBelief))// || (bestBelief - d) < Math.random() / 100.0))
+					if (d > 0 && (d > bestBelief))
 					{
-						best = p;
+						best = p; // proposal with the highest priority
 						bestBelief = d;
 					}
 
@@ -164,6 +164,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				if (best != null)
 				{
 					log(Logger.LOG_NORMAL, "Execute: " + best);
+					// if the proposal about to be executed belongs to a new step, 
+					// set removeStepName which is used in cleanUp() to remove micro_local proposals belonging to this step 
 					if (lastStepName!=null && (!best.getMicroStepName().equals(lastStepName)))
 					{
 						removeStepName = lastStepName;
@@ -171,6 +173,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					}
 					lastStepName = best.getMicroStepName();
 					log(Logger.LOG_NORMAL, "lastStepName: " + lastStepName);
+					
 					best.getCallback().accepted(best);
 					publishEvent(best.getEvent());
 					proposalQueue.remove(best);
@@ -178,7 +181,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					AbstractPrioritySource source = best.getSource();
 
 					activeSources.put(source.getName(), source);
-
+					// keep the size of recentSources <= HISTORY_SIZE
 					if (recentSources.size() >= HISTORY_SIZE) recentSources.remove(0);
 
 					recentSources.add(source); 
@@ -200,9 +203,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			while (pit.hasNext())
 			{
 				PriorityEvent p = pit.next();
-
-				if (p.getInvalidTime() < now && !p.getEventType().equals("macro"))
+				
+				if (p.getInvalidTime() < now && !p.getEventType().equals("macro")) 
 				{
+					// remove timeout micro proposals
 					log(Logger.LOG_NORMAL, "cleanUp micro timeout: " + p);
 					p.getCallback().rejected(p);
 					pit.remove();
@@ -215,6 +219,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					// }
 				}else if (p.getEventType().equals("micro_local") && removeStepName!=null && p.getMicroStepName().equals(removeStepName))
 				{
+					// remove passed step's micro_local proposals
 					log(Logger.LOG_NORMAL, "cleanUp micro_local removeStepName: " + p);
 					p.getCallback().rejected(p);
 					pit.remove();
@@ -445,10 +450,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				return belief;
 			}
 		}
+		// macro proposal's priority is not affected by recent executed proposals
 		if (p.getEventType().equals("macro"))
 		{
 			return belief;
 		}
+		// micro proposal's priority can be affected by recent executed proposals
 		for (AbstractPrioritySource source : recentSources)
 		{
 			Double likelihood = source.likelyNext(p);

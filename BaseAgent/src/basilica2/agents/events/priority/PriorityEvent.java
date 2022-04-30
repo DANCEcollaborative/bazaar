@@ -28,7 +28,7 @@ public class PriorityEvent extends Event
         this.callback = e.callback;
         this.priority = e.priority;
         this.source = e.source;
-        this.eventtype = e.eventtype;
+        this.eventtype = e.eventtype; // macro/micro-local/micro-global
     }
 
     @Override
@@ -58,6 +58,7 @@ public class PriorityEvent extends Event
     private String eventtype;
     private String microstepname;
     
+    // default eventtype = micro_local
     public PriorityEvent(Component c, Event decoree, double priority, AbstractPrioritySource source)
     {
         this("micro_local", c, decoree, priority, source, 10);
@@ -130,9 +131,11 @@ public class PriorityEvent extends Event
     
     public double getPriority()
     {
+    	// macro event's priority doesn't depreciate when it's about to timeout
     	if(this.eventtype.equals("macro")) {
     		return this.priority;
     	}else {
+    		// micro event's priority depreciate when it's about to timeout
     		double timeFactor = (0.5*1000*lifetime)/(1+timeout - Timer.currentTimeMillis());
             return this.priority * Math.min(1.0, 1.0/timeFactor);
     	}
@@ -193,7 +196,7 @@ public class PriorityEvent extends Event
 	
 	public static PriorityEvent makeBlockingEvent(String sourceName, Event e, double priority, double timeout, final double blockout, String... blacklist)
 	{
-		return makeBlockingEvent("micro", sourceName, e, priority, timeout, blockout, blacklist);
+		return makeBlockingEvent("micro_local", sourceName, e, priority, timeout, blockout, blacklist);
 	}
 	public static PriorityEvent makeBlockingEvent(String eventtype, String sourceName, Event e, double priority, double timeout, final double blockout, String... blacklist)
 	{
@@ -216,7 +219,7 @@ public class PriorityEvent extends Event
 	}
 	public static PriorityEvent makeOpportunisticEvent(final String sourceName, final Event e, final double priority, final double lagTime, final double timeout, final double blockout, final String... blacklist)
 	{
-		return makeOpportunisticEvent("micro", sourceName, e, priority, lagTime, timeout, blockout, blacklist);
+		return makeOpportunisticEvent("micro_local", sourceName, e, priority, lagTime, timeout, blockout, blacklist);
 	}
 	public static PriorityEvent makeOpportunisticEvent(String eventtype, final String sourceName, final Event e, final double priority, final double lagTime, final double timeout, final double blockout, final String... blacklist)
 	{

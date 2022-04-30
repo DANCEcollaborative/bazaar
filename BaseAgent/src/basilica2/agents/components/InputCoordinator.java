@@ -151,6 +151,7 @@ public class InputCoordinator extends Component
     public void pushProposal(PriorityEvent pe) 
     {
     		log(Logger.LOG_NORMAL, "pushProposal: "+pe.getEvent());
+    		// set micro proposal's stepname before pushing it to outputCoordinator
     		State s = StateMemory.getSharedState(agent);
     		String stepname = s.getStepName();
     		pe.setMicroStepName(stepname);
@@ -259,7 +260,7 @@ public class InputCoordinator extends Component
 	private void pushEventsToOutputCoordinator()
 	{
 
-		
+		// set micro proposal stepname before pushing it to outputCoordinator
 		State s = StateMemory.getSharedState(agent);
 		String stepname = s.getStepName();
 		for(PriorityEvent pe : proposals)
