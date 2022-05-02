@@ -701,9 +701,16 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 	{
 		String withinPromptDelimiter = "|||";
 		String combo = "";
+		Boolean start = true; 
 		for(String text : promptStrings)
 		{
-			combo += withinPromptDelimiter+text;
+			if (start == true) {
+				combo += "|" + text;
+				start = false;
+			}
+			else {
+				combo += withinPromptDelimiter+text;
+			}
 		}
 		return combo.substring(1);
 	}

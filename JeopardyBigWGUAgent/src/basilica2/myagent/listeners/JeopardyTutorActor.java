@@ -39,7 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -148,7 +147,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	public JeopardyTutorActor(Agent a)
 	{
 		super(a);
-//		agentMe = a;
 		introduction_cue_timeout = Integer.parseInt(properties.getProperty("timeout1"));
 		introduction_cue_timeout2 = Integer.parseInt(properties.getProperty("timeout2"));
 		request_poke_prompt_text = properties.getProperty("requestpokeprompt", request_poke_prompt_text);
@@ -172,7 +170,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	{
 		try
 		{
-			
 			DOMParser parser = new DOMParser();
 			parser.parse(f);
 			Document dom = parser.getDocument();
@@ -235,17 +232,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 //		{
 //			return;
 //		}
-//		State state = State.copy(StateMemory.getSharedState(agentMe));
-//		stageName = state.getStageName();
-//		if (stageName.equals("playGame")){
-//			System.out.println("setting in TutorActor processEvent allowDialogs true");
-//			state.setAllowDialogs(true);
-//		} else {
-//			System.out.println("setting in TutorActor processEvent allowDialogs FALSE");
-//			state.setAllowDialogs(false);
-//		}
-//		StateMemory.commitSharedState(state, agentMe);
-		
 		if(block)
 		{
 			/*try {
@@ -476,23 +462,12 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 								noMatchingResponseCount++;
 								if (noMatchingResponseCount <= numUser + 2)
 								{
-									
 									//TODONE: fire poke event in repsonse to student message
 //									TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { response_poke_prompt_text,
 //											lastTutorTurns.get(lastTutorTurns.size() - 1) });
 //									this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
 									//sendTutorMessage(response_poke_prompt_text, lastTutorTurns.get(lastTutorTurns.size() - 1));
 								}
-//								else if (noMatchingResponseCount >= numUser + 2)
-//								{
-//									System.out.println("too many unanticipated");
-//									// Give up and just go with Unanticipated
-//									// Response match
-//									expectingResponse = false;
-//									noMatchingResponseCount = 0;
-//									List<String> tutorTurns = currentAutomata.progress(concept);
-//									processTutorTurns(tutorTurns);
-//								}
 							}
 							else
 							{
@@ -504,16 +479,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 								processTutorTurns(tutorTurns);
 							}
 						}
-//							else if (concept.getLabel().equalsIgnoreCase("answer1_1")) {
-//								if (System.currentTimeMillis() - startTime < 360000) {
-//									sendTutorMessage("Please choose another question to answer.");
-//									System.out.println(System.currentTimeMillis());
-//									Systsem.out.println(startTime);
-//								} else {
-//									sendTutorMessage("Thanks for playing. :-)");
-//								}
-//							
-//						}
 						/*else if (concept.getLabel().equalsIgnoreCase("_dont_know_"))
 						{
 
@@ -748,11 +713,18 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 
 	public String join(String... promptStrings)
 	{
-		String withinPromptDelimiter = "|||"; 
+		String withinPromptDelimiter = "|||";
 		String combo = "";
+		Boolean start = true; 
 		for(String text : promptStrings)
 		{
-			combo += withinPromptDelimiter+text;
+			if (start == true) {
+				combo += "|" + text;
+				start = false;
+			}
+			else {
+				combo += withinPromptDelimiter+text;
+			}
 		}
 		return combo.substring(1);
 	}
@@ -765,7 +737,6 @@ public class JeopardyTutorActor extends BasilicaAdapter implements TimeoutReceiv
 	@Override
 	public void processEvent(InputCoordinator source, Event event)
 	{
-		
 		this.source = source;
 		processEvent(event);
 		
