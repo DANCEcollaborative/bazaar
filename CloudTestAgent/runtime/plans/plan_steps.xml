@@ -18,7 +18,7 @@ use -->
         <step type="match" delay="30" prompt="PROMPT_STEP_MATCH" >Prompt_Step_A2</step>
     </stage>
     
-    <stage name="EndStage" type="other" delay="0" timeout="2400">
+    <stage name="EndStage" type="other" delay="0" timeout="180">
         <step type="prompt" delay="30" prompt="PROMPT_END" >PROMPT_END</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
