@@ -8,6 +8,8 @@ import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PrioritySource;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.State;
 import basilica2.util.MessageEventLogger;
 import edu.cmu.cs.lti.basilica2.core.*;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
@@ -51,14 +53,14 @@ public class InputCoordinator extends Component
     Set<Event> preprocessedEvents = new HashSet<Event>();
     Set<PriorityEvent> proposals = new HashSet<PriorityEvent>();
     private OutputCoordinator outputCoordinator;
-    
+    private Agent agent; 
     
     
     
     public InputCoordinator(Agent a, String n, String pf) 
     {
         super(a, n, pf); 
-        
+        this.agent = a; 
         //showUI();
     }
     
@@ -94,28 +96,42 @@ public class InputCoordinator extends Component
     {
         synchronized(this)
         {
+        	log(Logger.LOG_NORMAL, "addProposal: "+e.getEvent());
             proposals.add(e);
         }
     }
-    
-	public void addEventProposal(Event e)
+    public void addEventProposal(Event e)
 	{
-		this.addProposal(new PriorityEvent(this, e, 0.5, genericPrioritySource, 10));
+    	this.addEventProposal("micro_local", e);
+	}
+	public void addEventProposal(String eventtype, Event e)
+	{
+		this.addProposal(new PriorityEvent(eventtype, this, e, 0.5, genericPrioritySource, 10));
 	}	
-	
 	public void pushEventProposal(Event e)
 	{
-		this.pushProposal(new PriorityEvent(this, e, 0.5, genericPrioritySource, 10));
+		this.pushEventProposal("micro_local", e);
 	}
-	
+	public void pushEventProposal(String eventtype, Event e)
+	{
+		this.pushProposal(new PriorityEvent(eventtype, this, e, 0.5, genericPrioritySource, 10));
+	}
 	public void addEventProposal(Event e, double priority, double timeout)
 	{
-		this.addProposal(new PriorityEvent(this, e, priority, genericPrioritySource, timeout));
+		this.addEventProposal("micro_local", e, priority, timeout);
 	}
-
+	public void addEventProposal(String eventtype, Event e, double priority, double timeout)
+	{
+		this.addProposal(new PriorityEvent(eventtype, this, e, priority, genericPrioritySource, timeout));
+	}
+	
 	public void pushEventProposal(Event e, double priority, double timeout)
 	{
-		this.pushProposal(new PriorityEvent(this, e, priority, genericPrioritySource, timeout));
+		this.pushEventProposal("micro_local", e, priority, timeout);
+	}
+	public void pushEventProposal(String eventtype, Event e, double priority, double timeout)
+	{
+		this.pushProposal(new PriorityEvent(eventtype, this, e, priority, genericPrioritySource, timeout));
 	}
 	
 	/**
@@ -134,6 +150,15 @@ public class InputCoordinator extends Component
      */
     public void pushProposal(PriorityEvent pe) 
     {
+    		log(Logger.LOG_NORMAL, "pushProposal: "+pe.getEvent());
+    		// set micro proposal's stepname before pushing it to outputCoordinator
+    		State s = StateMemory.getSharedState(agent);
+    		String stepname = s.getStepName();
+    		pe.setMicroStepName(stepname);
+    		if (pe.getEventType().equals("macro") && pe.getPriority()<1.0)
+			{
+				pe.setPriority(1.0);
+			}
             outputCoordinator = (OutputCoordinator)myAgent.getComponent("outputCoordinator");
             outputCoordinator.addProposal(pe);
     }
@@ -151,7 +176,7 @@ public class InputCoordinator extends Component
     @Override /*from Component*/
     public void processEvent(Event event)
     {
-    	log(Logger.LOG_NORMAL, "InputCoordinator received event: "+event);
+    	//log(Logger.LOG_NORMAL, "InputCoordinator received event: "+event);
 
         if(event instanceof MessageEvent && isAgentName(((MessageEvent) event).getFrom())) 
         {
@@ -172,6 +197,7 @@ public class InputCoordinator extends Component
 		            for(BasilicaPreProcessor prep : preprocessors.get(keyClass))
 		            {
 		            	// System.err.println("****\n\nprocessing "+event+" for "+prep.getClass().getSimpleName()+": ");
+		            	//log(Logger.LOG_NORMAL, "preprocessedEvents="+keyClass+" preprocessors="+prep);
 		            	if (event.isValid()) 
 		            		prep.preProcessEvent(this, event);
 		                // System.err.println(preprocessedEvents+"\n\n****");
@@ -203,7 +229,7 @@ public class InputCoordinator extends Component
 	        synchronized(this)
 	        {
 	
-				log(Logger.LOG_NORMAL, "Events After Preprocessing: " +preprocessedEvents);
+				//log(Logger.LOG_NORMAL, "Events After Preprocessing: " +preprocessedEvents);
 	
 	    		RollingWindow window = RollingWindow.sharedWindow();
 	            for(Event eve : preprocessedEvents)
@@ -234,8 +260,19 @@ public class InputCoordinator extends Component
 	private void pushEventsToOutputCoordinator()
 	{
 
-		log(Logger.LOG_NORMAL,"Events After Agent Processing:"+proposals);
-
+		// set micro proposal stepname before pushing it to outputCoordinator
+		State s = StateMemory.getSharedState(agent);
+		String stepname = s.getStepName();
+		for(PriorityEvent pe : proposals)
+		{
+			pe.setMicroStepName(stepname);
+			if (pe.getEventType().equals("macro") && pe.getPriority()<1.0)
+			{
+				pe.setPriority(1.0);
+			}
+		}
+		//log(Logger.LOG_NORMAL,"Events After Agent Processing:"+proposals);
+		
 		outputCoordinator = (OutputCoordinator)myAgent.getComponent("outputCoordinator");
 		outputCoordinator.addAll(proposals);
 
@@ -257,6 +294,7 @@ public class InputCoordinator extends Component
 			    for(int i = 0; i < blisters.size(); i++)
 			    {
 			    	BasilicaListener blister = blisters.get(i);
+			    	//log(Logger.LOG_NORMAL,"processOneEvent: keyClass="+keyClass+" blister="+blister);
 			        blister.processEvent(this, eve);
 			    }
         	}

@@ -321,13 +321,13 @@ public class RotateStepHandler implements StepHandler
 		
 		if(!attributes.containsKey("lag"))
 		{
-			source.pushProposal(PriorityEvent.makeBlackoutEvent("PromptStep", me, priority, 30.0, delay));
+			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "PromptStep", me, priority, 30.0, delay));
 		}
 		else
 		{
 			double lagTime = Double.parseDouble(attributes.get("lag"));
 			double timeout = Double.parseDouble(attributes.get("expires"));
-			source.pushProposal(PriorityEvent.makeOpportunisticEvent("PromptStep", me, priority, lagTime, timeout, delay, ""));
+			source.pushProposal(PriorityEvent.makeOpportunisticEvent("macro", "PromptStep", me, priority, lagTime, timeout, delay, ""));
 		}
 	}
 }

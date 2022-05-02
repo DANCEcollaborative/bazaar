@@ -35,12 +35,14 @@ import de.fhg.ipsi.chatblocks2.model.IReferenceableDocument;
 import de.fhg.ipsi.chatblocks2.model.messagebased.ChatMessage;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
@@ -275,6 +277,7 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 
 	public String[] getParts()
 	{
+
 		return this.getText().split(withinPromptDelimiterEscaped);
 	}
 
