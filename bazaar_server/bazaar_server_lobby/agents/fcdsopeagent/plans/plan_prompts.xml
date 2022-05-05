@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="PROMPT_DUMMY">
+    <text> Hi! We will start soon.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Welcome! I'm [AGENT NAME].|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other.</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="PROMPT_INITIAL_INTRODUCTION">
+        <text>Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh"|||Once that's done, EVERYONE should run "source ~/.bashrc"|||At the end of the session, execute the submitter script ONE PERSON AT A TIME using './submitter'. Even if the submission fails, you will get the post-quiz token for accessing the post-quiz.|||We will rotate roles every time a new test case passes.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles, i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh". If someone joins later, have them assume one of the missing roles and assist until you pass a test case.
+		</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh". If someone joins later, have them assume one of the missing roles and assist until you pass a test case.
+		</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_4">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh"
+</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_1">
+        <text>Let's move on to the next task.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_2">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh". If someone joins later, have them assume one of the missing roles and assist until you pass a test case.
+		</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_3">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh". If someone joins later, have them assume one of the missing roles and assist until you pass a test case.
+		</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_4">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones. Have ONLY ONE PERSON run this init script to set up the environment - "wget https://clouddatascience.blob.core.windows.net/ope-evaluation-optimization/sail/v1/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh"
+</text>
+    </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION">
+     <text>A concise way to solve this problem - 
+
+    preprocessor = StandardScaler()
+    train_X, test_X, train_y, test_y = train_test_split(X, y, random_state = seed)
+    model = LogisticRegression(random_state = seed)
+    train_X = preprocessor.fit_transform(train_X)
+    test_X = preprocessor.transform(test_X)
+    model.fit(train_X, train_y)
+    return model.score(test_X, test_y)</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION">
+     <text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.|||Project Manager, please lead the discussion - You already know why it's extremely bad practice to use part of the train set as test set. Now, discuss why usage of preprocessor should follow same logic.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW">
+     <text>As a follow-up, discuss why you should not fit StandardScaler on test data.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION">
+     <text>One way to do this - 
+     
+    def cpu_predict(data, model, vectorizer): 
+        return [predict_one(row, model, vectorizer)[0] for row in data] 
+         
+    def gpu_predict(data, model, vectorizer): 
+        return predict_batch(data, model, vectorizer).tolist()
+     </text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION">
+     <text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.|||Project Manager, your turn to lead the discussion again - In a lot of cases using small mini-batches or even one-by-one processing will benefit complex models running on CPU. At the same time, using large batches will be better while using a GPU. Based on this, discuss take turns to discuss the technical reasons of why this is happening.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW">
+     <text>Based on your discussion, how will you decide whether to use the CPU or the GPU for processing complex models in the future?</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION">
+     <text>A way to do this - 
+
+    train_loss, n_batches = 0, 0
+   	for i, data in enumerate(trainloader, 0):
+	    # get the inputs; data is a list of [inputs, labels]
+        inputs, labels = data
+
+     	# zero the parameter gradients
+     	optimizer.zero_grad()
+
+     	# forward + backward + optimize
+     	outputs = net(inputs)
+     	loss = criterion(outputs, labels)
+    	loss.backward()
+     	optimizer.step()
+
+     	# total train loss
+     	train_loss += loss.item()
+     	n_batches += 1
+
+	train_loss /= n_batches
+
+	correct, total = 0, 0
+    with torch.no_grad():
+        for data in testloader:
+           	images, labels = data
+            outputs = net(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+            
+    return train_loss, correct / total
+     </text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION">
+     <text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.|||Led by the Project Manager, take turns to discuss why it's important to zero gradient on each iteration of training.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW">
+     <text>As a follow-up, what will happen if you do not do it?</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION">
+     <text>One way to do this - 
+
+	inputs = tokenizer(text, return_tensors="pt")
+    with torch.no_grad():
+       out = model(**inputs, return_dict=True).logits.numpy()[0]
+       
+    return list(out)
+     </text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION">
+     <text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.|||Final discussion time led by the Project Manager - Documentation navigation skill is crucial for your career. Discuss how you can quickly browse long and complex documentation.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW">
+     <text>What was the exact function you ended up using here, did you find any possible alternatives?</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+     <text>Thanks for participating in today's OPE activity. You may log out after submission. Execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full-credit.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_END">
+     <text>Thank you for your participation. This is end of our OPE session.</text>
+     </prompt>
+
+</prompts>
