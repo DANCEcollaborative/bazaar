@@ -185,6 +185,10 @@ Recall that the researcher refers to resources like the primer as necessary and 
      <text>What was the exact function you ended up using here, did you find any possible alternatives?</text>
      </prompt>
      
+     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+     <text>Thanks for participating in today's OPE activity. You may log out after submission. Execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full-credit.</text>
+     </prompt>
+     
      <prompt strategy="task" id="PROMPT_STEP_END">
      <text>Thank you for your participation. This is end of our OPE session.</text>
      </prompt>
