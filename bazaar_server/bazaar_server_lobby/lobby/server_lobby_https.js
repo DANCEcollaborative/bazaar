@@ -1493,6 +1493,14 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 
+	// when the client emits 'updatepresence', this listens and executes
+	socket.on('updatepresence', async (data)  => {
+		logMessage(socket, data, "updatepresence");
+        console.log("socket.on('updatepresence'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+        io.sockets.in(socket.room).emit('updatepresence', socket.username, data);		
+	});
+
+
 	// when the client emits 'request', this listens and executes
 	socket.on('request', async (data)  => {	
 	//console.log("Enter socket.on_request"); 	

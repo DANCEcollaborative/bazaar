@@ -16,6 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -31,6 +32,8 @@ import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.events.PoseEvent.poseEventType;
+import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -44,6 +47,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 	String socketSubURL = null;
 	String agentUserName = "ROBOT";
 	String agentRoomName = "ROOM";
+//	private String multiModalDelim = ";%;";
+//	private String withinModeDelim = ":::";	
 
 
 	boolean connected = false;
@@ -364,10 +369,58 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					String message = (String)args[1];
-					System.out.println("Perspective : " + (String)args[3]);
-					PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, (String)args[0], message.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, (String)args[2], (String)args[3]);
+					String user = (String)args[0]; 
+					String message = (String)args[1]; 
+					String presence = "join";  
+					String userID = "0"; 
+					String perspective = "0"; 
+					String[] multiModalMessage = message.split(MultiModalFilter.multiModalDelim);
+					
+					// If this is a multimodal message
+					if (multiModalMessage.length <= 1) {
+						presence = message; 
+						userID = (String)args[2]; 
+						perspective = (String)args[3]; 
+	
+					} else {
+						perspective = "0";						// hard-coded since perspective won't be supplied
+						MultiModalFilter.multiModalTag tag; 
+						String [] messagePart; 
+						for (int i = 0; i < multiModalMessage.length; i++) {
+							System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
+							messagePart = multiModalMessage[i].split(MultiModalFilter.withinModeDelim,2);
+							
+							tag = MultiModalFilter.multiModalTag.valueOf(messagePart[0]);
+							
+							switch (tag) {
+							case multimodal:
+								System.out.println("=========== multimodal message ===========");	
+								break;
+							case from:  
+								user = messagePart[1]; 
+								System.out.println("from: " + user);	
+								break;	
+							case userID:  
+								userID = messagePart[1]; 
+								System.out.println("userID: " + userID);	
+								break;		
+							case presence:  
+								presence = messagePart[1]; 
+								System.out.println("presence: " + presence);	
+								break;								
+							default:
+								System.out.println(">>>>>>>>> Unused multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
+							}
+						}					
+					}
+
+					PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, user, presence.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, userID, perspective);
 					WebsocketChatClient.this.broadcast(pe);
+					
+//					String message = (String)args[1];
+//					System.out.println("Perspective : " + (String)args[3]);
+//					PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, (String)args[0], message.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, (String)args[2], (String)args[3]);
+//					WebsocketChatClient.this.broadcast(pe);
 				}
 			}).on("updateready", new Emitter.Listener() { 
 

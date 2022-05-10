@@ -39,12 +39,12 @@ public class MultiModalFilter extends BasilicaAdapter
 
 	public static String GENERIC_NAME = "MultiModalFilter";
 	public static String GENERIC_TYPE = "Filter";
-	protected enum multiModalTag  
+	public enum multiModalTag  
 	{
-		PSI_Bazaar_Text, multimodal, identity, from, to, speech, intention, location, facialExp, pose, emotion;
+		PSI_Bazaar_Text, multimodal, identity, from, to, speech, intention, location, facialExp, pose, emotion, presence, userID;
 	}
-	private String multiModalDelim = ";%;";
-	private String withinModeDelim = ":::";	
+	public static String multiModalDelim = ";%;";
+	public static String withinModeDelim = ":::";	
 	private boolean trackLocation = true;
 	private boolean checkDistances = true;
 	private Double minDistanceApart = 182.88;
@@ -207,6 +207,14 @@ public class MultiModalFilter extends BasilicaAdapter
 				case emotion:
 					System.out.println("emotion: " + messagePart[1]);
 					break;
+				case presence:  
+					System.out.println("presence: " + messagePart[1]);	
+					log(Logger.LOG_NORMAL, "presence: " + messagePart[1]);
+					break;	
+				case userID:  
+					System.out.println("userID: " + messagePart[1]);	
+					log(Logger.LOG_NORMAL, "userID: " + messagePart[1]);
+					break;	
 					
 				default:
 					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
@@ -329,9 +337,9 @@ public class MultiModalFilter extends BasilicaAdapter
 		else return null;		
 	}
 	
-	public String getMultiModalDelim () {
-		return multiModalDelim;		
-	}
+//	public String getMultiModalDelim () {
+//		return multiModalDelim;		
+//	}
 	
 	private Double[] locationStringToDoubles(String locationString) {
 		Double[] locationCoordinates = new Double[3]; 
