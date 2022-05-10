@@ -41,7 +41,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	public static String GENERIC_TYPE = "Filter";
 	protected enum multiModalTag  
 	{
-		PSI_Bazaar_Text, multimodal, identity, from, to, speech, intention, location, facialExp, pose, emotion;
+		PSI_Bazaar_Text, multimodal, identity, from, to, speech, intention, location, facialExp, pose, emotion, presence;
 	}
 	private String multiModalDelim = ";%;";
 	private String withinModeDelim = ":::";	
@@ -207,6 +207,10 @@ public class MultiModalFilter extends BasilicaAdapter
 				case emotion:
 					System.out.println("emotion: " + messagePart[1]);
 					break;
+				case presence:  
+					System.out.println("presence: " + messagePart[1]);	
+					log(Logger.LOG_NORMAL, "presence: " + messagePart[1]);
+					break;	
 					
 				default:
 					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
