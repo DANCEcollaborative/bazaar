@@ -223,19 +223,19 @@ ul.tab li a:focus, .active {
     {
     	var fields = data.split(";%;");
     	var numFields = fields.length; 	
-		console.log("getMultimodalValue - search field: " + field);   		
-		console.log("getMultimodalValue - data: " + data);   	
-		console.log("getMultimodalValue - numFields: " + numFields.toString());
+// 		console.log("getMultimodalValue - search field: " + field);   		
+// 		console.log("getMultimodalValue - data: " + data);   	
+// 		console.log("getMultimodalValue - numFields: " + numFields.toString());
     	var i = 0; 
     	var value = ""; 
     	while (i < numFields) {
     		var fieldWithValue = fields[i].split(":::");   
-			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);   
+// 			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);   
     		i =	i + 1; 	
     		if (fieldWithValue[0] == field) {
-    			console.log("getMultimodalValue - field found");  
+//     			console.log("getMultimodalValue - field found");  
     			value = fieldWithValue[1];
-    			console.log("getMultimodalValue - value: " + value);  
+//     			console.log("getMultimodalValue - value: " + value);  
     			i = numFields;
     		}
     	}
@@ -294,14 +294,14 @@ ul.tab li a:focus, .active {
 	socket.on('updatechat', function (username, data) 
 	{
 		if (data.search("multimodal:::true;%;") > -1) {
-			console.log("updatechat - multimodal message found");
+// 			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("speech",data);
 		} else {
-			console.log("updatechat - multimodal message NOT found");
+// 			console.log("updatechat - multimodal message NOT found");
 		}
-		console.log("updatechat - username: " + username);
-		console.log("updatechat - data:     " + data);
+// 		console.log("updatechat - username: " + username);
+// 		console.log("updatechat - data:     " + data);
         appendMessage(new Date(), username, data);
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
@@ -368,7 +368,7 @@ ul.tab li a:focus, .active {
 	socket.on('updateusers', function (my_users) 
 	{
 	   users = my_users;
-	   console.log(users);
+	   // console.log(users);
 	});
 	
 
@@ -377,30 +377,19 @@ ul.tab li a:focus, .active {
 	socket.on('updatepresence', function (username, data) 
 	{
 		if (data.search("multimodal:::true;%;") > -1) {
-			console.log("updatepresence - multimodal message found - username: " + username + "   data: " + data);
+// 			console.log("// updatepresence - multimodal message found - username: " + username + "   data: " + data);
 			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("presence",data);
 		} else {
-			console.log("updatechat - multimodal message NOT found");
+// 			console.log("updatechat - multimodal message NOT found");
 		}
-		console.log("updatepresence, username after processing: " + username);
-		console.log("updatepresence: data after processing:     " + data);
+// 		console.log("updatepresence, username after processing: " + username);
+// 		console.log("updatepresence: data after processing:     " + data);
 		appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
 		
-// 		console.log("updatepresence - username: " + username);   		
-// 		console.log("updatepresence - data: " + data);   	
-//         appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	 
-// 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
-// 	});
-	
-    // listen for other user's ready events. We'll leave this off for now.
-	/*socket.on('updateready', function (username, ready_state) 
-	{
-        appendNote(new Date(), username, (ready_state == "ready")?"thinks the team is ready.":"isn't ready yet.");
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
-	});*/
+
 	
     // listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('update_global_ready', function (ready_state) 
@@ -421,8 +410,8 @@ ul.tab li a:focus, .active {
 		// listener, when the server emits 'sendfile', this logs the message and otherwise ignores it
 	socket.on('sendfile', function (username, data) 
 	{
-		console.log("sendfile - username: " + username);
-		console.log("sendfile - data:     " + data);
+// 		console.log("sendfile - username: " + username);
+// 		console.log("sendfile - data:     " + data);
 	});
 	
 	
