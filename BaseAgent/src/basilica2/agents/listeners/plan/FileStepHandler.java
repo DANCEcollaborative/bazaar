@@ -32,7 +32,6 @@ public class FileStepHandler implements StepHandler
 		filegatekeeper.setFileName(fileName); 
 		
 		overmind.addHelper(filegatekeeper);
-
 		
 		String checkinPrompt = currentStep.attributes.get("checkin_prompt");
 		if(checkinPrompt == null)
@@ -55,7 +54,8 @@ public class FileStepHandler implements StepHandler
 			{
 				if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 				{
-					MessageEvent softWarning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("FILE_STEP_TIMEOUT_WARNING"), "FILE_STEP_TIMEOUT_WARNING");
+					String warningPrompt = currentStep.attributes.get("WARNING_PROMPT");
+					MessageEvent softWarning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(warningPrompt), "FILE_STEP_TIMEOUT_WARNING");
 					source.pushEventProposal(softWarning, OutputCoordinator.MEDIUM_PRIORITY, 5);
 				}
 			}
