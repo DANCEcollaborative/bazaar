@@ -37,7 +37,19 @@
     </prompt>
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE">
-        <text>Ok! We are now in the Programming phase. Let's get started with the activity and assign you to your responsibilities. You will have 60 minutes to complete programming and to submit to receive your grades.</text>
+        <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have 60 minutes to complete programming and to submit to receive your grades.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_TASK_2">
+        <text>Okay! Let's move on to 'task2.py'.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_TASK_3">
+        <text>Okay! Let's move on to 'task3.py'.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_TASK_4">
+        <text>Okay! Let's move on to 'task4.py'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
@@ -45,14 +57,14 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
-        <text>The new roles are -
+        <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
-        <text>The new roles are -
+        <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
@@ -60,7 +72,7 @@ Since we are missing a member, the project manager will monitor the group's prog
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_4">
-        <text>The new roles are -
+        <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
