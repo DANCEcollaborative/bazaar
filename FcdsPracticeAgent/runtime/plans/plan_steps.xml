@@ -9,11 +9,13 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">
-    	<step type="prompt" delay="5" prompt="PROMPT_DUMMY">Prompt_Dummy</step>
-    	
+    	<step type="prompt" delay="5" prompt="STARTING_SOON">Starting_Soon</step>
+    	<step type="prompt" delay="5" prompt="PROMPT_INITIAL_PRE_QUIZ">pre-quiz</step>
+    	<step type="prompt" delay="10" prompt="PROMPT_COLLABORATE_MENU">instr2</step>
+    	<step type="prompt" delay="10" prompt="PROMPT_TERMINAL_WINDOW">instr3</step>
+    	<step type="prompt" delay="10" prompt="PROMPT_SUBMIT">instr4</step>
+    	<step type="prompt" delay="15" prompt="PROMPT_ROLE_INTRO">instr5</step>   	
     	<step type="greet" timeout="30" delay="0">GREETINGS</step>
-    	
-    	<step type="prompt" delay="0" timeout="10" prompt="PROMPT_INITIAL_INTRODUCTION">Prompt_Initial_Introduction</step> 
     </stage>   
         
     <stage name="StageLO1" type="other" delay="0">
