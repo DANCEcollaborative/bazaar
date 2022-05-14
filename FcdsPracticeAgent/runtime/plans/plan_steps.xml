@@ -28,21 +28,21 @@
     
     <stage name="StageLO2" type="other" delay="0">  
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO2_Match</step>        
-        <step type="file_gated" timeout="300" delay="30" file="task-1" checkin_prompt="NONE"  warning_prompt="PROMPT_STEP_LO2_SOLUTION">Wait_Step_Task1</step>        	
+        <step type="file_gated" timeout="300" delay="30" file="task-2" checkin_prompt="NONE"  warning_prompt="PROMPT_STEP_LO2_SOLUTION">Wait_Step_Task1</step>        	
         <step type="prompt" delay="15" prompt="PROMPT_DISCUSSION">Prompt_Step_LO2_Discussion</step>    	
         <step type="prompt" delay="60" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
     </stage> 
     
     <stage name="StageLO3" type="other" delay="0"> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO3_Match</step>        
-        <step type="file_gated" timeout="300" delay="30" file="task-1" checkin_prompt="NONE"  warning_prompt="PROMPT_STEP_LO3_SOLUTION">Wait_Step_Task1</step>        	
+        <step type="file_gated" timeout="300" delay="30" file="task-3" checkin_prompt="NONE"  warning_prompt="PROMPT_STEP_LO3_SOLUTION">Wait_Step_Task1</step>        	
         <step type="prompt" delay="15" prompt="PROMPT_DISCUSSION">Prompt_Step_LO3_Discussion</step>    	
         <step type="prompt" delay="60" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
     </stage> 
     
     <stage name="StageLO4" type="other" delay="0">   
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO4_Match</step>        
-        <step type="file_gated" timeout="300" delay="30" file="task-1" checkin_prompt="NONE"  warning_prompt="PROMPT_STEP_LO4_SOLUTION">Wait_Step_Task1</step>        	
+        <step type="file_gated" timeout="300" delay="30" file="task-4" checkin_prompt="NONE"  warning_prompt="PROMPT_STEP_LO4_SOLUTION">Wait_Step_Task1</step>        	
         <step type="prompt" delay="15" prompt="PROMPT_DISCUSSION">Prompt_Step_LO4_Discussion</step>    	
         <step type="prompt" delay="60" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
     </stage> 
