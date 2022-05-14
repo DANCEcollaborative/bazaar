@@ -100,32 +100,16 @@ Recall that the researcher refers to resources like the primer as necessary and 
      <text>Now, before we move on to the next task, let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
      </prompt> 
      
-     <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION">
-     <text>Here's a hint in case you are stuck ...|||Did you explore the use of the list methods max() and min() to separately find the maximum and minimum in the list?</text>
-     </prompt>
-     
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION">
      <text>We'll have the project manager lead the discussion. Take turns to talk about challenges you faced while playing your role. How could you have played it better? We'll move on once you have had some time to discuss.</text>
-     </prompt>
-     
-     <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION">
-     <text>Here's a hint in case you are stuck ...|||Similar to Task 1, ensure that the selling price is greater than the buying price. Try tracking the min price and max profit so far while looping through the list.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION">
      <text>Project manager-led discussion time now. Take turns to answer the following question. What do you think you are learning in each of the roles? We'll move on once you have had some time to discuss.</text>
      </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION">
-     <text>Here's a hint in case you are stuck ...|||Consider consecutive transactions where the selling price is greater than the buying price. Then add all of them to obtain the maximum profit</text>
-     </prompt>
-     
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION">
      <text>It's discussion time led by the project manager again. Talk about how different group members are playing the same role differently. We'll move on once you have had some time to discuss.</text>
-     </prompt>
-     
-     <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION">
-     <text>Here's a hint in case you are stuck ...|||The two transactions may be decomposed into four actions: "buying transaction #1","selling transaction #1","buying transaction #2" and "selling transaction #2". Over the iterations, consider calculating four variables which correspond to the costs or the profits of each action respectively in the two transactions. Use min() and max() to update these four variables iteratively.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION">
