@@ -54,7 +54,7 @@ public class FileStepHandler implements StepHandler
 			{
 				if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 				{
-					String warningPrompt = currentStep.attributes.get("WARNING_PROMPT");
+					String warningPrompt = currentStep.attributes.get("warning_prompt");
 					MessageEvent softWarning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(warningPrompt), "FILE_STEP_TIMEOUT_WARNING");
 					source.pushEventProposal(softWarning, OutputCoordinator.MEDIUM_PRIORITY, 5);
 				}
