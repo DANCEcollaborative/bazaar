@@ -29,19 +29,19 @@
        <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
     </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION" intention="bottom_out_hint_1">
      <text>Here's a hint in case you are stuck ...|||Did you explore the use of the list methods max() and min() to separately find the maximum and minimum in the list?</text>
      </prompt>
 
-     <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION" intention="bottom_out_hint_2">
      <text>Here's a hint in case you are stuck ...|||Similar to Task 1, ensure that the selling price is greater than the buying price. Try tracking the min price and max profit so far while looping through the list.</text>
      </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION" intention="bottom_out_hint_3">
      <text>Here's a hint in case you are stuck ...|||Consider consecutive transactions where the selling price is greater than the buying price. Then add all of them to obtain the maximum profit</text>
      </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION" intention="bottom_out_hint_4">
      <text>Here's a hint in case you are stuck ...|||The two transactions may be decomposed into four actions: "buying transaction #1","selling transaction #1","buying transaction #2" and "selling transaction #2". Over the iterations, consider calculating four variables which correspond to the costs or the profits of each action respectively in the two transactions. Use min() and max() to update these four variables iteratively.</text>
      </prompt>
         
