@@ -36,7 +36,7 @@
         <text>Hello, [NAME].</text>
     </prompt>
       
-    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE">
+    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
         <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have 60 minutes to complete programming and to submit to receive your grades.</text>
     </prompt>
       
@@ -52,18 +52,18 @@
         <text>Okay! Let's move on to 'task4.py'.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1_INTRO">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_INTRO">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_INTRO">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -71,7 +71,7 @@ Recall that the navigator brainstorms ideas and decides on one which the driver 
 Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_4">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -80,18 +80,18 @@ Since we are missing a member, the project manager will monitor the group's prog
 Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones."</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_1">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
         <text>Let's move on to the next task.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_2">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2">
         <text>Okay, time for the next task.|||The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_3">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3">
         <text>Okay, time for the next task.|||The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -99,7 +99,7 @@ Recall that the navigator brainstorms ideas and decides on one which the driver 
 Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_4">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4">
         <text>Okay, time for the next task.|||The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -108,23 +108,23 @@ Since we are missing a member, the project manager will monitor the group's prog
 Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones."</text>
     </prompt>
 
-     <prompt strategy="task" id="PROMPT_DISCUSSION">
+     <prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase">
      <text>Now, before we move on to the next task, let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
      </prompt> 
      
-     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
      <text>We'll have the project manager lead the discussion. Take turns to talk about challenges you faced while playing your role. How could you have played it better? We'll move on once you have had some time to discuss.</text>
      </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
      <text>Project manager-led discussion time now. Take turns to answer the following question. What do you think you are learning in each of the roles? We'll move on once you have had some time to discuss.</text>
      </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
      <text>It's discussion time led by the project manager again. Talk about how different group members are playing the same role differently. We'll move on once you have had some time to discuss.</text>
      </prompt>
      
-     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION">
+     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION" intention="prompt_for_reflection4">
      <text>Final discussion time led by the project manager. Take turns to talk about how each group member playing a role can utilize the other role's to the group's benefit. We'll move on once you have had some time to discuss.</text>
      </prompt>
      
