@@ -84,6 +84,15 @@ Since we are missing a member, the project manager will monitor the group's prog
 Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones."</text>
     </prompt>
     
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_MAX_ALL_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones."</text>
+    </prompt>
+    
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
         <text>Let's move on to the next task.</text>
     </prompt>
@@ -110,6 +119,15 @@ Since we are missing a member, the project manager will monitor the group's prog
 [ROLE3] - [NAME3]
 [ROLE4] - [NAME4]
 Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones."</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_MAX_ALL">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones."</text>
     </prompt>
 
      <prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase">
