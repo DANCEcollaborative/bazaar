@@ -9,9 +9,9 @@
         <text>Welcome! Before starting, please make sure you have attempted the pre-quiz. You'll get credit just for submitting it. Here are some brief instructions.</text>
     </prompt>
     
-<!--     <prompt strategy="task" id="PROMPT_SUBMIT_COMMAND" intention="instr1"> -->
-<!--         <text>Please have one person in the group run the following command in the terminal window to initialize the workspace with starter code and dependencies ...|||wget http://clouddatascience.blob.core.windows.net/m21-foundation-data-science/ope-practice/env_setup_oneshot.sh  && yes | sh env_setup_oneshot.sh</text> -->
-<!--     </prompt> -->
+     <prompt strategy="task" id="PROMPT_SUBMIT_COMMAND" intention="instr1"> 
+         <text>Please have one person in the group run the following command in the terminal window to initialize the workspace with starter code and dependencies:|||wget http://clouddatascience.blob.core.windows.net/m21-foundation-data-science/ope-practice/env_setup_oneshot.sh \\and\\and yes | sh env_setup_oneshot.sh</text>
+     </prompt> 
     
     <prompt strategy="task" id="PROMPT_COLLABORATE_MENU" intention="instr2">
         <text>You can click on the Collaborate menu on the top right and click on each participant's name to see which files they currently have open. The filename that is in bold is the file that they currently have in focus. Double-clicking on any filename there will open that file for you.</text>
@@ -22,7 +22,7 @@
     </prompt>
         
     <prompt strategy="task" id="PROMPT_SUBMIT" intention="instr4">
-        <text>After you are done with all tasks, you can execute the submitter script using './submitter'. This will also give you the token to unlock the graded post-quiz. Complete the graded post-quiz for full-credit.</text>
+        <text>After you are done with all tasks, you can execute the submitter script using './submitter'. This will also give you the token to unlock the graded post-quiz. Complete the graded post-quiz for full credit.</text>
     </prompt>
         
     <prompt strategy="task" id="PROMPT_ROLE_INTRO" intention="instr5">
