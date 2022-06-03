@@ -408,8 +408,8 @@ ul.tab li a:focus, .active {
          
          if(imageurl && imageurl.length > 0)
          {
-         	if (imageurl.search("drive.google.com") >= 0)
-         		imageurl = transformGoogleDriveImageLink(imageurl);
+         	if (imageurl.search("google.com") >= 0)
+         		imageurl = transformGoogleImageLink(imageurl);
             match = /http(s)?:\/\//.exec(imageurl)
             console.log(match)
             if(match == null || match.index != 0)
@@ -423,7 +423,7 @@ ul.tab li a:focus, .active {
          }
     }
     
-    function transformGoogleDriveImageLink(imageurl)
+    function transformGoogleImageLink(imageurl)
     {	
     	return "https://drive.google.com/uc?export=view&id=" + imageurl.match(/[-\w]{25,}/);
     }
