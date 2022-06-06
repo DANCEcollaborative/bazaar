@@ -54,9 +54,9 @@ public class FileGatekeeper extends BasilicaAdapter
 		{
 			System.err.println("FileGateKeeper: FileEvent received"); 
 			FileEvent fileEvent = (FileEvent)event; 
-			String fileName = fileEvent.getFileName();
+			String eventFileName = fileEvent.getFileName();
 			System.err.println("FileGateKeeper: FileEvent fileName: " + fileName); 
-			if (fileName.equals(fileName)) {
+			if (eventFileName.equals(fileName)) {
 				source.pushEventProposal(new MessageEvent(source, getAgent().getUsername(), prompter.lookup("FILE_STEP_COMPLETE"), "FILE_STEP_COMPLETE"), 1.0, 2);
 				source.pushEvent(new StepDoneEvent(source, stepName));
 			}

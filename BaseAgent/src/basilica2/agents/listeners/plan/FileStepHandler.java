@@ -32,47 +32,82 @@ public class FileStepHandler implements StepHandler
 		filegatekeeper.setFileName(fileName); 
 		
 		overmind.addHelper(filegatekeeper);
+
 		
+		// checkinPrompt
 		String checkinPrompt = currentStep.attributes.get("checkin_prompt");
 		if(checkinPrompt == null)
 		{
 			checkinPrompt = "WAIT_FOR_CHECKIN";
-		}
-		
+		}		
 		if(!checkinPrompt.equals("NONE"))
 		{
 			source.pushEventProposal(new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(checkinPrompt), "WAIT_FOR_CHECKIN"), OutputCoordinator.LOW_PRIORITY, 10);
 		}
-	
-//		String type = "prompt";
-//		currentStep.executeStepHandlers(source, type);
+
 		
-		new Timer(Math.max(currentStep.timeout - 180, currentStep.timeout*0.75), currentStep.name, new TimeoutAdapter()
-		{
-			@Override
-			public void timedOut(String id)
+		// delayedPrompt	
+		String delayedPrompt = currentStep.attributes.get("delayed_prompt");
+		int delayedPromptTime = currentStep.delayed_prompt_time; 
+//		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
+		if ((!delayedPrompt.equals("NONE")) && (delayedPromptTime != 0))
+		{	
+//			System.err.println("Setting delayed prompt"); 
+			new Timer(delayedPromptTime, currentStep.name, new TimeoutAdapter() 
 			{
-				if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+				@Override
+				public void timedOut(String id)
 				{
-					String warningPrompt = currentStep.attributes.get("warning_prompt");
-					MessageEvent warning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(warningPrompt), "FILE_STEP_TIMEOUT_WARNING");
-					source.pushEventProposal(warning, OutputCoordinator.HIGHEST_PRIORITY, 15);
+					if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+					{
+						String delayedPrompt = currentStep.attributes.get("delayed_prompt");
+						MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(delayedPrompt));
+						source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
+					}
 				}
-			}
-		}).start();
+			}).start();
+		}
+
 		
-		new Timer(currentStep.timeout, currentStep.name, new TimeoutAdapter()
+		// warningPrompt	
+		String warningPrompt = currentStep.attributes.get("warning_prompt");
+		if(warningPrompt == null)
 		{
-			@Override
-			public void timedOut(String id)
+			warningPrompt = "NONE";
+		}	
+		if ((!warningPrompt.equals("NONE")) && (currentStep.timeout != 0))
+		{
+			System.err.println("Setting warning prompt"); 
+			new Timer(Math.max(currentStep.timeout - 180, currentStep.timeout*0.75), currentStep.name, new TimeoutAdapter()
 			{
-				if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+				@Override
+				public void timedOut(String id)
 				{
-					MessageEvent timeoutMsgEvent = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("FILE_STEP_TIMED_OUT"), "FILE_STEP_TIMED_OUT");
-					source.pushEventProposal(timeoutMsgEvent, OutputCoordinator.HIGHEST_PRIORITY, 10);
+					if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+					{
+						String warningPrompt = currentStep.attributes.get("warning_prompt");
+						MessageEvent warning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(warningPrompt), "FILE_STEP_TIMEOUT_WARNING");
+						source.pushEventProposal(warning, OutputCoordinator.HIGHEST_PRIORITY, 15);
+					}
 				}
-			}
-		}).start();
+			}).start();
+		}
+		
+		if (currentStep.timeout != 0) { 
+//			System.err.println("Setting step timeout"); 
+			new Timer(currentStep.timeout, currentStep.name, new TimeoutAdapter()
+			{
+				@Override
+				public void timedOut(String id)
+				{
+					if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+					{
+						MessageEvent timeoutMsgEvent = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("FILE_STEP_TIMED_OUT"), "FILE_STEP_TIMED_OUT");
+						source.pushEventProposal(timeoutMsgEvent, OutputCoordinator.HIGHEST_PRIORITY, 10);
+					}
+				}
+			}).start();
+		}
 		
 	}
 	
