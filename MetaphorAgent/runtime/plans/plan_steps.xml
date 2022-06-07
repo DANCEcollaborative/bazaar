@@ -48,7 +48,7 @@
         <step type="prompt" delay="5" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
     </stage> 
     
-    <stage name="EndStage" type="other" delay="0" timeout="4500">
+    <stage name="EndStage" type="other" delay="0" timeout="300">
         <step type="prompt" delay="2" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
