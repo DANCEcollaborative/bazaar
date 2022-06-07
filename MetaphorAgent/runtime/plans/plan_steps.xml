@@ -14,29 +14,38 @@
     
     <stage name="StageLO1" type="other" delay="0">    
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step>   
-        <step type="match" delay="15" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>  
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO1_Rotate</step>  
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO1_Rotate</step>  
+        <step type="match" delay="10" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>  
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO1_Rotate</step>  
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO1_Rotate</step>  
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION1">Prompt_Step_LO1_Discussion</step>    	
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>
     </stage> 
     
     <stage name="StageLO2" type="other" delay="0">     
     	<step type="prompt" delay="5" prompt="PROMPT_TASK_2">instr5</step>   
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO2_Match</step>    
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO2_Rotate</step>    
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO2_Rotate</step>  
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO2_Match</step>    
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO2_Rotate</step>    
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO2_Rotate</step>  
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION2">Prompt_Step_LO2_Discussion</step>    	
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
     </stage> 
     
     <stage name="StageLO3" type="other" delay="0"> 
     	<step type="prompt" delay="5" prompt="PROMPT_TASK_3">instr5</step>   
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO3_Match</step>    
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO3_Rotate</step>    
-        <step type="rotate" delay="15" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO3_Rotate</step>  	
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO3_Match</step>    
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO3_Rotate</step>    
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO3_Rotate</step>  	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION3">Prompt_Step_LO3_Discussion</step>    	
-        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
+    </stage> 
+    
+    <stage name="StageLO4" type="other" delay="0"> 
+    	<step type="prompt" delay="5" prompt="PROMPT_TASK_4">instr5</step>   
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO4_Match</step>    
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO4_Rotate</step>    
+        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" >Prompt_Step_LO4_Rotate</step>  	
+        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION4">Prompt_Step_LO4_Discussion</step>    	
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
     </stage> 
     
     <stage name="EndStage" type="other" delay="0" timeout="4500">
