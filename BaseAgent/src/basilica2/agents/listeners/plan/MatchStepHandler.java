@@ -113,7 +113,8 @@ public class MatchStepHandler implements StepHandler
 		// Get the IDs of the students currently present
 		// String[] studentIds = state.getStudentIds(); 
 		// Get the IDs of the students ever present
-		String[] studentIds = state.getStudentIdsPresentOrNot(); 
+		state.setRandomizedStudentsPresentList();
+		String[] studentIds = state.getRandomizedStudentsPresentIds(); 
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,

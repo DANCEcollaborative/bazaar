@@ -73,6 +73,7 @@ public class State
 	}
 
 	private List<Student> students = new ArrayList<Student>();
+	private ArrayList<Student> randomizedStudentsPresentList = new ArrayList<Student>();
 	private List<String> roles = new ArrayList<String>();
 	private boolean initiated = false;
 	private String stageName = null;
@@ -381,17 +382,58 @@ public class State
 		return ids;
 	}
 
-	public List<String> getStudentNames()
+	public String[] getRandomizedStudentsPresentIds()
 	{
 		List<String> ids = new ArrayList<String>();
+		for (int i = 0; i < randomizedStudentsPresentList.size(); i++)
+		{
+			if (students.get(i).isPresent)
+			{
+				ids.add(students.get(i).chatId);
+			}
+		}
+		return ids.toArray(new String[0]);
+	}
+
+	public void setRandomizedStudentsPresentList()
+	{	
+		System.err.println("Student names: " + Arrays.toString(getStudentNames().toArray()));
+		this.randomizedStudentsPresentList.clear(); 
+		for (int i = 0; i < students.size(); i++)
+		{		
+			if (students.get(i).isPresent)
+			{
+				this.randomizedStudentsPresentList.add(students.get(i)); 
+			}
+		}
+		Collections.shuffle(this.randomizedStudentsPresentList);
+		System.err.println("Randomized student names: " + Arrays.toString(getRandomizedStudentsPresentNames().toArray()));
+	}
+
+	public List<String> getStudentNames()
+	{
+		List<String> names = new ArrayList<String>();
 		for (int i = 0; i < students.size(); i++)
 		{
 			if (students.get(i).isPresent)
 			{
-				ids.add(students.get(i).name);
+				names.add(students.get(i).name);
 			}
 		}
-		return ids;
+		return names;
+	}
+
+	public List<String> getRandomizedStudentsPresentNames()
+	{
+		List<String> names = new ArrayList<String>();
+		for (int i = 0; i < randomizedStudentsPresentList.size(); i++)
+		{
+			if (randomizedStudentsPresentList.get(i).isPresent)
+			{
+				names.add(randomizedStudentsPresentList.get(i).name);
+			}
+		}
+		return names;
 	}
 	
 	public List<String> getAllStudentNames()
