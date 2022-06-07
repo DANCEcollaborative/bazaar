@@ -102,19 +102,20 @@ public class MatchStepHandler implements StepHandler
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
 		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "Executing MatchStepHandler");
-		State state = StateMemory.getSharedState(overmind.getAgent());
+		State olds = StateMemory.getSharedState(overmind.getAgent());		
+		State news = State.copy(olds);
 		
 		// Initialize the agent's state's roles if they haven't been initialized already
-		if (state.getNumRoles() == 0) 
+		if (news.getNumRoles() == 0) 
 		{
-			state.setRoles(roles);
+			news.setRoles(roles);
 		}
  
 		// Get the IDs of the students currently present
 		// String[] studentIds = state.getStudentIds(); 
-		// Get the IDs of the students ever present
-		state.setRandomizedStudentList();
-		String[] studentIds = state.getRandomizedStudentIds(); 
+		// Get the IDs of the students ever present		
+		news.setRandomizedStudentList();
+		String[] studentIds = news.getRandomizedStudentIds(); 
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
@@ -159,12 +160,12 @@ public class MatchStepHandler implements StepHandler
 		System.out.println("MatchStepHandler execute - numRoles: " + Integer.toString(numRoles)); 
         if (numStudents > 0) {
         	adjustedPromptKey = promptKey + promptSuffix; 
-        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, defaultRole, maxMatch, state);
+        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, defaultRole, maxMatch, news);
     		System.out.println("MatchStepHandler execute - adjustedPromptKey: " + adjustedPromptKey); 
     		System.out.println("MatchStepHandler execute - adjustedPromptText: " + adjustedPromptText); 
         	if (adjustedPromptText == adjustedPromptKey) {
         		System.err.println("MatchStepHandler, execute: first match attempt failed"); 
-        		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, state);
+        		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, news);
         	}
         	else {
         		promptText = adjustedPromptText; 
@@ -194,6 +195,8 @@ public class MatchStepHandler implements StepHandler
 			{}
 			
 		}){}.start();
+		
+		StateMemory.commitSharedState(news, overmind.getAgent());
 		//overmind.stepDone();// other types have different "done" conditions -
 							// this one is easy.
 		// the Step sets the after-step-is-done delay on its own, from steps.xml

@@ -539,7 +539,7 @@ public class State
 
 	public int advanceStudentIndex()
 	{
-		nextStudentIndex += 1;
+		nextStudentIndex = nextStudentIndex + 1;
 		System.err.println("State.java, advanceStudentIndex: nextStudentIndex = " + String.valueOf(nextStudentIndex)); 
 		if (nextStudentIndex == students.size())
 		{

@@ -103,18 +103,19 @@ public class RotateStepHandler implements StepHandler
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		State state = StateMemory.getSharedState(overmind.getAgent());
+		State olds = StateMemory.getSharedState(overmind.getAgent());	
+		State news = State.copy(olds);
 		
 		// Initialize the agent's state's roles if they haven't been initialized already
-		if (state.getNumRoles() == 0) 
+		if (news.getNumRoles() == 0) 
 		{
-			state.setRoles(roles);
+			news.setRoles(roles);
 		}
  
 		// Get the IDs of the students currently present
 		// String[] studentIds = state.getStudentIds(); 
 		// Get the IDs of the students ever present
-		String[] studentIds = state.getStudentIdsPresentOrNot(); 
+		String[] studentIds = news.getStudentIdsPresentOrNot(); 
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
@@ -148,7 +149,7 @@ public class RotateStepHandler implements StepHandler
             		for (int i=0;i<numStudents;i++) {
             			boolean roleAssigned = false;
             			for (String Sid: remainingStudents) {
-            				if ((!state.getStudentPreviousRoles(Sid).contains(roles[i])) && (!roleAssignment.containsKey(Sid))) {
+            				if ((!news.getStudentPreviousRoles(Sid).contains(roles[i])) && (!roleAssignment.containsKey(Sid))) {
             					roleAssignment.put(Sid,roles[i]);
             					roleAssigned=true;
             					remainingStudents.remove(remainingStudents.indexOf(Sid));
@@ -166,7 +167,7 @@ public class RotateStepHandler implements StepHandler
                 			for (int i=0; i<remainingRoles.size(); i++) {
                 				boolean roleAssigned = false;
                 				for (String Sid: remainingStudents) {
-                					if (!state.getStudentRole(Sid).equalsIgnoreCase(remainingRoles.get(i))) {
+                					if (!news.getStudentRole(Sid).equalsIgnoreCase(remainingRoles.get(i))) {
                 						roleAssignment.put(Sid,remainingRoles.get(i));
                 						roleAssigned=true;
                 						Logger.commonLog("RotateStepHandler", Logger.LOG_FATAL, "roleAssigned");
@@ -201,7 +202,7 @@ public class RotateStepHandler implements StepHandler
             			if (matchMultipleToDefault && roles[i].equalsIgnoreCase(defaultRole)) {continue;}
             			boolean roleAssigned = false;
             			for (String Sid: remainingStudents) {
-            				if ((!state.getStudentPreviousRoles(Sid).contains(roles[i])) && (!roleAssignment.containsKey(Sid))) {
+            				if ((!news.getStudentPreviousRoles(Sid).contains(roles[i])) && (!roleAssignment.containsKey(Sid))) {
             					roleAssignment.put(Sid,roles[i]);
             					roleAssigned=true;
             					remainingStudents.remove(remainingStudents.indexOf(Sid));
@@ -217,7 +218,7 @@ public class RotateStepHandler implements StepHandler
                 			for (int i=0; i<remainingRoles.size(); i++) {
                 				boolean roleAssigned = false;
                 				for (String Sid: remainingStudents) {
-                					if (!state.getStudentRole(Sid).equalsIgnoreCase(remainingRoles.get(i))) {
+                					if (!news.getStudentRole(Sid).equalsIgnoreCase(remainingRoles.get(i))) {
                 						roleAssignment.put(Sid,remainingRoles.get(i));
                 						roleAssigned=true;
                 						remainingStudents.remove(remainingStudents.indexOf(Sid));
@@ -263,13 +264,13 @@ public class RotateStepHandler implements StepHandler
     		adjustedPromptKey = promptKey + promptSuffix;
     		String[] newRolesArray = newRoles.toArray(new String[numStudents]);
     		
-        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, newRolesArray, defaultRole, maxMatch, state);
+        	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, newRolesArray, defaultRole, maxMatch, news);
         	Logger.commonLog("RotateStepHandler", Logger.LOG_FATAL, "maxMatch: "+Integer.toString(maxMatch));
         	Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
         	
         	if (adjustedPromptText == adjustedPromptKey) {
         		System.err.println("RotateStepHandler, execute: first match attempt failed"); 
-        		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, state);
+        		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, news);
         	}
         	else {
         		promptText = adjustedPromptText; 
@@ -299,6 +300,7 @@ public class RotateStepHandler implements StepHandler
 			{}
 			
 		}){}.start();
+		StateMemory.commitSharedState(news, overmind.getAgent());
 		//overmind.stepDone();// other types have different "done" conditions -
 							// this one is easy.
 		// the Step sets the after-step-is-done delay on its own, from steps.xml
