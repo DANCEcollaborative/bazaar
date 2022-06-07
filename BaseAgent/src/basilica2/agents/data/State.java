@@ -115,6 +115,11 @@ public class State
 			news.students.add(s.students.get(i));
 		}
 
+		for (int i = 0; i < s.randomizedStudentList.size(); i++)
+		{
+			news.randomizedStudentList.add(s.randomizedStudentList.get(i));
+		}
+
 		for (int i = 0; i < s.roles.size(); i++)
 		{
 			news.roles.add(s.roles.get(i));

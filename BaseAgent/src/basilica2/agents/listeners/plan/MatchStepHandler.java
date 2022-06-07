@@ -240,6 +240,9 @@ public class MatchStepHandler implements StepHandler
 			return ;
 		}
 		if (num_students==minUsersToMatch) { // start role assignment for the whole group
+			State state = StateMemory.getSharedState(source.getAgent());
+			state.setRandomizedStudentList();
+			String[] studentIds = state.getRandomizedStudentIds(); 
 			String prompt_name = "PROMPT_MID_ROLE_MATCH";
 			prompt_text = prompter.match(prompt_name, student_ids, roles, num_students, news);
 			
