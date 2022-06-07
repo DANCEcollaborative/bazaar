@@ -75,7 +75,7 @@ public class State
 	private List<Student> students = new ArrayList<Student>();
 	private List<String> roles = new ArrayList<String>();
 	private ArrayList<Student> randomizedStudentList = new ArrayList<Student>();
-	private int nextStudentIndex = 0; 
+	private int nextStudentIndex; 
 	private boolean initiated = false; 
 	private String stageName = null;
 	private String stageType = null;
@@ -534,19 +534,20 @@ public class State
 
 	public int getNextStudentIndex()
 	{
-		return nextStudentIndex; 
+		return this.nextStudentIndex; 
 	}
 
 	public int advanceStudentIndex()
 	{
-		nextStudentIndex = nextStudentIndex + 1;
-		System.err.println("State.java, advanceStudentIndex: nextStudentIndex = " + String.valueOf(nextStudentIndex)); 
-		if (nextStudentIndex == students.size())
+		int nextIndex = this.nextStudentIndex + 1;
+		System.err.println("State.java, advanceStudentIndex: initial nextIndex = " + String.valueOf(nextIndex)); 
+		if (nextIndex == students.size())
 		{
-			nextStudentIndex = 0; 
+			nextIndex = 0; 
 		}
-		System.err.println("State.java, advanceStudentIndex: final nextStudentIndex = " + String.valueOf(nextStudentIndex)); 
-		return nextStudentIndex; 
+		setNextStudentIndex(nextIndex); 
+		System.err.println("State.java, advanceStudentIndex: final nextIndex = " + String.valueOf(nextIndex)); 
+		return nextIndex; 
 	}
 
 	public Student getStudentById(String sid)
