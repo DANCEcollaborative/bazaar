@@ -73,9 +73,10 @@ public class State
 	}
 
 	private List<Student> students = new ArrayList<Student>();
-	private ArrayList<Student> randomizedStudentList = new ArrayList<Student>();
 	private List<String> roles = new ArrayList<String>();
-	private boolean initiated = false;
+	private ArrayList<Student> randomizedStudentList = new ArrayList<Student>();
+	private int nextStudentIndex = 0; 
+	private boolean initiated = false; 
 	private String stageName = null;
 	private String stageType = null;
 	private String stepName = null;
@@ -387,7 +388,7 @@ public class State
 		return ids;
 	}
 
-	public String[] getRandomizedStudentIds()
+	public String[] getRandomizedStudentIdsPREV()
 	{
 		List<String> ids = new ArrayList<String>();
 		for (int i = 0; i < randomizedStudentList.size(); i++)
@@ -399,6 +400,41 @@ public class State
 //			}
 		}
 		return ids.toArray(new String[0]);
+	}
+
+	public String[] getRandomizedStudentIdsPREV2()
+	{
+		String[] ids = new String[randomizedStudentList.size()]; 
+		for (int i = 0; i < randomizedStudentList.size(); i++)
+		{
+			ids[i] = (randomizedStudentList.get(i).chatId);
+//			if (students.get(i).isPresent)
+//			{
+//				ids[i] = (randomizedStudentList.get(i).chatId);
+//			}
+		}
+		return ids;
+	}
+
+	public String[] getRandomizedStudentIds()
+	{
+		String[] ids = new String[this.randomizedStudentList.size()]; 
+		System.err.println("getRandomizedStudentIds(), this.randomizedStudentList.size() = " + String.valueOf(randomizedStudentList.size()));
+		for (int i = 0; i < this.randomizedStudentList.size(); i++)
+		{
+			System.err.println("getRandomizedStudentIds(), adding id " + this.randomizedStudentList.get(i).chatId);
+			System.err.println("getRandomizedStudentIds(), adding id for name " + this.randomizedStudentList.get(i).name);
+			ids[i] = (this.randomizedStudentList.get(i).chatId);
+//			if (students.get(i).isPresent)
+//			{
+//				ids[i] = (randomizedStudentList.get(i).chatId);
+//			}
+		}
+//		System.err.println("getRandomizedStudentIds, returning ids = " Arrays.toString(ids));
+		for (int i = 0; i < ids.length; i++) {
+			System.err.println("getRandomizedStudentIds(), ids[" + String.valueOf(i) + "] = " + ids[i]); 
+		}
+		return ids;
 	}
 
 	public void setRandomizedStudentList()
@@ -414,6 +450,7 @@ public class State
 //			}
 		}
 		Collections.shuffle(this.randomizedStudentList);
+		setNextStudentIndex(0); 
 		System.err.println("Randomized student names: " + Arrays.toString(getRandomizedStudentNames().toArray()));
 	}
 
@@ -488,6 +525,28 @@ public class State
 		if(name.length() > 2)
 			name = name.substring(0, name.length() - 2);
 		return name;
+	}
+
+	public void setNextStudentIndex(int index)
+	{
+		this.nextStudentIndex = index; 
+	}
+
+	public int getNextStudentIndex()
+	{
+		return nextStudentIndex; 
+	}
+
+	public int advanceStudentIndex()
+	{
+		nextStudentIndex += 1;
+		System.err.println("State.java, advanceStudentIndex: nextStudentIndex = " + String.valueOf(nextStudentIndex)); 
+		if (nextStudentIndex == students.size())
+		{
+			nextStudentIndex = 0; 
+		}
+		System.err.println("State.java, advanceStudentIndex: final nextStudentIndex = " + String.valueOf(nextStudentIndex)); 
+		return nextStudentIndex; 
 	}
 
 	public Student getStudentById(String sid)
