@@ -78,15 +78,23 @@ public class RotateStudentOnly implements StepHandler
 	{
 //		State state = StateMemory.getSharedState(overmind.getAgent());
 //		State state = StateMemory.getSharedState(source.getAgent()); 
-		State olds = StateMemory.getSharedState(overmind.getAgent());	
+		State olds = StateMemory.getSharedState(source.getAgent());	
 		State news = State.copy(olds);
   
 		// Get the IDs of the students ever present
 		String[] studentIds = news.getRandomizedStudentIds(); 
 		System.err.println("RotateStudentOnly, studentIDs: " + Arrays.toString(studentIds));
 		int numStudents = studentIds.length; 
-		int studentIndex = news.advanceStudentIndex(); 
-		news.setNextStudentIndex(studentIndex);      // should be unnecessary
+		
+		int studentIndex; 
+		if(step.attributes.containsKey("studentIndex"))
+		{
+			studentIndex = Integer.valueOf(step.attributes.get("studentIndex"));
+		} else
+		{		
+			studentIndex = news.advanceStudentIndex(); 
+//			news.setNextStudentIndex(studentIndex);      // should be unnecessary
+		}
 		String studentID = studentIds[studentIndex]; 
 		String[] promptIds = {studentID}; 
 		System.err.println("RotateStudentOnly, promptIds: " + Arrays.toString(promptIds));
@@ -143,7 +151,7 @@ public class RotateStudentOnly implements StepHandler
 			
 		}){}.start();
 		
-		StateMemory.commitSharedState(news, overmind.getAgent());
+		StateMemory.commitSharedState(news, source.getAgent());
 		//overmind.stepDone();// other types have different "done" conditions -
 							// this one is easy.
 		// the Step sets the after-step-is-done delay on its own, from steps.xml
