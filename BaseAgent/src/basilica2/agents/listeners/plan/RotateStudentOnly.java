@@ -78,7 +78,8 @@ public class RotateStudentOnly implements StepHandler
 	{
 //		State state = StateMemory.getSharedState(overmind.getAgent());
 //		State state = StateMemory.getSharedState(source.getAgent()); 
-		State olds = StateMemory.getSharedState(source.getAgent());	
+//		State olds = StateMemory.getSharedState(source.getAgent());	
+		State olds = StateMemory.getSharedState(overmind.getAgent());	
 		State news = State.copy(olds);
   
 		// Get the IDs of the students ever present
@@ -90,8 +91,10 @@ public class RotateStudentOnly implements StepHandler
 		if(step.attributes.containsKey("studentIndex"))
 		{
 			studentIndex = Integer.valueOf(step.attributes.get("studentIndex"));
-		} else
-		{		
+			if (studentIndex >= numStudents) {
+				studentIndex = 0; 
+			}
+		} else {	
 			studentIndex = news.advanceStudentIndex(); 
 //			news.setNextStudentIndex(studentIndex);      // should be unnecessary
 		}
@@ -151,7 +154,8 @@ public class RotateStudentOnly implements StepHandler
 			
 		}){}.start();
 		
-		StateMemory.commitSharedState(news, source.getAgent());
+//		StateMemory.commitSharedState(news, source.getAgent());
+		StateMemory.commitSharedState(news, overmind.getAgent());
 		//overmind.stepDone();// other types have different "done" conditions -
 							// this one is easy.
 		// the Step sets the after-step-is-done delay on its own, from steps.xml
