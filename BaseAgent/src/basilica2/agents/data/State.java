@@ -74,7 +74,9 @@ public class State
 
 	private List<Student> students = new ArrayList<Student>();
 	private List<String> roles = new ArrayList<String>();
-	private boolean initiated = false;
+	private ArrayList<Student> randomizedStudentList = new ArrayList<Student>();
+	private int nextStudentIndex; 
+	private boolean initiated = false; 
 	private String stageName = null;
 	private String stageType = null;
 	private String stepName = null;
@@ -112,6 +114,11 @@ public class State
 		for (int i = 0; i < s.students.size(); i++)
 		{
 			news.students.add(s.students.get(i));
+		}
+
+		for (int i = 0; i < s.randomizedStudentList.size(); i++)
+		{
+			news.randomizedStudentList.add(s.randomizedStudentList.get(i));
 		}
 
 		for (int i = 0; i < s.roles.size(); i++)
@@ -381,17 +388,96 @@ public class State
 		return ids;
 	}
 
-	public List<String> getStudentNames()
+	public String[] getRandomizedStudentIdsPREV()
 	{
 		List<String> ids = new ArrayList<String>();
+		for (int i = 0; i < randomizedStudentList.size(); i++)
+		{
+			ids.add(randomizedStudentList.get(i).chatId);
+//			if (students.get(i).isPresent)
+//			{
+//				ids.add(randomizedStudentList.get(i).chatId);
+//			}
+		}
+		return ids.toArray(new String[0]);
+	}
+
+	public String[] getRandomizedStudentIdsPREV2()
+	{
+		String[] ids = new String[randomizedStudentList.size()]; 
+		for (int i = 0; i < randomizedStudentList.size(); i++)
+		{
+			ids[i] = (randomizedStudentList.get(i).chatId);
+//			if (students.get(i).isPresent)
+//			{
+//				ids[i] = (randomizedStudentList.get(i).chatId);
+//			}
+		}
+		return ids;
+	}
+
+	public String[] getRandomizedStudentIds()
+	{
+		String[] ids = new String[this.randomizedStudentList.size()]; 
+		System.err.println("getRandomizedStudentIds(), this.randomizedStudentList.size() = " + String.valueOf(randomizedStudentList.size()));
+		for (int i = 0; i < this.randomizedStudentList.size(); i++)
+		{
+			System.err.println("getRandomizedStudentIds(), adding id " + this.randomizedStudentList.get(i).chatId);
+			System.err.println("getRandomizedStudentIds(), adding id for name " + this.randomizedStudentList.get(i).name);
+			ids[i] = (this.randomizedStudentList.get(i).chatId);
+//			if (students.get(i).isPresent)
+//			{
+//				ids[i] = (randomizedStudentList.get(i).chatId);
+//			}
+		}
+//		System.err.println("getRandomizedStudentIds, returning ids = " Arrays.toString(ids));
+		for (int i = 0; i < ids.length; i++) {
+			System.err.println("getRandomizedStudentIds(), ids[" + String.valueOf(i) + "] = " + ids[i]); 
+		}
+		return ids;
+	}
+
+	public void setRandomizedStudentList()
+	{	
+		System.err.println("Student names: " + Arrays.toString(getStudentNames().toArray()));
+		this.randomizedStudentList.clear(); 
+		for (int i = 0; i < students.size(); i++)
+		{
+			this.randomizedStudentList.add(students.get(i)); 
+//			if (students.get(i).isPresent)
+//			{
+//				this.randomizedStudentList.add(students.get(i)); 
+//			}
+		}
+		Collections.shuffle(this.randomizedStudentList);
+		setNextStudentIndex(0); 
+		System.err.println("Randomized student names: " + Arrays.toString(getRandomizedStudentNames().toArray()));
+	}
+
+	public List<String> getStudentNames()
+	{
+		List<String> names = new ArrayList<String>();
 		for (int i = 0; i < students.size(); i++)
 		{
 			if (students.get(i).isPresent)
 			{
-				ids.add(students.get(i).name);
+				names.add(students.get(i).name);
 			}
 		}
-		return ids;
+		return names;
+	}
+
+	public List<String> getRandomizedStudentNames()
+	{
+		List<String> names = new ArrayList<String>();
+		for (int i = 0; i < randomizedStudentList.size(); i++)
+		{
+			if (randomizedStudentList.get(i).isPresent)
+			{
+				names.add(randomizedStudentList.get(i).name);
+			}
+		}
+		return names;
 	}
 	
 	public List<String> getAllStudentNames()
@@ -439,6 +525,29 @@ public class State
 		if(name.length() > 2)
 			name = name.substring(0, name.length() - 2);
 		return name;
+	}
+
+	public void setNextStudentIndex(int index)
+	{
+		this.nextStudentIndex = index; 
+	}
+
+	public int getNextStudentIndex()
+	{
+		return this.nextStudentIndex; 
+	}
+
+	public int advanceStudentIndex()
+	{
+		int nextIndex = this.nextStudentIndex + 1;
+		System.err.println("State.java, advanceStudentIndex: initial nextIndex = " + String.valueOf(nextIndex)); 
+		if (nextIndex == students.size())
+		{
+			nextIndex = 0; 
+		}
+		setNextStudentIndex(nextIndex); 
+		System.err.println("State.java, advanceStudentIndex: final nextIndex = " + String.valueOf(nextIndex)); 
+		return nextIndex; 
 	}
 
 	public Student getStudentById(String sid)

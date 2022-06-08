@@ -103,7 +103,7 @@ public class RotateStepHandler implements StepHandler
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		State state = StateMemory.getSharedState(overmind.getAgent());
+		State state = StateMemory.getSharedState(overmind.getAgent());	
 		
 		// Initialize the agent's state's roles if they haven't been initialized already
 		if (state.getNumRoles() == 0) 
