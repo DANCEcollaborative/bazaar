@@ -15,8 +15,8 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-//import edu.cmu.cs.lti.project911.utils.log.Logger;
+//import java.util.logging.Logger;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -77,8 +77,9 @@ public class WebsocketChatClient extends Component implements ChatClient
 		socketSubURL = myProperties.getProperty("socket_suburl", socketSubURL);
 		agentUserName = a.getUsername();//myProperties.getProperty("agent_username", agentUserName);
 
-		Logger sioLogger = java.util.logging.Logger.getLogger("io.socket");
-		sioLogger.setLevel(Level.SEVERE);
+		// The following works with a different logger: 'import java.util.logging.Logger;' 
+//		Logger sioLogger = java.util.logging.Logger.getLogger("io.socket");
+//		sioLogger.setLevel(Level.SEVERE);
 
 	}
 
@@ -351,6 +352,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String filename = (String)args[1];
 //					filename = StringEscapeUtils.unescapeHtml4(message);
 					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
 					FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 					FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
 					WebsocketChatClient.this.broadcast(fe);
