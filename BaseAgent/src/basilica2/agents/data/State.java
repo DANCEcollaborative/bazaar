@@ -388,34 +388,6 @@ public class State
 		return ids;
 	}
 
-	public String[] getRandomizedStudentIdsPREV()
-	{
-		List<String> ids = new ArrayList<String>();
-		for (int i = 0; i < randomizedStudentList.size(); i++)
-		{
-			ids.add(randomizedStudentList.get(i).chatId);
-//			if (students.get(i).isPresent)
-//			{
-//				ids.add(randomizedStudentList.get(i).chatId);
-//			}
-		}
-		return ids.toArray(new String[0]);
-	}
-
-	public String[] getRandomizedStudentIdsPREV2()
-	{
-		String[] ids = new String[randomizedStudentList.size()]; 
-		for (int i = 0; i < randomizedStudentList.size(); i++)
-		{
-			ids[i] = (randomizedStudentList.get(i).chatId);
-//			if (students.get(i).isPresent)
-//			{
-//				ids[i] = (randomizedStudentList.get(i).chatId);
-//			}
-		}
-		return ids;
-	}
-
 	public String[] getRandomizedStudentIds()
 	{
 		String[] ids = new String[this.randomizedStudentList.size()]; 
