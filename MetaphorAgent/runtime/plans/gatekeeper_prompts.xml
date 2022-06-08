@@ -46,6 +46,14 @@
      </prompt>
         
     <!-- for READY_GENERIC -->    
+    <prompt strategy="task" id="READY_UPLOAD_IMAGES">
+       <text>Type "ready" once every member has uploaded and discussed their images, and you would like to move on.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="READY_FINISHED_DISCUSSION">
+       <text>Type "ready" once you are done discussing this question to move on now. Regardless, we will move on in three minutes.</text>
+    </prompt>
+    
     <prompt strategy="task" id="READY_GENERIC">
        <text>Type "ready" when you are ready to move on.</text>
     </prompt>
