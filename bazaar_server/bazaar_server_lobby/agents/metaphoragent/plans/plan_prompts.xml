@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
+
+	<prompt strategy="task" id="PROMPT_START_SOON">
+        <text>Thanks for joining! We will be starting soon.</text>
+    </prompt>
         
     <prompt strategy="task" id="INTRODUCE">
         <text>We're starting! I'm [AGENT NAME].|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other.</text>
@@ -17,7 +21,12 @@
     </prompt>
     
     <prompt strateg="task" id="PROMPT_UPLOAD_IMAGES">
-    	<text>First, everyone please upload the image you choose for Week 3 homework. To do this, input the GoogleDrive image link into the text box on the bottom left and click the Share Image URL button. ||| Once you have shared your image to the discussion board, please describe your symbol image to the group.</text>
+    	<text>First, everyone please upload the image you choose for Week 3 homework. To do this, input the GoogleDrive image link or image URL into the text box on the bottom left and click the Share Image URL button. ||| Once you have shared your image to the discussion board, please describe your symbol image to the group.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_DISCUSS_FREELY">
+        <text>While I will ask each of you to take the lead at various points in the discussion, please engage in the chat to discuss each others’ ideas.</text>
+        <text>I will prompt each of you to take the lead on the discussion, but please feel free to add to each other's ideas as I do so.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TASK_1">
@@ -37,7 +46,7 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TASK_5">
-        <text>Good thoughts! Here's a last question to discuss. ||| If your group had to narrow down to one symbol that connects an experience you all share, what would it be and why?</text>
+        <text>Good thoughts! Here's the next question to discuss. ||| If your group had to narrow down to one symbol that connects an experience you all share, what would it be and why?</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TASK_6">
@@ -70,6 +79,7 @@
 
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_1">
         <text>[NAME1], why don't you tell us what you think now?</text>
+        <text>[NAME1], do you have anything to add? </text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_2">
@@ -93,7 +103,7 @@
     </prompt>
    
      <prompt strategy="task" id="PROMPT_STEP_WRAP_UP">
-     <text> Alright! Now wrap up the discussion. ||| Someone from your group is going to explain your chosen symbol and color scheme in light of Lakoff and Johnson's CMT.
+     <text> Alright! Now wrap up the discussion. ||| Please choose someone from your group who is going to explain your chosen symbol and color scheme in light of Lakoff and Johnson's CMT to the class. ||| I will be logging off soon but you may continue to discuss in the chat after I leave.
      </text>
      </prompt>
 

@@ -9,18 +9,20 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">
-    	<step type="greet" timeout="30" delay="0">GREETINGS</step>
+    	<step type="prompt" delay="45" prompt="PROMPT_START_SOON">start_delay</step>
+    	<step type="greet" timeout="60" delay="0">GREETINGS</step>
     </stage>   
     
 
     <stage name="StageActivityStart" type="other" delay="0">
-        <step type="prompt" delay="30" prompt="PROMPT_ACTIVITY_INTRO">instr_start</step>
+        <step type="prompt" delay="20" prompt="PROMPT_ACTIVITY_INTRO">instr_start</step>
         <step type="prompt" delay="120" prompt="PROMPT_UPLOAD_IMAGES">instr_upload</step>
         <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_UPLOAD_IMAGES">WAIT_STEP_UPLOAD</step>
     </stage> 
     
     <stage name="StageQ1" type="other" delay="0">     
     	<step type="prompt" delay="5" prompt="PROMPT_TASK_1">instr1</step>   
+    	<step type="prompt" delay="5" prompt="PROMPT_DISCUSS_FREELY">Prompt_Discuss</step>  
         <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q1_Match</step>    
         <step type="rotate" delay="45" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q1_Rotate</step>    
         <step type="rotate" delay="30" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q1_Rotate</step> 
@@ -28,15 +30,17 @@
     </stage> 
     
     <stage name="StageQ2" type="other" delay="0"> 
-    	<step type="prompt" delay="5" prompt="PROMPT_TASK_2">instr2</step>   
-        <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q2_Match</step>    
+    	<step type="prompt" delay="5" prompt="PROMPT_TASK_2">instr2</step>
+    	<step type="prompt" delay="5" prompt="PROMPT_DISCUSS_FREELY">Prompt_Discuss</step>  
+        <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q2_Match</step>
         <step type="rotate" delay="45" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q2_Rotate</step>    
         <step type="rotate" delay="30" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q2_Rotate</step>  
         <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_FINISHED_DISCUSSION">WAIT_STEP_DISCUSSION</step>
     </stage> 
     
     <stage name="StageQ3" type="other" delay="0"> 
-    	<step type="prompt" delay="5" prompt="PROMPT_TASK_3">instr3</step>   
+    	<step type="prompt" delay="5" prompt="PROMPT_TASK_3">instr3</step>
+    	<step type="prompt" delay="5" prompt="PROMPT_DISCUSS_FREELY">Prompt_Discuss</step>     
         <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q3_Match</step>    
         <step type="rotate" delay="45" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q3_Rotate</step>    
         <step type="rotate" delay="30" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q3_Rotate</step>  
@@ -44,15 +48,17 @@
     </stage> 
     
     <stage name="StageQ4" type="other" delay="0"> 
-    	<step type="prompt" delay="5" prompt="PROMPT_TASK_4">instr4</step>   
-        <step type="match" delay="10" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q4_Match</step>    
-        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q4_Rotate</step>    
-        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q4_Rotate</step>  	
+    	<step type="prompt" delay="5" prompt="PROMPT_TASK_4">instr4</step> 
+    	<step type="prompt" delay="5" prompt="PROMPT_DISCUSS_FREELY">Prompt_Discuss</step>    
+        <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q4_Match</step>    
+        <step type="rotate" delay="45" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q4_Rotate</step>    
+        <step type="rotate" delay="30" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q4_Rotate</step>  	
         <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_FINISHED_DISCUSSION">WAIT_STEP_DISCUSSION</step>
     </stage> 
     
     <stage name="StageQ5" type="other" delay="0"> 
-    	<step type="prompt" delay="5" prompt="PROMPT_TASK_5">instr5</step>   
+    	<step type="prompt" delay="5" prompt="PROMPT_TASK_5">instr5</step>  
+    	<step type="prompt" delay="5" prompt="PROMPT_DISCUSS_FREELY">Prompt_Discuss</step>   
         <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q5_Match</step>    
         <step type="rotate" delay="45" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q5_Rotate </step>    
         <step type="rotate" delay="30" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q5_Rotate</step>  
@@ -61,11 +67,11 @@
     
     <stage name="StageQ6" type="other" delay="0"> 
     	<step type="prompt" delay="5" prompt="PROMPT_TASK_6">instr6</step>   
-        <step type="gated" gated_type="listen" timeout="120" delay="0" checkin_prompt="READY_GENERIC">WAIT_STEP_DISCUSSION</step>
+        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_GENERIC">WAIT_STEP_DISCUSSION</step>
     </stage> 
     
     <stage name="EndStage" type="other" delay="0">
-        <step type="prompt" delay="2" prompt="PROMPT_STEP_WRAP_UP">Prompt_Step_Wrap_Up</step>
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_WRAP_UP">Prompt_Step_Wrap_Up</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
