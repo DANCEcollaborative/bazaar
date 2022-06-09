@@ -30,7 +30,7 @@ room_number = ""
 # users_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
 # users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
 # users_to_exclude = []
-users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk"]
+users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk","MetaphorAgent"]
 
 def create_filename (prefix, suffix):
     # suffix includes the period, if any -- e.g., '.csv
@@ -95,9 +95,9 @@ def process_room (chat_list, start_index):
             chat_time = datetime.datetime.strptime(chat_list[i][4], '%Y-%m-%d %H:%M:%S')   # timestamp in UTC
             chat_time = chat_time - timedelta(hours=UTC_offset)
             row_list[0] = chat_time
-            row_list[1] = chat_list[i][1]     # username
-            row_list[2] = chat_list[i][0]     # type
-            row_list[3] = chat_list[i][6]     # content
+            row_list[1] = html.unescape(chat_list[i][1])    # username
+            row_list[2] = html.unescape(chat_list[i][0])     # type
+            row_list[3] = html.unescape(chat_list[i][6])     # content
             writer.writerow(row_list)
 
         out_file.close()
