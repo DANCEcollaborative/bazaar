@@ -16,7 +16,7 @@
 
     <stage name="StageActivityStart" type="other" delay="0">
         <step type="prompt" delay="20" prompt="PROMPT_ACTIVITY_INTRO">instr_start</step>
-        <step type="prompt" delay="120" prompt="PROMPT_UPLOAD_IMAGES">instr_upload</step>
+        <step type="prompt" delay="200" prompt="PROMPT_UPLOAD_IMAGES">instr_upload</step>
         <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_UPLOAD_IMAGES">WAIT_STEP_UPLOAD</step>
     </stage> 
     
@@ -62,16 +62,16 @@
         <step type="match" delay="60" prompt="PROMPT_STEP_MATCH">Prompt_Step_Q5_Match</step>    
         <step type="rotate" delay="45" prompt="PROMPT_STEP_ROTATE" studentIndex="1">Prompt_Step_Q5_Rotate </step>    
         <step type="rotate" delay="30" prompt="PROMPT_STEP_ROTATE" studentIndex="2">Prompt_Step_Q5_Rotate</step>  
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_FINISHED_DISCUSSION">WAIT_STEP_DISCUSSION</step>	
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="READY_FINISHED_DISCUSSION">WAIT_STEP_DISCUSSION</step>	
     </stage> 
     
     <stage name="StageQ6" type="other" delay="0"> 
     	<step type="prompt" delay="5" prompt="PROMPT_TASK_6">instr6</step>   
-        <step type="gated" gated_type="listen" timeout="180" delay="0" checkin_prompt="READY_GENERIC">WAIT_STEP_DISCUSSION</step>
+        <step type="gated" gated_type="listen" timeout="240" delay="0" checkin_prompt="READY_GENERIC">WAIT_STEP_DISCUSSION</step>
     </stage> 
     
     <stage name="EndStage" type="other" delay="0">
-        <step type="prompt" delay="5" prompt="PROMPT_STEP_WRAP_UP">Prompt_Step_Wrap_Up</step>
+        <step type="prompt" delay="200" prompt="PROMPT_STEP_WRAP_UP">Prompt_Step_Wrap_Up</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
