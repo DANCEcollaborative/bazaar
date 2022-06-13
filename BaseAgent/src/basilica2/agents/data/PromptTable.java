@@ -322,6 +322,16 @@ public class PromptTable
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 				promptText = promptText.replace("[DEFAULTROLE]", defaultRole);
+			} else if (studentIds != null && roles == null)			// Replace all [NAME#] with names 
+			{
+				String nameKey, name; 
+				for (int i = 0; i < maxMatches; i++)
+				{
+					nameKey = "[NAME" + Integer.toString(i+1) + "]"; 
+					name = state.getStudentName(studentIds[i]);		
+					if(name != null)
+						promptText = promptText.replace(nameKey, name);
+				}
 			}
 			if (includeIntention) {
 				promptText = addIntention(promptName,promptText); 
