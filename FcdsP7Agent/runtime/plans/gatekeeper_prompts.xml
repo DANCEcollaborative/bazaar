@@ -233,11 +233,6 @@ def gpu_predict(data, model, vectorizer):
  <!-- ================================ -->
  <!-- The following prompts are unused -->
  <!-- ================================ -->
-      
-    <!-- for PROMPT_STEP_1 -->    
-    <prompt strategy="task" id="WAIT_FOR_SPREADSHEET_COPIES">
-       <text>When you have copied your data into the spreadsheets, we'll continue.</text>
-    </prompt>
         
     <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
        <text>We'll move on when everyone is ready.</text>
