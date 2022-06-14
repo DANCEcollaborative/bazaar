@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    
+    <prompt strategy="task" id="INTRODUCE" intention="Build_rapport">
+        <text>We're starting! I'm OPE_Bot.|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a couple of minutes to learn more about each other.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET" intention="Greet">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
+        <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have 75 minutes to complete programming and to submit to receive your grades.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="role_switch_warning">
+        <text>Ok, we are switching roles now. Let's move on to 'task2.py'.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="role_switch_warning">
+        <text>Ok, we are switching roles now. Let's move on to 'task3.py'.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4 intention="role_switch_warning"">
+        <text>Ok, we are switching roles now. Let's move on to 'task4.py'.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1_INTRO">
+        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins later, have them assume the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_MAX_ALL_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_EVEN_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
+        <text>Remember that even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_EVEN_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_EVEN_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_EVEN_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_EVEN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_MAX_ALL">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_ODD_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
+        <text>Remember that even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_ODD_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_ODD_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_ODD_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_ODD_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_MAX_ALL">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]
+Whoever doesn't have an assignment is a researcher for this round.</text>
+    </prompt>
+
+
+     <prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase_start">
+     <text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.</text>
+     </prompt> 
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
+     <text>Project Manager, please lead the discussion - You already know why it's extremely bad practice to use part of the train set as test set. Now, discuss why usage of preprocessor should follow same logic.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW" intention="prompt_for_reflection1">
+     <text>As a follow-up, discuss why you should not fit StandardScaler on test data.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
+     <text>Project Manager, your turn to lead the discussion again - In a lot of cases using small mini-batches or even one-by-one processing will benefit complex models running on CPU. At the same time, using large batches will be better while using a GPU. Based on this, discuss take turns to discuss the technical reasons of why this is happening.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW" intention="prompt_for_reflection2">
+     <text>Based on your discussion, how will you decide whether to use the CPU or the GPU for processing complex models in the future?</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
+     <text>Led by the Project Manager, take turns to discuss why it's important to zero gradient on each iteration of training. </text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW" intention="prompt_for_reflection3">
+     <text>As a follow-up, what will happen if you do not do it?</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION" intention="prompt_for_reflection4">
+     <text>Final discussion time led by the Project Manager -  Documentation navigation skill is crucial for your career. Discuss how you can quickly browse long and complex documentation.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW" intention="prompt_for_reflection4">
+     <text>What was the exact function you ended up using here, did you find any possible alternatives?</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION" intention="ope_end">
+     <text>Thanks for participating in today's OPE activity. Execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full-credit.</text>
+     </prompt>
+
+</prompts>

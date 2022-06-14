@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING">
+		<text>We need to start wrapping up.</text>
+		<text>Okay, let's get ready to move on to reflection.</text>
+	</prompt>
+
+	
+	<prompt strategy="task" id="FILE_STEP_TIMED_OUT">
+		<text>We need to be moving along on this test case.</text>
+		<text>Time for this test case is almost over.</text>
+		<text>Time to move along on this test case if you can.</text>
+	</prompt>
+    
+    <prompt strategy="task" id="FILE_STEP_COMPLETE">
+       <text>You've passed the testcase!</text>
+       <text>Great! You have passed the testcase.</text>
+       <text>Way to go! You've passed the testcase.</text>
+       <text>Good job. You've passed the testcase.</text>
+    </prompt>
+	
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>Okay, we're about to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
+       <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO1_TRANSACTIVITY">
+        <text>@Researcher, remind your teammates that both model and pre-processor should be trained (fitted) only on train set!</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO2_TRANSACTIVITY">
+        <text>@Navigator, for the first part, work with the team to figure out how to loop over the data one by one. For the second part, try to just pass the whole dataset into the function, but be very careful about types of inputs and outputs.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO3_TRANSACTIVITY">
+        <text>Don't forget to zero gradient! @Researcher, refer to PyTorch documentation for full example of a training loop - https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#train-the-network</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO4_TRANSACTIVITY">
+        <text>@Researcher, this link may be useful ;) - https://huggingface.co/transformers/model_doc/roberta.html#robertaforsequenceclassification</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION" intention="cut_off_0">
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||A concise way to solve this problem: 
+
+	preprocessor = StandardScaler()
+	train_X, test_X, train_y, test_y = train_test_split(X, y, random_state = seed)
+	model = LogisticRegression(random_state = seed)
+	train_X = preprocessor.fit_transform(train_X)
+	test_X = preprocessor.transform(test_X)
+	model.fit(train_X, train_y)
+	return model.score(test_X, test_y)</text>
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||A quick solution to the problem: 
+
+	preprocessor = StandardScaler()
+	train_X, test_X, train_y, test_y = train_test_split(X, y, random_state = seed)
+	model = LogisticRegression(random_state = seed)
+	train_X = preprocessor.fit_transform(train_X)
+	test_X = preprocessor.transform(test_X)
+	model.fit(train_X, train_y)
+	return model.score(test_X, test_y)</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION" intention="cut_off_1">
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
+
+def cpu_predict(data, model, vectorizer):
+	return [predict_one(row, model, vectorizer)[0] for row in data]
+
+def gpu_predict(data, model, vectorizer):
+	return predict_batch(data, model, vectorizer).tolist()</text>
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||A way to do this: 
+
+def cpu_predict(data, model, vectorizer):
+	return [predict_one(row, model, vectorizer)[0] for row in data]
+
+def gpu_predict(data, model, vectorizer):
+	return predict_batch(data, model, vectorizer).tolist()</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION" intention="cut_off_2">
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
+
+	train_loss, n_batches = 0, 0
+	for i, data in enumerate(trainloader, 0):
+		# get the inputs; data is a list of [inputs, labels]
+		inputs, labels = data
+
+		# zero the parameter gradients
+		optimizer.zero_grad()
+
+		# forward + backward + optimize
+		outputs = net(inputs)
+		loss = criterion(outputs, labels)
+		loss.backward()
+		optimizer.step()
+
+		# total train loss
+		train_loss += loss.item()
+		n_batches += 1
+
+	train_loss /= n_batches
+
+	correct, total = 0, 0
+	with torch.no_grad():
+		for data in testloader:
+			images, labels = data
+			outputs = net(images)
+			_, predicted = torch.max(outputs.data, 1)
+			total += labels.size(0)
+			correct += (predicted == labels).sum().item()
+
+	return train_loss, correct / total</text>
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
+
+	train_loss, n_batches = 0, 0
+	for i, data in enumerate(trainloader, 0):
+		# get the inputs; data is a list of [inputs, labels]
+		inputs, labels = data
+
+		# zero the parameter gradients
+		optimizer.zero_grad()
+
+		# forward + backward + optimize
+		outputs = net(inputs)
+		loss = criterion(outputs, labels)
+		loss.backward()
+		optimizer.step()
+
+		# total train loss
+		train_loss += loss.item()
+		n_batches += 1
+
+	train_loss /= n_batches
+
+	correct, total = 0, 0
+	with torch.no_grad():
+		for data in testloader:
+			images, labels = data
+			outputs = net(images)
+			_, predicted = torch.max(outputs.data, 1)
+			total += labels.size(0)
+			correct += (predicted == labels).sum().item()
+
+	return train_loss, correct / total</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION" intention="cut_off_3">
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
+
+	inputs = tokenizer(text, return_tensors="pt")
+	with torch.no_grad():
+		out = model(**inputs, return_dict=True).logits.numpy()[0]
+
+	return list(out)</text>
+     	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||A way to do this: 
+
+	inputs = tokenizer(text, return_tensors="pt")
+	with torch.no_grad():
+		out = model(**inputs, return_dict=True).logits.numpy()[0]
+
+	return list(out)</text>
+    </prompt>
+
+
+
+    <!-- for READY_GENERIC -->    
+    <prompt strategy="task" id="READY_GENERIC">
+       <text>Type "ready" when you are ready to move on.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_GENERIC_NO_READY">
+       <text>We will move on after a while or when everyone is ready.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_SPECIALIZATIONS_SELECTED">
+       <text>Type "ready" when you have decided who will cover which specialization.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_DATA_FOUND">
+       <text>Type "ready" when you have found the data for your specialization.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_SPECIALIZATIONS_COMPLETED">
+       <text>Type "ready" when you have finished researching and writing about your specialization.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_TEMPERATURE_CHANGE">
+       <text>Type "ready" when you have finished discussing the temperature change data.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_CARBON_DIOXIDE">
+       <text>Type "ready" when you have finished discussing the carbon dioxide data.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_FOSSIL_FUELS">
+       <text>Type "ready" when you have finished discussing the fossil fuels data.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_READ_LETTER">
+       <text>Type "ready" when you have finished examining the mayor's letter.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_MAYORAL_PERSPECTIVE">
+       <text>Type "ready" when you have finished summarizing and discussing the mayor's letter.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your team is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay, let's move on...</text>
+       <text>Moving on...</text>
+       <text>Onward!</text>
+    </prompt>
+  
+  
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+      
+    <!-- for PROMPT_STEP_1 -->    
+    <prompt strategy="task" id="WAIT_FOR_SPREADSHEET_COPIES">
+       <text>When you have copied your data into the spreadsheets, we'll continue.</text>
+    </prompt>
+        
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>We'll move on when everyone is ready.</text>
+    </prompt>
+       
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, type "ready".</text>
+       <text>When everyone is comfortable with this material, type "ready".</text>
+    </prompt>
+    
+</prompts>
+
