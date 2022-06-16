@@ -44,9 +44,9 @@ public class LogEvent extends Event {
     public static String GENERIC_NAME = "LOG_EVENT";; 
     private static String logData; 
 
-    public LogEvent(Component s, String dataToLog) {
+    public LogEvent(Component s, String data) {
         super(s);
-        logData = dataToLog; 
+        logData = data; 
         System.err.println("LogEvent.java, LogEvent - LogEvent created: logData: " + logData);
         Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, LogEvent - LogEvent created - logData: " + logData);
     }

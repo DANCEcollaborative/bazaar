@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 
@@ -70,6 +71,7 @@ public class PromptTable
     protected Properties properties;
 	protected Map<String, String> intentions = null;
 	protected Boolean includeIntention = false; 
+	private Map<String, String> namesRoles; 
 
 	public PromptTable()
 	{
@@ -267,6 +269,7 @@ public class PromptTable
 	{
 
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
+		namesRoles = new HashMap<>(); 
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
@@ -283,6 +286,7 @@ public class PromptTable
 					if(name != null && role != null)
 						promptText = promptText.replace(nameKey, name);
 						promptText = promptText.replace(roleKey, role);
+						namesRoles.put(name, role); 
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 			}
@@ -303,6 +307,7 @@ public class PromptTable
 	{
 
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
+		namesRoles = new HashMap<>();
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
@@ -319,6 +324,7 @@ public class PromptTable
 					if(name != null && role != null)
 						promptText = promptText.replace(nameKey, name);
 						promptText = promptText.replace(roleKey, role);
+						namesRoles.put(name, role); 
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 				promptText = promptText.replace("[DEFAULTROLE]", defaultRole);
@@ -381,6 +387,11 @@ public class PromptTable
             }
         }
     }
+
+	public Map<String,String> getNamesRoles()
+	{
+		return namesRoles;
+	}
 
 	public Properties getProperties()
 	{

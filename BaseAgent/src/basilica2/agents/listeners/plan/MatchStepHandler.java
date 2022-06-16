@@ -21,6 +21,7 @@ import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
+import basilica2.agents.events.LogStateEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.util.PropertiesLoader;
 import basilica2.agents.listeners.plan.StepHandler;
@@ -40,6 +41,7 @@ public class MatchStepHandler implements StepHandler
 	private String[] roles; 
 	private boolean matchMultipleToDefault = true;
 	private int numRoles; 
+	private boolean sendMatchRemoteLog = false; 
 
 	public static String getStepType()
 	{
@@ -69,6 +71,9 @@ public class MatchStepHandler implements StepHandler
 			constantDelay = Double.parseDouble(properties.getProperty("delay_after_prompt"));
 		}
 		catch (Exception e){}
+		
+		try{sendMatchRemoteLog = Boolean.parseBoolean(properties.getProperty("send_match_remote_log", "false"));}
+		catch(Exception e) {e.printStackTrace();}
 		
 		// Get the set of roles to match with students, then shuffle the roles
 		try
@@ -169,6 +174,12 @@ public class MatchStepHandler implements StepHandler
         	}
         	else {
         		promptText = adjustedPromptText; 
+        		if (sendMatchRemoteLog) {
+        			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles()); 	
+        	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+        		}
         	}
         } else {
         	promptText = prompter.lookup(promptKey);
@@ -275,6 +286,13 @@ public class MatchStepHandler implements StepHandler
 			double p = OutputCoordinator.LOW15_PRIORITY;
 			double timeout = 60;
 			source.addEventProposal(e, p, timeout);
+
+    		if (sendMatchRemoteLog) {
+    			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles()); 	
+    	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+    			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+    		}
 		}
 	}
 	

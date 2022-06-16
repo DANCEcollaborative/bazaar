@@ -8,7 +8,6 @@ import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.util.TimeoutAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
-import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 public class LogStepHandler implements StepHandler
 {
@@ -22,7 +21,8 @@ public class LogStepHandler implements StepHandler
 		LogEvent logEvent = new LogEvent(source,logData); 	
         System.err.println("LogStepHandler, execute - LogEvent created: logData: " + logData);
         Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStepHandler, execute - LogEvent created - logData: " + logData);
-		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStep", logEvent, OutputCoordinator.HIGH_PRIORITY, 30.0, 3));
+		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStep", logEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+		overmind.stepDone();
 	}
 	
 }
