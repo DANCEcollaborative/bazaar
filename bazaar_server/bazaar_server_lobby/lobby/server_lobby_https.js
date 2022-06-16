@@ -1493,6 +1493,15 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 
+	// when the client emits 'logdata', this listens and executes
+	socket.on('logdata', async (data)  => {
+		logMessage(socket, data, "logdata");
+        console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " data = " + data);
+        io.sockets.in(socket.room).emit('logdata', socket.username, data);		
+	});
+
+
+
 	// when the client emits 'updatepresence', this listens and executes
 	socket.on('updatepresence', async (data)  => {
 		logMessage(socket, data, "updatepresence");
