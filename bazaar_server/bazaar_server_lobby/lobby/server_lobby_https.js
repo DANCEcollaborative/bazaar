@@ -1497,7 +1497,7 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('logdata', async (data)  => {
 		logMessage(socket, data, "logdata");
         console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " data = " + data);
-        io.sockets.in(socket.room).emit('logdata', socket.username, data);		
+        io.sockets.in(socket.room).emit('logdata', data);		
 	});
 
 
