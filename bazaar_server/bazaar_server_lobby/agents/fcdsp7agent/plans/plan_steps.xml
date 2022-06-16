@@ -8,12 +8,13 @@
    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
-    <stage name="StageInitialization" type="other" delay="0">
-    	<step type="greet" timeout="45" delay="0">GREETINGS</step>
-    </stage>   
+    <!-- <stage name="StageInitialization" type="other" delay="0">  -->
+    <!-- 	<step type="greet" timeout="45" delay="0">GREETINGS</step>  -->
+    <!-- </stage>     -->
     
     <stage name="StageLO1" type="other" delay="0">    
-    	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step>   
+    	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step>     
+    	<step type="log" delay="3" log_data="*** TEST LOG STEP ***">log_test</step>   
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>        
         <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="300" delayed_prompt="PROMPT_STEP_LO1_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>        	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO1_Discussion</step>    	

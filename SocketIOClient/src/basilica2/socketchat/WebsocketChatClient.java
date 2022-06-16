@@ -26,12 +26,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import basilica2.agents.components.ChatClient;
-import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.events.FileEvent;
+import basilica2.agents.events.LogEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -156,6 +157,23 @@ public class WebsocketChatClient extends Component implements ChatClient
 				e1.printStackTrace();
 			}
 		}
+		else if(e instanceof LogEvent)
+		{
+			LogEvent le = (LogEvent) e;
+	        System.err.println("WebsocketChatClient, processEvent - LogEvent: " + le.getLogData());
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogData - logData: " + le.getLogData());
+			try
+			{
+				insertLogData(le.getLogData());
+			}
+			catch (Exception e1)
+			{
+				System.err.println("WebsocketChatClient, processEvent - couldn't send logEvent: "+le);
+		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send logEvent: " +le);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		//TODO: private messages? "beeps"?
 
 	}
@@ -192,7 +210,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 		}
 		catch (Exception e)
 		{
-			System.err.println("Couldn't log in to the chat server...");
+			System.err.println("Couldn't login to the chat server...");
 			e.printStackTrace();
 
 			JOptionPane.showMessageDialog(null, "Couldn't access chat server: "+ e.getMessage(), "Login Failure", JOptionPane.ERROR_MESSAGE);
@@ -221,6 +239,13 @@ public class WebsocketChatClient extends Component implements ChatClient
 	protected void insertPrivateMessage(String message, String toUser)
 	{
 		socket.emit("sendpm", message, toUser);
+	}
+
+	protected void insertLogData(String logData)
+	{
+        System.err.println("WebsocketChatClient, insertLogData - logData: " + logData);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogData - logData: " + logData);
+		socket.emit("logdata", logData);
 	}
 
 	protected void shareImage(String imageURL)
