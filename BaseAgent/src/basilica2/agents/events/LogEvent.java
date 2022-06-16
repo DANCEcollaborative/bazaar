@@ -47,15 +47,15 @@ public class LogEvent extends Event {
     public LogEvent(Component s, String dataToLog) {
         super(s);
         logData = dataToLog; 
-        System.err.println("LoveEvent.java, LogEvent - LogEvent created: logData: " + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LoveEvent.java, LogEvent - LogEvent created - logData: " + logData);
+        System.err.println("LogEvent.java, LogEvent - LogEvent created: logData: " + logData);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, LogEvent - LogEvent created - logData: " + logData);
     }
 
     public LogEvent(Component s) {
         super(s);
         logData = null; 
-        System.err.println("LoveEvent.java, LogEvent - LogEvent created: logData = null" + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LoveEvent.java, LogEvent - LogEvent created - logData = null");
+        System.err.println("LogEvent.java, LogEvent - LogEvent created: logData = null" + logData);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, LogEvent - LogEvent created - logData = null");
     }
 
     @Override
@@ -64,8 +64,8 @@ public class LogEvent extends Event {
     }
 
     public String getLogData() {
-        System.err.println("LoveEvent.java, getLogData - data: " + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LoveEvent.java, getLogData -  - data: " + logData);
+        System.err.println("LogEvent.java, getLogData - data: " + logData);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, getLogData -  - data: " + logData);
         return logData;
     }
 
