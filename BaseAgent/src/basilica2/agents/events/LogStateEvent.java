@@ -98,17 +98,17 @@ public class LogStateEvent extends Event {
     }
 
     public String getLogStateValue() {
-        System.err.println("LogStateEvent.java, getlogStateValue - enter");
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent.java, getlogStateValue - enter");
+        System.err.println("LogStateEvent.java, getLogStateValue - enter");
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent.java, getLogStateValue - enter");
         if (valueIsString) {
-            System.err.println("LogStateEvent, getlogStateValue - from String: " + logStateStringValue);
-            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateValue - rom String: " + logStateStringValue);
+            System.err.println("LogStateEvent, getLogStateValue - from String: " + logStateStringValue);
+            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - rom String: " + logStateStringValue);
         	return logStateStringValue; 
         } else {
         	JSONObject jsonObject = new JSONObject(logStateMapValue);
         	String jsonString = jsonObject.toString(); 
-            System.err.println("LogStateEvent, getlogStateValue - from Map: " + jsonString);
-            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateValue - from Map: " + jsonString);
+            System.err.println("LogStateEvent, getLogStateValue - from Map: " + jsonString);
+            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - from Map: " + jsonString);
         	return jsonString; 
         }
     }

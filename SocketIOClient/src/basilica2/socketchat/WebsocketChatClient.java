@@ -161,15 +161,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 		else if(e instanceof LogEvent)
 		{
 			LogEvent le = (LogEvent) e;
-	        System.err.println("WebsocketChatClient, processEvent - LogEvent: " + le.getLogData());
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogData - logData: " + le.getLogData());
+	        System.err.println("WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
 			try
 			{
-				insertLogData(le.getLogData());
+				insertLogEvent(le.getLogTag(),le.getLogDetails());
 			}
 			catch (Exception e1)
 			{
-				System.err.println("WebsocketChatClient, processEvent - couldn't send LogEvent: "+le);
+				System.err.println("WebsocketChatClient, processEvent - couldn't send LogEvent: " + le);
 		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send LogEvent: " +le);
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -261,11 +261,11 @@ public class WebsocketChatClient extends Component implements ChatClient
 		socket.emit("sendpm", message, toUser);
 	}
 
-	protected void insertLogData(String logData)
+	protected void insertLogEvent(String logTag, String logDetails)
 	{
-        System.err.println("WebsocketChatClient, insertLogData - logData: " + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogData - logData: " + logData);
-		socket.emit("logdata", logData);
+        System.err.println("WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
+		socket.emit("logevent", logTag, logDetails);
 	}
 
 	protected void insertLogState(String tag, String value)

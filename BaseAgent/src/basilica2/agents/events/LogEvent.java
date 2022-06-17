@@ -34,6 +34,11 @@ package basilica2.agents.events;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import java.util.HashMap;
+import java.util.Map; 
 
 /**
  *
@@ -41,40 +46,87 @@ import edu.cmu.cs.lti.project911.utils.log.Logger;
  */
 public class LogEvent extends Event {
 
-    public static String GENERIC_NAME = "LOG_EVENT";; 
-    private static String logData; 
+    public static String GENERIC_NAME = "LOG_EVENT";
+    private static String logTag = null; 
+    private static String logDetailsString = null; 
+    private static Map<String, String> logDetailsMap = null; 
+    private static Boolean detailIsString = false; 
+    private static Boolean detailIsMap = false; 
 
-    public LogEvent(Component s, String data) {
+    public LogEvent(Component s, String tag, String detailsString) {
         super(s);
-        logData = data; 
-        System.err.println("LogEvent.java, LogEvent - LogEvent created: logData: " + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, LogEvent - LogEvent created - logData: " + logData);
+        logTag = tag; 
+        logDetailsString = detailsString; 
+        detailIsString = true; 
+        System.err.println("LogEvent, constructor - LogEvent created: logTag: " + logTag + "   logDetailsString: " + logDetailsString);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, LogEvent - LogEvent created: logTag: " + logTag + "   logDetailsString: " + logDetailsString);
     }
 
-    public LogEvent(Component s) {
+    public LogEvent(Component s, String tag, Map<String, String> detailsMap) {
         super(s);
-        logData = null; 
-        System.err.println("LogEvent.java, LogEvent - LogEvent created: logData = null" + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, LogEvent - LogEvent created - logData = null");
+        logTag = tag; 
+        logDetailsMap = detailsMap; 
+        detailIsMap = true; 
+        System.err.println("LogEvent, constructor - LogEvent with Map created: logTag: " + logTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, LogEvent - LogEvent with Map created: logTag: " + logTag);
     }
+
+//    public LogEvent(Component s, String tag) {
+//        super(s);
+//        logTag = tag; 
+//        System.err.println("LogEvent, constructor - LogEvent created: logTag: " + logTag);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, LogEvent - LogEvent created: logTag: " + logTag);
+//    }
+//
+//    public LogEvent(Component s) {
+//        super(s);
+//        logTag = null; 
+//        System.err.println("LogEvent, constructor - LogEvent created: logTag = null");
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, LogEvent - LogEvent created - logTag = null");
+//    }
 
     @Override
     public String getName() {
         return GENERIC_NAME;
     }
 
-    public String getLogData() {
-        System.err.println("LogEvent.java, getLogData - data: " + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, getLogData -  - data: " + logData);
-        return logData;
+    public String getLogTag() {
+        System.err.println("LogEvent, getLogTag - logTag: " + logTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, getLogTag - logTag: " + logTag);
+        return logTag;
     }
 
-    public void setLogData(String data) {
-        logData = data;
+    public String getLogDetails() {
+        System.err.println("LogEvent.java, getLogDetails - enter");
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent.java, getLogDetails - enter");
+        if (detailIsString) {
+            System.err.println("LogEvent, getLogDetails - from String: " + logDetailsString);
+            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, getLogDetails - from String: " + logDetailsString);
+        	return logDetailsString; 
+        } else if (detailIsMap) {
+        	JSONObject jsonObject = new JSONObject(logDetailsMap);
+        	String jsonString = jsonObject.toString(); 
+            System.err.println("LogEvent, getLogDetails - from Map: " + jsonString);
+            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogEvent, getLogDetails - from Map: " + jsonString);
+        	return jsonString; 
+        } else
+        	return null; 
+    }
+
+    public void setLogTag(String tag) {
+        logTag = tag;
+    }
+
+    public void setLogDetails(String detailsString) {
+        logDetailsString = detailsString;
+    }
+
+    public void setLogDetails(Map<String, String> detailsMap) {
+        logDetailsMap = detailsMap;
     }
 
     @Override
     public String toString() {
-        return "<LOG_EVENT event -- logData = \"" + logData + "/>";
+        return "<LOG_EVENT tag = \"" + logTag + "   details = \"" + getLogDetails() + "/>";
     }
 }
