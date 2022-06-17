@@ -16,7 +16,7 @@ public class LogStepHandler implements StepHandler
 	@Override
 	public void execute(final Step currentStep, final PlanExecutor overmind, final InputCoordinator source)
 	{
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Executing log step ...");
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Executing sendlog step ...");
 
 		if(currentStep.attributes.containsKey("tag"))
 		{

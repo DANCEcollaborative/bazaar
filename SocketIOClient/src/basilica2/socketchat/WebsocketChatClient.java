@@ -178,13 +178,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 		else if(e instanceof LogStateEvent)
 		{
 			LogStateEvent lse = (LogStateEvent) e;
-			String tag = lse.getLogStateTag();
-			String value = lse.getLogStateValue(); 
-	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: tag=" + tag + "  value = " + value);
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: tag=" + tag + "  value = " + value);
+			String stateTag = lse.getLogStateTag();
+			String stateValue = lse.getLogStateValue(); 
+			String sendLog = lse.getLogStateSendLog(); 
+			String logTag = lse.getLogEventTag(); 
+	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
 			try
 			{
-				insertLogState(tag,value);
+				insertLogState(stateTag,stateValue,sendLog,logTag);
 			}
 			catch (Exception e1)
 			{
@@ -268,11 +270,11 @@ public class WebsocketChatClient extends Component implements ChatClient
 		socket.emit("logevent", logTag, logDetails);
 	}
 
-	protected void insertLogState(String tag, String value)
+	protected void insertLogState(String stateTag, String stateValue, String sendLog, String logTag)
 	{
-        System.err.println("WebsocketChatClient, insertLogState - tag=" + tag + "  value = " + value);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - tag=" + tag + "  value = " + value);
-		socket.emit("logstate", tag, value);
+        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+		socket.emit("logstate", stateTag, stateValue, sendLog, logTag);
 	}
 
 	protected void shareImage(String imageURL)

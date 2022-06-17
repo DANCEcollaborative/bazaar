@@ -51,24 +51,30 @@ public class LogStateEvent extends Event {
     private static String logStateStringValue; 
     private static Map<String, String> logStateMapValue;  
     private static Boolean valueIsString; 
+    private static Boolean sendLogEvent = true; 
+    private static String logEventTag; 
 
-    public LogStateEvent(Component s, String tag, String stringValue) {
+    public LogStateEvent(Component s, String tag, String stringValue, Boolean sendLog, String logTag) {
         super(s);
         logStateTag = tag; 
         logStateStringValue = stringValue;
         valueIsString = true; 
-        System.err.println("LogStateEvent.java, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateStringValue = " + logStateStringValue);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent.java, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateStringValue = " + logStateStringValue);
+        sendLogEvent = sendLog; 
+        logEventTag = logTag; 
+        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateStringValue = " + logStateStringValue);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateStringValue = " + logStateStringValue);
     }
 
-    public LogStateEvent(Component s, String tag, Map<String, String> mapValue) {
+    public LogStateEvent(Component s, String tag, Map<String, String> mapValue, Boolean sendLog, String logTag) {
         super(s);
         logStateTag = tag; 
         logStateMapValue = new HashMap<>(); 
         logStateMapValue = mapValue; 
-        valueIsString = false; 
-        System.err.println("LogStateEvent.java, LogStateEvent - LogStateEvent with Map created: logStateTag= " + logStateTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent.java, LogStateEvent - LogStateEvent with Map created: logStateTag= " + logStateTag);
+        valueIsString = false;  
+        sendLogEvent = sendLog; 
+        logEventTag = logTag; 
+        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent with Map created: logStateTag= " + logStateTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent with Map created: logStateTag= " + logStateTag);
     }
 
     @Override
@@ -77,8 +83,8 @@ public class LogStateEvent extends Event {
     }
 
     public String getLogStateTag() {
-        System.err.println("LogStateEvent.java, getlogStateTag - logStateTag: " + logStateTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent.java, getlogStateTag - logStateTag=" + logStateTag);
+        System.err.println("LogStateEvent, getlogStateTag - logStateTag: " + logStateTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateTag - logStateTag=" + logStateTag);
         return logStateTag;
     }
 
@@ -98,8 +104,8 @@ public class LogStateEvent extends Event {
     }
 
     public String getLogStateValue() {
-        System.err.println("LogStateEvent.java, getLogStateValue - enter");
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent.java, getLogStateValue - enter");
+        System.err.println("LogStateEvent, getLogStateValue - enter");
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - enter");
         if (valueIsString) {
             System.err.println("LogStateEvent, getLogStateValue - from String: " + logStateStringValue);
             Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - rom String: " + logStateStringValue);
@@ -113,8 +119,21 @@ public class LogStateEvent extends Event {
         }
     }
 
+    // Returning Boolean as String for use by WebsocketChatClient to send string to socket
+    public String getLogStateSendLog() {
+        System.err.println("LogStateEvent, getLogStateSendLog - sendLogEvent: " + sendLogEvent);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateSendLog - sendLogEvent = " + String.valueOf(sendLogEvent));
+        return String.valueOf(sendLogEvent);
+    }
+
+    public String getLogEventTag() {
+        System.err.println("LogStateEvent, getlogEventTag - logEventTag: " + logEventTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogEventTag - logEventTag=" + logEventTag);
+        return logEventTag;
+    }
+    
     @Override
     public String toString() {
-        return "<LOG_STATE_EVENT event -- logStateTag=\"" + logStateTag + "   logStateValue = \"" + getLogStateValue() + "/>";
+        return "<LOG_STATE_EVENT event -- logStateTag=\"" + logStateTag + "   logStateValue = \"" + getLogStateValue() + " sendLogEvent = \"" + String.valueOf(sendLogEvent) + " logEventTag = \"" + logEventTag + "/>";
     }
 }
