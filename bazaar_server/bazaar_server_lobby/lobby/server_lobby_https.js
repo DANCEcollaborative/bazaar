@@ -1494,10 +1494,18 @@ io.sockets.on('connection', async (socket) => {
 
 
 	// when the client emits 'logdata', this listens and executes
-	socket.on('logdata', async (data)  => {
-		logMessage(socket, data, "logdata");
-        console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " data = " + data);
-        io.sockets.in(socket.room).emit('logdata', data);		
+	socket.on('logevent', async (tag, details)  => {
+		logMessage(socket, tag, details, "logevent");
+        console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " tag = " + tag + "  details = " + details);
+        io.sockets.in(socket.room).emit('logevent', tag, details);		
+	});
+
+
+	// when the client emits 'logdata', this listens and executes
+	socket.on('logstate', async (statetag, statevalue, sendlog, logtag)  => {
+		logMessage(socket, statetag, statevalue, "logstate");
+        console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " statetag = " + statetag + "  statevalue = " + statevalue + " sendlog = " + sendlog + "  logtag = " + logtag);
+        io.sockets.in(socket.room).emit('logstate', statetag, statevalue, sendlog, logtag);		
 	});
 
 

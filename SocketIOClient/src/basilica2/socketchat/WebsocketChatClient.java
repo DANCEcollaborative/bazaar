@@ -33,6 +33,7 @@ import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.WhiteboardEvent;
 import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.LogEvent;
+import basilica2.agents.events.LogStateEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -160,16 +161,37 @@ public class WebsocketChatClient extends Component implements ChatClient
 		else if(e instanceof LogEvent)
 		{
 			LogEvent le = (LogEvent) e;
-	        System.err.println("WebsocketChatClient, processEvent - LogEvent: " + le.getLogData());
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogData - logData: " + le.getLogData());
+	        System.err.println("WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
 			try
 			{
-				insertLogData(le.getLogData());
+				insertLogEvent(le.getLogTag(),le.getLogDetails());
 			}
 			catch (Exception e1)
 			{
-				System.err.println("WebsocketChatClient, processEvent - couldn't send logEvent: "+le);
-		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send logEvent: " +le);
+				System.err.println("WebsocketChatClient, processEvent - couldn't send LogEvent: " + le);
+		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send LogEvent: " +le);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else if(e instanceof LogStateEvent)
+		{
+			LogStateEvent lse = (LogStateEvent) e;
+			String stateTag = lse.getLogStateTag();
+			String stateValue = lse.getLogStateValue(); 
+			String sendLog = lse.getLogStateSendLog(); 
+			String logTag = lse.getLogEventTag(); 
+	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+			try
+			{
+				insertLogState(stateTag,stateValue,sendLog,logTag);
+			}
+			catch (Exception e1)
+			{
+				System.err.println("WebsocketChatClient, processEvent - couldn't send LogStateEvent: "+ lse);
+		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send LogStateEvent: " + lse);
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -241,11 +263,18 @@ public class WebsocketChatClient extends Component implements ChatClient
 		socket.emit("sendpm", message, toUser);
 	}
 
-	protected void insertLogData(String logData)
+	protected void insertLogEvent(String logTag, String logDetails)
 	{
-        System.err.println("WebsocketChatClient, insertLogData - logData: " + logData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogData - logData: " + logData);
-		socket.emit("logdata", logData);
+        System.err.println("WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
+		socket.emit("logevent", logTag, logDetails);
+	}
+
+	protected void insertLogState(String stateTag, String stateValue, String sendLog, String logTag)
+	{
+        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+		socket.emit("logstate", stateTag, stateValue, sendLog, logTag);
 	}
 
 	protected void shareImage(String imageURL)
