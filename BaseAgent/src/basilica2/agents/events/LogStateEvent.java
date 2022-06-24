@@ -48,48 +48,26 @@ public class LogStateEvent extends Event {
 
     public static String GENERIC_NAME = "LOG_STATE_EVENT";; 
     private static String logStateTag; 
-    private static String logStateStringValue; 
-    private static Map<String, String> logStateMapValue;  
-    private static String[] logStateListValue;  
-    private static String jsonValue;
-    private static Boolean valueIsString = false; 
-    private static Boolean valueIsMap = false; 
-    private static Boolean valueIsList = false;     
+    private static String logStateJsonString; 
     private static Boolean sendLogEvent = true; 
     private static String logEventTag; 
 
     public LogStateEvent(Component s, String tag, String stringValue, Boolean sendLog, String logTag) {
         super(s);
         logStateTag = tag; 
-        logStateStringValue = stringValue;
-        valueIsString = true; 
+        logStateJsonString = stringValue;
         sendLogEvent = sendLog; 
         logEventTag = logTag; 
-        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateStringValue = " + logStateStringValue);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateStringValue = " + logStateStringValue);
+        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent created with String: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
     }
 
     public LogStateEvent(Component s, String tag, Map<String, String> mapValue, Boolean sendLog, String logTag) {
-        super(s);
-        logStateTag = tag; 
-        logStateMapValue = new HashMap<>(); 
-        logStateMapValue = mapValue; 
-        valueIsMap = true; 
-        sendLogEvent = sendLog; 
-        logEventTag = logTag; 
-        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent with Map created: logStateTag= " + logStateTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent with Map created: logStateTag= " + logStateTag);
+        this(s,tag,new JSONObject(mapValue).toString(),sendLog,logTag); 
     }
 
     public LogStateEvent(Component s, String tag, String[] listValue, Boolean sendLog, String logTag) {
-        super(s);
-        logStateTag = tag; 
-        logStateListValue = new String[listValue.length];        
-        valueIsList = true; 
-        sendLogEvent = sendLog; 
-        logEventTag = logTag; 
-        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent with String[] created: logStateTag= " + logStateTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent with String[] created: logStateTag= " + logStateTag);
+        this(s,tag,new JSONObject(listValue).toString(),sendLog,logTag); 
     }
 
     @Override
@@ -108,35 +86,21 @@ public class LogStateEvent extends Event {
     }
 
     public void setLogStateStringValue(String stringValue) {
-        logStateStringValue = stringValue;
-        valueIsString = true; 
+        logStateJsonString = stringValue;
     }
     
     public void setLogStateMapValue(Map<String, String> mapValue) {
-        logStateMapValue = new HashMap<>(); 
-        logStateMapValue = mapValue; 
-        valueIsString = false; 
+    	String logStateJsonValue = new JSONObject(mapValue).toString();    
+    }
+    
+    public void setLogStateListValue(String[] listValue) {
+    	String logStateJsonValue = new JSONObject(listValue).toString();    
     }
 
     public String getLogStateValue() {
-        System.err.println("LogStateEvent, getLogStateValue - enter");
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - enter");
-        if (valueIsString) {
-            System.err.println("LogStateEvent, getLogStateValue - from String: " + logStateStringValue);
-            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - rom String: " + logStateStringValue);
-        	return logStateStringValue; 
-        } else if (valueIsMap) {
-        	JSONObject jsonObject = new JSONObject(logStateMapValue);
-        	String jsonString = jsonObject.toString(); 
-            System.err.println("LogStateEvent, getLogStateValue - from Map: " + jsonString);
-            Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - from Map: " + jsonString);
-        	return jsonString; 
-        } else if (valueIsList) {
-	    	JSONObject jsonObject = new JSONObject(logStateListValue);
-	    	String jsonString = jsonObject.toString(); 
-	        System.err.println("LogStateEvent, getLogStateValue - from String[]: " + jsonString);
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue - rom String[]: " + jsonString);
-	    	return jsonString; 
+        System.err.println("LogStateEvent, getLogStateValue - logStateJsonString: " + logStateJsonString);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue: " + logStateJsonString);
+        return logStateJsonString; 
     }
 
     // Returning Boolean as String for use by WebsocketChatClient to send string to socket
