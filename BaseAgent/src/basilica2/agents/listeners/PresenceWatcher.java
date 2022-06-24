@@ -41,6 +41,7 @@ import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 import edu.cmu.cs.lti.project911.utils.time.Timer;
 import basilica2.agents.data.State;
 import basilica2.agents.events.LaunchEvent;
+import basilica2.agents.events.LogStateEvent;
 import basilica2.agents.events.PresenceEvent;
 import java.util.Hashtable;
 import java.util.List;
@@ -49,6 +50,7 @@ import java.util.Map;
 import basilica2.agents.data.PromptTable;
 import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.events.PrivateMessageEvent;
+import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.util.PropertiesLoader;
 import basilica2.agents.listeners.plan.MatchStepHandler;
@@ -75,6 +77,8 @@ public class PresenceWatcher extends BasilicaAdapter
 	private String agent_name = "Tutor";
 	private String non_user_client_name = ""; 
 	private Boolean includeUnderscoreInAgentName = false; 
+	private Boolean sendRemoteUserList = false; 
+	
 	
 	private boolean use_catch_up = false; //whether to use the catch_up_message function
 	private PromptTable catch_up_prompter;
@@ -93,6 +97,7 @@ public class PresenceWatcher extends BasilicaAdapter
 			expected_number_of_students = Integer.parseInt(properties.getProperty("expected_number_of_students", "1"));
 			non_user_client_name = properties.getProperty("non_user_client_name", non_user_client_name);
 			includeUnderscoreInAgentName = Boolean.parseBoolean(properties.getProperty("include_underscore_in_agent_name", "false"));
+			sendRemoteUserList = Boolean.parseBoolean(properties.getProperty("send_remote_user_list", "false"));
 			
 			use_catch_up = Boolean.parseBoolean(properties.getProperty("use_catch_up", "false"));
 			if (use_catch_up) {
@@ -145,6 +150,9 @@ public class PresenceWatcher extends BasilicaAdapter
 					
 				}
 				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
+				if (sendRemoteUserList) {
+					sendUserListToRemote(source,news); 
+				}
 				StateMemory.commitSharedState(news, agent);
 				initiate(source, news);
 
@@ -153,8 +161,12 @@ public class PresenceWatcher extends BasilicaAdapter
 			{
 				State updateState = State.copy(olds);
 				updateState.removeStudent(userName);
+				if (sendRemoteUserList) {
+					sendUserListToRemote(source,updateState); 
+				}
 				StateMemory.commitSharedState(updateState, agent);
 			}
+			
 		}
 		// Start as soon as agent is present if not waiting for students
 		else if (((source.isAgentName(userName)) || userName.equals(non_user_client_name)) && expected_number_of_students == 0)
@@ -180,6 +192,15 @@ public class PresenceWatcher extends BasilicaAdapter
 			}
 		}
 	}
+	
+	private void sendUserListToRemote(final InputCoordinator source, State state) {
+		String[] usersList = state.getStudentIdsPresentOrNot();
+		LogStateEvent logStateEvent = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
+        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+	}
+	
 
 	public void initiate(final InputCoordinator source, State news)
 	{
