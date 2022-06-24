@@ -36,8 +36,6 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import org.json.JSONObject;
 import org.json.JSONArray;
-import org.json.JSONException;
-import java.util.HashMap;
 import java.util.Map; 
 
 /**
@@ -67,18 +65,12 @@ public class LogStateEvent extends Event {
     }
 
     public LogStateEvent(Component s, String tag, String[] listValue, Boolean sendLog, String logTag) {
-        this(s,tag,new JSONObject(listValue).toString(),sendLog,logTag); 
+        this(s,tag,new JSONArray(new ArrayList<String>(Arrays.asList(listValue))).toString(),sendLog,logTag); 
     }
 
     @Override
     public String getName() {
         return GENERIC_NAME;
-    }
-
-    public String getLogStateTag() {
-        System.err.println("LogStateEvent, getlogStateTag - logStateTag: " + logStateTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateTag - logStateTag=" + logStateTag);
-        return logStateTag;
     }
 
     public void setLogStateTag(String tag) {
@@ -95,6 +87,12 @@ public class LogStateEvent extends Event {
     
     public void setLogStateListValue(String[] listValue) {
     	String logStateJsonValue = new JSONObject(listValue).toString();    
+    }
+
+    public String getLogStateTag() {
+        System.err.println("LogStateEvent, getlogStateTag - logStateTag: " + logStateTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateTag - logStateTag=" + logStateTag);
+        return logStateTag;
     }
 
     public String getLogStateValue() {
