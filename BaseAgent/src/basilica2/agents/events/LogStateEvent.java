@@ -66,7 +66,29 @@ public class LogStateEvent extends Event {
     }
 
     public LogStateEvent(Component s, String tag, String[] listValue, Boolean sendLog, String logTag) {
+//        logStateTag = tag; 
+//        logStateJsonString = convertStringListToJsonString(listValue);
+//        sendLogEvent = sendLog; 
+//        logEventTag = logTag; 
+//        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent created with String: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);    	
+
         this(s,tag,new JSONArray(new ArrayList<String>(Arrays.asList(listValue))).toString(),sendLog,logTag); 
+
+        
+//      this(s,tag,convertStringListToJsonString(listValue),sendLog,logTag); 
+        
+        
+    }
+    
+    private final String convertStringListToJsonString(String[] stringList) {
+    	String returnString = "[\"" + stringList[0] + "\""; 
+    	for (int i=1; i < stringList.length; i++) {
+    		returnString.concat(", \"" + stringList[i] + "\"");  		
+    	}
+    	returnString.concat("]"); 
+        System.err.println("LogStateEvent, LogStateEvent - ***** convertStringListToJsonString ***** - returnString = " + returnString);  	
+    	return returnString; 
     }
 
     @Override
