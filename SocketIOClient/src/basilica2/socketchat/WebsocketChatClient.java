@@ -425,6 +425,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
+					System.err.println("WebsocketChatClient updatepresence - enter - message: " + (String)args[1]); 
+					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - enter - message: " + (String)args[1]);
 					String user = (String)args[0]; 
 					String message = (String)args[1]; 
 					String presence = "join";  
@@ -432,13 +434,18 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String perspective = "0"; 
 					String[] multiModalMessage = message.split(MultiModalFilter.multiModalDelim);
 					
-					// If this is a multimodal message
+					// If this is NOT a multimodal message
 					if (multiModalMessage.length <= 1) {
+						System.err.println("WebsocketChatClient updatepresence - NOT a multimodal message"); 
+						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - NOT a multimodal message");
 						presence = message; 
 						userID = (String)args[2]; 
 						perspective = (String)args[3]; 
 	
 					} else {
+						System.err.println("WebsocketChatClient updatepresence - multimodal message"); 
+						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - multimodal message");
+						presence = message; 
 						perspective = "0";						// hard-coded since perspective won't be supplied
 						MultiModalFilter.multiModalTag tag; 
 						String [] messagePart; 
@@ -469,6 +476,10 @@ public class WebsocketChatClient extends Component implements ChatClient
 							}
 						}					
 					}
+
+					System.err.println("WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence); 
+					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence);
+					presence = message; 
 
 					PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, user, presence.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, userID, perspective);
 					WebsocketChatClient.this.broadcast(pe);

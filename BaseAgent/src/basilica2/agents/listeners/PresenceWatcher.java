@@ -121,18 +121,18 @@ public class PresenceWatcher extends BasilicaAdapter
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
 	{
 		String userName = pe.getUsername(); 
-		System.err.println("PresenceEvent.java, handlePresenceEvent - username: " + userName); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - username: " + userName);
+		System.err.println("PresenceWatcher, handlePresenceEvent - username: " + userName); 
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - username: " + userName);
 		
 		if (!userName.contains(agent_name) && !source.isAgentName(userName) && !userName.equals(non_user_client_name)) 
 		{	
-			System.err.println("PresenceEvent.java, handlePresenceEvent - student present: " + userName); 
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - student present: " + userName);
+			System.err.println("PresenceWatcher, handlePresenceEvent - student present: " + userName); 
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - student present: " + userName);
 			State olds = StateMemory.getSharedState(agent);
 			State news;
 			if (pe.getType().equals(PresenceEvent.PRESENT))
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - user is PRESENT: " + userName);
+				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - user is PRESENT: " + userName);
 				if (olds != null)
 				{
 					news = State.copy(olds);
@@ -155,11 +155,11 @@ public class PresenceWatcher extends BasilicaAdapter
 				}
 				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
 				if (sendRemoteUserList) {
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - user PRESENT - sending user list");
+					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - user PRESENT - sending user list");
 					sendUserListToRemote(source,news); 
 				}
 				StateMemory.commitSharedState(news, agent);
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - INTIATING for user " + userName);
+				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - INTIATING for user " + userName);
 				initiate(source, news);
 
 			}
@@ -168,7 +168,7 @@ public class PresenceWatcher extends BasilicaAdapter
 				State updateState = State.copy(olds);
 				updateState.removeStudent(userName);
 				if (sendRemoteUserList) {
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - user ABSENT - sending user list");
+					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - user ABSENT - sending user list");
 					sendUserListToRemote(source,updateState); 
 				}
 				StateMemory.commitSharedState(updateState, agent);
@@ -178,8 +178,8 @@ public class PresenceWatcher extends BasilicaAdapter
 		// Start as soon as agent is present if not waiting for students
 		else if (((source.isAgentName(userName)) || userName.equals(non_user_client_name)) && expected_number_of_students == 0)
 		{
-			System.err.println("PresenceEvent.java, handlePresenceEvent - NOT a student, expected_num_students=0"); 
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - NOT a student, expected_num_students=0");
+			System.err.println("PresenceWatcher, handlePresenceEvent - NOT a student, expected_num_students=0"); 
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - NOT a student, expected_num_students=0");
 			State olds = StateMemory.getSharedState(agent);
 			State news;
 			if (pe.getType().equals(PresenceEvent.PRESENT))
@@ -195,7 +195,7 @@ public class PresenceWatcher extends BasilicaAdapter
 				// news.addStudent(userName);
 				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
 				StateMemory.commitSharedState(news, agent);
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent.java, handlePresenceEvent - INTIATING for expected_num_students=0");
+				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - INTIATING for expected_num_students=0");
 				initiate(source, news);
 
 			}

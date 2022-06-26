@@ -37,6 +37,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import edu.cmu.cs.lti.project911.utils.log.Logger;
+
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 
@@ -59,12 +61,16 @@ public class PresenceEvent extends Event
 
     public PresenceEvent(Component s, String a, String t) {
         super(s);
+		System.err.println("PresenceEvent constructor 1 - username: " + a); 
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 1 - username:" + a);
         agentname = a;
         type = t;
     }
 
     public PresenceEvent(Component s, String a, String t, String id) {
         super(s);
+		System.err.println("PresenceEvent constructor 1 - username:" + a + "  userID:" + id); 
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 2 - username:" + a + "  userID:" + id);
         agentname = a;
         type = t;
         agentid = id;
@@ -72,6 +78,8 @@ public class PresenceEvent extends Event
     
     public PresenceEvent(Component s, String a, String t, String id, String perspective) {
         super(s);
+		System.err.println("PresenceEvent constructor 3 - username:" + a + "  userID:" + id); 
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 3 - username:" + a + "  userID:" + id);
         agentname = a;
         type = t;
         agentid = id;
@@ -80,6 +88,8 @@ public class PresenceEvent extends Event
 
     public PresenceEvent(Component s, String a, String t, String id, String perspective, String update) {
         super(s);
+		System.err.println("PresenceEvent constructor 4 - username:" + a + "  userID:" + id); 
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 4 - username:" + a + "  userID:" + id);
         agentname = a;
         type = t;
         agentid = id;
@@ -89,6 +99,8 @@ public class PresenceEvent extends Event
     
     public PresenceEvent(Component s, String a, String t, int num) {
         super(s);
+		System.err.println("PresenceEvent constructor 5 - username:" + a + "  numUsers:" + String.valueOf(num)); 
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 5 - username:" + a + "  numUsers:" + String.valueOf(num));
         agentname = a;
         type = t;
         numUsers = num;
