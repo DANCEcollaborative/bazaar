@@ -176,12 +176,12 @@ public class MatchStepHandler implements StepHandler
         		promptText = adjustedPromptText; 
         		if (sendMatchRemoteLog) {
 
-        			// Send current user list to remote logging
-        			String[] usersList = news.getStudentIdsPresentOrNot();
-        			LogStateEvent logStateEvent1 = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
+        			// Send current user list to remote logging -- THIS IS RESULTING IN MULTIPLE role_assignments LOGGING ??? 
+//        			String[] usersList = news.getStudentIdsPresentOrNot();
+//        			LogStateEvent logStateEvent1 = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
 //        	        System.err.println("MatchStepHandler - LogStateEvent1 created: " + logStateEvent1.toString());
 //        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent1 created: " + logStateEvent1.toString());
-        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent1, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+//        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent1, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         			
         			// Send role assignments to remote logging
         			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
@@ -297,14 +297,6 @@ public class MatchStepHandler implements StepHandler
 			source.addEventProposal(e, p, timeout);
 
     		if (sendMatchRemoteLog) {
-    			
-    			// Send current user list to remote logging
-    			String[] usersList = news.getStudentIdsPresentOrNot();
-    			LogStateEvent logStateEvent1 = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
-//    	        System.err.println("MatchStepHandler - LogStateEvent1 created: " + logStateEvent1.toString());
-//    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent1 created: " + logStateEvent1.toString());
-    			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent1, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
-    			
     			// Send role assignments to remote logging
     			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
 //    	        System.err.println("MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
