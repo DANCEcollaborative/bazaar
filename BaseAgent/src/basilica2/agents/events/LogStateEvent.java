@@ -57,8 +57,8 @@ public class LogStateEvent extends Event {
         logStateJsonString = stringValue;
         sendLogEvent = sendLog; 
         logEventTag = logTag; 
-        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent created with String: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
+//        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, LogStateEvent - LogStateEvent created with String: logStateTag= " + logStateTag + "  logStateJsonString = " + logStateJsonString);
     }
 
     public LogStateEvent(Component s, String tag, Map<String, String> mapValue, Boolean sendLog, String logTag) {
@@ -93,27 +93,27 @@ public class LogStateEvent extends Event {
     }
 
     public String getLogStateTag() {
-        System.err.println("LogStateEvent, getlogStateTag - logStateTag: " + logStateTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateTag - logStateTag=" + logStateTag);
+//        System.err.println("LogStateEvent, getlogStateTag - logStateTag: " + logStateTag);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogStateTag - logStateTag=" + logStateTag);
         return logStateTag;
     }
 
     public String getLogStateValue() {
-        System.err.println("LogStateEvent, getLogStateValue - logStateJsonString: " + logStateJsonString);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue: " + logStateJsonString);
+//        System.err.println("LogStateEvent, getLogStateValue - logStateJsonString: " + logStateJsonString);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateValue: " + logStateJsonString);
         return logStateJsonString; 
     }
 
     // Returning Boolean as String for use by WebsocketChatClient to send string to socket
     public String getLogStateSendLog() {
-        System.err.println("LogStateEvent, getLogStateSendLog - sendLogEvent: " + sendLogEvent);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateSendLog - sendLogEvent = " + String.valueOf(sendLogEvent));
+//        System.err.println("LogStateEvent, getLogStateSendLog - sendLogEvent: " + sendLogEvent);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getLogStateSendLog - sendLogEvent = " + String.valueOf(sendLogEvent));
         return String.valueOf(sendLogEvent);
     }
 
     public String getLogEventTag() {
-        System.err.println("LogStateEvent, getlogEventTag - logEventTag: " + logEventTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogEventTag - logEventTag=" + logEventTag);
+//        System.err.println("LogStateEvent, getlogEventTag - logEventTag: " + logEventTag);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateEvent, getlogEventTag - logEventTag=" + logEventTag);
         return logEventTag;
     }
     

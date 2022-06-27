@@ -94,8 +94,8 @@ public class MatchStepHandler implements StepHandler
 		catch (Exception e){}
 		
 		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
-		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
-		+(rateLimited?", +"+wordsPerSecond+" wps":""));
+//		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
+//		+(rateLimited?", +"+wordsPerSecond+" wps":""));
 	}
 
 	public MatchStepHandler(String promptsPath)
@@ -106,7 +106,7 @@ public class MatchStepHandler implements StepHandler
 	
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "Executing MatchStepHandler");
+//		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "Executing MatchStepHandler");
 		State olds = StateMemory.getSharedState(overmind.getAgent());		
 		State news = State.copy(olds);
 		
@@ -161,13 +161,13 @@ public class MatchStepHandler implements StepHandler
     			maxMatch = numRoles;
     		}
     	}
-		System.out.println("MatchStepHandler execute - numStudents: " + Integer.toString(numStudents)); 
-		System.out.println("MatchStepHandler execute - numRoles: " + Integer.toString(numRoles)); 
+//		System.out.println("MatchStepHandler execute - numStudents: " + Integer.toString(numStudents)); 
+//		System.out.println("MatchStepHandler execute - numRoles: " + Integer.toString(numRoles)); 
         if (numStudents > 0) {
         	adjustedPromptKey = promptKey + promptSuffix; 
         	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, roles, defaultRole, maxMatch, news);
-    		System.out.println("MatchStepHandler execute - adjustedPromptKey: " + adjustedPromptKey); 
-    		System.out.println("MatchStepHandler execute - adjustedPromptText: " + adjustedPromptText); 
+//    		System.out.println("MatchStepHandler execute - adjustedPromptKey: " + adjustedPromptKey); 
+//    		System.out.println("MatchStepHandler execute - adjustedPromptText: " + adjustedPromptText); 
         	if (adjustedPromptText == adjustedPromptKey) {
         		System.err.println("MatchStepHandler, execute: first match attempt failed"); 
         		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, news);
@@ -176,8 +176,8 @@ public class MatchStepHandler implements StepHandler
         		promptText = adjustedPromptText; 
         		if (sendMatchRemoteLog) {
         			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-        	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//        	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
         			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         		}
         	}
@@ -189,7 +189,7 @@ public class MatchStepHandler implements StepHandler
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
 		makePromptProposal(source, delay, me, step.attributes);
-		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
+//		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
 		
 		new Timer(delay, new TimeoutReceiver()
 		{
@@ -243,7 +243,7 @@ public class MatchStepHandler implements StepHandler
 	public void NewRoleAssignment(InputCoordinator source, State news, PresenceEvent pe, String from) {
 		// Assign a role to the new student following the same logic in MatchStepHandler/RotateStepHandler 
 		// and broadcast the message to the whole group.
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler NewRoleAssignment");
+		// Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler NewRoleAssignment");
 
 		// Get present students, including the new student
 		String[] student_ids = news.getStudentIds(); 
@@ -281,7 +281,7 @@ public class MatchStepHandler implements StepHandler
 			}
 		}
 		if (prompt_text.length()>0) {
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompt_text: " + prompt_text);
+//			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompt_text: " + prompt_text);
 			Event e = new MessageEvent(source, from, prompt_text, "NEWROLEASSIGNMENT");
 			double p = OutputCoordinator.LOW15_PRIORITY;
 			double timeout = 60;
@@ -289,8 +289,8 @@ public class MatchStepHandler implements StepHandler
 
     		if (sendMatchRemoteLog) {
     			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-    	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//    	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
     			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
     		}
 		}

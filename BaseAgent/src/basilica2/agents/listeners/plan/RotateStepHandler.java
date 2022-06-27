@@ -97,8 +97,8 @@ public class RotateStepHandler implements StepHandler
 		
 		
 		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
-		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
-		+(rateLimited?", +"+wordsPerSecond+" wps":""));
+//		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
+//		+(rateLimited?", +"+wordsPerSecond+" wps":""));
 	}
 
 	public RotateStepHandler(String promptsPath)
@@ -269,19 +269,19 @@ public class RotateStepHandler implements StepHandler
     		String[] newRolesArray = newRoles.toArray(new String[numStudents]);
     		
         	String adjustedPromptText = prompter.match(adjustedPromptKey, studentIds, newRolesArray, defaultRole, maxMatch, state);
-        	Logger.commonLog("RotateStepHandler", Logger.LOG_FATAL, "maxMatch: "+Integer.toString(maxMatch));
-        	Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
+//        	Logger.commonLog("RotateStepHandler", Logger.LOG_FATAL, "maxMatch: "+Integer.toString(maxMatch));
+//        	Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
         	
         	if (adjustedPromptText == adjustedPromptKey) {
-        		System.err.println("RotateStepHandler, execute: first match attempt failed"); 
+//        		System.err.println("RotateStepHandler, execute: first match attempt failed"); 
         		promptText = prompter.match(promptKey, studentIds, roles, defaultRole, 0, state);
         	}
         	else {
         		promptText = adjustedPromptText; 
         		if (sendMatchRemoteLog) {
         			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-        	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//        	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
         			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         		}
         	}
