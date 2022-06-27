@@ -143,15 +143,15 @@ public class PresenceWatcher extends BasilicaAdapter
 						catchup = true;
 					}
 				}
-				news.addStudent(userName);
-				if (catchup) {
-					sendCatchUpMessage(source, news, pe);
-					NewRoleAssignment(source, news, pe);
-					
-				}
-//				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
-				if (sendRemoteUserList) {
-					sendUserListToRemote(source,news); 
+				if (!news.getAllStudentNames().contains(userName)) {
+					news.addStudent(userName);
+					if (catchup) {
+						sendCatchUpMessage(source, news, pe);
+						NewRoleAssignment(source, news, pe);
+					}
+					if (sendRemoteUserList) {
+						sendUserListToRemote(source,news); 
+					}
 				}
 				StateMemory.commitSharedState(news, agent);
 				initiate(source, news);
@@ -161,8 +161,10 @@ public class PresenceWatcher extends BasilicaAdapter
 			{
 				State updateState = State.copy(olds);
 				updateState.removeStudent(userName);
-				if (sendRemoteUserList) {
-					sendUserListToRemote(source,updateState); 
+				if (updateState.getAllStudentNames().contains(userName)) {
+					if (sendRemoteUserList) {
+						sendUserListToRemote(source,updateState); 
+					}					
 				}
 				StateMemory.commitSharedState(updateState, agent);
 			}
@@ -194,7 +196,8 @@ public class PresenceWatcher extends BasilicaAdapter
 	}
 	
 	private void sendUserListToRemote(final InputCoordinator source, State state) {
-		String[] usersList = state.getStudentIdsPresentOrNot();
+//		String[] usersList = state.getStudentIdsPresentOrNot();
+		String[] usersList = state.getStudentIds();
 		LogStateEvent logStateEvent = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
 //        System.err.println("PresenceWatcher, sendUserListToRemote - LogStateEvent created: " + logStateEvent.toString());
 //        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());

@@ -411,19 +411,19 @@ public class State
 
 	public void setRandomizedStudentList()
 	{	
-		System.err.println("Student names: " + Arrays.toString(getStudentNames().toArray()));
+//		System.err.println("Student names: " + Arrays.toString(getStudentNames().toArray()));
 		this.randomizedStudentList.clear(); 
 		for (int i = 0; i < students.size(); i++)
 		{
-			this.randomizedStudentList.add(students.get(i)); 
-//			if (students.get(i).isPresent)
-//			{
-//				this.randomizedStudentList.add(students.get(i)); 
-//			}
+//			this.randomizedStudentList.add(students.get(i)); 
+			if (students.get(i).isPresent)
+			{
+				this.randomizedStudentList.add(students.get(i)); 
+			}
 		}
 		Collections.shuffle(this.randomizedStudentList);
 		setNextStudentIndex(0); 
-		System.err.println("Randomized student names: " + Arrays.toString(getRandomizedStudentNames().toArray()));
+//		System.err.println("Randomized student names: " + Arrays.toString(getRandomizedStudentNames().toArray()));
 	}
 
 	public List<String> getStudentNames()
