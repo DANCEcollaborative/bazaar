@@ -479,7 +479,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 					System.err.println("WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence); 
 					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence);
-					presence = message; 
+//					presence = message; 
 
 					PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, user, presence.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, userID, perspective);
 					WebsocketChatClient.this.broadcast(pe);
