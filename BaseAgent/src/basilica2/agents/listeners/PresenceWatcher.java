@@ -115,24 +115,20 @@ public class PresenceWatcher extends BasilicaAdapter
 			if (underscore > -1)
 				agent_name = name.substring(0, underscore);			
 		}
-		System.err.println("PresenceWatcher, agent_name: " + agent_name);
+//		System.err.println("PresenceWatcher, agent_name: " + agent_name);
 	}
 
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
 	{
 		String userName = pe.getUsername(); 
-		System.err.println("PresenceWatcher, handlePresenceEvent - username: " + userName); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - username: " + userName);
-		
+//		System.err.println("PresenceEvent.java, handlePresenceEvent - username: " + userName); 
 		if (!userName.contains(agent_name) && !source.isAgentName(userName) && !userName.equals(non_user_client_name)) 
 		{	
-			System.err.println("PresenceWatcher, handlePresenceEvent - student present: " + userName); 
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - student present: " + userName);
+//			System.err.println("PresenceEvent.java, handlePresenceEvent - student present: " + userName); 
 			State olds = StateMemory.getSharedState(agent);
 			State news;
 			if (pe.getType().equals(PresenceEvent.PRESENT))
 			{
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - user is PRESENT: " + userName);
 				if (olds != null)
 				{
 					news = State.copy(olds);
@@ -153,13 +149,11 @@ public class PresenceWatcher extends BasilicaAdapter
 					NewRoleAssignment(source, news, pe);
 					
 				}
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
+//				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"STUDENTS COUNT: " + news.getStudentCount());
 				if (sendRemoteUserList) {
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - user PRESENT - sending user list");
 					sendUserListToRemote(source,news); 
 				}
 				StateMemory.commitSharedState(news, agent);
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - INTIATING for user " + userName);
 				initiate(source, news);
 
 			}
@@ -168,7 +162,6 @@ public class PresenceWatcher extends BasilicaAdapter
 				State updateState = State.copy(olds);
 				updateState.removeStudent(userName);
 				if (sendRemoteUserList) {
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - user ABSENT - sending user list");
 					sendUserListToRemote(source,updateState); 
 				}
 				StateMemory.commitSharedState(updateState, agent);
@@ -178,8 +171,7 @@ public class PresenceWatcher extends BasilicaAdapter
 		// Start as soon as agent is present if not waiting for students
 		else if (((source.isAgentName(userName)) || userName.equals(non_user_client_name)) && expected_number_of_students == 0)
 		{
-			System.err.println("PresenceWatcher, handlePresenceEvent - NOT a student, expected_num_students=0"); 
-			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - NOT a student, expected_num_students=0");
+//			System.err.println("PresenceEvent.java, handlePresenceEvent - NOT a student, expected_num_students=0"); 
 			State olds = StateMemory.getSharedState(agent);
 			State news;
 			if (pe.getType().equals(PresenceEvent.PRESENT))
@@ -193,9 +185,8 @@ public class PresenceWatcher extends BasilicaAdapter
 					news = new State();
 				}
 				// news.addStudent(userName);
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
+//				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"AGENT PRESENT");
 				StateMemory.commitSharedState(news, agent);
-				Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, handlePresenceEvent - INTIATING for expected_num_students=0");
 				initiate(source, news);
 
 			}
@@ -205,7 +196,7 @@ public class PresenceWatcher extends BasilicaAdapter
 	private void sendUserListToRemote(final InputCoordinator source, State state) {
 		String[] usersList = state.getStudentIdsPresentOrNot();
 		LogStateEvent logStateEvent = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
-        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//        System.err.println("PresenceWatcher, sendUserListToRemote - LogStateEvent created: " + logStateEvent.toString());
         Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
 		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
 	}
@@ -295,7 +286,7 @@ public class PresenceWatcher extends BasilicaAdapter
 		slots.put("[NAME]", pe.getUsername());
 		String prompt_name = news.getStageName() + "_" + news.getStepName();
 		String prompt_text = catch_up_prompter.lookup(prompt_name, slots);
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Catch Up Message: " + prompt_name + " " + prompt_text);
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Catch Up Message: " + prompt_name + " " + prompt_text);
 		// This private message event has low priority and large timeout, so it will be sent after public messages
 		Event e = new PrivateMessageEvent(source, pe.getUsername(), getAgent().getName(), prompt_text, "CATCHUPMESSAGE");
 		double p = OutputCoordinator.LOW10_PRIORITY;
@@ -307,7 +298,7 @@ public class PresenceWatcher extends BasilicaAdapter
 	private void NewRoleAssignment(InputCoordinator source, State news, PresenceEvent pe) {
 		// Assign a role to the new student following the same logic in MatchStepHandler/RotateStepHandler 
 		// and broadcast the message to the whole group.
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"InputCoordinator NewRoleAssignment");
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceWatcher, NewRoleAssignment");
 		
 		// Find the PlanExecutor in InputCoordinator's listeners, and find the MatchStepHandler in PlanExecutor's handlers.
 		for(Object keyClass : source.getListeners().keySet())
@@ -316,7 +307,7 @@ public class PresenceWatcher extends BasilicaAdapter
 			for (Object o: (List<?>) val) {
 				BasilicaListener ca = BasilicaListener.class.cast(o);
 				if (ca.getClass()==PlanExecutor.class) {
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"casted BasilicaListener "+ca+" is PlanExecutor = "+(ca.getClass()==PlanExecutor.class)+" "+ca.getListenerEventClasses());
+//					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"cast BasilicaListener "+ca+" is PlanExecutor = "+(ca.getClass()==PlanExecutor.class)+" "+ca.getListenerEventClasses());
 					PlanExecutor plan_executor = PlanExecutor.class.cast(ca);
 					String typestring = "match";
 					Collection<StepHandler> stephandlers = plan_executor.getHandlers(typestring);
