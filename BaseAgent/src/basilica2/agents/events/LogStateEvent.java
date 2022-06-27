@@ -68,7 +68,7 @@ public class LogStateEvent extends Event {
     public LogStateEvent(Component s, String tag, String[] listValue, Boolean sendLog, String logTag) {
         this(s,tag,new JSONArray(new ArrayList<String>(Arrays.asList(listValue))).toString(),sendLog,logTag); 
     	String jsonString = new JSONArray(new ArrayList<String>(Arrays.asList(listValue))).toString(); 
-        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created with String[]: logStateTag= " + logStateTag + "  jsonString = " + jsonString);
+//        System.err.println("LogStateEvent, LogStateEvent - LogStateEvent created with String[]: logStateTag= " + logStateTag + "  jsonString = " + jsonString);
     }
 
     @Override

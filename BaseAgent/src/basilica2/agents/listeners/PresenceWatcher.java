@@ -197,7 +197,7 @@ public class PresenceWatcher extends BasilicaAdapter
 		String[] usersList = state.getStudentIdsPresentOrNot();
 		LogStateEvent logStateEvent = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
 //        System.err.println("PresenceWatcher, sendUserListToRemote - LogStateEvent created: " + logStateEvent.toString());
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
 		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
 	}
 	

@@ -161,8 +161,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 		else if(e instanceof LogEvent)
 		{
 			LogEvent le = (LogEvent) e;
-	        System.err.println("WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
+//	        System.err.println("WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
+//	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, LogEvent - tag: " + le.getLogTag() + "  details: " + le.getLogDetails());
 			try
 			{
 				insertLogEvent(le.getLogTag(),le.getLogDetails());
@@ -182,8 +182,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 			String stateValue = lse.getLogStateValue(); 
 			String sendLog = lse.getLogStateSendLog(); 
 			String logTag = lse.getLogEventTag(); 
-	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+//	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+//	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
 			try
 			{
 				insertLogState(stateTag,stateValue,sendLog,logTag);
@@ -265,15 +265,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 	protected void insertLogEvent(String logTag, String logDetails)
 	{
-        System.err.println("WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
+//        System.err.println("WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogEvent - logTag: " + logTag + "   details: " + logDetails);
 		socket.emit("logevent", logTag, logDetails);
 	}
 
 	protected void insertLogState(String stateTag, String stateValue, String sendLog, String logTag)
 	{
-        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+//        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
 		socket.emit("logstate", stateTag, stateValue, sendLog, logTag);
 	}
 
@@ -358,7 +358,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 					JSONArray names_list = ((JSONObject) args[0]).names();
 					JSONArray perspective_list = ((JSONObject) args[1]).names();
 					//System.out.println("Users: "+((JSONObject) args[0]).names() + " " + Integer.toString(names_list.length()));
-					System.out.println("Users: "+((JSONObject) args[0]).names());
+//					System.out.println("Users: "+((JSONObject) args[0]).names());
 					//System.out.println("Users: "+ names_list.length());
 					JSONObject jObject = (JSONObject) args[0];
 					JSONObject jObject_ = (JSONObject) args[1];
@@ -385,7 +385,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 						PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, key, PresenceEvent.PRESENT, value, perspective, (String)args[2]);
 						WebsocketChatClient.this.broadcast(pe);
 					}
-					System.err.println("WebsocketChatClient, exit .on('updateusers'), call"); 
+//					System.err.println("WebsocketChatClient, exit .on('updateusers'), call"); 
 
 				}
 			}).on("updatechat", new Emitter.Listener() { 
@@ -404,9 +404,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 				public void call(Object... args)
 				{
 					String filename = (String)args[1];
-//					filename = StringEscapeUtils.unescapeHtml4(message);
-					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
-					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
+//					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
+//					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
 					FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 					FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
 					WebsocketChatClient.this.broadcast(fe);
@@ -425,8 +424,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.err.println("WebsocketChatClient updatepresence - enter - message: " + (String)args[1]); 
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - enter - message: " + (String)args[1]);
+//					System.err.println("WebsocketChatClient updatepresence - enter - message: " + (String)args[1]); 
+//					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - enter - message: " + (String)args[1]);
 					String user = (String)args[0]; 
 					String message = (String)args[1]; 
 					String presence = "join";  
@@ -436,15 +435,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 					
 					// If this is NOT a multimodal message
 					if (multiModalMessage.length <= 1) {
-						System.err.println("WebsocketChatClient updatepresence - NOT a multimodal message"); 
-						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - NOT a multimodal message");
+//						System.err.println("WebsocketChatClient updatepresence - NOT a multimodal message"); 
+//						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - NOT a multimodal message");
 						presence = message; 
 						userID = (String)args[2]; 
 						perspective = (String)args[3]; 
 	
 					} else {
-						System.err.println("WebsocketChatClient updatepresence - multimodal message"); 
-						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - multimodal message");
+//						System.err.println("WebsocketChatClient updatepresence - multimodal message"); 
+//						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - multimodal message");
 						presence = message; 
 						perspective = "0";						// hard-coded since perspective won't be supplied
 						MultiModalFilter.multiModalTag tag; 
@@ -477,9 +476,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 						}					
 					}
 
-					System.err.println("WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence); 
-					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence);
-//					presence = message; 
+//					System.err.println("WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence); 
+//					Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient updatepresence - creating PresenceEvent - user:" + user + "  userID: " + userID + "  presence:" + presence);
 
 					PresenceEvent pe = new PresenceEvent(WebsocketChatClient.this, user, presence.equals("join")?PresenceEvent.PRESENT:PresenceEvent.ABSENT, userID, perspective);
 					WebsocketChatClient.this.broadcast(pe);

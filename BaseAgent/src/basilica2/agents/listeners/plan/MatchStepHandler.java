@@ -175,10 +175,19 @@ public class MatchStepHandler implements StepHandler
         	else {
         		promptText = adjustedPromptText; 
         		if (sendMatchRemoteLog) {
-        			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-//        	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+
+        			// Send current user list to remote logging
+        			String[] usersList = news.getStudentIdsPresentOrNot();
+        			LogStateEvent logStateEvent1 = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
+//        	        System.err.println("MatchStepHandler - LogStateEvent1 created: " + logStateEvent1.toString());
+//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent1 created: " + logStateEvent1.toString());
+        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent1, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+        			
+        			// Send role assignments to remote logging
+        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
+//        	        System.err.println("MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent2, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         		}
         	}
         } else {
@@ -288,10 +297,19 @@ public class MatchStepHandler implements StepHandler
 			source.addEventProposal(e, p, timeout);
 
     		if (sendMatchRemoteLog) {
-    			LogStateEvent logStateEvent = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-//    	        System.err.println("MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-//    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent created: " + logStateEvent.toString());
-    			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+    			
+    			// Send current user list to remote logging
+    			String[] usersList = news.getStudentIdsPresentOrNot();
+    			LogStateEvent logStateEvent1 = new LogStateEvent(source,"users",usersList,true,"user_strobe"); 	
+//    	        System.err.println("MatchStepHandler - LogStateEvent1 created: " + logStateEvent1.toString());
+//    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent1 created: " + logStateEvent1.toString());
+    			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent1, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+    			
+    			// Send role assignments to remote logging
+    			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
+//    	        System.err.println("MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+//    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+    			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent2, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
     		}
 		}
 	}
