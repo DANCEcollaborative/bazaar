@@ -314,7 +314,7 @@ public class PresenceWatcher extends BasilicaAdapter
 					
 					for (Object obj: stephandlers) {
 						if (obj.getClass()==MatchStepHandler.class) {
-							Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL, "get MatchStepHandler");
+//							Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL, "get MatchStepHandler");
 							MatchStepHandler match_step_handler = MatchStepHandler.class.cast(obj);
 							match_step_handler.NewRoleAssignment(source, news, pe, getAgent().getName());
 							return ;
