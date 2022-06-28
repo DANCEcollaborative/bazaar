@@ -119,8 +119,17 @@ public class MatchStepHandler implements StepHandler
 		// Get the IDs of the students currently present
 		// String[] studentIds = state.getStudentIds(); 
 		// Get the IDs of the students ever present		
-		news.setRandomizedStudentList();
+//		news.setRandomizedStudentList();
 		String[] studentIds = news.getRandomizedStudentIds(); 
+		
+
+		System.err.println("MatchStepHandler, execute, studentIds after randomization:");
+		Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "MatchStepHandler, execute, studentIds after randomization:");
+		for (int i=0; i < studentIds.length; i++) {			 
+			System.err.println("MatchStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+			Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "MatchStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+		}	
+		
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
@@ -184,9 +193,10 @@ public class MatchStepHandler implements StepHandler
 //        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent1, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         			
         			// Send role assignments to remote logging
-        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-//        	        System.err.println("MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
-//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+//        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 
+        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getIdsRoles(),false,null); 	
+        	        System.err.println("MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
         			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent2, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         		}
         	}
@@ -256,6 +266,10 @@ public class MatchStepHandler implements StepHandler
 
 		// Get present students, including the new student
 		String[] student_ids = news.getStudentIds(); 
+		System.err.println("MatchStepHandler, NewRoleAssignment, initial student_ids:");
+		for (int i=0; i < student_ids.length; i++) {			 
+			System.err.println("MatchStepHandler, NewRoleAssignment, student_id[" + String.valueOf(i) + "] = " + student_ids[i]);
+		}
 		int num_students = student_ids.length;
 		String prompt_text = new String();
 		
@@ -264,10 +278,14 @@ public class MatchStepHandler implements StepHandler
 		}
 		if (num_students==minUsersToMatch) { // start role assignment for the whole group
 			State state = StateMemory.getSharedState(source.getAgent());
-			state.setRandomizedStudentList();
+//			state.setRandomizedStudentList();
 			String[] studentIds = state.getRandomizedStudentIds(); 
+			System.err.println("MatchStepHandler, NewRoleAssignment, studentIds after randomization:");
+			for (int i=0; i < studentIds.length; i++) {			 
+				System.err.println("MatchStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+			}
 			String prompt_name = "PROMPT_MID_ROLE_MATCH";
-			prompt_text = prompter.match(prompt_name, student_ids, roles, num_students, news);
+			prompt_text = prompter.match(prompt_name, studentIds, roles, num_students, news);
 			
 		}else {
 			if (num_students<=numRoles) { // the new student will take a new role
@@ -298,7 +316,8 @@ public class MatchStepHandler implements StepHandler
 
     		if (sendMatchRemoteLog) {
     			// Send role assignments to remote logging
-    			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
+//    			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 
+    			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getIdsRoles(),false,null); 		
 //    	        System.err.println("MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
 //    	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"MatchStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
     			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent2, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));

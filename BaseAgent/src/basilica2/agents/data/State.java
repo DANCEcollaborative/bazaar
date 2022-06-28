@@ -390,6 +390,7 @@ public class State
 
 	public String[] getRandomizedStudentIds()
 	{
+		setRandomizedStudentList(); 
 		String[] ids = new String[this.randomizedStudentList.size()]; 
 		System.err.println("getRandomizedStudentIds(), this.randomizedStudentList.size() = " + String.valueOf(randomizedStudentList.size()));
 		for (int i = 0; i < this.randomizedStudentList.size(); i++)
@@ -402,7 +403,7 @@ public class State
 //				ids[i] = (randomizedStudentList.get(i).chatId);
 //			}
 		}
-//		System.err.println("getRandomizedStudentIds, returning ids = " Arrays.toString(ids));
+//		System.err.println("getRandomizedStudentIds, returning ids = " Array.toString(ids));
 		for (int i = 0; i < ids.length; i++) {
 			System.err.println("getRandomizedStudentIds(), ids[" + String.valueOf(i) + "] = " + ids[i]); 
 		}
@@ -419,6 +420,8 @@ public class State
 			if (students.get(i).isPresent)
 			{
 				this.randomizedStudentList.add(students.get(i)); 
+			} else {
+				System.err.println("State, setRandomizedStudentList: student not present - chatId:" + students.get(i).chatId + "   - name:" + students.get(i).name);
 			}
 		}
 		Collections.shuffle(this.randomizedStudentList);
