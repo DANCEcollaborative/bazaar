@@ -18,40 +18,40 @@
     	<step type="logstate" state_tag="ope_iteration" state_value="1" delay="2">log_state</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>   
-        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="300" delayed_prompt="PROMPT_STEP_LO1_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>        	
+        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="120" delayed_prompt="PROMPT_STEP_LO1_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>        	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO1_Discussion</step>    	
-        <step type="prompt" delay="120" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>  	
-        <step type="prompt" delay="90" prompt="PROMPT_STEP_LO1_REFLECTION_FOLLOW">Prompt_Step_LO1_Reflection_Follow</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>  	
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO1_REFLECTION_FOLLOW">Prompt_Step_LO1_Reflection_Follow</step>
     </stage> 
     
     <stage name="StageLO2" type="other" delay="0">     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">instr5</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step>  
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_EVEN" >Prompt_Step_LO2_Rotate</step>      
-        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_2" delayed_prompt_time="300" delayed_prompt="PROMPT_STEP_LO2_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task2</step>        	      	
+        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_2" delayed_prompt_time="120" delayed_prompt="PROMPT_STEP_LO2_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task2</step>        	      	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO2_Discussion</step>    	
-        <step type="prompt" delay="120" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
-        <step type="prompt" delay="90" prompt="PROMPT_STEP_LO2_REFLECTION_FOLLOW">Prompt_Step_LO2_Reflection_Follow</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO2_REFLECTION_FOLLOW">Prompt_Step_LO2_Reflection_Follow</step>
     </stage> 
     
     <stage name="StageLO3" type="other" delay="0"> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">instr5</step>   
     	<step type="logstate" state_tag="ope_iteration" state_value="3" delay="2">log_state</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_ODD" >Prompt_Step_LO3_Rotate</step>        
-        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_3" delayed_prompt_time="300" delayed_prompt="PROMPT_STEP_LO3_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task3</step>        	      	
+        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_3" delayed_prompt_time="120" delayed_prompt="PROMPT_STEP_LO3_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task3</step>        	      	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO3_Discussion</step>    	
-        <step type="prompt" delay="120" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
-        <step type="prompt" delay="90" prompt="PROMPT_STEP_LO3_REFLECTION_FOLLOW">Prompt_Step_LO3_Reflection_Follow</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO3_REFLECTION_FOLLOW">Prompt_Step_LO3_Reflection_Follow</step>
     </stage> 
     
     <stage name="StageLO4" type="other" delay="0">   
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step>   
     	<step type="logstate" state_tag="ope_iteration" state_value="4" delay="2">log_state</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_EVEN" >Prompt_Step_LO4_Rotate</step>      
-        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_4" delayed_prompt_time="300" delayed_prompt="PROMPT_STEP_LO4_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>        	     	
+        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_4" delayed_prompt_time="120" delayed_prompt="PROMPT_STEP_LO4_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>        	     	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="120" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
-        <step type="prompt" delay="90" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>
     </stage> 
     
     <stage name="EndStage" type="other" delay="0" timeout="4500">
