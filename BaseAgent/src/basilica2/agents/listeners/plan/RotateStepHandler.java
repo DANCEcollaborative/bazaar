@@ -117,10 +117,20 @@ public class RotateStepHandler implements StepHandler
 		}
  
 		// Get the IDs of the students currently present
-		// String[] studentIds = state.getStudentIds(); 
+		// String[] studentIds = state.getStudentIds();  d
 		// Get the IDs of the students ever present
 //		String[] studentIds = state.getStudentIdsPresentOrNot(); 
+//		String[] studentIds = state.getRandomizedStudentIds(); 
 		String[] studentIds = state.getStudentIds(); 
+		
+
+		System.err.println("RotateStepHandler, execute, studentIds, not randomized:");
+		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "RotateStepHandler, execute, studentIds after randomization:");
+		for (int i=0; i < studentIds.length; i++) {			 
+			System.err.println("RotateStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+			Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "RotateStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+		}	
+				
 		int numStudents = studentIds.length; 
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
@@ -281,9 +291,10 @@ public class RotateStepHandler implements StepHandler
         		promptText = adjustedPromptText; 
         		if (sendMatchRemoteLog) {
         			// Send role assignments to remote logging
-        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 	
-//        	        System.err.println("RotateStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
-//        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"RotateStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+//        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 
+        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getIdsRoles(),false,null); 		
+        	        System.err.println("RotateStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
+        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"RotateStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
         			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent2, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         		}
         	}

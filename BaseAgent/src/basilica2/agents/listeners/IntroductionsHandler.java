@@ -98,14 +98,14 @@ public class IntroductionsHandler extends BasilicaAdapter
         synchronized(users)
         {
             State state = StateMemory.getSharedState(agent);
-            String[] usernames = state.getStudentIds();
+            String[] userIds = state.getStudentIds();
 
             users.clear();
-            for(String name : usernames)
+            for(String id : userIds)
             {
-                if(state.getStudentName(name).equals(name))
+                if(state.getStudentName(id).equals(id))
                 {
-                    users.add(name);
+                    users.add(id);
                 }
             }
         }
@@ -175,7 +175,7 @@ public class IntroductionsHandler extends BasilicaAdapter
         new Timer(wait1, "WAIT FOR NAMES", tim).start();
     }
 
-    private void recognizeUser(String name, String username, InputCoordinator source)
+    private void recognizeUser(String name, String sid, InputCoordinator source)
     {
         name = toProperCase(name);
         synchronized(users)
@@ -183,10 +183,10 @@ public class IntroductionsHandler extends BasilicaAdapter
             updateUsers();
 
             State s = State.copy(StateMemory.getSharedState(agent));
-            s.setName(username, name);
+            s.setName(sid, name);
             StateMemory.commitSharedState(s, agent);
 
-            users.remove(username);
+            users.remove(sid);
             
 //            if(users.isEmpty())
 //                this.stopListening(source);
@@ -195,7 +195,7 @@ public class IntroductionsHandler extends BasilicaAdapter
         HashMap<String, String> slots = new HashMap<String, String>();
         slots.put("[NAME]", name);
         MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GREET", slots), "GREET");
-        me.setDestinationUser(username);
+        me.setDestinationUser(sid);
         source.addProposal(new PriorityEvent(source, me, 0.3, prioritySource));
     }
 

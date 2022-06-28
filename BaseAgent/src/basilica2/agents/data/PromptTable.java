@@ -71,7 +71,8 @@ public class PromptTable
     protected Properties properties;
 	protected Map<String, String> intentions = null;
 	protected Boolean includeIntention = false; 
-	private Map<String, String> namesRoles; 
+	private Map<String, String> namesRoles;  
+	private Map<String, String> idsRoles; 
 
 	public PromptTable()
 	{
@@ -270,6 +271,7 @@ public class PromptTable
 
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		namesRoles = new HashMap<>(); 
+		idsRoles = new HashMap<>(); 
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
@@ -287,6 +289,7 @@ public class PromptTable
 						promptText = promptText.replace(nameKey, name);
 						promptText = promptText.replace(roleKey, role);
 						namesRoles.put(name, role); 
+						idsRoles.put(studentIds[i], role);
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 			}
@@ -306,8 +309,16 @@ public class PromptTable
 	public String match(String promptName, String[] studentIds, String[] roles, String defaultRole, int maxMatches, State state)
 	{
 
+		System.err.println("prompter, match - studentIds:");
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompter, match - studentIds:");
+		for (int i=0; i < studentIds.length; i++) {			 
+			System.err.println("prompter, match - studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompter, match - studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+		}
+
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		namesRoles = new HashMap<>();
+		idsRoles = new HashMap<>();
 		if (promptTexts != null)
 		{
 			int promptIndex = (int) Math.floor(promptTexts.size() * Math.random());   // Select randomly if there are multiple prompt options
@@ -325,6 +336,7 @@ public class PromptTable
 						promptText = promptText.replace(nameKey, name);
 						promptText = promptText.replace(roleKey, role);
 						namesRoles.put(name, role); 
+						idsRoles.put(studentIds[i], role);
 						state.setStudentRole(studentIds[i], roles[i]);
 				}
 				promptText = promptText.replace("[DEFAULTROLE]", defaultRole);
@@ -392,6 +404,12 @@ public class PromptTable
 	{
 		return namesRoles;
 	}
+
+	public Map<String,String> getIdsRoles()
+	{
+		return idsRoles;
+	}
+
 
 	public Properties getProperties()
 	{
