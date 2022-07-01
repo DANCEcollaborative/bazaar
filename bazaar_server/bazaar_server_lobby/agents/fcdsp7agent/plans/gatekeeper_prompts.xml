@@ -45,7 +45,7 @@
         <text>@Researcher, this link may be useful ;) - https://huggingface.co/transformers/model_doc/roberta.html#robertaforsequenceclassification</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION" intention="cut_off_0">
+    <prompt strategy="task" id="PROMPT_STEP_LO1_SOLUTION" intention="bottom_out_hint">
      	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||A concise way to solve this problem: 
 
 	preprocessor = StandardScaler()
@@ -66,7 +66,7 @@
 	return model.score(test_X, test_y)</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION" intention="cut_off_1">
+    <prompt strategy="task" id="PROMPT_STEP_LO2_SOLUTION" intention="bottom_out_hint">
      	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
 
 def cpu_predict(data, model, vectorizer):
@@ -83,7 +83,7 @@ def gpu_predict(data, model, vectorizer):
 	return predict_batch(data, model, vectorizer).tolist()</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION" intention="cut_off_2">
+    <prompt strategy="task" id="PROMPT_STEP_LO3_SOLUTION" intention="bottom_out_hint">
      	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
 
 	train_loss, n_batches = 0, 0
@@ -150,7 +150,7 @@ def gpu_predict(data, model, vectorizer):
 	return train_loss, correct / total</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION" intention="cut_off_3">
+    <prompt strategy="task" id="PROMPT_STEP_LO4_SOLUTION" intention="bottom_out_hint">
      	<text>I'll provide a reference solution for this task. Use that and then discuss the solution with your teammates. Here it is ...|||One way to do this: 
 
 	inputs = tokenizer(text, return_tensors="pt")
