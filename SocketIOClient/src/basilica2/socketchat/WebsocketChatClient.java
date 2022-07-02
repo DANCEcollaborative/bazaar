@@ -34,6 +34,7 @@ import basilica2.agents.events.WhiteboardEvent;
 import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.LogEvent;
 import basilica2.agents.events.LogStateEvent;
+import basilica2.agents.events.EndEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -196,6 +197,23 @@ public class WebsocketChatClient extends Component implements ChatClient
 				e1.printStackTrace();
 			}
 		}
+		else if(e instanceof EndEvent)
+		{
+			EndEvent ee = (EndEvent) e;
+//	        System.err.println("WebsocketChatClient, processEvent, EndEvent - tag: " + ee.getEndData() + "  details: " + ee.getLogDetails());
+//	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, EndEvent - tag: " + ee.getEndData() + "  details: " + ee.getLogDetails());
+			try
+			{
+				insertEndEvent(ee.getEndData());
+			}
+			catch (Exception e1)
+			{
+				System.err.println("WebsocketChatClient, processEvent - couldn't send EndEvent: " + ee);
+		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send EndEvent: " +ee);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		//TODO: private messages? "beeps"?
 
 	}
@@ -275,6 +293,13 @@ public class WebsocketChatClient extends Component implements ChatClient
 //        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
 //        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
 		socket.emit("logstate", stateTag, stateValue, sendLog, logTag);
+	}
+
+	protected void insertEndEvent(String endData)
+	{
+        System.err.println("WebsocketChatClient, insertEndEvent - endData: " + endData);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertEndEvent - endData: " + endData);
+		socket.emit("endevent", endData);
 	}
 
 	protected void shareImage(String imageURL)
