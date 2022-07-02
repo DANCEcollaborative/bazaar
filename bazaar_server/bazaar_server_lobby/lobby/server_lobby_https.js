@@ -1493,19 +1493,27 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 
-	// when the client emits 'logdata', this listens and executes
+	// when the client emits 'logevent', this listens and executes
 	socket.on('logevent', async (tag, details)  => {
 		logMessage(socket, tag, details, "logevent");
-        console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " tag = " + tag + "  details = " + details);
+        console.log("socket.on('logevent'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " tag = " + tag + "  details = " + details);
         io.sockets.in(socket.room).emit('logevent', tag, details);		
 	});
 
 
-	// when the client emits 'logdata', this listens and executes
+	// when the client emits 'logstate', this listens and executes
 	socket.on('logstate', async (statetag, statevalue, sendlog, logtag)  => {
 		logMessage(socket, statetag, statevalue, "logstate");
-        console.log("socket.on('logdata'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " statetag = " + statetag + "  statevalue = " + statevalue + " sendlog = " + sendlog + "  logtag = " + logtag);
+        console.log("socket.on('logstate'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " statetag = " + statetag + "  statevalue = " + statevalue + " sendlog = " + sendlog + "  logtag = " + logtag);
         io.sockets.in(socket.room).emit('logstate', statetag, statevalue, sendlog, logtag);		
+	});
+
+
+	// when the client emits 'endevent', this listens and executes
+	socket.on('endevent', async (enddata)  => {
+		logMessage(socket, enddata, "endevent");
+        console.log("socket.on('endevent'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username + " enddata = " + enddata );
+        io.sockets.in(socket.room).emit('endevent', enddata);		
 	});
 
 
