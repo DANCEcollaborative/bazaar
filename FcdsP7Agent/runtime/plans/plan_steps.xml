@@ -60,7 +60,7 @@
     	<step type="send_end" delay="2">send_end</step>  
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="1200">     <!-- UPDATE THIS -->
+    <stage name="EndStage" type="other" delay="0" timeout="1800">     <!-- UPDATE THIS -->
         <step type="chatlog" delay="2" >CHAT_LOGS</step>
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
