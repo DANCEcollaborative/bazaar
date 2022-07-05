@@ -1,5 +1,9 @@
 package basilica2.agents.listeners.plan;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.data.PromptTable;
@@ -48,24 +52,50 @@ public class FileStepHandler implements StepHandler
 		
 		// delayedPrompt	
 		String delayedPrompt = currentStep.attributes.get("delayed_prompt");
-		int delayedPromptTime = currentStep.delayed_prompt_time; 
+		List<String> delayedPromptList = null; 
+		if (delayedPrompt.contains(",")) {
+			delayedPromptList = Stream.of(delayedPrompt.split(","))
+                    .collect(Collectors.toList());
+		} else {
+			delayedPromptList.add(delayedPrompt); 
+		}
+		
+//		int delayedPromptTime = currentStep.delayed_prompt_time; 
+		String delayedPromptTimeString = currentStep.attributes.get("delayed_prompt_time");
+		List<String> delayedPromptTimeList = null; 
+		if (delayedPromptTimeString.contains(",")) {
+			delayedPromptTimeList = Stream.of(delayedPromptTimeString.split(","))
+                    .collect(Collectors.toList());
+		} else {
+			delayedPromptTimeList.add(delayedPromptTimeString); 
+		}	
+		
+		System.err.println("delayedPromptList: " + delayedPromptList); 
+		
+		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
+		
+		
 //		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
-		if ((!delayedPrompt.equals("NONE")) && (delayedPromptTime != 0))
+		if (!delayedPromptList.isEmpty()) 
 		{	
 //			System.err.println("Setting delayed prompt"); 
-			new Timer(delayedPromptTime, currentStep.name, new TimeoutAdapter() 
-			{
-				@Override
-				public void timedOut(String id)
+			
+			for (int i=0; i < delayedPromptList.size(); i++) {
+				Integer promptTime = Integer.valueOf(delayedPromptTimeList.get(i)); 
+				String promptName = delayedPromptList.get(i); 
+				new Timer(promptTime, currentStep.name, new TimeoutAdapter() 
 				{
-					if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+					@Override
+					public void timedOut(String id)
 					{
-						String delayedPrompt = currentStep.attributes.get("delayed_prompt");
-						MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(delayedPrompt));
-						source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
+						if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+						{
+							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName));
+							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
+						}
 					}
-				}
-			}).start();
+				}).start();
+			}
 		}
 
 		
