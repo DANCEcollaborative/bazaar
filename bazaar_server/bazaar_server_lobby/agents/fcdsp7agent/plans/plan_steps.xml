@@ -8,9 +8,9 @@
    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
-    <!-- <stage name="StageInitialization" type="other" delay="0">   -->
-    <!--  	<step type="greet" timeout="45" delay="0">GREETINGS</step>   -->
-    <!-- </stage>    -->
+    <stage name="StageInitialization" type="other" delay="0"> 
+     	<step type="greet" timeout="45" delay="0">GREETINGS</step> 
+    </stage>  
     
     <stage name="StageLO1" type="other" delay="0">
     	<step type="logstate" state_tag="state" state_value="Programming Phase of OPE" send_log="false" delay="2">log_state</step> 
@@ -18,7 +18,7 @@
     	<step type="logstate" state_tag="ope_iteration" state_value="1" delay="2">log_state</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>   
-        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="10,20,30,40" delayed_prompt="P1,P2,P3,P4" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>        	
+        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="120" delayed_prompt="PROMPT_STEP_LO1_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>        	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO1_Discussion</step>    	
         <step type="prompt" delay="30" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>  	
         <step type="prompt" delay="30" prompt="PROMPT_STEP_LO1_REFLECTION_FOLLOW">Prompt_Step_LO1_Reflection_Follow</step>
