@@ -53,7 +53,7 @@ public class Step {
 	public int checkin_interval = 0;
 	
 	/** The amount of time after step start to issue a delayed prompt **/
-	public int delayed_prompt_time = 0;
+	public String delayed_prompt_time = "0";
 
     public void executeStep(InputCoordinator source) 
     {
