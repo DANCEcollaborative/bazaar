@@ -183,8 +183,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 			String stateValue = lse.getLogStateValue(); 
 			String sendLog = lse.getLogStateSendLog(); 
 			String logTag = lse.getLogEventTag(); 
-	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+//	        System.err.println("WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
+//	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - LogStateEvent: stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog+ "  logTag = " + logTag);
 			try
 			{
 				insertLogState(stateTag,stateValue,sendLog,logTag);
@@ -225,9 +225,9 @@ public class WebsocketChatClient extends Component implements ChatClient
 	public void login(String roomName)
 	{
 		agentRoomName = roomName;
-		System.out.println("logging in to "+roomName+" at "+socketURL);
+//		System.out.println("logging in to "+roomName+" at "+socketURL);
 		if (socketSubURL != null) {
-			System.out.println("    Using specialized socket.io address " + socketSubURL);			
+//			System.out.println("    Using specialized socket.io address " + socketSubURL);			
 		}
 		try
 		{
@@ -297,8 +297,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 	protected void insertEndEvent(String endData)
 	{
-        System.err.println("WebsocketChatClient, insertEndEvent - endData: " + endData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertEndEvent - endData: " + endData);
+//        System.err.println("WebsocketChatClient, insertEndEvent - endData: " + endData);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertEndEvent - endData: " + endData);
 		socket.emit("endevent", endData);
 	}
 
@@ -347,7 +347,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 					{
 						public void run()
 						{
-							System.out.println("Logging back in to chat room.");
+//							System.out.println("Logging back in to chat room.");
 							socket.emit("adduser", agentRoomName, agentUserName, new Boolean(false));
 							//socket.emit("sendchat" ,"...and I'm back!");
 						}

@@ -140,7 +140,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			if (!proposalQueue.isEmpty())
 			{
 
-				log(Logger.LOG_NORMAL, "==================== Proposal Queue ==========================");
+//				log(Logger.LOG_NORMAL, "==================== Proposal Queue ==========================");
 				cleanUp();
 
 				PriorityEvent best = null;
@@ -151,7 +151,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					double belief = beliefGivenHistory(p);
 					double d = belief * p.getPriority();
 
-					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
+//					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
 
 					if (d > 0 && (d > bestBelief))
 					{
@@ -163,16 +163,16 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (best != null)
 				{
-					log(Logger.LOG_NORMAL, "Execute: " + best);
+//					log(Logger.LOG_NORMAL, "Execute: " + best);
 					// if the proposal about to be executed belongs to a new step, 
 					// set removeStepName which is used in cleanUp() to remove micro_local proposals belonging to this step 
 					if (lastStepName!=null && (!best.getMicroStepName().equals(lastStepName)))
 					{
 						removeStepName = lastStepName;
-						log(Logger.LOG_NORMAL, "removeStepName: " + removeStepName);
+//						log(Logger.LOG_NORMAL, "removeStepName: " + removeStepName);
 					}
 					lastStepName = best.getMicroStepName();
-					log(Logger.LOG_NORMAL, "lastStepName: " + lastStepName);
+//					log(Logger.LOG_NORMAL, "lastStepName: " + lastStepName);
 					
 					best.getCallback().accepted(best);
 					publishEvent(best.getEvent());
@@ -186,7 +186,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 					recentSources.add(source); 
 				}
-				log(Logger.LOG_NORMAL, "==================== DONE ==========================");
+//				log(Logger.LOG_NORMAL, "==================== DONE ==========================");
 			}
 		}
 
@@ -207,7 +207,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				if (p.getInvalidTime() < now && !p.getEventType().equals("macro")) 
 				{
 					// remove timeout micro proposals
-					log(Logger.LOG_NORMAL, "cleanUp micro timeout: " + p);
+//					log(Logger.LOG_NORMAL, "cleanUp micro timeout: " + p);
 					p.getCallback().rejected(p);
 					pit.remove();
 
@@ -220,7 +220,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}else if (p.getEventType().equals("micro_local") && removeStepName!=null && p.getMicroStepName().equals(removeStepName))
 				{
 					// remove passed step's micro_local proposals
-					log(Logger.LOG_NORMAL, "cleanUp micro_local removeStepName: " + p);
+//					log(Logger.LOG_NORMAL, "cleanUp micro_local removeStepName: " + p);
 					p.getCallback().rejected(p);
 					pit.remove();
 					removeStepName=null;
@@ -318,7 +318,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					publishMessageToPSI(newme);			
 					try       											// Don't send message parts too quickly
 					{
-						System.err.println("Sleeping for 5s before sending next part of message");
+//						System.err.println("Sleeping for 5s before sending next part of message");
 						Thread.sleep(5000);
 						tick();
 					}
@@ -407,7 +407,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}	
 		}
 		messageString = multiModalField + withinModeDelim + "true" + multiModalDelim + fromField + withinModeDelim + from + multiModalDelim + toField + withinModeDelim + to + multiModalDelim + speechField + withinModeDelim + text; 			
-		System.err.println("OutputCoordinator, formatMultimodalMessage, message: " + messageString);
+//		System.err.println("OutputCoordinator, formatMultimodalMessage, message: " + messageString);
 		return messageString; 
 	}	
 	
@@ -420,13 +420,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			else
 				news = new State();
 			LocalDateTime now = LocalDateTime.now();
-			System.err.println("=== OutputCoordinator, don't listen while speaking -- now:     " + now.toString() + " <<<"); 
+//			System.err.println("=== OutputCoordinator, don't listen while speaking -- now:     " + now.toString() + " <<<"); 
 			Double sentenceDelay = speechString.split(" ").length/multimodalWordsPerSecond; 
 			Double pauseSecondsDouble = multimodalConstantDelay + sentenceDelay;
 			Long pauseSeconds = (long)Math.ceil(pauseSecondsDouble); 
 			LocalDateTime dontListenEnd = now.plusSeconds(pauseSeconds); 
 			news.setMultimodalDontListenWhileSpeakingEnd(dontListenEnd);
-			System.err.println("=== OutputCoordinator, don't listen while speaking -- dontListenEnd: " + dontListenEnd.toString() + " <<<"); 
+//			System.err.println("=== OutputCoordinator, don't listen while speaking -- dontListenEnd: " + dontListenEnd.toString() + " <<<"); 
 			StateMemory.commitSharedState(news, agent);
 		}
 	}
@@ -445,7 +445,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		{
 			if (!source.allows(p))
 			{
-				log(Logger.LOG_NORMAL, "Proposal not allowed by " + source + ": " + p);
+//				log(Logger.LOG_NORMAL, "Proposal not allowed by " + source + ": " + p);
 				belief = 0;
 				return belief;
 			}
@@ -459,7 +459,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		for (AbstractPrioritySource source : recentSources)
 		{
 			Double likelihood = source.likelyNext(p);
-			log(Logger.LOG_NORMAL, "beliefGivenHistory: recentSources=" + source +" on p="+p.getSource().getName()+ " impact=" + likelihood);
+//			log(Logger.LOG_NORMAL, "beliefGivenHistory: recentSources=" + source +" on p="+p.getSource().getName()+ " impact=" + likelihood);
 			belief *= likelihood;
 		}
 		// log(Logger.LOG_NORMAL,("belief = "+belief + " for "+p);
