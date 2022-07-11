@@ -124,12 +124,12 @@ public class RotateStepHandler implements StepHandler
 		String[] studentIds = state.getStudentIds(); 
 		
 
-		System.err.println("RotateStepHandler, execute, studentIds, not randomized:");
-		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "RotateStepHandler, execute, studentIds after randomization:");
-		for (int i=0; i < studentIds.length; i++) {			 
-			System.err.println("RotateStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
-			Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "RotateStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
-		}	
+//		System.err.println("RotateStepHandler, execute, studentIds, not randomized:");
+//		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "RotateStepHandler, execute, studentIds after randomization:");
+//		for (int i=0; i < studentIds.length; i++) {			 
+//			System.err.println("RotateStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+//			Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "RotateStepHandler, NewRoleAssignment, studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+//		}	
 				
 		int numStudents = studentIds.length; 
 		
@@ -306,7 +306,7 @@ public class RotateStepHandler implements StepHandler
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
 		makePromptProposal(source, delay, me, step.attributes);
-		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
+//		Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
 		
 		new Timer(delay, new TimeoutReceiver()
 		{
@@ -314,7 +314,7 @@ public class RotateStepHandler implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
-				Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+//				Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
 				overmind.stepDone();
 			}
 

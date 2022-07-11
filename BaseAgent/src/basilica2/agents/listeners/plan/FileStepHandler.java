@@ -23,7 +23,7 @@ public class FileStepHandler implements StepHandler
 	@Override
 	public void execute(final Step currentStep, final PlanExecutor overmind, final InputCoordinator source)
 	{
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting file gated step...");
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting file gated step...");
 		if(filegatekeeper == null)
 		{
 			Agent a = overmind.getAgent();
@@ -70,9 +70,9 @@ public class FileStepHandler implements StepHandler
 			delayedPromptTimeList.add(delayedPromptTimeString); 
 		}	
 		
-		System.err.println("delayedPromptList: " + delayedPromptList); 
+//		System.err.println("delayedPromptList: " + delayedPromptList); 
 		
-		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
+//		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
 		
 		
 //		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
@@ -107,7 +107,7 @@ public class FileStepHandler implements StepHandler
 		}	
 		if ((!warningPrompt.equals("NONE")) && (currentStep.timeout != 0))
 		{
-			System.err.println("Setting warning prompt"); 
+//			System.err.println("Setting warning prompt"); 
 			new Timer(Math.max(currentStep.timeout - 180, currentStep.timeout*0.75), currentStep.name, new TimeoutAdapter()
 			{
 				@Override
