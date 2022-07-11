@@ -149,7 +149,7 @@ public class State
 
 	public void addStudent(String sid)
 	{
-		System.err.println("===== State,addStudent - sid: " + sid); 
+//		System.err.println("===== State,addStudent - sid: " + sid); 
 		if (!sid.contentEquals(identityAllUsers)) {
 			Student s = new Student();
 			boolean found = false;
@@ -200,7 +200,7 @@ public class State
 
 	public void setName(String sid, String name)
 	{
-		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
+//		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
 		if (!sid.equals(identityAllUsers)) {
 			for (int i = 0; i < students.size(); i++)
 			{
@@ -233,7 +233,7 @@ public class State
 			Student s = students.get(i);
 			if (s.chatId.equalsIgnoreCase(sid))
 			{
-				System.out.println("State.java, getPose - sid/chatId: " + sid + " - pose: " + s.pose.toString());
+//				System.out.println("State.java, getPose - sid/chatId: " + sid + " - pose: " + s.pose.toString());
 				return s.pose;
 			}
 		}
@@ -247,7 +247,7 @@ public class State
 			Student s = students.get(i);
 			if (s.chatId.equalsIgnoreCase(sid))
 			{
-				System.out.println("State.java, getLocation - sid/chatId: " + sid + " - Location: " + s.location);
+//				System.out.println("State.java, getLocation - sid/chatId: " + sid + " - Location: " + s.location);
 				return s.location;
 			}
 		}
@@ -261,7 +261,7 @@ public class State
 			if (sid.startsWith(students.get(i).chatId))
 			{
 				students.get(i).location = location;
-				System.out.println("State.java, setLocation - sid/chatId: " + sid + " - Location: " + location);
+//				System.out.println("State.java, setLocation - sid/chatId: " + sid + " - Location: " + location);
 			}
 		}
 	}
@@ -392,11 +392,11 @@ public class State
 	{
 		setRandomizedStudentList(); 
 		String[] ids = new String[this.randomizedStudentList.size()]; 
-		System.err.println("getRandomizedStudentIds(), this.randomizedStudentList.size() = " + String.valueOf(randomizedStudentList.size()));
+//		System.err.println("getRandomizedStudentIds(), this.randomizedStudentList.size() = " + String.valueOf(randomizedStudentList.size()));
 		for (int i = 0; i < this.randomizedStudentList.size(); i++)
 		{
-			System.err.println("getRandomizedStudentIds(), adding id " + this.randomizedStudentList.get(i).chatId);
-			System.err.println("getRandomizedStudentIds(), adding id for name " + this.randomizedStudentList.get(i).name);
+//			System.err.println("getRandomizedStudentIds(), adding id " + this.randomizedStudentList.get(i).chatId);
+//			System.err.println("getRandomizedStudentIds(), adding id for name " + this.randomizedStudentList.get(i).name);
 			ids[i] = (this.randomizedStudentList.get(i).chatId);
 //			if (students.get(i).isPresent)
 //			{
@@ -404,9 +404,9 @@ public class State
 //			}
 		}
 //		System.err.println("getRandomizedStudentIds, returning ids = " Array.toString(ids));
-		for (int i = 0; i < ids.length; i++) {
-			System.err.println("getRandomizedStudentIds(), ids[" + String.valueOf(i) + "] = " + ids[i]); 
-		}
+//		for (int i = 0; i < ids.length; i++) {
+//			System.err.println("getRandomizedStudentIds(), ids[" + String.valueOf(i) + "] = " + ids[i]); 
+//		}
 		return ids;
 	}
 
@@ -421,7 +421,7 @@ public class State
 			{
 				this.randomizedStudentList.add(students.get(i)); 
 			} else {
-				System.err.println("State, setRandomizedStudentList: student not present - chatId:" + students.get(i).chatId + "   - name:" + students.get(i).name);
+//				System.err.println("State, setRandomizedStudentList: student not present - chatId:" + students.get(i).chatId + "   - name:" + students.get(i).name);
 			}
 		}
 		Collections.shuffle(this.randomizedStudentList);
@@ -515,13 +515,13 @@ public class State
 	public int advanceStudentIndex()
 	{
 		int nextIndex = this.nextStudentIndex + 1;
-		System.err.println("State.java, advanceStudentIndex: initial nextIndex = " + String.valueOf(nextIndex)); 
+//		System.err.println("State.java, advanceStudentIndex: initial nextIndex = " + String.valueOf(nextIndex)); 
 		if (nextIndex == students.size())
 		{
 			nextIndex = 0; 
 		}
 		setNextStudentIndex(nextIndex); 
-		System.err.println("State.java, advanceStudentIndex: final nextIndex = " + String.valueOf(nextIndex)); 
+//		System.err.println("State.java, advanceStudentIndex: final nextIndex = " + String.valueOf(nextIndex)); 
 		return nextIndex; 
 	}
 

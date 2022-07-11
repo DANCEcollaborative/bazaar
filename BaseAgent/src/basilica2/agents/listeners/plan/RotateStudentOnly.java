@@ -65,8 +65,8 @@ public class RotateStudentOnly implements StepHandler
 		catch (Exception e){}
 		
 		rateLimited = properties.getProperty("rate_limited", "true").equals("true");
-		Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
-		+(rateLimited?", +"+wordsPerSecond+" wps":""));
+//		Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "default priority="+defaultPromptPriority+ ", wait "+constantDelay +" seconds after prompts"
+//		+(rateLimited?", +"+wordsPerSecond+" wps":""));
 	}
 
 	public RotateStudentOnly(String promptsPath)
@@ -84,7 +84,7 @@ public class RotateStudentOnly implements StepHandler
   
 		// Get the IDs of the students ever present
 		String[] studentIds = news.getRandomizedStudentIds(); 
-		System.err.println("RotateStudentOnly, studentIDs: " + Arrays.toString(studentIds));
+//		System.err.println("RotateStudentOnly, studentIDs: " + Arrays.toString(studentIds));
 		int numStudents = studentIds.length; 
 		
 		int studentIndex; 
@@ -100,8 +100,8 @@ public class RotateStudentOnly implements StepHandler
 		}
 		String studentID = studentIds[studentIndex]; 
 		String[] promptIds = {studentID}; 
-		System.err.println("RotateStudentOnly, promptIds: " + Arrays.toString(promptIds));
-		System.err.println("RotateStudentOnly, prompt name: " + news.getStudentName(studentID));
+//		System.err.println("RotateStudentOnly, promptIds: " + Arrays.toString(promptIds));
+//		System.err.println("RotateStudentOnly, prompt name: " + news.getStudentName(studentID));
 		
 		// Get the root promptKey. There should be prompts with suffixes like _1, _2, _3, ...,
 		// for various numbers of students
@@ -118,11 +118,11 @@ public class RotateStudentOnly implements StepHandler
         if (numStudents > 0) {
     		
         	String adjustedPromptText = prompter.match(adjustedPromptKey, promptIds, null, null, 1, news);
-        	System.err.println("RotateStudentOnly - adjustedPromptText: " + adjustedPromptText);
-        	Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
+//        	System.err.println("RotateStudentOnly - adjustedPromptText: " + adjustedPromptText);
+//        	Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "adjustedPromptKey: "+adjustedPromptKey);
         	
         	if (adjustedPromptText == adjustedPromptKey) {
-        		System.err.println("RotateStudentOnly, execute: first match attempt failed"); 
+//        		System.err.println("RotateStudentOnly, execute: first match attempt failed"); 
         		promptText = prompter.match(promptKey, promptIds, null, null, 0, news);
         	}
         	else {
@@ -136,7 +136,7 @@ public class RotateStudentOnly implements StepHandler
 		
 		MessageEvent me = new MessageEvent(source, overmind.getAgent().getUsername(), promptText, promptKey);
 		makePromptProposal(source, delay, me, step.attributes);
-		Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
+//		Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "starting "+delay+" second prompt delay");
 		
 		new Timer(delay, new TimeoutReceiver()
 		{
@@ -144,7 +144,7 @@ public class RotateStudentOnly implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
-				Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+//				Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
 				overmind.stepDone();
 			}
 

@@ -53,8 +53,8 @@ public class FileEvent extends Event {
         super(s);
         fileName = n;
         eventType = t; 
-        System.err.println("FileEvent created: file: " + n + " -- event type:" + t);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileEvent created - file: " + n + "   -- event type: " + t);
+//        System.err.println("FileEvent created: file: " + n + " -- event type:" + t);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileEvent created - file: " + n + "   -- event type: " + t);
     }
 
     public String getFileName() {

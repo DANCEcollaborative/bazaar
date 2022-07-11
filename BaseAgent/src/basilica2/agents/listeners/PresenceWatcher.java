@@ -211,7 +211,7 @@ public class PresenceWatcher extends BasilicaAdapter
 		{
 			if ((news.getStudentCount() == 1) && (expected_number_of_students > 1))
 			{
-				log(Logger.LOG_NORMAL, "waiting "+launch_timeout+" seconds for more students to join...");
+//				log(Logger.LOG_NORMAL, "waiting "+launch_timeout+" seconds for more students to join...");
 				Timer t = new Timer(launch_timeout, "LAUNCH", new TimeoutReceiver()
 				{
 					public void timedOut(String id)
@@ -283,7 +283,7 @@ public class PresenceWatcher extends BasilicaAdapter
 	
 	private void sendCatchUpMessage(InputCoordinator source, State news, PresenceEvent pe) {
 		// Send private message to the new student. The private message prompts are defined in catch_up_prompter
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Send catch up message to " + pe.getUsername());
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Send catch up message to " + pe.getUsername());
 		
 		Map<String, String> slots = new HashMap<String, String>();
 		slots.put("[NAME]", pe.getUsername());

@@ -52,15 +52,15 @@ public class EndEvent extends Event {
     public EndEvent(Component s, String data) {
         super(s);
         endData = data; 
-        System.err.println("EndEvent, constructor - EndEvent created: endData: " + endData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"EndEvent, EndEvent - EndEvent created: endData: " + endData);
+//        System.err.println("EndEvent, constructor - EndEvent created: endData: " + endData);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"EndEvent, EndEvent - EndEvent created: endData: " + endData);
     }
 
     public EndEvent(Component s) {
         super(s);
         endData = null; 
-        System.err.println("EndEvent, constructor - EndEvent without data created");
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"EndEvent, constructor - EndEvent without data created");
+//        System.err.println("EndEvent, constructor - EndEvent without data created");
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"EndEvent, constructor - EndEvent without data created");
     }
 
     @Override
@@ -69,8 +69,8 @@ public class EndEvent extends Event {
     }
 
     public String getEndData() {
-        System.err.println("EndEvent, getEndData - endData: " + endData);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"EndEvent, getEndData - endData: " + endData);
+//        System.err.println("EndEvent, getEndData - endData: " + endData);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"EndEvent, getEndData - endData: " + endData);
         return endData;
     }
 

@@ -62,7 +62,7 @@ public class MultiModalFilter extends BasilicaAdapter
 		super(a);
 		thisAgent = a; 
 
-        System.err.println("*** MultiModalFilter: agent name: " + thisAgent.getName());
+//        System.err.println("*** MultiModalFilter: agent name: " + thisAgent.getName());
 		
 		// get location-related properties
 		try{trackLocation = Boolean.parseBoolean(getProperties().getProperty("track_location", "true"));}
@@ -91,11 +91,11 @@ public class MultiModalFilter extends BasilicaAdapter
 			news.setMultimodalDontListenWhileSpeaking(true);
 			news.setMultimodalDontListenWhileSpeakingEnd(now);
 //			this.multimodalDontListenEnd = now; 
-			System.err.println("MultimodalFilter init, agent name: " + a.getName());	
-			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #1: " + news.getMultimodalDontListenWhileSpeakingEnd().toString());	
+//			System.err.println("MultimodalFilter init, agent name: " + a.getName());	
+//			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #1: " + news.getMultimodalDontListenWhileSpeakingEnd().toString());	
 			StateMemory.commitSharedState(news, a);
 			State news2 = State.copy(StateMemory.getSharedState(a));
-			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #2: " + news2.getMultimodalDontListenWhileSpeakingEnd().toString());	
+//			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #2: " + news2.getMultimodalDontListenWhileSpeakingEnd().toString());	
 		}
 	}
 
@@ -130,7 +130,7 @@ public class MultiModalFilter extends BasilicaAdapter
 //		State s = StateMemory.getSharedState(source.getAgent());
 		// State currentState = StateMemory.getSharedState(thisAgent);
 		State currentState = StateMemory.getSharedState(agent);
-		System.err.println("MultiModalFilter, current number of students: " + currentState.getStudentCount());
+//		System.err.println("MultiModalFilter, current number of students: " + currentState.getStudentCount());
 		
 		String text = me.getText();
 		String[] multiModalMessage = text.split(multiModalDelim);
@@ -138,7 +138,7 @@ public class MultiModalFilter extends BasilicaAdapter
 		// If this is a multimodal message
 		if (multiModalMessage.length > 1) {
 			
-			log(Logger.LOG_NORMAL, "MultiModalFilter, handleMessageEvent - found multimodal text: " + text);
+//			log(Logger.LOG_NORMAL, "MultiModalFilter, handleMessageEvent - found multimodal text: " + text);
 			multiModalTag tag; 
 			String [] messagePart; 
 
@@ -149,7 +149,7 @@ public class MultiModalFilter extends BasilicaAdapter
 				tag = multiModalTag.valueOf(messagePart[0]);
 				if ((tag == (multiModalTag.identity)) || (tag == (multiModalTag.from))) {
 					identityFound = true; 
-					System.err.println("from/identity found: " + messagePart[1]);
+//					System.err.println("from/identity found: " + messagePart[1]);
 					me.setFrom(messagePart[1]);
 					if (messagePart[1] != identityAllUsers) {     // Message from "group" is not a new presence
 //						checkPresence(source,me);	
@@ -161,26 +161,26 @@ public class MultiModalFilter extends BasilicaAdapter
 			boolean processSpeech = false; 
 //			String speechText = ""; 
 			for (int i = 0; i < multiModalMessage.length; i++) {
-				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
+//				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
 				messagePart = multiModalMessage[i].split(withinModeDelim,2);
 				
 				tag = multiModalTag.valueOf(messagePart[0]);
 				
 				switch (tag) {
 				case multimodal:
-					System.out.println("=========== multimodal message ===========");	
-					log(Logger.LOG_NORMAL, "=========== multimodal message ===========");
+//					System.out.println("=========== multimodal message ===========");	
+//					log(Logger.LOG_NORMAL, "=========== multimodal message ===========");
 					break;
 				case identity:  // already handled above 
-					System.out.println("identity: " + messagePart[1]);	
+//					System.out.println("identity: " + messagePart[1]);	
 					break;	
 				case from:  
-					System.out.println("from: " + messagePart[1]);	
-					log(Logger.LOG_NORMAL, "from: " + messagePart[1]);
+//					System.out.println("from: " + messagePart[1]);	
+//					log(Logger.LOG_NORMAL, "from: " + messagePart[1]);
 					break;		
 				case to:  
-					System.out.println("to: " + messagePart[1]);	
-					log(Logger.LOG_NORMAL, "to: " + messagePart[1]);
+//					System.out.println("to: " + messagePart[1]);	
+//					log(Logger.LOG_NORMAL, "to: " + messagePart[1]);
 					break;									
 				case speech:
 					processSpeech = true; 
@@ -189,31 +189,31 @@ public class MultiModalFilter extends BasilicaAdapter
 					log(Logger.LOG_NORMAL, "speech: " + speechText);
 					break;		
 				case intention:  
-					System.out.println("intention: " + messagePart[1]);	
-					log(Logger.LOG_NORMAL, "intention: " + messagePart[1]);
+//					System.out.println("intention: " + messagePart[1]);	
+//					log(Logger.LOG_NORMAL, "intention: " + messagePart[1]);
 					break;			
 				case location:
-					System.out.println("location: " + messagePart[1]);
+//					System.out.println("location: " + messagePart[1]);
 					if (trackLocation)
 						locationUpdate(source,me,messagePart[1]);
 					break;
 				case facialExp:
-					System.out.println("facial expression: " + messagePart[1]);
+//					System.out.println("facial expression: " + messagePart[1]);
 					break;
 				case pose:
-					System.err.println("pose: " + poseEventType.valueOf(messagePart[1]));
+//					System.err.println("pose: " + poseEventType.valueOf(messagePart[1]));
 					poseUpdate(source,me,poseEventType.valueOf(messagePart[1])); 
 					break;
 				case emotion:
-					System.out.println("emotion: " + messagePart[1]);
+//					System.out.println("emotion: " + messagePart[1]);
 					break;
 				case presence:  
 					System.out.println("presence: " + messagePart[1]);	
 					log(Logger.LOG_NORMAL, "presence: " + messagePart[1]);
 					break;	
 				case userID:  
-					System.out.println("userID: " + messagePart[1]);	
-					log(Logger.LOG_NORMAL, "userID: " + messagePart[1]);
+//					System.out.println("userID: " + messagePart[1]);	
+//					log(Logger.LOG_NORMAL, "userID: " + messagePart[1]);
 					break;	
 					
 				default:
@@ -227,19 +227,19 @@ public class MultiModalFilter extends BasilicaAdapter
 					
 					LocalDateTime now = LocalDateTime.now();
 					LocalDateTime dontListenWhileSpeakingEnd = currentState.getMultimodalDontListenWhileSpeakingEnd(); 
-					System.err.println("MultimodalFilter handleMessageEvent: now = " + now.toString());
+//					System.err.println("MultimodalFilter handleMessageEvent: now = " + now.toString());
 					if (dontListenWhileSpeakingEnd != null) {
-						System.err.println("MultimodalFilter handleMessageEvent: dontListenWhileSpeakingEnd = " + dontListenWhileSpeakingEnd.toString());
+//						System.err.println("MultimodalFilter handleMessageEvent: dontListenWhileSpeakingEnd = " + dontListenWhileSpeakingEnd.toString());
 						if (now.isBefore(dontListenWhileSpeakingEnd)) {
-							System.err.println("MultimodalFilter handleMessageEvent: QUASHING speech input");
+//							System.err.println("MultimodalFilter handleMessageEvent: QUASHING speech input");
 							me.invalidate();
 							return; 
 						} else {
-							System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
+//							System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
 						}
 					} else {
-						System.err.println("MultimodalFilter handleMessageEvent: dontListenWhileSpeakingEnd = NULL");
-						System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
+//						System.err.println("MultimodalFilter handleMessageEvent: dontListenWhileSpeakingEnd = NULL");
+//						System.err.println("MultimodalFilter handleMessageEvent: NOT quashing speech input");
 					}
 				}
 			}
@@ -263,7 +263,7 @@ public class MultiModalFilter extends BasilicaAdapter
 	
 	private void poseUpdate(final InputCoordinator source, MessageEvent me, poseEventType poseType)
 	{
-		System.err.println("MultiModalFilter pose update -- from: " + me.getFrom() + " -- pose: " + poseType.toString()); 
+//		System.err.println("MultiModalFilter pose update -- from: " + me.getFrom() + " -- pose: " + poseType.toString()); 
 		PoseEvent poseE = new PoseEvent(source,me.getFrom(),poseType);
 		source.pushEvent(poseE);
 	}
@@ -271,10 +271,10 @@ public class MultiModalFilter extends BasilicaAdapter
 	private void locationUpdate(InputCoordinator source, MessageEvent me, String location)
 	{		
 		String identity = me.getFrom();
-		System.err.println("locationUpdate for " + identity + ": " + location);
+//		System.err.println("locationUpdate for " + identity + ": " + location);
 		String prevLocation = StateMemory.getSharedState(agent).getLocation(identity); 
 		if (!location.equals(prevLocation)) {
-			System.err.println("Updating location for " + me.getFrom() + ":  was - " + prevLocation + " --  now - " + location);
+//			System.err.println("Updating location for " + me.getFrom() + ":  was - " + prevLocation + " --  now - " + location);
 			State s = State.copy(StateMemory.getSharedState(agent));
 	        s.setLocation(identity, location);
 	        StateMemory.commitSharedState(s, agent);
@@ -286,14 +286,14 @@ public class MultiModalFilter extends BasilicaAdapter
 	}
 	
 	private void checkDistances (InputCoordinator source, MessageEvent me, String identity, String myLocation) {
-		System.err.println("===== Checking distances ======");
+//		System.err.println("===== Checking distances ======");
 		Double[] myCoordinates = locationStringToDoubles(myLocation);	
 		
 		StringBuilder myCoordinatesString = new StringBuilder("");
 		myCoordinatesString.append("x: " + Double.toString(myCoordinates[0]));
 		myCoordinatesString.append("  --  y: " + Double.toString(myCoordinates[1]));
 		myCoordinatesString.append("  --  z: " + Double.toString(myCoordinates[2]));
-		System.err.println("checkDistances, myCoordinates  --  " + myCoordinatesString.toString());
+//		System.err.println("checkDistances, myCoordinates  --  " + myCoordinatesString.toString());
 		
 		Double[] otherCoordinates; 
 		State s = StateMemory.getSharedState(agent);
@@ -302,7 +302,7 @@ public class MultiModalFilter extends BasilicaAdapter
 		Double distance; 
 		
 		for (int i = 0; i < studentIDs.length; i++)  {
-			System.out.println("Checking distances from other students ..."); 
+//			System.out.println("Checking distances from other students ..."); 
             otherStudentID = studentIDs[i];
             if (!otherStudentID.equals(identity)) {
                 otherCoordinates = getLocationCoordinates(otherStudentID);
@@ -311,13 +311,13 @@ public class MultiModalFilter extends BasilicaAdapter
             		otherCoordinatesString.append("x: " + Double.toString(otherCoordinates[0]));
             		otherCoordinatesString.append("  --  y: " + Double.toString(otherCoordinates[1]));
             		otherCoordinatesString.append("  --  z: " + Double.toString(otherCoordinates[2]));
-            		System.err.println("checkDistances, otherCoordinates for " + otherStudentID + ", student " + Integer.toString(i) + "  --  " + otherCoordinatesString.toString());
+//            		System.err.println("checkDistances, otherCoordinates for " + otherStudentID + ", student " + Integer.toString(i) + "  --  " + otherCoordinatesString.toString());
             		
                     distance = calculateDistance(myCoordinates,otherCoordinates); 
-                    System.err.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
-                    System.err.println("Minimum distance apart: " + Double.toString(minDistanceApart));
+//                    System.err.println("Distance between " + s.getStudentName(identity) + " and " + s.getStudentName(otherStudentID) + ": " + Double.toString(distance));
+//                    System.err.println("Minimum distance apart: " + Double.toString(minDistanceApart));
                     if (distance > minDistanceApart) {
-                    	System.err.println("Issuing distance warning"); 
+//                    	System.err.println("Issuing distance warning"); 
                     	issueDistanceWarning(source,me,identity,otherStudentID);
                     }        			
         		}
@@ -331,7 +331,7 @@ public class MultiModalFilter extends BasilicaAdapter
         State s = StateMemory.getSharedState(agent);
 		String rawLocation = s.getLocation(identity); 
 		if (rawLocation != null) {
-			System.err.println("raw location coordinates for " + identity + ": " + rawLocation);
+//			System.err.println("raw location coordinates for " + identity + ": " + rawLocation);
 			return locationStringToDoubles(rawLocation);
 		}
 		else return null;		
