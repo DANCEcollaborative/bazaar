@@ -74,7 +74,7 @@ return the model score</text>
     </prompt>
       
     <prompt strategy="task" id="P1f" intention="parsons_prompt_final_0">
-        <text>Once everyone is in agreement, the driver can start the implementation with assistance from the team.</text>
+        <text>Once everyone is in agreement, the driver can start the implementation with assistance from the team.||Remember to make sure the 'wget ...' command above COMPLETES SUCCESSFULLY before running the test case. If it doesn't complete successfully, just execute the command again. </text>
     </prompt>
       
     <prompt strategy="task" id="P1g" intention="cutoff_0_1">

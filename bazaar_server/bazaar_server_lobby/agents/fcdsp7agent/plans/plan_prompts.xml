@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
 
-	<!-- GREETING PROMPTS PROMPTS --> 
+	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="INTRODUCE" intention="Build_rapport">
         <text>We're starting! I'm OPE_Bot.|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a moment to learn more about each other.</text>
@@ -145,7 +145,7 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="ope_end">
-     	<text>I'll be logging off shortly. Thanks for participating in today's OPE activity. Remember to execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
+     	<text>I'm logging off. Thanks for participating in today's OPE activity. Remember to execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
     </prompt>
  
 
