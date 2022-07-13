@@ -19,7 +19,7 @@
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
         <!-- <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="5,15,20,30,45,60,75" delayed_prompt="P1a,P1b,P1c,P1d,P1e,P1f,P1g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>    -->         
-        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="5,15,20,30,90,120,780" delayed_prompt="P1a,P1b,P1c,P1d,P1e,P1f,P1g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>   	  	
+        <step type="file_gated" timeout="0" delay="5" file="testcase-complete_1" delayed_prompt_time="5,15,20,30,90,120,125,780" delayed_prompt="P1a,P1b,P1c,P1d,P1e,P1f,P1g,P1h" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>   	  	
         <step type="prompt" delay="10" prompt="PROMPT_DISCUSSION">Prompt_Step_LO1_Discussion</step>    	
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>  	
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO1_REFLECTION_FOLLOW">Prompt_Step_LO1_Reflection_Follow</step>
