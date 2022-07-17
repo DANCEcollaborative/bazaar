@@ -139,6 +139,10 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
         <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have 75 minutes to complete programming and to submit to receive your grades.</text>
     </prompt>
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase_start">
+     	<text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.</text>
+    </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION" intention="ope_end">
      	<text>Thanks for participating in today's OPE activity. Execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
@@ -211,9 +215,4 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW" intention="prompt_for_reflection4">
      	<text>What was the exact function you ended up using here? Did you find any possible alternatives?</text>
     </prompt>
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase_start">
-     	<text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.</text>
-    </prompt> 
-
 </prompts>
