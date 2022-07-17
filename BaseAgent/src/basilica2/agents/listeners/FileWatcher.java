@@ -71,18 +71,20 @@ public class FileWatcher extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
-//		log(Logger.LOG_NORMAL, "FileWatcher preProcessEvent, entering");
+		log(Logger.LOG_NORMAL, "FileWatcher preProcessEvent, entering");
+		System.err.println("FileWatcher preProcessEvent, entering");
 		File file; 
 		FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 		for (int i=0; i < fileCompleted.length; i++) {
 			if (!fileCompleted[i]) {
 				file = new File(filePath + "room-" + roomName + "-" + fileNames[i] + fileSuffix);
-//				System.err.println("Checking file: " + file.getPath()); 
-//				log(Logger.LOG_NORMAL, "FileWatcher preProcessEvent, checking for file path = " + file.getPath());
+				System.err.println("Checking file: " + file.getPath()); 
+				log(Logger.LOG_NORMAL, "FileWatcher preProcessEvent, checking for file path = " + file.getPath());
 				synchronized(source) {
 					if (file.exists()) {
 						fileCompleted[i] = true;
-//						System.err.println("File newly exists: " + file.getPath()); 
+						log(Logger.LOG_NORMAL, "File newly exists: " + file.getPath());
+						System.err.println("File newly exists: " + file.getPath()); 
 						FileEvent fEvent = new FileEvent(source,fileNames[i],eventType);
 						source.pushEvent(fEvent);
 					}				
@@ -98,7 +100,7 @@ public class FileWatcher extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[]{MessageEvent.class, ReadyEvent.class, PresenceEvent.class, WhiteboardEvent.class, TypingEvent.class};
+		return new Class[]{FileEvent.class, MessageEvent.class, ReadyEvent.class, PresenceEvent.class, WhiteboardEvent.class, TypingEvent.class};
 	}
 
 

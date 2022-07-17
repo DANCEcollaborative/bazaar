@@ -8,6 +8,7 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.data.PromptTable;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.listeners.FileGatekeeper;
 import basilica2.util.TimeoutAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -91,7 +92,8 @@ public class FileStepHandler implements StepHandler
 						if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 						{
 							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName));
-							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
+							// source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
+							source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 10.0, 3));
 						}
 					}
 				}).start();
