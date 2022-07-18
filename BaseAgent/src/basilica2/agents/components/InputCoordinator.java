@@ -208,7 +208,7 @@ public class InputCoordinator extends Component
             //collect any annotations that the preprocessors have applied to this message, and log it.
             if(event instanceof MessageEvent) {
             	MessageEvent me = (MessageEvent) event; 
-            	// System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
+            	 System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
         		MessageEventLogger.logMessageEvent((MessageEvent)event);
             }
             
@@ -294,7 +294,7 @@ public class InputCoordinator extends Component
 			    for(int i = 0; i < blisters.size(); i++)
 			    {
 			    	BasilicaListener blister = blisters.get(i);
-			    	//log(Logger.LOG_NORMAL,"processOneEvent: keyClass="+keyClass+" blister="+blister);
+			    	log(Logger.LOG_NORMAL,"processOneEvent: keyClass="+keyClass+" blister="+blister);
 			        blister.processEvent(this, eve);
 			    }
         	}
