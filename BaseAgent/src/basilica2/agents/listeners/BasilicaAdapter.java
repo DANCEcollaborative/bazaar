@@ -81,6 +81,8 @@ public abstract class BasilicaAdapter implements BasilicaListener, BasilicaPrePr
     
     public void stopListening(InputCoordinator source)
     {
+		log(Logger.LOG_NORMAL, "BasilicaAdpater stopListening");
+		System.err.print("BasilicaAdpater stopListening");
     	if(listening)
     	{
 	    	listening = false;

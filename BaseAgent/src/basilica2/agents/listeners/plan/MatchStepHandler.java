@@ -216,7 +216,8 @@ public class MatchStepHandler implements StepHandler
 			public void timedOut(String id)
 			{
 				Logger.commonLog("MatchStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
-				overmind.stepDone();
+//				overmind.stepDone();
+				overmind.stepDone(step.name);
 			}
 
 			@Override
