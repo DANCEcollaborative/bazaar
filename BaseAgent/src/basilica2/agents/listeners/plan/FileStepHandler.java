@@ -83,7 +83,8 @@ public class FileStepHandler implements StepHandler
 //		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
 		if (!delayedPromptList.isEmpty()) 
 		{	
-			System.err.println("Setting delayed prompt"); 
+			System.err.println("FileStepHandler: Setting delayed prompt(s)"); 
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: Setting delayed prompt(s)");
 			
 			for (int i=0; i < delayedPromptList.size(); i++) {
 				Integer promptTime = Integer.valueOf(delayedPromptTimeList.get(i)); 
