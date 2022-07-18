@@ -64,7 +64,6 @@ public class FileStepHandler implements StepHandler
 			delayedPromptList.add(delayedPrompt); 
 		}
 		
-//		int delayedPromptTime = currentStep.delayed_prompt_time; 
 		String delayedPromptTimeString = currentStep.attributes.get("delayed_prompt_time");
 		System.err.println("FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
 		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
