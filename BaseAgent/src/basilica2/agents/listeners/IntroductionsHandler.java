@@ -161,6 +161,8 @@ public class IntroductionsHandler extends BasilicaAdapter
                     
                     //assign remaining names
                     //uninstall:
+            		System.err.println("IntroductionsHandler about to call stopListening"); 
+            		Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "IntroductionsHandler about to call stopListening"); 
                     stopListening(source);
                 }
             }

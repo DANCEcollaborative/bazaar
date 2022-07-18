@@ -24,7 +24,7 @@ public class FileStepHandler implements StepHandler
 	@Override
 	public void execute(final Step currentStep, final PlanExecutor overmind, final InputCoordinator source)
 	{
-//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting file gated step...");
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting file gated step...");
 		if(filegatekeeper == null)
 		{
 			Agent a = overmind.getAgent();
@@ -53,6 +53,9 @@ public class FileStepHandler implements StepHandler
 		
 		// delayedPrompt	
 		String delayedPrompt = currentStep.attributes.get("delayed_prompt");
+		System.err.println("FileStepHandler: delayedPrompt before processing: " + delayedPrompt);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPrompt before processing: " + delayedPrompt);
+		
 		List<String> delayedPromptList = null; 
 		if (delayedPrompt.contains(",")) {
 			delayedPromptList = Stream.of(delayedPrompt.split(","))
@@ -61,8 +64,9 @@ public class FileStepHandler implements StepHandler
 			delayedPromptList.add(delayedPrompt); 
 		}
 		
-//		int delayedPromptTime = currentStep.delayed_prompt_time; 
 		String delayedPromptTimeString = currentStep.attributes.get("delayed_prompt_time");
+		System.err.println("FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
 		List<String> delayedPromptTimeList = null; 
 		if (delayedPromptTimeString.contains(",")) {
 			delayedPromptTimeList = Stream.of(delayedPromptTimeString.split(","))
@@ -79,7 +83,8 @@ public class FileStepHandler implements StepHandler
 //		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
 		if (!delayedPromptList.isEmpty()) 
 		{	
-//			System.err.println("Setting delayed prompt"); 
+			System.err.println("FileStepHandler: Setting delayed prompt(s)"); 
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: Setting delayed prompt(s)");
 			
 			for (int i=0; i < delayedPromptList.size(); i++) {
 				Integer promptTime = Integer.valueOf(delayedPromptTimeList.get(i)); 
@@ -92,8 +97,11 @@ public class FileStepHandler implements StepHandler
 						if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 						{
 							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName));
+
+							System.err.println("FileStepHandler: pushing message: " + prompter.lookup(promptName));
+							Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: pushing message: " + prompter.lookup(promptName));
 							// source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
-							source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 10.0, 3));
+							source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 8.0, 4));
 						}
 					}
 				}).start();

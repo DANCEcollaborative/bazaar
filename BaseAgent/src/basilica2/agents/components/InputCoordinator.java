@@ -208,7 +208,7 @@ public class InputCoordinator extends Component
             //collect any annotations that the preprocessors have applied to this message, and log it.
             if(event instanceof MessageEvent) {
             	MessageEvent me = (MessageEvent) event; 
-            	// System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
+            	 System.err.println(">>> InputCoordinator, processEvent - Message Event text: " + me.getText()); 
         		MessageEventLogger.logMessageEvent((MessageEvent)event);
             }
             
@@ -294,7 +294,7 @@ public class InputCoordinator extends Component
 			    for(int i = 0; i < blisters.size(); i++)
 			    {
 			    	BasilicaListener blister = blisters.get(i);
-			    	//log(Logger.LOG_NORMAL,"processOneEvent: keyClass="+keyClass+" blister="+blister);
+			    	log(Logger.LOG_NORMAL,"processOneEvent: keyClass="+keyClass+" blister="+blister);
 			        blister.processEvent(this, eve);
 			    }
         	}
@@ -397,11 +397,15 @@ public class InputCoordinator extends Component
     
     public void removeListener(Class key, BasilicaListener blister)
     {
+		System.err.println("InputCoordinator removeListener #1: " + blister.toString()); 
+		log(Logger.LOG_NORMAL, "InputCoordinator removeListener #1: " + blister.toString()); 
         listeners.get(key).remove(blister);
     }
     
     public void removePreProcessor(Class key, BasilicaPreProcessor plister)
     {
+		System.err.println("InputCoordinator removePreProcessor #1: " + plister.toString()); 
+		log(Logger.LOG_NORMAL, "InputCoordinator removePreProcessor #1: " + plister.toString()); 
         preprocessors.get(key).remove(plister);
         
     }
@@ -413,8 +417,11 @@ public class InputCoordinator extends Component
 	        for(Class key : listeners.keySet())
 	        {
 	        	ArrayList<BasilicaListener> classListeners = listeners.get(key);
-				if(classListeners.contains(blister))
+				if(classListeners.contains(blister)) {
+					System.err.println("InputCoordinator removeListener #2: " + blister.toString()); 
+					log(Logger.LOG_NORMAL, "InputCoordinator removeListener #2: " + blister.toString()); 
 	        		classListeners.remove(blister);
+				}
 	        }
     	}
     }
@@ -426,8 +433,11 @@ public class InputCoordinator extends Component
 	        for(Class key : preprocessors.keySet())
 	        {
 	            ArrayList<BasilicaPreProcessor> classListeners = preprocessors.get(key);
-				if(classListeners.contains(plister))
+				if(classListeners.contains(plister)) {
+					System.err.println("InputCoordinator removePreProcessor #2: " + plister.toString()); 
+					log(Logger.LOG_NORMAL, "InputCoordinator removePreProcessor #2: " + plister.toString()); 
 					classListeners.remove(plister);
+				}
 	        }
         }
     }

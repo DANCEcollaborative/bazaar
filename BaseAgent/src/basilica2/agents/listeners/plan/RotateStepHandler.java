@@ -314,8 +314,9 @@ public class RotateStepHandler implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
-//				Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
-				overmind.stepDone();
+				Logger.commonLog("RotateStepHandler", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+//				overmind.stepDone();
+				overmind.stepDone(step.name);
 			}
 
 			@Override

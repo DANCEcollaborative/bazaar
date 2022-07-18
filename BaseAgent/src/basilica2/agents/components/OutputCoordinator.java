@@ -32,7 +32,7 @@ import smartlab.communication.CommunicationManager;
  */
 public class OutputCoordinator extends Component implements TimeoutReceiver
 {
-	public static final int HISTORY_SIZE = 3;
+	public static final int HISTORY_SIZE = 9;
 
 	private Agent agent; 
 	final private ArrayList<PriorityEvent> proposalQueue = new ArrayList<PriorityEvent>();
@@ -114,11 +114,21 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 	public void addAll(Collection<PriorityEvent> events)
 	{
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator addAll Proposal Queue ==========================");
+		System.err.println("==================== OutputCoordinator addAll Proposal Queue ==========================");
 		synchronized (proposalQueue)
 		{
 			proposalQueue.addAll(events);
 			//log(Logger.LOG_NORMAL, "addAll to Proposal Queue: " + proposalQueue);
 		}
+		Iterator<PriorityEvent> pit = proposalQueue.iterator();
+		while (pit.hasNext()) {
+			PriorityEvent p = pit.next();
+			log(Logger.LOG_NORMAL, "OutputCoordinator addAll proposal: " + p.toString());
+			System.err.println( "OutputCoordinator addAll proposal: " + p.toString());
+		}
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator addAll Done ==========================");
+		System.err.println("==================== OutputCoordinator addAll Done ==========================");
 	}
 
 	@Override
@@ -140,7 +150,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			if (!proposalQueue.isEmpty())
 			{
 
-//				log(Logger.LOG_NORMAL, "==================== Proposal Queue ==========================");
+				log(Logger.LOG_NORMAL, "==================== OutputCoordinator timedout Proposal Queue ==========================");
+				System.err.println("==================== OutputCoordinator timedout Proposal Queue ==========================");
 				cleanUp();
 
 				PriorityEvent best = null;
@@ -151,7 +162,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					double belief = beliefGivenHistory(p);
 					double d = belief * p.getPriority();
 
-//					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
+					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
 
 					if (d > 0 && (d > bestBelief))
 					{
@@ -163,16 +174,17 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (best != null)
 				{
-//					log(Logger.LOG_NORMAL, "Execute: " + best);
+					log(Logger.LOG_NORMAL, "Execute: " + best);
 					// if the proposal about to be executed belongs to a new step, 
 					// set removeStepName which is used in cleanUp() to remove micro_local proposals belonging to this step 
 					if (lastStepName!=null && (!best.getMicroStepName().equals(lastStepName)))
 					{
 						removeStepName = lastStepName;
-//						log(Logger.LOG_NORMAL, "removeStepName: " + removeStepName);
+						log(Logger.LOG_NORMAL, "OutputCoordinator timedout removeStepName: " + removeStepName);
 					}
 					lastStepName = best.getMicroStepName();
-//					log(Logger.LOG_NORMAL, "lastStepName: " + lastStepName);
+					log(Logger.LOG_NORMAL, "OutputCoordinator timedout lastStepName: " + lastStepName);
+					System.err.println("OutputCoordinator timedout lastStepName: " + lastStepName);
 					
 					best.getCallback().accepted(best);
 					publishEvent(best.getEvent());
@@ -182,11 +194,18 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 					activeSources.put(source.getName(), source);
 					// keep the size of recentSources <= HISTORY_SIZE
-					if (recentSources.size() >= HISTORY_SIZE) recentSources.remove(0);
+					if (recentSources.size() >= HISTORY_SIZE) {
+						log(Logger.LOG_NORMAL, "OutputCoordinator timout: Removing source: " + recentSources.get(0));
+						System.err.println("OutputCoordinator timout: Removing source: " + recentSources.get(0));
+						recentSources.remove(0);
+					}
 
 					recentSources.add(source); 
+					log(Logger.LOG_NORMAL, "OutputCoordinator timout: Adding source: " + source.toString());
+					System.err.println("OutputCoordinator timout: Adding source: " + source.toString());
 				}
-//				log(Logger.LOG_NORMAL, "==================== DONE ==========================");
+				log(Logger.LOG_NORMAL, "====================  OutputCoordinator timedout DONE ==========================");
+				System.err.println("====================  OutputCoordinator timedout DONE ==========================");
 			}
 		}
 
@@ -197,6 +216,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	{
 		Iterator<PriorityEvent> pit = proposalQueue.iterator();
 		long now = Timer.currentTimeMillis();
+		System.err.print("==================== OutputCoordinator cleanup - Proposal Queue ====================\n");
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator cleanup - Proposal Queue ====================");
+		while (pit.hasNext())
 
 		synchronized (proposalQueue)
 		{
@@ -207,7 +229,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				if (p.getInvalidTime() < now && !p.getEventType().equals("macro")) 
 				{
 					// remove timeout micro proposals
-//					log(Logger.LOG_NORMAL, "cleanUp micro timeout: " + p);
+					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro timeout: " + p);
+					System.err.print("OutputCoordinator cleanUp micro timeout: " + p + "\n");
 					p.getCallback().rejected(p);
 					pit.remove();
 
@@ -220,7 +243,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}else if (p.getEventType().equals("micro_local") && removeStepName!=null && p.getMicroStepName().equals(removeStepName))
 				{
 					// remove passed step's micro_local proposals
-//					log(Logger.LOG_NORMAL, "cleanUp micro_local removeStepName: " + p);
+					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro_local removeStepName: " + p);
+					System.err.print("OutputCoordinator cleanUp removeStepName: " + p + "\n");
 					p.getCallback().rejected(p);
 					pit.remove();
 					removeStepName=null;
@@ -235,10 +259,15 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (!source.isBlocking())
 				{
+					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro_local remove source: " + source.toString());
+					System.err.print("OutputCoordinator cleanUp remove source: " + source.toString() + "\n");
 					activeSources.remove(key);
 				}
 			}
 		}
+
+		System.err.print("==================== OutputCoordinator cleanup - Done ====================\n");
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator cleanup - Done ====================");
 	}
 
 	protected void publishEvent(Event e)

@@ -144,8 +144,9 @@ public class RotateStudentOnly implements StepHandler
 			@Override
 			public void timedOut(String id)
 			{
-//				Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
-				overmind.stepDone();
+				Logger.commonLog("RotateStudentOnly", Logger.LOG_NORMAL, "ending "+delay+" second prompt delay");
+//				overmind.stepDone();
+				overmind.stepDone(step.name);
 			}
 
 			@Override
