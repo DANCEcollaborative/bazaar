@@ -291,11 +291,10 @@ public class RotateStepHandler implements StepHandler
         		promptText = adjustedPromptText; 
         		if (sendMatchRemoteLog) {
         			// Send role assignments to remote logging
-//        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getNamesRoles(),false,null); 
-        			LogStateEvent logStateEvent2 = new LogStateEvent(source,"role_assignments",prompter.getIdsRoles(),false,null); 		
-        	        System.err.println("RotateStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
-        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"RotateStepHandler, execute - LogStateEvent2 created: " + logStateEvent2.toString());
-        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", logStateEvent2, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+        			LogStateEvent LogStateEvent = new LogStateEvent(source,"role_assignments",prompter.getIdsRoles(),false,null); 		
+        	        System.err.println("RotateStepHandler, execute - LogStateEvent created: " + LogStateEvent.toString());
+        	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"RotateStepHandler, execute - LogStateEvent created: " + LogStateEvent.toString());
+        			source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateEvent", LogStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
         		}
         	}
         } else {
