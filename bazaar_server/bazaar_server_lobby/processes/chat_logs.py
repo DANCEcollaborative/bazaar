@@ -27,6 +27,10 @@ room_number = ""
 multimodal_tag = "multimodal"
 from_tag = "from:::"
 speech_tag = "speech:::"
+intention_tag = "intention:::"
+presence_tag = "presence:::"
+presence_type = "presence"
+updatepresence_type = "updatepresence"
 end_tag = ";%;"
 
 # users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
@@ -51,36 +55,39 @@ def create_filename (prefix, suffix):
                 break
     return filename
 
-def get_multimodal_entry(log_entry,start_tag,non_multimodal_index):
-    print("get_multimodal_entry - log_entry: " + log_entry[6] + "  tag: " + start_tag)
+def get_multimodal_entry(log_entry,start_tag,default_value):
+    # print("get_multimodal_entry - log_entry: " + log_entry[6] + "  tag: " + start_tag)
     content_string = log_entry[6]
     if (content_string.startswith(multimodal_tag) == False):
-        print("get_multimodal_entry - not multimodal, returning " + log_entry[1])
-        return log_entry[non_multimodal_index]
+        # print("get_multimodal_entry - not multimodal, returning " + log_entry[1])
+        return default_value
     else:
         start_index = content_string.find(start_tag)
         if (start_index < 0):
-            print("get_multimodal_entry - multimodal but no tag *" + start_tag + "* - returning " + log_entry[non_multimodal_index])
-            return log_entry[non_multimodal_index]
+            # print("get_multimodal_entry - multimodal but no tag *" + start_tag + "* - returning " + default_value)
+            return default_value
         else:
             start_index = start_index + len(start_tag)
-            print("get_multimodal_entry - start_index: " + str(start_index))
-            content_string_end = len(content_string)
+            # print("get_multimodal_entry - start_index: " + str(start_index))
+            content_string_end = len(content_string) + 1
+            # print("get_multimodal_entry - content_string_end: " + str(content_string_end))
             end_index = content_string.find(end_tag,start_index,content_string_end)
-            print("get_multimodal_entry - end_index: " + str(end_index))
+            if (end_index < 0):
+                end_index = content_string_end
+            # print("get_multimodal_entry - end_index: " + str(end_index))
             entry_string = content_string[start_index:end_index]
-            print("get_multimodal_entry - multimodal with tag *" + start_tag + "* - returning: " + entry_string)
+            # print("get_multimodal_entry - multimodal with tag *" + start_tag + "* - returning: " + entry_string)
             return entry_string
 
 
 # Process one chat_log room. Called with a valid start_index.
 def process_room (chat_list, start_index):
-    # print('process_room - enter - start_index = ' + str(start_index))
+    # print('========== process_room - enter - start_index = ' + str(start_index)+ " ==========")
     global user_count
     user_list.clear()
     room_name = chat_list[start_index][5]
     next_room_name = room_name
-    index = start_index;
+    index = start_index
 
     # print('process_room, start first pass thru room')
     # First pass thru room: get any users that aren't in users_to_exclude
@@ -89,12 +96,12 @@ def process_room (chat_list, start_index):
         username = get_multimodal_entry(chat_list[index],from_tag,1)   # username
         if username not in users_to_exclude and username not in user_list:
             user_list.append(username)
-        index += 1;
+        index += 1
         if index < len(chat_list):
             next_room_name = chat_list[index][5]
         else:
             next_room_name = ""
-        end_index = index;
+        end_index = index
         # At this point, end_index is either
         #    -- past the end of the overall chat_list
         #    -- at the first index for a new room
@@ -106,30 +113,52 @@ def process_room (chat_list, start_index):
         user_count += len(user_list)
         file_prefix = args.room_name_prefix
         for i in range(len(user_list)):
+            # print("User " + str(i) + " -- " + str(user_list[i]))
             file_prefix += "_"
-            file_prefix += user_list[i]
+            file_prefix += str(user_list[i])
         filename = create_filename(file_prefix,".csv")
         out_file = open(filename, 'w')
         writer = csv.writer(out_file)
-        row_list=["timestamp","username","type","content"]
+        row_list=["timestamp","username","type","intention","content"]
         writer.writerow(row_list)
 
         # Write a chat log row for each entry in room
-        for i in range(start_index,end_index):           
+        for i in range(start_index,end_index):
+
+            # row_list[1] = time
             # Adjust UTC time to local time based on UTC offset
             chat_time = datetime.datetime.strptime(chat_list[i][4], '%Y-%m-%d %H:%M:%S')   # timestamp in UTC
             chat_time = chat_time - timedelta(hours=UTC_offset)
             row_list[0] = chat_time
-            # row_list[1] = chat_list[i][1]                                  # username
-            row_list[1] = get_multimodal_entry(chat_list[i],from_tag,1)     # username
-            row_list[2] = chat_list[i][0]                                   # type
-            # row_list[3] = chat_list[i][6]                                  # content
-            row_list[3] = get_multimodal_entry(chat_list[i],speech_tag,6)   # speech or other content
+
+            # row_list[1] = username
+            # row_list[1] = chat_list[i][1]
+            row_list[1] = get_multimodal_entry(chat_list[i],from_tag,chat_list[i][1])
+
+            # row_list[2] = type, possibly affecting content
+            type = chat_list[i][0]
+            type_content = " "
+            if (type == updatepresence_type):
+                type = presence_type
+                type_content = get_multimodal_entry(chat_list[i],presence_tag,chat_list[i][6])
+            row_list[2] = type
+
+            # row_list[3] = intention
+            row_list[3] = get_multimodal_entry(chat_list[i],intention_tag,"")
+
+            # row_list[4] = speech or other content
+            # row_list[3] = chat_list[i][6]
+            if (type_content != " "):
+                content = type_content
+            else:
+                content = get_multimodal_entry(chat_list[i],speech_tag,chat_list[i][6])
+            row_list[4] = content
+
             writer.writerow(row_list)
 
         out_file.close()
 
-    return end_index;   # return the last index for the room plus 1
+    return end_index    # return the last index for the room plus 1
 
 
 try:
@@ -228,7 +257,7 @@ try:
     next_index = 0
     while next_index < len(sort):
         next_index = process_room(sort,next_index)
-    print(str(user_count) + " users")
+    # print(str(user_count) + " users")
 
 except NameError:
     print("Usage: python chat_logs.py <Bazaar_chat_log_file> <room_name_prefix> --startdate <target_start_mm/dd/yy> --starttime <target_start_hour> --enddate <target_end_mm/dd/yy> --endtime <target_end_hour>")
