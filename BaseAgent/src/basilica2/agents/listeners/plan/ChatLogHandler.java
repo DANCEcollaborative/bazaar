@@ -36,10 +36,10 @@ class ChatLogHandler implements StepHandler
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");		
 		try
 		{
-			processPath = properties.getProperty("process_path","processes/chat_log.sh");
+			processPath = properties.getProperty("process_path","../processes/chat_log.sh");
 		}
 		catch (Exception e){}	
-		// System.err.println("ChatLogHandler, exiting constructor");	
+		 System.err.println("ChatLogHandler, exiting constructor");	
 	}
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
