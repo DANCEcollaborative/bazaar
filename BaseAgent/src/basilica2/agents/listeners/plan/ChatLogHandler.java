@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.nio.file.FileSystems;
 import java.io.BufferedInputStream;
 
 import edu.cmu.cs.lti.project911.utils.log.Logger;
@@ -47,8 +48,14 @@ class ChatLogHandler implements StepHandler
 		// System.err.println("ChatLogHandler, entering execute");
 		String processWithArgs = ""; 
 		
-		String processWithArgsWithPath = processPath + " " + source.getAgent().getRoomName(); 
+		String agentFilePath = System.getProperty("user.dir");
+		String fileSeparator = FileSystems.getDefault().getSeparator(); 
+		String agentDirectory = agentFilePath.substring(agentFilePath.lastIndexOf(fileSeparator)+1);
+		
+		
+		String processWithArgsWithPath = processPath + " " + source.getAgent().getRoomName() + " " + agentDirectory; 
 		System.err.println("ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
+		log(Logger.LOG_NORMAL, "ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
 		List<String> processWithArgsList = new ArrayList<>(Arrays.asList(processWithArgsWithPath.split(" ")));
 		// System.err.println("ChatLogHandler, execute - processWithArgsList: " + Arrays.deepToString(processWithArgsList.toArray()));
 	
