@@ -1,5 +1,6 @@
 #!/bin/bash
 ROOM_PREFIX=$1
+AGENT_DIRECTORY=$2
 cd processes
 chmod 777 /mysql-files
 mysql -u root -psmoot -h nodechat  -P 3306 <<MYSQL_QUERY
@@ -8,4 +9,4 @@ SELECT 'type', 'username', 'useraddress', 'userid', 'timestamp', 'roomname', 'co
 MYSQL_QUERY
 python3 chat_logs.py /mysql-files/$ROOM_PREFIX.csv $ROOM_PREFIX
 rm /mysql-files/$ROOM_PREFIX.csv
-mv *.csv ../chat_logs
+mv *.csv $AGENT_DIRECTORY/chat_logs

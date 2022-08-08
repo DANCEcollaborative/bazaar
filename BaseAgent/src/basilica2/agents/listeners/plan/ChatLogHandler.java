@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.nio.file.FileSystems;
 import java.io.BufferedInputStream;
 
 import edu.cmu.cs.lti.project911.utils.log.Logger;
@@ -24,6 +25,7 @@ import basilica2.util.PropertiesLoader;
 class ChatLogHandler implements StepHandler
 {
 	private String processPath; 
+	private String agentDirectory; 
 
 	public static String getStepType()
 	{
@@ -36,10 +38,16 @@ class ChatLogHandler implements StepHandler
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");		
 		try
 		{
-			processPath = properties.getProperty("process_path","processes/chat_log.sh");
+			processPath = properties.getProperty("process_path","../../processes/chat_log.sh");
+		}	
+		catch (Exception e){}	
+		 System.err.println("ChatLogHandler, exiting constructor");		
+		try
+		{
+			agentDirectory = properties.getProperty("agent_directory","");
 		}
 		catch (Exception e){}	
-		// System.err.println("ChatLogHandler, exiting constructor");	
+		 System.err.println("ChatLogHandler, exiting constructor");	
 	}
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
@@ -47,8 +55,18 @@ class ChatLogHandler implements StepHandler
 		// System.err.println("ChatLogHandler, entering execute");
 		String processWithArgs = ""; 
 		
-		String processWithArgsWithPath = processPath + " " + source.getAgent().getRoomName(); 
+		// TEMPORARY
+		String agentFilePath = System.getProperty("user.dir");
+		String fileSeparator = FileSystems.getDefault().getSeparator(); 
+		String tempAgentDirectory = agentFilePath.substring(agentFilePath.lastIndexOf(fileSeparator)+1); 
+		System.err.println("ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
+		// TEMPORARY
+		
+		
+		String processWithArgsWithPath = processPath + " " + source.getAgent().getRoomName() + " " + agentDirectory; 
 		System.err.println("ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
 		List<String> processWithArgsList = new ArrayList<>(Arrays.asList(processWithArgsWithPath.split(" ")));
 		// System.err.println("ChatLogHandler, execute - processWithArgsList: " + Arrays.deepToString(processWithArgsList.toArray()));
 	
