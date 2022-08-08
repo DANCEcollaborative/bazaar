@@ -41,13 +41,13 @@ class ChatLogHandler implements StepHandler
 			processPath = properties.getProperty("process_path","../../processes/chat_log.sh");
 		}	
 		catch (Exception e){}	
-		 System.err.println("ChatLogHandler, exiting constructor");		
+		 System.err.println("ChatLogHandler exception. Exiting constructor");		
 		try
 		{
 			agentDirectory = properties.getProperty("agent_directory","");
 		}
 		catch (Exception e){}	
-		 System.err.println("ChatLogHandler, exiting constructor");	
+		 System.err.println("ChatLogHandler exception. Exiting constructor");		
 	}
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
@@ -56,17 +56,17 @@ class ChatLogHandler implements StepHandler
 		String processWithArgs = ""; 
 		
 		// TEMPORARY
-		String agentFilePath = System.getProperty("user.dir");
-		String fileSeparator = FileSystems.getDefault().getSeparator(); 
-		String tempAgentDirectory = agentFilePath.substring(agentFilePath.lastIndexOf(fileSeparator)+1); 
-		System.err.println("ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
+//		String agentFilePath = System.getProperty("user.dir");
+//		String fileSeparator = FileSystems.getDefault().getSeparator(); 
+//		String tempAgentDirectory = agentFilePath.substring(agentFilePath.lastIndexOf(fileSeparator)+1); 
+//		System.err.println("ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
 		// TEMPORARY
 		
 		
 		String processWithArgsWithPath = processPath + " " + source.getAgent().getRoomName() + " " + agentDirectory; 
-		System.err.println("ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
+//		System.err.println("ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
 		List<String> processWithArgsList = new ArrayList<>(Arrays.asList(processWithArgsWithPath.split(" ")));
 		// System.err.println("ChatLogHandler, execute - processWithArgsList: " + Arrays.deepToString(processWithArgsList.toArray()));
 	
@@ -77,7 +77,7 @@ class ChatLogHandler implements StepHandler
 		try
 		{
 			p = pb.start();
-			System.err.println("ChatLogHandler, process started; waiting for return value");
+//			System.err.println("ChatLogHandler, process started; waiting for return value");
 			exitValue = p.waitFor();
 
 		    if (exitValue != 0) {
@@ -102,7 +102,7 @@ class ChatLogHandler implements StepHandler
 		
 	    overmind.stepDone();
 	    
-		System.err.println("ChatLogHandler, exiting execute");
+//		System.err.println("ChatLogHandler, exiting execute");
 	}
 	
 }
