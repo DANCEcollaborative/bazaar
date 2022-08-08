@@ -25,6 +25,7 @@ import basilica2.util.PropertiesLoader;
 class ChatLogHandler implements StepHandler
 {
 	private String processPath; 
+	private String agentDirectory; 
 
 	public static String getStepType()
 	{
@@ -37,7 +38,13 @@ class ChatLogHandler implements StepHandler
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");		
 		try
 		{
-			processPath = properties.getProperty("process_path","../processes/chat_log.sh");
+			processPath = properties.getProperty("process_path","../../processes/chat_log.sh");
+		}	
+		catch (Exception e){}	
+		 System.err.println("ChatLogHandler, exiting constructor");		
+		try
+		{
+			agentDirectory = properties.getProperty("agent_directory","");
 		}
 		catch (Exception e){}	
 		 System.err.println("ChatLogHandler, exiting constructor");	
@@ -48,14 +55,18 @@ class ChatLogHandler implements StepHandler
 		// System.err.println("ChatLogHandler, entering execute");
 		String processWithArgs = ""; 
 		
+		// TEMPORARY
 		String agentFilePath = System.getProperty("user.dir");
 		String fileSeparator = FileSystems.getDefault().getSeparator(); 
-		String agentDirectory = agentFilePath.substring(agentFilePath.lastIndexOf(fileSeparator)+1);
+		String tempAgentDirectory = agentFilePath.substring(agentFilePath.lastIndexOf(fileSeparator)+1); 
+		System.err.println("ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - current agent directory: " + tempAgentDirectory);
+		// TEMPORARY
 		
 		
 		String processWithArgsWithPath = processPath + " " + source.getAgent().getRoomName() + " " + agentDirectory; 
 		System.err.println("ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
-		log(Logger.LOG_NORMAL, "ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"ChatLogHandler, execute - processWithArgsWithPath: " + processWithArgsWithPath);
 		List<String> processWithArgsList = new ArrayList<>(Arrays.asList(processWithArgsWithPath.split(" ")));
 		// System.err.println("ChatLogHandler, execute - processWithArgsList: " + Arrays.deepToString(processWithArgsList.toArray()));
 	
