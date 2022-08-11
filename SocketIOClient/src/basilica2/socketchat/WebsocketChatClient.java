@@ -35,6 +35,7 @@ import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.LogEvent;
 import basilica2.agents.events.LogStateEvent;
 import basilica2.agents.events.EndEvent;
+import basilica2.agents.events.SendCommandEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -214,6 +215,23 @@ public class WebsocketChatClient extends Component implements ChatClient
 				e1.printStackTrace();
 			}
 		}
+		else if(e instanceof SendCommandEvent)
+		{
+			SendCommandEvent sce = (SendCommandEvent) e;
+	        System.err.println("WebsocketChatClient, processEvent, SendCommandEvent - commannd: " + sce.getCommand());
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, SendCommandEvent - commannd: " + sce.getCommand());
+			try
+			{
+				insertSendCommandEvent(sce.getCommand());
+			}
+			catch (Exception e1)
+			{
+				System.err.println("WebsocketChatClient, processEvent - couldn't send SendCommandEvent: " + sce);
+		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send SendCommandEvent: " +sce);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		//TODO: private messages? "beeps"?
 
 	}
@@ -290,8 +308,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 	protected void insertLogState(String stateTag, String stateValue, String sendLog, String logTag)
 	{
-        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+//        System.err.println("WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertLogState - stateTag=" + stateTag + "  stateValue = " + stateValue + "  sendLog = " + sendLog + "  logTag = " + logTag);
 		socket.emit("logstate", stateTag, stateValue, sendLog, logTag);
 	}
 
@@ -300,6 +318,13 @@ public class WebsocketChatClient extends Component implements ChatClient
 //        System.err.println("WebsocketChatClient, insertEndEvent - endData: " + endData);
 //        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertEndEvent - endData: " + endData);
 		socket.emit("endevent", endData);
+	}
+
+	protected void insertSendCommandEvent(String command)
+	{
+        System.err.println("WebsocketChatClient, insertSendCommandEvent - command: " + command);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertSendCommandEvent - command: " + command);
+		socket.emit("sendcommandevent", command);
 	}
 
 	protected void shareImage(String imageURL)
