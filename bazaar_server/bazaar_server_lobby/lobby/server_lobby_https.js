@@ -1517,6 +1517,14 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 
+	// when the client emits 'sendcommandevent', this listens and executes
+	socket.on('sendcommandevent', async (command)  => {
+		logMessage(socket, command, "sendcommandevent");
+        console.log("socket.on('sendcommandevent'): socket.clientID = " + socket.clientID + " command = " + command);
+        io.sockets.in(socket.room).emit('sendcommandevent', command);		
+	});
+
+
 
 	// when the client emits 'updatepresence', this listens and executes
 	socket.on('updatepresence', async (data)  => {
