@@ -58,10 +58,10 @@ public class FileStepHandler implements StepHandler
 		
 		List<String> delayedPromptList = null; 
 		if (delayedPrompt.contains(",")) {
-			delayedPromptList = Stream.of(delayedPrompt.split(","))
-                    .collect(Collectors.toList());
+			delayedPromptList = Stream.of(delayedPrompt.split(",")).collect(Collectors.toList());
 		} else {
-			delayedPromptList.add(delayedPrompt); 
+//			delayedPromptList.add(delayedPrompt); 
+			delayedPromptList = Stream.of(delayedPrompt).collect(Collectors.toList());
 		}
 		
 		String delayedPromptTimeString = currentStep.attributes.get("delayed_prompt_time");
@@ -69,15 +69,15 @@ public class FileStepHandler implements StepHandler
 		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
 		List<String> delayedPromptTimeList = null; 
 		if (delayedPromptTimeString.contains(",")) {
-			delayedPromptTimeList = Stream.of(delayedPromptTimeString.split(","))
-                    .collect(Collectors.toList());
+			delayedPromptTimeList = Stream.of(delayedPromptTimeString.split(",")).collect(Collectors.toList());
 		} else {
-			delayedPromptTimeList.add(delayedPromptTimeString); 
+//			delayedPromptTimeList.add(delayedPromptTimeString); 
+			delayedPromptTimeList = Stream.of(delayedPromptTimeString).collect(Collectors.toList());
 		}	
 		
-//		System.err.println("delayedPromptList: " + delayedPromptList); 
+		System.err.println("delayedPromptList: " + delayedPromptList); 
 		
-//		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
+		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
 		
 		
 //		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
