@@ -140,11 +140,11 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     </prompt>  
      
      <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
-     <text>Thanks for participating in today's OPE activity. Execute the submitter script one at a time using './submitter'. Even if the submission fails you will get the post-quiz token for accessing the post-quiz.</text>
+     <text>Thanks for participating in today's OPE activity. Execute the submitter script one at a time using './submitter'. Even if the submission fails you will get the post-quiz token for accessing the post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
      </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="ope_end">
-     	<text>I'm logging off. Thanks for participating in today's OPE activity. Remember to execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
+     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Remember to execute the submitter script one at a time using './submitter'. Even if the submission fails you will get the post-quiz token for accessing the post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
     </prompt>
  
 
