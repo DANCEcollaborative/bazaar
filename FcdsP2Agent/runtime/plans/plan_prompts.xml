@@ -158,6 +158,10 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
      <text>We'll have the project manager lead the discussion. Take turns to talk about challenges you faced while playing your role. How could you have played it better? We'll move on once you have had some time to discuss.</text>
      </prompt>
+
+    <prompt strategy="task" id="RANDOM_PROMPT" intention="transactivity_prompt"> 
+    	<text>[RANDOM_STUDENT], This is your random prompt</text> 
+    </prompt> 
  
 
 	<!-- HINTS & DISCUSSION FOR TASK 2 -->
