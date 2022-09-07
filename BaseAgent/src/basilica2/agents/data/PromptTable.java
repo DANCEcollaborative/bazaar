@@ -48,6 +48,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -69,7 +71,7 @@ public class PromptTable
 	protected Map<String, List<String>> prompts = null;
 
     protected Properties properties;
-	protected Map<String, String> intentions = null;
+	protected Map<String, List<String>> intentions = null;
 	protected Boolean includeIntention = false; 
 	private Map<String, String> namesRoles;  
 	private Map<String, String> idsRoles; 
@@ -144,7 +146,7 @@ public class PromptTable
 
 	protected void loadIntentions(String filename)
 	{
-		intentions = new Hashtable<String, String>();
+		intentions = new Hashtable<String, List<String>>();
 		try
 		{
 			DOMParser parser = new DOMParser();
@@ -162,7 +164,18 @@ public class PromptTable
 						Element promptElement = (Element) ns2.item(i);
 						String promptId = promptElement.getAttribute("id");
 						String intention = promptElement.getAttribute("intention");
-						intentions.put(promptId,intention);
+//						intentions.put(promptId,intention);
+						
+						// Handle multiple possible intentions	
+						System.err.println("PrompTable, loadIntentions: intention before processing: " + intention);
+						Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PrompTable, loadIntentions: intention before processing: " + intention);						
+						List<String> intentionList = null; 
+						if (intention.contains(",")) {
+							intentionList = Stream.of(intention.split(",")).collect(Collectors.toList());
+						} else {
+							intentionList = Stream.of(intention).collect(Collectors.toList());
+						}												
+						intentions.put(promptId,intentionList);
 					}
 				}
 			}
@@ -213,8 +226,11 @@ public class PromptTable
 				}
 			}
 			if (includeIntention) {
-				promptText = addIntention(promptName,promptText); 
+				promptText = addIntention(promptName,promptText,promptIndex); 
 			}
+
+			System.err.println("PrompTable, lookup - promptText: " + promptText);
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PrompTable, lookup - promptText: " + promptText);
 			return promptText;
 
 		}
@@ -224,14 +240,14 @@ public class PromptTable
 		}
 	}
 	
-	public String addIntention(String promptName, String promptText) {
+	public String addIntention(String promptName, String promptText, Integer intentionIndex) {
 		String intentionTag = "intention"; 
 	    String multiModalDelim = ";%;";
 		String withinModeDelim = ":::";	
 		String withinPromptDelim = "|||";	
 		String withinPromptDelimEscaped = "\\|\\|\\|";
 		
-		String intention = lookupIntention(promptName);
+		String intention = lookupIntention(promptName, intentionIndex);
 		if (intention.length() == 0) {
 			return promptText; 
 		} else {
@@ -252,16 +268,25 @@ public class PromptTable
 		}
 	}
 	
-	public String lookupIntention(String promptName)
+	public String lookupIntention(String promptName, Integer intentionIndex)
 	{
-		// Do the Prompt
-		String intention = intentions.get(promptName);	 	
-		if (intention != null && intention.length() > 0)
-		{
-			return intention;
-		}
-		else
-		{
+		List<String> intentionList = intentions.get(promptName);	
+		
+		System.err.println("PromptTable, lookupIntention - intentionList: " + intentionList.toString());
+		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PromptTable, lookupIntention - intentionList: " + intentionList.toString());
+		
+		if (intentionList != null)
+		{		
+			String intention = intentionList.get(intentionIndex);
+			if (intention != null && intention.length() > 0)
+			{
+				return intention;
+			}
+			else
+			{
+				return "";
+			}
+		} else {
 			return "";
 		}
 	}	
@@ -294,8 +319,11 @@ public class PromptTable
 				}
 			}
 			if (includeIntention) {
-				promptText = addIntention(promptName,promptText); 
+				promptText = addIntention(promptName,promptText,promptIndex); 
 			}
+
+			System.err.println("PromptTable, match #1 - promptText: " + promptText);
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PromptTable, match #1 - promptText: " + promptText);
 			return promptText;
 
 		}
@@ -352,8 +380,10 @@ public class PromptTable
 				}
 			}
 			if (includeIntention) {
-				promptText = addIntention(promptName,promptText); 
+				promptText = addIntention(promptName,promptText,promptIndex); 
 			}
+			System.err.println("PrompTable, match #2 - promptText: " + promptText);
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PrompTable, match #2 - promptText: " + promptText);
 			return promptText;
 
 		}
