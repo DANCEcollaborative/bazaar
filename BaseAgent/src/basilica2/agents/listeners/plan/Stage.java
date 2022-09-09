@@ -35,8 +35,8 @@ class Stage
 
 	public void progressStage(InputCoordinator source)
 	{
-		System.err.println("Stage.java progressStage: about to clearHelpers"); 
-		Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: about to clearHelpers"); 
+//		System.err.println("Stage.java progressStage: about to clearHelpers"); 
+//		Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: about to clearHelpers"); 
 		planExecutor.clearHelpers();
 		if (!isDone)
 		{

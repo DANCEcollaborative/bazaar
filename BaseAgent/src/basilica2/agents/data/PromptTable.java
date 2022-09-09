@@ -309,12 +309,12 @@ public class PromptTable
 	public String match(String promptName, String[] studentIds, String[] roles, String defaultRole, int maxMatches, State state)
 	{
 
-		System.err.println("prompter, match - studentIds:");
-        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompter, match - studentIds:");
-		for (int i=0; i < studentIds.length; i++) {			 
-			System.err.println("prompter, match - studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
-	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompter, match - studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
-		}
+//		System.err.println("prompter, match - studentIds:");
+//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompter, match - studentIds:");
+//		for (int i=0; i < studentIds.length; i++) {			 
+//			System.err.println("prompter, match - studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+//	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"prompter, match - studentIds[" + String.valueOf(i) + "] = " + studentIds[i]);
+//		}
 
 		List<String> promptTexts = prompts.get(promptName);	 	// There may be multiple prompt options per prompt name
 		namesRoles = new HashMap<>();

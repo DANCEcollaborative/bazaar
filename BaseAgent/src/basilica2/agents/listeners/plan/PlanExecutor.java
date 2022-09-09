@@ -218,8 +218,8 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 
 	private void handleStepDoneEvent(StepDoneEvent dpe)
 	{
-		log(Logger.LOG_NORMAL, "received step done event for " + dpe.getName());
-		System.err.println("received step done event for " + dpe.getName());
+//		log(Logger.LOG_NORMAL, "received step done event for " + dpe.getName());
+//		System.err.println("received step done event for " + dpe.getName());
 		stepDone();
 
 	}
@@ -229,8 +229,8 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 	 */
 	public void stepDone()
 	{
-		System.err.println("PlanExecutor stepDone: " + currentPlan.getCurrentStep().toString()); 
-		log(Logger.LOG_NORMAL, "PlanExecutor stepDone: " + currentPlan.getCurrentStep().toString()); 
+//		System.err.println("PlanExecutor stepDone: " + currentPlan.getCurrentStep().toString()); 
+//		log(Logger.LOG_NORMAL, "PlanExecutor stepDone: " + currentPlan.getCurrentStep().toString()); 
 
 		clearHelpers();
 		if (interstepDelay > 0)
@@ -258,13 +258,13 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 	public void stepDone(String stepName)
 	{
 		String currentStep = currentPlan.getCurrentStep();
-		System.err.println("PlanExecutor stepDone(stepName) - entering: " + stepName + " -- currentStep: " + currentStep); 
-		log(Logger.LOG_NORMAL, "PlanExecutor stepDone(stepName) - entering: " + stepName + " -- currentStep: " + currentStep); 
+//		System.err.println("PlanExecutor stepDone(stepName) - entering: " + stepName + " -- currentStep: " + currentStep); 
+//		log(Logger.LOG_NORMAL, "PlanExecutor stepDone(stepName) - entering: " + stepName + " -- currentStep: " + currentStep); 
 		
 		if (stepName == currentStep) {
 
-			System.err.println("PlanExecutor stepDone(stepName): progressing step"); 
-			log(Logger.LOG_NORMAL, "PlanExecutor stepDone(stepName): progressing step"); 
+//			System.err.println("PlanExecutor stepDone(stepName): progressing step"); 
+//			log(Logger.LOG_NORMAL, "PlanExecutor stepDone(stepName): progressing step"); 
 			clearHelpers();
 			if (interstepDelay > 0)
 			{
@@ -281,8 +281,8 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 				currentPlan.currentStage.progressStage(source);
 			}
 		} else {
-			System.err.println("PlanExecutor stepDone(stepName): stepName " + stepName + " NOT equal to currentStep " + currentStep + " -- not progressing"); 
-			log(Logger.LOG_NORMAL, "PlanExecutor stepDone(stepName): stepName " + stepName + " NOT equal to currentStep " + currentStep + " -- not progressing"); 
+//			System.err.println("PlanExecutor stepDone(stepName): stepName " + stepName + " NOT equal to currentStep " + currentStep + " -- not progressing"); 
+//			log(Logger.LOG_NORMAL, "PlanExecutor stepDone(stepName): stepName " + stepName + " NOT equal to currentStep " + currentStep + " -- not progressing"); 
 		}
 			
 	}
@@ -295,24 +295,24 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 		if (id.equals(PROGRESS_TIMER_ID)
 				|| (currentPlan != null && currentPlan.currentStage != null && id.equals(currentPlan.currentStage.currentStep.name)))
 		{
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PlanExecutor timedOut #1 - about to clearHelpers for " + id);
-			System.err.println("PlanExecutor timedOut #1 - about to clearHelpers for " + id); 
+//			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PlanExecutor timedOut #1 - about to clearHelpers for " + id);
+//			System.err.println("PlanExecutor timedOut #1 - about to clearHelpers for " + id); 
 			clearHelpers();
 			currentPlan.currentStage.progressStage(source);
 
 		}
 		else if (id != null && ((currentPlan.currentStage != null && id.equals(currentPlan.currentStage.nextStage)) || currentPlan.stages.containsKey(id)))
 		{
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PlanExecutor timedOut #2 - about to clearHelpers and activate stage " + id);
-			System.err.println("\"PlanExecutor timedOut #2 - about to clearHelpers and activate stage " + id); 
+//			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PlanExecutor timedOut #2 - about to clearHelpers and activate stage " + id);
+//			System.err.println("\"PlanExecutor timedOut #2 - about to clearHelpers and activate stage " + id); 
 			clearHelpers();
 //			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "PLAN: activating next stage: " + id);
 			activateStage(id);
 		}
 		else
 		{
-			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING, "PlanExecutor timedOut #3: no idea what to do with timeout key " + id);
-			System.err.println("PlanExecutor timedOut #3: no idea what to do with timeout key " + id); 
+//			Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING, "PlanExecutor timedOut #3: no idea what to do with timeout key " + id);
+//			System.err.println("PlanExecutor timedOut #3: no idea what to do with timeout key " + id); 
 		}
 	}
 
