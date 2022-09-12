@@ -151,6 +151,11 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
+
+    <prompt strategy="task" id="P1a_TEST" intention="transactivity_prompt_1">
+     	<text>[RANDOM_STUDENT], this is a random prompt.</text>
+    </prompt>   
+
      <prompt strategy="task" id="PROMPT_DISCUSSION1" intention="discussion_phase">
      <text>Now, before we move on to 'task2.py', let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
      </prompt> 
