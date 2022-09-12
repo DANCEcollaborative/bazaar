@@ -30,7 +30,7 @@
     </prompt>
 
  
-    <-- PROMPTS DURING TASK 1 -->
+    <!-- PROMPTS DURING TASK 1 -->
     <prompt strategy="task" id="P1a" intention="transactivity_prompt_1">
      	<text>[RANDOM_STUDENT], can you think of how to construct the array [[1,2],[2,3],[3,4]] from [1,2,3,4]. How can you use that to complete this task?</text>
     </prompt>   
@@ -41,7 +41,7 @@
     </prompt>
 
 
-    <-- PROMPTS DURING TASK 2 -->
+    <!-- PROMPTS DURING TASK 2 -->
     <prompt strategy="task" id="P2a" intention="transactivity_prompt_2">
      	<text>[RANDOM_STUDENT], can you think of how to construct the array [1, -1, 1, -1, 1, -1, ...]. How can you use that to complete this task?</text>
     </prompt>   
@@ -52,7 +52,7 @@
      </prompt>
  
  
-    <-- PROMPTS DURING TASK 3 -->
+    <!-- PROMPTS DURING TASK 3 -->
     <prompt strategy="task" id="P3a" intention="transactivity_prompt_3">
      	<text>[RANDOM_STUDENT], can you identify two 1D arrays u and v such that H[u, v] contains all the terms that you need for the loss function? How can you use these arrays for the task?</text>
     </prompt>  
@@ -63,7 +63,7 @@
      </prompt>
  
  
-    <-- PROMPTS DURING TASK 4 -->
+    <!-- PROMPTS DURING TASK 4 -->
     <prompt strategy="task" id="P4a" intention="transactivity_prompt_4">
      	<text>[RANDOM_STUDENT], can you think of how the concept of outer product introduced in the NumPy primer could be relevant here?</text>
     </prompt>   
