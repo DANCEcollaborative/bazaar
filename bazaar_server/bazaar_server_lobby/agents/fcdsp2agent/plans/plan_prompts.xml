@@ -151,22 +151,17 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
-
-    <prompt strategy="task" id="P1a_TEST" intention="transactivity_prompt_1">
-     	<text>[RANDOM_STUDENT], this is a random prompt.</text>
-    </prompt>   
-
      <prompt strategy="task" id="PROMPT_DISCUSSION1" intention="discussion_phase">
-     <text>Now, before we move on to 'task2.py', let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
+     <text>Now, before we move on to 'task2.py', let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
-     <text>We'll have the project manager lead the discussion. Take turns to talk about challenges you faced while playing your role. How could you have played it better? We'll move on once you have had some time to discuss.</text>
+     <text>Project Manager, please lead the discussion. There were at least two ways to this task: one was to construct a pairwise list of lists [[1,2],[2,3],[3,4]], and another was to use two arrays, one with everything but the first element, and another with everything but the last element. Take turns to explain which one you chose and why.</text>
      </prompt>
-
-    <prompt strategy="task" id="RANDOM_PROMPT" intention="transactivity_prompt"> 
-    	<text>[RANDOM_STUDENT], This is your random prompt</text> 
-    </prompt> 
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW" intention="reflection_report1">
+     <text>When done, write the explanation you have agreed on using the prompt "We chose ... because ... " </text>
+     </prompt>
  
 
 	<!-- HINTS & DISCUSSION FOR TASK 2 -->
@@ -177,11 +172,15 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     </prompt>
 
      <prompt strategy="task" id="PROMPT_DISCUSSION2" intention="discussion_phase">
-     <text>Now, before we move on to 'task3.py', let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
+     <text>Now, before we move on to 'task3.py', let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
-     <text>Project manager-led discussion time now. Take turns to answer the following question. What do you think you are learning in each of the roles? We'll move on once you have had some time to discuss.</text>
+     <text>Project Manager, your turn to lead the discussion again. As before, there were at least two ways to do this. One way was using the [1, -1, 1, -1, ...] and another was to think of it as the difference between the series (x0y0 + x2y2 + ...) and (x1y1 + x3y3 + x5y5 ...). Which one did you choose and why? Take turns to explain.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW" intention="reflection_report2">
+     <text>When done, write the explanation you have agreed on using the prompt "We chose ... because ... " </text>
      </prompt>
  
 
@@ -193,11 +192,15 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     </prompt>
     
      <prompt strategy="task" id="PROMPT_DISCUSSION3" intention="discussion_phase">
-     <text>Now, before we move on to 'task4.py', let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
+     <text>Now, before we move on to 'task4.py', let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
-     <text>It's discussion time led by the project manager again. Talk about how different group members are playing the same role differently. We'll move on once you have had some time to discuss.</text>
+     <text>Led by the Project Manager, take turns to explain whether you used integer array indexing or element-wise multiplication to solve this problem. Take turns to explain the approach to each other.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW" intention="reflection_report3">
+     <text>When done, write the explanation you have agreed on using the prompt "We chose ... because ... " </text>
      </prompt>
  
 
@@ -209,11 +212,15 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
     </prompt>
 
      <prompt strategy="task" id="PROMPT_DISCUSSION4" intention="discussion_phase">
-     <text>Now, before we move on, let's learn from this task by discussing as a group.|||Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
+     <text>Before moving on, let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION" intention="prompt_for_reflection4">
-     <text>Final discussion time led by the project manager. Take turns to talk about how each group member playing a role can utilize the other roles to the group's benefit. We'll move on once you have had some time to discuss.</text>
+     <text>Final discussion time led by the Project Manager - As before, there were a couple of ways to do this: index slicing, or element-wise multiplication. Which one did you end up choosing, and why? Take turns explaining before submitting to record your grade.</text>
+     </prompt>
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW" intention="reflection_report4">
+     <text>When done, write the explanation you have agreed on using the prompt "We chose ... because ... " </text>
      </prompt>
 
 </prompts>
