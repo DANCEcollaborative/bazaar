@@ -32,7 +32,7 @@
  
     <!-- PROMPTS DURING TASK 1 -->
     <prompt strategy="task" id="P1a" intention="transactivity_prompt_1">
-     	<text>[RANDOM_STUDENT], can you think of how to construct the array [[1,2],[2,3],[3,4]] from [1,2,3,4]? How can you use that to complete this task?</text>
+     	<text>Can you think of how to construct the array [[1,2],[2,3],[3,4]] from [1,2,3,4]? How can you use that to complete this task?</text>
     </prompt>   
     
     <prompt strategy="task" id="P1b" intention="cut_off_0_1">
@@ -43,7 +43,7 @@
 
     <!-- PROMPTS DURING TASK 2 -->
     <prompt strategy="task" id="P2a" intention="transactivity_prompt_2">
-     	<text>[RANDOM_STUDENT], can you think of how to construct the array [1, -1, 1, -1, 1, -1, ...]? How can you use that to complete this task?</text>
+     	<text>Can you think of how to construct the array [1, -1, 1, -1, 1, -1, ...]? How can you use that to complete this task?</text>
     </prompt>   
     
      <prompt strategy="task" id="P2b" intention="cut_off_1_1">
@@ -54,7 +54,7 @@
  
     <!-- PROMPTS DURING TASK 3 -->
     <prompt strategy="task" id="P3a" intention="transactivity_prompt_3">
-     	<text>[RANDOM_STUDENT], can you identify two 1D arrays u and v such that H[u, v] contains all the terms that you need for the loss function? How can you use these arrays for the task?</text>
+     	<text>Can you identify two 1D arrays u and v such that H[u, v] contains all the terms that you need for the loss function? How can you use these arrays for the task?</text>
     </prompt>  
           
      <prompt strategy="task" id="P3b" intention="cut_off_2_1">
@@ -65,7 +65,7 @@
  
     <!-- PROMPTS DURING TASK 4 -->
     <prompt strategy="task" id="P4a" intention="transactivity_prompt_4">
-     	<text>[RANDOM_STUDENT], can you think of how the concept of outer product introduced in the NumPy primer could be relevant here?</text>
+     	<text>Can you think of how the concept of outer product introduced in the NumPy primer could be relevant here?</text>
     </prompt>   
         
      <prompt strategy="task" id="P4b" intention="cut_off_3_1">
