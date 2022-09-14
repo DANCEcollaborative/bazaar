@@ -41,17 +41,17 @@
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO2_REFLECTION_FOLLOW">Prompt_Step_LO2_Reflection_Follow</step>   	<!--  30   -->
     </stage> 
     
-    <stage name="StageLO3" type="other" delay="0">
-    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>  
-    	<step type="logstate" state_tag="ope_iteration" state_value="3" delay="5">log_state</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">instr5</step>  
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO3_Rotate</step>    
-        <step type="file_gated" timeout="4800" delay="5" file="testcase-complete_3" delayed_prompt_time="900" delayed_prompt="P3b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task3</step>       	<!--  300,900  P3a,P3b -->    
-    </stage> 
+    <stage name="StageLO3" type="other" delay="0">  
+    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_2</step>  
+    	<step type="logstate" state_tag="ope_iteration" state_value="3" delay="5">log_state</step>    
+    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">instr5</step> 
+        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO2_Rotate</step>    
+        <step type="file_gated" timeout="4800" delay="5" file="testcase-complete_3" delayed_prompt_time="900" delayed_prompt="P3b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task3</step>   	  	<!-- 300,900  P3a,P3b  -->     
+    </stage>  
      
-    <stage name="StageLO3_Discussion" type="other" delay="0">         	      	
+    <stage name="StageL03_Discussion" type="other" delay="0">           	      	    	        	      	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION3">Prompt_Step_LO3_Discussion</step>    	
-        <step type="prompt" delay="10 " prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>  	<!--  120   -->
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>  	<!--  120   -->
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO3_REFLECTION_FOLLOW">Prompt_Step_LO3_Reflection_Follow</step>   	<!--  30   -->
     </stage> 
     
