@@ -59,7 +59,7 @@
           
      <prompt strategy="task" id="P3b" intention="cut_off_2_1">
      	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to think about how to use integer array indexing. In other words, identify two 1D arrays u and v such that H[u, v] contains all the terms that you need for the loss function.</text>
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Think about how to construct a binary matrix M such that H times M (element-wise multiplication) contains all the terms that you need for the loss function.</text>
+     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Think about how to construct a binary matrix M such that H * M (element-wise multiplication) contains all the terms that you need for the loss function.</text>
      </prompt>
  
  
@@ -69,8 +69,8 @@
     </prompt>   
         
      <prompt strategy="task" id="P4b" intention="cut_off_3_1">
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Given that (i + j) mod 3 == 0, what are the possible values of (i mod 3) and (j mod 3)? Think about how to use slicing index to retrieve all the valid i's and j's.</text>
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to think about how to construct a matrix M such that X times M (element-wise multiplication) contains all the terms that you need for the sum. M is very similar to the concept of 'outer product' that was introduced in the NumPy primer.</text>
+     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Given that (i + j) % 3 == 0, what are the possible values of (i % 3) and (j % 3)? Think about how to use slicing index to retrieve all the valid i's and j's.</text>
+     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to think about how to construct a matrix M such that X * M (element-wise multiplication) contains all the terms that you need for the sum. M is very similar to the concept of 'outer product' that was introduced in the NumPy primer.</text>
      </prompt>
 
     <!-- for READY_GENERIC -->    
