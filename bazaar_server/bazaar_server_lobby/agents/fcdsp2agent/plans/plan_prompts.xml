@@ -46,7 +46,7 @@
 [ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO+MOB">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO-MOB">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -83,7 +83,7 @@
 [ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY+MOB">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY-MOB">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -123,7 +123,7 @@ If someone joins later, have them assume the missing role until you pass a test 
 [ROLE4] - [NAME4]</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4+MOB">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4-MOB">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -156,7 +156,7 @@ Whoever doesn't have an assignment is a researcher for this round.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
-     <text>Project Manager, please lead the discussion. There were at least two ways to this task: one was to construct a pairwise list of lists [[1,2],[2,3],[3,4]], and another was to use two arrays, one with everything but the first element, and another with everything but the last element. Take turns to explain which one you chose and why.</text>
+     <text>Project Manager, please lead the discussion. There were at least two ways to do this task: one was to construct a pairwise list of lists [[1,2],[2,3],[3,4]], and another was to use two arrays, one with everything but the first element, and another with everything but the last element. Take turns to explain which one you chose and why.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW" intention="reflection_report1">
