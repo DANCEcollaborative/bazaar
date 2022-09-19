@@ -1,12 +1,16 @@
 package basilica2.agents.listeners.plan;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.OutputCoordinator;
+import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.PromptTable;
+import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.listeners.FileGatekeeper;
@@ -20,6 +24,7 @@ public class FileStepHandler implements StepHandler
 
 	private FileGatekeeper filegatekeeper = null;
 	private PromptTable prompter = null;
+//	private HashMap<String, String> slots = null;
 	
 	@Override
 	public void execute(final Step currentStep, final PlanExecutor overmind, final InputCoordinator source)
@@ -37,7 +42,21 @@ public class FileStepHandler implements StepHandler
 		filegatekeeper.setFileName(fileName); 
 		
 		overmind.addHelper(filegatekeeper);
-
+		
+//		if(slots == null)
+//		{
+//			slots = new HashMap<String, String>();
+//			slots.put("[AGENT NAME]", source.getAgent().getUsername().split(" ")[0]);
+//		}
+//
+//		State news = StateMemory.getSharedState(overmind.getAgent());
+//		slots.put("[NAMES]", news.getStudentNamesString());
+//		List<String> studentNames = news.getStudentNames();
+//		for (int i = 0; i < studentNames.size(); i++)
+//		{
+//			String studentName = studentNames.get(i);
+//			slots.put("[NAME" + (i + 1) + "]", studentName);
+//		}
 		
 		// checkinPrompt
 		String checkinPrompt = currentStep.attributes.get("checkin_prompt");
@@ -87,7 +106,9 @@ public class FileStepHandler implements StepHandler
 			
 			for (int i=0; i < delayedPromptList.size(); i++) {
 				Integer promptTime = Integer.valueOf(delayedPromptTimeList.get(i)); 
-				String promptName = delayedPromptList.get(i); 
+				String promptName = delayedPromptList.get(i); 		// Set name for RANDOM_STUDENT
+//				int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, studentNames.size());
+//				slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
 				new Timer(promptTime, currentStep.name, new TimeoutAdapter() 
 				{
 					@Override
@@ -95,6 +116,7 @@ public class FileStepHandler implements StepHandler
 					{
 						if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 						{
+//							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName,slots));
 							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName));
 
 							System.err.println("FileStepHandler: pushing message: " + prompter.lookup(promptName));

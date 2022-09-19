@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
 
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
@@ -83,6 +84,12 @@ class PromptStepHandler implements StepHandler
 			String studentName = studentNames.get(i);
 			slots.put("[NAME" + (i + 1) + "]", studentName);
 		}
+		
+		// Set name for RANDOM_STUDENT
+		int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, studentNames.size());
+		slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
+		
+
 		String promptKey = step.name;
 		if(step.attributes.containsKey("prompt"))
 		{
