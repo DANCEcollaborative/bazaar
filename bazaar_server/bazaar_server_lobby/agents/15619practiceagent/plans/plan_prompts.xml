@@ -54,7 +54,7 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
-     <text>Project manager-led discussion time now. Take turns to answer the following question. What do you think you are learning in each of the roles? We'll move on once you have had some time to discuss.</text>
+     <text>Project manager-led discussion time now. Take turns to answer the following question: What do you think you are learning in each of the roles? We'll move on once you have had some time to discuss.</text>
      </prompt>
  
 
@@ -87,16 +87,19 @@
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_INTRO">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
-[ROLE2] - [NAME2]|||Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, assign one of the missing roles to them and have them assist until you pass a test case.</text>
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case. The project manager role is unassigned because this OPE is designed for teams of three.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_INTRO">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-[ROLE3] - [NAME3]|||Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+[ROLE3] - [NAME3]
+Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
     </prompt>
     
+    <!-- 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
@@ -104,13 +107,14 @@
 [ROLE3] - [NAME3]
 [ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
     </prompt>
+ -->
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO+MOB">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-[ROLE4] - [NAME4]|||Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY" intention="ROLE_ASSIGNMENT_TEMPLATE_1_FANCY">
@@ -124,16 +128,19 @@
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_FANCY">
         <text>The new roles are -
 [ROLE1] - [NAME1]
-[ROLE2] - [NAME2]|||Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_FANCY">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-[ROLE3] - [NAME3]|||Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+[ROLE3] - [NAME3]
+Recall that the researcher refers to resources like the primer as necessary.</text>
     </prompt>
     
+<!-- 
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY">
         <text>The new roles are -
 [ROLE1] - [NAME1]
@@ -141,14 +148,14 @@
 [ROLE3] - [NAME3]
 [ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
     </prompt>
+ -->
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY+MOB">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-[ROLE4] - [NAME4]
-Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
@@ -163,17 +170,17 @@ Whoever doesn't have an assignment is a researcher for this round.|||Recall that
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-[ROLE3] - [NAME3]
-If someone joins late, have them assume one of the missing roles and have them assist until you pass a test case.</text>
+[ROLE3] - [NAME3]</text>
     </prompt>
     
+<!-- 
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4">
         <text>The new roles are -
 [ROLE1] - [NAME1]
@@ -181,13 +188,13 @@ If someone joins late, have them assume one of the missing roles and have them a
 [ROLE3] - [NAME3]
 [ROLE4] - [NAME4]</text>
     </prompt>
+ -->
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4+MOB">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-[ROLE4] - [NAME4]
 Whoever doesn't have an assignment is a researcher for this round.</text>
     </prompt>
 
