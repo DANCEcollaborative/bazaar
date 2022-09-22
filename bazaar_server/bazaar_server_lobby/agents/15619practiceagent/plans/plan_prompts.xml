@@ -19,18 +19,10 @@
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
         <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
-    </prompt> 
-    
-     <prompt strategy="task" id="PROMPT_DISCUSSION_START" intention="discussion_phase_start">
-     <text>Now, before we move on to the next task let's learn from this task by discussing as a group.</text>
-     </prompt>  
+    </prompt>   
     
      <prompt strategy="task" id="PROMPT_DISCUSSION_CREDIT" intention="discussion_phase_credit">
      <text>Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
-     </prompt>  
-    
-     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_WARNING" intention="role_switch_warning">
-     <text>Okay, we are switching roles now.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
@@ -44,6 +36,10 @@
 
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+    
+     <prompt strategy="task" id="PROMPT_DISCUSSION_START1" intention="discussion_phase_start">
+     <text>Now, before we move on to 'task2.py', let's learn from this task by discussing as a group.</text>
+     </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
      <text>We'll have the project manager lead the discussion. Take turns to talk about challenges you faced while playing your role. How could you have played it better? We'll move on once you have had some time to discuss.</text>
@@ -51,7 +47,15 @@
  
 
 	<!-- HINTS & DISCUSSION FOR TASK 2 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
+    
+     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="role_switch_warning">
+     <text>Ok, we are switching roles now. Let's move on to 'task2.py'.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="PROMPT_DISCUSSION_START2" intention="discussion_phase_start">
+     <text>Now, before we move on to 'task3.py', let's learn from this task by discussing as a group.</text>
+     </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
      <text>Project manager-led discussion time now. Take turns to answer the following question: What do you think you are learning in each of the roles? We'll move on once you have had some time to discuss.</text>
@@ -60,6 +64,14 @@
 
 	<!-- HINTS & DISCUSSION FOR TASK 3 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+    
+     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="role_switch_warning">
+     <text>Ok, we are switching roles now. Let's move on to 'task3.py'.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="PROMPT_DISCUSSION_START3" intention="discussion_phase_start">
+     <text>Now, before we move on to 'task4.py', let's learn from this task by discussing as a group.</text>
+     </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
      <text>It's discussion time led by the project manager again. Talk about how different group members are playing the same role differently. We'll move on once you have had some time to discuss.</text>
@@ -68,6 +80,14 @@
 
 	<!-- HINTS & DISCUSSION FOR TASK 4 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+    
+     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4" intention="role_switch_warning">
+     <text>Ok, we are switching roles now. Let's move on to 'task4.py'.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="PROMPT_DISCUSSION_START4" intention="discussion_phase_start">
+     <text>Now, before we move on, let's learn from this task by discussing as a group.</text>
+     </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION" intention="prompt_for_reflection4">
      <text>Final discussion time led by the project manager. Take turns to talk about how each group member playing a role can utilize the other roles to the group's benefit. We'll move on once you have had some time to discuss.</text>
