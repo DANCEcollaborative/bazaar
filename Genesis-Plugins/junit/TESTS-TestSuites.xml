@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="NATCHEZ.LTI.CS.CMU.EDU" id="0" name="CSVParserTest" package="plugins.fileParsing" skipped="0" tests="6" time="0.128" timestamp="2022-09-12T13:27:17">
+  <testsuite errors="0" failures="0" hostname="NATCHEZ.LTI.CS.CMU.EDU" id="0" name="CSVParserTest" package="plugins.fileParsing" skipped="0" tests="6" time="0.167" timestamp="2022-10-10T16:20:37">
       <properties>
           <property name="java.vendor" value="Temurin" />
 
@@ -14,7 +14,7 @@
 
           <property name="ant.file.lightside-plugins" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/build.xml" />
 
-          <property name="env.SECURITYSESSIONID" value="186a6" />
+          <property name="env.SECURITYSESSIONID" value="186a7" />
 
           <property name="os.name" value="Mac OS X" />
 
@@ -83,8 +83,6 @@
           <property name="sun.jnu.encoding" value="UTF-8" />
 
           <property name="file.encoding.pkg" value="sun.io" />
-
-          <property name="env.JAVA_MAIN_CLASS_68639" value="org.apache.tools.ant.launch.Launcher" />
 
           <property name="env.SHLVL" value="1" />
 
@@ -162,7 +160,7 @@
 
           <property name="gopherProxySet" value="false" />
 
-          <property name="env.LaunchInstanceID" value="1979C457-1806-48F7-B343-244FA0CF3D08" />
+          <property name="env.LaunchInstanceID" value="72CD37B7-0412-4851-A47F-8CE3B52D6B59" />
 
           <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
 
@@ -172,9 +170,9 @@
 
           <property name="ant.version" value="Apache Ant(TM) version 1.10.12 compiled on October 13 2021" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.fileParsing.CSVParserTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.fileParsing.CSVParserTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher4229460690207273755.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit6707208317651527184.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.fileParsing.CSVParserTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.fileParsing.CSVParserTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher9182986136695470185.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit1885322428253280727.properties" />
 
-          <property name="env.TERM_SESSION_ID" value="AE22D08E-2560-4835-BC26-7906F45FED7A" />
+          <property name="env.TERM_SESSION_ID" value="F863DFCD-FC9A-4F23-A08D-E811AAA644F5" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -198,7 +196,7 @@
 
           <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues" />
 
-          <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.suwRWZemI2/Listeners" />
+          <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.F9dKOGpchc/Listeners" />
 
           <property name="env.CONDA_PYTHON_EXE" value="/Users/rcmurray/opt/anaconda3/bin/python" />
 
@@ -220,6 +218,8 @@
 
           <property name="ant.java.version" value="1.8" />
 
+          <property name="env.JAVA_MAIN_CLASS_30781" value="org.apache.tools.ant.launch.Launcher" />
+
           <property name="ant.core.lib" value="/usr/local/Cellar/ant/1.10.12/libexec/lib/ant.jar" />
 
           <property name="env.CONDA_PROMPT_MODIFIER" value="(base) " />
@@ -234,11 +234,11 @@
 
       </properties>
 
-      <testcase classname="plugins.fileParsing.CSVParserTest" name="testCanHandleFalseIncorrectSuffix" time="0.004" />
+      <testcase classname="plugins.fileParsing.CSVParserTest" name="testCanHandleFalseIncorrectSuffix" time="0.005" />
 
       <testcase classname="plugins.fileParsing.CSVParserTest" name="testCanHandleFalseNoSuffix" time="0.0" />
 
-      <testcase classname="plugins.fileParsing.CSVParserTest" name="testParseDocumentNullList" time="0.002" />
+      <testcase classname="plugins.fileParsing.CSVParserTest" name="testParseDocumentNullList" time="0.003" />
 
       <testcase classname="plugins.fileParsing.CSVParserTest" name="testParseDocumentEmptyList" time="0.0" />
 
@@ -251,7 +251,7 @@
       <system-err><![CDATA[]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="NATCHEZ.LTI.CS.CMU.EDU" id="1" name="FeatureSelectionPluginTest" package="plugins.wrappers" skipped="0" tests="2" time="2.514" timestamp="2022-09-12T13:27:18">
+  <testsuite errors="0" failures="0" hostname="NATCHEZ.LTI.CS.CMU.EDU" id="1" name="FeatureSelectionPluginTest" package="plugins.wrappers" skipped="0" tests="2" time="2.944" timestamp="2022-10-10T16:20:38">
       <properties>
           <property name="java.vendor" value="Temurin" />
 
@@ -265,7 +265,7 @@
 
           <property name="ant.file.lightside-plugins" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/build.xml" />
 
-          <property name="env.SECURITYSESSIONID" value="186a6" />
+          <property name="env.SECURITYSESSIONID" value="186a7" />
 
           <property name="os.name" value="Mac OS X" />
 
@@ -334,8 +334,6 @@
           <property name="sun.jnu.encoding" value="UTF-8" />
 
           <property name="file.encoding.pkg" value="sun.io" />
-
-          <property name="env.JAVA_MAIN_CLASS_68639" value="org.apache.tools.ant.launch.Launcher" />
 
           <property name="env.SHLVL" value="1" />
 
@@ -413,7 +411,7 @@
 
           <property name="gopherProxySet" value="false" />
 
-          <property name="env.LaunchInstanceID" value="1979C457-1806-48F7-B343-244FA0CF3D08" />
+          <property name="env.LaunchInstanceID" value="72CD37B7-0412-4851-A47F-8CE3B52D6B59" />
 
           <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
 
@@ -423,9 +421,9 @@
 
           <property name="ant.version" value="Apache Ant(TM) version 1.10.12 compiled on October 13 2021" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.wrappers.FeatureSelectionPluginTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.wrappers.FeatureSelectionPluginTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher3610365823810046615.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit6665073890528928249.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.wrappers.FeatureSelectionPluginTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.wrappers.FeatureSelectionPluginTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher5361355887701062201.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit8299733366988410419.properties" />
 
-          <property name="env.TERM_SESSION_ID" value="AE22D08E-2560-4835-BC26-7906F45FED7A" />
+          <property name="env.TERM_SESSION_ID" value="F863DFCD-FC9A-4F23-A08D-E811AAA644F5" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -449,7 +447,7 @@
 
           <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues" />
 
-          <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.suwRWZemI2/Listeners" />
+          <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.F9dKOGpchc/Listeners" />
 
           <property name="env.CONDA_PYTHON_EXE" value="/Users/rcmurray/opt/anaconda3/bin/python" />
 
@@ -470,6 +468,8 @@
           <property name="basedir" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins" />
 
           <property name="ant.java.version" value="1.8" />
+
+          <property name="env.JAVA_MAIN_CLASS_30781" value="org.apache.tools.ant.launch.Launcher" />
 
           <property name="ant.core.lib" value="/usr/local/Cellar/ant/1.10.12/libexec/lib/ant.jar" />
 
@@ -485,26 +485,26 @@
 
       </properties>
 
-      <testcase classname="plugins.wrappers.FeatureSelectionPluginTest" name="testFeatureSelectionNominal" time="2.024" />
+      <testcase classname="plugins.wrappers.FeatureSelectionPluginTest" name="testFeatureSelectionNominal" time="2.381" />
 
-      <testcase classname="plugins.wrappers.FeatureSelectionPluginTest" name="testFeatureSelectionNumeric" time="0.303" />
+      <testcase classname="plugins.wrappers.FeatureSelectionPluginTest" name="testFeatureSelectionNumeric" time="0.344" />
 
       <system-out><![CDATA[]]></system-out>
 
-      <system-err><![CDATA[Sep 12, 2022 9:27:19 AM com.github.fommil.netlib.ARPACK <clinit>
+      <system-err><![CDATA[Oct 10, 2022 12:20:39 PM com.github.fommil.netlib.ARPACK <clinit>
 WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
-Sep 12, 2022 9:27:19 AM com.github.fommil.netlib.ARPACK <clinit>
+Oct 10, 2022 12:20:39 PM com.github.fommil.netlib.ARPACK <clinit>
 WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
-Sep 12, 2022 9:27:20 AM plugins.wrappers.FeatureSelection learnFromTrainingData
+Oct 10, 2022 12:20:40 PM plugins.wrappers.FeatureSelection learnFromTrainingData
 INFO: FS 205: selected 10 features from table features3, fold 0
-Sep 12, 2022 9:27:20 AM plugins.wrappers.FeatureSelection learnFromTrainingData
+Oct 10, 2022 12:20:40 PM plugins.wrappers.FeatureSelection learnFromTrainingData
 INFO: FS fold 0: using Ranker search with evaluator ReliefFAttributeEval for numeric class attribute selection.
-Sep 12, 2022 9:27:20 AM plugins.wrappers.FeatureSelection learnFromTrainingData
+Oct 10, 2022 12:20:41 PM plugins.wrappers.FeatureSelection learnFromTrainingData
 INFO: FS 205: selected 10 features from table features2, fold 0
 ]]></system-err>
 
   </testsuite>
-  <testsuite errors="0" failures="0" hostname="NATCHEZ.LTI.CS.CMU.EDU" id="2" name="CSVParserTest" package="plugins.wrappers.fileParsing" skipped="0" tests="6" time="0.126" timestamp="2022-09-12T13:27:21">
+  <testsuite errors="0" failures="0" hostname="NATCHEZ.LTI.CS.CMU.EDU" id="2" name="CSVParserTest" package="plugins.wrappers.fileParsing" skipped="0" tests="6" time="0.149" timestamp="2022-10-10T16:20:42">
       <properties>
           <property name="java.vendor" value="Temurin" />
 
@@ -518,7 +518,7 @@ INFO: FS 205: selected 10 features from table features2, fold 0
 
           <property name="ant.file.lightside-plugins" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/build.xml" />
 
-          <property name="env.SECURITYSESSIONID" value="186a6" />
+          <property name="env.SECURITYSESSIONID" value="186a7" />
 
           <property name="os.name" value="Mac OS X" />
 
@@ -587,8 +587,6 @@ INFO: FS 205: selected 10 features from table features2, fold 0
           <property name="sun.jnu.encoding" value="UTF-8" />
 
           <property name="file.encoding.pkg" value="sun.io" />
-
-          <property name="env.JAVA_MAIN_CLASS_68639" value="org.apache.tools.ant.launch.Launcher" />
 
           <property name="env.SHLVL" value="1" />
 
@@ -666,7 +664,7 @@ INFO: FS 205: selected 10 features from table features2, fold 0
 
           <property name="gopherProxySet" value="false" />
 
-          <property name="env.LaunchInstanceID" value="1979C457-1806-48F7-B343-244FA0CF3D08" />
+          <property name="env.LaunchInstanceID" value="72CD37B7-0412-4851-A47F-8CE3B52D6B59" />
 
           <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
 
@@ -676,9 +674,9 @@ INFO: FS 205: selected 10 features from table features2, fold 0
 
           <property name="ant.version" value="Apache Ant(TM) version 1.10.12 compiled on October 13 2021" />
 
-          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.wrappers.fileParsing.CSVParserTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.wrappers.fileParsing.CSVParserTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher4075994830686755164.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit1157256697130792622.properties" />
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.wrappers.fileParsing.CSVParserTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.wrappers.fileParsing.CSVParserTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher6954669724121631505.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit970554347199720709.properties" />
 
-          <property name="env.TERM_SESSION_ID" value="AE22D08E-2560-4835-BC26-7906F45FED7A" />
+          <property name="env.TERM_SESSION_ID" value="F863DFCD-FC9A-4F23-A08D-E811AAA644F5" />
 
           <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
 
@@ -702,7 +700,7 @@ INFO: FS 205: selected 10 features from table features2, fold 0
 
           <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues" />
 
-          <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.suwRWZemI2/Listeners" />
+          <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.F9dKOGpchc/Listeners" />
 
           <property name="env.CONDA_PYTHON_EXE" value="/Users/rcmurray/opt/anaconda3/bin/python" />
 
@@ -723,6 +721,8 @@ INFO: FS 205: selected 10 features from table features2, fold 0
           <property name="basedir" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins" />
 
           <property name="ant.java.version" value="1.8" />
+
+          <property name="env.JAVA_MAIN_CLASS_30781" value="org.apache.tools.ant.launch.Launcher" />
 
           <property name="ant.core.lib" value="/usr/local/Cellar/ant/1.10.12/libexec/lib/ant.jar" />
 
@@ -746,7 +746,7 @@ INFO: FS 205: selected 10 features from table features2, fold 0
 
       <testcase classname="plugins.wrappers.fileParsing.CSVParserTest" name="testParseDocumentEmptyList" time="0.0" />
 
-      <testcase classname="plugins.wrappers.fileParsing.CSVParserTest" name="testParseDocumentSingleFile" time="0.012" />
+      <testcase classname="plugins.wrappers.fileParsing.CSVParserTest" name="testParseDocumentSingleFile" time="0.014" />
 
       <testcase classname="plugins.wrappers.fileParsing.CSVParserTest" name="testCanHandleTrue" time="0.0" />
 

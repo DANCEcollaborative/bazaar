@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite name="plugins.wrappers.FeatureSelectionPluginTest" timestamp="2022-09-12T13:27:18" hostname="NATCHEZ.LTI.CS.CMU.EDU" tests="2" failures="0" errors="0" skipped="0" time="2.514">
+<testsuite name="plugins.wrappers.FeatureSelectionPluginTest" timestamp="2022-10-10T16:20:38" hostname="NATCHEZ.LTI.CS.CMU.EDU" tests="2" failures="0" errors="0" skipped="0" time="2.944">
   <properties>
     <property name="java.vendor" value="Temurin" />
     <property name="ant.file.type.lightside-plugins" value="file" />
@@ -7,7 +7,7 @@
     <property name="env.XPC_SERVICE_NAME" value="0" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
     <property name="ant.file.lightside-plugins" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/build.xml" />
-    <property name="env.SECURITYSESSIONID" value="186a6" />
+    <property name="env.SECURITYSESSIONID" value="186a7" />
     <property name="os.name" value="Mac OS X" />
     <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/jre/classes" />
     <property name="env.TMPDIR" value="/var/folders/r3/g620c7095lx_cx9n34x_8_lm0000gq/T/" />
@@ -42,7 +42,6 @@
     <property name="sun.cpu.isalist" value="" />
     <property name="sun.jnu.encoding" value="UTF-8" />
     <property name="file.encoding.pkg" value="sun.io" />
-    <property name="env.JAVA_MAIN_CLASS_68639" value="org.apache.tools.ant.launch.Launcher" />
     <property name="env.SHLVL" value="1" />
     <property name="file.separator" value="/" />
     <property name="java.specification.name" value="Java Platform API Specification" />
@@ -81,13 +80,13 @@
     <property name="java.library.path" value="/Users/rcmurray/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:." />
     <property name="java.vm.vendor" value="Temurin" />
     <property name="gopherProxySet" value="false" />
-    <property name="env.LaunchInstanceID" value="1979C457-1806-48F7-B343-244FA0CF3D08" />
+    <property name="env.LaunchInstanceID" value="72CD37B7-0412-4851-A47F-8CE3B52D6B59" />
     <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
     <property name="env.JENV_SHELL" value="bash" />
     <property name="java.class.path" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/bin:/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/bin:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/arpack_combined.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/commons-math3-3.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/core.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/ejml-0.23.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/gson-2.2.4.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/hamcrest.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/java-cup.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/junit.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/kuromoji-core-0.9.0.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/kuromoji-ipadic-0.9.0.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/mtj.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/packageManager.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/py4j0.8.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/riverlayout.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/simple-5.0.4.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/slf4j-api-1.7.12-sources.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/slf4j-api.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-parser-3.9.2-javadoc.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-parser-3.9.2-sources.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-parser.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-postagger-3.9.2-javadoc.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-postagger-3.9.2-sources.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-postagger-3.9.2.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-postagger.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-segmenter-3.9.2-javadoc.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-segmenter-3.9.2-sources.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/stanford-segmenter-3.9.2.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/weka-prev.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/weka.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xmlparserv2.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-1.4.4.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-benchmark-1.4.4.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate-1.4.4.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/antlr-2.7.7.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/dom4j-1.6.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/hibernate-commons-annotations-4.0.1.Final.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/hibernate-core-4.1.4.Final.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/hibernate-jpa-2.0-api-1.0.1.Final.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/javassist-3.15.0-GA.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/jboss-logging-3.1.0.GA.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/jboss-transaction-api_1.1_spec-1.0.0.Final.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/slf4j-api-1.6.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/xmlpull-1.1.3.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream-hibernate/xpp3_min-1.1.4c.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/cglib-nodep-2.2.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/dom4j-1.6.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/jdom-1.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/jettison-1.2.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/joda-time-1.6.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/json-20080701.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/kxml2-2.3.0.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/kxml2-min-2.3.0.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/stax-1.2.0.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/stax-api-1.0.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/wstx-asl-3.2.7.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/xmlpull-1.1.3.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/xom-1.1.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/xstream/xpp3_min-1.1.4c.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/lib/yeritools-min.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibLINEAR/LibLINEAR.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibLINEAR/lib/liblinear-java-1.96-SNAPSHOT.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibLINEAR/see/LibLINEAR.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibLINEAR/toys/LibLINEAR.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibLINEAR/toys/liblinear-java-1.96-SNAPSHOT.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibSVM/LibSVM.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/LibSVM/lib/libsvm.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/bayesianLogisticRegression/bayesianLogisticRegression.jar:/Users/rcmurray/git/DANCEcollaborative/bazaar/LightSide/wekafiles/packages/chiSquaredAttributeEval/chiSquaredAttributeEval.jar:/usr/local/Cellar/ant/1.10.12/libexec/lib/ant-launcher.jar:/usr/local/Cellar/ant/1.10.12/libexec/lib/ant.jar:/usr/local/Cellar/ant/1.10.12/libexec/lib/ant-junit.jar:/usr/local/Cellar/ant/1.10.12/libexec/lib/ant-junit4.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.10.12 compiled on October 13 2021" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.wrappers.FeatureSelectionPluginTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.wrappers.FeatureSelectionPluginTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher3610365823810046615.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit6665073890528928249.properties" />
-    <property name="env.TERM_SESSION_ID" value="AE22D08E-2560-4835-BC26-7906F45FED7A" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner plugins.wrappers.FeatureSelectionPluginTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit/TEST-plugins.wrappers.FeatureSelectionPluginTest.xml crashfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junitvmwatcher5361355887701062201.properties propsfile=/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins/junit8299733366988410419.properties" />
+    <property name="env.TERM_SESSION_ID" value="F863DFCD-FC9A-4F23-A08D-E811AAA644F5" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
     <property name="env._CE_M" value="" />
     <property name="ant.file.type" value="file" />
@@ -99,7 +98,7 @@
     <property name="debuglevel" value="source,lines,vars" />
     <property name="java.io.tmpdir" value="/var/folders/r3/g620c7095lx_cx9n34x_8_lm0000gq/T/" />
     <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues" />
-    <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.suwRWZemI2/Listeners" />
+    <property name="env.SSH_AUTH_SOCK" value="/private/tmp/com.apple.launchd.F9dKOGpchc/Listeners" />
     <property name="env.CONDA_PYTHON_EXE" value="/Users/rcmurray/opt/anaconda3/bin/python" />
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment" />
     <property name="os.arch" value="x86_64" />
@@ -110,6 +109,7 @@
     <property name="env._CE_CONDA" value="" />
     <property name="basedir" value="/Users/rcmurray/git/DANCEcollaborative/bazaar/Genesis-Plugins" />
     <property name="ant.java.version" value="1.8" />
+    <property name="env.JAVA_MAIN_CLASS_30781" value="org.apache.tools.ant.launch.Launcher" />
     <property name="ant.core.lib" value="/usr/local/Cellar/ant/1.10.12/libexec/lib/ant.jar" />
     <property name="env.CONDA_PROMPT_MODIFIER" value="(base) " />
     <property name="source" value="1.8" />
@@ -117,18 +117,18 @@
     <property name="java.specification.version" value="1.8" />
     <property name="ant.project.invoked-targets" value="build" />
   </properties>
-  <testcase name="testFeatureSelectionNominal" classname="plugins.wrappers.FeatureSelectionPluginTest" time="2.024" />
-  <testcase name="testFeatureSelectionNumeric" classname="plugins.wrappers.FeatureSelectionPluginTest" time="0.303" />
+  <testcase name="testFeatureSelectionNominal" classname="plugins.wrappers.FeatureSelectionPluginTest" time="2.381" />
+  <testcase name="testFeatureSelectionNumeric" classname="plugins.wrappers.FeatureSelectionPluginTest" time="0.344" />
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Sep 12, 2022 9:27:19 AM com.github.fommil.netlib.ARPACK <clinit>
+  <system-err><![CDATA[Oct 10, 2022 12:20:39 PM com.github.fommil.netlib.ARPACK <clinit>
 WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
-Sep 12, 2022 9:27:19 AM com.github.fommil.netlib.ARPACK <clinit>
+Oct 10, 2022 12:20:39 PM com.github.fommil.netlib.ARPACK <clinit>
 WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
-Sep 12, 2022 9:27:20 AM plugins.wrappers.FeatureSelection learnFromTrainingData
+Oct 10, 2022 12:20:40 PM plugins.wrappers.FeatureSelection learnFromTrainingData
 INFO: FS 205: selected 10 features from table features3, fold 0
-Sep 12, 2022 9:27:20 AM plugins.wrappers.FeatureSelection learnFromTrainingData
+Oct 10, 2022 12:20:40 PM plugins.wrappers.FeatureSelection learnFromTrainingData
 INFO: FS fold 0: using Ranker search with evaluator ReliefFAttributeEval for numeric class attribute selection.
-Sep 12, 2022 9:27:20 AM plugins.wrappers.FeatureSelection learnFromTrainingData
+Oct 10, 2022 12:20:41 PM plugins.wrappers.FeatureSelection learnFromTrainingData
 INFO: FS 205: selected 10 features from table features2, fold 0
 ]]></system-err>
 </testsuite>
