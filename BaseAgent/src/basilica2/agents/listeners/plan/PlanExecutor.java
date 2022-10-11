@@ -184,8 +184,8 @@ public class PlanExecutor extends BasilicaAdapter implements TimeoutReceiver
 		{
 			for (BasilicaAdapter helper : activeHelpers)
 			{
-				log(Logger.LOG_NORMAL, "PlanExecutor clearHelpers: " + source.toString() + "\n");
-				System.err.print("PlanExecutor clearHelpers: " + source.toString() + "\n");
+				log(Logger.LOG_NORMAL, "PlanExecutor clearHelpers: " + helper.toString() + "\n");
+				System.err.print("PlanExecutor clearHelpers: " + helper.toString() + "\n");
 				helper.stopListening(source);
 			}
 			activeHelpers.clear();
