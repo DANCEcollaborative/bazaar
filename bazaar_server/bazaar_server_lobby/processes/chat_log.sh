@@ -1,8 +1,6 @@
 #!/bin/bash
 ROOM_PREFIX=$1
 AGENT_DIRECTORY=$2
-tempdate=$(date +%I-%M-%S)	# TEMPORARY
-mkdir ABC-$tempdate			# TEMPORARY
 cd ../../processes
 chmod 777 /mysql-files
 mysql -u root -psmoot -h nodechat  -P 3306 <<MYSQL_QUERY
