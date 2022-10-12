@@ -19,12 +19,12 @@
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
         <!-- <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_1" delayed_prompt_time="5,15,20,30,45,60,75" delayed_prompt="P1a,P1b,P1c,P1d,P1e,P1f,P1g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>    -->         
-        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_1" delayed_prompt_time="5,20,35,50,90,120,135,240" delayed_prompt="P1a,P1b,P1c,P1d,P1e,P1f,P1g,P1h" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>  
+        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_1" delayed_prompt_time="5,20,35,50,70,90,105,120" delayed_prompt="P1a,P1b,P1c,P1d,P1e,P1f,P1g,P1h" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>  
     </stage>   <!-- 5,20,35,50,90,120,135,780  --> 
      
     <stage name="StageLO1_Discussion" type="other" delay="0">    	  	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION">Prompt_Step_LO1_Discussion</step>    	
-        <step type="prompt" delay="20" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>  	
+        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO1_REFLECTION">Prompt_Step_LO1_Reflection</step>  	
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO1_REFLECTION_FOLLOW">Prompt_Step_LO1_Reflection_Follow</step>
     </stage>  <!-- 10,45,30  -->
     
@@ -34,12 +34,12 @@
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="5">log_state</step>  
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_EVEN" >Prompt_Step_LO2_Rotate</step>  
         <!-- <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_2" delayed_prompt_time="5,15,20,30,45,60,75" delayed_prompt="P2a,P2b,P2c,P2d,P2e,P2f,P2g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>      -->     
-        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_2" delayed_prompt_time="5,20,35,50,90,120,240" delayed_prompt="P2a,P2b,P2c,P2d,P2e,P2f,P2g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>  	 
+        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_2" delayed_prompt_time="5,20,35,50,70,90,120" delayed_prompt="P2a,P2b,P2c,P2d,P2e,P2f,P2g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>  	 
     </stage>   <!-- 5,20,35,50,90,120,480  --> 
      
     <stage name="StageL02_Discussion" type="other" delay="0">           	      	    	       	      	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION">Prompt_Step_LO2_Discussion</step>    	
-        <step type="prompt" delay="20" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
+        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO2_REFLECTION">Prompt_Step_LO2_Reflection</step>
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO2_REFLECTION_FOLLOW">Prompt_Step_LO2_Reflection_Follow</step>
     </stage>   <!-- 10,45,30  -->
     
@@ -49,12 +49,12 @@
     	<step type="logstate" state_tag="ope_iteration" state_value="3" delay="5">log_state</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_ODD" >Prompt_Step_LO3_Rotate</step>  
         <!-- <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_3" delayed_prompt_time="5,15,20,30,45,60,75" delayed_prompt="P3a,P3b,P3c,P3d,P3e,P3f,P3g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>    --> 
-        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_3" delayed_prompt_time="5,20,35,50,90,120,240" delayed_prompt="P3a,P3b,P3c,P3d,P3e,P3f,P3g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>     
+        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_3" delayed_prompt_time="5,20,35,50,70,90,120" delayed_prompt="P3a,P3b,P3c,P3d,P3e,P3f,P3g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>     
     </stage>   <!-- 5,20,35,50,90,120,720  --> 
      
     <stage name="StageLO3_Discussion" type="other" delay="0">       	     	      	     	     	      	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION">Prompt_Step_LO3_Discussion</step>    	
-        <step type="prompt" delay="20" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
+        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO3_REFLECTION_FOLLOW">Prompt_Step_LO3_Reflection_Follow</step>
     </stage>   <!-- 10,45,30  -->
     
@@ -64,12 +64,12 @@
     	<step type="logstate" state_tag="ope_iteration" state_value="4" delay="5">log_state</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_EVEN" >Prompt_Step_LO4_Rotate</step> 
         <!-- <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_4" delayed_prompt_time="5,15,20,30,45,60,75" delayed_prompt="P4a,P4b,P4c,P4d,P4e,P4f,P4g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_4</step>    --> 
-        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_4" delayed_prompt_time="5,20,35,50,90,120,240" delayed_prompt="P4a,P4b,P4c,P4d,P4e,P4f,P4g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_4</step>   
+        <step type="file_gated" timeout="4620" delay="5" file="testcase-complete_4" delayed_prompt_time="5,20,35,50,70,90,120" delayed_prompt="P4a,P4b,P4c,P4d,P4e,P4f,P4g" checkin_prompt="NONE" warning_prompt="NONE">Test_case_4</step>   
     </stage>   <!-- 5,20,35,50,90,120,780  --> 
      
     <stage name="StageLO4_Discussion" type="other" delay="0">          	          	     	     	          	     	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="20" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
+        <step type="prompt" delay="15" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>
         <step type="prompt" delay="10" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>  
     </stage>   <!-- 10,45,45  -->
    
