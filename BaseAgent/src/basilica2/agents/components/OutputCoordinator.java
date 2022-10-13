@@ -114,8 +114,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 	public void addAll(Collection<PriorityEvent> events)
 	{
-		log(Logger.LOG_NORMAL, "==================== OutputCoordinator addAll Proposal Queue ==========================");
-		System.err.println("==================== OutputCoordinator addAll Proposal Queue ==========================");
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator addAll Proposal Queue -- Start ==========================");
+		System.err.println("==================== OutputCoordinator addAll Proposal Queue -- Start ==========================");
 		synchronized (proposalQueue)
 		{
 			proposalQueue.addAll(events);
@@ -127,8 +127,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			log(Logger.LOG_NORMAL, "OutputCoordinator addAll proposal: " + p.toString());
 			System.err.println( "OutputCoordinator addAll proposal: " + p.toString());
 		}
-		log(Logger.LOG_NORMAL, "==================== OutputCoordinator addAll Done ==========================");
-		System.err.println("==================== OutputCoordinator addAll Done ==========================");
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator addAll Proposal Queue -- Done ==========================");
+		System.err.println("==================== OutputCoordinator addAll Proposal Queue -- Done ==========================");
 	}
 
 	@Override
@@ -142,16 +142,28 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	{
 		return "COORDINATOR";
 	}
+	
+	private void printProposalQueue () {
+		Integer i = 0;
+		for (PriorityEvent p : proposalQueue)
+		{
+			i++; 
+			log(Logger.LOG_NORMAL,"Proposal " + i.toString() + ": " + p.toString());
+			System.err.println("Proposal " + i.toString() + ": " + p.toString());
+		}
+	}
 
 	public void timedOut(String id)
 	{
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- ENTER ==========================");
+		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
+		System.err.print("==================== PROPOSAL QUEUE -- ENTER TIMEDOUT ====================\n");
+		printProposalQueue(); 
 		synchronized (proposalQueue)
 		{
 			if (!proposalQueue.isEmpty())
 			{
 
-				log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout Proposal Queue ==========================");
-				System.err.println("==================== OutputCoordinator.timedout Proposal Queue ==========================");
 				cleanUp();
 
 				PriorityEvent best = null;
@@ -195,6 +207,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					proposalQueue.remove(best);
 
 					AbstractPrioritySource source = best.getSource();
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: best PriorityEvent: " + best.toString());
+					System.err.println("OutputCoordinator.timedout: best PriorityEvent: " + best.toString());
 
 					activeSources.put(source.getName(), source);
 					// keep the size of recentSources <= HISTORY_SIZE
@@ -204,24 +218,30 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 						recentSources.remove(0);
 					}
 
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Adding source for best PriorityEvent: " + source.toString());
+					System.err.println("OutputCoordinator.timedout: Adding source for best PriorityEvent: " + source.toString());
 					recentSources.add(source); 
-					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Adding source: " + source.toString());
-					System.err.println("OutputCoordinator.timedout: Adding source: " + source.toString());
 				}
-				log(Logger.LOG_NORMAL, "====================  OutputCoordinator timedout DONE ==========================");
-				System.err.println("====================  OutputCoordinator timedout DONE ==========================");
 			}
 		}
+		System.err.print("==================== PROPOSAL QUEUE -- EXIT TIMEDOUT ====================\n");
+		printProposalQueue(); 
 
 		new Timer(delay, "Output Queue", this).start();
+
+		log(Logger.LOG_NORMAL, "====================  OutputCoordinator timedout -- EXIT ==========================");
+		System.err.println("====================  OutputCoordinator timedout -- EXIT ==========================");
 	}
 
 	private void cleanUp()
 	{
 		Iterator<PriorityEvent> pit = proposalQueue.iterator();
 		long now = Timer.currentTimeMillis();
-		System.err.print("==================== OutputCoordinator cleanup - Proposal Queue ====================\n");
-		log(Logger.LOG_NORMAL, "==================== OutputCoordinator cleanup - Proposal Queue ====================");
+		System.err.print("==================== OutputCoordinator cleanup -- ENTER  ====================\n");
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator cleanup -- ENTER  ====================");
+		System.err.print("==================== PROPOSAL QUEUE -- ENTER CLEANUP ====================\n");
+		printProposalQueue(); 
+		
 		while (pit.hasNext())
 
 		synchronized (proposalQueue)
@@ -269,9 +289,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}
 			}
 		}
-
-		System.err.print("==================== OutputCoordinator cleanup - Done ====================\n");
-		log(Logger.LOG_NORMAL, "==================== OutputCoordinator cleanup - Done ====================");
+		System.err.print("==================== PROPOSAL QUEUE -- EXIT CLEANUP ====================\n");
+		printProposalQueue(); 
+		System.err.print("==================== OutputCoordinator cleanup -- EXIT ====================\n");
+		log(Logger.LOG_NORMAL, "==================== OutputCoordinator cleanup -- EXIT ====================");
 	}
 
 	protected void publishEvent(Event e)
