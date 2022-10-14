@@ -67,7 +67,7 @@ public class FileGatekeeper extends BasilicaAdapter
 				System.err.println("FileGateKeeper: pushing FILE_STEP_COMPLETE prompt and StepDoneEvent");
 //				source.pushEventProposal(new MessageEvent(source, getAgent().getUsername(), prompter.lookup("FILE_STEP_COMPLETE"), "FILE_STEP_COMPLETE"), 1.0, 2);
 				MessageEvent stepCompleteMessageEvent = new MessageEvent(source, getAgent().getUsername(), prompter.lookup("FILE_STEP_COMPLETE"), "FILE_STEP_COMPLETE"); 
-				source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", stepCompleteMessageEvent, OutputCoordinator.HIGHEST_PRIORITY, 10.0, 5));
+				source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", stepCompleteMessageEvent, OutputCoordinator.HIGHEST_PRIORITY, 4.0, 4));
 				source.pushEvent(new StepDoneEvent(source, stepName));
 			}
 		}
