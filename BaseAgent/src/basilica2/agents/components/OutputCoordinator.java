@@ -474,13 +474,13 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			else
 				news = new State();
 			LocalDateTime now = LocalDateTime.now();
-//			System.err.println("=== OutputCoordinator, don't listen while speaking -- now:     " + now.toString() + " <<<"); 
+			System.err.println("=== OutputCoordinator, don't listen while speaking -- now:     " + now.toString() + " <<<"); 
 			Double sentenceDelay = speechString.split(" ").length/multimodalWordsPerSecond; 
 			Double pauseSecondsDouble = multimodalConstantDelay + sentenceDelay;
 			Long pauseSeconds = (long)Math.ceil(pauseSecondsDouble); 
 			LocalDateTime dontListenEnd = now.plusSeconds(pauseSeconds); 
 			news.setMultimodalDontListenWhileSpeakingEnd(dontListenEnd);
-//			System.err.println("=== OutputCoordinator, don't listen while speaking -- dontListenEnd: " + dontListenEnd.toString() + " <<<"); 
+			System.err.println("=== OutputCoordinator, don't listen while speaking -- dontListenEnd: " + dontListenEnd.toString() + " <<<"); 
 			StateMemory.commitSharedState(news, agent);
 		}
 	}
