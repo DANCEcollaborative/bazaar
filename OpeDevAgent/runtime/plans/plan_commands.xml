@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
 	
+    <prompt id="COMMAND_1">
+        <text>openssl enc -d -aes-256-cbc -a -in environment/task1.enc -out environment/task1.py -pass pass:8D8C368627985BF &amp;&amp; rm environment/task1.enc</text>
+    </prompt>
+	
     <prompt id="COMMAND_2">
         <text>openssl enc -d -aes-256-cbc -a -in environment/task2.enc -out environment/task2.py -pass pass:8D8C368627985BF &amp;&amp; rm environment/task2.enc</text>
     </prompt>
