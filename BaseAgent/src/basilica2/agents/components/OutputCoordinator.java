@@ -164,7 +164,6 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		for (AbstractPrioritySource s : recentSources)
 		{
 			i++; 
-
 			log(Logger.LOG_NORMAL, i.toString()+ ".  source: " + s.toString());
 			System.err.println(i.toString() + ".  source: " + s.toString() + "\n");
 		}
@@ -215,7 +214,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					double belief = beliefGivenHistory(p);
 					double d = belief * p.getPriority();
 
-					log(Logger.LOG_NORMAL, "EventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - eventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
 
 					if (d > 0 && (d > bestBelief))
 					{
@@ -227,30 +226,32 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (best != null)
 				{
-					log(Logger.LOG_NORMAL, "Execute 'best': " + best.toString());
-					System.err.println("Execute 'best': " + best.toString());
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - Execute 'best': " + best.toString() + "  microStepName: " + best.getMicroStepName() + "  lastStepName: " + lastStepName);
+					System.err.println("OutputCoordinator.timedout - Execute 'best': " + best.toString());
 					// if the proposal about to be executed belongs to a new step, 
 					// set removeStepName which is used in cleanUp() to remove micro_local proposals belonging to this step 
 					if (lastStepName!=null && (!best.getMicroStepName().equals(lastStepName)))
 					{
 						removeStepName = lastStepName;
-						log(Logger.LOG_NORMAL, "OutputCoordinator.timedout remove lastStepName != best: " + removeStepName);
-						System.err.println("OutputCoordinator.timedout remove lastStepName != best: " + removeStepName);
+						log(Logger.LOG_NORMAL, "OutputCoordinator.timedout remove lastStepName (!= best): " + removeStepName);
+						System.err.println("OutputCoordinator.timedout remove lastStepName (!= best): " + removeStepName);
 					}
 					lastStepName = best.getMicroStepName();
-					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - new best lastStepName: " + lastStepName);
-					System.err.println("OutputCoordinator.timedout - new best lastStepName: " + lastStepName);
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
+					System.err.println("OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
 					
 					best.getCallback().accepted(best);
 					publishEvent(best.getEvent());
-					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent());
-					System.err.println("OutputCoordinator.timedout removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent()); 
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent());
+					System.err.println("OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent()); 
 					proposalQueue.remove(best);
 
 					AbstractPrioritySource source = best.getSource();
 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: best source: " + source.toString());
 					System.err.println("OutputCoordinator.timedout: best source: " + source.toString());
 
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - adding best source to ActiveSources: " + source.toString());
+					System.err.println("OutputCoordinator.timedout - adding best source to ActiveSources: " + source.toString());
 					activeSources.put(source.getName(), source);
 					// keep the size of recentSources <= HISTORY_SIZE
 					if (recentSources.size() >= HISTORY_SIZE) {
@@ -259,8 +260,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 						recentSources.remove(0);
 					}
 
-					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Adding source for best PriorityEvent: " + source.toString());
-					System.err.println("OutputCoordinator.timedout: Adding source for best PriorityEvent: " + source.toString());
+					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Adding best source to recentSources: " + source.toString());
+					System.err.println("OutputCoordinator.timedout: Adding best source to recentSources: " + source.toString());
 					recentSources.add(source); 
 				}
 			}
@@ -295,6 +296,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		System.err.println("===================================================================================");
 		System.err.println("==================== OutputCoordinator.cleanUp -- ENTER ==========================");
 		System.err.println("===================================================================================");
+		log(Logger.LOG_NORMAL, "removeStepName: " + removeStepName);
+		System.err.println("removeStepName: " + removeStepName);
+		System.err.print("==================== activeSources -- ENTER cleanUp ====================\n");
 		System.err.print("==================== PROPOSAL QUEUE -- ENTER cleanUp ====================\n");
 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER cleanUp ====================");
 		printProposalQueue(); 
@@ -316,8 +320,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				if (p.getInvalidTime() < now && !p.getEventType().equals("macro")) 
 				{
 					// remove timeout micro proposals
-					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro timeout: " + p.toString());
-					System.err.print("OutputCoordinator cleanUp micro timeout: " + p.toString() + "\n");
+					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro timeout - remove PriorityEvent: " + p.toString());
+					System.err.print("OutputCoordinator cleanUp micro timeout - remove PriorityEvent: " + p.toString() + "\n");
 					p.getCallback().rejected(p);
 					pit.remove();
 
@@ -329,9 +333,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					// }
 				}else if (p.getEventType().equals("micro_local") && removeStepName!=null && p.getMicroStepName().equals(removeStepName))
 				{
-					// remove passed step's micro_local proposals
-					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro_local removeStepName: " + p.toString());
-					System.err.print("OutputCoordinator cleanUp removeStepName: " + p.toString() + "\n");
+					// remove passed steps' micro_local proposals
+					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro_local - remove PriorityEvent for removeStepName: " + p.toString());
+					System.err.print("OutputCoordinator cleanUp micro_local - remove PriorityEvent for removeStepName: " + p.toString() + "\n");
 					p.getCallback().rejected(p);
 					pit.remove();
 					removeStepName=null;
@@ -346,8 +350,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (!source.isBlocking())
 				{
-					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp micro_local remove source: " + source.toString() + "   key: " + key.toString());
-					System.err.print("OutputCoordinator cleanUp remove source: " + source.toString() + "   key: " + key.toString() + "\n");
+					log(Logger.LOG_NORMAL, "OutputCoordinator cleanUp remove non-blocking activeSource: " + source.toString() + "   key: " + key.toString());
+					System.err.print("OutputCoordinator cleanUp remove non-blocking activeSource: " + source.toString() + "   key: " + key.toString() + "\n");
 					activeSources.remove(key);
 				}
 			}
