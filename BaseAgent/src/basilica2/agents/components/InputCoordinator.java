@@ -150,8 +150,8 @@ public class InputCoordinator extends Component
      */
     public void pushProposal(PriorityEvent pe) 
     {
-    		log(Logger.LOG_NORMAL, "InputCoordinator.pushProposal: "+pe.getEvent().toString());
-    		System.err.println("InputCoordinator.pushProposal: "+pe.getEvent().toString());
+//     		log(Logger.LOG_NORMAL, "InputCoordinator.pushProposal: "+pe.getEvent().toString());
+//     		System.err.println("InputCoordinator.pushProposal: "+pe.getEvent().toString());
     		// set micro proposal's stepname before pushing it to outputCoordinator
     		State s = StateMemory.getSharedState(agent);
     		String stepname = s.getStepName();
