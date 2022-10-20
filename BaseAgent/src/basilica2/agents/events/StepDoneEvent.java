@@ -54,7 +54,7 @@ public class StepDoneEvent extends Event {
 
     @Override
     public String getName() {
-        return GENERIC_NAME;
+        return GENERIC_NAME + " - step: " + stepName;
     }
 
     @Override
