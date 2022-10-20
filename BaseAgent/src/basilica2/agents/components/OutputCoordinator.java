@@ -129,7 +129,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			PriorityEvent p = pit.next();
 // 			log(Logger.LOG_NORMAL, "OutputCoordinator addAll proposal: " + p.toString());
 // 			System.err.println( "OutputCoordinator addAll proposal: " + p.toString());
-// 		}
+ 		}
 // 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- EXIT addAll ====================");
 // 		System.err.print("==================== PROPOSAL QUEUE -- EXIT addAll ====================\n");
 // 		printProposalQueue(); 
