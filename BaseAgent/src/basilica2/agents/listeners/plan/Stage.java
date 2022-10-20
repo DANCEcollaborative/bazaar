@@ -35,28 +35,35 @@ class Stage
 
 	public void progressStage(InputCoordinator source)
 	{
-//		System.err.println("Stage.java progressStage: about to clearHelpers"); 
-//		Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: about to clearHelpers"); 
+// 		System.err.println("Stage.java progressStage: about to clearHelpers"); 
+// 		Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: about to clearHelpers"); 
 		planExecutor.clearHelpers();
 		if (!isDone)
 		{
+// 			System.err.println("Stage.java progressStage:!isDone"); 
+// 			Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: !isDone"); 
 			if (isRunning)
 			{
+// 				System.err.println("Stage.java progressStage: isRunning"); 
+// 				Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: isRunning"); 
 				if (steps.size() > 0)
 				{
 					currentStep = steps.remove(0);
+// 					System.err.println("Stage.java progressStage: currentStep removed, to be executed: " + currentStep.toString()); 
+// 					Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, "Stage.java progressStage: currentStep removed, to be executed: \" + currentStep.toString()"); 
 					currentStep.executeStep(source);
 				}
 				else if (nextStage == null || planExecutor.currentPlan.stages.get(nextStage).timeout == 0) //this stage has completed all of its steps and the next stage is not waiting on a timeout
 				{
 					Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL,"finished stage "+this.name);
+// 					System.err.println("finished stage "+this.name);
 					if (nextStage != null)
 					{
-						if (delay == 0)
+						if (delay == 0) {
 							planExecutor.activateStage(nextStage);
-						else
-						{
+						} else {
 							Logger.commonLog(this.getClass().getName(), Logger.LOG_NORMAL, delay+" second delay before next stage = "+nextStage);
+// 							System.err.println(delay+" second delay before next stage = "+nextStage);
 							new Timer(delay, nextStage, planExecutor).start();
 						}
 					}
