@@ -54,20 +54,22 @@ public class FileGatekeeper extends BasilicaAdapter
 	{
 		if (event instanceof FileEvent)
 		{
-			System.err.println("FileGateKeeper: FileEvent received"); 
-			log(Logger.LOG_NORMAL, "FileGateKeeper: FileEvent received");
+			System.err.println("FileGateKeeper.processEvent: FileEvent received"); 
+			log(Logger.LOG_NORMAL, "FileGateKeeper.processEvent: FileEvent received");
 			FileEvent fileEvent = (FileEvent)event; 
 			String eventFileName = fileEvent.getFileName();
-			log(Logger.LOG_NORMAL, "FileGateKeeper: eventFileName = " + eventFileName);
-			log(Logger.LOG_NORMAL, "FileGateKeeper: fileName = " + fileName);
-			System.err.println("FileGateKeeper: eventFileName = " + eventFileName);
-			System.err.println("FileGateKeeper: FileEvent fileName: " + fileName); 
+			log(Logger.LOG_NORMAL, "FileGateKeeper.processEvent: eventFileName = " + eventFileName);
+			log(Logger.LOG_NORMAL, "FileGateKeeper.processEvent: fileName = " + fileName);
+			System.err.println("FileGateKeeper.processEvent: eventFileName = " + eventFileName);
+			System.err.println("FileGateKeeper.processEvent: FileEvent fileName: " + fileName); 
 			if (eventFileName.equals(fileName)) {
-				log(Logger.LOG_NORMAL, "FileGateKeeper: pushing FILE_STEP_COMPLETE prompt and StepDoneEvent");
-				System.err.println("FileGateKeeper: pushing FILE_STEP_COMPLETE prompt and StepDoneEvent");
+				log(Logger.LOG_NORMAL, "FileGateKeeper.processEvent: pushing FILE_STEP_COMPLETE prompt and StepDoneEvent");
+				System.err.println("FileGateKeeper.processEvent: pushing FILE_STEP_COMPLETE prompt and StepDoneEvent");
 				MessageEvent stepCompleteMessageEvent = new MessageEvent(source, getAgent().getUsername(), prompter.lookup("FILE_STEP_COMPLETE"), "FILE_STEP_COMPLETE"); 
 //				source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "PromptStep", stepCompleteMessageEvent, OutputCoordinator.HIGHEST_PRIORITY, 10, 7)); 
 				source.pushEventProposal("macro",stepCompleteMessageEvent, 1.0, 10);
+				log(Logger.LOG_NORMAL, "FileGateKeeper.processEvent, pushing StepDoneEvent  -  source:" + source.toString() + "  stepName:" + stepName);
+				System.err.println("FileGateKeeper.processEvent, pushing StepDoneEvent  -  source:" + source.toString() + "  stepName:" + stepName); 
 				source.pushEvent(new StepDoneEvent(source, stepName));
 			}
 		}

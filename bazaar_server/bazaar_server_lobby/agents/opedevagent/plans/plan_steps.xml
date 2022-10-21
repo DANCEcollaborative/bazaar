@@ -13,9 +13,9 @@
     </stage>  
     
     <stage name="StageLO1" type="other" delay="0">
-    	<step type="logstate" delay="5" state_tag="state" state_value="Programming Phase of OPE" send_log="false">log_state</step> 
-    	<step type="logstate" delay="5" state_tag="phase_duration" state_value="80">log_state</step> 
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="1">log_state</step>   
+    	<step type="logstate" delay="5" state_tag="state" state_value="Programming Phase of OPE" send_log="false">logstate_programming-phase</step> 
+    	<step type="logstate" delay="5" state_tag="phase_duration" state_value="80">logstate_phase-duration-1</step> 
+    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="1">logstate_ope-iteration-1</step>   
     	<step type="send_command" delay="5" command="COMMAND_1">COMMAND_1</step>    
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">Prompt_Programming_Phase</step>
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
@@ -30,7 +30,7 @@
     </stage>  <!-- 10,45,30  -->
     
     <stage name="StageLO2" type="other" delay="0">  
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">log_state</step>  
+    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-2</step>  
     	<step type="send_command" delay="5" command="COMMAND_2">COMMAND_2</step>     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2_Rotate</step> 
@@ -45,7 +45,7 @@
     </stage>   <!-- 10,45,30  -->
     
     <stage name="StageLO3" type="other" delay="0">  
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">log_state</step>  
+    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-3</step>  
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
@@ -60,7 +60,7 @@
     </stage>   <!-- 10,45,30  -->
     
     <stage name="StageLO4" type="other" delay="0">     
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="4">log_state</step> 
+    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="4">logstate_ope-iteration-4</step> 
     	<step type="send_command" delay="5" command="COMMAND_4">COMMAND_4</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">Prompt_Role_Switch_Task5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO4_Rotate</step> 
