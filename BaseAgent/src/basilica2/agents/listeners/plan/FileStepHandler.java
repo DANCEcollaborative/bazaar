@@ -124,6 +124,7 @@ public class FileStepHandler implements StepHandler
 //							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
 //							source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 8.0, 4));
 							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGH_PRIORITY, 7);
+							source.pushNamedEventProposal("micro_local", delayedMessage, promptName, OutputCoordinator.HIGH_PRIORITY, 7);
 						}
 					}
 				}).start();
