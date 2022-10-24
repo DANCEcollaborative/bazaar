@@ -184,21 +184,21 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 	public void timedOut(String id)
 	{
-// 		log(Logger.LOG_NORMAL, "===================================================================================");
-// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- ENTER ==========================");
-// 		log(Logger.LOG_NORMAL, "===================================================================================");
-// 		System.err.println("===================================================================================");
-// 		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
-// 		System.err.println("===================================================================================");
-// 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
-// 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================\n");
-// 		printProposalQueue(); 
-// 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
-// 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.timedout ====================\n");
-// 		printActiveSources(); 
-// 		log(Logger.LOG_NORMAL, "==================== recentSources -- ENTER OutputCoordinator.timedout ====================");
-// 		System.err.print("==================== recentSources -- ENTER OutputCoordinator.timedout ====================\n");
-// 		printRecentSources(); 
+ 		log(Logger.LOG_NORMAL, "===================================================================================");
+ 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- ENTER ==========================");
+ 		log(Logger.LOG_NORMAL, "===================================================================================");
+ 		System.err.println("===================================================================================");
+ 		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
+ 		System.err.println("===================================================================================");
+ 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
+ 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================\n");
+ 		printProposalQueue(); 
+ 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
+ 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.timedout ====================\n");
+ 		printActiveSources(); 
+ 		log(Logger.LOG_NORMAL, "==================== recentSources -- ENTER OutputCoordinator.timedout ====================");
+ 		System.err.print("==================== recentSources -- ENTER OutputCoordinator.timedout ====================\n");
+ 		printRecentSources(); 
 		synchronized (proposalQueue)
 		{
 			if (!proposalQueue.isEmpty())
