@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="FCDS P7 OPE">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+  
+   	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+    <!-- "delay" for a step is the delay *after* the step completes on its own.-->
+    <stage name="StageInitialization" type="other" delay="0"> 
+     	<step type="greet" timeout="45" delay="0">GREETINGS</step> 
+    </stage>  
+  
+    <stage name="EndStage" type="other" delay="0" timeout="50">  
+        <step type="prompt" delay="5" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
+        <step type="chatlog" delay="2" >CHAT_LOGS</step> 
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>

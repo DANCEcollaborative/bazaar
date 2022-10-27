@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING">
+		<text>We need to start wrapping up.</text>
+		<text>Okay, let's get ready to move on to reflection.</text>
+	</prompt>
+
+	
+	<prompt strategy="task" id="FILE_STEP_TIMED_OUT">
+		<text>We need to be moving along on this test case.</text>
+		<text>Time for this test case is almost over.</text>
+		<text>Time to move along on this test case if you can.</text>
+	</prompt>
+    
+    <prompt strategy="task" id="FILE_STEP_COMPLETE">
+       <text>You've passed the testcase!</text>
+       <text>Great! You have passed the testcase.</text>
+       <text>Way to go! You've passed the testcase.</text>
+       <text>Good job. You've passed the testcase.</text>
+    </prompt>
+	
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
+       <text>Okay, we're about to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
+       <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
+    </prompt>
+   
+    
+    
+	<!-- Gated Prompts for Task 1 -->
+      
+    <prompt strategy="task" id="P1a" intention="parsons_prompt_start_0">
+        <text>We are doing things slightly differently for this session. I will provide you with pseudocode for two possible solutions. Discuss which one you might want to implement with your teammates. You will be given time for implementation after your discussion.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1b" intention="parsons_prompt_option1_0">
+        <text>Pseudocode 1: 
+
+X is the feature set
+y is the label set
+Initialize preprocessor with standardized data distribution using StandardScaler()
+Split input data X, and y into train and test sets using train_test_split() and seed.
+Initialize model using LogisticRegression() and seed.
+fit preprocessor on training data and transform to pass to the next step
+transform test data to pass to the next step
+fit model on preprocessed data
+return the model score</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1c" intention="parsons_prompt_option2_0">
+        <text>Pseudocode 2: 
+
+X is the feature set
+y is the label set
+Initialize preprocessor with standardized data distribution using StandardScaler()
+Split input data X, and y into train and test sets using train_test_split() and seed.
+Initialize model using LogisticRegression() and seed.
+fit preprocessor on training data and transform to pass to the next step
+fit and transform test data to pass to the next step
+fit model on preprocessed data
+return the model score</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1d" intention="parsons_prompt_follow_0">
+        <text>First, look at the two pseudocodes and identify the differences.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1e" intention="parsons_prompt_followup_0">
+        <text>Remember that both model and pre-processor should be trained (fitted) only on train set!</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1f" intention="parsons_prompt_final_0">
+        <text>Once everyone is in agreement, the driver can start the implementation with assistance from the team.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1g" intention="parsons_prompt_final_0">
+        <text>Remember to make sure the 'wget ...' command above COMPLETES SUCCESSFULLY before running the test case. If it doesn't complete successfully, just execute the command again.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P1h" intention="cutoff_0_1">
+    
+        <text>A concise way to solve this problem: 
+
+preprocessor = StandardScaler()
+train_X, test_X, train_y, test_y = train_test_split(X, y, random_state = seed)
+model = LogisticRegression(random_state = seed)
+train_X = preprocessor.fit_transform(train_X)
+test_X = preprocessor.transform(test_X)
+model.fit(train_X, train_y)
+return model.score(test_X, test_y)</text> 
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO1_TRANSACTIVITY">
+        <text>@Researcher, remind your teammates that both model and pre-processor should be trained (fitted) only on train set!</text>
+    </prompt>
+    
+    
+    
+	<!-- Gated Prompts for Task 2 -->
+      
+    <prompt strategy="task" id="P2a" intention="parsons_prompt_start_1">
+        <text>For task 2, I will again provide you with pseudocode for two possible solutions. Discuss which one you might want to implement with your teammates. You will be given time for implementation after your discussion.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P2b" intention="parsons_prompt_option1_1">
+        <text>Pseudocode 1: 
+
+def cpu_predict(data, model, vectorizer):
+	Sequential implementation using predict_one() function while iterating through the data.
+
+def gpu_predict(data, model, vectorizer):
+	Batched implementation using predict_batch(). Transform output to list using to_list()</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P2c" intention="parsons_prompt_option2_1">
+        <text>Pseudocode 2: 
+
+def cpu_predict(data, model, vectorizer):
+	Iterate through each row of the data and pass through predict_one() function.
+	The first element of the output is returned.
+
+def gpu_predict(data, model, vectorizer):
+	Batched implementation using predict_batch()</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P2d" intention="parsons_prompt_follow_1">
+        <text>Compare the pseudocode implementations for each function. Which pseudocode is correct, and why?</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P2e" intention="parsons_prompt_followup_1">
+        <text>If you are unsure, have the Researcher look up the inputs and outputs of the functions mentioned.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P2f" intention="parsons_prompt_final_1">
+        <text>Once everyone is in agreement, the driver can start the implementation with assistance from the team.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P2g" intention="cutoff_1_1">
+        <text>One way to do this: 
+
+def cpu_predict(data, model, vectorizer):
+	return [predict_one(row, model, vectorizer)[0] for row in data]
+
+def gpu_predict(data, model, vectorizer):
+	return predict_batch(data, model, vectorizer).tolist()</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO2_TRANSACTIVITY">
+        <text>@Navigator, for the first part, work with the team to figure out how to loop over the data one by one. For the second part, try to just pass the whole dataset into the function, but be very careful about types of inputs and outputs.</text>
+    </prompt>
+    
+    
+    
+	<!-- Gated Prompts for Task 3 -->
+      
+    <prompt strategy="task" id="P3a" intention="parsons_prompt_start_2">
+        <text>Again for task 3, I will provide you with pseudocode for two possible solutions. Discuss which one you might want to implement with your teammates. You will be given time for implementation after your discussion.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P3b" intention="parsons_prompt_option1_2">
+        <text>Pseudocode 1: 
+
+train_loss, n_batches = 0, 0
+for i, data in enumerate(trainloader, 0):
+	# get the inputs; data is a list of [inputs, labels]
+
+	# zero the parameter gradients
+
+	# forward pass
+	# backpass
+	# optimizer step
+
+	# calculate total train loss
+	# increment number of batches
+
+train_loss /= n_batches
+
+correct, total = 0, 0
+with torch.no_grad():
+	for data in testloader:
+		images, labels = data
+		outputs = net(images)
+		_, predicted = torch.max(outputs.data, 1)
+		total += labels.size(0)
+		correct += (predicted == labels).sum().item()
+
+return train_loss, correct / total</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P3c" intention="parsons_prompt_option2_2">
+        <text>Pseudocode 2: 
+
+train_loss, n_batches = 0, 0
+for i, data in enumerate(trainloader, 0):
+	# get the inputs; data is a list of [inputs, labels]
+
+	# forward pass
+	# backpass
+	# optimizer step
+
+	# calculate total train loss
+	# increment number of batches
+
+train_loss /= n_batches
+
+correct, total = 0, 0
+with torch.no_grad():
+	for data in testloader:
+		images, labels = data
+		outputs = net(images)
+		_, predicted = torch.max(outputs.data, 1)
+		total += labels.size(0)
+		correct += (predicted == labels).sum().item()
+
+return train_loss, correct / total</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P3d" intention="parsons_prompt_follow_2">
+        <text>What's the difference between the two pseudocodes? Why is this difference important?</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P3e" intention="parsons_prompt_followup_2">
+        <text>For a full training loop example, have the researcher look up https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#train-the-network</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P3f" intention="parsons_prompt_final_2">
+        <text>Once everyone is in agreement, the driver can start the implementation with assistance from the team.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P3g" intention="cutoff_2_1">
+        <text>A way to do this: 
+
+train_loss, n_batches = 0, 0
+for i, data in enumerate(trainloader, 0):
+	# get the inputs; data is a list of [inputs, labels]
+	inputs, labels = data
+
+	# zero the parameter gradients
+	optimizer.zero_grad()
+
+	# forward + backward + optimize
+	outputs = net(inputs)
+	loss = criterion(outputs, labels)
+	loss.backward()
+	optimizer.step()
+
+	# total train loss
+	train_loss += loss.item()
+	n_batches += 1
+
+train_loss /= n_batches
+
+correct, total = 0, 0
+with torch.no_grad():
+	for data in testloader:
+		images, labels = data
+		outputs = net(images)
+		_, predicted = torch.max(outputs.data, 1)
+		total += labels.size(0)
+		correct += (predicted == labels).sum().item()
+
+return train_loss, correct / total</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO3_TRANSACTIVITY">
+        <text>Don't forget to zero gradient! @Researcher, refer to PyTorch documentation for full example of a training loop - https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#train-the-network</text>
+    </prompt>
+    
+    
+    
+    
+	<!-- Gated Prompts for Task 4 -->
+      
+    <prompt strategy="task" id="P4a" intention="parsons_prompt_start_3">
+        <text>Finally, for task 4 I will provide you with pseudocode for two possible solutions. Discuss which one you might want to implement with your teammates. You will be given time for implementation after your discussion.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P4b" intention="parsons_prompt_option1_3">
+        <text>Pseudocode 1: 
+
+# inputs = use tokenizer function with text as input and return parameter set to pretrained
+with torch.no_grad():
+	# Return logits from out = model(**inputs, return_dict=True)
+
+return train_loss, correct / total</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P4c" intention="parsons_prompt_option2_3">
+        <text>Pseudocode 2: 
+
+# inputs = use tokenizer function with text as input and return parameter set to pretrained
+with torch.no_grad():
+	# Return first element of logits from out = model(**inputs, return_dict=True)</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P4d" intention="parsons_prompt_follow_3">
+        <text>As before, what differences do you observe and how can you look to see which one is correct?</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P4e" intention="parsons_prompt_followup_3">
+        <text>@Researcher, this link may be useful ;) - https://huggingface.co/transformers/model_doc/roberta.html#robertaforsequenceclassification</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P4f" intention="parsons_prompt_final_3">
+        <text>Once everyone is in agreement, the driver can start the implementation with assistance from the team.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="P4g" intention="cutoff_3_1">
+        <text>One way to do this: 
+
+inputs = tokenizer(text, return_tensors="pt")
+with torch.no_grad():
+	out = model(**inputs, return_dict=True).logits.numpy()[0]
+
+return list(out)</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_LO4_TRANSACTIVITY">
+        <text>@Researcher, this link may be useful ;) - https://huggingface.co/transformers/model_doc/roberta.html#robertaforsequenceclassification</text>
+    </prompt>
+
+
+
+    <!-- for READY_GENERIC -->    
+    <prompt strategy="task" id="READY_GENERIC">
+       <text>Type "ready" when you are ready to move on.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_GENERIC_NO_READY">
+       <text>We will move on after a while or when everyone is ready.</text>
+    </prompt>
+         
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your team is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY">
+       <text>Okay, let's move on...</text>
+       <text>Moving on...</text>
+       <text>Onward!</text>
+    </prompt>
+  
+  
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+      
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
+       <text>We'll move on when everyone is ready.</text>
+    </prompt>
+       
+    <prompt strategy="task" id="WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, type "ready".</text>
+       <text>When everyone is comfortable with this material, type "ready".</text>
+    </prompt>
+    
+</prompts>
+
