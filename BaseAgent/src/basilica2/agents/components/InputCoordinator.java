@@ -134,6 +134,13 @@ public class InputCoordinator extends Component
 		this.pushProposal(new PriorityEvent(eventtype, this, e, priority, genericPrioritySource, timeout));
 	}
 	
+
+	public void pushNamedEventProposal(String eventtype, Event e, String sourceName, double priority, double timeout)
+	{
+		final PrioritySource namedSource = new PrioritySource(sourceName, false);
+		this.pushProposal(new PriorityEvent(eventtype, this, e, priority, namedSource, timeout));
+	}
+	
 	/**
 	 *for use from within threads/timers:  push an event past preprocessing, process by listeners NOW.
 	 * @param e

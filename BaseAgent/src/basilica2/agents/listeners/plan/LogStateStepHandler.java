@@ -48,9 +48,10 @@ public class LogStateStepHandler implements StepHandler
 		
 		String sendLogString = String.valueOf(sendLog); 
 		LogStateEvent logStateEvent = new LogStateEvent(source,stateTag,stateValue,sendLog,logTag); 	
-//        System.err.println("LogStateStepHandler, execute - LogStateEvent created: stateTag: " + stateTag + "  stateValue: " + stateValue + "  stateValue: " + stateValue + "  sendLog: " + sendLogString + "  logTag: " + logTag);
-//        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateStepHandler, execute - LogStateEvent created: stateTag: " + stateTag + "  stateValue: " + stateValue + "  stateValue: " + stateValue + "  sendLog: " + sendLogString + "  logTag: " + logTag);
-		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateStep", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+        System.err.println("LogStateStepHandler, execute - LogStateEvent created: stateTag: " + stateTag + "  stateValue: " + stateValue + "  stateValue: " + stateValue + "  sendLog: " + sendLogString + "  logTag: " + logTag);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"LogStateStepHandler, execute - LogStateEvent created: stateTag: " + stateTag + "  stateValue: " + stateValue + "  stateValue: " + stateValue + "  sendLog: " + sendLogString + "  logTag: " + logTag);
+//		source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "LogStateStep", logStateEvent, OutputCoordinator.HIGH_PRIORITY, 5.0, 2));
+		source.pushEventProposal("macro",logStateEvent,OutputCoordinator.HIGH_PRIORITY, 4.0);
 		overmind.stepDone();
 	}
 	
