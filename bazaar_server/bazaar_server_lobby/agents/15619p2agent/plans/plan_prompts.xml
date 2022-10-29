@@ -22,6 +22,10 @@
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START" intention="PROMPT_DISCUSSION_START">
      	<text>Let's discuss this solution. Take turns responding to the questions posed by the bot. We will move on after you have had some time to discuss.</text>
     </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER" intention="MYSQL_REMINDER">
+     	<text>Remember that you can login to MySQL using the command 'mysql -u root -p -h 127.0.0.1' and password 'CloudCC@100', then use database 'employees'.</text>
+    </prompt> 
  
 
 

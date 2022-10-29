@@ -36,9 +36,9 @@
     <prompt strategy="task" id="P1a" intention="hint_task-1">
         <text>Two optimizations are required for this task: 
         
-1. Create a denormalized table with columns 'emp_no', 'last_name' and 'first_name' from table 'employees'; and column 'salary' from table 'salaries'.
+1. Create a denormalized table with columns 'emp_no', 'salary', 'from_date', and 'to_date' from table 'salaries'; and columns 'first_name' and 'last_name' from table 'employees'.
 
-2. Change the datatype of the 'salary' column from 'VARCHAR' to 'INT' in the table you create in step (1).</text>
+2. Change the datatype of the 'salary' column to 'INTEGER' in the table you create in step (1).</text>
     </prompt>
     
     
@@ -60,16 +60,16 @@
     <prompt strategy="task" id="P3a" intention="hint_task-3">
         <text>Three optimizations are required for this task: 
         
-1. Create a denormalized table with columns 'emp_no', 'last_name' and 'first_name' from table 'employees'; and column 'dept_name' from table 'dept_emp_list'.
+1. Create a denormalized table with columns 'emp_no', 'first_name', and 'last_name' from table 'employees'; and column 'dept_name' from table 'dept_emp_list'.
 
-2. Change the datatype of the 'salary' column of table 'salaries' from 'CHAR' to 'INT'.
+2. Create an index on the 'dept_name' column of the table you create in step (1).</text>
 
-3. Create an index on 'dept_name' column on the table you create in step (1).</text>
+3. Change the datatype of the 'salary' column of table 'salaries' to 'INTEGER'.
     </prompt>
 
 
 
-    <!-- Gated Prompts ffor READY_GENERIC -->    
+    <!-- Gated Prompts for READY_GENERIC -->    
     <prompt strategy="task" id="READY_GENERIC">
        <text>Type "ready" when you are ready to move on.</text>
     </prompt>
