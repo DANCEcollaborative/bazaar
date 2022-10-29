@@ -35,8 +35,10 @@
       
     <prompt strategy="task" id="P1a" intention="hint_task-1">
         <text>Two optimizations are required for this task: 
+        
 1. Create a denormalized table with columns 'emp_no', 'last_name' and 'first_name' from table 'employees'; and column 'salary' from table 'salaries'.
-2. Change the datatype of the 'salary' column from 'CHAR' to 'INT'.</text>
+
+2. Change the datatype of the 'salary' column from 'VARCHAR' to 'INT' in the table you create in step (1).</text>
     </prompt>
     
     
@@ -45,7 +47,9 @@
       
     <prompt strategy="task" id="P2a" intention="hint_task-2">
         <text>Two optimizations are required for this task: 
+        
 1. Create a denormalized table with columns 'emp_no' and 'title' from table 'titles', and columns 'first_name' and 'last_name' from table 'employees'.
+
 2. Create an index on the 'title' column of the table you create in step (1).</text>
     </prompt>
     
@@ -55,8 +59,11 @@
       
     <prompt strategy="task" id="P3a" intention="hint_task-3">
         <text>Three optimizations are required for this task: 
+        
 1. Create a denormalized table with columns 'emp_no', 'last_name' and 'first_name' from table 'employees'; and column 'dept_name' from table 'dept_emp_list'.
+
 2. Change the datatype of the 'salary' column of table 'salaries' from 'CHAR' to 'INT'.
+
 3. Create an index on 'depy_name' column on the table you create in step (1).</text>
     </prompt>
 
