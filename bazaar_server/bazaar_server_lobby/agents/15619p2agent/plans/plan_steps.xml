@@ -67,13 +67,13 @@
     </stage>   <!-- 5,60,60 -->
    
     <stage name="WrapUp" type="other" delay="0">   
-        <step type="prompt" delay="5" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>   
-    	<step type="send_end" delay="2">send_end</step>  
+    	<step type="send_end" delay="5">send_end</step>  
     </stage> 
   
     <stage name="EndStage" type="other" delay="0" timeout="4800">  
-        <step type="prompt" delay="5" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>  
         <step type="chatlog" delay="5" >CHAT_LOGS</step> 
     	<step type="send_end" delay="5">send_end</step>  
