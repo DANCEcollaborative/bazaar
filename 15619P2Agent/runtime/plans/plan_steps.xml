@@ -12,7 +12,7 @@
      	<!-- <step type="greet" timeout="45" delay="0">GREETINGS</step> -->    
     	<step type="prompt" delay="5" prompt="PROMPT_GREETING">PROMPT_GREETING</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">PROMPT_GREETING</step>
-    	<step type="prompt" delay="5" prompt="PROMPT_PRIMERS">PROMPT_PRIMERS</step>
+    	<step type="prompt" delay="15" prompt="PROMPT_PRIMERS">PROMPT_PRIMERS</step>
     </stage>  
     
     <stage name="StageLO1" type="other" delay="0">
@@ -75,7 +75,7 @@
     <stage name="EndStage" type="other" delay="0" timeout="4800">  
         <step type="prompt" delay="10" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>  
-        <step type="chatlog" delay="5" >CHAT_LOGS</step> 
+        <step type="chatlog" delay="10" >CHAT_LOGS</step> 
     	<step type="send_end" delay="5">send_end</step>  
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
