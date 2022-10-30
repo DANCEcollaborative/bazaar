@@ -4,11 +4,11 @@
 
 	<!-- GREETING PROMPTS -->  
 	
-    <prompt strategy="task" id="INTRODUCE" intention="Build_rapport">
+    <prompt strategy="task" id="PROMPT_INTRODUCE" intention="cut_off_PROMPT_INTRODUCE">
         <text>We're starting! I'm OPE_Bot.|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a moment to learn more about each other.</text>
     </prompt>
     
-    <prompt strategy="task" id="GREET" intention="Greet">
+    <prompt strategy="task" id="PROMPT_GREET" intention="cut_off_PROMPT_GREET">
         <text>Hi, [NAME].</text>
         <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME].</text>
@@ -19,34 +19,30 @@
 
 	<!-- GENERAL PROMPTS --> 
 	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START" intention="PROMPT_DISCUSSION_START">
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START" intention="cut_off_PROMPT_DISCUSSION_START">
      	<text>Let's discuss this solution. Take turns responding to the questions posed by the bot. We will move on after you have had some time to discuss.</text>
     </prompt> 
     
-	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER" intention="MYSQL_REMINDER">
+	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER" intention="cut_off_PROMPT_MYSQL_REMINDER">
      	<text>Remember that you can login to MySQL as follows.
 Command: mysql -u root -p -h 127.0.0.1
 Password: CloudCC@100
 Use database 'employees'.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER_PREV" intention="MYSQL_REMINDER">
-     	<text>Remember that you can login to MySQL using the command 'mysql -u root -p -h 127.0.0.1' and password 'CloudCC@100'. Then use database 'employees'.</text>
     </prompt> 
  
 
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
 	
-	<prompt strategy="task" id="PROMPT_GREETING" intention="PROMPT_GREETING">
+	<prompt strategy="task" id="PROMPT_GREETING" intention="cut_off_PROMPT_GREETING">
      	<text>We're starting! I'm OPE_Bot.</text>
     </prompt> 
 
-	<prompt strategy="task" id="PROMPT_SESSION_TIME" intention="PROMPT_SESSION_TIME">
+	<prompt strategy="task" id="PROMPT_SESSION_TIME" intention="cut_off_PROMPT_SESSION_TIME">
      	<text>Beginning now, you will have approximately 80 minutes to complete programming and submit to receive your grades.</text>
     </prompt> 
 	
-	<prompt strategy="task" id="PROMPT_PRIMERS" intention="PROMPT_PRIMERS">
+	<prompt strategy="task" id="PROMPT_PRIMERS" intention="cut_off_PROMPT_PRIMERS">
      	<text>Please share with the team (and with me) which primer(s) you read for this session.</text>
     </prompt> 
 
@@ -56,23 +52,23 @@ Use database 'employees'.</text>
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>
       
-    <prompt strategy="task" id="PROMPT_START_TASK1" intention="program1">
+    <prompt strategy="task" id="PROMPT_START_TASK1" intention="cut_off_PROMPT_START_TASK1">
         <text>Okay! Let's assign your responsibilities and then you can get started by reading file 'instructions/task1.md' and following its instructions.</text>
     </prompt>  
       
-    <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="PROMPT_TASK1_REMINDER">
+    <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="cut_off_PROMPT_TASK1_REMINDER">
         <text>Again, get started by reading file 'instructions/task1.md' and following its instructions.</text>
     </prompt>  
     
-    <prompt strategy="task" id="PROMPT_TEST_QUERY_1" intention="PROMPT_TEST_QUERY_1">
+    <prompt strategy="task" id="PROMPT_TEST_QUERY_1" intention="cut_off_PROMPT_TEST_QUERY_1">
         <text>To submit your final query, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter' and execute command './submitter -t task1'.</text>
     </prompt>  
     
-    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1" intention="prompt_for_reflection_1-1">
+    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_1">
      	<text>Exactly how can creating a denormalized table improve efficiency?</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_2" intention="prompt_for_reflection_1-2">
+    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_2" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_2">
      	<text>Give some examples of how changing a datatype can decrease space usage, query time, or both.</text>
     </prompt>
 
@@ -81,19 +77,19 @@ Use database 'employees'.</text>
 	<!-- HINTS & DISCUSSION FOR TASK 2 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="role_switch_warning">
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
         <text>Ok, we are switching roles now. Let's move on to 'instructions/task2.md'.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="PROMPT_TEST_QUERY_2">
+    <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="cut_off_PROMPT_TEST_QUERY_2">
         <text>To submit your final query, copy it to file 'solutions/task2.sql', then use the terminal to navigate to directory 'submitter' and execute command './submitter -t task2'.</text>
     </prompt>  
      
-    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1" intention="prompt_for_reflection_2-1">
+    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_1">
      	<text>What drawbacks could there be to creating a denormalized table?</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_2" intention="prompt_for_reflection_2-2">
+    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_2" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_2">
      	<text>Exactly how can creating an index improve query speed?</text>
     </prompt>
 
@@ -102,19 +98,19 @@ Use database 'employees'.</text>
 	<!-- HINTS & DISCUSSION FOR TASK 3 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
       
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="role_switch_warning">
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
         <text>Ok, we are switching roles now. Let's move on to 'instructions/task3.md'.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="PROMPT_TEST_QUERY_3">
+    <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="cut_off_PROMPT_TEST_QUERY_3">
         <text>To submit your final query, copy it to file 'solutions/task3.sql', then use the terminal to navigate to directory 'submitter' and execute command './submitter -t task3'.</text>
     </prompt>  
      
-    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1" intention="prompt_for_reflection_3-1">
+    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO3_REFLECTION_1">
      	<text>What are some tradeoffs that you considered between the three optimization methods -- for example between indexing and denormalization?</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_2" intention="prompt_for_reflection_3-2">
+    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_2" intention="cut_off_PROMPT_STEP_LO3_REFLECTION_2">
      	<text>What are the advantages to using a composite index and what are some of its limitations?</text>
     </prompt>
 
@@ -122,11 +118,11 @@ Use database 'employees'.</text>
 
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
-    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION" intention="ope_end">
+    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION" intention="cut_off_PROMPT_STEP_SUBMISSION">
      	<text>Thanks for participating in today's OPE activity. Execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="ope_end">
+    <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="cut_off_PROMPT_STEP_FINAL">
      	<text>I'm logging off. Thanks for participating in today's OPE activity. Remember to execute the submitter script './submitter' to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
     </prompt>
 
@@ -134,22 +130,22 @@ Use database 'employees'.</text>
  
 	<!-- ASSIGNMENT PROMPTS --> 
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH" intention="ROLE_ASSIGNMENT_TEMPLATE_1_INTRO">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH" intention="cut_off_PROMPT_STEP_MATCH">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1_INTRO">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="cut_off_PROMPT_STEP_MATCH_1">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_INTRO">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="cut_off_PROMPT_STEP_MATCH_2">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case. The project manager role is unassigned because this OPE is designed for teams of three.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_INTRO">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3" intention="cut_off_PROMPT_STEP_MATCH_3">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -157,7 +153,7 @@ Recall that the navigator brainstorms ideas and decides on one which the driver 
 Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO+MOB">
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="cut_off_PROMPT_STEP_MATCH_MAX_ALL">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -165,22 +161,22 @@ Recall that the researcher refers to resources like the primer as necessary. The
 Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY" intention="ROLE_ASSIGNMENT_TEMPLATE_1_FANCY">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY" intention="cut_off_PROMPT_STEP_ROTATE_FANCY">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1_FANCY">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_1">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_FANCY">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_2">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_FANCY">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_3">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -188,7 +184,7 @@ Recall that the navigator brainstorms ideas and decides on one which the driver 
 Recall that the researcher refers to resources like the primer as necessary.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY+MOB">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
@@ -196,29 +192,29 @@ Recall that the researcher refers to resources like the primer as necessary.</te
 Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_1">
         <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_2">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_3">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4+MOB">
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_MAX_ALL">
         <text>The new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
