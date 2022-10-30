@@ -22,8 +22,15 @@
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START" intention="PROMPT_DISCUSSION_START">
      	<text>Let's discuss this solution. Take turns responding to the questions posed by the bot. We will move on after you have had some time to discuss.</text>
     </prompt> 
-	
+    
 	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER" intention="MYSQL_REMINDER">
+     	<text>Remember that you can login to MySQL as follows.
+Command: mysql -u root -p -h 127.0.0.1
+Password: CloudCC@100
+Use database 'employees'.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER_PREV" intention="MYSQL_REMINDER">
      	<text>Remember that you can login to MySQL using the command 'mysql -u root -p -h 127.0.0.1' and password 'CloudCC@100'. Then use database 'employees'.</text>
     </prompt> 
  
@@ -51,6 +58,10 @@
       
     <prompt strategy="task" id="PROMPT_START_TASK1" intention="program1">
         <text>Okay! Let's assign your responsibilities and then you can get started by reading file 'instructions/task1.md' and following its instructions.</text>
+    </prompt>  
+      
+    <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="PROMPT_TASK1_REMINDER">
+        <text>Again, get started by reading file 'instructions/task1.md' and following its instructions.</text>
     </prompt>  
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_1" intention="PROMPT_TEST_QUERY_1">
