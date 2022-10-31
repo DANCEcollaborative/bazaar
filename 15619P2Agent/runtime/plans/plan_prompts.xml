@@ -53,11 +53,11 @@ Use database 'employees'.</text>
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>
       
     <prompt strategy="task" id="PROMPT_START_TASK1" intention="cut_off_PROMPT_START_TASK1">
-        <text>Okay! Let's assign your responsibilities and then you can get started by reading file 'instructions/task1.md' and following its instructions.</text>
+        <text>Okay! Let's assign your responsibilities and then you can get started.</text>
     </prompt>  
       
     <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="cut_off_PROMPT_TASK1_REMINDER">
-        <text>Again, get started by reading file 'instructions/task1.md' and following its instructions.</text>
+        <text>Please read file 'instructions/task1.md' and follow its instructions.</text>
     </prompt>  
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_1" intention="cut_off_PROMPT_TEST_QUERY_1">
