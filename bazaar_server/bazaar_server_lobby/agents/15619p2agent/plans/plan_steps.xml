@@ -51,7 +51,7 @@
     </stage>   <!-- 5,60,60 -->
     
     <stage name="StageLO3" type="other" delay="0">  
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-3</step>  
+    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="3">logstate_ope-iteration-3</step>  
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
