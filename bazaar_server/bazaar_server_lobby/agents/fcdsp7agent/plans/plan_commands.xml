@@ -2,19 +2,19 @@
 <prompts>
 	
     <prompt id="COMMAND_1">
-        <text>openssl enc -d -aes-256-cbc -a -in ~/environment/task1.enc -out ~/environment/task1.py -pass pass:8D8C368627985BF &amp;&amp; rm ~/environment/task1.enc</text>
+        <text>openssl enc -d -aes-256-cbc -a -in environment/task1.enc -out environment/task1.py -pass pass:8D8C368627985BF &amp;&amp; rm environment/task1.enc</text>
     </prompt>
 	
     <prompt id="COMMAND_2">
-        <text>openssl enc -d -aes-256-cbc -a -in ~/environment/task2.enc -out ~/environment/task2.py -pass pass:8D8C368627985BF &amp;&amp; rm ~/environment/task2.enc</text>
+        <text>openssl enc -d -aes-256-cbc -a -in environment/task2.enc -out environment/task2.py -pass pass:8D8C368627985BF &amp;&amp; rm environment/task2.enc</text>
     </prompt>
 	
     <prompt id="COMMAND_3">
-        <text>openssl enc -d -aes-256-cbc -a -in ~/environment/task3.enc -out ~/environment/task3.py -pass pass:8D8C368627985BF &amp;&amp; rm ~/environment/task3.enc</text>
+        <text>openssl enc -d -aes-256-cbc -a -in environment/task3.enc -out environment/task3.py -pass pass:8D8C368627985BF &amp;&amp; rm environment/task3.enc</text>
     </prompt>
 	
     <prompt id="COMMAND_4">
-        <text>openssl enc -d -aes-256-cbc -a -in ~/environment/task4.enc -out ~/environment/task4.py -pass pass:8D8C368627985BF &amp;&amp; rm ~/environment/task4.enc</text>
+        <text>openssl enc -d -aes-256-cbc -a -in environment/task4.enc -out environment/task4.py -pass pass:8D8C368627985BF &amp;&amp; rm environment/task4.enc</text>
     </prompt>
 
 </prompts>
