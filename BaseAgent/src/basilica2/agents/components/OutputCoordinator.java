@@ -114,27 +114,27 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 	public void addAll(Collection<PriorityEvent> events)
 	{
- 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.addAll Proposal Queue -- Start ==========================");
- 		System.err.println("==================== OutputCoordinator.addAll Proposal Queue -- Start ==========================");
- 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER addAll ====================");
- 		System.err.print("==================== PROPOSAL QUEUE -- ENTER addAll ====================\n");
+// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.addAll Proposal Queue -- Start ==========================");
+// 		System.err.println("==================== OutputCoordinator.addAll Proposal Queue -- Start ==========================");
+// 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER addAll ====================");
+// 		System.err.print("==================== PROPOSAL QUEUE -- ENTER addAll ====================");
 // 		printProposalQueue(); 
 		synchronized (proposalQueue)
 		{
-			log(Logger.LOG_NORMAL, "OutputCoordinator.addAll: addAll events to Proposal Queue: " + proposalQueue);
+//			log(Logger.LOG_NORMAL, "OutputCoordinator.addAll: addAll events to Proposal Queue: " + proposalQueue);
 			proposalQueue.addAll(events);
 		}
 		Iterator<PriorityEvent> pit = proposalQueue.iterator();
 		while (pit.hasNext()) {
 			PriorityEvent p = pit.next();
- 			log(Logger.LOG_NORMAL, "OutputCoordinator.addAll PriorityEvent: " + p.toString());
- 			System.err.println( "OutputCoordinator.addAll PriorityEvent: " + p.toString());
+// 			log(Logger.LOG_NORMAL, "OutputCoordinator.addAll PriorityEvent: " + p.toString());
+// 			System.err.println( "OutputCoordinator.addAll PriorityEvent: " + p.toString());
  		}
- 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.addAll ====================");
- 		System.err.print("==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.addAll ====================\n");
- 		printProposalQueue(); 
- 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.addAll Proposal Queue -- Done ==========================");
- 		System.err.println("==================== OutputCoordinator.addAll Proposal Queue -- Done ==========================");
+// 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.addAll ====================");
+// 		System.err.print("==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.addAll ====================");
+// 		printProposalQueue(); 
+// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.addAll Proposal Queue -- Done ==========================");
+// 		System.err.println("==================== OutputCoordinator.addAll Proposal Queue -- Done ==========================");
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		{
 			i++; 
 			log(Logger.LOG_NORMAL, i.toString()+ ".  source: " + s.toString());
-			System.err.println(i.toString() + ".  source: " + s.toString() + "\n");
+			System.err.println(i.toString() + ".  source: " + s.toString() + "");
 		}
 	}
 	
@@ -178,27 +178,27 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			String key = pat.next();
 			AbstractPrioritySource s = activeSources.get(key);
 			log(Logger.LOG_NORMAL, i.toString()+ ".  key: " + key.toString() + "  source: " + s.toString());
-			System.err.print(i.toString()+ ".  key: " + key.toString() + "  source: " + s.toString() + "\n");
+			System.err.print(i.toString()+ ".  key: " + key.toString() + "  source: " + s.toString() + "");
 		}		
 	}
 
 	public void timedOut(String id)
 	{
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- ENTER ==========================");
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		System.err.println("===================================================================================");
- 		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
- 		System.err.println("===================================================================================");
- 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
- 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================\n");
- 		printProposalQueue(); 
- 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
- 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.timedout ====================\n");
- 		printActiveSources(); 
- 		log(Logger.LOG_NORMAL, "==================== recentSources -- ENTER OutputCoordinator.timedout ====================");
- 		System.err.print("==================== recentSources -- ENTER OutputCoordinator.timedout ====================\n");
- 		printRecentSources(); 
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- ENTER ==========================");
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		System.err.println("===================================================================================");
+// 		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
+// 		System.err.println("===================================================================================");
+// 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
+// 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
+// 		printProposalQueue(); 
+// 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
+// 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
+// 		printActiveSources(); 
+// 		log(Logger.LOG_NORMAL, "==================== recentSources -- ENTER OutputCoordinator.timedout ====================");
+// 		System.err.print("==================== recentSources -- ENTER OutputCoordinator.timedout ====================");
+// 		printRecentSources(); 
 		synchronized (proposalQueue)
 		{
 			if (!proposalQueue.isEmpty())
@@ -214,7 +214,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					double belief = beliefGivenHistory(p);
 					double d = belief * p.getPriority();
 
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - eventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - eventType: "+p.getEventType()+ " StepName: "+p.getMicroStepName()+ " belief*priority: " + belief + "*" + p.getPriority() + "=" + d + " p="+p);
 
 					if (d > 0 && (d > bestBelief))
 					{
@@ -226,88 +226,88 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (best != null)
 				{
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - Execute 'best': " + best.toString() + "  microStepName: " + best.getMicroStepName() + "  lastStepName: " + lastStepName);
- 					System.err.println("OutputCoordinator.timedout - Execute 'best': " + best.toString());
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - Execute 'best': " + best.toString() + "  microStepName: " + best.getMicroStepName() + "  lastStepName: " + lastStepName);
+// 					System.err.println("OutputCoordinator.timedout - Execute 'best': " + best.toString());
 					// if the proposal about to be executed belongs to a new step, 
 					// set removeStepName which is used in cleanUp() to remove micro_local proposals belonging to this step 
 					if (lastStepName!=null && (!best.getMicroStepName().equals(lastStepName)))
 					{
 						removeStepName = lastStepName;
- 						log(Logger.LOG_NORMAL, "OutputCoordinator.timedout remove lastStepName (!= best): " + removeStepName);
- 						System.err.println("OutputCoordinator.timedout remove lastStepName (!= best): " + removeStepName);
+// 						log(Logger.LOG_NORMAL, "OutputCoordinator.timedout remove lastStepName (!= best): " + removeStepName);
+// 						System.err.println("OutputCoordinator.timedout remove lastStepName (!= best): " + removeStepName);
 					}
 					lastStepName = best.getMicroStepName();
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
- 					System.err.println("OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
+// 					System.err.println("OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
 					
 					best.getCallback().accepted(best);
 					publishEvent(best.getEvent());
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent());
- 					System.err.println("OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent()); 
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent());
+// 					System.err.println("OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent()); 
 					proposalQueue.remove(best);
 
 					AbstractPrioritySource source = best.getSource();
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: best source: " + source.toString());
- 					System.err.println("OutputCoordinator.timedout: best source: " + source.toString());
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: best source: " + source.toString());
+// 					System.err.println("OutputCoordinator.timedout: best source: " + source.toString());
 
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - adding best source to ActiveSources: " + source.toString());
- 					System.err.println("OutputCoordinator.timedout - adding best source to ActiveSources: " + source.toString());
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - adding best source to ActiveSources: " + source.toString());
+// 					System.err.println("OutputCoordinator.timedout - adding best source to ActiveSources: " + source.toString());
 					activeSources.put(source.getName(), source);
 					// keep the size of recentSources <= HISTORY_SIZE
 					if (recentSources.size() >= HISTORY_SIZE) {
- 						log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Removing source: " + recentSources.get(0).toString());
- 						System.err.println("OutputCoordinator.timedout: Removing source: " + recentSources.get(0).toString()); 
+// 						log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Removing source: " + recentSources.get(0).toString());
+// 						System.err.println("OutputCoordinator.timedout: Removing source: " + recentSources.get(0).toString()); 
 						recentSources.remove(0);
 					}
 
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Adding best source to recentSources: " + source.toString());
- 					System.err.println("OutputCoordinator.timedout: Adding best source to recentSources: " + source.toString());
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout: Adding best source to recentSources: " + source.toString());
+// 					System.err.println("OutputCoordinator.timedout: Adding best source to recentSources: " + source.toString());
 					recentSources.add(source); 
 				}
 			}
 		}
 // 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.timedOut ====================");
-// 		System.err.print("==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.timedOut ====================\n");
+// 		System.err.print("==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.timedOut ====================");
 // 		printProposalQueue(); 
 // 		log(Logger.LOG_NORMAL, "==================== activeSources -- EXIT OutputCoordinator.timedOut ====================");
-// 		System.err.print("==================== activeSources -- EXIT OutputCoordinator.timedOut ====================\n");
+// 		System.err.print("==================== activeSources -- EXIT OutputCoordinator.timedOut ====================");
 // 		printActiveSources(); 
 // 		log(Logger.LOG_NORMAL, "==================== recentSources -- OutputCoordinator.timedOut TIMEDOUT ====================");
-// 		System.err.print("==================== recentSources -- EXIT OutputCoordinator.timedOut ====================\n");
+// 		System.err.print("==================== recentSources -- EXIT OutputCoordinator.timedOut ====================");
 // 		printRecentSources(); 
 
 		new Timer(delay, "Output Queue", this).start();
 
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- EXIT ==========================");
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		System.err.println("===================================================================================");
- 		System.err.println("==================== OutputCoordinator.timedout -- EXIT ==========================");
- 		System.err.println("===================================================================================");
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.timedout -- EXIT ==========================");
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		System.err.println("===================================================================================");
+// 		System.err.println("==================== OutputCoordinator.timedout -- EXIT ==========================");
+// 		System.err.println("===================================================================================");
 	}
 
 	private void cleanUp()
 	{
 		Iterator<PriorityEvent> pit = proposalQueue.iterator();
 		long now = Timer.currentTimeMillis();
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.cleanUp -- ENTER ==========================");
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		System.err.println("===================================================================================");
- 		System.err.println("==================== OutputCoordinator.cleanUp -- ENTER ==========================");
- 		System.err.println("===================================================================================");
- 		log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp - removeStepName: " + removeStepName);
- 		System.err.println("OutputCoordinator.cleanUp - removeStepName: " + removeStepName);
- 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.cleanUp ====================\n");
- 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.cleanUp ====================\n");
- 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.cleanUp ====================");
- 		printProposalQueue(); 
- 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.cleanUp ====================");
- 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.cleanUp ====================\n");
- 		printActiveSources(); 
- 		log(Logger.LOG_NORMAL, "==================== recentSources -- ENTER OutputCoordinator.cleanUp ====================");
- 		System.err.print("==================== recentSources -- ENTER OutputCoordinator.cleanUp ====================\n");
- 		printRecentSources(); 
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.cleanUp -- ENTER ==========================");
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		System.err.println("===================================================================================");
+// 		System.err.println("==================== OutputCoordinator.cleanUp -- ENTER ==========================");
+// 		System.err.println("===================================================================================");
+// 		log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp - removeStepName: " + removeStepName);
+// 		System.err.println("OutputCoordinator.cleanUp - removeStepName: " + removeStepName);
+// 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.cleanUp ====================");
+// 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.cleanUp ====================");
+// 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.cleanUp ====================");
+// 		printProposalQueue(); 
+// 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.cleanUp ====================");
+// 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.cleanUp ====================");
+// 		printActiveSources(); 
+// 		log(Logger.LOG_NORMAL, "==================== recentSources -- ENTER OutputCoordinator.cleanUp ====================");
+// 		System.err.print("==================== recentSources -- ENTER OutputCoordinator.cleanUp ====================");
+// 		printRecentSources(); 
 // 		
 		while (pit.hasNext())
 
@@ -320,8 +320,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				if (p.getInvalidTime() < now && !p.getEventType().equals("macro")) 
 				{
 					// remove timeout micro proposals
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp micro timeout - remove PriorityEvent: " + p.toString());
- 					System.err.print("OutputCoordinator.cleanUp micro timeout - remove PriorityEvent: " + p.toString() + "\n");
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp micro timeout - remove PriorityEvent: " + p.toString());
+// 					System.err.print("OutputCoordinator.cleanUp micro timeout - remove PriorityEvent: " + p.toString() + "");
 					p.getCallback().rejected(p);
 					pit.remove();
 
@@ -334,8 +334,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}else if (p.getEventType().equals("micro_local") && removeStepName!=null && p.getMicroStepName().equals(removeStepName))
 				{
 					// remove past steps' micro_local proposals
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp micro_local - remove PriorityEvent for removeStepName: " + p.toString());
- 					System.err.print("OutputCoordinator.cleanUp micro_local - remove PriorityEvent for removeStepName: " + p.toString() + "\n");
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp micro_local - remove PriorityEvent for removeStepName: " + p.toString());
+// 					System.err.print("OutputCoordinator.cleanUp micro_local - remove PriorityEvent for removeStepName: " + p.toString() + "");
 					p.getCallback().rejected(p);
 					pit.remove();
 					removeStepName=null;
@@ -350,28 +350,28 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 				if (!source.isBlocking())
 				{
- 					log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp remove non-blocking activeSource: " + source.toString() + "   key: " + key.toString());
- 					System.err.print("OutputCoordinator.cleanUp remove non-blocking activeSource: " + source.toString() + "   key: " + key.toString() + "\n");
+// 					log(Logger.LOG_NORMAL, "OutputCoordinator.cleanUp remove non-blocking activeSource: " + source.toString() + "   key: " + key.toString());
+// 					System.err.print("OutputCoordinator.cleanUp remove non-blocking activeSource: " + source.toString() + "   key: " + key.toString() + "");
 					activeSources.remove(key);
 				}
 			}
 		}
- 		System.err.print("==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.cleanUp ====================\n");
- 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.cleanUp ====================");
- 		printProposalQueue(); 
- 		log(Logger.LOG_NORMAL, "==================== activeSources -- EXIT OutputCoordinator.cleanUp ====================");
- 		System.err.print("==================== activeSources -- EXIT OutputCoordinator.cleanUp ====================\n");
- 		printActiveSources(); 
- 		log(Logger.LOG_NORMAL, "==================== recentSources -- EXIT OutputCoordinator.cleanUp ====================");
- 		System.err.print("==================== recentSources -- EXIT cleanUp ====================\n");
- 		printRecentSources(); 
- 
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.cleanUp -- EXIT ==========================");
- 		log(Logger.LOG_NORMAL, "===================================================================================");
- 		System.err.println("===================================================================================");
- 		System.err.println("==================== OutputCoordinator.cleanUp -- EXIT ==========================");
- 		System.err.println("===================================================================================");
+// 		System.err.print("==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.cleanUp ====================");
+// 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- EXIT OutputCoordinator.cleanUp ====================");
+// 		printProposalQueue(); 
+// 		log(Logger.LOG_NORMAL, "==================== activeSources -- EXIT OutputCoordinator.cleanUp ====================");
+// 		System.err.print("==================== activeSources -- EXIT OutputCoordinator.cleanUp ====================");
+// 		printActiveSources(); 
+// 		log(Logger.LOG_NORMAL, "==================== recentSources -- EXIT OutputCoordinator.cleanUp ====================");
+// 		System.err.print("==================== recentSources -- EXIT cleanUp ====================");
+// 		printRecentSources(); 
+// 
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		log(Logger.LOG_NORMAL, "==================== OutputCoordinator.cleanUp -- EXIT ==========================");
+// 		log(Logger.LOG_NORMAL, "===================================================================================");
+// 		System.err.println("===================================================================================");
+// 		System.err.println("==================== OutputCoordinator.cleanUp -- EXIT ==========================");
+// 		System.err.println("===================================================================================");
 	}
 
 	protected void publishEvent(Event e)
