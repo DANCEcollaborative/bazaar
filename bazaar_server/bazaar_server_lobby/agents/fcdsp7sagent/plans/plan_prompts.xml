@@ -28,7 +28,7 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
-        <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have 75 minutes to complete programming and to submit to receive your grades.</text>
+        <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities.</text>
     </prompt>
 	
     <prompt strategy="task" id="P1a" intention="parsons_prompt_start_0">
@@ -77,7 +77,8 @@ return the model score</text>
       
     <prompt strategy="task" id="P1g" intention="parsons_prompt_final_0">
         <text>Remember to make sure the 'wget ...' command above COMPLETES SUCCESSFULLY before running the test case. If it doesn't complete successfully, just execute the command again.</text>
-    </prompt>     
+    </prompt> 
+        
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
      	<text>Project Manager, please lead the discussion - You already know why it's extremely bad practice to use part of the train set as test set. Now, discuss why usage of preprocessor should follow the same logic.</text>
     </prompt>
