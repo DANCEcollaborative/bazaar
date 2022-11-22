@@ -16,21 +16,6 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
   - [More links and publications](http://ankara.lti.cs.cmu.edu/bazaar/)
   - Most of the dialog files that you'll want to edit are in the runtime directory – e.g., …/WeatherAgent/runtime/.
 
-# Docker agents vs. Legacy agents
-- Legacy agents are deprecated. They
-    - Often have "Legacy" in their name.
-    - Use an older socket.io method.
-        - Include Java project 'SocketIOClientLegacy'.
-            - Includes Java program 'WebsocketChatClientLegacy.java'.
-        - Include file 'AGENT_NAME/runtime/properties/WebsocketChatClientLegacy.properties'.
-- Docker agents are current. They
-    - Never have "Legacy" in their name.
-    - Run in a Docker container.
-    - Use a newer socket.io method.
-    - Include Java project 'SocketIOClient'.
-        - Includes Java program 'WebsocketChatClient.java'.
-    - Include file 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties'.
-
 # Install Java JDK 1.8 and Apache Ant
 Java 1.8 is recommended for running Bazaar. Older and newer versions may not work. Following are instructions for installing Java 1.8 in addition to any other Javas you may have installed. Some of these instructions are specific to Mac but can be generalized to Windows, etc.
 - On Mac:
@@ -75,7 +60,7 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
       - Check "Detect and configure project natures"
     - Click "Finish"
 
-# Install and run the canonical Docker version in an IDE
+# Install and run in an IDE
 - Installing
   - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above)
   - [Install this repository](https://github.com/DANCEcollaborative/bazaar/tree/master).
@@ -107,45 +92,11 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
             - .../2/STUDENTB/2/...
             - .../3/STUDENTC/3/…
 
-# Install and run the legacy version in an IDE
-A few of the tutor agents are set up to use an older ("legacy") version of sockets, including WeatherLegacyAgent and MTurkLegacyAgent.
-- Installing
-  - Install a Java JDK. OpenJDK’s 1.8 is recommended. (See above.)
-  - Install Eclipse Java Enterprise or another IDE.
-  - Within the IDE, install [this repository](https://github.com/DANCEcollaborative/bazaar).
-- Running
-  - A chat room startup window will be displayed.
-     - Select the agent’s behavior conditions.
-     - For “Room Name,” use a unique 5-digit number.
-     - Press ’Start Agent’
-  - To join the chat room: In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names. http://bazaar.lti.cs.cmu.edu/chat/ROOM/1/STUDENT/1/?html=index_ccc
-     - For ROOM, use the Room Name you selected in the chat room window.
-     - Use your choice for STUDENT. For multiple students:
-       - Use a unique STUDENT name for each.
-       - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
-       - The first number is the student ID, and must be unique.
-       - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
-         - E.g., for multiple students, :
-           - .../1/STUDENTA/1/…
-           - .../2/STUDENTB/2/...
-           - .../3/STUDENTC/3/…
-
-# Convert a legacy agent to a Docker agent
-- Replace the agent's file '…/runtime/properties/WebsocketChatClientLegacy.properties' with a copy of (e.g.) the file 'ClimateChangeAgent/runtime/properties/WebsocketChatClient.properties'.
-- In the agent's file '…/runtime/agent.xml' replace both instances of "WebsocketChatClientLegacy" with "WebsocketChatClient".
-- If any src files include the line 'import basilica2.socketchat.WebsocketChatClientLegacy', change those lines to 'import basilica2.socketchat.WebsocketChatClient'.
-- In the .classpath file, replace ‘SocketIOClientLegacy’ with ‘SocketIOClient’.
-- If you are using a project file, remove 'Legacy' from the agent name.
-- If you are using a .launch file, remove 'Legacy' from the agent name.
-
 # Install a Bazaar Docker agent on a Linux server
 NOTE: This is only for agents that use the newer Docker sockets method. The older sockets method is deprecated.
 
 - Install the Bazaar server
-   - Server files are in [this repository](https://github.com/DANCEcollaborative/bazaar), within subdirectory 'bazaar_server/'. There are two versions with only minor differences.
-      - **'bazaar_server/bazaar_server_lobby'** is for an https server with a "Lobby" for combining students in groups. **These instructions will install this version since it is most advanced.**
-      - 'bazaar_server/bazaar_server_https' is for an https server without a Bazaar Lobby.
-      - The two versions may be installed together on the same server so long as they use different port numbers as described below.
+   - Server files are in directory [**'bazaar_server/bazaar_server_lobby'**](https://github.com/DANCEcollaborative/bazaar/tree/master/bazaar_server/bazaar_server_lobby).
 
   - Set up your web server code to route URLs that include
       - '/bazaar' for HTTP protocol or '/bazsocket' for websockets to a port such as '8300'.
@@ -171,9 +122,6 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
         - For the https version, you may also need to execute the following:
           - sudo a2enmod ssl
         - Execute: sudo systemctl restart apache2
-
-  - Install MySQL on the server.
-    - A copy of the MySQL database structure without content is available in [this repository](https://github.com/DANCEcollaborative/bazaar) at 'bazaar_server_lobby/mysql/msql-structure-only.sql'.
 
   - Install and start Docker.
       - Install [Docker for Linux](https://docs.docker.com/engine/install/).
