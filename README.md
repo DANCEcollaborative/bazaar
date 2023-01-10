@@ -70,9 +70,9 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
    - In a terminal window
      - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
        - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_lobby
-     - Enter: docker-compose -f docker-compose-dev.yml build
+     - Enter: docker compose -f docker-compose-dev.yml build
        - This command will take longer the first time it is executed as it downloads several things.
-     - Enter: docker-compose -f docker-compose-dev.yml up -d
+     - Enter: docker compose -f docker-compose-dev.yml up -d
        - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
    - Within the IDE, run a Docker agent, such as ClimateChangeAgent.
      - A chat room startup window will be displayed.
@@ -166,7 +166,7 @@ NOTE: This is only for agents that use the newer Docker sockets method. The olde
 
 - Start the Docker containers:
    - cd bazaar_server_lobby
-   - sudo docker-compose up --build -d
+   - sudo docker compose up --build -d
 
 # Run a Bazaar Docker agent on a Linux server.
   - Install a Bazaar Docker agent on a server as described above.
