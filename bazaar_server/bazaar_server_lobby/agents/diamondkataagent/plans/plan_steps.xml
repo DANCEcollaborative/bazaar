@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Diamond Kata discussion">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+    <stage name="initiate" type="other" delay="0">  	    
+        <step type="prompt" timeout="15" delay="7" prompt="WELCOME">WELCOME</step>
+        <step type="greet" timeout="30" delay="5">GREETINGS</step>
+        <step type="prompt" delay="7" prompt="INTRODUCE_ACTIVITY" >INTRODUCE_ACTIVITY</step>  
+    </stage>
+    
+    <stage name="testcase1" type="other" delay="10">  
+        <step type="match" delay="4" prompt="ASSIGN_ROLES" >ASSIGN_ROLES</step>       
+        <step type="prompt" delay="10" prompt="TAKE_POSITIONS" >TAKE_SEATS_AND_WORK</step>     
+        <step type="prompt" delay="0" prompt="INTRO_TESTCASE_1" >INTRO_TESTCASE_1</step>        
+        <step type="file_gated" timeout="90" delay="0" file="test-a" checkin_prompt="NONE" >FIRST_TESTCASE</step> 
+    </stage>
+    
+    <stage name="testcase2" type="other" delay="10">      
+        <step type="prompt" delay="4" prompt="INTRO_TESTCASE_2" >INTRO_TESTCASE_2</step>            
+        <step type="rotate" delay="0" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_2</step>      
+        <step type="file_gated" timeout="60" delay="0" file="test-b" checkin_prompt="NONE" >SECOND_TESTCASE</step>  
+    </stage>
+    
+    <stage name="testcase3" type="other" delay="10">   
+        <step type="prompt" delay="4" prompt="INTRO_TESTCASE_3" >INTRO_TESTCASE_3</step>             
+        <step type="rotate" delay="0" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_3</step>    
+        <step type="file_gated" timeout="60" delay="0" file="test-c" checkin_prompt="NONE" >THIRD_TESTCASE</step> 
+    </stage>
+    
+    <stage name="testcase4" type="other" delay="10">   
+        <step type="prompt" delay="4" prompt="INTRO_TESTCASE_4" >INTRO_TESTCASE_4</step>        
+        <step type="rotate" delay="0" prompt="ROTATE_ROLES" >ROTATE_ROLES_STEP_4</step>    
+        <step type="file_gated" timeout="60" delay="0" file="test-d" checkin_prompt="NONE" >FOURTH_TESTCASE</step> 
+    </stage>
+    
+    <stage name="exercise_complete" type="other" delay="0">    
+        <step type="prompt" delay="30" prompt="FINAL_EXERCISE_PROMPT" >FINAL_EXERCISE_PROMPT</step>         
+    </stage>
+    
+    <stage name="EndStage" type="other" delay="0" timeout="480">
+        <step type="prompt" delay="10" prompt="PROMPT_END" >PROMPT_END</step>
+        <step type="prompt" delay="20" prompt="HAVE_A_NICE_DAY" >HAVE_A_NICE_DAY</step>
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
