@@ -73,61 +73,64 @@ public class FileStepHandler implements StepHandler
 		// delayedPrompt	
 		String delayedPrompt = currentStep.attributes.get("delayed_prompt");
 		System.err.println("FileStepHandler: delayedPrompt before processing: " + delayedPrompt);
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPrompt before processing: " + delayedPrompt);
 		
-		List<String> delayedPromptList = null; 
-		if (delayedPrompt.contains(",")) {
-			delayedPromptList = Stream.of(delayedPrompt.split(",")).collect(Collectors.toList());
-		} else {
-//			delayedPromptList.add(delayedPrompt); 
-			delayedPromptList = Stream.of(delayedPrompt).collect(Collectors.toList());
-		}
-		
-		String delayedPromptTimeString = currentStep.attributes.get("delayed_prompt_time");
-//		System.err.println("FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
-//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
-		List<String> delayedPromptTimeList = null; 
-		if (delayedPromptTimeString.contains(",")) {
-			delayedPromptTimeList = Stream.of(delayedPromptTimeString.split(",")).collect(Collectors.toList());
-		} else {
-//			delayedPromptTimeList.add(delayedPromptTimeString); 
-			delayedPromptTimeList = Stream.of(delayedPromptTimeString).collect(Collectors.toList());
-		}	
-		
-//		System.err.println("delayedPromptList: " + delayedPromptList); 	
-//		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
-		
-		
-//		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
-		if (!delayedPromptList.isEmpty()) 
-		{	
-//			System.err.println("FileStepHandler: Setting delayed prompt(s)"); 
-//			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: Setting delayed prompt(s)");
+		if (delayedPrompt != null) {
+			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPrompt before processing: " + delayedPrompt);
 			
-			for (int i=0; i < delayedPromptList.size(); i++) {
-				Integer promptTime = Integer.valueOf(delayedPromptTimeList.get(i)); 
-				String promptName = delayedPromptList.get(i); 		// Set name for RANDOM_STUDENT
-//				int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, studentNames.size());
-//				slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
-				new Timer(promptTime, currentStep.name, new TimeoutAdapter() 
-				{
-					@Override
-					public void timedOut(String id)
+			List<String> delayedPromptList = null; 
+			if (delayedPrompt.contains(",")) {
+				delayedPromptList = Stream.of(delayedPrompt.split(",")).collect(Collectors.toList());
+			} else {
+	//			delayedPromptList.add(delayedPrompt); 
+				delayedPromptList = Stream.of(delayedPrompt).collect(Collectors.toList());
+			}
+			
+			String delayedPromptTimeString = currentStep.attributes.get("delayed_prompt_time");
+	//		System.err.println("FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
+	//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: delayedPromptTimeString before processing: " + delayedPromptTimeString);
+			List<String> delayedPromptTimeList = null; 
+			if (delayedPromptTimeString.contains(",")) {
+				delayedPromptTimeList = Stream.of(delayedPromptTimeString.split(",")).collect(Collectors.toList());
+			} else {
+	//			delayedPromptTimeList.add(delayedPromptTimeString); 
+				delayedPromptTimeList = Stream.of(delayedPromptTimeString).collect(Collectors.toList());
+			}	
+			
+	//		System.err.println("delayedPromptList: " + delayedPromptList); 	
+	//		System.err.println("delayedPromptTimeList: " + delayedPromptTimeList); 
+			
+			
+	//		System.err.println("FileStepHandler, execute - delayedPromptTime = " + String.valueOf(delayedPromptTime) + "   delayedPrompt = " + delayedPrompt);
+			if (!delayedPromptList.isEmpty()) 
+			{	
+	//			System.err.println("FileStepHandler: Setting delayed prompt(s)"); 
+	//			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: Setting delayed prompt(s)");
+				
+				for (int i=0; i < delayedPromptList.size(); i++) {
+					Integer promptTime = Integer.valueOf(delayedPromptTimeList.get(i)); 
+					String promptName = delayedPromptList.get(i); 		// Set name for RANDOM_STUDENT
+	//				int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, studentNames.size());
+	//				slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
+					new Timer(promptTime, currentStep.name, new TimeoutAdapter() 
 					{
-						if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+						@Override
+						public void timedOut(String id)
 						{
-//							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName,slots));
-							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName));
-
-//							System.err.println("FileStepHandler: pushing message: " + prompter.lookup(promptName));
-//							Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: pushing message: " + prompter.lookup(promptName));
-//							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
-//							source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 8.0, 4));
-//							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGH_PRIORITY, 7);
-							source.pushNamedEventProposal("micro_local", delayedMessage, promptName, OutputCoordinator.HIGH_PRIORITY, 7);
+							if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
+							{
+	//							MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName,slots));
+								MessageEvent delayedMessage = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(promptName));
+	
+	//							System.err.println("FileStepHandler: pushing message: " + prompter.lookup(promptName));
+	//							Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileStepHandler: pushing message: " + prompter.lookup(promptName));
+	//							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 15);
+	//							source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "MessageEvent", delayedMessage, OutputCoordinator.HIGHEST_PRIORITY, 8.0, 4));
+	//							source.pushEventProposal(delayedMessage, OutputCoordinator.HIGH_PRIORITY, 7);
+								source.pushNamedEventProposal("micro_local", delayedMessage, promptName, OutputCoordinator.HIGH_PRIORITY, 7);
+							}
 						}
-					}
-				}).start();
+					}).start();
+				}
 			}
 		}
 
