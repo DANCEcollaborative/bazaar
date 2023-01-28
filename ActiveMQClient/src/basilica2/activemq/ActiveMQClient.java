@@ -186,8 +186,9 @@ public class ActiveMQClient extends Component implements ChatClient
     	
     	String origText = me.getText(); 
     	String[] origMessage = origText.split(multiModalDelim);
-    
-		if (origMessage.length == 0) {				// Don't trim if not a multimodal message
+    	
+
+		if (origMessage.length == 1) {				// Don't trim if not a multimodal message
 			return me; 
 			
 		} else {									// This is a multimodal message 
