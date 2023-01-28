@@ -508,7 +508,7 @@ const MESSAGE_BACKLOG = 200,
 let LOCKDOWN_TIME = 0;
 // let LOCKDOWN_TIME = 365*24*60*60*1000; //lobby open for 1 year
 let START_TIME = new Date().getTime();
-const chat_url = "https://bazaar.lti.cs.cmu.edu/bazaar/chat/";
+const chat_url = "https://bree.lti.cs.cmu.edu/bazaar/chat/";
 const roomname_prefix = "jeopardybigwgu";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
