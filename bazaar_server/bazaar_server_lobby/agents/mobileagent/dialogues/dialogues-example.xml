@@ -2,14 +2,14 @@
 <dialogs>
     
   
-    <dialog concept="LEFT" scenario="scenario-hugs">
+    <dialog concept="LEFT" scenario="scenario-left">
     	<trigger annotation="LEFT"/>
         <intro>Look left</intro>
         <accept annotation="AFFIRMATIVE">Look left</accept>
         <cancel annotation="NEGATIVE">Look left</cancel>
     </dialog>
 
-    <dialog concept="RIGHT" scenario="scenario-hugs">
+    <dialog concept="RIGHT" scenario="scenario-right">
     	<trigger annotation="RIGHT"/>
         <intro>Look right</intro>
         <accept annotation="AFFIRMATIVE">Look right</accept>
