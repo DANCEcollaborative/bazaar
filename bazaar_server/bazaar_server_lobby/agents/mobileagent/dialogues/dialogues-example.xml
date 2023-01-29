@@ -2,18 +2,25 @@
 <dialogs>
     
   
-    <dialog concept="LEFT" scenario="scenario-left">
+    <dialog concept="LEFT" scenario="scenario-hugs">
     	<trigger annotation="LEFT"/>
-        <intro>Look left</intro>
-        <accept annotation="AFFIRMATIVE">Look left</accept>
-        <cancel annotation="NEGATIVE">Look left</cancel>
+        <intro>0</intro>
+        <accept annotation="AFFIRMATIVE">0</accept>
+        <cancel annotation="NEGATIVE">0</cancel>
     </dialog>
 
-    <dialog concept="RIGHT" scenario="scenario-right">
+    <dialog concept="FRONT" scenario="scenario-hugs">
+    	<trigger annotation="FRONT"/>
+        <intro>1</intro>
+        <accept annotation="AFFIRMATIVE">1</accept>
+        <cancel annotation="NEGATIVE">1</cancel>
+    </dialog>
+
+    <dialog concept="RIGHT" scenario="scenario-hugs">
     	<trigger annotation="RIGHT"/>
-        <intro>Look right</intro>
-        <accept annotation="AFFIRMATIVE">Look right</accept>
-        <cancel annotation="NEGATIVE">Look right</cancel>
+        <intro>2</intro>
+        <accept annotation="AFFIRMATIVE">2</accept>
+        <cancel annotation="NEGATIVE">2</cancel>
     </dialog>
      
 </dialogs>
