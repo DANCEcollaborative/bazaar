@@ -236,12 +236,12 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		if (e instanceof DoTutoringEvent) {
 			// queue up the start of the tutoring engine.
 
-//			handleDoTutoringEvent((DoTutoringEvent) e);
-			 MessageEvent me = ((DoTutoringEvent) e).getMessageEvent();
-			 if(me != null)
-			 {
-			 handleRequestDetectedEvent((MessageEvent) me);
-			 }
+			handleDoTutoringEvent((DoTutoringEvent) e);
+//			 MessageEvent me = ((DoTutoringEvent) e).getMessageEvent();
+//			 if(me != null)
+//			 {
+//			 handleRequestDetectedEvent((MessageEvent) me);
+//			 }
 		} else if (e instanceof TutoringStartedEvent) {
 			// start dialog engine
 //			handleTutoringStartedEvent((TutoringStartedEvent) e);
