@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Mobile Agent">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+
+    
+    <stage name="stageA" type="other" delay="0">
+        <step type="gated" gated_type="listen" timeout="28800" delay="0" checkin_prompt="">DIALOG_ONLY</step>
+    </stage>
+    
+    <stage name="EndStage" type="other" delay="0" timeout="29000">
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
