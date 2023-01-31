@@ -273,32 +273,33 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		Dialog d = proposedDialogs.get(dte.getConcept());
 		if (d != null)
 		{
-			if(isTutoring)
-			{
-				if (interruptForNewDialogues)
-				{
-					//TODONE: respond to start-tutoring command by ending current tutoring session
-					sendTutorMessage(moving_on_text);
-					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
-					source.queueNewEvent(doneEvent);
-					prioritySource.setBlocking(false);
-					
-	//				TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { moving_on_text });
-	//				this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
-	//
-	//				DoneTutoringEvent dte2 = new DoneTutoringEvent(this, currentConcept, true);
-	//				this.broadcast(dte2);
-	
-					currentAutomata = null;
-					currentConcept = null;
-					isTutoring = false;
-	
-					// dialogsReadyQueue.add(d);
-					launchDialogOffer(d);
-				}
-			} else {
-				launchDialogOffer(d);
-			}
+			launchDialogOffer(d);
+//			if(isTutoring)
+//			{
+//				if (interruptForNewDialogues)
+//				{
+//					//TODONE: respond to start-tutoring command by ending current tutoring session
+//					sendTutorMessage(moving_on_text);
+//					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
+//					source.queueNewEvent(doneEvent);
+//					prioritySource.setBlocking(false);
+//					
+//	//				TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { moving_on_text });
+//	//				this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
+//	//
+//	//				DoneTutoringEvent dte2 = new DoneTutoringEvent(this, currentConcept, true);
+//	//				this.broadcast(dte2);
+//	
+//					currentAutomata = null;
+//					currentConcept = null;
+//					isTutoring = false;
+//	
+//					// dialogsReadyQueue.add(d);
+//					launchDialogOffer(d);
+//				}
+//			} else {
+//				launchDialogOffer(d);
+//			}
 		}
 	}
 
