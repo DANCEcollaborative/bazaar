@@ -475,10 +475,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private void publishMessageToPSI(MessageEvent me)
 	{
 		String text = me.getText();
-		System.out.println("OutputCoordinator, publishMessagetoPSI, incoming text: " + text);	
+//		System.out.println("OutputCoordinator, publishMessagetoPSI, incoming text: " + text);	
 		String messageString; 
 		if (multimodalFormatToPSI) {
-			System.out.println("OutputCoordinator, publishMessagetoPSI, formatting multimodal output to PSI");	
+//			System.out.println("OutputCoordinator, publishMessagetoPSI, formatting multimodal output to PSI");	
 			messageString = formatMultimodalMessage(me); 
 		} else {
 			messageString = text; 
