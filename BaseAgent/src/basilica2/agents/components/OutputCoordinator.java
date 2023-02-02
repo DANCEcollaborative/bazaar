@@ -51,6 +51,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean outputMultimodal = false; 
 	private Boolean outputToPSI = false; 
 	private Boolean separateOutputToPSI = false;
+	private Boolean multimodalFormatToPSI = true;
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -79,6 +80,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			try{outputToPSI = Boolean.parseBoolean(myProperties.getProperty("output_to_PSI", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{separateOutputToPSI = Boolean.parseBoolean(myProperties.getProperty("separate_output_to_PSI", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{multimodalFormatToPSI = Boolean.parseBoolean(myProperties.getProperty("multimodal_format_to_PSI", "true"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{dontListenWhileSpeaking = Boolean.parseBoolean(myProperties.getProperty("dont_listen_while_speaking", "true"));}
 			catch(Exception e) {e.printStackTrace();}
@@ -472,7 +475,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private void publishMessageToPSI(MessageEvent me)
 	{
 		String text = me.getText();	
-		String messageString = formatMultimodalMessage(me); 
+		String messageString; 
+		if (multimodalFormatToPSI) {
+			 messageString = formatMultimodalMessage(me); 
+		} else {
+			messageString = text; 
+		}
 //		System.err.println("OutputCoordinator, publishMessagetoPSI, message: " + messageString);
 		setMultimodalDontListenWhileSpeaking(text); 
 		if (!separateOutputToPSI) {
