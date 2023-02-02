@@ -490,8 +490,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 			broadcast(newme);
 			MessageEventLogger.logMessageEvent(newme);
+//			System.out.println("==== OutputCoordinator - Sending to topic " + bazaarToPSITopic + " the message == " + messageString + " ==");
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		} else {
+//			System.out.println("==== OutputCoordinator - Sending to topic " + bazaarToPSITopic + " the message == " + messageString + " ==");
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		}
 		
