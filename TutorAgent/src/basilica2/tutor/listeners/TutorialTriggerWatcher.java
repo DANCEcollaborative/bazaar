@@ -124,8 +124,18 @@ public class TutorialTriggerWatcher extends BasilicaAdapter
 		State state = State.copy(StateMemory.getSharedState(agentMe));
 		stageName = state.getStageName();
 		stepName = state.getStepName();
-		if ( (Arrays.asList(no_dialogs_for_stagenames).contains(stageName)) || 
-		  	 (Arrays.asList(no_dialogs_for_stepnames).contains(stepName)) ) 
+		System.out.println("TutorialTriggerWatcher, preProcessEvent - stageName: " + stageName);
+		System.out.println("TutorialTriggerWatcher, preProcessEvent - stepName:  " + stepName);
+//		if ( Arrays.asList(no_dialogs_for_stagenames).contains(stageName))
+//		{
+//			System.out.println("List no_dialogs_for_stagenames! contains stageName!");
+//		}
+//		if ( Arrays.asList(no_dialogs_for_stepnames).contains(stepName))
+//			{
+//				System.out.println("List no_dialogs_for_stepnames! contains stepName!");
+//			}
+		if ( ( stageName != "") && (Arrays.asList(no_dialogs_for_stagenames).contains(stageName)) || 
+		  	 (( stepName != "") && Arrays.asList(no_dialogs_for_stepnames).contains(stepName)) ) 
 		{
 			System.out.println("TutorialTriggerWatcher preProcessEvent: Tutorial dialogs NOT allowed for this stage or step; returning");
 			return; 
