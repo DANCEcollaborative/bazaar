@@ -51,7 +51,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean outputMultimodal = false; 
 	private Boolean outputToPSI = false; 
 	private Boolean separateOutputToPSI = false;
-	private Boolean multimodalFormatToPSI = true;
+	private Boolean multimodalFormatToPSI = true; 
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -474,10 +474,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	
 	private void publishMessageToPSI(MessageEvent me)
 	{
-		String text = me.getText();	
+		String text = me.getText();
+		System.out.println("OutputCoordinator, publishMessagetoPSI, incoming text: " + text);	
 		String messageString; 
 		if (multimodalFormatToPSI) {
-			 messageString = formatMultimodalMessage(me); 
+			System.out.println("OutputCoordinator, publishMessagetoPSI, formatting multimodal output to PSI");	
+			messageString = formatMultimodalMessage(me); 
 		} else {
 			messageString = text; 
 		}
@@ -498,10 +500,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 			broadcast(newme);
 			MessageEventLogger.logMessageEvent(newme);
-//			System.out.println("==== OutputCoordinator - Sending to topic " + bazaarToPSITopic + " the message == " + messageString + " ==");
+			System.out.println("==== OutputCoordinator, publishMessagetoPSI - Sending to topic " + bazaarToPSITopic + " the message == " + messageString + " ==");
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		} else {
-//			System.out.println("==== OutputCoordinator - Sending to topic " + bazaarToPSITopic + " the message == " + messageString + " ==");
+			System.out.println("==== OutputCoordinator, publishMessagetoPSI - Sending to topic " + bazaarToPSITopic + " the message == " + messageString + " ==");
 			psiCommunicationManager.msgSender(bazaarToPSITopic,messageString);
 		}
 		

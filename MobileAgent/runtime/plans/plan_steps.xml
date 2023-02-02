@@ -6,10 +6,10 @@
 
     
     <stage name="stageA" type="other" delay="0">
-        <step type="gated" gated_type="listen" timeout="3000" delay="0" checkin_prompt="">DIALOG_ONLY</step>
+        <step type="gated" gated_type="listen" timeout="28800" delay="0" checkin_prompt="">DIALOG_ONLY</step>
     </stage>
     
-    <stage name="EndStage" type="other" delay="0" timeout="2400">
+    <stage name="EndStage" type="other" delay="0" timeout="29000">
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
     
