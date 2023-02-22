@@ -18,7 +18,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 		OptionParser parser = new OptionParser();
 		parser.accepts("x").withRequiredArg().ofType(Integer.class).defaultsTo(0);
 		parser.accepts("y").withRequiredArg().ofType(Integer.class).defaultsTo(0);
-		parser.accepts("room").withRequiredArg().defaultsTo("Test01");
+		parser.accepts("room").withRequiredArg().defaultsTo("ROOM");
 		parser.accepts("outdir").withRequiredArg();
 		parser.accepts("condition").withRequiredArg();
 		parser.accepts("launch");
@@ -36,19 +36,19 @@ public class NewAgentRunner extends BaseAgentOperation {
 					String[] conditions = thisOperation.getProperties().getProperty("operation.conditions", "")
 							.split("[\\s,]+");
 					String conditionString = getConditionString(conditions);
-					thisOperation.processArgsNoUIConstantConditions(args,"Test01",conditionString);   
+					thisOperation.processArgsNoUIConstantConditions(args,"ROOM",conditionString);   
 				}
 				
 				else {
 					String[] conditions = thisOperation.getProperties().getProperty("operation.conditions", "")
 							.split("[\\s,]+");
-					String room_name = thisOperation.getProperties().getProperty("operation.room", "Test01");
+					String room_name = thisOperation.getProperties().getProperty("operation.room", "ROOM");
 					
 					// Launch from IDE or command line with no UI, using agent parameters for room name and conditions
 					if (thisOperation.no_condition_ui) {
 						String conditionString = getConditionString(conditions);
 						System.setProperty("basilica2.agents.condition", conditionString);
-						Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
+						// Logger.commonLog("Launching without dialog", Logger.LOG_NORMAL, "Conditions set to " + conditionString);
 						// thisOperation.startOperation();
 						thisOperation.launchAgent(room_name,false);
 					} 
@@ -73,6 +73,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 		{
 			conditionString += condition + " ";
 		}
+		System.err.println("MobileAgent, getConditionString, condition = " + conditionString); 
 		if (conditionString.isEmpty()) return "none";
 		else return conditionString.trim();
 	}
@@ -130,7 +131,7 @@ public class NewAgentRunner extends BaseAgentOperation {
 	
 	protected void processArgs(String[] args)
 	{
-		processArgs(args, "Test01", true);
+		processArgs(args, "ROOM", true);
 	}
 	
 	protected void processArgs(String[] args, String roomname, Boolean hasUI)
