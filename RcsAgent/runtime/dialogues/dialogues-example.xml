@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+    
+  
+    <dialog concept="LEFT" scenario="scenario-hugs">
+    	<trigger annotation="LEFT"/>
+        <intro>0</intro>
+        <accept annotation="AFFIRMATIVE">0</accept>
+        <cancel annotation="NEGATIVE">0</cancel>
+    </dialog>
+
+    <dialog concept="FRONT" scenario="scenario-hugs">
+    	<trigger annotation="FRONT"/>
+        <intro>1</intro>
+        <accept annotation="AFFIRMATIVE">1</accept>
+        <cancel annotation="NEGATIVE">1</cancel>
+    </dialog>
+
+    <dialog concept="RIGHT" scenario="scenario-hugs">
+    	<trigger annotation="RIGHT"/>
+        <intro>2</intro>
+        <accept annotation="AFFIRMATIVE">2</accept>
+        <cancel annotation="NEGATIVE">2</cancel>
+        
+    </dialog>
+        <dialog concept="GET_A_HUG" scenario="scenario-hugs">
+    	<trigger annotation="HUG"/>
+        <intro>Would you like a hug?</intro>
+        <accept annotation="AFFIRMATIVE">Great!</accept>
+        <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
+    </dialog>
+     
+     
+</dialogs>
