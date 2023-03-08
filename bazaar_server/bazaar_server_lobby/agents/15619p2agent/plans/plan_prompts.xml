@@ -25,9 +25,8 @@
     
 	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER" intention="cut_off_PROMPT_MYSQL_REMINDER">
      	<text>Remember that you can login to MySQL as follows.
--- Command: mysql -u root -p -h 127.0.0.1
--- Password: CloudCC@100
-Then use database 'employees'.</text>
+-- Command: mysql -u root -pCloudCC@100 -h 127.0.0.1
+-- Within MySQL, use database 'employees'.</text>
     </prompt> 
  
 
@@ -135,11 +134,11 @@ Then use database 'employees'.</text>
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH" intention="cut_off_PROMPT_STEP_MATCH">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="cut_off_PROMPT_STEP_MATCH_1">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="cut_off_PROMPT_STEP_MATCH_2">
@@ -166,11 +165,11 @@ Whoever doesn't have an assignment is a researcher for this round. Recall that t
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY" intention="cut_off_PROMPT_STEP_ROTATE_FANCY">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_1">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_2">
@@ -197,11 +196,11 @@ Whoever doesn't have an assignment is a researcher for this round. Recall that t
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_1">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_2">

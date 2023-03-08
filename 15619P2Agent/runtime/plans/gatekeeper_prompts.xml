@@ -36,9 +36,9 @@
     <prompt strategy="task" id="BOTTOM-OUT_TASK-1" intention="cut_off_bottom_out_hint_TASK-1">
         <text>Two optimizations are required for this task: 
         
-1. Create a denormalized table with columns 'emp_no', 'salary', 'from_date', and 'to_date' from table 'salaries'; and columns 'first_name' and 'last_name' from table 'employees'.
+1. Create a denormalized table with columns 'emp_no', 'first_name', and 'last_name' from table 'employees'; and column 'salary' from table 'salaries'.
 
-2. Change the datatype of the 'salary' column to 'INTEGER' in the table you create in step (1).|||Remember that to submit your final query, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task1'.</text>
+2. Change the datatype of the 'salary' column in the table you created in step (1) from 'CHAR' to 'INT'.|||Remember that to submit your final query, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task1'.</text>
     </prompt>
     
     
@@ -48,9 +48,9 @@
     <prompt strategy="task" id="BOTTOM-OUT_TASK-2" intention="cut_off_bottom_out_hint_TASK-2">
         <text>Two optimizations are required for this task: 
         
-1. Create a denormalized table with columns 'emp_no' and 'title' from table 'titles', and columns 'first_name' and 'last_name' from table 'employees'.
+1. Create a denormalized table with columns column 'emp_no', 'first_name', and 'last_name' from table 'employees'; column 'dept_name' from table 'dept_emp_list'; and column 'title' from table 'titles'.
 
-2. Create an index on the 'title' column of the table you create in step (1).</text>
+2. Create a composite index on the 'dept_name' and 'title' columns of the table you created in step (1).</text>
     </prompt>
     
     
@@ -60,11 +60,11 @@
     <prompt strategy="task" id="BOTTOM-OUT_TASK-3" intention="cut_off_bottom_out_hint_TASK-3">
         <text>Three optimizations are required for this task: 
         
-1. Create a denormalized table with columns 'emp_no', 'first_name', and 'last_name' from table 'employees'; and column 'dept_name' from table 'dept_emp_list'.
+1. Create a denormalized table with columns column 'emp_no', 'first_name', and 'last_name' from table 'employees'; and column 'dept_name' from table 'dept_emp_list'.
 
-2. Create an index on the 'dept_name' column of the table you create in step (1).
+2. Change the datatype of the 'salary' column of table 'salaries' from 'CHAR' to 'INT'.
 
-3. Change the datatype of the 'salary' column of table 'salaries' to 'INTEGER'.</text>
+3. Create an index on the 'dept_name' column of the table you created in step (1).</text>
     </prompt>
 
 
