@@ -63,8 +63,8 @@
         <text>To submit your final query for task 1, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task1'.</text>
     </prompt>   
     
-    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
-        <text>You will be able to see feedback for each task's final query in directory 'solutions/local_test_feedback/task#', where '#' corresponds to task 1, 2, or 3.</text>
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_1" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
+        <text>You will be able to see feedback for your final query attempts in file 'solutions/local_test_feedback/task1/feedback'.</text>
     </prompt> 
     
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_1">
@@ -86,7 +86,11 @@
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="cut_off_PROMPT_TEST_QUERY_2">
         <text>To submit your final query for task 2, copy it to file 'solutions/task2.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task2'.</text>
-    </prompt>  
+    </prompt>    
+    
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_2" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
+        <text>You will be able to see feedback for your final query attempts in file 'solutions/local_test_feedback/task2/feedback'.</text>
+    </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_1">
      	<text>What drawbacks could there be to creating a denormalized table?</text>
@@ -107,7 +111,11 @@
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="cut_off_PROMPT_TEST_QUERY_3">
         <text>To submit your final query for task 3, copy it to file 'solutions/task3.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task3'.</text>
-    </prompt>  
+    </prompt>     
+    
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_3" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
+        <text>You will be able to see feedback for your final query attempts in file 'solutions/local_test_feedback/task3/feedback'.</text>
+    </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO3_REFLECTION_1">
      	<text>What are some tradeoffs that you considered between the three optimization methods -- for example between indexing and denormalization?</text>

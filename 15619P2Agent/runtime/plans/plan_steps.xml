@@ -25,7 +25,7 @@
     	<step type="prompt" delay="5" prompt="PROMPT_TASK1_REMINDER">PROMPT_TASK1_REMINDER</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_MYSQL_REMINDER">PROMPT_MYSQL_REMINDER</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_1">PROMPT_TEST_QUERY_1</step>    
-    	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION">PROMPT_FEEDBACK_LOCATION</step>    
+    	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION_1">PROMPT_FEEDBACK_LOCATION_1</step>    
         <step type="file_gated" delay="5" timeout="4710" file="testcase-complete_1" delayed_prompt_time="900" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>	<!-- 900 --> 
     </stage>   
      
@@ -41,7 +41,8 @@
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2_Rotate</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_MYSQL_REMINDER">PROMPT_MYSQL_REMINDER</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_2">PROMPT_TEST_QUERY_2</step>    
+    	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_2">PROMPT_TEST_QUERY_2</step>   
+    	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION_2">PROMPT_FEEDBACK_LOCATION_2</step>     
         <step type="file_gated" delay="5" timeout="4710" file="testcase-complete_2" delayed_prompt_time="900" delayed_prompt="BOTTOM-OUT_TASK-2" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>	<!-- 900 -->  
     </stage> 
      
@@ -57,7 +58,8 @@
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_MYSQL_REMINDER">PROMPT_MYSQL_REMINDER</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_3">PROMPT_TEST_QUERY_3</step>    
+    	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_3">PROMPT_TEST_QUERY_3</step>   
+    	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION_3">PROMPT_FEEDBACK_LOCATION_3</step>     
         <step type="file_gated" delay="5" timeout="4710" file="testcase-complete_3" delayed_prompt_time="900" delayed_prompt="BOTTOM-OUT_TASK-3" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>	<!-- 900 -->      
     </stage>  
      
