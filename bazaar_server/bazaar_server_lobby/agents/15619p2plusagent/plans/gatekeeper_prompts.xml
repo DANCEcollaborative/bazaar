@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING" intention="cut_off_FILE_STEP_TIMEOUT_WARNING">
+		<text>We need to start wrapping up.</text>
+		<text>Okay, let's get ready to move on to reflection.</text>
+	</prompt>
+
+	
+	<prompt strategy="task" id="FILE_STEP_TIMED_OUT" intention="cut_off_FILE_STEP_TIMED_OUT">
+		<text>We need to be moving along on this test case.</text>
+		<text>Time for this test case is almost over.</text>
+		<text>Time to move along on this test case if you can.</text>
+	</prompt>
+    
+    <prompt strategy="task" id="FILE_STEP_COMPLETE" intention="cut_off_FILE_STEP_COMPLETE">
+       <text>Your optimizations succeeded!</text>
+       <text>Great! Your optimizations were successful.</text>
+       <text>Way to go! Your optimizations succeeded.</text>
+       <text>Good job. Your optimizations were successful.</text>
+    </prompt>
+	
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN" intention="cut_off_WAIT_FOR_CHECKIN">
+       <text>Okay, we're about to begin.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING" intention="cut_off_TIMEOUT_WARNING">
+       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
+       <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
+    </prompt>
+   
+    
+    
+	<!-- Gated Prompts for Task 1 -->
+      
+    <prompt strategy="task" id="BOTTOM-OUT_TASK-1" intention="cut_off_bottom_out_hint_TASK-1">
+        <text>Two optimizations are required for this task: 
+        
+1. Create a denormalized table with columns 'emp_no', 'first_name', and 'last_name' from table 'employees'; and column 'salary' from table 'salaries'.
+
+2. Change the datatype of the 'salary' column in the table you created in step (1) from 'VARCHAR' to 'INT'.|||Remember that to submit your final query, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task1'.</text>
+    </prompt>
+    
+    
+    
+	<!-- Gated Prompts for Task 2 -->
+      
+    <prompt strategy="task" id="BOTTOM-OUT_TASK-2" intention="cut_off_bottom_out_hint_TASK-2">
+        <text>Two optimizations are required for this task: 
+        
+1. Create a denormalized table with columns column 'emp_no', 'first_name', and 'last_name' from table 'employees'; column 'dept_name' from table 'dept_emp_list'; and column 'title' from table 'titles'.
+
+2. Create a composite index on the 'dept_name' and 'title' columns of the table you created in step (1).</text>
+    </prompt>
+    
+    
+    
+	<!-- Gated Prompts for Task 3 -->
+      
+    <prompt strategy="task" id="BOTTOM-OUT_TASK-3" intention="cut_off_bottom_out_hint_TASK-3">
+        <text>Three optimizations are required for this task: 
+        
+1. Create a denormalized table with columns 'emp_no', 'first_name', and 'last_name' from table 'employees'; and column 'dept_name' from table 'dept_emp_list'.
+
+2. Change the datatype of the 'salary' column of table 'salaries' from 'VARCHAR' to 'INT'.
+
+3. Create an index on the 'dept_name' column of the table you created in step (1).</text>
+    </prompt>
+
+
+
+    <!-- Gated Prompts for READY_GENERIC -->    
+    <prompt strategy="task" id="READY_GENERIC" intention="cut_off_READY_GENERIC">
+       <text>Type "ready" when you are ready to move on.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_GENERIC_NO_READY" intention="cut_off_READY_GENERIC_NO_READY">
+       <text>We will move on after a while or when everyone is ready.</text>
+    </prompt>
+         
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS" intention="cut_off_WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE" intention="cut_off_ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your team is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY" intention="cut_off_ALL_READY">
+       <text>Okay, let's move on...</text>
+       <text>Moving on...</text>
+       <text>Onward!</text>
+    </prompt>
+  
+  
+ <!-- ================================ -->
+ <!-- The following prompts are unused -->
+ <!-- ================================ -->
+      
+    <prompt strategy="task" id="WAIT_FOR_DISCUSSION" intention="cut_off_WAIT_FOR_DISCUSSION">
+       <text>We'll move on when everyone is ready.</text>
+    </prompt>
+       
+    <prompt strategy="task" id="WAIT_FOR_READING" intention="cut_off_WAIT_FOR_READING">
+       <text>Once you've read this and discussed it with your team, type "ready".</text>
+       <text>When everyone is comfortable with this material, type "ready".</text>
+    </prompt>
+    
+</prompts>
+
