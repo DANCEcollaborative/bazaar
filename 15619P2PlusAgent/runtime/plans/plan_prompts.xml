@@ -48,11 +48,11 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>  
 	
 	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_1" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_1">
-     	<text>Who can share with the team when it is appropriate to apply denormalization within a database? This was discussed in the Normalization and Denormalization primer.</text>
+     	<text>In preparation for the first task, who can share with the team when it is appropriate to apply denormalization within a database? This was discussed in the Normalization and Denormalization primer.</text>
     </prompt>  
       
     <prompt strategy="task" id="PROMPT_START_TASK1" intention="cut_off_PROMPT_START_TASK1">
-        <text>Okay! Let's assign your responsibilities and then you can get started.</text>
+        <text>Okay! Let's assign your responsibilities for the first task.</text>
     </prompt>  
       
     <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="cut_off_PROMPT_TASK1_REMINDER">
@@ -68,7 +68,7 @@
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1" intention="cut_off_PROMPT_DISCUSSION_START_1">
-     	<text>We are moving on from task 1. But first, take turns responding to the following question.</text>
+     	<text>We are moving on from task 1. But first take turns responding to the following question.</text>
     </prompt> 
     
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_1">
@@ -85,11 +85,11 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
 	
 	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_2" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_2">
-     	<text>Who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
+     	<text>In preparation for task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
     </prompt>  
     
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
-        <text>Ok, we are switching roles now. Let's move on to 'instructions/task2.md'.</text>
+        <text>It's time to start task 2. Open 'instructions/task2.md'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="cut_off_PROMPT_TEST_QUERY_2">
@@ -101,7 +101,7 @@
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2" intention="cut_off_PROMPT_DISCUSSION_START_2">
-     	<text>We are moving on from task 2. But first, take turns responding to the following question.</text>
+     	<text>We are moving on from task 2. But first take turns responding to the following question.</text>
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_1">
@@ -118,11 +118,11 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
 	
 	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_3" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_3">
-     	<text>Who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
+     	<text>In preparation for the last task, who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
     </prompt>  
       
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
-        <text>Ok, we are switching roles now. Let's move on to 'instructions/task3.md'.</text>
+        <text>It's time to start the last task. Open 'instructions/task3.md'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="cut_off_PROMPT_TEST_QUERY_3">
@@ -134,7 +134,7 @@
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3" intention="cut_off_PROMPT_DISCUSSION_START_3">
-     	<text>We are moving on from the last task. But first, take turns responding to the following question.</text>
+     	<text>We are moving on from the last task. But first take turns responding to the following question.</text>
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO3_REFLECTION_1">
@@ -201,14 +201,14 @@ Whoever doesn't have an assignment is a researcher for this round. Recall that t
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_2">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_3">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
@@ -216,7 +216,7 @@ Recall that the researcher refers to resources like the primer as necessary.</te
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
@@ -232,21 +232,21 @@ Whoever doesn't have an assignment is a researcher for this round. Recall that t
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_2">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_3">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_MAX_ALL">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]

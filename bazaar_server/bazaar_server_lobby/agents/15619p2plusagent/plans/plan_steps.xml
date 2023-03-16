@@ -20,7 +20,7 @@
     	<step type="logstate" delay="5" state_tag="state" state_value="Programming Phase of OPE" send_log="false">logstate_programming-phase</step> 
     	<step type="logstate" delay="5" state_tag="phase_duration" state_value="80">logstate_phase-duration-1</step> 
     	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="1">logstate_ope-iteration-1</step>    	  	
-        <step type="prompt" delay="90" prompt="PROMPT_PRE-TASK_DISCUSSION_1">PROMPT_PRE-TASK_DISCUSSION_1</step>     
+        <step type="prompt" delay="75" prompt="PROMPT_PRE-TASK_DISCUSSION_1">PROMPT_PRE-TASK_DISCUSSION_1</step>     
     	<step type="send_command" delay="5" command="COMMAND_1">COMMAND_1</step>    
     	<step type="prompt" delay="5" prompt="PROMPT_START_TASK1">PROMPT_START_TASK1</step>
         <step type="match" delay="10" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
@@ -28,7 +28,7 @@
     	<step type="prompt" delay="5" prompt="PROMPT_MYSQL_REMINDER">PROMPT_MYSQL_REMINDER</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_1">PROMPT_TEST_QUERY_1</step>    
     	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION_1">PROMPT_FEEDBACK_LOCATION_1</step>    
-        <step type="file_gated" delay="5" timeout="1590" file="testcase-complete_1" delayed_prompt_time="1290" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>	<!-- timeout="1590"; delayed_prompt_time="1290" --> 
+        <step type="file_gated" delay="5" timeout="1605" file="testcase-complete_1" delayed_prompt_time="1305" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>	<!-- timeout="1605; delayed_prompt_time="1305" --> 
     </stage>   
      
     <stage name="StageLO1_Discussion" type="other" delay="0">    	  	
@@ -39,14 +39,14 @@
     
     <stage name="StageLO2" type="other" delay="0">  
     	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-2</step>     	  	
-        <step type="prompt" delay="90" prompt="PROMPT_PRE-TASK_DISCUSSION_2">PROMPT_PRE-TASK_DISCUSSION_2</step>  
+        <step type="prompt" delay="75" prompt="PROMPT_PRE-TASK_DISCUSSION_2">PROMPT_PRE-TASK_DISCUSSION_2</step>  
     	<step type="send_command" delay="5" command="COMMAND_2">COMMAND_2</step>     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2_Rotate</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_MYSQL_REMINDER">PROMPT_MYSQL_REMINDER</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_2">PROMPT_TEST_QUERY_2</step>   
     	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION_2">PROMPT_FEEDBACK_LOCATION_2</step>     
-        <step type="file_gated" delay="5" timeout="1230" file="testcase-complete_2" delayed_prompt_time="930" delayed_prompt="BOTTOM-OUT_TASK-2" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>	<!-- timeout="1230"; delayed_prompt_time="930" -->  
+        <step type="file_gated" delay="5" timeout="1245" file="testcase-complete_2" delayed_prompt_time="945" delayed_prompt="BOTTOM-OUT_TASK-2" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>	<!-- timeout="1245"; delayed_prompt_time="945" -->  
     </stage> 
      
     <stage name="StageL02_Discussion" type="other" delay="0">           	      	    	       	      	
@@ -57,14 +57,14 @@
     
     <stage name="StageLO3" type="other" delay="0">  
     	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="3">logstate_ope-iteration-3</step>     	  	
-        <step type="prompt" delay="90" prompt="PROMPT_PRE-TASK_DISCUSSION_3">PROMPT_PRE-TASK_DISCUSSION_3</step>  
+        <step type="prompt" delay="75" prompt="PROMPT_PRE-TASK_DISCUSSION_3">PROMPT_PRE-TASK_DISCUSSION_3</step>  
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_MYSQL_REMINDER">PROMPT_MYSQL_REMINDER</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_TEST_QUERY_3">PROMPT_TEST_QUERY_3</step>   
     	<step type="prompt" delay="5" prompt="PROMPT_FEEDBACK_LOCATION_3">PROMPT_FEEDBACK_LOCATION_3</step>     
-        <step type="file_gated" delay="5" timeout="1230" file="testcase-complete_3" delayed_prompt_time="930" delayed_prompt="BOTTOM-OUT_TASK-3" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>	<!-- timeout="1200"; delayed_prompt_time="900" -->      
+        <step type="file_gated" delay="5" timeout="1245" file="testcase-complete_3" delayed_prompt_time="945" delayed_prompt="BOTTOM-OUT_TASK-3" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>	<!-- timeout="1245"; delayed_prompt_time="945" -->      
     </stage>  
      
     <stage name="StageLO3_Discussion" type="other" delay="0">       	     	      	     	     	      	

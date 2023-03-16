@@ -3,14 +3,13 @@
 
 	<prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING" intention="cut_off_FILE_STEP_TIMEOUT_WARNING">
 		<text>We need to start wrapping up.</text>
-		<text>Okay, let's get ready to move on to reflection.</text>
+		<text>Okay, let's get ready to move on.</text>
 	</prompt>
 
 	
 	<prompt strategy="task" id="FILE_STEP_TIMED_OUT" intention="cut_off_FILE_STEP_TIMED_OUT">
-		<text>We need to be moving along on this test case.</text>
-		<text>Time for this test case is almost over.</text>
-		<text>Time to move along on this test case if you can.</text>
+		<text>We need to move along.</text>
+		<text>Time to move along.</text>
 	</prompt>
     
     <prompt strategy="task" id="FILE_STEP_COMPLETE" intention="cut_off_FILE_STEP_COMPLETE">
