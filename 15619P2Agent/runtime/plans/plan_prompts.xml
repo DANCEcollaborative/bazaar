@@ -67,8 +67,12 @@
         <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task1/feedback'.</text>
     </prompt> 
 	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1" intention="cut_off_PROMPT_DISCUSSION_START_1">
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1_ORIGINAL" intention="cut_off_PROMPT_DISCUSSION_START_1">
      	<text>We are moving on from task 1. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1" intention="cut_off_PROMPT_DISCUSSION_START_1">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 1. But first take turns responding to the following question.</text>
     </prompt> 
     
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_1">
@@ -88,8 +92,12 @@
      	<text>In preparation for task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
     </prompt>  
     
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2_ORIGINAL" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
         <text>It's time to start task 2. Open 'instructions/task2.md'.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
+        <text>IT'S TIME TO START TASK 2. Open 'instructions/task2.md'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="cut_off_PROMPT_TEST_QUERY_2">
@@ -100,8 +108,12 @@
         <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task2/feedback'.</text>
     </prompt> 
 	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2" intention="cut_off_PROMPT_DISCUSSION_START_2">
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2_ORIGINAL" intention="cut_off_PROMPT_DISCUSSION_START_2">
      	<text>We are moving on from task 2. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2" intention="cut_off_PROMPT_DISCUSSION_START_2">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 2. But first take turns responding to the following question.</text>
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_1">
@@ -121,8 +133,12 @@
      	<text>In preparation for the last task, who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
     </prompt>  
       
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3_ORIGINAL" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
         <text>It's time to start the last task. Open 'instructions/task3.md'.</text>
+    </prompt>
+      
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
+        <text>IT'S TIME TO START THE LAST TASK. Open 'instructions/task3.md'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="cut_off_PROMPT_TEST_QUERY_3">
@@ -133,8 +149,12 @@
         <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task3/feedback'.</text>
     </prompt> 
 	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3" intention="cut_off_PROMPT_DISCUSSION_START_3">
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3_ORIGINAL" intention="cut_off_PROMPT_DISCUSSION_START_3">
      	<text>We are moving on from the last task. But first take turns responding to the following question.</text>
+    </prompt>  
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3" intention="cut_off_PROMPT_DISCUSSION_START_3">
+     	<text>IT'S TIME TO MOVE ON FROM THE LAST TASK. But first take turns responding to the following question.</text>
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO3_REFLECTION_1">
