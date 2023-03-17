@@ -18,16 +18,11 @@
 
 
 	<!-- GENERAL PROMPTS --> 
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START" intention="cut_off_PROMPT_DISCUSSION_START">
-     	<text>Let's discuss this solution. Take turns responding to the questions posed by the bot. We will move on after you have had some time to discuss.</text>
-    </prompt> 
     
 	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER" intention="cut_off_PROMPT_MYSQL_REMINDER">
      	<text>Remember that you can login to MySQL as follows.
--- Command: mysql -u root -p -h 127.0.0.1
--- Password: CloudCC@100
-Then use database 'employees'.</text>
+-- Command: mysql -u root -pCloudCC@100 -h 127.0.0.1
+-- Within MySQL, use database 'employees'.</text>
     </prompt> 
  
 
@@ -39,7 +34,7 @@ Then use database 'employees'.</text>
     </prompt> 
 
 	<prompt strategy="task" id="PROMPT_SESSION_TIME" intention="cut_off_PROMPT_SESSION_TIME">
-     	<text>Beginning now, you will have approximately 80 minutes to complete programming and submit to receive your grades.</text>
+     	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_PRIMERS" intention="cut_off_PROMPT_PRIMERS">
@@ -50,10 +45,14 @@ Then use database 'employees'.</text>
 
 
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>  
+	
+	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_1" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_1">
+     	<text>In preparation for the first task, who can share with the team when it is appropriate to apply denormalization within a database? This was discussed in the Normalization and Denormalization primer.</text>
+    </prompt>  
       
     <prompt strategy="task" id="PROMPT_START_TASK1" intention="cut_off_PROMPT_START_TASK1">
-        <text>Okay! Let's assign your responsibilities and then you can get started.</text>
+        <text>Okay! Let's assign your responsibilities for the first task.</text>
     </prompt>  
       
     <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="cut_off_PROMPT_TASK1_REMINDER">
@@ -62,10 +61,14 @@ Then use database 'employees'.</text>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_1" intention="cut_off_PROMPT_TEST_QUERY_1">
         <text>To submit your final query for task 1, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task1'.</text>
-    </prompt>   
+    </prompt>
     
-    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
-        <text>You will be able to see feedback for each task's final query in directory 'solutions/local_test_feedback/task#', where '#' corresponds to task 1, 2, or 3.</text>
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_1" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
+        <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task1/feedback'.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1" intention="cut_off_PROMPT_DISCUSSION_START_1">
+     	<text>We are moving on from task 1. But first take turns responding to the following question.</text>
     </prompt> 
     
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_1">
@@ -79,18 +82,30 @@ Then use database 'employees'.</text>
 
 
 	<!-- HINTS & DISCUSSION FOR TASK 2 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
+	
+	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_2" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_2">
+     	<text>In preparation for task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
+    </prompt>  
     
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
-        <text>Ok, we are switching roles now. Let's move on to 'instructions/task2.md'.</text>
+        <text>It's time to start task 2. Open 'instructions/task2.md'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="cut_off_PROMPT_TEST_QUERY_2">
         <text>To submit your final query for task 2, copy it to file 'solutions/task2.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task2'.</text>
-    </prompt>  
+    </prompt>    
+    
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_2" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
+        <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task2/feedback'.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2" intention="cut_off_PROMPT_DISCUSSION_START_2">
+     	<text>We are moving on from task 2. But first take turns responding to the following question.</text>
+    </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_1">
-     	<text>What drawbacks could there be to creating a denormalized table?</text>
+     	<text>Exactly how can creating an index improve query speed?</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_2" intention="cut_off_PROMPT_STEP_LO2_REFLECTION_2">
@@ -101,14 +116,26 @@ Then use database 'employees'.</text>
 
 	<!-- HINTS & DISCUSSION FOR TASK 3 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+	
+	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_3" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_3">
+     	<text>In preparation for the last task, who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
+    </prompt>  
       
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
-        <text>Ok, we are switching roles now. Let's move on to 'instructions/task3.md'.</text>
+        <text>It's time to start the last task. Open 'instructions/task3.md'.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="cut_off_PROMPT_TEST_QUERY_3">
         <text>To submit your final query for task 3, copy it to file 'solutions/task3.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task3'.</text>
-    </prompt>  
+    </prompt>     
+    
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_3" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
+        <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task3/feedback'.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3" intention="cut_off_PROMPT_DISCUSSION_START_3">
+     	<text>We are moving on from the last task. But first take turns responding to the following question.</text>
+    </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1" intention="cut_off_PROMPT_STEP_LO3_REFLECTION_1">
      	<text>What are some tradeoffs that you considered between the three optimization methods -- for example between indexing and denormalization?</text>
@@ -135,11 +162,11 @@ Then use database 'employees'.</text>
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH" intention="cut_off_PROMPT_STEP_MATCH">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="cut_off_PROMPT_STEP_MATCH_1">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="cut_off_PROMPT_STEP_MATCH_2">
@@ -166,22 +193,22 @@ Whoever doesn't have an assignment is a researcher for this round. Recall that t
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY" intention="cut_off_PROMPT_STEP_ROTATE_FANCY">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_1">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_2">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_3">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
@@ -189,7 +216,7 @@ Recall that the researcher refers to resources like the primer as necessary.</te
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="cut_off_PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
@@ -197,29 +224,29 @@ Whoever doesn't have an assignment is a researcher for this round. Recall that t
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_1">
-        <text>Even though you are doing the activity by yourself, try to follow the responsibilities associated with the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_2">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_3">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="cut_off_PROMPT_STEP_ROTATE_PLAIN_MAX_ALL">
-        <text>The new roles are -
+        <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]

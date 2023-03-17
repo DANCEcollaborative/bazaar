@@ -1,0 +1,58 @@
+version: '3.8'
+volumes:
+  mysql_data:
+ 
+services:
+  nodechat:
+    build:
+       context: ./
+       dockerfile: Dockerfile.mysql
+    container_name: nodechat_lobby
+    volumes:    
+     - mysql_data:/var/lib/mysql
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: smoot
+      MYSQL_USER: "local"
+      MYSQL_PASSWORD: "local"
+    ports:
+    - "3306:3306"
+    - "8500:8500" 
+    volumes:
+     - shared:/mysql-files 
+    networks:
+    - bazaar-net
+  bazaar:
+    build: 
+       context: ./
+       dockerfile: Dockerfile.local
+    container_name: bazaar
+    depends_on:
+     - nodechat
+    volumes:
+     - shared:/mysql-files
+     - ./agents:/usr/bazaar/agents 
+    networks:
+     - bazaar-net
+  front:
+    build: ./ha-proxy
+    image: bazaar/haproxy
+    container_name: bazaar-haproxy
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+     - bazaar
+    volumes:
+     - shared:/mysql-files
+     - ./agents:/usr/bazaar/agents
+     - ./lobby:/usr/bazaar/lobby
+     - ../../LightSide:/usr/bazaar/LightSide
+    networks:
+     - bazaar-net
+volumes:
+  shared:
+    driver: local
+networks:
+  bazaar-net:
+    driver: bridge
