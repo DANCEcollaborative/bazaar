@@ -2,14 +2,23 @@
 <dialogs>
     
   
-    <dialog concept="LEFT" scenario="scenario-hugs">
-    	<trigger annotation="LEFT"/>
-        <intro>0</intro>
-        <accept annotation="AFFIRMATIVE">0</accept>
-        <cancel annotation="NEGATIVE">0</cancel>
+    <dialog concept="HELP_FINAL_LOOM" scenario="scenario-hugs">
+    	<trigger annotation="FINAL_LOOM"/>
+        <intro>help_final_loom</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
     </dialog>
 
-    <dialog concept="FRONT" scenario="scenario-hugs">
+
+    <dialog concept="TAB_LOOM_OVERVIEW" scenario="scenario-hugs">
+    	<trigger annotation="LOOM_OVERVIEW"/>
+        <intro>tab_loom_overview</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+
+    <!-- <dialog concept="FRONT" scenario="scenario-hugs">
     	<trigger annotation="FRONT"/>
         <intro>1</intro>
         <accept annotation="AFFIRMATIVE">1</accept>
@@ -29,6 +38,6 @@
         <accept annotation="AFFIRMATIVE">Great!</accept>
         <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
     </dialog>
-     
+      -->
      
 </dialogs>
