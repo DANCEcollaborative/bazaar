@@ -1,43 +1,223 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dialogs>
     
-  
+<!-- Help buttons -->
     <dialog concept="HELP_FINAL_LOOM" scenario="scenario-hugs">
     	<trigger annotation="FINAL_LOOM"/>
-        <intro>help_final_loom</intro>
+        <intro>help_FINAL_LOOM</intro>
         <accept annotation="AFFIRMATIVE"></accept>
         <cancel annotation="NEGATIVE"></cancel>
     </dialog>
 
+    <dialog concept="HELP_FRAME_MATERIAL" scenario="scenario-hugs">
+    	<trigger annotation="FRAME_MATERIAL"/>
+        <intro>help_FRAME_MATERIAL</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_BASE_FRAME_1" scenario="scenario-hugs">
+    	<trigger annotation="BASE_FRAME_1"/>
+        <intro>help_BASE_FRAME_1</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_BASE_FRAME_2" scenario="scenario-hugs">
+    	<trigger annotation="BASE_FRAME_2"/>
+        <intro>help_BASE_FRAME_2</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_BASE_FRAME_FINAL" scenario="scenario-hugs">
+    	<trigger annotation="BASE_FRAME_FINAL"/>
+        <intro>help_BASE_FRAME_FINAL</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARP_AND_HEDDLE_FRAME_1" scenario="scenario-hugs">
+    	<trigger annotation="WARP_AND_HEDDLE_FRAME_1"/>
+        <intro>help_WARP_AND_HEDDLE_FRAME_1</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARP_AND_HEDDLE_FRAME_2" scenario="scenario-hugs">
+    	<trigger annotation="WARP_AND_HEDDLE_FRAME_2"/>
+        <intro>help_WARP_AND_HEDDLE_FRAME_2</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARP_AND_HEDDLE_FRAME_3" scenario="scenario-hugs">
+    	<trigger annotation="WARP_AND_HEDDLE_FRAME_3"/>
+        <intro>help_WARP_AND_HEDDLE_FRAME_3</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_HEDDLES_AND_MOTORS_MATERIAL" scenario="scenario-hugs">
+    	<trigger annotation="HEDDLES_AND_MOTORS_MATERIAL"/>
+        <intro>help_HEDDLES_AND_MOTORS_MATERIAL</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_HEDDLES_AND_MOTORS_1" scenario="scenario-hugs">
+    	<trigger annotation="HEDDLES_AND_MOTORS_1"/>
+        <intro>help_HEDDLES_AND_MOTORS_1</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_TENSION_SYSTEM_MATERIAL" scenario="scenario-hugs">
+    	<trigger annotation="TENSION_SYSTEM_MATERIAL"/>
+        <intro>help_TENSION_SYSTEM_MATERIAL</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_TENSION_SYSTEM_1" scenario="scenario-hugs">
+    	<trigger annotation="TENSION_SYSTEM_1"/>
+        <intro>help_TENSION_SYSTEM_1</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARP_BEAM_AND_BEATER_MATERIAL" scenario="scenario-hugs">
+    	<trigger annotation="WARP_BEAM_AND_BEATER_MATERIAL"/>
+        <intro>help_WARP_BEAM_AND_BEATER_MATERIAL</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARP_BEAM_AND_BEATER_1" scenario="scenario-hugs">
+    	<trigger annotation="WARP_BEAM_AND_BEATER_1"/>
+        <intro>help_WARP_BEAM_AND_BEATER_1</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARP_BEAM_AND_BEATER_2" scenario="scenario-hugs">
+    	<trigger annotation="WARP_BEAM_AND_BEATER_2"/>
+        <intro>help_WARP_BEAM_AND_BEATER_2</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_1" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_1"/>
+        <intro>help_WARPING_ROUTINE_1</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_2" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_2"/>
+        <intro>help_WARPING_ROUTINE_2</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_3" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_3"/>
+        <intro>help_WARPING_ROUTINE_3</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_4" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_4"/>
+        <intro>help_WARPING_ROUTINE_4</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_5" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_5"/>
+        <intro>help_WARPING_ROUTINE_5</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_6" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_6"/>
+        <intro>help_WARPING_ROUTINE_6</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_WARPING_ROUTINE_7" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE_7"/>
+        <intro>help_WARPING_ROUTINE_7</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="HELP_ELECTRONICS" scenario="scenario-hugs">
+    	<trigger annotation="ELECTRONICS"/>
+        <intro>help_ELECTRONICS</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+<!-- Tab clicks -->
 
     <dialog concept="TAB_LOOM_OVERVIEW" scenario="scenario-hugs">
     	<trigger annotation="LOOM_OVERVIEW"/>
-        <intro>tab_loom_overview</intro>
+        <intro>TAB_LOOM_OVERVIEW</intro>
         <accept annotation="AFFIRMATIVE"></accept>
         <cancel annotation="NEGATIVE"></cancel>
     </dialog>
 
-
-    <!-- <dialog concept="FRONT" scenario="scenario-hugs">
-    	<trigger annotation="FRONT"/>
-        <intro>1</intro>
-        <accept annotation="AFFIRMATIVE">1</accept>
-        <cancel annotation="NEGATIVE">1</cancel>
+    <dialog concept="TAB_FRAME" scenario="scenario-hugs">
+    	<trigger annotation="FRAME"/>
+        <intro>tab_FRAME</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
     </dialog>
 
-    <dialog concept="RIGHT" scenario="scenario-hugs">
-    	<trigger annotation="RIGHT"/>
-        <intro>2</intro>
-        <accept annotation="AFFIRMATIVE">2</accept>
-        <cancel annotation="NEGATIVE">2</cancel>
-        
+    <dialog concept="TAB_TENSION_SYSTEM" scenario="scenario-hugs">
+    	<trigger annotation="TENSION_SYSTEM"/>
+        <intro>tab_TENSION_SYSTEM</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
     </dialog>
-        <dialog concept="GET_A_HUG" scenario="scenario-hugs">
-    	<trigger annotation="HUG"/>
-        <intro>Would you like a hug?</intro>
-        <accept annotation="AFFIRMATIVE">Great!</accept>
-        <cancel annotation="NEGATIVE">Okay, no problem!</cancel>
+
+    <dialog concept="TAB_ELECTRONICS" scenario="scenario-hugs">
+    	<trigger annotation="ELECTRONICS"/>
+        <intro>tab_ELECTRONICS</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
     </dialog>
-      -->
-     
+    <dialog concept="TAB_HEDDLES_AND_MOTORS" scenario="scenario-hugs">
+    	<trigger annotation="HEDDLES_AND_MOTORS"/>
+        <intro>tab_HEDDLES_AND_MOTORS</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="TAB_WARP_AND_HEDDLE_FRAME" scenario="scenario-hugs">
+    	<trigger annotation="WARP_AND_HEDDLE_FRAME"/>
+        <intro>tab_WARP_AND_HEDDLE_FRAME</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="TAB_WARP_BEAM_AND_BEATER" scenario="scenario-hugs">
+    	<trigger annotation="WARP_BEAM_AND_BEATER"/>
+        <intro>tab_WARP_BEAM_AND_BEATER</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="TAB_WARPING_ROUTINE" scenario="scenario-hugs">
+    	<trigger annotation="WARPING_ROUTINE"/>
+        <intro>tab_WARPING_ROUTINE</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
 </dialogs>
