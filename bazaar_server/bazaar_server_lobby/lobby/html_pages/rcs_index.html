@@ -1275,6 +1275,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
     <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+    <script src="stl_viewer.min.js"></script> 
     <!-- <script type="text/javascript" src="rcs_index.js"></script> -->
     <script>
         console.log('start')
@@ -1628,56 +1629,31 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
             if (tabName == "Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/" + spreadsheet;
+            if (tabName == "tips_final_loom") {
+                var stl_viewer=new StlViewer(
+                    document.getElementById("stl_cont"),
+                    {
+                        auto_rotate:true,
+                        bgcolor:"#20FAAC",
+                        allow_drag_and_drop:true,
+                        models:
+                        [
+                            {filename:"loom_v3.STL"}
+                        ]
+                    }
+                );}
             sendMessage(message)
         }
         // on load of page
         $(function () {
             // when the client clicks final loom button
-            // $('#demo').click(function () {
-            //     sendMessage();
+            // $('#final_loom_help_button').click(function () {
+            //     sendMessage('final_loom');
+
             // });
 
-            // // when the client clicks SEND
-            // $('#datasend').click( function() 
-            // {
-            //     sendMessage();
-            // });
-
-
-            // when the client clicks READY
-            // $('#ready_button').click( function() 
-            // {
-            //     $('#ready_button').toggleClass("toggled");
-            //     sendReady($('#ready_button').hasClass("toggled"));
-            //     //appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
-            // });
-
-            // // when the client hits ENTER on their keyboard
-            // $('#data').keypress(function(e) {
-            // 	if(e.which == 13 && !(e.altKey || e.shiftKey)) 
-            // 	{
-            // 		e.preventDefault();
-            // 		sendMessage();
-            // 	}
-            // });
-
-            // // when the client hits ENTER on their keyboard
-            // $('#image_url_input').keypress(function(e) {
-            // 	if(e.which == 13) 
-            // 	{
-            // 		e.preventDefault();
-            // 		shareImage();			
-            // 	}
-            // });
-
-
-            // // when the client clicks SEND IMAGE
-            // $('#imagesend').click( function() 
-            // {
-            // 		shareImage();
-            // });
         });
-
+    
         $(window).focus(function () {
 
             windowHasFocus = true;
@@ -1698,7 +1674,7 @@
                 document.title = "(" + unreadMessages.toString() + ") Discussion Room " + room;
             }
             else {
-                document.title = "Discussion Room " + room;
+                document.title = "RoboLoom Assembly" + room;
             }
         }
 
@@ -1720,6 +1696,7 @@
 
 
     </script>
+    
 
     <div id="everything">
 
@@ -1739,6 +1716,25 @@
                 <li><a href="#" class="tablinks" onclick="openTab(event, 'Electronics', 'tab_electronics')">Electronics</a></li>
             </ul>
 
+            <div id="tips_final_loom" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for final loom!
+                    </h1>
+                    <div id="stl_cont" style="width:500px;height:500px;margin:0 auto;"></div>
+                    <a href="#" class="tablinks" onclick="openTab(event, 'Loom Overview', 'backto_loom_overview')">I'm done</a>
+                </div>
+            </div>
+
+            <div id="tips_frame_material" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for Frame Materials!
+                    </h1>
+                    <a href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
+                </div>
+            </div>
+
             <div id="Loom Overview" class="tabcontent">
                 <div id="image_container" , class="scrollable">
                     <h1 class="c21" id="h.j2z4cc7a0tmx"><span>Tools</span></h1>
@@ -1755,8 +1751,11 @@
                     </p>
                     <h1 class="c21" id="h.gtmxnlakjhj1">
                         <span class="c20">Final Loom</span>
-                        <button id="final_loom_help_button" onclick="sendMessage('final_loom')">Click me to get help on this step.</button>
+                        <!-- <button id="final_loom_help_button" onclick="sendMessage('final_loom')">Click me to get help on this step.</button> -->
                     </h1>
+                    <h2>
+                        <a href="#" class="tablinks" onclick="openTab(event, 'tips_final_loom', 'final_loom')">Click me to get help on this step.</a>
+                    </h2>
                     <h1 class="c21" id="h.pjnwr2yckh22">
                         <span
                             style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 281.33px;"><img
@@ -1774,7 +1773,8 @@
                     <!-- <h1 class="c21" id="h.x1gchce7b2wo"><span>Frame</span></h1> -->
                     <h2 class="c29" id="h.tvn111z1mnjx">
                         <span class="c8">Materials</span>
-                        <button id="frame_material_help_button" onclick="sendMessage('frame_material')">Click me to get help on this step.</button>
+                        <a href="#" class="tablinks" onclick="openTab(event, 'tips_frame_material', 'frame_material')">Click me to get help on this step.</a>
+                        <!-- <button id="frame_material_help_button" onclick="sendMessage('frame_material')">Click me to get help on this step.</button> -->
                     </h2>
                     <a id="t.47925c66abb31288592b66b4d7ab8ff2e59220b0"></a>
                     <a id="t.0"></a>
@@ -3240,7 +3240,6 @@
                         onClick="showConvText();" /></div> -->
             <!-- </div> -->
         </div>
-
     </div>
 </body>
 
