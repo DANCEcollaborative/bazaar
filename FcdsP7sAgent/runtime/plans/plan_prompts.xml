@@ -21,6 +21,17 @@
 	<prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase_start">
      	<text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.</text>
     </prompt> 
+
+
+	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+	
+	<prompt strategy="task" id="PROMPT_GREETING" intention="cut_off_PROMPT_GREETING">
+     	<text>We're starting! I'm OPE_Bot.</text>
+    </prompt> 
+
+	<prompt strategy="task" id="PROMPT_SESSION_TIME" intention="cut_off_PROMPT_SESSION_TIME">
+     	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
+    </prompt> 
  
 
 

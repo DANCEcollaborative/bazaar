@@ -22,6 +22,17 @@
      <text>Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
      </prompt> 
 
+
+	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+	
+	<prompt strategy="task" id="PROMPT_GREETING" intention="cut_off_PROMPT_GREETING">
+     	<text>We're starting! I'm OPE_Bot.</text>
+    </prompt> 
+
+	<prompt strategy="task" id="PROMPT_SESSION_TIME" intention="cut_off_PROMPT_SESSION_TIME">
+     	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
+    </prompt> 
+
  
 
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
