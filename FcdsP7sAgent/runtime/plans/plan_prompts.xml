@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
 
-	<!-- GREETING PROMPTS --> 
+	<!-- GREETING PHASE PROMPTS --> 
 	
     <prompt strategy="task" id="INTRODUCE" intention="Build_rapport">
         <text>We're starting! I'm OPE_Bot.|||Beginning now, you will have approximately 80 minutes to complete programming and submit to receive your grades.|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a moment to learn more about each other.</text>
@@ -21,6 +21,7 @@
 	<prompt strategy="task" id="PROMPT_DISCUSSION" intention="discussion_phase_start">
      	<text>Let's take some time to discuss this solution. Take turns to discuss the question posed by the bot. We will move on in a few minutes.</text>
     </prompt> 
+    
 
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
@@ -39,7 +40,7 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
-        <text>We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities.</text>
+        <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities.</text>
     </prompt>
 	
     <prompt strategy="task" id="P1a" intention="parsons_prompt_start_0">
