@@ -1,6 +1,13 @@
 <html>
 <!-- Tab Edits -->
 <style>
+    .fcc-btn {
+    background-color: #efa607;
+    color: white;
+    padding: 1px 1px;
+    text-decoration: none;
+    }
+
     ul.lst-kix_1foqawd51ouw-0 {
         list-style-type: none
     }
@@ -1275,7 +1282,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
     <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
-    <script src="stl_viewer.min.js"></script> 
+    <!-- <script src="stl_viewer.min.js"></script>  -->
     <!-- <script type="text/javascript" src="rcs_index.js"></script> -->
     <script>
         console.log('start')
@@ -1629,19 +1636,19 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
             if (tabName == "Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/" + spreadsheet;
-            if (tabName == "tips_final_loom") {
-                var stl_viewer=new StlViewer(
-                    document.getElementById("stl_cont"),
-                    {
-                        auto_rotate:true,
-                        bgcolor:"#20FAAC",
-                        allow_drag_and_drop:true,
-                        models:
-                        [
-                            {filename:"loom_v3.STL"}
-                        ]
-                    }
-                );}
+            // if (tabName == "tips_final_loom") {
+            //     var stl_viewer=new StlViewer(
+            //         document.getElementById("stl_cont"),
+            //         {
+            //             auto_rotate:true,
+            //             bgcolor:"#20FAAC",
+            //             allow_drag_and_drop:true,
+            //             models:
+            //             [
+            //                 {filename:"loom_v3.STL"}
+            //             ]
+            //         }
+            //     );}
             sendMessage(message)
         }
         // on load of page
@@ -1719,22 +1726,380 @@
             <div id="tips_final_loom" class="tabcontent">
                 <div id="image_container", class="crollable">
                     <h1>
-                        Here are some tips for final loom!
+                        Here is a 3D model of the loom.
                     </h1>
-                    <div id="stl_cont" style="width:500px;height:500px;margin:0 auto;"></div>
-                    <a href="#" class="tablinks" onclick="openTab(event, 'Loom Overview', 'backto_loom_overview')">I'm done</a>
+                    <h3>
+                        You can use mouse to rotate the model. You can also zoom in and out using the scroll wheel.
+                    </h3>
+                    <div class="sketchfab-embed-wrapper">
+                        <iframe title="Loom_v3.STL" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/13bf5d16aa554538a6d02a596f209875/embed"> </iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/3d-models/loom-v3stl-13bf5d16aa554538a6d02a596f209875?utm_medium=embed&utm_campaign=share-popup&utm_content=13bf5d16aa554538a6d02a596f209875" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> 
+                        </p>
+                    </div>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Loom Overview', 'backto_loom_overview')">I'm done</a>
                 </div>
             </div>
-
-            <div id="tips_frame_material" class="tabcontent">
+            <div id="tips_base_frame_1" class="tabcontent">
                 <div id="image_container", class="crollable">
                     <h1>
-                        Here are some tips for Frame Materials!
+                        Here are some tips for corner bracket assembly!
                     </h1>
-                    <a href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
+                    <ul>
+                        <li>
+                            Make sure you are using M5 8mm screws and M5 t-nuts. If you are not using these, please go back to the material table and get the correct ones.
+                        </li>
+                        <li>
+                            <span>
+                                The M5 T-nut should look like this:
+                            </span>
+                            <p class="c11">
+                                <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 92.59px; height: 109.81px;">
+                                    <img alt="" src="https://drive.google.com/uc?export=view&id=1I5oKKVKbFc5zPinBNf3fK4Lv_1PFeXPo"
+                                    style="width: 92.59px; height: 109.81px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title="">
+                                </span>
+                            </p>
+                        </li>
+                        <li>
+                            <span>
+                                The corner bracket should look like this:
+                            </span>
+                            <p class="c11"><span
+                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 99.50px; height: 99.50px;"><img
+                                    alt=""
+                                    src="https://drive.google.com/uc?export=view&id=1IOymGolWuXazrl2Rg18Vc8OuQPQUH408"
+                                    style="width: 99.50px; height: 99.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title=""></span></p>
+                        </li>
+                        <li>
+                            <span>Make sure the flat side of the t-nut is facing the corner bracket as shown:</span>
+                            <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 126.35px; height: 132.00px;"><img
+                                    alt="" src="https://drive.google.com/uc?export=view&id=12e-tZfEF8qevIloiedsg1m5vGo5BqXlp"
+                                    style="width: 624.00px; height: 467.27px; margin-left: -173.65px; margin-top: -154.43px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title="">
+                            </span>
+                        </li>
+                    </ul>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
+                </div>
+            </div>
+            <div id="tips_base_frame_2" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for Base Frame!
+                    </h1>
+                    <h3>
+                        Having trouble getting the t-nut to slide onto the 8020?
+                    </h3>
+                    <ul>
+                        <li>
+                            Make sure your corner bracket is correctly assembled, the flat side of the t-nut should be facing the corner bracket. Refer to the previous step if you are not sure. 
+                        </li>
+                        <li>
+                            <span >Make sure the t-nut is not too tight on the corner bracket. If it is, it will be difficult to slide it onto the 8020: 3-4 revolutions is all it takes, leave room to slide it onto the 8020</span>
+                        </li>
+                        
+                    </ul>
+                    <h3>
+                        Does your base frame sit flat on the ground?
+                    </h3>
+                    <ul>
+                        <li>
+                            <span>Make sure the 8020 pieces you are using are the correct length. They should be either 560mm or 250mm long. Refer to the material table if you are not sure.</span>
+                        </li>
+                        <li>
+                            <span>The shorter 8020 piece should extend all the way to the edges of the feet holders. The
+                                longer 8020 should be against the shorter 8020, as the below image.<br></span><span
+                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 238.29px; height: 363.50px;"><img
+                                    alt="" src="https://drive.google.com/uc?export=view&id=1atGNZ5u05u8f9rrkJb2aBB5hzulDCurA"
+                                    style="width: 315.03px; height: 420.04px; margin-left: -76.74px; margin-top: -28.27px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title=""></span>
+                        </li>
+                    </ul>
+
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
                 </div>
             </div>
 
+            <div id="tips_base_frame_final" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for Base Frame!
+                    </h1>
+                    <h3>
+                        Here is a list of details you might have ignored, check it before you proceed:
+                    </h3>
+                    <ul>
+                        <li>
+                            <span>
+                                Make sure you slided the right number of corner brackets onto the 8020. There should be 8 corner brackets on each 560mm piece and 2 corner brackets on each 250mm piece. 
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                Make sure you slide exactly one ball t-nut on the INSIDE of each long 8020 piece(560 mm). The M4 ball t-nut should look like this:
+                            </span>
+                            <p class="c11"><span
+                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 79.50px; height: 111.30px;"><img
+                                    alt="" src="https://drive.google.com/uc?export=view&id=1uP8Ol-4dX_3oNIaESeA4f6Nt0cV_Az8z"
+                                    style="width: 79.50px; height: 111.30px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title=""></span></p>
+                        </li>
+                        <li>
+                            <span>The frame should be a flat rectangle, if it doesn't sit flat you might not have put the short pieces in the correct orientations. Refer to the previous step.</span>
+                        </li>
+                        <li>
+                            The rotation of the corner brackets doesn't matter for now, you can rotate them later when you're putting the vertical 8020 pieces in. 
+                        </li>
+                    </ul>
+                    <h3>
+                        Here is a 3D model of the base frame. You can use mouse to rotate the model. You can also zoom in and out using the scroll wheel.
+                    </h3>
+                    <div class="sketchfab-embed-wrapper">
+                        <iframe title="Frame" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/2edf0d8e4d4545219dc754aa01df0e59/embed"> </iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/3d-models/frame-2edf0d8e4d4545219dc754aa01df0e59?utm_medium=embed&utm_campaign=share-popup&utm_content=2edf0d8e4d4545219dc754aa01df0e59" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        </p>
+                    </div>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
+                </div>
+            </div>
+
+            <div id="tips_warp_and_heddle_frame_1" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for warp and heddle frame!
+                    </h1>
+                    <h3>
+                        Do you know which is the front and back of the warp and heddle frame?
+                    </h3>
+                    <ul>
+                        <li>
+                            The front of the loom is on the left, with 2*178mm beams, as shown in the picture below:
+                        </li>
+                    </ul>
+
+                    <span
+                        style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
+                            alt="" src="https://drive.google.com/uc?export=view&id=1W1jo2_Nqk09QKV8KwQ6EQ0sEY8DGoQFU"
+                            style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title="">
+                    </span>
+                    <h3>
+                        Having trouble getting the t-nut to slide onto the 8020?
+                    </h3>
+                    <ul>
+                        <li>
+                            Make sure your corner bracket is correctly assembled, the flat side of the t-nut should be facing the corner bracket. Refer to the previous step if you are not sure. 
+                        </li>
+                        <li>
+                            <span >Make sure the t-nut is not too tight on the corner bracket. If it is, it will be difficult to slide it onto the 8020: 3-4 revolutions is all it takes, leave room to slide it onto the 8020</span>
+                        </li>
+                        
+                    </ul>
+                    
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warp and Heddle Frame', 'backto_warp_and_heddle_frame')">I'm done</a>
+                </div>
+            </div>
+
+            <div id="tips_warp_and_heddle_frame_2" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for the final warp and heddle frame!
+                    </h1>
+                    <h3>
+                        Do you know which is the front and back of the warp and heddle frame?
+                    </h3>
+                    <ul>
+                        <li>
+                            The front of the loom is on the left, with 2*178mm beams, as shown in the picture below:
+                        </li>
+                    </ul>
+
+                    <span
+                        style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
+                            alt="" src="https://drive.google.com/uc?export=view&id=1W1jo2_Nqk09QKV8KwQ6EQ0sEY8DGoQFU"
+                            style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title="">
+                    </span>
+                    <h3>
+                        Here is a list of details you might have ignored, check it before you proceed:
+                    </h3>
+                    <ul>
+                        <li>
+                            <span>
+                                Make sure you are using the correct 8020 pieces. The four 8020 pieces at the corners should be 178mm long. There are 6 beams in the middle: 4 8020 pieces should be 200mm long, and 2 8020 pieces should be 178mm long.
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                Make sure you measured the distance before screwing down the 8020 pieces. The distance are different for the 4 corner pieces and the 6 middle pieces.
+                            </span>
+                        </li>
+                        <li>
+                            <span>Measuring from the outside edges ensure 160mm from back 178mm height beam:</span>
+                            <span
+                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 345.41px; height: 258.35px;">
+                                <img alt="" src="https://drive.google.com/uc?export=view&id=17MpvqdAiWKdP735n52wvwVibC-Lo5YVQ"
+                                    style="width: 345.41px; height: 258.35px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title="">
+                            </span>
+                        </li>
+                        <li>
+                            <span>Measuring from the outside edges ensure 185mm between the 200mm height beams: </span>
+                            <span
+                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 352.50px; height: 262.06px;">
+                                <img alt="" src="https://drive.google.com/uc?export=view&id=1-w8IJxug9TemUmETq5ciT5T_y8-44mv4"
+                                    style="width: 352.50px; height: 262.06px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                    title="">
+                            </span>
+                        </li>
+                    </ul>
+                    <h3>
+                        Here is a 3D model of the warp and heddle frame:
+                    </h3>
+                    <div class="sketchfab-embed-wrapper">
+                        <iframe title="Warp_and_heddle_frame" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/dfeb3f5697304a1995a8eaeb44ba15b2/embed"> </iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/3d-models/warp-and-heddle-frame-dfeb3f5697304a1995a8eaeb44ba15b2?utm_medium=embed&utm_campaign=share-popup&utm_content=dfeb3f5697304a1995a8eaeb44ba15b2" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        </p>
+                    </div>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warp and Heddle Frame', 'backto_warp_and_heddle_frame')">I'm done</a>
+                </div>
+            </div>
+            <div id="tips_warp_and_heddle_frame_3" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for tensioning frame!
+                    </h1>
+                    <h3>
+                        Here is a list of details you might have ignored, check it before you proceed:
+                    </h3>
+                    <ul>
+                        <li>
+                            Make sure you put 2 m5 t-buts in each of the 260 top beams.
+                        </li>
+                        <li>
+                            Make sure you are using the correct 8020 pieces. 
+                        </li>
+                        <li>
+                            Measuring from the outside of the top to the outside of the support 300mm beam should be 120mm
+                        </li>
+                    </ul>
+                    <h3>
+                        Here is a 3D model of the tensioning frame:
+                    </h3>
+                    
+                    <div class="sketchfab-embed-wrapper">
+                        <iframe title="Tensioning_frame" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/c33b23fef06d41f09222199bf78a48eb/embed"> </iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/3d-models/tensioning-frame-c33b23fef06d41f09222199bf78a48eb?utm_medium=embed&utm_campaign=share-popup&utm_content=c33b23fef06d41f09222199bf78a48eb" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        </p>
+                    </div>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warp and Heddle Frame', 'backto_warp_and_heddle_frame')">I'm done</a>
+                </div>
+            </div>
+
+            <div id="tips_heddles_and_motors_1" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for heddles and motors assembly!
+                    </h1>
+                    <h3>
+                        Is the motor not working?
+                    </h3>
+                    <ul>
+                        <li>
+                            Check if the bracket is flush with the acrylic board and is seated in the notches of the motors fully.
+                        </li>
+                        <li>
+                            The numbers on the motor mount should be on the left, upright and reading properly
+                        </li>
+                        <li>
+                            The numbers on the motor mount should be on the left, upright and reading properly
+                        </li>
+                    </ul>
+                    <h3>
+                        Here is a 3D model of the heddle motors assembly:
+                    </h3>
+                    <div class="sketchfab-embed-wrapper">
+                        <iframe title="Heddle_motors_assembly.STL" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/434a8689cbcd47c0ad77a2e2eb4ec7e5/embed"> </iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> 
+                            <a href="https://sketchfab.com/3d-models/heddle-motors-assemblystl-434a8689cbcd47c0ad77a2e2eb4ec7e5?utm_medium=embed&utm_campaign=share-popup&utm_content=434a8689cbcd47c0ad77a2e2eb4ec7e5" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        </p>
+                    </div>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Heddles and Motors Assembly', 'backto_heddles_and_motors')">I'm done</a>
+                </div>
+            </div>
+            <div id="tips_tension_system_1" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for tension system assembly!
+                    </h1>
+                    <h3>
+                        Here is a list of details you might have ignored, check it before you proceed:
+                    </h3>
+                    <ul>
+                        <li>
+                            Make sure you use spacers to align the creel top. If forgotton, you might screw the top to the bottom too tightly and break the acrylic.
+                        </li>
+                        <li>
+                            Make sure you put 2 m5 t-nuts in each of the 260 top beams when you assemble the tensioning frame step.</br>
+                            if you forgot, you have to take cage apart and add then. They can't be slotted in after the fact.
+                        </li>
+                    </ul>
+                    <h3>
+                        Here is a 3D model of the tension system:
+                    </h3>
+                    
+                    <div class="sketchfab-embed-wrapper">
+                        <iframe title="Tensioning_system.STL" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d6e3fbe3bf2c40b1ac35a957a7705b30/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/tensioning-systemstl-d6e3fbe3bf2c40b1ac35a957a7705b30?utm_medium=embed&utm_campaign=share-popup&utm_content=d6e3fbe3bf2c40b1ac35a957a7705b30" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"></p>
+                    </div>
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Tension System', 'backto_tension_system')">I'm done</a>
+                </div>
+            </div>
+
+            <div id="tips_warp_beam_and_beater_1" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for warp beam and beater assembly!
+                    </h1>
+                    <ul>
+                        <li>
+                            Make sure that the warp beam can spin freely away from the loom, but cannot spin towards the loom.
+                        </li>
+                        <li>
+                            The brackets should be in pairs, one on each side of the loom, and mirrored to each other.
+                        </li>
+                        <li>
+                            When you put the bracket onto the reed, it might be a tight fit. You might have to use a hammer to tap it in.
+                        </li>
+                        <li>
+                            If you forgot the M4 Ball T-Nuts, there is a way to maneuver them into the 8020 without redoing the entire frame
+                        </li>
+                    </ul>
+
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warp Beam and Beater', 'backto_warp_beam_and_beater')">I'm done</a>
+                </div>
+            </div>
+            <div id="tips_warping_routine_1" class="tabcontent">
+                <div id="image_container", class="crollable">
+                    <h1>
+                        Here are some tips for warping!
+                    </h1>
+                    <ul>
+                        <li>
+                            When you pass each thread over its respective guiding rod, make sure you thread it under the 8020 beam.
+                        </li>
+                        <li>
+                            Please check with your instructor after carefully watching the video to make sure you are doing it correctly.
+                        </li>
+                    </ul>
+
+                    <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warping Routine', 'backto_warping_routine')">I'm done</a>
+                </div>
+            </div>
             <div id="Loom Overview" class="tabcontent">
                 <div id="image_container" , class="scrollable">
                     <h1 class="c21" id="h.j2z4cc7a0tmx"><span>Tools</span></h1>
@@ -1754,7 +2119,7 @@
                         <!-- <button id="final_loom_help_button" onclick="sendMessage('final_loom')">Click me to get help on this step.</button> -->
                     </h1>
                     <h2>
-                        <a href="#" class="tablinks" onclick="openTab(event, 'tips_final_loom', 'final_loom')">Click me to get help on this step.</a>
+                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_final_loom', 'final_loom')">Click me to see a 3d visualization of the final loom.</a>
                     </h2>
                     <h1 class="c21" id="h.pjnwr2yckh22">
                         <span
@@ -1773,7 +2138,7 @@
                     <!-- <h1 class="c21" id="h.x1gchce7b2wo"><span>Frame</span></h1> -->
                     <h2 class="c29" id="h.tvn111z1mnjx">
                         <span class="c8">Materials</span>
-                        <a href="#" class="tablinks" onclick="openTab(event, 'tips_frame_material', 'frame_material')">Click me to get help on this step.</a>
+                        <!-- <a href="#" class="tablinks" onclick="openTab(event, 'tips_frame_material', 'frame_material')">Click me to get help on this step.</a> -->
                         <!-- <button id="frame_material_help_button" onclick="sendMessage('frame_material')">Click me to get help on this step.</button> -->
                     </h2>
                     <a id="t.47925c66abb31288592b66b4d7ab8ff2e59220b0"></a>
@@ -1996,7 +2361,7 @@
                     </h2>
 
                     <h3 class="c39 c45" id="h.hi9y26o5heco">
-                        <span>Base Frame</span><sup><a href="#cmnt1" id="cmnt_ref1">[a]</a></sup>
+                        <span>Base Frame</span>
                         <!-- <button class="button">I need help [Base Frame]</button> -->
                     </h3>
                     <ul class="c4 lst-kix_rf5nr8s1aayt-0 start">
@@ -2011,8 +2376,9 @@
                         <li class="c12 li-bullet-0">
                             <span>Follow this video for guidance: </span><span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1L8QmOtq9gIF1c5JuHrio1G74nZc9EJNH/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680856228&amp;usg=AOvVaw3CFf_Qtbd9nI8cqTHLWYzj" target="_blank">https://drive.google.com/file/d/1L8QmOtq9gIF1c5JuHrio1G74nZc9EJNH/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                                <button id="base_frame_1_help_button" onclick="sendMessage('base_frame_1')">Click me to get help on this step.</button>
+                                class="c9">&nbsp;</span><br>
+                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_1', 'base_frame_1')">Click me to get help on this step.</a>
+                                <!-- <button id="base_frame_1_help_button" onclick="sendMessage('base_frame_1')">Click me to get help on this step.</button> -->
                             </li>
                         <li class="c12 li-bullet-0">
                             <span>Make sure the flat side of the t-nut is facing the corner bracket as
@@ -2032,8 +2398,9 @@
                             <span>Follow the following video for the remaining steps:</span>
                             <span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1L9suzpK_Nu51HjAXQzA2KCVYHQ-ojs0a/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680857054&amp;usg=AOvVaw11wwFX-81JRpzNr-tUt4XL"  target="_blank">https://drive.google.com/file/d/1L9suzpK_Nu51HjAXQzA2KCVYHQ-ojs0a/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                                <button id="base_frame_2_help_button" onclick="sendMessage('base_frame_2')">Click me to get help on this step.</button>
+                                class="c9">&nbsp;</span><br>
+                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_2', 'base_frame_2')">Click me to get help on this step.</a> 
+                                <!-- <button id="base_frame_2_help_button" onclick="sendMessage('base_frame_2')">Click me to get help on this step.</button> -->
                             </li>
                         <li class="c6 li-bullet-0"><span class="c9">Lay out the bottom 8020 pieces</span></li>
                     </ul>
@@ -2087,7 +2454,8 @@
                         </li>
                         <li class="c6 li-bullet-0">
                             <span>It should look like this when you&rsquo;re done: </span>
-                            <button id="base_frame_final_help_button" onclick="sendMessage('base_frame_final')">Click me to get help on this step.</button>
+                            <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_final', 'base_frame_final')">Click me to get help on this step.</a><br>
+                            <!-- <button id="base_frame_final_help_button" onclick="sendMessage('base_frame_final')">Click me to get help on this step.</button> -->
                             <span
                                 style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 375.50px; height: 281.63px;"><img
                                     alt="" src="https://drive.google.com/uc?export=view&id=1-BLVUehuMlIT6KBzEXYfn2xaavS9teQc"
@@ -2107,7 +2475,7 @@
             <div id="Warp and Heddle Frame" class="tabcontent">
                 <div id="image_container" class="scrollable">
                     <h1 class="c21" id="h.x1gchce7b2wo">
-                        <span>Warp and Heddle Frame</span><sup><a href="#cmnt2" id="cmnt_ref2">[b]</a></sup>
+                        <span>Warp and Heddle Frame</span>
                         <!-- <button class="button">Click Me! [Warp and Heddle Frame]</button> -->
                     </h1>
                     <ul class="c4 lst-kix_rf5nr8s1aayt-0">
@@ -2115,8 +2483,9 @@
                             <span>Video for this section is here: </span><span class="c16"><a
                                     class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1LALhTHe8uoe-dAp9glmacT7A_3YCAzZd/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680859563&amp;usg=AOvVaw0_Mgp9E9OcpuM-Dy6DUJK2" target="_blank">https://drive.google.com/file/d/1LALhTHe8uoe-dAp9glmacT7A_3YCAzZd/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                                <button id="warp_and_heddle_frame_1_help_button" onclick="sendMessage('warp_and_heddle_frame_1')">Click me to get help on this step.</button>   
+                                class="c9">&nbsp;</span><br>
+                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_1', 'warp_and_heddle_frame_1')">Click me to get help on this step.</a>
+                                <!-- <button id="warp_and_heddle_frame_1_help_button" onclick="sendMessage('warp_and_heddle_frame_1')">Click me to get help on this step.</button>    -->
                             </li>
                         <li class="c6 li-bullet-0"><span class="c9">Put height beams on</span></li>
                     </ul>
@@ -2188,7 +2557,8 @@
                         <li class="c6 li-bullet-0">
                             <span>It should look like this</span><sup><a href="#cmnt3" id="cmnt_ref3">[c]</a></sup>
                             <span>when you&rsquo;re done: </span>
-                            <button id="warp_and_heddle_frame_2_help_button" onclick="sendMessage('warp_and_heddle_frame_2')">Click me to get help on this step.</button>   
+                            <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_2', 'warp_and_heddle_frame_2')">Click me to get help on this step.</a><br>
+                            <!-- <button id="warp_and_heddle_frame_2_help_button" onclick="sendMessage('warp_and_heddle_frame_2')">Click me to get help on this step.</button>    -->
     
                             <span
                                 style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
@@ -2205,7 +2575,8 @@
                     </h3>
                     <h3 class="c45 c39" id="h.9gwtmb1e7jr8">
                         <span>Tensioning Frame</span>
-                        <button id="warp_and_heddle_frame_3_help_button" onclick="sendMessage('warp_and_heddle_frame_3')">Click me to get help on this step.</button>   
+                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_3', 'warp_and_heddle_frame_3')">Click me to get help on this step.</a>
+                        <!-- <button id="warp_and_heddle_frame_3_help_button" onclick="sendMessage('warp_and_heddle_frame_3')">Click me to get help on this step.</button>    -->
                     </h3>
                     <ul class="c4 lst-kix_rf5nr8s1aayt-0">
                         <li class="c6 li-bullet-0"><span>Video for this section is here: </span><span class="c16"><a
@@ -2258,7 +2629,7 @@
                     <h1 class="c21" id="h.x1gchce7b2wo"><span>Heddles and Motors Assembly of Loom</span></h1>
                     <h2 class="c29" id="h.emk1sgrnereg">
                         <span class="c8">Materials</span>
-                        <button id="heddles_and_motors_material_help_button" onclick="sendMessage('heddles_and_motors_material')">Click me to get help on this step.</button>   
+                        <!-- <button id="heddles_and_motors_material_help_button" onclick="sendMessage('heddles_and_motors_material')">Click me to get help on this step.</button>    -->
                     </h2>
                     <p class="c17">
                         <span class="c9"></span>
@@ -2471,8 +2842,9 @@
                             <span class="c16">
                                 <a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1hSk5e-FOVZ-IyOv6BzxsM-ym7mfZYfA6/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680874319&amp;usg=AOvVaw1zFms9CA-wKgHv_-mQzESQ" target="_blank">https://drive.google.com/file/d/1hSk5e-FOVZ-IyOv6BzxsM-ym7mfZYfA6/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                            <button id="heddles_and_motors_1_help_button" onclick="sendMessage('heddles_and_motors_1')">Click me to get help on this step.</button>   
+                                class="c9">&nbsp;</span><br>
+                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_heddles_and_motors_1', 'heddles_and_motors_1')">Click me to get help on this step.</a>
+                                <!-- <button id="heddles_and_motors_1_help_button" onclick="sendMessage('heddles_and_motors_1')">Click me to get help on this step.</button>    -->
                             
                         </li>
                         <li class="c6 li-bullet-0"><span class="c9">Make a motor assembly</span></li>
@@ -2487,8 +2859,7 @@
                     </ul>
                     <ul class="c4 lst-kix_sl451y9wheao-1 start">
                         <li class="c12 li-bullet-0"><span>Orient the mount the correct way: Number should be on the
-                                left, upright, and reading properly (not backwards) </span><sup><a href="#cmnt4"
-                                    id="cmnt_ref4">[d]</a></sup></li>
+                                left, upright, and reading properly (not backwards) </span></li>
                         <li class="c12 li-bullet-0"><span class="c9">Put on motor one</span></li>
                         <li class="c12 li-bullet-0"><span class="c9">Screw in only the two screws to left</span></li>
                         <li class="c12 li-bullet-0"><span class="c9">Put another motor on</span></li>
@@ -2546,7 +2917,7 @@
                     <h1 class="c21" id="h.x1gchce7b2wo"><span>Tension System</span></h1>
                     <h2 class="c29" id="h.mye3zl7okc61">
                         <span class="c8">Materials</span>
-                        <button id="tension_system_material_help_button" onclick="sendMessage('tension_system_material')">Click me to get help on this step.</button> 
+                        <!-- <button id="tension_system_material_help_button" onclick="sendMessage('tension_system_material')">Click me to get help on this step.</button>  -->
                     </h2>
                     <p class="c17"><span class="c9"></span></p>
                     <a id="t.b6433aaee1809acceb955e4d9536fc53eee53eb5"></a>
@@ -2828,8 +3199,9 @@
                             <span class="c16"><a
                                     class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1daSU7YR-RIImE0Dje5L2WyvquTXLPC7D/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680891159&amp;usg=AOvVaw0RPuPZ-RLonBiJMkSXi-vy" target="_blank">https://drive.google.com/file/d/1daSU7YR-RIImE0Dje5L2WyvquTXLPC7D/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                                <button id="tension_system_1_help_button" onclick="sendMessage('tension_system_1')">Click me to get help on this step.</button> 
+                                class="c9">&nbsp;</span><br>
+                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_tension_system_1', 'tension_system_1')">Click me to get help on this step.</a>
+                                <!-- <button id="tension_system_1_help_button" onclick="sendMessage('tension_system_1')">Click me to get help on this step.</button>  -->
                             </li>
                         <li class="c6 li-bullet-0"><span class="c9">Put bobbin in case</span></li>
                     </ul>
@@ -2893,7 +3265,7 @@
                     <h1 class="c21" id="h.5dvjowktpjqn"><span>Warp Beam and Beater Assembly</span></h1>
                     <h2 class="c29" id="h.3shk829nygbh">
                         <span class="c8">Materials</span>
-                        <button id="warp_beam_and_beater_material_help_button" onclick="sendMessage('warp_beam_and_beater_material')">Click me to get help on this step.</button> 
+                        <!-- <button id="warp_beam_and_beater_material_help_button" onclick="sendMessage('warp_beam_and_beater_material')">Click me to get help on this step.</button>  -->
                     </h2>
                     <a id="t.ef6d1b824d209ea7bcdd4d47fa002f3b8f3aaa55"></a>
                     <a id="t.3"></a>
@@ -3020,13 +3392,17 @@
                         </tr>
                     </table>
                     <h2 class="c29" id="h.o3kdijiqq47b"><span class="c8">Process</span></h2>
+                    <h3>
+                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_beam_and_beater_1', 'warp_beam_and_beater_1')">Click me to get help on this step.</a>
+                    </h3>
+
                     <ul class="c4 lst-kix_k1rtewdyl7sy-0 start">
                         <li class="c6 li-bullet-0">
                             <span>Put the warp beam on: </span>
                             <span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1uCJ0xp6FN9pGCa_vqAFrAki4osB_xB8t/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680900189&amp;usg=AOvVaw0YgOqoG1IH_ZFMA3HRQBUe" target="_blank">https://drive.google.com/file/d/1uCJ0xp6FN9pGCa_vqAFrAki4osB_xB8t/view?usp=sharing</a></span><span
                                 class="c9">&nbsp;</span>
-                            <button id="warp_beam_and_beater_1_help_button" onclick="sendMessage('warp_beam_and_beater_1')">Click me to get help on this step.</button>    
+                            <!-- <button id="warp_beam_and_beater_1_help_button" onclick="sendMessage('warp_beam_and_beater_1')">Click me to get help on this step.</button>     -->
                         </li>
                     </ul>
                     <ul class="c4 lst-kix_k1rtewdyl7sy-1 start">
@@ -3046,7 +3422,7 @@
                             <span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1I_eCPG7rLr3uNIhKhSEmKmCrOnfaM35S/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680901141&amp;usg=AOvVaw2RFUljW4Ewzk-kQHCT83XP" target="_blank">https://drive.google.com/file/d/1I_eCPG7rLr3uNIhKhSEmKmCrOnfaM35S/view?usp=sharing</a></span><span
                                 class="c9">&nbsp;</span>
-                            <button id="warp_beam_and_beater_2_help_button" onclick="sendMessage('warp_beam_and_beater_2')">Click me to get help on this step.</button> 
+                            <!-- <button id="warp_beam_and_beater_2_help_button" onclick="sendMessage('warp_beam_and_beater_2')">Click me to get help on this step.</button>  -->
                             
                         </li>
                     </ul>
@@ -3074,6 +3450,9 @@
             <div id="Warping Routine" class="tabcontent">
                 <div id="image_container" class="scrollable">
                     <h1 class="c21" id="h.5dvjowktpjqn"><span>Warping Routine</span></h1>
+                    <h3>
+                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warping_routine_1', 'warping_routine_1')">Click me to get help on this step.</a>
+                    </h3>
                     <ul class="c4 lst-kix_1o9fcraj31qw-0 start">
                         <li class="c6 li-bullet-0">
                             <span>To thread the loom, you&rsquo;ll take each thread, pass it
@@ -3082,7 +3461,7 @@
                                 is shown here: </span>
                             <span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/1MAPVWkPgJPcySMOp1dWmJmqZJYY4WSVB/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902203&amp;usg=AOvVaw3_tl_I28yTU8P7KBYsDkd_" target="_blank">https://drive.google.com/file/d/1MAPVWkPgJPcySMOp1dWmJmqZJYY4WSVB/view?usp=sharing</a></span>
-                            <button id="warping_routine_1_help_button" onclick="sendMessage('warping_routine_1')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_1_help_button" onclick="sendMessage('warping_routine_1')">Click me to get help on this step.</button>           -->
                         </li>
                         <li class="c6 li-bullet-0"><span class="c9">Thread each yarn through the tensioning
                                 system</span></li>
@@ -3092,14 +3471,14 @@
                                 tension spacer twice. A close up video of this can be found here: </span><span
                                 class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/12XpKbnm54b4xVL5xSugnmOsazEdZCMOF/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902602&amp;usg=AOvVaw00hA4Upr7UdlV1piLaopVI" target="_blank">https://drive.google.com/file/d/12XpKbnm54b4xVL5xSugnmOsazEdZCMOF/view?usp=sharing</a></span>
-                            <button id="warping_routine_2_help_button" onclick="sendMessage('warping_routine_2')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_2_help_button" onclick="sendMessage('warping_routine_2')">Click me to get help on this step.</button>           -->
                         </li>
                         <li class="c12 li-bullet-0"><span class="c9">Pass each thread over its respective guiding rod
                                 (the rod directly above the tensioning rod)</span></li>
                         <li class="c12 li-bullet-0"><span>A video of the full process can be seen here: </span><span
                                 class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/12h5iHmaqU7WeOAnt2RZneYNrUXEn2dA0/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902986&amp;usg=AOvVaw04FAPmY50ED3RfVFh7XugQ" target="_blank">https://drive.google.com/file/d/12h5iHmaqU7WeOAnt2RZneYNrUXEn2dA0/view?usp=sharing</a></span>
-                            <button id="warping_routine_3_help_button" onclick="sendMessage('warping_routine_3')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_3_help_button" onclick="sendMessage('warping_routine_3')">Click me to get help on this step.</button>           -->
                         </li>
                     </ul>
                     <ul class="c4 lst-kix_1o9fcraj31qw-0">
@@ -3119,7 +3498,7 @@
                         <li class="c12 li-bullet-0"><span>A video of this process can be found here: </span><span
                                 class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/12uckF7H2XsbnnEFzWiGwCWAqz7xol1eJ/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680903675&amp;usg=AOvVaw35h_y33nDSGl_XcoEqfOW_" target="_blank">https://drive.google.com/file/d/12uckF7H2XsbnnEFzWiGwCWAqz7xol1eJ/view?usp=sharing</a></span>
-                            <button id="warping_routine_4_help_button" onclick="sendMessage('warping_routine_4')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_4_help_button" onclick="sendMessage('warping_routine_4')">Click me to get help on this step.</button>           -->
                         </li>
                     </ul>
                     <ul class="c4 lst-kix_1o9fcraj31qw-2 start">
@@ -3143,7 +3522,7 @@
                         <li class="c12 li-bullet-0"><span>A video of this process can be found here: </span><span
                                 class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/12uPykp9NHIbhplIv42tAlZCfrKo7fsE9/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680904398&amp;usg=AOvVaw2zcGEV9NtuF9kNlco9KaZm" target="_blank">https://drive.google.com/file/d/12uPykp9NHIbhplIv42tAlZCfrKo7fsE9/view?usp=sharing</a></span>
-                            <button id="warping_routine_5_help_button" onclick="sendMessage('warping_routine_5')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_5_help_button" onclick="sendMessage('warping_routine_5')">Click me to get help on this step.</button>           -->
                         </li>
                     </ul>
                     <ul class="c4 lst-kix_1o9fcraj31qw-0">
@@ -3164,7 +3543,7 @@
                         <li class="c12 li-bullet-0">
                             <span>A video of this process can be found here: </span><span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/12pXPe95EB38_Lqxshce2CBF2vUyttP3T/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680905131&amp;usg=AOvVaw2YyAlgrfU2jJL8S2eevaI6" target="_blank">https://drive.google.com/file/d/12pXPe95EB38_Lqxshce2CBF2vUyttP3T/view?usp=sharing</a></span>
-                            <button id="warping_routine_6_help_button" onclick="sendMessage('warping_routine_6')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_6_help_button" onclick="sendMessage('warping_routine_6')">Click me to get help on this step.</button>           -->
                         </li>
                     </ul>
                     <ul class="c4 lst-kix_1o9fcraj31qw-0">
@@ -3178,7 +3557,7 @@
                         <li class="c12 li-bullet-0">
                             <span>This process can be seen here: </span><span class="c16"><a class="c10"
                                     href="https://www.google.com/url?q=https://drive.google.com/file/d/12mhnYptuZl8djz3U4jzoWgHRvzTzo7op/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680905502&amp;usg=AOvVaw0GmvRjv1uEyEwEo4xK41t9" target="_blank">https://drive.google.com/file/d/12mhnYptuZl8djz3U4jzoWgHRvzTzo7op/view?usp=sharing</a></span>
-                            <button id="warping_routine_7_help_button" onclick="sendMessage('warping_routine_7')">Click me to get help on this step.</button>          
+                            <!-- <button id="warping_routine_7_help_button" onclick="sendMessage('warping_routine_7')">Click me to get help on this step.</button>           -->
                         </li>
                     </ul>
                     <ul class="c4 lst-kix_1o9fcraj31qw-0">
@@ -3214,7 +3593,7 @@
                             <span>Orient your electronics board such that the Arduino is closer to the tensioning cage,
                                 as shown in </span>
                             <span>PICTURE</span>
-                            <button id="electronics_help_button" onclick="sendMessage('electronics_help')">Click me to get help on this step.</button> 
+                            <!-- <button id="electronics_help_button" onclick="sendMessage('electronics_help')">Click me to get help on this step.</button>  -->
                         </li>
                     </ul>
                 </div>
