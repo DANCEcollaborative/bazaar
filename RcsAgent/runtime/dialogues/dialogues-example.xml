@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dialogs>
     
+<!-- checkbox clicks -->
+    <dialog concept="CB_INSTRUCTION_CHECKED" scenario="scenario-hugs">
+    	<trigger annotation="INSTRUCTION_CHECKED"/>
+        <intro>checked_INSTRUCTION</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+    <dialog concept="CB_INSTRUCTION_UNCHECKED" scenario="scenario-hugs">
+    	<trigger annotation="INSTRUCTION_UNCHECKED"/>
+        <intro>unchecked_INSTRUCTION</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
+    <dialog concept="CB_TIP_CHECKED" scenario="scenario-hugs">
+    	<trigger annotation="TIP_CHECKED"/>
+        <intro>checked_tip</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+    <dialog concept="CB_TIP_UNCHECKED" scenario="scenario-hugs">
+    	<trigger annotation="TIP_UNCHECKED"/>
+        <intro>unchecked_tip</intro>
+        <accept annotation="AFFIRMATIVE"></accept>
+        <cancel annotation="NEGATIVE"></cancel>
+    </dialog>
+
 <!-- Help buttons -->
     <dialog concept="HELP_FINAL_LOOM" scenario="scenario-hugs">
     	<trigger annotation="FINAL_LOOM"/>

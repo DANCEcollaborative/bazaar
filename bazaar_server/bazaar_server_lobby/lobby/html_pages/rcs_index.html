@@ -1,6 +1,19 @@
 <html>
 <!-- Tab Edits -->
 <style>
+    /* Dotted border */
+    hr.dotted {
+    border-top: 3px dotted #bbb;
+    }
+
+    /* Solid border */
+    hr.solid {
+    border-top: 3px solid #bbb;
+    }
+    .tab {
+    display: inline-block;
+    margin-left: 40px;
+    }
     .fcc-btn {
     background-color: #efa607;
     color: white;
@@ -1269,7 +1282,7 @@
     <title id="title_el">RoboLoom Assembly Instructions</title>
 </head>
 
-<body style="background-color:#8fafe7;">
+<body style="background-color:#cdddf9;">
     <!-- <body> -->
 
     <link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen'
@@ -1308,40 +1321,40 @@
             });
         }
 
-        function showConvText() {
-            res = "";
-            conv = document.getElementById("conversation");
-            for (var i = 0; i < conv.childNodes.length; i++) {
-                if (conv.childNodes[i].className.indexOf("message_line") == -1) continue;
-                var user = conv.childNodes[i].getElementsByClassName("user");
-                var timestamp = conv.childNodes[i].getElementsByClassName("date");
-                var message = conv.childNodes[i].getElementsByClassName("message");
-                for (var j = 0; j < user.length; j++) res += user[j].textContent + " ";
-                if (timestamp.length > 0) res += "(" + timestamp[0].textContent + ")";
-                if (message.length > 0) res += ": " + message[0].textContent.replace("\n", " ");
-                res += "\n";
-            }
-            document.getElementById("conversation_text").value = res;
+        // function showConvText() {
+        //     res = "";
+        //     conv = document.getElementById("conversation");
+        //     for (var i = 0; i < conv.childNodes.length; i++) {
+        //         if (conv.childNodes[i].className.indexOf("message_line") == -1) continue;
+        //         var user = conv.childNodes[i].getElementsByClassName("user");
+        //         var timestamp = conv.childNodes[i].getElementsByClassName("date");
+        //         var message = conv.childNodes[i].getElementsByClassName("message");
+        //         for (var j = 0; j < user.length; j++) res += user[j].textContent + " ";
+        //         if (timestamp.length > 0) res += "(" + timestamp[0].textContent + ")";
+        //         if (message.length > 0) res += ": " + message[0].textContent.replace("\n", " ");
+        //         res += "\n";
+        //     }
+        //     document.getElementById("conversation_text").value = res;
 
-            // Highlight
-            if (document.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(document.getElementById("conversation_text"));
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(document.getElementById("conversation_text"));
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
+        //     // Highlight
+        //     if (document.body.createTextRange) {
+        //         range = document.body.createTextRange();
+        //         range.moveToElementText(document.getElementById("conversation_text"));
+        //         range.select();
+        //     } else if (window.getSelection) {
+        //         selection = window.getSelection();
+        //         range = document.createRange();
+        //         range.selectNodeContents(document.getElementById("conversation_text"));
+        //         selection.removeAllRanges();
+        //         selection.addRange(range);
+        //     }
 
-            document.getElementById("conversation_text_div").style.display = "block";
-        }
+        //     document.getElementById("conversation_text_div").style.display = "block";
+        // }
 
-        function hideConvText() {
-            document.getElementById("conversation_text_div").style.display = "none";
-        }
+        // function hideConvText() {
+        //     document.getElementById("conversation_text_div").style.display = "none";
+        // }
 
         function appendMessage(timestamp, username, text, color) {
 
@@ -1370,14 +1383,14 @@
                 color = getUserColor(username);
             }
 
-            $('#conversation').append(
-                '<div class="message_line">'
-                + '<div class="info" ' + (color ? 'style="background-color:' + color + '"' : '') + '>'
-                + '<div class="user">' + username + '</div>'
-                + '<div class="user" style="padding-left:5px">' + text + '</div>'
-                + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
-                + '</div>'
-                + '</div><br/>');
+            // $('#conversation').append(
+            //     '<div class="message_line">'
+            //     + '<div class="info" ' + (color ? 'style="background-color:' + color + '"' : '') + '>'
+            //     + '<div class="user">' + username + '</div>'
+            //     + '<div class="user" style="padding-left:5px">' + text + '</div>'
+            //     + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
+            //     + '</div>'
+            //     + '</div><br/>');
             noticeNewMessage()
             if (lastDate > timestamp)
                 lastDate = timestamp;
@@ -1485,7 +1498,7 @@
         // listener, whenever the server emits 'updatechat', this updates the chat body
         socket.on('updatechat', function (username, data) {
             appendMessage(new Date(), username, data);
-            $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
+            // $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
         });
 
         // listener, whenever the server emits 'updateimage', this updates the image list
@@ -1528,7 +1541,7 @@
                     appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);
             }
 
-            $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
+            // $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
             $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight }, 500);
 
             lastDate = new Date();
@@ -1550,7 +1563,7 @@
         // listener, whenever the server emits 'updatepresence', this updates the image list
         socket.on('updatepresence', function (username, data) {
             appendNote(new Date(), username, (data == "leave" ? " has disconnected." : " has joined the discussion."));
-            $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
+            // $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
         });
 
         // listen for other user's ready events. We'll leave this off for now.
@@ -1570,7 +1583,7 @@
         // listener, whenever the server emits 'updatechat', this updates the chat body
         socket.on('update_private_chat', function (username, data) {
             appendMessage(new Date(), username + ' (Private Message)', data, getUserColor(username));
-            $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
+            // $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
         });
 
 
@@ -1578,9 +1591,9 @@
             socket.emit('switchRoom', room);
         }
 
-        function sendReady(is_ready) {
-            socket.emit('ready', is_ready ? 'ready' : 'unready'); //'ready' or 'unready'         
-        }
+        // function sendReady(is_ready) {
+        //     socket.emit('ready', is_ready ? 'ready' : 'unready'); //'ready' or 'unready'         
+        // }
 
         // function sendMessage()
         // {
@@ -1600,29 +1613,36 @@
         // }
 
 
-        function shareImage() {
-            var imageurl = $('#image_url_input').val();
+        // function shareImage() {
+        //     var imageurl = $('#image_url_input').val();
 
-            $('#image_url_input').val('');
+        //     $('#image_url_input').val('');
 
-            if (imageurl && imageurl.length > 0) {
-                match = /http(s)?:\/\//.exec(imageurl)
-                console.log(match)
-                if (match == null || match.index != 0) {
-                    imageurl = "http://" + imageurl;
-                }
-                socket.emit('sendimage', imageurl);
+        //     if (imageurl && imageurl.length > 0) {
+        //         match = /http(s)?:\/\//.exec(imageurl)
+        //         console.log(match)
+        //         if (match == null || match.index != 0) {
+        //             imageurl = "http://" + imageurl;
+        //         }
+        //         socket.emit('sendimage', imageurl);
 
-                $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
-                $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight }, 500);
-            }
-        }
+        //         $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight }, 500);
+        //         $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight }, 500);
+        //     }
+        // }
 
         let sendMessage = (message) => {
             console.log(message+' pressed')
             socket.emit('sendchat', message);
         }
-
+        
+        let clickCheckBox = (box, boxName) => {
+            if (document.getElementById(box).checked) {
+                sendMessage(boxName+'_checked');
+            } else {
+                sendMessage(boxName+'_unchecked');
+            }
+        }
         function openTab(evt, tabName, message) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -1720,7 +1740,7 @@
                 <li><a href="#" class="tablinks" onclick="openTab(event, 'Warp Beam and Beater', 'tab_warp_beam_and_beater')">Warp Beam and
                         Beater</a></li>
                 <li><a href="#" class="tablinks" onclick="openTab(event, 'Warping Routine', 'tab_warping_routine')">Warping Routine</a></li>
-                <li><a href="#" class="tablinks" onclick="openTab(event, 'Electronics', 'tab_electronics')">Electronics</a></li>
+                <!-- <li><a href="#" class="tablinks" onclick="openTab(event, 'Electronics', 'tab_electronics')">Electronics</a></li> -->
             </ul>
 
             <div id="tips_final_loom" class="tabcontent">
@@ -1745,42 +1765,34 @@
                     <h1>
                         Here are some tips for corner bracket assembly!
                     </h1>
-                    <ul>
-                        <li>
-                            Make sure you are using M5 8mm screws and M5 t-nuts. If you are not using these, please go back to the material table and get the correct ones.
-                        </li>
-                        <li>
-                            <span>
-                                The M5 T-nut should look like this:
-                            </span>
-                            <p class="c11">
-                                <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 92.59px; height: 109.81px;">
-                                    <img alt="" src="https://drive.google.com/uc?export=view&id=1I5oKKVKbFc5zPinBNf3fK4Lv_1PFeXPo"
-                                    style="width: 92.59px; height: 109.81px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title="">
-                                </span>
-                            </p>
-                        </li>
-                        <li>
-                            <span>
-                                The corner bracket should look like this:
-                            </span>
-                            <p class="c11"><span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 99.50px; height: 99.50px;"><img
-                                    alt=""
-                                    src="https://drive.google.com/uc?export=view&id=1IOymGolWuXazrl2Rg18Vc8OuQPQUH408"
-                                    style="width: 99.50px; height: 99.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span></p>
-                        </li>
-                        <li>
-                            <span>Make sure the flat side of the t-nut is facing the corner bracket as shown:</span>
-                            <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 126.35px; height: 132.00px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=12e-tZfEF8qevIloiedsg1m5vGo5BqXlp"
-                                    style="width: 624.00px; height: 467.27px; margin-left: -173.65px; margin-top: -154.43px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title="">
-                            </span>
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_1" onclick="clickCheckBox('cb_tip_1', 'cb_tip_1')"><span>Make sure you are using M5 8mm screws and M5 t-nuts. If you are not using these, please go back to the material table and get the correct ones.</span><br>
+                        <input type="checkbox" id="cb_tip_2" onclick="clickCheckBox('cb_tip_2', 'cb_tip_2')"><span>
+                            The M5 T-nut should look like this:
+                        </span><br>
+                        <span class="tab"></span>
+                            <span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 92.59px; height: 109.81px;">
+                                <img alt="" src="https://drive.google.com/uc?export=view&id=1I5oKKVKbFc5zPinBNf3fK4Lv_1PFeXPo"
+                                style="width: 92.59px; height: 109.81px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                title="">
+                            </span><br>
+                        <input type="checkbox" id="cb_tip_3" onclick="clickCheckBox('cb_tip_3', 'cb_tip_3')"><span>
+                            The corner bracket should look like this:
+                        </span><br>
+                        <span class="tab"></span><span
+                            style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 99.50px; height: 99.50px;"><img
+                                alt=""
+                                src="https://drive.google.com/uc?export=view&id=1IOymGolWuXazrl2Rg18Vc8OuQPQUH408"
+                                style="width: 99.50px; height: 99.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                title=""></span><br>
+                        <input type="checkbox" id="cb_tip_4" onclick="clickCheckBox('cb_tip_4', 'cb_tip_4')"> <span>Make sure the flat side of the t-nut is facing the corner bracket as shown:</span><br>
+                        <span class="tab"></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 126.35px; height: 132.00px;"><img
+                                alt="" src="https://drive.google.com/uc?export=view&id=12e-tZfEF8qevIloiedsg1m5vGo5BqXlp"
+                                style="width: 624.00px; height: 467.27px; margin-left: -173.65px; margin-top: -154.43px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                title="">
+                        </span>
+                    </div>
+                    
                     <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
                 </div>
             </div>
@@ -1792,31 +1804,24 @@
                     <h3>
                         Having trouble getting the t-nut to slide onto the 8020?
                     </h3>
-                    <ul>
-                        <li>
-                            Make sure your corner bracket is correctly assembled, the flat side of the t-nut should be facing the corner bracket. Refer to the previous step if you are not sure. 
-                        </li>
-                        <li>
-                            <span >Make sure the t-nut is not too tight on the corner bracket. If it is, it will be difficult to slide it onto the 8020: 3-4 revolutions is all it takes, leave room to slide it onto the 8020</span>
-                        </li>
-                        
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_5" onclick="clickCheckBox('cb_tip_5', 'cb_tip_5')"><span>Make sure your corner bracket is correctly assembled, the flat side of the t-nut should be facing the corner bracket. Refer to the previous step if you are not sure.</span><br>
+                        <input type="checkbox" id="cb_tip_6" onclick="clickCheckBox('cb_tip_6', 'cb_tip_6')"><span >Make sure the t-nut is not too tight on the corner bracket. If it is, it will be difficult to slide it onto the 8020: 3-4 revolutions is all it takes, leave room to slide it onto the 8020</span><br>
+                    </div>
+
+
                     <h3>
                         Does your base frame sit flat on the ground?
                     </h3>
-                    <ul>
-                        <li>
-                            <span>Make sure the 8020 pieces you are using are the correct length. They should be either 560mm or 250mm long. Refer to the material table if you are not sure.</span>
-                        </li>
-                        <li>
-                            <span>The shorter 8020 piece should extend all the way to the edges of the feet holders. The
-                                longer 8020 should be against the shorter 8020, as the below image.<br></span><span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 238.29px; height: 363.50px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1atGNZ5u05u8f9rrkJb2aBB5hzulDCurA"
-                                    style="width: 315.03px; height: 420.04px; margin-left: -76.74px; margin-top: -28.27px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span>
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_7" onclick="clickCheckBox('cb_tip_7', 'cb_tip_7')"><span>Make sure the 8020 pieces you are using are the correct length. They should be either 560mm or 250mm long. Refer to the material table if you are not sure.</span><br>
+                        <input type="checkbox" id="cb_tip_8" onclick="clickCheckBox('cb_tip_8', 'cb_tip_8')"><span>The shorter 8020 piece should extend all the way to the edges of the feet holders. The
+                            longer 8020 should be against the shorter 8020, as the below image.<br></span><span
+                            style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 238.29px; height: 363.50px;"><img
+                                alt="" src="https://drive.google.com/uc?export=view&id=1atGNZ5u05u8f9rrkJb2aBB5hzulDCurA"
+                                style="width: 315.03px; height: 420.04px; margin-left: -76.74px; margin-top: -28.27px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                title=""></span><br>
+                    </div>
 
                     <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Frame', 'backto_frame')">I'm done</a>
                 </div>
@@ -1830,29 +1835,22 @@
                     <h3>
                         Here is a list of details you might have ignored, check it before you proceed:
                     </h3>
-                    <ul>
-                        <li>
-                            <span>
-                                Make sure you slided the right number of corner brackets onto the 8020. There should be 8 corner brackets on each 560mm piece and 2 corner brackets on each 250mm piece. 
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                Make sure you slide exactly one ball t-nut on the INSIDE of each long 8020 piece(560 mm). The M4 ball t-nut should look like this:
-                            </span>
-                            <p class="c11"><span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 79.50px; height: 111.30px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1uP8Ol-4dX_3oNIaESeA4f6Nt0cV_Az8z"
-                                    style="width: 79.50px; height: 111.30px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span></p>
-                        </li>
-                        <li>
-                            <span>The frame should be a flat rectangle, if it doesn't sit flat you might not have put the short pieces in the correct orientations. Refer to the previous step.</span>
-                        </li>
-                        <li>
-                            The rotation of the corner brackets doesn't matter for now, you can rotate them later when you're putting the vertical 8020 pieces in. 
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_9" onclick="clickCheckBox('cb_tip_9', 'cb_tip_9')"><span>
+                            Make sure you slided the right number of corner brackets onto the 8020. There should be 8 corner brackets on each 560mm piece and 2 corner brackets on each 250mm piece. 
+                        </span><br>
+                        <input type="checkbox" id="cb_tip_10" onclick="clickCheckBox('cb_tip_10', 'cb_tip_10')"><span>
+                            Make sure you slide exactly one ball t-nut on the INSIDE of each long 8020 piece(560 mm). The M4 ball t-nut should look like this:
+                        </span><br>
+                        <span class="tab"></span> <span
+                        style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 79.50px; height: 111.30px;"><img
+                            alt="" src="https://drive.google.com/uc?export=view&id=1uP8Ol-4dX_3oNIaESeA4f6Nt0cV_Az8z"
+                            style="width: 79.50px; height: 111.30px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title=""></span><br>
+                        <input type="checkbox" id="cb_tip_11" onclick="clickCheckBox('cb_tip_11', 'cb_tip_11')"><span>The frame should be a flat rectangle, if it doesn't sit flat you might not have put the short pieces in the correct orientations. Refer to the previous step.</span><br>
+                        <input type="checkbox" id="cb_tip_12" onclick="clickCheckBox('cb_tip_12', 'cb_tip_12')"><span>The rotation of the corner brackets doesn't matter for now, you can rotate them later when you're putting the vertical 8020 pieces in.</span><br>
+                    </div>
+
                     <h3>
                         Here is a 3D model of the base frame. You can use mouse to rotate the model. You can also zoom in and out using the scroll wheel.
                     </h3>
@@ -1874,31 +1872,23 @@
                     <h3>
                         Do you know which is the front and back of the warp and heddle frame?
                     </h3>
-                    <ul>
-                        <li>
-                            The front of the loom is on the left, with 2*178mm beams, as shown in the picture below:
-                        </li>
-                    </ul>
-
-                    <span
+                    <div>
+                        <input type="checkbox" id="cb_tip_13" onclick="clickCheckBox('cb_tip_13', 'cb_tip_13')"><span>The front of the loom is on the left, with 2*178mm beams, as shown in the picture below:</span><br>
+                        <span class="tab"></span> <span
                         style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
                             alt="" src="https://drive.google.com/uc?export=view&id=1W1jo2_Nqk09QKV8KwQ6EQ0sEY8DGoQFU"
                             style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                            title="">
-                    </span>
+                            title=""></span>
+                    </div>
                     <h3>
                         Having trouble getting the t-nut to slide onto the 8020?
                     </h3>
-                    <ul>
-                        <li>
-                            Make sure your corner bracket is correctly assembled, the flat side of the t-nut should be facing the corner bracket. Refer to the previous step if you are not sure. 
-                        </li>
-                        <li>
-                            <span >Make sure the t-nut is not too tight on the corner bracket. If it is, it will be difficult to slide it onto the 8020: 3-4 revolutions is all it takes, leave room to slide it onto the 8020</span>
-                        </li>
-                        
-                    </ul>
-                    
+                    <div>
+                        <input type="checkbox" id="cb_tip_14" onclick="clickCheckBox('cb_tip_14', 'cb_tip_14')"><span>Make sure your corner bracket is correctly assembled, the flat side of the t-nut should be facing the corner bracket. Refer to the previous step if you are not sure.</span><br>
+                        <input type="checkbox" id="cb_tip_15" onclick="clickCheckBox('cb_tip_15', 'cb_tip_15')"><span>Make sure the t-nut is not too tight on the corner bracket. If it is, it will be difficult to slide it onto the 8020: 3-4 revolutions is all it takes, leave room to slide it onto the 8020</span><br>
+                    </div>
+                    <br>
+                    <br>
                     <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warp and Heddle Frame', 'backto_warp_and_heddle_frame')">I'm done</a>
                 </div>
             </div>
@@ -1911,51 +1901,37 @@
                     <h3>
                         Do you know which is the front and back of the warp and heddle frame?
                     </h3>
-                    <ul>
-                        <li>
-                            The front of the loom is on the left, with 2*178mm beams, as shown in the picture below:
-                        </li>
-                    </ul>
-
-                    <span
+                    <div>
+                        <input type="checkbox" id="cb_tip_16" onclick="clickCheckBox('cb_tip_16', 'cb_tip_16')"><span>The front of the loom is on the left, with 2*178mm beams, as shown in the picture below:</span><br>
+                        <span class="tab"></span> <span
                         style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
                             alt="" src="https://drive.google.com/uc?export=view&id=1W1jo2_Nqk09QKV8KwQ6EQ0sEY8DGoQFU"
                             style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                            title="">
-                    </span>
+                            title=""></span><br>
+                    </div>
+
                     <h3>
                         Here is a list of details you might have ignored, check it before you proceed:
                     </h3>
-                    <ul>
-                        <li>
-                            <span>
-                                Make sure you are using the correct 8020 pieces. The four 8020 pieces at the corners should be 178mm long. There are 6 beams in the middle: 4 8020 pieces should be 200mm long, and 2 8020 pieces should be 178mm long.
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                Make sure you measured the distance before screwing down the 8020 pieces. The distance are different for the 4 corner pieces and the 6 middle pieces.
-                            </span>
-                        </li>
-                        <li>
-                            <span>Measuring from the outside edges ensure 160mm from back 178mm height beam:</span>
-                            <span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 345.41px; height: 258.35px;">
-                                <img alt="" src="https://drive.google.com/uc?export=view&id=17MpvqdAiWKdP735n52wvwVibC-Lo5YVQ"
-                                    style="width: 345.41px; height: 258.35px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title="">
-                            </span>
-                        </li>
-                        <li>
-                            <span>Measuring from the outside edges ensure 185mm between the 200mm height beams: </span>
-                            <span
+                    <div>
+                        <input type="checkbox" id="cb_tip_17" onclick="clickCheckBox('cb_tip_17', 'cb_tip_17')"><span>Make sure you are using the correct 8020 pieces. The four 8020 pieces at the corners should be 178mm long. There are 6 beams in the middle: 4 8020 pieces should be 200mm long, and 2 8020 pieces should be 178mm long.</span><br>
+                        <input type="checkbox" id="cb_tip_18" onclick="clickCheckBox('cb_tip_18', 'cb_tip_18')"><span>Make sure you measured the distance before screwing down the 8020 pieces. The distance are different for the 4 corner pieces and the 6 middle pieces.</span><br>
+                        <input type="checkbox" id="cb_tip_19" onclick="clickCheckBox('cb_tip_19', 'cb_tip_19')"><span>Measuring from the outside edges ensure 160mm from back 178mm height beam:</span><br>
+                        <span class="tab"></span><span
+                        style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 345.41px; height: 258.35px;">
+                        <img alt="" src="https://drive.google.com/uc?export=view&id=17MpvqdAiWKdP735n52wvwVibC-Lo5YVQ"
+                            style="width: 345.41px; height: 258.35px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title="">
+                        </span><br>
+                        <input type="checkbox" id="cb_tip_20" onclick="clickCheckBox('cb_tip_20', 'cb_tip_20')"><span>Measuring from the outside edges ensure 185mm between the 200mm height beams: </span><br>
+                        <span class="tab"></span><span
                                 style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 352.50px; height: 262.06px;">
                                 <img alt="" src="https://drive.google.com/uc?export=view&id=1-w8IJxug9TemUmETq5ciT5T_y8-44mv4"
                                     style="width: 352.50px; height: 262.06px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                                     title="">
-                            </span>
-                        </li>
-                    </ul>
+                            </span><br>
+                    </div>
+                    
                     <h3>
                         Here is a 3D model of the warp and heddle frame:
                     </h3>
@@ -1976,17 +1952,11 @@
                     <h3>
                         Here is a list of details you might have ignored, check it before you proceed:
                     </h3>
-                    <ul>
-                        <li>
-                            Make sure you put 2 m5 t-buts in each of the 260 top beams.
-                        </li>
-                        <li>
-                            Make sure you are using the correct 8020 pieces. 
-                        </li>
-                        <li>
-                            Measuring from the outside of the top to the outside of the support 300mm beam should be 120mm
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_21" onclick="clickCheckBox('cb_tip_21', 'cb_tip_21')"><span>Make sure you put 2 m5 t-buts in each of the 260 top beams.</span><br>
+                        <input type="checkbox" id="cb_tip_22" onclick="clickCheckBox('cb_tip_22', 'cb_tip_22')"><span>Make sure you are using the correct 8020 pieces. </span><br>
+                        <input type="checkbox" id="cb_tip_23" onclick="clickCheckBox('cb_tip_23', 'cb_tip_23')"><span>Measuring from the outside of the top to the outside of the support 300mm beam should be 120mm</span><br>
+                    </div>
                     <h3>
                         Here is a 3D model of the tensioning frame:
                     </h3>
@@ -2009,17 +1979,10 @@
                     <h3>
                         Is the motor not working?
                     </h3>
-                    <ul>
-                        <li>
-                            Check if the bracket is flush with the acrylic board and is seated in the notches of the motors fully.
-                        </li>
-                        <li>
-                            The numbers on the motor mount should be on the left, upright and reading properly
-                        </li>
-                        <li>
-                            The numbers on the motor mount should be on the left, upright and reading properly
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_24" onclick="clickCheckBox('cb_tip_24', 'cb_tip_24')"><span>Check if the bracket is flush with the acrylic board and is seated in the notches of the motors fully.</span><br>
+                        <input type="checkbox" id="cb_tip_25" onclick="clickCheckBox('cb_tip_25', 'cb_tip_25')"><span>The numbers on the motor mount should be on the left, upright and reading properly.</span><br>
+                    </div>
                     <h3>
                         Here is a 3D model of the heddle motors assembly:
                     </h3>
@@ -2040,15 +2003,12 @@
                     <h3>
                         Here is a list of details you might have ignored, check it before you proceed:
                     </h3>
-                    <ul>
-                        <li>
-                            Make sure you use spacers to align the creel top. If forgotton, you might screw the top to the bottom too tightly and break the acrylic.
-                        </li>
-                        <li>
-                            Make sure you put 2 m5 t-nuts in each of the 260 top beams when you assemble the tensioning frame step.</br>
-                            if you forgot, you have to take cage apart and add then. They can't be slotted in after the fact.
-                        </li>
-                    </ul>
+                    <div>
+                        <input type="checkbox" id="cb_tip_26" onclick="clickCheckBox('cb_tip_26', 'cb_tip_26')"><span>Make sure you use spacers to align the creel top. If forgotton, you might screw the top to the bottom too tightly and break the acrylic.</span><br>
+                        <input type="checkbox" id="cb_tip_27" onclick="clickCheckBox('cb_tip_27', 'cb_tip_27')"><span>Make sure you put 2 m5 t-nuts in each of the 260 top beams when you assemble the tensioning frame step.
+                            if you forgot, you have to take cage apart and add then. They can't be slotted in after the fact.</span></br>
+                    </div>
+
                     <h3>
                         Here is a 3D model of the tension system:
                     </h3>
@@ -2065,21 +2025,14 @@
                     <h1>
                         Here are some tips for warp beam and beater assembly!
                     </h1>
-                    <ul>
-                        <li>
-                            Make sure that the warp beam can spin freely away from the loom, but cannot spin towards the loom.
-                        </li>
-                        <li>
-                            The brackets should be in pairs, one on each side of the loom, and mirrored to each other.
-                        </li>
-                        <li>
-                            When you put the bracket onto the reed, it might be a tight fit. You might have to use a hammer to tap it in.
-                        </li>
-                        <li>
-                            If you forgot the M4 Ball T-Nuts, there is a way to maneuver them into the 8020 without redoing the entire frame
-                        </li>
-                    </ul>
-
+                    <div>
+                        <input type="checkbox" id="cb_tip_28" onclick="clickCheckBox('cb_tip_28', 'cb_tip_28')"><span>Make sure that the warp beam can spin freely away from the loom, but cannot spin towards the loom.</span><br>
+                        <input type="checkbox" id="cb_tip_29" onclick="clickCheckBox('cb_tip_29', 'cb_tip_29')"><span>The brackets should be in pairs, one on each side of the loom, and mirrored to each other.</span><br>
+                        <input type="checkbox" id="cb_tip_30" onclick="clickCheckBox('cb_tip_30', 'cb_tip_30')"><span>When you put the bracket onto the reed, it might be a tight fit. You might have to use a hammer to tap it in.</span><br>
+                        <input type="checkbox" id="cb_tip_31" onclick="clickCheckBox('cb_tip_31', 'cb_tip_31')"><span>If you forgot the M4 Ball T-Nuts, there is a way to maneuver them into the 8020 without redoing the entire frame</span><br>
+                    </div>
+                    <br>
+                    <br>
                     <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warp Beam and Beater', 'backto_warp_beam_and_beater')">I'm done</a>
                 </div>
             </div>
@@ -2088,19 +2041,16 @@
                     <h1>
                         Here are some tips for warping!
                     </h1>
-                    <ul>
-                        <li>
-                            When you pass each thread over its respective guiding rod, make sure you thread it under the 8020 beam.
-                        </li>
-                        <li>
-                            Please check with your instructor after carefully watching the video to make sure you are doing it correctly.
-                        </li>
-                    </ul>
-
+                    <div>
+                        <input type="checkbox" id="cb_tip_32" onclick="clickCheckBox('cb_tip_32', 'cb_tip_32')"><span>When you pass each thread over its respective guiding rod, make sure you thread it under the 8020 beam.</span><br>
+                        <input type="checkbox" id="cb_tip_33" onclick="clickCheckBox('cb_tip_33', 'cb_tip_33')"><span>Please check with your instructor after carefully watching the video to make sure you are doing it correctly.</span><br>
+                    </div>
+                    <br>
+                    <br>
                     <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'Warping Routine', 'backto_warping_routine')">I'm done</a>
                 </div>
             </div>
-            <div id="Loom Overview" class="tabcontent">
+            <div id="Loom Overview" class="tabcontent"> 
                 <div id="image_container" , class="scrollable">
                     <h1 class="c21" id="h.j2z4cc7a0tmx"><span>Tools</span></h1>
                     <ul class="c4 lst-kix_v4amvk5rxefv-0 start">
@@ -2364,111 +2314,79 @@
                         <span>Base Frame</span>
                         <!-- <button class="button">I need help [Base Frame]</button> -->
                     </h3>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0 start">
-                        <li class="c6 li-bullet-0">
-                            <span class="c9">Create 20 corner brackets with screws and t-nuts</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0">
-                            <span class="c9">Use 1 corner bracket, 2 M5 8mm screws, 2 M5 t-nut per corner bracket</span>
-                        </li>
-                        <li class="c12 li-bullet-0">
-                            <span>Follow this video for guidance: </span><span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1L8QmOtq9gIF1c5JuHrio1G74nZc9EJNH/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680856228&amp;usg=AOvVaw3CFf_Qtbd9nI8cqTHLWYzj" target="_blank">https://drive.google.com/file/d/1L8QmOtq9gIF1c5JuHrio1G74nZc9EJNH/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span><br>
-                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_1', 'base_frame_1')">Click me to get help on this step.</a>
-                                <!-- <button id="base_frame_1_help_button" onclick="sendMessage('base_frame_1')">Click me to get help on this step.</button> -->
-                            </li>
-                        <li class="c12 li-bullet-0">
-                            <span>Make sure the flat side of the t-nut is facing the corner bracket as
-                                shown:</span><span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 126.35px; height: 132.00px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=12e-tZfEF8qevIloiedsg1m5vGo5BqXlp"
-                                    style="width: 624.00px; height: 467.27px; margin-left: -173.65px; margin-top: -154.43px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span>
-                        </li>
-                        <li class="c12 li-bullet-0">
-                            span class="c9">Do not screw the t-nut on too much, 3-4 revolutions is all it takes, leave
-                            room to slide it onto the 8020</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0">
-                            <span>Follow the following video for the remaining steps:</span>
-                            <span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1L9suzpK_Nu51HjAXQzA2KCVYHQ-ojs0a/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680857054&amp;usg=AOvVaw11wwFX-81JRpzNr-tUt4XL"  target="_blank">https://drive.google.com/file/d/1L9suzpK_Nu51HjAXQzA2KCVYHQ-ojs0a/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span><br>
-                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_2', 'base_frame_2')">Click me to get help on this step.</a> 
-                                <!-- <button id="base_frame_2_help_button" onclick="sendMessage('base_frame_2')">Click me to get help on this step.</button> -->
-                            </li>
-                        <li class="c6 li-bullet-0"><span class="c9">Lay out the bottom 8020 pieces</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">2x 250mm</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">2x 560mm</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Slip in the right number of corner brackets on each
-                                bottom square piece</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">2 on short</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">8 on long</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Slip a ball t-nut on the inside of each long
-                                piece</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Use 2 M4 Ball T-nuts (one each side)</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put the holders onto the bottom square pieces</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Use 4 M5 10mm screws, 4 M5 T-Nuts per foot
-                                holder</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Total 16 M5 10mm screws, 16 M5 T-Nuts</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put a screw through the holes and each side of the
-                                foot holder and screw on a t-nut to each screw</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Slide the 8020 into the holder</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">NOTE: the way they&rsquo;re put into the foot
-                                holders matters</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                    <div>
+                        <input type="checkbox" id="cb_1" onclick="clickCheckBox('cb_1', 'cb_1')"><span class="c9">Create 20 corner brackets with screws and t-nuts</span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_2" onclick="clickCheckBox('cb_2', 'cb_2')"><span class="c9">Use 1 corner bracket, 2 M5 8mm screws, 2 M5 t-nut per corner bracket</span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_3" onclick="clickCheckBox('cb_3', 'cb_3')"><span>Follow this video for guidance: </span><span class="c16"><a class="c10"
+                            href="https://www.google.com/url?q=https://drive.google.com/file/d/1L8QmOtq9gIF1c5JuHrio1G74nZc9EJNH/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680856228&amp;usg=AOvVaw3CFf_Qtbd9nI8cqTHLWYzj" target="_blank">https://drive.google.com/file/d/1L8QmOtq9gIF1c5JuHrio1G74nZc9EJNH/view?usp=sharing</a></span><span
+                        class="c9">&nbsp;</span><br>
+                        <span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_1', 'base_frame_1')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_4" onclick="clickCheckBox('cb_4', 'cb_4')"><span>Make sure the flat side of the t-nut is facing the corner bracket as
+                            shown:</span><br>
+                        <span class="tab"></span><span class="tab"></span><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 126.35px; height: 132.00px;"><img
+                            alt="" src="https://drive.google.com/uc?export=view&id=12e-tZfEF8qevIloiedsg1m5vGo5BqXlp"
+                            style="width: 624.00px; height: 467.27px; margin-left: -173.65px; margin-top: -154.43px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title=""></span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_5" onclick="clickCheckBox('cb_5', 'cb_5')"><span class="c9">Do not screw the t-nut on too much, 3-4 revolutions is all it takes, leave
+                            room to slide it onto the 8020</span><br>
+                        <hr class="dotted">
+
+                        <input type="checkbox" id="cb_6" onclick="clickCheckBox('cb_6', 'cb_6')"><span>Follow the following video for the remaining steps:</span>
+                        <span class="c16"><a class="c10"
+                                href="https://www.google.com/url?q=https://drive.google.com/file/d/1L9suzpK_Nu51HjAXQzA2KCVYHQ-ojs0a/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680857054&amp;usg=AOvVaw11wwFX-81JRpzNr-tUt4XL"  target="_blank">https://drive.google.com/file/d/1L9suzpK_Nu51HjAXQzA2KCVYHQ-ojs0a/view?usp=sharing</a></span><span
+                            class="c9">&nbsp;</span><br>
+                        <span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_2', 'base_frame_2')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span> <input type="checkbox" id="cb_7" onclick="clickCheckBox('cb_7', 'cb_7')"><span class="c9">Lay out the bottom 8020 pieces</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">2x 250mm</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">2x 560mm</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_8" onclick="clickCheckBox('cb_8', 'cb_8')"><span class="c9">Slip in the right number of corner brackets on each bottom square piece</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">2 on short</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">8 on long</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_9" onclick="clickCheckBox('cb_9', 'cb_9')"><span class="c9">Slip a ball t-nut on the inside of each long piece</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Use 2 M4 Ball T-nuts (one each side)</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_10" onclick="clickCheckBox('cb_10', 'cb_10')"><span class="c9">Put the holders onto the bottom square pieces</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Use 4 M5 10mm screws, 4 M5 T-Nuts per foot
+                                    holder</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Total 16 M5 10mm screws, 16 M5 T-Nuts</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put a screw through the holes and each side of the
+                                    foot holder and screw on a t-nut to each screw</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Slide the 8020 into the holder</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_11" onclick="clickCheckBox('cb_11', 'cb_11')"><span class="c9">NOTE: the way they&rsquo;re put into the foot
+                            holders matters</span><br>
                         <li class="c12 li-bullet-0">
                             <span>The shorter 8020 piece should extend all the way to the edges of the feet holders. The
-                                longer 8020 should be against the shorter 8020, as the below image.<br></span><span
+                                longer 8020 should be against the shorter 8020, as the below image.</span><br><span
                                 style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 238.29px; height: 363.50px;"><img
                                     alt="" src="https://drive.google.com/uc?export=view&id=1atGNZ5u05u8f9rrkJb2aBB5hzulDCurA"
                                     style="width: 315.03px; height: 420.04px; margin-left: -76.74px; margin-top: -28.27px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                                     title=""></span>
                         </li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put the suction cup feet on the feet holders</span>
-                        </li>
-                        <li class="c6 li-bullet-0">
-                            <span>It should look like this when you&rsquo;re done: </span>
-                            <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_final', 'base_frame_final')">Click me to get help on this step.</a><br>
-                            <!-- <button id="base_frame_final_help_button" onclick="sendMessage('base_frame_final')">Click me to get help on this step.</button> -->
-                            <span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 375.50px; height: 281.63px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1-BLVUehuMlIT6KBzEXYfn2xaavS9teQc"
-                                    style="width: 375.50px; height: 281.63px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span>
-                            <span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 386.50px; height: 289.88px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1mBqRk_GLLPCpXdfnTClVX6H4BFagVVUj"
-                                    style="width: 386.50px; height: 289.88px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span>
-                        </li>
-                    </ul>
-                    <hr style="page-break-before:always;display:none;">
+                        <span class="tab"></span><input type="checkbox" id="cb_12" onclick="clickCheckBox('cb_12', 'cb_12')"><span class="c9">Put the suction cup feet on the feet holders</span><br>
+                        <span class="tab"></span><span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_base_frame_final', 'base_frame_final')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span><span class="tab"></span><input type="checkbox" id="cb_13" onclick="clickCheckBox('cb_13', 'cb_13')"><span>It should look like this when you&rsquo;re done: </span><br>
+                        <span class="tab"></span><span class="tab"></span><span
+                            style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 375.50px; height: 281.63px;"><img
+                            alt="" src="https://drive.google.com/uc?export=view&id=1-BLVUehuMlIT6KBzEXYfn2xaavS9teQc"
+                            style="width: 375.50px; height: 281.63px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title="">
+                        </span>
+                        </span><span
+                            style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 386.50px; height: 289.88px;"><img
+                            alt="" src="https://drive.google.com/uc?export=view&id=1mBqRk_GLLPCpXdfnTClVX6H4BFagVVUj"
+                            style="width: 386.50px; height: 289.88px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title="">
+                        </span>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -2478,164 +2396,128 @@
                         <span>Warp and Heddle Frame</span>
                         <!-- <button class="button">Click Me! [Warp and Heddle Frame]</button> -->
                     </h1>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0">
-                            <span>Video for this section is here: </span><span class="c16"><a
-                                    class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1LALhTHe8uoe-dAp9glmacT7A_3YCAzZd/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680859563&amp;usg=AOvVaw0_Mgp9E9OcpuM-Dy6DUJK2" target="_blank">https://drive.google.com/file/d/1LALhTHe8uoe-dAp9glmacT7A_3YCAzZd/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span><br>
-                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_1', 'warp_and_heddle_frame_1')">Click me to get help on this step.</a>
-                                <!-- <button id="warp_and_heddle_frame_1_help_button" onclick="sendMessage('warp_and_heddle_frame_1')">Click me to get help on this step.</button>    -->
+                    <div>
+                        <input type="checkbox" id="cb_14" onclick="clickCheckBox('cb_14', 'cb_14')"><span>Video for this section is here: </span><span class="c16"><a
+                            class="c10"
+                            href="https://www.google.com/url?q=https://drive.google.com/file/d/1LALhTHe8uoe-dAp9glmacT7A_3YCAzZd/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680859563&amp;usg=AOvVaw0_Mgp9E9OcpuM-Dy6DUJK2" target="_blank">https://drive.google.com/file/d/1LALhTHe8uoe-dAp9glmacT7A_3YCAzZd/view?usp=sharing</a></span><span
+                        class="c9">&nbsp;</span><br>
+                        <span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_1', 'warp_and_heddle_frame_1')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_15" onclick="clickCheckBox('cb_15', 'cb_15')"><span class="c9">Put height beams on</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">178mm 8020 height beams </span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Put 4 on one end</span></li>
+                            <li class="c24 c25 li-bullet-0"><span class="c9">Put 2 on the other end</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1">
+                            <li class="c12 li-bullet-0"><span class="c9">200mm 8020 height beams</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Put two on each side in between the 178mm
+                                    height beams</span></li>
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Screw the corner brackets onto the height
+                                    beams</span></li>
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Measure the distance before screwing down onto
+                                    the frame</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-3 start">
+                            <li class="c24 c46 c39 li-bullet-0">
+                                <span>Measuring from the outside edges ensure 160mm from back 178mm height beam:</span><br>
+                                <span
+                                    style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 345.41px; height: 258.35px;">
+                                    <img alt="" src="https://drive.google.com/uc?export=view&id=17MpvqdAiWKdP735n52wvwVibC-Lo5YVQ"
+                                        style="width: 345.41px; height: 258.35px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                        title="">
+                                </span>
                             </li>
-                        <li class="c6 li-bullet-0"><span class="c9">Put height beams on</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">178mm 8020 height beams </span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Put 4 on one end</span></li>
-                        <li class="c24 c25 li-bullet-0"><span class="c9">Put 2 on the other end</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1">
-                        <li class="c12 li-bullet-0"><span class="c9">200mm 8020 height beams</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Put two on each side in between the 178mm
-                                height beams</span></li>
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Screw the corner brackets onto the height
-                                beams</span></li>
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Measure the distance before screwing down onto
-                                the frame</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-3 start">
-                        <li class="c24 c46 c39 li-bullet-0">
-                            <span>Measuring from the outside edges ensure 160mm from back 178mm height beam:</span>
-                            <span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 345.41px; height: 258.35px;">
-                                <img alt="" src="https://drive.google.com/uc?export=view&id=17MpvqdAiWKdP735n52wvwVibC-Lo5YVQ"
-                                    style="width: 345.41px; height: 258.35px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title="">
-                            </span>
-                        </li>
-                        <li class="c24 c39 c46 li-bullet-0">
-                            <span>Measuring from the outside edges ensure 185mm between the 200mm height beams: </span>
-                            <span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 352.50px; height: 262.06px;">
-                                <img alt="" src="https://drive.google.com/uc?export=view&id=1-w8IJxug9TemUmETq5ciT5T_y8-44mv4"
-                                    style="width: 352.50px; height: 262.06px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title="">
-                            </span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Make 16 corner assemblies</span></li>
-                        <li class="c6 li-bullet-0"><span class="c9">Slip 2 m4 ball tnut onto each 200mm beam on the
-                                outside</span></li>
-                        <li class="c6 li-bullet-0"><span class="c9">Slip one corner on each 200mm, slip one corner on
-                                the back 2 178mm height beams</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">The back is the side with 2 178mm beams, not 4
-                                178mm beam</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put 250mm cross pieces on the 200mm height
-                                beams</span></li>
-                        <li class="c6 li-bullet-0"><span class="c9">Slide the 540mm length beam on the three corners
-                                from before, adding another corner bracket assembly on the second front 178mm
-                                beam</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Slide through corner on 178mm beam, the both 200mm
-                                beams, then last 178mm beam</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Screw down 178 corners to hold height, then screw
-                                down 200s for support</span></li>
-                        <li class="c12 li-bullet-0"><span>NOTE: Should leave one length beam pulled back so you can get
-                                the heddle frames in place</span></li>
-                    </ul>
-                    <ul li class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0">
-                            <span>It should look like this</span><sup><a href="#cmnt3" id="cmnt_ref3">[c]</a></sup>
-                            <span>when you&rsquo;re done: </span>
-                            <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_2', 'warp_and_heddle_frame_2')">Click me to get help on this step.</a><br>
-                            <!-- <button id="warp_and_heddle_frame_2_help_button" onclick="sendMessage('warp_and_heddle_frame_2')">Click me to get help on this step.</button>    -->
-    
-                            <span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1W1jo2_Nqk09QKV8KwQ6EQ0sEY8DGoQFU"
-                                    style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title="">
-                            </span>
-                        </li>
-                    </ul>
+                            <li class="c24 c39 c46 li-bullet-0">
+                                <span>Measuring from the outside edges ensure 185mm between the 200mm height beams: </span><br>
+                                <span
+                                    style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 352.50px; height: 262.06px;">
+                                    <img alt="" src="https://drive.google.com/uc?export=view&id=1-w8IJxug9TemUmETq5ciT5T_y8-44mv4"
+                                        style="width: 352.50px; height: 262.06px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                        title="">
+                                </span>
+                            </li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_16" onclick="clickCheckBox('cb_16', 'cb_16')"><span class="c9">Make 16 corner assemblies</span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_17" onclick="clickCheckBox('cb_17', 'cb_17')"><span class="c9">Slip 2 m4 ball tnut onto each 200mm beam on the outside</span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_18" onclick="clickCheckBox('cb_18', 'cb_18')"><span class="c9">Slip one corner on each 200mm, slip one corner on the back 2 178mm height beams</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">The back is the side with 2 178mm beams, not 4
+                                    178mm beam</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_19" onclick="clickCheckBox('cb_19', 'cb_19')"><span class="c9">Put 250mm cross pieces on the 200mm height
+                            beams</span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_20" onclick="clickCheckBox('cb_20', 'cb_20')"><span class="c9">Slide the 540mm length beam on the three corners
+                            from before, adding another corner bracket assembly on the second front 178mm
+                            beam</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Slide through corner on 178mm beam, the both 200mm
+                                    beams, then last 178mm beam</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Screw down 178 corners to hold height, then screw
+                                    down 200s for support</span></li>
+                            <li class="c12 li-bullet-0"><span>NOTE: Should leave one length beam pulled back so you can get
+                                    the heddle frames in place</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_21" onclick="clickCheckBox('cb_21', 'cb_21')"><span>It should look like this when you&rsquo;re done: </span><br>
+                        <span class="tab"></span><span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_2', 'warp_and_heddle_frame_2')">Click me to get help on this step.</a><br>
+                        <!-- <button id="warp_and_heddle_frame_2_help_button" onclick="sendMessage('warp_and_heddle_frame_2')">Click me to get help on this step.</button>    -->
+
+                        <span class="tab"></span><span class="tab"></span> <span
+                            style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;"><img
+                                alt="" src="https://drive.google.com/uc?export=view&id=1W1jo2_Nqk09QKV8KwQ6EQ0sEY8DGoQFU"
+                                style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                title="">
+                        </span><br>
+                    </div>
 
 
-                    <h3 class="c45 c39 c49" id="h.43wpdiv58x4u">
-                        <span class="c23"></span>
-                    </h3>
                     <h3 class="c45 c39" id="h.9gwtmb1e7jr8">
                         <span>Tensioning Frame</span>
-                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_3', 'warp_and_heddle_frame_3')">Click me to get help on this step.</a>
-                        <!-- <button id="warp_and_heddle_frame_3_help_button" onclick="sendMessage('warp_and_heddle_frame_3')">Click me to get help on this step.</button>    -->
                     </h3>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span>Video for this section is here: </span><span class="c16"><a
-                                    class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1KUPVo__eCaQx1YOnCrmo6Hn7O2T1GdQM/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680862022&amp;usg=AOvVaw0ufTcAohCZ8UM9mYXW7sST" target="_blank">https://drive.google.com/file/d/1KUPVo__eCaQx1YOnCrmo6Hn7O2T1GdQM/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span></li>
-                        <li class="c6 li-bullet-0"><span class="c9">Make 10 corner assemblies</span></li>
-                        <li class="c6 li-bullet-0"><span class="c9">Build the tensioning cage</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Make an L from the 260mm beams, make two of
-                                these</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put two m5 tnuts in each of the 260 top
-                                beams</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put the 330mm cross beam on</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put the 220mm beams on</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put the middle support 300mm beams on </span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Measuring from the outside of the top to the
-                                outside of the 300mm beam should be 120mm</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put cage onto frame</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Slide corners onto 330 beam</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Slide cage on</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Slide on and screw down the loose brackets on the
-                                178mm beams to the 300mm beams</span></li>
-                    </ul>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
-                    <hr style="page-break-before:always;display:none;">
-                    <h1 class="c21 c34" id="h.s8jeuwv8uyrp">
-                        <span class="c20"></span>
-                    </h1>
+
+                    <div>
+                        <input type="checkbox" id="cb_22" onclick="clickCheckBox('cb_22', 'cb_22')"><span>Video for this section is here: </span><span class="c16"><a
+                            class="c10"
+                            href="https://www.google.com/url?q=https://drive.google.com/file/d/1KUPVo__eCaQx1YOnCrmo6Hn7O2T1GdQM/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680862022&amp;usg=AOvVaw0ufTcAohCZ8UM9mYXW7sST" target="_blank">https://drive.google.com/file/d/1KUPVo__eCaQx1YOnCrmo6Hn7O2T1GdQM/view?usp=sharing</a></span><span
+                        class="c9">&nbsp;</span><br>
+                        <span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_and_heddle_frame_3', 'warp_and_heddle_frame_3')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_23" onclick="clickCheckBox('cb_23', 'cb_23')"><span class="c9">Make 10 corner assemblies</span><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_24" onclick="clickCheckBox('cb_24', 'cb_24')"><span class="c9">Build the tensioning cage</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Make an L from the 260mm beams, make two of
+                                    these</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put two m5 tnuts in each of the 260 top
+                                    beams</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put the 330mm cross beam on</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put the 220mm beams on</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put the middle support 300mm beams on </span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Measuring from the outside of the top to the
+                                    outside of the 300mm beam should be 120mm</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_25" onclick="clickCheckBox('cb_25', 'cb_25')"><span class="c9">Put cage onto frame</span><br>
+                        <ul class="c4 lst-kix_rf5nr8s1aayt-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Slide corners onto 330 beam</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Slide cage on</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Slide on and screw down the loose brackets on the
+                                    178mm beams to the 300mm beams</span></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
+
             <div id="Heddles and Motors Assembly" , class="tabcontent">
                 <div id="image_container" class="scrollable">
-                    <!-- Heddles and Motors Assembly of Loom -->
-                    <!-- <h1 class="c21" id="h.espvf9l79au">
-            <span class="c20">Heddles and Motors Assembly of Loom</span>
-        </h1> -->
                     <h1 class="c21" id="h.x1gchce7b2wo"><span>Heddles and Motors Assembly of Loom</span></h1>
                     <h2 class="c29" id="h.emk1sgrnereg">
                         <span class="c8">Materials</span>
-                        <!-- <button id="heddles_and_motors_material_help_button" onclick="sendMessage('heddles_and_motors_material')">Click me to get help on this step.</button>    -->
                     </h2>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
-                    <a id="t.201c2b0fd64284a73026a4fcde2023d0f32a2ebe"></a>
-                    <a id="t.1"></a>
+  
                     <table class="c33">
                         <tr class="c18">
                             <td class="c1" colspan="1" rowspan="1">
@@ -2832,86 +2714,63 @@
                             </td>
                         </tr>
                     </table>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
+
                     <h2 class="c29" id="h.o3kdijiqq47b"><span class="c8">Process</span></h2>
-                    <ul class="c4 lst-kix_sl451y9wheao-0 start">
-                        <li class="c6 li-bullet-0">
-                            <span>Video for this section is here: </span>
-                            <span class="c16">
-                                <a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1hSk5e-FOVZ-IyOv6BzxsM-ym7mfZYfA6/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680874319&amp;usg=AOvVaw1zFms9CA-wKgHv_-mQzESQ" target="_blank">https://drive.google.com/file/d/1hSk5e-FOVZ-IyOv6BzxsM-ym7mfZYfA6/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span><br>
-                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_heddles_and_motors_1', 'heddles_and_motors_1')">Click me to get help on this step.</a>
-                                <!-- <button id="heddles_and_motors_1_help_button" onclick="sendMessage('heddles_and_motors_1')">Click me to get help on this step.</button>    -->
-                            
-                        </li>
-                        <li class="c6 li-bullet-0"><span class="c9">Make a motor assembly</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Put heddle onto motor</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Slide on cap</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Do 40 times</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put 10 motors on each frame</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-1 start">
-                        <li class="c12 li-bullet-0"><span>Orient the mount the correct way: Number should be on the
-                                left, upright, and reading properly (not backwards) </span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put on motor one</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Screw in only the two screws to left</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put another motor on</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Then screw in screws between last motor and new
-                                motor</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">NOTE: Ensure the bracket is flush with the acrylic
-                                and is seated in the notches of the motors fully</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Then put on another motor</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Repeat to end</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put in last two screws on end</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put one frame holder onto the 8020</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">The large space should go towards the back
-                                beam</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">The bottom of the frame mount should be at the top
-                                of the corner brackets</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put frames into frame holder</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Note the front of the motors face the back of the
-                                loom</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put the second frame holder on</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Align the m4 tnuts first then slide the frames in
-                                then screw down</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put on the heddle guide</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_sl451y9wheao-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Note the orientation, see video for correct
-                                orientation</span></li>
-                    </ul>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
-                    <h1 class="c21 c34" id="h.45bdv84ym6z7">
-                        <span class="c20"></span>
-                    </h1>
+
+                    <div>
+                        <input type="checkbox" id="cb_26" onclick="clickCheckBox('cb_26', 'cb_26')"><span>Video for this section is here: </span>
+                        <span class="c16">
+                            <a class="c10"
+                                href="https://www.google.com/url?q=https://drive.google.com/file/d/1hSk5e-FOVZ-IyOv6BzxsM-ym7mfZYfA6/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680874319&amp;usg=AOvVaw1zFms9CA-wKgHv_-mQzESQ" target="_blank">https://drive.google.com/file/d/1hSk5e-FOVZ-IyOv6BzxsM-ym7mfZYfA6/view?usp=sharing</a></span><span
+                            class="c9">&nbsp;</span><br>
+                        <span class="tab"></span><a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_heddles_and_motors_1', 'heddles_and_motors_1')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_27" onclick="clickCheckBox('cb_27', 'cb_27')"><span class="c9">Make a motor assembly</span><br>
+                        <ul class="c4 lst-kix_sl451y9wheao-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Put heddle onto motor</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Slide on cap</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Do 40 times</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_28" onclick="clickCheckBox('cb_28', 'cb_28')"><span class="c9">Put 10 motors on each frame</span><br>
+                        <ul class="c4 lst-kix_sl451y9wheao-1 start">
+                            <li class="c12 li-bullet-0"><span>Orient the mount the correct way: Number should be on the
+                                    left, upright, and reading properly (not backwards) </span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put on motor one</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Screw in only the two screws to left</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put another motor on</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Then screw in screws between last motor and new
+                                    motor</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">NOTE: Ensure the bracket is flush with the acrylic
+                                    and is seated in the notches of the motors fully</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Then put on another motor</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Repeat to end</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put in last two screws on end</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_29" onclick="clickCheckBox('cb_29', 'cb_29')"><span class="c9">Put one frame holder onto the 8020</span><br>
+                        <ul class="c4 lst-kix_sl451y9wheao-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">The large space should go towards the back
+                                    beam</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">The bottom of the frame mount should be at the top
+                                    of the corner brackets</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_30" onclick="clickCheckBox('cb_30', 'cb_30')"><span class="c9">Put frames into frame holder</span><br>
+                        <ul class="c4 lst-kix_sl451y9wheao-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Note the front of the motors face the back of the
+                                    loom</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_31" onclick="clickCheckBox('cb_31', 'cb_31')"><span class="c9">Put the second frame holder on</span><br>
+                        <ul class="c4 lst-kix_sl451y9wheao-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Align the m4 tnuts first then slide the frames in
+                                    then screw down</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_32" onclick="clickCheckBox('cb_32', 'cb_32')"><span class="c9">Put on the heddle guide</span><br>
+                        <ul class="c4 lst-kix_sl451y9wheao-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Note the orientation, see video for correct
+                                    orientation</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
             <div id="Tension System" , class="tabcontent">
                 <div id="image_container" class="scrollable">
                     <h1 class="c21" id="h.x1gchce7b2wo"><span>Tension System</span></h1>
@@ -2919,9 +2778,6 @@
                         <span class="c8">Materials</span>
                         <!-- <button id="tension_system_material_help_button" onclick="sendMessage('tension_system_material')">Click me to get help on this step.</button>  -->
                     </h2>
-                    <p class="c17"><span class="c9"></span></p>
-                    <a id="t.b6433aaee1809acceb955e4d9536fc53eee53eb5"></a>
-                    <a id="t.2"></a>
                     <table class="c33">
                         <tr class="c22">
                             <td class="c5" colspan="1" rowspan="1">
@@ -3193,70 +3049,61 @@
                         </tr>
                     </table>
                     <h2 class="c29" id="h.o3kdijiqq47b"><span class="c8">Process</span></h2>
-                    <ul class="c4 lst-kix_x6ohjql6njum-0 start">
-                        <li class="c6 li-bullet-0">
-                            <span>Video for this section is here: </span>
-                            <span class="c16"><a
-                                    class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1daSU7YR-RIImE0Dje5L2WyvquTXLPC7D/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680891159&amp;usg=AOvVaw0RPuPZ-RLonBiJMkSXi-vy" target="_blank">https://drive.google.com/file/d/1daSU7YR-RIImE0Dje5L2WyvquTXLPC7D/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span><br>
-                                <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_tension_system_1', 'tension_system_1')">Click me to get help on this step.</a>
-                                <!-- <button id="tension_system_1_help_button" onclick="sendMessage('tension_system_1')">Click me to get help on this step.</button>  -->
+                    <div>
+                        <input type="checkbox" id="cb_33" onclick="clickCheckBox('cb_33', 'cb_33')"><span>Video for this section is here: </span>
+                        <span class="c16"><a
+                                class="c10"
+                                href="https://www.google.com/url?q=https://drive.google.com/file/d/1daSU7YR-RIImE0Dje5L2WyvquTXLPC7D/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680891159&amp;usg=AOvVaw0RPuPZ-RLonBiJMkSXi-vy" target="_blank">https://drive.google.com/file/d/1daSU7YR-RIImE0Dje5L2WyvquTXLPC7D/view?usp=sharing</a></span><span
+                            class="c9">&nbsp;</span><br>
+                        <span class="tab"></span> <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_tension_system_1', 'tension_system_1')">Click me to get help on this step.</a><br>
+                        <span class="tab"></span><input type="checkbox" id="cb_34" onclick="clickCheckBox('cb_34', 'cb_34')"><span class="c9">Put bobbin in case</span><br>
+                        <ul class="c4 lst-kix_x6ohjql6njum-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Align yarn in the direction of the arrow</span>
                             </li>
-                        <li class="c6 li-bullet-0"><span class="c9">Put bobbin in case</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Align yarn in the direction of the arrow</span>
-                        </li>
-                        <li class="c12 li-bullet-0"><span class="c9">Do not over tighten the screw</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Pull the yarn through the slot so it&rsquo;s in the
-                                arrow</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Repeat with all 40 bobbins</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Assemble Creel</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Put creel bottom on loom</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put cases in creel bottom</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put creel top on</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Use spacers to align</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put Warp line Guiders on</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Put acrylic mount on</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">128.5mm away from front bar, measured on outside of
-                                the 8020 to the front side of the acrylic mount</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put shafts through holes and secure with shaft
-                                collars</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Put Tension guiders on</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Put acrylic mounts on</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Assemble the tension rod spacers x8</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Using 5mm rod and the tension spacers</span>
-                        </li>
-                        <li class="c25 c24 li-bullet-0"><span class="c9">One spring, two disks per space</span></li>
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Assemble one space at a time, sliding the rod
-                                through each space as you get the pieces in place</span></li>
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Note the video shows only pne space being
-                                filled, you should fill all spaces of all 8 spacers before attaching them to the
-                                loom</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_x6ohjql6njum-1">
-                        <li class="c12 li-bullet-0"><span class="c9">Mount the spacers</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Secure with shaft collars</span></li>
-                    </ul>
-                    <p class="c17"><span class="c9"></span></p>
-                    <h1 class="c21 c34" id="h.tar7dp118mr6"><span class="c20"></span></h1>
+                            <li class="c12 li-bullet-0"><span class="c9">Do not over tighten the screw</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Pull the yarn through the slot so it&rsquo;s in the
+                                    arrow</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Repeat with all 40 bobbins</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_35" onclick="clickCheckBox('cb_35', 'cb_35')"><span class="c9">Assemble Creel</span><br>
+                        <ul class="c4 lst-kix_x6ohjql6njum-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Put creel bottom on loom</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put cases in creel bottom</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put creel top on</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_x6ohjql6njum-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Use spacers to align</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_36" onclick="clickCheckBox('cb_36', 'cb_36')"><span class="c9">Put Warp line Guiders on</span><br>
+                        <ul class="c4 lst-kix_x6ohjql6njum-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Put acrylic mount on</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">128.5mm away from front bar, measured on outside of
+                                    the 8020 to the front side of the acrylic mount</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put shafts through holes and secure with shaft
+                                    collars</span></li>
+                        </ul>
+                        <span class="tab"></span><input type="checkbox" id="cb_37" onclick="clickCheckBox('cb_37', 'cb_37')"><span class="c9">Put Tension guiders on</span><br>
+                        <ul class="c4 lst-kix_x6ohjql6njum-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Put acrylic mounts on</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Assemble the tension rod spacers x8</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_x6ohjql6njum-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Using 5mm rod and the tension spacers</span>
+                            </li>
+                            <li class="c25 c24 li-bullet-0"><span class="c9">One spring, two disks per space</span></li>
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Assemble one space at a time, sliding the rod
+                                    through each space as you get the pieces in place</span></li>
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Note the video shows only pne space being
+                                    filled, you should fill all spaces of all 8 spacers before attaching them to the
+                                    loom</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_x6ohjql6njum-1">
+                            <li class="c12 li-bullet-0"><span class="c9">Mount the spacers</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Secure with shaft collars</span></li>
+                        </ul>
+                    </div>
+
+
                 </div>
             </div>
             <div id="Warp Beam and Beater" , class="tabcontent">
@@ -3267,8 +3114,6 @@
                         <span class="c8">Materials</span>
                         <!-- <button id="warp_beam_and_beater_material_help_button" onclick="sendMessage('warp_beam_and_beater_material')">Click me to get help on this step.</button>  -->
                     </h2>
-                    <a id="t.ef6d1b824d209ea7bcdd4d47fa002f3b8f3aaa55"></a>
-                    <a id="t.3"></a>
                     <table class="c33">
                         <tr class="c18">
                             <td class="c26" colspan="1" rowspan="1">
@@ -3392,199 +3237,175 @@
                         </tr>
                     </table>
                     <h2 class="c29" id="h.o3kdijiqq47b"><span class="c8">Process</span></h2>
-                    <h3>
-                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_beam_and_beater_1', 'warp_beam_and_beater_1')">Click me to get help on this step.</a>
-                    </h3>
 
-                    <ul class="c4 lst-kix_k1rtewdyl7sy-0 start">
-                        <li class="c6 li-bullet-0">
-                            <span>Put the warp beam on: </span>
-                            <span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1uCJ0xp6FN9pGCa_vqAFrAki4osB_xB8t/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680900189&amp;usg=AOvVaw0YgOqoG1IH_ZFMA3HRQBUe" target="_blank">https://drive.google.com/file/d/1uCJ0xp6FN9pGCa_vqAFrAki4osB_xB8t/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                            <!-- <button id="warp_beam_and_beater_1_help_button" onclick="sendMessage('warp_beam_and_beater_1')">Click me to get help on this step.</button>     -->
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_k1rtewdyl7sy-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Put the warp beam holders onto the warp beam</span>
-                        </li>
-                        <li class="c12 li-bullet-0"><span class="c9">Ensure they are lined up such that the warp beam
-                                can spin freely away from the loom, but cannot spin towards the loom</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Slide the warp beam into place</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Slide 2 M4 Ball T-Nuts onto each 178mm height
-                                beam</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Screw in the warp beam using 8x M4 8mm
-                                screws</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_k1rtewdyl7sy-0">
-                        <li class="c6 li-bullet-0">
-                            <span>Put the beater on: </span>
-                            <span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1I_eCPG7rLr3uNIhKhSEmKmCrOnfaM35S/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680901141&amp;usg=AOvVaw2RFUljW4Ewzk-kQHCT83XP" target="_blank">https://drive.google.com/file/d/1I_eCPG7rLr3uNIhKhSEmKmCrOnfaM35S/view?usp=sharing</a></span><span
-                                class="c9">&nbsp;</span>
-                            <!-- <button id="warp_beam_and_beater_2_help_button" onclick="sendMessage('warp_beam_and_beater_2')">Click me to get help on this step.</button>  -->
-                            
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_k1rtewdyl7sy-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Put the brackets onto the arms</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Ensure you make one, then a mirrored version of
-                                that</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Put the brackets onto the reed</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">Screw in the beater arms to the M4 ball t-nuts in
-                                the frame already</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_k1rtewdyl7sy-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">Note: If you forgot the M4 Ball T-Nuts, there
-                                is a way to maneuver them into the 8020 without redoing the entire frame</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_k1rtewdyl7sy-1">
-                        <li class="c12 li-bullet-0"><span class="c9">Align the beater roughly halfway between the 200mm
-                                height beam and the inner 178mm height beam</span></li>
-                        <li class="c12 li-bullet-0"><span>Tighten down the screws so the arm doesn&rsquo;t slide in the
-                                frame, but still rotates freely</span></li>
-                    </ul>
+
+                    <div>
+                        <input type="checkbox" id="cb_38" onclick="clickCheckBox('cb_38', 'cb_38')"><span>Put the warp beam on: </span>
+                        <span class="c16"><a class="c10"
+                            href="https://www.google.com/url?q=https://drive.google.com/file/d/1uCJ0xp6FN9pGCa_vqAFrAki4osB_xB8t/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680900189&amp;usg=AOvVaw0YgOqoG1IH_ZFMA3HRQBUe" target="_blank">https://drive.google.com/file/d/1uCJ0xp6FN9pGCa_vqAFrAki4osB_xB8t/view?usp=sharing</a></span><span
+                        class="c9">&nbsp;</span><br>
+                        <!-- <span class="tab"></span> <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_beam_and_beater_1', 'warp_beam_and_beater_1')">Click me to get help on this step.</a><br> -->
+                        <ul class="c4 lst-kix_k1rtewdyl7sy-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Put the warp beam holders onto the warp beam</span>
+                            </li>
+                            <li class="c12 li-bullet-0"><span class="c9">Ensure they are lined up such that the warp beam
+                                    can spin freely away from the loom, but cannot spin towards the loom</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Slide the warp beam into place</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Slide 2 M4 Ball T-Nuts onto each 178mm height
+                                    beam</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Screw in the warp beam using 8x M4 8mm
+                                    screws</span></li>
+                        </ul>
+                        <hr class="dotted">
+                        </span><input type="checkbox" id="cb_39" onclick="clickCheckBox('cb_39', 'cb_39')"><span>Put the beater on: </span><span class="c16"><a class="c10"
+                            href="https://www.google.com/url?q=https://drive.google.com/file/d/1I_eCPG7rLr3uNIhKhSEmKmCrOnfaM35S/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680901141&amp;usg=AOvVaw2RFUljW4Ewzk-kQHCT83XP" target="_blank">https://drive.google.com/file/d/1I_eCPG7rLr3uNIhKhSEmKmCrOnfaM35S/view?usp=sharing</a></span><span
+                        class="c9">&nbsp;</span><br>
+                        <ul class="c4 lst-kix_k1rtewdyl7sy-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Put the brackets onto the arms</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Ensure you make one, then a mirrored version of
+                                    that</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Put the brackets onto the reed</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">Screw in the beater arms to the M4 ball t-nuts in
+                                    the frame already</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_k1rtewdyl7sy-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">Note: If you forgot the M4 Ball T-Nuts, there
+                                    is a way to maneuver them into the 8020 without redoing the entire frame</span></li>
+                        </ul>
+                        <ul class="c4 lst-kix_k1rtewdyl7sy-1">
+                            <li class="c12 li-bullet-0"><span class="c9">Align the beater roughly halfway between the 200mm
+                                    height beam and the inner 178mm height beam</span></li>
+                            <li class="c12 li-bullet-0"><span>Tighten down the screws so the arm doesn&rsquo;t slide in the
+                                    frame, but still rotates freely</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warp_beam_and_beater_1', 'warp_beam_and_beater_1')">Click me to get help on these two steps.</a>
+                    </div>
                 </div>
             </div>
 
             <div id="Warping Routine" class="tabcontent">
                 <div id="image_container" class="scrollable">
                     <h1 class="c21" id="h.5dvjowktpjqn"><span>Warping Routine</span></h1>
-                    <h3>
-                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warping_routine_1', 'warping_routine_1')">Click me to get help on this step.</a>
-                    </h3>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-0 start">
-                        <li class="c6 li-bullet-0">
-                            <span>To thread the loom, you&rsquo;ll take each thread, pass it
-                                through the appropriate tensioning disk, over the warp thread guide, through the
-                                appropriate heddle, and finally through the warp beam. This process for a single thread
-                                is shown here: </span>
-                            <span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/1MAPVWkPgJPcySMOp1dWmJmqZJYY4WSVB/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902203&amp;usg=AOvVaw3_tl_I28yTU8P7KBYsDkd_" target="_blank">https://drive.google.com/file/d/1MAPVWkPgJPcySMOp1dWmJmqZJYY4WSVB/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_1_help_button" onclick="sendMessage('warping_routine_1')">Click me to get help on this step.</button>           -->
-                        </li>
-                        <li class="c6 li-bullet-0"><span class="c9">Thread each yarn through the tensioning
-                                system</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
-                        <li class="c12 li-bullet-0"><span>Wrap it fully around the rod. This means passing through the
-                                tension spacer twice. A close up video of this can be found here: </span><span
-                                class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/12XpKbnm54b4xVL5xSugnmOsazEdZCMOF/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902602&amp;usg=AOvVaw00hA4Upr7UdlV1piLaopVI" target="_blank">https://drive.google.com/file/d/12XpKbnm54b4xVL5xSugnmOsazEdZCMOF/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_2_help_button" onclick="sendMessage('warping_routine_2')">Click me to get help on this step.</button>           -->
-                        </li>
-                        <li class="c12 li-bullet-0"><span class="c9">Pass each thread over its respective guiding rod
-                                (the rod directly above the tensioning rod)</span></li>
-                        <li class="c12 li-bullet-0"><span>A video of the full process can be seen here: </span><span
-                                class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/12h5iHmaqU7WeOAnt2RZneYNrUXEn2dA0/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902986&amp;usg=AOvVaw04FAPmY50ED3RfVFh7XugQ" target="_blank">https://drive.google.com/file/d/12h5iHmaqU7WeOAnt2RZneYNrUXEn2dA0/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_3_help_button" onclick="sendMessage('warping_routine_3')">Click me to get help on this step.</button>           -->
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-0">
-                        <li class="c6 li-bullet-0"><span class="c9">Pass each thread through its respective
-                                heddle</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Yarns on the guiding rod closest to the heddles go
-                                through the heddles closest to the guiding rods</span></li>
-                        <li class="c12 li-bullet-0"><span class="c9">The second closest guiding rod is paired with the
-                                second closest frame of heddles and so on</span></li>
-                        <li class="c12 li-bullet-0"><span><br></span><span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 487.50px; height: 277.34px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1o7brsYtyr7TINFPHqETaHHyxZQ1AsFbX"
-                                    style="width: 487.50px; height: 277.34px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span></li>
-                        <li class="c12 li-bullet-0"><span>A video of this process can be found here: </span><span
-                                class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/12uckF7H2XsbnnEFzWiGwCWAqz7xol1eJ/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680903675&amp;usg=AOvVaw35h_y33nDSGl_XcoEqfOW_" target="_blank">https://drive.google.com/file/d/12uckF7H2XsbnnEFzWiGwCWAqz7xol1eJ/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_4_help_button" onclick="sendMessage('warping_routine_4')">Click me to get help on this step.</button>           -->
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-2 start">
-                        <li class="c25 c24 li-bullet-0"><span class="c9">In the video, I temporarily tie the threads so
-                                they do not accidentally slip back through the heddles</span></li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-0">
-                        <li class="c6 li-bullet-0"><span>Thread each thread through the correct place in the reed</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
-                        <li class="c12 li-bullet-0"><span class="c9">Make sure to center your cloth in the reed, this
-                                does not need to be exact, but should be close to the center. </span></li>
-                        <li class="c12 li-bullet-0"><span>I recommend working from the middle out putting threads 20 and
-                                21 in the middle two spots of the reed</span><span>&nbsp;(the video does not do this as
-                                it has one person working alone)<br></span><span
-                                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 510.93px; height: 192.31px;"><img
-                                    alt="" src="https://drive.google.com/uc?export=view&id=1-A_NI2JyHPiPXlJhGLhoBMxlOZmqT75g"
-                                    style="width: 510.93px; height: 539.49px; margin-left: 0.00px; margin-top: -45.60px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                                    title=""></span></li>
-                        <li class="c12 li-bullet-0"><span>A video of this process can be found here: </span><span
-                                class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/12uPykp9NHIbhplIv42tAlZCfrKo7fsE9/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680904398&amp;usg=AOvVaw2zcGEV9NtuF9kNlco9KaZm" target="_blank">https://drive.google.com/file/d/12uPykp9NHIbhplIv42tAlZCfrKo7fsE9/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_5_help_button" onclick="sendMessage('warping_routine_5')">Click me to get help on this step.</button>           -->
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-0">
-                        <li class="c6 li-bullet-0"><span>Pass the threads through the warp beam and tie them down</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
-                        <li class="c12 li-bullet-0">
-                            <span class="c9">I recommend tying them in bunches of 10. I started with the middle 10
-                                threads (16-25) then worked my way out from there (6-15 on the right and 26-35 on the
-                                left). Then I tied down the last five on each side (1-5 on the right, 36-40 on the
-                                left).</span>
-                        </li>
-                        <li class="c12 li-bullet-0">
-                            <span class="c9">Once threaded down one hole of the warp beam and up through the other, tie
-                                the bunches in a knot (I used a simple overhand knot).</span>
-                        </li>
-                        <li class="c12 li-bullet-0">
-                            <span>A video of this process can be found here: </span><span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/12pXPe95EB38_Lqxshce2CBF2vUyttP3T/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680905131&amp;usg=AOvVaw2YyAlgrfU2jJL8S2eevaI6" target="_blank">https://drive.google.com/file/d/12pXPe95EB38_Lqxshce2CBF2vUyttP3T/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_6_help_button" onclick="sendMessage('warping_routine_6')">Click me to get help on this step.</button>           -->
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-0">
-                        <li class="c6 li-bullet-0">
-                            <span class="c9">Once all threads are tied down, pull tension onto the loom by ensuring the
-                                warp beam pawls are hooked on the gear of the warp beam then pull each thread back on
-                                the creel side of the tension rod until full tension is reached</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
-                        <li class="c12 li-bullet-0">
-                            <span>This process can be seen here: </span><span class="c16"><a class="c10"
-                                    href="https://www.google.com/url?q=https://drive.google.com/file/d/12mhnYptuZl8djz3U4jzoWgHRvzTzo7op/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680905502&amp;usg=AOvVaw0GmvRjv1uEyEwEo4xK41t9" target="_blank">https://drive.google.com/file/d/12mhnYptuZl8djz3U4jzoWgHRvzTzo7op/view?usp=sharing</a></span>
-                            <!-- <button id="warping_routine_7_help_button" onclick="sendMessage('warping_routine_7')">Click me to get help on this step.</button>           -->
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-0">
-                        <li class="c6 li-bullet-0">
-                            <span class="c9">Note that you do not need to complete all threads on each step before
-                                starting the next step.</span>
-                        </li>
-                    </ul>
-                    <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
-                        <li class="c12 li-bullet-0">
-                            <span class="c9">For example, you can thread warp yarn 1 through the tension system then
-                                begin one warp yarn 2 threading through the tension system while another person threads
-                                warp yarn 1 through the heddles, etc.</span>
-                        </li>
-                        <li class="c12 li-bullet-0">
-                            <span class="c9">Also note the video was filmed with threading a row of yarns through the
-                                tension system then through the heddles and then repeating for the next row of yarns.
-                                This order does not need to be matched.</span>
-                        </li>
-                    </ul>
-                    <p class="c17">
-                        <span class="c9"></span>
-                    </p>
+
+                    <div>
+                        <input type="checkbox" id="cb_40" onclick="clickCheckBox('cb_40', 'cb_40')"><span>To thread the loom, you&rsquo;ll take each thread, pass it
+                            through the appropriate tensioning disk, over the warp thread guide, through the
+                            appropriate heddle, and finally through the warp beam. This process for a single thread
+                            is shown here: </span>
+                        <span class="c16"><a class="c10"
+                                href="https://www.google.com/url?q=https://drive.google.com/file/d/1MAPVWkPgJPcySMOp1dWmJmqZJYY4WSVB/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902203&amp;usg=AOvVaw3_tl_I28yTU8P7KBYsDkd_" target="_blank">https://drive.google.com/file/d/1MAPVWkPgJPcySMOp1dWmJmqZJYY4WSVB/view?usp=sharing</a></span><br>
+                                <hr class="dotted">
+                        <input type="checkbox" id="cb_41" onclick="clickCheckBox('cb_41', 'cb_41')"><span class="c9">Thread each yarn through the tensioning system</span><br>    
+                        <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
+                            <li class="c12 li-bullet-0"><span>Wrap it fully around the rod. This means passing through the
+                                    tension spacer twice. A close up video of this can be found here: </span><span
+                                    class="c16"><a class="c10"
+                                        href="https://www.google.com/url?q=https://drive.google.com/file/d/12XpKbnm54b4xVL5xSugnmOsazEdZCMOF/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902602&amp;usg=AOvVaw00hA4Upr7UdlV1piLaopVI" target="_blank">https://drive.google.com/file/d/12XpKbnm54b4xVL5xSugnmOsazEdZCMOF/view?usp=sharing</a></span>
+                                <!-- <button id="warping_routine_2_help_button" onclick="sendMessage('warping_routine_2')">Click me to get help on this step.</button>           -->
+                            </li>
+                            <li class="c12 li-bullet-0"><span class="c9">Pass each thread over its respective guiding rod
+                                    (the rod directly above the tensioning rod)</span></li>
+                            <li class="c12 li-bullet-0"><span>A video of the full process can be seen here: </span><span
+                                    class="c16"><a class="c10"
+                                        href="https://www.google.com/url?q=https://drive.google.com/file/d/12h5iHmaqU7WeOAnt2RZneYNrUXEn2dA0/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680902986&amp;usg=AOvVaw04FAPmY50ED3RfVFh7XugQ" target="_blank">https://drive.google.com/file/d/12h5iHmaqU7WeOAnt2RZneYNrUXEn2dA0/view?usp=sharing</a></span>
+                                <!-- <button id="warping_routine_3_help_button" onclick="sendMessage('warping_routine_3')">Click me to get help on this step.</button>           -->
+                            </li>
+                        </ul>
+                        <hr class="dotted">
+                        <input type="checkbox" id="cb_42" onclick="clickCheckBox('cb_42', 'cb_42')"><span class="c9">Pass each thread through its respective heddle</span><br>
+                        <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Yarns on the guiding rod closest to the heddles go
+                                    through the heddles closest to the guiding rods</span></li>
+                            <li class="c12 li-bullet-0"><span class="c9">The second closest guiding rod is paired with the
+                                    second closest frame of heddles and so on</span></li>
+                            <li class="c12 li-bullet-0"><span><br></span><span
+                                    style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 487.50px; height: 277.34px;"><img
+                                        alt="" src="https://drive.google.com/uc?export=view&id=1o7brsYtyr7TINFPHqETaHHyxZQ1AsFbX"
+                                        style="width: 487.50px; height: 277.34px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                        title=""></span></li>
+                            <li class="c12 li-bullet-0"><span>A video of this process can be found here: </span><span
+                                    class="c16"><a class="c10"
+                                        href="https://www.google.com/url?q=https://drive.google.com/file/d/12uckF7H2XsbnnEFzWiGwCWAqz7xol1eJ/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680903675&amp;usg=AOvVaw35h_y33nDSGl_XcoEqfOW_" target="_blank">https://drive.google.com/file/d/12uckF7H2XsbnnEFzWiGwCWAqz7xol1eJ/view?usp=sharing</a></span>
+                                <!-- <button id="warping_routine_4_help_button" onclick="sendMessage('warping_routine_4')">Click me to get help on this step.</button>           -->
+                            </li>
+                        </ul>
+                        <ul class="c4 lst-kix_1o9fcraj31qw-2 start">
+                            <li class="c25 c24 li-bullet-0"><span class="c9">In the video, I temporarily tie the threads so
+                                    they do not accidentally slip back through the heddles</span></li>
+                        </ul>
+                        <hr class="dotted">
+                        <input type="checkbox" id="cb_43" onclick="clickCheckBox('cb_43', 'cb_43')"><span>Thread each thread through the correct place in the reed</span><br>
+                        <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
+                            <li class="c12 li-bullet-0"><span class="c9">Make sure to center your cloth in the reed, this
+                                    does not need to be exact, but should be close to the center. </span></li>
+                            <li class="c12 li-bullet-0"><span>I recommend working from the middle out putting threads 20 and
+                                    21 in the middle two spots of the reed</span><span>&nbsp;(the video does not do this as
+                                    it has one person working alone)<br></span><span
+                                    style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 510.93px; height: 192.31px;"><img
+                                        alt="" src="https://drive.google.com/uc?export=view&id=1-A_NI2JyHPiPXlJhGLhoBMxlOZmqT75g"
+                                        style="width: 510.93px; height: 539.49px; margin-left: 0.00px; margin-top: -45.60px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                        title=""></span></li>
+                            <li class="c12 li-bullet-0"><span>A video of this process can be found here: </span><span
+                                    class="c16"><a class="c10"
+                                        href="https://www.google.com/url?q=https://drive.google.com/file/d/12uPykp9NHIbhplIv42tAlZCfrKo7fsE9/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680904398&amp;usg=AOvVaw2zcGEV9NtuF9kNlco9KaZm" target="_blank">https://drive.google.com/file/d/12uPykp9NHIbhplIv42tAlZCfrKo7fsE9/view?usp=sharing</a></span>
+                                <!-- <button id="warping_routine_5_help_button" onclick="sendMessage('warping_routine_5')">Click me to get help on this step.</button>           -->
+                            </li>
+                        </ul>
+                        <hr class="dotted">
+                        <input type="checkbox" id="cb_44" onclick="clickCheckBox('cb_44', 'cb_44')"><span>Pass the threads through the warp beam and tie them down</span>
+                        <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
+                            <li class="c12 li-bullet-0">
+                                <span class="c9">I recommend tying them in bunches of 10. I started with the middle 10
+                                    threads (16-25) then worked my way out from there (6-15 on the right and 26-35 on the
+                                    left). Then I tied down the last five on each side (1-5 on the right, 36-40 on the
+                                    left).</span>
+                            </li>
+                            <li class="c12 li-bullet-0">
+                                <span class="c9">Once threaded down one hole of the warp beam and up through the other, tie
+                                    the bunches in a knot (I used a simple overhand knot).</span>
+                            </li>
+                            <li class="c12 li-bullet-0">
+                                <span>A video of this process can be found here: </span><span class="c16"><a class="c10"
+                                        href="https://www.google.com/url?q=https://drive.google.com/file/d/12pXPe95EB38_Lqxshce2CBF2vUyttP3T/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680905131&amp;usg=AOvVaw2YyAlgrfU2jJL8S2eevaI6" target="_blank">https://drive.google.com/file/d/12pXPe95EB38_Lqxshce2CBF2vUyttP3T/view?usp=sharing</a></span>
+                                <!-- <button id="warping_routine_6_help_button" onclick="sendMessage('warping_routine_6')">Click me to get help on this step.</button>           -->
+                            </li>
+                        </ul>
+                        <hr class="dotted">
+                        <input type="checkbox" id="cb_45" onclick="clickCheckBox('cb_45', 'cb_45')"><span class="c9">Once all threads are tied down, pull tension onto the loom by ensuring the
+                            warp beam pawls are hooked on the gear of the warp beam then pull each thread back on
+                            the creel side of the tension rod until full tension is reached</span><br>
+                        <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
+                            <li class="c12 li-bullet-0">
+                                <span>This process can be seen here: </span><span class="c16"><a class="c10"
+                                        href="https://www.google.com/url?q=https://drive.google.com/file/d/12mhnYptuZl8djz3U4jzoWgHRvzTzo7op/view?usp%3Dsharing&amp;sa=D&amp;source=editors&amp;ust=1678826680905502&amp;usg=AOvVaw0GmvRjv1uEyEwEo4xK41t9" target="_blank">https://drive.google.com/file/d/12mhnYptuZl8djz3U4jzoWgHRvzTzo7op/view?usp=sharing</a></span>
+                                <!-- <button id="warping_routine_7_help_button" onclick="sendMessage('warping_routine_7')">Click me to get help on this step.</button>           -->
+                            </li>
+                        </ul>
+                        <hr class="dotted">
+                        <input type="checkbox" id="cb_46" onclick="clickCheckBox('cb_46', 'cb_46')"><span class="c9">Note that you do not need to complete all threads on each step before
+                            starting the next step.</span><br>
+                        <ul class="c4 lst-kix_1o9fcraj31qw-1 start">
+                            <li class="c12 li-bullet-0">
+                                <span class="c9">For example, you can thread warp yarn 1 through the tension system then
+                                    begin one warp yarn 2 threading through the tension system while another person threads
+                                    warp yarn 1 through the heddles, etc.</span>
+                            </li>
+                            <li class="c12 li-bullet-0">
+                                <span class="c9">Also note the video was filmed with threading a row of yarns through the
+                                    tension system then through the heddles and then repeating for the next row of yarns.
+                                    This order does not need to be matched.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a class="fcc-btn" href="#" class="tablinks" onclick="openTab(event, 'tips_warping_routine_1', 'warping_routine_1')">Click me to get help on these steps.</a>
+                    </div>
                 </div>
             </div>
 
-            <div id="Electronics" class="tabcontent">
+            <!-- <div id="Electronics" class="tabcontent">
                 <div id="image_container" class="scrollable">
    
                     <h1 class="c21" id="h.5dvjowktpjqn"><span>Electornics</span></h1>
@@ -3593,32 +3414,22 @@
                             <span>Orient your electronics board such that the Arduino is closer to the tensioning cage,
                                 as shown in </span>
                             <span>PICTURE</span>
-                            <!-- <button id="electronics_help_button" onclick="sendMessage('electronics_help')">Click me to get help on this step.</button>  -->
+                            <button id="electronics_help_button" onclick="sendMessage('electronics_help')">Click me to get help on this step.</button> 
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- End of tab edits -->
 
         </div>
-        <div id="conversation_column">
+        <!-- <div id="conversation_column">
             <h2 id="conversation_header" class="header">Debug log(temporary)</h2>
             <div id="conversation_container" class="container">
                 <div id="conversation" class="scrollable"></div>
             </div>
-            <!-- <div id="controls" class="control"> -->
-                <!-- <div id="message_div"> <textarea id="data"></textarea></div> -->
-                <!--  <div id="messagebutton_div"> -->
-                <!--  <input class="button" type="button" id="datasend" value="Send Message" /> -->
-                <!--  <input class="button" type="button" id="ready_button" value="Ready"/> -->
-                <!--  </div> -->
-                <!--  <div class="blinker">Click the "Ready" button when you are ready to move on to the next step.</div> -->
-                <!-- <div><input class="button" type="button" id="conv_message" value="Download Discussion Log"
-                        onClick="showConvText();" /></div> -->
-            <!-- </div> -->
-        </div>
+        </div> -->
     </div>
 </body>
 
