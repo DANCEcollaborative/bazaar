@@ -41,6 +41,8 @@ import java.util.Set;
 import java.time.LocalDateTime;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
+import basilica2.myagent.listeners.JeopardyTutorActor.Dialog;
+
 import java.util.Collections;
 /**
  * 
@@ -86,6 +88,7 @@ public class State
 	private int jointActivityMetric = 0; 
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
+	private Map<String, Integer> keywordCounts = new HashMap<String, Integer>();
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
