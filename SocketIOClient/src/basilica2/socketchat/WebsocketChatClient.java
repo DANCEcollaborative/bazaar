@@ -36,6 +36,7 @@ import basilica2.agents.events.LogEvent;
 import basilica2.agents.events.LogStateEvent;
 import basilica2.agents.events.EndEvent;
 import basilica2.agents.events.SendCommandEvent;
+import basilica2.agents.events.StartExternalTimerEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -218,7 +219,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 		else if(e instanceof SendCommandEvent)
 		{
 			SendCommandEvent sce = (SendCommandEvent) e;
-	        System.err.println("WebsocketChatClient, processEvent, SendCommandEvent - commannd: " + sce.getCommand());
+	        System.err.println("WebsocketChatClient, processEvent, SendCommandEvent - command: " + sce.getCommand());
 	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, SendCommandEvent - commannd: " + sce.getCommand());
 			try
 			{
@@ -228,6 +229,23 @@ public class WebsocketChatClient extends Component implements ChatClient
 			{
 				System.err.println("WebsocketChatClient, processEvent - couldn't send SendCommandEvent: " + sce);
 		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send SendCommandEvent: " +sce);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else if(e instanceof StartExternalTimerEvent)
+		{
+			StartExternalTimerEvent sete = (StartExternalTimerEvent) e;
+	        System.err.println("WebsocketChatClient, processEvent, StartExternalTimerEvent - time: " + sete.getTime());
+	        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent, StartExternalTimerEvent - time: " + sete.getTime());
+			try
+			{
+				insertStartExternalTimerEvent(sete.getTime());
+			}
+			catch (Exception e1)
+			{
+				System.err.println("WebsocketChatClient, processEvent - couldn't send StartExternalTimerEvent: " + sete);
+		        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, processEvent - couldn't send StartExternalTimerEvent: " +sete);
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -325,6 +343,13 @@ public class WebsocketChatClient extends Component implements ChatClient
         System.err.println("WebsocketChatClient, insertSendCommandEvent - command: " + command);
         Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertSendCommandEvent - command: " + command);
 		socket.emit("sendcommandevent", command);
+	}
+
+	protected void insertStartExternalTimerEvent(String time)
+	{
+        System.err.println("WebsocketChatClient, insertStartExternalTimerEvent - time: " + time);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertStartExternalTimerEvent - time: " + time);
+		socket.emit("starttimer", time);
 	}
 
 	protected void shareImage(String imageURL)
