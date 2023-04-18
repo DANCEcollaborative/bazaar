@@ -26,7 +26,7 @@
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
 	
 		
-	<prompt strategy="task" id="WELCOME_PREQUIZ" intention="PROMPT_GREETING">
+	<prompt strategy="task" id="PROMPT_WELCOME_PREQUIZ" intention="PROMPT_GREETING">
      	<text>Welcome! Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it.</text>
     </prompt> 
 	
@@ -79,23 +79,6 @@
      
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
      <text>Based on the three analyses, which genre would you choose to invest in, and why?</text>
-     </prompt>
- 
-
-
-	<!-- HINTS & DISCUSSION FOR TASK 4 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
-    
-     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4" intention="role_switch_warning">
-     <text>Ok, we are switching roles now. Let's move on to 'task4.py'.</text>
-     </prompt> 
-    
-     <prompt strategy="task" id="PROMPT_DISCUSSION_START4" intention="discussion_phase_start">
-     <text>Now, before we move on, let's learn from this task by discussing as a group.</text>
-     </prompt> 
-     
-     <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION" intention="prompt_for_reflection4">
-     <text>Final discussion time: Take turns to talk about how each group member playing a role can utilize the other roles to the group's benefit. We'll move on once you have had some time to discuss.</text>
      </prompt>
 
 
