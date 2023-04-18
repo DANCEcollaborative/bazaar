@@ -11,6 +11,7 @@
     	<step type="prompt" delay="10" prompt="PROMPT_WELCOME_PREQUIZ">Prompt_Welcome_Prequiz</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_STARTING">Prompt_Starting</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">Prompt_Session_Time</step> 
+    	<step type="start_external_timer" delay="2" time="4800">Start_Session_Timer</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="80" delay="2">log_state</step> 
     </stage> 
     

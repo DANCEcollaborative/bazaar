@@ -1525,6 +1525,13 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 
+	// when the client emits 'starttimer', this listens and executes
+	socket.on('starttimer', async (time)  => {
+		logMessage(socket, command, "starttimer");
+        console.log("socket.on('starttimer'): socket.clientID = " + socket.clientID + " time = " + command);
+        io.sockets.in(socket.room).emit('starttimer', time);		
+	});
+
 
 	// when the client emits 'updatepresence', this listens and executes
 	socket.on('updatepresence', async (data)  => {
