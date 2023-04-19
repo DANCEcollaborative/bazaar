@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -126,6 +127,23 @@ public class State
 		{
 			news.roles.add(s.roles.get(i));
 		}
+		
+		System.err.println("State.copy: About to copy keywordCounts"); 
+		
+		Iterator iter = s.keywordCounts.entrySet().iterator();
+		while (iter.hasNext()) {
+			System.err.println("State.copy: copying keywordCounts iteration"); 
+			Map.Entry entry = (Map.Entry) iter.next();
+			System.err.println("State.copy iteration - key: " + String.valueOf(entry.getKey()) + "  --  value: " + String.valueOf(entry.getValue()));
+//			news.setKeywordCount(entry.getKey(), entry.getValue());
+			news.setKeywordCount(String.valueOf(entry.getKey()), ((Integer) entry.getValue()).intValue());			
+		} 
+		
+//		for (Map.Entry<String, Integer> entry : keywordCounts.entrySet()) {
+//			System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
+//		}
+		
+//		s.keywordCounts.forEach((key, value) -> news.setKeywordCount(key, value));
 
 		return news;
 	}
@@ -653,10 +671,13 @@ public class State
 	
 	public void bumpKeywordCount(String keyword)
 	{
+		int bumpedCount = 0; 
 		if (keywordCounts.containsKey(keyword)) {
 			int currentCount = keywordCounts.get(keyword);
-			keywordCounts.put(keyword, currentCount + 1);
+			bumpedCount = currentCount + 1; 
+			keywordCounts.put(keyword, bumpedCount);
 		}
+		System.err.println("State.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
 	}
 	
 	public void clearKeywords(String[] keywords)
@@ -668,7 +689,7 @@ public class State
 
 	public void setKeywordCount(String keyword, int count)
 	{
-		// System.out.println("===== State,addRole: " + role); 
+		System.out.println("State.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
 		keywordCounts.put(keyword,count); 
 	}
 	
@@ -687,6 +708,14 @@ public class State
 	public Set getKeywords()
 	{
 		return keywordCounts.keySet();
+	}	
+	
+
+	
+	public void printKeywordCounts()
+	{
+		
+		System.err.println(">>> State.printKeyWordCounts: " + keywordCounts); 
 	}	
 		
 	

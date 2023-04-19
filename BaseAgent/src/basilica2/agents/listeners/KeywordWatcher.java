@@ -31,6 +31,7 @@ import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 import edu.cmu.cs.lti.project911.utils.time.Timer;
 
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
@@ -50,11 +51,19 @@ public class KeywordWatcher extends BasilicaAdapter
 		agent = a; 
 		if (properties != null)
 		{
-			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");		
+			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");
+
+			System.err.println("*** KeywordWatcher constructor - keywords: " + Arrays.toString(keywords));
 			State olds = StateMemory.getSharedState(agent);
 			State news = State.copy(olds);
-			news.addKeywords(keywords); 
-			StateMemory.commitSharedState(news, agent);			
+			news.addKeywords(keywords);
+			System.err.println("*** KeywordWatcher constructor - keywords in State:");
+			news.printKeywordCounts();
+			StateMemory.commitSharedState(news, agent);	
+			
+			State news2 = StateMemory.getSharedState(agent);
+			System.err.println("*** KeywordWatcher constructor - keywords in State news2:");
+			news.printKeywordCounts();
 		}
 	}
 	
@@ -72,10 +81,14 @@ public class KeywordWatcher extends BasilicaAdapter
 	// Checks messages for keywords. If found, adds to keyword count(s) 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
+		System.err.println("KeywordWatcher.handleMessageEvent - enter"); 
 		String[] annotations = me.getAllAnnotations(); 
+		System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
 		State olds = StateMemory.getSharedState(agent);
 		State news = State.copy(olds);
-		Set keywords = news.getKeywords();		
+		Set keywords = news.getKeywords();
+		System.err.println("*** KeywordWatcher.handleMessageEvent:");
+		news.printKeywordCounts();		
 		boolean keywordFound = false;
 		
 		for (int i=0; i < annotations.length; i++) {
