@@ -12,12 +12,14 @@ import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PromptEvent;
 import basilica2.agents.events.TypingEvent;
 import basilica2.agents.events.WhiteboardEvent;
+import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
 import basilica2.agents.events.FileEvent;
 import basilica2.agents.listeners.PresenceWatcher;
+import basilica2.agents.listeners.MultiModalFilter.multiModalTag;
 import basilica2.agents.listeners.plan.StepHandler;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -31,68 +33,61 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 import java.util.Hashtable;
 import java.util.Map;
-import java.lang.Math; 
+import java.util.Set;
+import java.lang.Math;
+import java.time.LocalDateTime; 
 import java.io.*;
 
 
 public class KeywordWatcher extends BasilicaAdapter
 { 
 	private InputCoordinator source;
-	private String status = "";
-	String filePath; 
-	String fileSuffix;
-	String[] fileNames; 
-	Boolean[] fileCompleted; 
-	String roomName; 
+	Agent agent; 
 
 	public KeywordWatcher(Agent a) 
 	{
 		super(a);
+		agent = a; 
 		if (properties != null)
 		{
-			try{filePath = getProperties().getProperty("filePath", "./");}
-			catch(Exception e) {e.printStackTrace();}
-			try{fileSuffix = getProperties().getProperty("fileSuffix", ".txt");}
-			catch(Exception e) {e.printStackTrace();}			
-			fileNames = properties.getProperty("filenames", "").split("[\\s,]+");
-			fileCompleted = new Boolean[fileNames.length]; 
-			for (int i=0; i < fileCompleted.length; i++) {
-				fileCompleted[i] = false; 
-			}				
+			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");		
+			State olds = StateMemory.getSharedState(agent);
+			State news = State.copy(olds);
+			news.addKeywords(keywords); 
+			StateMemory.commitSharedState(news, agent);			
 		}
-		roomName = a.getRoomName();
 	}
+	
 
-	public String getStatus()
-	{
-		return status;
-	}
 
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
-		log(Logger.LOG_NORMAL, "KeywordWatcher preProcessEvent, entering");
-		System.err.println("KeywordWatcher preProcessEvent, entering");
-		File file; 
-		FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
-		for (int i=0; i < fileCompleted.length; i++) {
-			if (!fileCompleted[i]) {
-				file = new File(filePath + "room-" + roomName + "-" + fileNames[i] + fileSuffix);
-				System.err.println("Checking file: " + file.getPath()); 
-				log(Logger.LOG_NORMAL, "KeywordWatcher preProcessEvent, checking for file path = " + file.getPath());
-				synchronized(source) {
-					if (file.exists()) {
-						fileCompleted[i] = true;
-						log(Logger.LOG_NORMAL, "File newly exists: " + file.getPath());
-						System.err.println("File newly exists: " + file.getPath()); 
-						FileEvent fEvent = new FileEvent(source,fileNames[i],eventType);
-						source.pushEvent(fEvent);
-					}				
-				}					
-			}
-
+		if (e instanceof MessageEvent)
+		{
+			handleMessageEvent(source, (MessageEvent) e);
 		}
 	}
+
+	// Checks messages for keywords. If found, adds to keyword count(s) 
+	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
+	{
+		String[] annotations = me.getAllAnnotations(); 
+		State olds = StateMemory.getSharedState(agent);
+		State news = State.copy(olds);
+		Set keywords = news.getKeywords();		
+		boolean keywordFound = false;
+		
+		for (int i=0; i < annotations.length; i++) {
+			if (keywords.contains(annotations[i])) {
+				keywordFound = true; 
+				news.bumpKeywordCount(annotations[i]); 					
+			}
+		}
+		if (keywordFound) {
+			StateMemory.commitSharedState(news, agent);	
+		}
+    }
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
@@ -100,7 +95,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[]{FileEvent.class, MessageEvent.class, ReadyEvent.class, PresenceEvent.class, WhiteboardEvent.class, TypingEvent.class};
+		return new Class[]{MessageEvent.class};
 	}
 
 

@@ -41,8 +41,6 @@ import java.util.Set;
 import java.time.LocalDateTime;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
-import basilica2.myagent.listeners.JeopardyTutorActor.Dialog;
-
 import java.util.Collections;
 /**
  * 
@@ -635,6 +633,63 @@ public class State
 	{
 		this.multimodalDontListenEnd = dontListenEnd;
 	}
+	
+	public void addKeywords(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			addKeyword(keywords[i]); 
+		}
+	}	
+
+	public void addKeyword(String keyword)
+	{
+		setKeywordCount(keyword,0); 	
+	}
+	
+	public void resetKeywordCount(String keyword)
+	{
+		setKeywordCount(keyword,0); 	
+	}
+	
+	public void bumpKeywordCount(String keyword)
+	{
+		if (keywordCounts.containsKey(keyword)) {
+			int currentCount = keywordCounts.get(keyword);
+			keywordCounts.put(keyword, currentCount + 1);
+		}
+	}
+	
+	public void clearKeywords(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			setKeywordCount(keywords[i],0); 
+		}
+	}
+
+	public void setKeywordCount(String keyword, int count)
+	{
+		// System.out.println("===== State,addRole: " + role); 
+		keywordCounts.put(keyword,count); 
+	}
+	
+	public void removeKeyword(String keyword)
+	{
+		keywordCounts.remove(keyword); 	
+	}
+	
+	public void removeKeywords(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			removeKeyword(keywords[i]); 
+		}
+	}	
+	
+	public Set getKeywords()
+	{
+		return keywordCounts.keySet();
+	}	
+		
+	
 
 	@Override
 	public String toString()
