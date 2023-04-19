@@ -79,16 +79,20 @@ class PromptStepHandler implements StepHandler
 		State news = StateMemory.getSharedState(overmind.getAgent());
 		slots.put("[NAMES]", news.getStudentNamesString());
 		List<String> studentNames = news.getStudentNames();
-		for (int i = 0; i < studentNames.size(); i++)
+		int numStudentNames = studentNames.size();
+		for (int i = 0; i < numStudentNames; i++)
 		{
 			String studentName = studentNames.get(i);
 			slots.put("[NAME" + (i + 1) + "]", studentName);
 		}
 		
 		// Set name for RANDOM_STUDENT
-		int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, studentNames.size());
-		slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
-		
+		if (numStudentNames > 1) {
+			int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, numStudentNames);
+			slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
+		} else {
+			slots.put("[RANDOM_STUDENT]", studentNames.get(0));
+		}		
 
 		String promptKey = step.name;
 		if(step.attributes.containsKey("prompt"))
