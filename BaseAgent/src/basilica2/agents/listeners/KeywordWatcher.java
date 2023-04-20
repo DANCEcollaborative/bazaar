@@ -44,33 +44,39 @@ public class KeywordWatcher extends BasilicaAdapter
 { 
 	private InputCoordinator source;
 	Agent agent; 
+	private Boolean keywordsInitialized = false; 
 
 	public KeywordWatcher(Agent a) 
 	{
 		super(a);
 		agent = a; 
+//		System.err.println("*** KeywordWatcher constructor - checking agent.getComponent(\"InputCoordinator\").isRunning()");
+//		if (agent.getComponent("InputCoordinator").isRunning()) {
+//			System.err.println("*** KeywordWatcher constructor - calling initializeKeywords");
+//			initializeKeywords();
+//		} else {
+//
+//			System.err.println("*** KeywordWatcher constructor - FALSE: agent.getComponent(\"InputCoordinator\").isRunning()");
+//		}
+
+			// THE FOLLOWING IS PURELY FOR TESTING -- REMOVE when the KeywordWatcher process is fully working.
+//			State news2 = StateMemory.getSharedState(agent);
+//			System.err.println("*** KeywordWatcher constructor - keywords in State news2:");
+//			news2.printKeywordCounts();
+//		}
+	}
+	
+	public void initializeKeywords() {
 		if (properties != null)
 		{
 			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");
-			System.err.println("*** KeywordWatcher constructor - keywords: " + Arrays.toString(keywords));
+			System.err.println("*** KeywordWatcher.initializeKeywords - keywords: " + Arrays.toString(keywords));
 			
 			State state = StateMemory.getSharedState(agent);
 			state.addKeywords(keywords);
 			StateMemory.commitSharedState(state, agent);	
-			System.err.println("*** KeywordWatcher constructor - keywords in State:");
+			System.err.println("*** KeywordWatcher.initializeKeywords - keywords in State:");
 			state.printKeywordCounts();
-			
-//			State olds = StateMemory.getSharedState(agent);
-//			State news = State.copy(olds);
-//			news.addKeywords(keywords);
-//			StateMemory.commitSharedState(news, agent);	
-//			System.err.println("*** KeywordWatcher constructor - keywords in State:");
-//			news.printKeywordCounts();
-			
-			// THE FOLLOWING IS PURELY FOR TESTING -- REMOVE when the KeywordWatcher process is fully working.
-			State news2 = StateMemory.getSharedState(agent);
-			System.err.println("*** KeywordWatcher constructor - keywords in State news2:");
-			news2.printKeywordCounts();
 		}
 	}
 	
@@ -79,6 +85,11 @@ public class KeywordWatcher extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
+		if (!keywordsInitialized) {
+			System.err.println("*** KeywordWatcher.preProcessEvent - calling initializeKeywords");
+			initializeKeywords();
+			keywordsInitialized = true; 
+		}
 		if (e instanceof MessageEvent)
 		{
 			handleMessageEvent(source, (MessageEvent) e);
