@@ -52,18 +52,25 @@ public class KeywordWatcher extends BasilicaAdapter
 		if (properties != null)
 		{
 			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");
-
 			System.err.println("*** KeywordWatcher constructor - keywords: " + Arrays.toString(keywords));
-			State olds = StateMemory.getSharedState(agent);
-			State news = State.copy(olds);
-			news.addKeywords(keywords);
-			System.err.println("*** KeywordWatcher constructor - keywords in State:");
-			news.printKeywordCounts();
-			StateMemory.commitSharedState(news, agent);	
 			
+			State state = StateMemory.getSharedState(agent);
+			state.addKeywords(keywords);
+			StateMemory.commitSharedState(state, agent);	
+			System.err.println("*** KeywordWatcher constructor - keywords in State:");
+			state.printKeywordCounts();
+			
+//			State olds = StateMemory.getSharedState(agent);
+//			State news = State.copy(olds);
+//			news.addKeywords(keywords);
+//			StateMemory.commitSharedState(news, agent);	
+//			System.err.println("*** KeywordWatcher constructor - keywords in State:");
+//			news.printKeywordCounts();
+			
+			// THE FOLLOWING IS PURELY FOR TESTING -- REMOVE when the KeywordWatcher process is fully working.
 			State news2 = StateMemory.getSharedState(agent);
 			System.err.println("*** KeywordWatcher constructor - keywords in State news2:");
-			news.printKeywordCounts();
+			news2.printKeywordCounts();
 		}
 	}
 	

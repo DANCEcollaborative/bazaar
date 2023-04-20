@@ -132,18 +132,10 @@ public class State
 		
 		Iterator iter = s.keywordCounts.entrySet().iterator();
 		while (iter.hasNext()) {
-			System.err.println("State.copy: copying keywordCounts iteration"); 
 			Map.Entry entry = (Map.Entry) iter.next();
 			System.err.println("State.copy iteration - key: " + String.valueOf(entry.getKey()) + "  --  value: " + String.valueOf(entry.getValue()));
-//			news.setKeywordCount(entry.getKey(), entry.getValue());
 			news.setKeywordCount(String.valueOf(entry.getKey()), ((Integer) entry.getValue()).intValue());			
 		} 
-		
-//		for (Map.Entry<String, Integer> entry : keywordCounts.entrySet()) {
-//			System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
-//		}
-		
-//		s.keywordCounts.forEach((key, value) -> news.setKeywordCount(key, value));
 
 		return news;
 	}
