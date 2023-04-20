@@ -128,12 +128,12 @@ public class State
 			news.roles.add(s.roles.get(i));
 		}
 		
-		System.err.println("State.copy: About to copy keywordCounts"); 
+//		System.err.println("State.copy: About to copy keywordCounts"); 
 		
 		Iterator iter = s.keywordCounts.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry entry = (Map.Entry) iter.next();
-			System.err.println("State.copy iteration - key: " + String.valueOf(entry.getKey()) + "  --  value: " + String.valueOf(entry.getValue()));
+//			System.err.println("State.copy iteration - key: " + String.valueOf(entry.getKey()) + "  --  value: " + String.valueOf(entry.getValue()));
 			news.setKeywordCount(String.valueOf(entry.getKey()), ((Integer) entry.getValue()).intValue());			
 		} 
 
@@ -681,7 +681,7 @@ public class State
 
 	public void setKeywordCount(String keyword, int count)
 	{
-		System.out.println("State.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
+//		System.out.println("State.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
 		keywordCounts.put(keyword,count); 
 	}
 	
@@ -705,8 +705,7 @@ public class State
 
 	
 	public void printKeywordCounts()
-	{
-		
+	{	
 		System.err.println(">>> State.printKeyWordCounts: " + keywordCounts); 
 	}	
 		

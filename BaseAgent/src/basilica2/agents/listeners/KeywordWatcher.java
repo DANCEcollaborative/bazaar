@@ -50,28 +50,13 @@ public class KeywordWatcher extends BasilicaAdapter
 	{
 		super(a);
 		agent = a; 
-//		System.err.println("*** KeywordWatcher constructor - checking agent.getComponent(\"InputCoordinator\").isRunning()");
-//		if (agent.getComponent("InputCoordinator").isRunning()) {
-//			System.err.println("*** KeywordWatcher constructor - calling initializeKeywords");
-//			initializeKeywords();
-//		} else {
-//
-//			System.err.println("*** KeywordWatcher constructor - FALSE: agent.getComponent(\"InputCoordinator\").isRunning()");
-//		}
-
-			// THE FOLLOWING IS PURELY FOR TESTING -- REMOVE when the KeywordWatcher process is fully working.
-//			State news2 = StateMemory.getSharedState(agent);
-//			System.err.println("*** KeywordWatcher constructor - keywords in State news2:");
-//			news2.printKeywordCounts();
-//		}
 	}
 	
 	public void initializeKeywords() {
 		if (properties != null)
 		{
 			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");
-			System.err.println("*** KeywordWatcher.initializeKeywords - keywords: " + Arrays.toString(keywords));
-			
+			System.err.println("*** KeywordWatcher.initializeKeywords - keywords: " + Arrays.toString(keywords));			
 			State state = StateMemory.getSharedState(agent);
 			state.addKeywords(keywords);
 			StateMemory.commitSharedState(state, agent);	
@@ -80,7 +65,6 @@ public class KeywordWatcher extends BasilicaAdapter
 		}
 	}
 	
-
 
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
@@ -99,14 +83,12 @@ public class KeywordWatcher extends BasilicaAdapter
 	// Checks messages for keywords. If found, adds to keyword count(s) 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
-		System.err.println("KeywordWatcher.handleMessageEvent - enter"); 
+//		System.err.println("KeywordWatcher.handleMessageEvent - enter"); 
 		String[] annotations = me.getAllAnnotations(); 
 		System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
 		State olds = StateMemory.getSharedState(agent);
 		State news = State.copy(olds);
 		Set keywords = news.getKeywords();
-		System.err.println("*** KeywordWatcher.handleMessageEvent:");
-		news.printKeywordCounts();		
 		boolean keywordFound = false;
 		
 		for (int i=0; i < annotations.length; i++) {
@@ -117,6 +99,10 @@ public class KeywordWatcher extends BasilicaAdapter
 		}
 		if (keywordFound) {
 			StateMemory.commitSharedState(news, agent);	
+			System.err.println("*** KeywordWatcher.handleMessageEvent -- updated keyword counts:");
+			news.printKeywordCounts();		
+		} else {
+			System.err.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
 		}
     }
 	
