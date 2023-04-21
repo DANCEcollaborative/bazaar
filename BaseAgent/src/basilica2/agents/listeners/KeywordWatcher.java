@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.*; 
 import java.lang.Math;
 import java.time.LocalDateTime; 
 import java.io.*;
@@ -45,7 +46,13 @@ public class KeywordWatcher extends BasilicaAdapter
 	private InputCoordinator source;
 	Agent agent; 
 	private Boolean keywordsInitialized = false; 
-
+	private int keywordNumberGoal = 0; 
+	private int keywordMentionsGoal = 0;
+	private int[] multipleKeywordMentionsGoal = new int[] {0,0}; 
+	private int repeatedPromptDelay = 300;
+	
+	
+	
 	public KeywordWatcher(Agent a) 
 	{
 		super(a);
@@ -56,12 +63,34 @@ public class KeywordWatcher extends BasilicaAdapter
 		if (properties != null)
 		{
 			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");
-			System.err.println("*** KeywordWatcher.initializeKeywords - keywords: " + Arrays.toString(keywords));			
+//			System.err.println("*** KeywordWatcher.initializeKeywords - keywords: " + Arrays.toString(keywords));			
 			State state = StateMemory.getSharedState(agent);
 			state.addKeywords(keywords);
 			StateMemory.commitSharedState(state, agent);	
-			System.err.println("*** KeywordWatcher.initializeKeywords - keywords in State:");
-			state.printKeywordCounts();
+//			System.err.println("*** KeywordWatcher.initializeKeywords - keywords in State:");
+//			state.printKeywordCounts();
+	
+			try{keywordNumberGoal = Integer.valueOf(getProperties().getProperty("keyword-number-goal", "0"));}
+			catch(Exception e) {e.printStackTrace();}	
+			try{keywordMentionsGoal = Integer.valueOf(getProperties().getProperty("keyword-mentions-goal", "0"));}
+			catch(Exception e) {e.printStackTrace();}
+
+//			try{multipleKeywordMentionsGoal = Integer.valueOf(getProperties().getProperty("multiple-keyword-mentions-goal", "{0,0}").split("[\\s,]+"));}
+//			catch(Exception e) {e.printStackTrace();}
+			
+			multipleKeywordMentionsGoal = Stream.of(getProperties().getProperty("multiple-keyword-mentions-goal", "").split("[\\s,]+")).mapToInt(Integer::parseInt).toArray();
+			
+			try{repeatedPromptDelay = Integer.valueOf(getProperties().getProperty("repeated-prompt-delay", "300"));}
+			catch(Exception e) {e.printStackTrace();}	
+			
+//			static int[] parseIntArray(String[] arr) {
+//			    return Stream.of(arr).mapToInt(Integer::parseInt).toArray();
+//			}
+
+			System.err.println("*** KeywordWatcher.constructor, keywordNumberGoal: " + keywordNumberGoal);
+			System.err.println("*** KeywordWatcher.constructor, keywordMentionsGoal: " + keywordMentionsGoal);
+			System.err.println("*** KeywordWatcher.constructor, multipleKeywordMentionsGoal: " + Arrays.toString(multipleKeywordMentionsGoal));
+			System.err.println("*** KeywordWatcher.constructor, repeatedPromptDelay: " + repeatedPromptDelay);
 		}
 	}
 	
@@ -70,7 +99,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
 		if (!keywordsInitialized) {
-			System.err.println("*** KeywordWatcher.preProcessEvent - calling initializeKeywords");
+//			System.err.println("*** KeywordWatcher.preProcessEvent - calling initializeKeywords");
 			initializeKeywords();
 			keywordsInitialized = true; 
 		}
