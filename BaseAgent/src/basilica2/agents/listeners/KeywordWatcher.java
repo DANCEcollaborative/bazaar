@@ -35,8 +35,10 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.*; 
@@ -57,11 +59,17 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int multipleMentionsMinGoal = 0;	    // Min number of mentions for a keyword to be counted as meeting 
 													//    the multiple mentions goal
 	String [] promptPriorities = null; 
+	int promptPriorityNumberGoal = Integer.MAX_VALUE;
+	int promptPriorityMentionsGoal = Integer.MAX_VALUE;
+	int promptPriorityMultipleMentionsGoal = Integer.MAX_VALUE;
 	private Boolean freeToComment = true;
 	private int numPromptsNumber = 0;
 	private int numPromptsMentions = 0;
 	private int numPromptsMultipleMentions = 0;
 	private int repeatedPromptDelay = 300;
+	
+	private HashMap<String,Integer> prioritiesAndCounts = new LinkedHashMap<>(); 
+	private Map<String, Boolean> promptable = new HashMap<String, Boolean>();
 	
 	
 	
@@ -81,15 +89,34 @@ public class KeywordWatcher extends BasilicaAdapter
 			try{keywordNumberGoal = Integer.valueOf(getProperties().getProperty("number-goal", "0"));}
 			catch(Exception e) {e.printStackTrace();}	
 			try{keywordMentionsGoal = Integer.valueOf(getProperties().getProperty("mentions-goal", "0"));}
-			catch(Exception e) {e.printStackTrace();}			
+			catch(Exception e) {e.printStackTrace();}	
+			try{repeatedPromptDelay = Integer.valueOf(getProperties().getProperty("repeated-prompt-delay", "300"));}
+			catch(Exception e) {e.printStackTrace();}	
+			
 			try{multipleKeywordMentionsGoal = Stream.of(getProperties().getProperty("multiple-mentions-goal", "").split("[\\s,]+")).mapToInt(Integer::parseInt).toArray();}
 			catch(Exception e) {e.printStackTrace();}	
 			multipleMentionsNumGoal = multipleKeywordMentionsGoal[0]; 
 			multipleMentionsMinGoal = multipleKeywordMentionsGoal[1]; 
-			promptPriorities = properties.getProperty("prompt-priorities", "").split("[\\s,]+");
-			try{repeatedPromptDelay = Integer.valueOf(getProperties().getProperty("repeated-prompt-delay", "300"));}
-			catch(Exception e) {e.printStackTrace();}	
 			
+			promptPriorities = properties.getProperty("prompt-priorities", "").split("[\\s,]+");
+			for (int i=0; i<promptPriorities.length; i++) {
+				prioritiesAndCounts.put(promptPriorities[i],0); 
+			}
+			
+			
+//			int priority = 1; 
+//			for (int i=0; i<promptPriorities.length; i++) {
+//				if (promptPriorities[i].equals("number-goal")) {
+//					promptPriorityNumberGoal = priority; 
+//					priority += 1; 
+//				} else if (promptPriorities[i].equals("mentions-goal")) {
+//					promptPriorityMentionsGoal = priority; 
+//					priority += 1; 
+//				} else if (promptPriorities[i].equals("multiple-mentions-goal")) {
+//					promptPriorityMultipleMentionsGoal = priority; 
+//					priority += 1; 				
+//			}
+	
 //			System.err.println("*** KeywordWatcher.initialize - keywords: " + Arrays.toString(keywords));	
 //			System.err.println("*** KeywordWatcher.initialize - keywords in State:");
 //			state.printKeywordCounts();
@@ -144,6 +171,8 @@ public class KeywordWatcher extends BasilicaAdapter
 			}
 			if (freeToComment) {
 				prompted = promptIfAppropriate(); 
+			} else {
+				System.err.println(">>>>>>> KeywordWatcher.handleMessageEvent: Too soon to prompt <<<<<<<<<<"); 
 			}
 			if (prompted) {
 				setPromptTimer(repeatedPromptDelay); 
@@ -152,42 +181,86 @@ public class KeywordWatcher extends BasilicaAdapter
     }
 	
 	private Boolean promptIfAppropriate() {
-		Boolean promptableNonZero = false; 
-		Boolean promptableMentions = false; 
-		Boolean promptableMultipleMentions = false; 
+
+//		Boolean promptableNonZero = false; 
+//		Boolean promptableMentions = false; 
+//		Boolean promptableMultipleMentions = false; 
 		int numNonZero = nonZeroKeyWordCount(); 
 		if (numNonZero < keywordNumberGoal) {
-			promptableNonZero = true; 
-		}		
+			promptable.put("number-goal", true);
+		} else {
+			promptable.put("number-goal", false);
+		}
+		
 		int maxMentions = maxKeywordCount(); 
 		if (maxMentions < keywordMentionsGoal) {
-			promptableMentions = true; 			
-		}		
+			promptable.put("mentions-goal", true);
+		} else {
+			promptable.put("mentions-goal", false);
+		}
 		int numAtMentionsGoal = numKeywordMinCount(multipleMentionsMinGoal); 
 		if (numAtMentionsGoal < multipleMentionsNumGoal) {
-			promptableMultipleMentions = true;  
+			promptable.put("multiple-mentions-goal", true);
+		} else {
+			promptable.put("multiple-mentions-goal", false);
 		}
 		
-		
-		
-		
-		for (int i=0; i<promptPriorities.length; i++) {
-			
+		Iterator<Integer> valueIterator = prioritiesAndCounts.values().iterator();		
+		int minCount = Integer.MAX_VALUE; 
+		int nextValue; 
+		while (valueIterator.hasNext()) {
+			nextValue = valueIterator.next(); 
+			if (nextValue < minCount) {
+				minCount = nextValue; 
+			}
 		}
+		
+		String promptType = null; 
+		for (Map.Entry<String, Integer> entry : prioritiesAndCounts.entrySet()) {
+			if (entry.getValue() <= minCount) {
+				if (promptable.get(entry.getKey()) == true) {
+					promptType = entry.getKey(); 
+					prioritiesAndCounts.put(entry.getKey(),entry.getValue() + 1); 
+					break; 
+				}
+			}				
+		}
+		
+		System.err.println(">>>>>>> KeywordWatcher.promptIfAppropriate - promptType: " + promptType + " <<<<<<<<<<"); 
+		
+		if (promptType != null) {
+			return true;
+		} else {
+			return false; 
+		}
+	}
+
+		
+//		for (int i=0; i<promptPriorities.length; i++) {
+//			if (promptPriorities[i].equals("number-goal")) {
+//				
+//			}
+//		}
+		
+//		if (promptableNonZero) {
+//			if 
+//		}
+		
+		
+
 		
 		// ========== TEMPORARY =========== 
 //		int numNonZero = nonZeroKeyWordCount(); 
 //		int maxMentions = maxKeywordCount(); 
 //		int numAtMentionsGoal = numKeywordMinCount(keywordMentionsGoal); 
 		
-		return false; 
+//		return false; 
 		// ========== TEMPORARY ===========  
-	}
 	
 	private int nonZeroKeyWordCount() {	
 		int nonZeroCount = 0;
 		State state = StateMemory.getSharedState(agent);
-		Iterator<int> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
 		while (keywordvalueIterator.hasNext()) {
 			if (keywordvalueIterator.next() != 0) {
 				nonZeroCount += 1; 
@@ -200,7 +273,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int maxKeywordCount() {
 		int maxValue = 0;
 		State state = StateMemory.getSharedState(agent);
-		Iterator<int> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
 		int nextValue; 
 		while (keywordvalueIterator.hasNext()) {
 			nextValue = keywordvalueIterator.next(); 
@@ -216,7 +289,7 @@ public class KeywordWatcher extends BasilicaAdapter
 		int numReachedMin = 0;
 		if (minCount > 0) {
 			State state = StateMemory.getSharedState(agent);
-			Iterator<int> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+			Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
 			int nextValue; 
 			while (keywordvalueIterator.hasNext()) {
 				nextValue = keywordvalueIterator.next(); 
@@ -225,7 +298,7 @@ public class KeywordWatcher extends BasilicaAdapter
 				}
 			}	 			
 		}
-//		System.err.println("KeywordWatcher.numKeywordMinCount: " + numReachedMin);        
+		System.err.println("=== KeywordWatcher.numKeywordMinCount: " + numReachedMin + " ===");   	
 		return numReachedMin; 
 	}
 	
