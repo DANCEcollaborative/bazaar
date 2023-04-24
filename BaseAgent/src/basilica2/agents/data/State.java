@@ -712,7 +712,12 @@ public class State
 	public Set<String> getKeywords()
 	{
 		return keywordCounts.keySet();
-	}		
+	}	
+	
+	public Integer getNumKeywords()
+	{
+		return keywordCounts.size();
+	}			
 	
 	public Collection<Integer> getKeywordCountsValues()
 	{

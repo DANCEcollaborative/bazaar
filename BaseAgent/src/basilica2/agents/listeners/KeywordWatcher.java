@@ -53,8 +53,15 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int keywordNumberGoal = 0; 
 	private int keywordMentionsGoal = 0;
 	private int[] multipleKeywordMentionsGoal = new int[] {0,0}; 
-	private int repeatedPromptDelay = 300;
+	private int multipleMentionsNumGoal = 0;		// Goal for number of keywords with at least min number of mentions
+	private int multipleMentionsMinGoal = 0;	    // Min number of mentions for a keyword to be counted as meeting 
+													//    the multiple mentions goal
+	String [] promptPriorities = null; 
 	private Boolean freeToComment = true;
+	private int numPromptsNumber = 0;
+	private int numPromptsMentions = 0;
+	private int numPromptsMultipleMentions = 0;
+	private int repeatedPromptDelay = 300;
 	
 	
 	
@@ -71,12 +78,15 @@ public class KeywordWatcher extends BasilicaAdapter
 			State state = StateMemory.getSharedState(agent);
 			state.addKeywords(keywords);
 			StateMemory.commitSharedState(state, agent);		
-			try{keywordNumberGoal = Integer.valueOf(getProperties().getProperty("keyword-number-goal", "0"));}
+			try{keywordNumberGoal = Integer.valueOf(getProperties().getProperty("number-goal", "0"));}
 			catch(Exception e) {e.printStackTrace();}	
-			try{keywordMentionsGoal = Integer.valueOf(getProperties().getProperty("keyword-mentions-goal", "0"));}
+			try{keywordMentionsGoal = Integer.valueOf(getProperties().getProperty("mentions-goal", "0"));}
 			catch(Exception e) {e.printStackTrace();}			
-			try{multipleKeywordMentionsGoal = Stream.of(getProperties().getProperty("multiple-keyword-mentions-goal", "").split("[\\s,]+")).mapToInt(Integer::parseInt).toArray();}
-			catch(Exception e) {e.printStackTrace();}					
+			try{multipleKeywordMentionsGoal = Stream.of(getProperties().getProperty("multiple-mentions-goal", "").split("[\\s,]+")).mapToInt(Integer::parseInt).toArray();}
+			catch(Exception e) {e.printStackTrace();}	
+			multipleMentionsNumGoal = multipleKeywordMentionsGoal[0]; 
+			multipleMentionsMinGoal = multipleKeywordMentionsGoal[1]; 
+			promptPriorities = properties.getProperty("prompt-priorities", "").split("[\\s,]+");
 			try{repeatedPromptDelay = Integer.valueOf(getProperties().getProperty("repeated-prompt-delay", "300"));}
 			catch(Exception e) {e.printStackTrace();}	
 			
@@ -109,50 +119,75 @@ public class KeywordWatcher extends BasilicaAdapter
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
 //		System.err.println("KeywordWatcher.handleMessageEvent - enter"); 
-		Boolean prompted = false; 
-		String[] annotations = me.getAllAnnotations(); 
-		System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
-		State olds = StateMemory.getSharedState(agent);
-		State news = State.copy(olds);
-		Set keywords = news.getKeywords();
-		boolean keywordFound = false;
+		State state = StateMemory.getSharedState(agent);
+		int numKeywords = state.getNumKeywords(); 
 		
-		for (int i=0; i < annotations.length; i++) {
-			if (keywords.contains(annotations[i])) {
-				keywordFound = true; 
-				news.bumpKeywordCount(annotations[i]); 					
+		if (numKeywords > 0) {
+			Boolean prompted = false; 
+			String[] annotations = me.getAllAnnotations(); 
+			System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
+			Set<String> keywords = state.getKeywords();
+			boolean keywordFound = false;
+			for (int i=0; i < annotations.length; i++) {
+				if (keywords.contains(annotations[i])) {
+					keywordFound = true; 
+					state.bumpKeywordCount(annotations[i]); 					
+				}
 			}
-		}
-		if (keywordFound) {
-			StateMemory.commitSharedState(news, agent);	
-			System.err.println("*** KeywordWatcher.handleMessageEvent -- updated keyword counts:");
-			news.printKeywordCounts();		
-		} else {
-//			System.out.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
-		}
-		if (freeToComment) {
-			prompted = promptIfAppropriate(); 
-		}
-		if (prompted) {
-			setPromptTimer(repeatedPromptDelay); 
+			if (keywordFound) {
+				State news = State.copy(state);
+				StateMemory.commitSharedState(news, agent);	
+				System.err.println("*** KeywordWatcher.handleMessageEvent -- updated keyword counts:");
+				news.printKeywordCounts();		
+			} else {
+	//			System.out.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
+			}
+			if (freeToComment) {
+				prompted = promptIfAppropriate(); 
+			}
+			if (prompted) {
+				setPromptTimer(repeatedPromptDelay); 
+			}
 		}
     }
 	
 	private Boolean promptIfAppropriate() {
+		Boolean promptableNonZero = false; 
+		Boolean promptableMentions = false; 
+		Boolean promptableMultipleMentions = false; 
+		int numNonZero = nonZeroKeyWordCount(); 
+		if (numNonZero < keywordNumberGoal) {
+			promptableNonZero = true; 
+		}		
+		int maxMentions = maxKeywordCount(); 
+		if (maxMentions < keywordMentionsGoal) {
+			promptableMentions = true; 			
+		}		
+		int numAtMentionsGoal = numKeywordMinCount(multipleMentionsMinGoal); 
+		if (numAtMentionsGoal < multipleMentionsNumGoal) {
+			promptableMultipleMentions = true;  
+		}
+		
+		
+		
+		
+		for (int i=0; i<promptPriorities.length; i++) {
+			
+		}
 		
 		// ========== TEMPORARY =========== 
-		Integer tempValue;
-		tempValue = nonZeroKeyWordCount(); 
-		tempValue = maxKeywordCount(); 
-		tempValue = numKeywordMinCount(2); 
+//		int numNonZero = nonZeroKeyWordCount(); 
+//		int maxMentions = maxKeywordCount(); 
+//		int numAtMentionsGoal = numKeywordMinCount(keywordMentionsGoal); 
+		
 		return false; 
 		// ========== TEMPORARY ===========  
 	}
 	
 	private int nonZeroKeyWordCount() {	
-		Integer nonZeroCount = 0;
+		int nonZeroCount = 0;
 		State state = StateMemory.getSharedState(agent);
-		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Iterator<int> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
 		while (keywordvalueIterator.hasNext()) {
 			if (keywordvalueIterator.next() != 0) {
 				nonZeroCount += 1; 
@@ -163,10 +198,10 @@ public class KeywordWatcher extends BasilicaAdapter
 	}
 	
 	private int maxKeywordCount() {
-		Integer maxValue = 0;
+		int maxValue = 0;
 		State state = StateMemory.getSharedState(agent);
-		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
-		Integer nextValue; 
+		Iterator<int> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		int nextValue; 
 		while (keywordvalueIterator.hasNext()) {
 			nextValue = keywordvalueIterator.next(); 
 			if (nextValue > maxValue) {
@@ -178,16 +213,18 @@ public class KeywordWatcher extends BasilicaAdapter
 	}
 	
 	private int numKeywordMinCount(int minCount) {
-		Integer numReachedMin = 0;
-		State state = StateMemory.getSharedState(agent);
-		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
-		Integer nextValue; 
-		while (keywordvalueIterator.hasNext()) {
-			nextValue = keywordvalueIterator.next(); 
-			if (nextValue >= minCount) {
-				numReachedMin +=  1; 
-			}
-		}	 
+		int numReachedMin = 0;
+		if (minCount > 0) {
+			State state = StateMemory.getSharedState(agent);
+			Iterator<int> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+			int nextValue; 
+			while (keywordvalueIterator.hasNext()) {
+				nextValue = keywordvalueIterator.next(); 
+				if (nextValue >= minCount) {
+					numReachedMin +=  1; 
+				}
+			}	 			
+		}
 //		System.err.println("KeywordWatcher.numKeywordMinCount: " + numReachedMin);        
 		return numReachedMin; 
 	}
