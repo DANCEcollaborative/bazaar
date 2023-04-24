@@ -33,6 +33,7 @@ package basilica2.agents.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -644,16 +645,27 @@ public class State
 		this.multimodalDontListenEnd = dontListenEnd;
 	}
 	
-	public void addKeywords(String[] keywords)
+	public Integer addKeywords(String[] keywords)
 	{
+		int keywordsAddedCount = 0; 
+		String addResult = null; 
 		for (int i=0; i < keywords.length; i++) {
-			addKeyword(keywords[i]); 
+			addResult = addKeyword(keywords[i]);
+			if (addResult != null) {
+				keywordsAddedCount += 1; 
+			}
 		}
+		return keywordsAddedCount; 
 	}	
 
-	public void addKeyword(String keyword)
+	public String addKeyword(String keyword)
 	{
-		setKeywordCount(keyword,0); 	
+		if (!getKeywords().contains(keyword)) {
+			setKeywordCount(keyword,0); 
+			return keyword; 
+		} else {
+			return null;
+		}
 	}
 	
 	public void resetKeywordCount(String keyword)
@@ -697,13 +709,22 @@ public class State
 		}
 	}	
 	
-	public Set getKeywords()
+	public Set<String> getKeywords()
 	{
 		return keywordCounts.keySet();
-	}	
+	}		
+	
+	public Collection<Integer> getKeywordCountsValues()
+	{
+		return keywordCounts.values();
+	}		
+	
+	public Map<String,Integer> getKeywordCounts()
+	{
+		return keywordCounts;
+	}
 	
 
-	
 	public void printKeywordCounts()
 	{	
 		System.err.println(">>> State.printKeyWordCounts: " + keywordCounts); 

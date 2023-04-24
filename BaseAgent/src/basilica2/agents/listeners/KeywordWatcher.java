@@ -21,18 +21,22 @@ import basilica2.agents.events.FileEvent;
 import basilica2.agents.listeners.PresenceWatcher;
 import basilica2.agents.listeners.MultiModalFilter.multiModalTag;
 import basilica2.agents.listeners.plan.StepHandler;
+import basilica2.util.TimeoutAdapter;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.RollingWindow;
 import basilica2.agents.data.State;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
 import edu.cmu.cs.lti.project911.utils.time.Timer;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.*; 
@@ -50,6 +54,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int keywordMentionsGoal = 0;
 	private int[] multipleKeywordMentionsGoal = new int[] {0,0}; 
 	private int repeatedPromptDelay = 300;
+	private Boolean freeToComment = true;
 	
 	
 	
@@ -104,6 +109,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
 //		System.err.println("KeywordWatcher.handleMessageEvent - enter"); 
+		Boolean prompted = false; 
 		String[] annotations = me.getAllAnnotations(); 
 		System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
 		State olds = StateMemory.getSharedState(agent);
@@ -122,9 +128,88 @@ public class KeywordWatcher extends BasilicaAdapter
 			System.err.println("*** KeywordWatcher.handleMessageEvent -- updated keyword counts:");
 			news.printKeywordCounts();		
 		} else {
-			System.err.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
+//			System.out.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
+		}
+		if (freeToComment) {
+			prompted = promptIfAppropriate(); 
+		}
+		if (prompted) {
+			setPromptTimer(repeatedPromptDelay); 
 		}
     }
+	
+	private Boolean promptIfAppropriate() {
+		
+		// ========== TEMPORARY =========== 
+		Integer tempValue;
+		tempValue = nonZeroKeyWordCount(); 
+		tempValue = maxKeywordCount(); 
+		tempValue = numKeywordMinCount(2); 
+		return false; 
+		// ========== TEMPORARY ===========  
+	}
+	
+	private int nonZeroKeyWordCount() {	
+		Integer nonZeroCount = 0;
+		State state = StateMemory.getSharedState(agent);
+		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		while (keywordvalueIterator.hasNext()) {
+			if (keywordvalueIterator.next() != 0) {
+				nonZeroCount += 1; 
+			}
+		}
+//		System.err.println("KeywordWatcher.nonZeroKeyWordCount: " + nonZeroCount); 
+		return nonZeroCount; 
+	}
+	
+	private int maxKeywordCount() {
+		Integer maxValue = 0;
+		State state = StateMemory.getSharedState(agent);
+		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Integer nextValue; 
+		while (keywordvalueIterator.hasNext()) {
+			nextValue = keywordvalueIterator.next(); 
+			if (nextValue > maxValue) {
+				maxValue = nextValue; 
+			}
+		}	
+//		System.err.println("KeywordWatcher.maxKeywordCount: " + maxValue);     
+		return maxValue; 
+	}
+	
+	private int numKeywordMinCount(int minCount) {
+		Integer numReachedMin = 0;
+		State state = StateMemory.getSharedState(agent);
+		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Integer nextValue; 
+		while (keywordvalueIterator.hasNext()) {
+			nextValue = keywordvalueIterator.next(); 
+			if (nextValue >= minCount) {
+				numReachedMin +=  1; 
+			}
+		}	 
+//		System.err.println("KeywordWatcher.numKeywordMinCount: " + numReachedMin);        
+		return numReachedMin; 
+	}
+	
+	
+	private void setPromptTimer(int promptDelay) {
+	
+		System.err.println("KeywordWatcher.setPromptTimer: " + promptDelay); 
+		freeToComment = false; 
+		
+		// Never set freeToComment to 'true' if promptDelay == 0
+		if (promptDelay > 0) {
+			new Timer(promptDelay, new TimeoutAdapter()
+			{
+				@Override
+				public void timedOut(String id)
+				{
+					freeToComment = true; 
+				}
+			}).start();
+		}
+	}
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
