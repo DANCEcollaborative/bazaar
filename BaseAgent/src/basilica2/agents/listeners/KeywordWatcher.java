@@ -200,21 +200,41 @@ public class KeywordWatcher extends BasilicaAdapter
 			promptable.remove("multiple-mentions-goal");
 		}
 		
-		// Get the the least number of prompts already provided from among the priorities		
-		Iterator<Integer> valueIterator = prioritiesAndCounts.values().iterator();		
+		// Get the the least number of prompts already provided from among the priorities	
+		
+
+//        for (Map.Entry<String, Integer> e : map.entrySet())
+//            System.out.println("Key: " + e.getKey()
+//                               + " Value: " + e.getValue());
+		
+		
+			
 		int minCount = Integer.MAX_VALUE; 
-		int nextValue; 
-		while (valueIterator.hasNext()) {
-			nextValue = valueIterator.next(); 
-			if (nextValue < minCount) {
-				minCount = nextValue; 
+		String key;
+		int promptCount; 
+		
+		for (Map.Entry<String, Integer> entry : prioritiesAndCounts.entrySet()) {
+			key = entry.getKey();
+			promptCount = entry.getValue(); 
+			if (promptable.containsKey(key)) {
+				if (promptCount < minCount) {
+					minCount = promptCount; 
+				}
 			}
 		}
-		System.err.println("KeywordWatcher.promptIfAppropriate - minimum prompts count among the priorities is " + minCount);
+//		int nextValue; 
+//		Iterator<Integer> valueIterator = prioritiesAndCounts.values().iterator();			
+//		while (valueIterator.hasNext()) {
+//			nextValue = valueIterator.next(); 
+//			if (nextValue < minCount) {
+//				minCount = nextValue; 
+//			}
+//		}
+		System.err.println("KeywordWatcher.promptIfAppropriate - minimum prompts count among remaining priorities is " + minCount);
 		
 		
 		String promptType = null; 
-		String key = null; 
+		key = null; 
 //		int promptCount = 0; 
 		for (Map.Entry<String, Integer> entry : prioritiesAndCounts.entrySet()) {    // 
 			if (entry.getValue() <= minCount) {
