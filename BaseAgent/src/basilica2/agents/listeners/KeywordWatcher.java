@@ -58,14 +58,8 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int multipleMentionsNumGoal = 0;		// Goal for number of keywords with at least min number of mentions
 	private int multipleMentionsMinGoal = 0;	    // Min number of mentions for a keyword to be counted as meeting 
 													//    the multiple mentions goal
-	String [] promptPriorities = null; 
-	int promptPriorityNumberGoal = Integer.MAX_VALUE;
-	int promptPriorityMentionsGoal = Integer.MAX_VALUE;
-	int promptPriorityMultipleMentionsGoal = Integer.MAX_VALUE;
+	private String [] promptPriorities = null; 
 	private Boolean freeToComment = true;
-	private int numPromptsNumber = 0;
-	private int numPromptsMentions = 0;
-	private int numPromptsMultipleMentions = 0;
 	private int repeatedPromptDelay = 300;
 	
 	private HashMap<String,Integer> prioritiesAndCounts = new LinkedHashMap<>(); 
@@ -102,28 +96,6 @@ public class KeywordWatcher extends BasilicaAdapter
 			for (int i=0; i<promptPriorities.length; i++) {
 				prioritiesAndCounts.put(promptPriorities[i],0); 
 			}
-			
-			
-//			int priority = 1; 
-//			for (int i=0; i<promptPriorities.length; i++) {
-//				if (promptPriorities[i].equals("number-goal")) {
-//					promptPriorityNumberGoal = priority; 
-//					priority += 1; 
-//				} else if (promptPriorities[i].equals("mentions-goal")) {
-//					promptPriorityMentionsGoal = priority; 
-//					priority += 1; 
-//				} else if (promptPriorities[i].equals("multiple-mentions-goal")) {
-//					promptPriorityMultipleMentionsGoal = priority; 
-//					priority += 1; 				
-//			}
-	
-//			System.err.println("*** KeywordWatcher.initialize - keywords: " + Arrays.toString(keywords));	
-//			System.err.println("*** KeywordWatcher.initialize - keywords in State:");
-//			state.printKeywordCounts();
-//			System.err.println("*** KeywordWatcher.initialize, keywordNumberGoal: " + keywordNumberGoal);
-//			System.err.println("*** KeywordWatcher.initialize, keywordMentionsGoal: " + keywordMentionsGoal);
-//			System.err.println("*** KeywordWatcher.initialize, multipleKeywordMentionsGoal: " + Arrays.toString(multipleKeywordMentionsGoal));
-//			System.err.println("*** KeywordWatcher.initialize, repeatedPromptDelay: " + repeatedPromptDelay);
 		}
 	}
 	
@@ -181,30 +153,40 @@ public class KeywordWatcher extends BasilicaAdapter
     }
 	
 	private Boolean promptIfAppropriate() {
+		
+		int promptableCount = 0; 
 
-//		Boolean promptableNonZero = false; 
-//		Boolean promptableMentions = false; 
-//		Boolean promptableMultipleMentions = false; 
+		// Check if number of keywords mentioned is promptable
 		int numNonZero = nonZeroKeyWordCount(); 
 		if (numNonZero < keywordNumberGoal) {
 			promptable.put("number-goal", true);
+			promptableCount += 1; 
+			System.err.println("KeywordWatcher.promptIfAppropriate - number-goal is promptable"); 
 		} else {
 			promptable.put("number-goal", false);
 		}
 		
+		// Check if number of mentions for a single keyword is promptable
 		int maxMentions = maxKeywordCount(); 
 		if (maxMentions < keywordMentionsGoal) {
 			promptable.put("mentions-goal", true);
+			promptableCount += 1; 
+			System.err.println("KeywordWatcher.promptIfAppropriate - mentions-goal is promptable"); 
 		} else {
 			promptable.put("mentions-goal", false);
 		}
+		
+		// Check if number of keywords with a minimum number of mentions is promptable 
 		int numAtMentionsGoal = numKeywordMinCount(multipleMentionsMinGoal); 
 		if (numAtMentionsGoal < multipleMentionsNumGoal) {
 			promptable.put("multiple-mentions-goal", true);
+			promptableCount += 1; 
+			System.err.println("KeywordWatcher.promptIfAppropriate - multiple-mentions-goal is promptable"); 
 		} else {
 			promptable.put("multiple-mentions-goal", false);
 		}
 		
+		// Get the the least number of prompts already provided from among the priorities		
 		Iterator<Integer> valueIterator = prioritiesAndCounts.values().iterator();		
 		int minCount = Integer.MAX_VALUE; 
 		int nextValue; 
@@ -214,13 +196,20 @@ public class KeywordWatcher extends BasilicaAdapter
 				minCount = nextValue; 
 			}
 		}
+		System.err.println("KeywordWatcher.promptIfAppropriate - minimum prompts count among the priorities is " + minCount);
+		
 		
 		String promptType = null; 
-		for (Map.Entry<String, Integer> entry : prioritiesAndCounts.entrySet()) {
-			if (entry.getValue() <= minCount) {
-				if (promptable.get(entry.getKey()) == true) {
-					promptType = entry.getKey(); 
-					prioritiesAndCounts.put(entry.getKey(),entry.getValue() + 1); 
+		String key = null; 
+		int promptCount = 0; 
+		for (Map.Entry<String, Integer> entry : prioritiesAndCounts.entrySet()) {    // 
+			if ((entry.getValue() <= minCount) || (promptableCount == 1)) {
+				key = entry.getKey(); 
+				if (promptable.get(key) == true) {
+					promptType = key; 
+					promptCount = entry.getValue() + 1; 
+					prioritiesAndCounts.put(key,promptCount); 
+					System.err.println("KeywordWatcher.promptIfAppropriate - upcoming prompt count for " + key + " is " + promptCount);
 					break; 
 				}
 			}				
@@ -235,27 +224,6 @@ public class KeywordWatcher extends BasilicaAdapter
 		}
 	}
 
-		
-//		for (int i=0; i<promptPriorities.length; i++) {
-//			if (promptPriorities[i].equals("number-goal")) {
-//				
-//			}
-//		}
-		
-//		if (promptableNonZero) {
-//			if 
-//		}
-		
-		
-
-		
-		// ========== TEMPORARY =========== 
-//		int numNonZero = nonZeroKeyWordCount(); 
-//		int maxMentions = maxKeywordCount(); 
-//		int numAtMentionsGoal = numKeywordMinCount(keywordMentionsGoal); 
-		
-//		return false; 
-		// ========== TEMPORARY ===========  
 	
 	private int nonZeroKeyWordCount() {	
 		int nonZeroCount = 0;
