@@ -94,7 +94,6 @@ public class MultiModalFilter extends BasilicaAdapter
 //			System.err.println("MultimodalFilter init, agent name: " + a.getName());	
 //			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #1: " + news.getMultimodalDontListenWhileSpeakingEnd().toString());	
 			StateMemory.commitSharedState(news, a);
-			State news2 = State.copy(StateMemory.getSharedState(a));
 //			System.err.println("MultimodalFilter init, getMultimodalDontListenEnd #2: " + news2.getMultimodalDontListenWhileSpeakingEnd().toString());	
 		}
 	}

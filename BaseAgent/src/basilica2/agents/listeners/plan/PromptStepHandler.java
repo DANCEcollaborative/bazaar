@@ -90,9 +90,11 @@ class PromptStepHandler implements StepHandler
 		if (numStudentNames > 1) {
 			int randomStudentIndex = ThreadLocalRandom.current().nextInt(0, numStudentNames);
 			slots.put("[RANDOM_STUDENT]", studentNames.get(randomStudentIndex));
-		} else {
+		} else if (numStudentNames == 1){
 			slots.put("[RANDOM_STUDENT]", studentNames.get(0));
-		}		
+		} else {
+			slots.put("[RANDOM_STUDENT]", "student");	
+		}
 
 		String promptKey = step.name;
 		if(step.attributes.containsKey("prompt"))

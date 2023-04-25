@@ -33,8 +33,10 @@ package basilica2.agents.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,6 +88,7 @@ public class State
 	private int jointActivityMetric = 0; 
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
+	private Map<String, Integer> keywordCounts = new HashMap<String, Integer>();
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -125,6 +128,15 @@ public class State
 		{
 			news.roles.add(s.roles.get(i));
 		}
+		
+//		System.err.println("State.copy: About to copy keywordCounts"); 
+		
+		Iterator iter = s.keywordCounts.entrySet().iterator();
+		while (iter.hasNext()) {
+			Map.Entry entry = (Map.Entry) iter.next();
+//			System.err.println("State.copy iteration - key: " + String.valueOf(entry.getKey()) + "  --  value: " + String.valueOf(entry.getValue()));
+			news.setKeywordCount(String.valueOf(entry.getKey()), ((Integer) entry.getValue()).intValue());			
+		} 
 
 		return news;
 	}
@@ -632,6 +644,98 @@ public class State
 	{
 		this.multimodalDontListenEnd = dontListenEnd;
 	}
+	
+	public Integer addKeywords(String[] keywords)
+	{
+		int keywordsAddedCount = 0; 
+		String addResult = null; 
+		for (int i=0; i < keywords.length; i++) {
+			addResult = addKeyword(keywords[i]);
+			if (addResult != null) {
+				keywordsAddedCount += 1; 
+			}
+		}
+		return keywordsAddedCount; 
+	}	
+
+	public String addKeyword(String keyword)
+	{
+		if (!getKeywords().contains(keyword)) {
+			setKeywordCount(keyword,0); 
+			return keyword; 
+		} else {
+			return null;
+		}
+	}
+	
+	public void resetKeywordCount(String keyword)
+	{
+		setKeywordCount(keyword,0); 	
+	}
+	
+	public void bumpKeywordCount(String keyword)
+	{
+		int bumpedCount = 0; 
+		if (keywordCounts.containsKey(keyword)) {
+			int currentCount = keywordCounts.get(keyword);
+			bumpedCount = currentCount + 1; 
+			keywordCounts.put(keyword, bumpedCount);
+		}
+		System.err.println("State.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
+	}
+	
+	public void clearKeywords(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			setKeywordCount(keywords[i],0); 
+		}
+	}
+
+	public void setKeywordCount(String keyword, int count)
+	{
+//		System.out.println("State.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
+		keywordCounts.put(keyword,count); 
+	}
+	
+	public void removeKeyword(String keyword)
+	{
+		keywordCounts.remove(keyword); 	
+	}
+	
+	public void removeKeywords(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			removeKeyword(keywords[i]); 
+		}
+	}	
+	
+	public Set<String> getKeywords()
+	{
+		return keywordCounts.keySet();
+	}	
+	
+	public Integer getNumKeywords()
+	{
+		return keywordCounts.size();
+	}			
+	
+	public Collection<Integer> getKeywordCountsValues()
+	{
+		return keywordCounts.values();
+	}		
+	
+	public Map<String,Integer> getKeywordCounts()
+	{
+		return keywordCounts;
+	}
+	
+
+	public void printKeywordCounts()
+	{	
+		System.err.println(">>> State.printKeyWordCounts: " + keywordCounts); 
+	}	
+		
+	
 
 	@Override
 	public String toString()
