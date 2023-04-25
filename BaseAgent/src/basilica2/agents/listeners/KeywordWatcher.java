@@ -27,6 +27,7 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.RollingWindow;
 import basilica2.agents.data.State;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
@@ -51,6 +52,12 @@ public class KeywordWatcher extends BasilicaAdapter
 { 
 	private InputCoordinator source;
 	Agent agent; 
+	private String agentName; 
+	private PromptTable prompter = null;
+	private double keywordPriority;
+	private double keywordWindow;
+	private double keywordBlackout;
+	
 	private Boolean intialized = false; 
 	private int keywordNumberGoal = 0; 
 	private int keywordMentionsGoal = 0;
@@ -60,8 +67,7 @@ public class KeywordWatcher extends BasilicaAdapter
 													//    the multiple mentions goal
 	private String [] promptPriorities = null; 
 	private Boolean freeToComment = true;
-	private int repeatedPromptDelay = 300;
-	
+	private int repeatedPromptDelay = 300;	
 	private HashMap<String,Integer> prioritiesAndCounts = new LinkedHashMap<>(); 
 	private Map<String, Boolean> promptable = new HashMap<String, Boolean>();
 	
@@ -71,11 +77,17 @@ public class KeywordWatcher extends BasilicaAdapter
 	{
 		super(a);
 		agent = a; 
+		agentName = a.getUsername();
 	}
 	
 	public void initialize() {
 		if (properties != null)
 		{
+
+			prompter = new PromptTable(properties.getProperty("prompt_file", "plan_prompts.xml"));
+			keywordPriority = Double.parseDouble(properties.getProperty("priority", "0.8"));
+			keywordWindow = Double.parseDouble(properties.getProperty("window", "15"));
+			keywordBlackout= Double.parseDouble(properties.getProperty("blackout", "5"));
 			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");		
 			State state = StateMemory.getSharedState(agent);
 			state.addKeywords(keywords);
@@ -103,6 +115,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
+		this.source = source;
 		if (!intialized) {
 //			System.err.println("*** KeywordWatcher.preProcessEvent - calling initialize");
 			initialize();
@@ -117,14 +130,13 @@ public class KeywordWatcher extends BasilicaAdapter
 	// Checks messages for keywords. If found, adds to keyword count(s) 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
-//		System.err.println("KeywordWatcher.handleMessageEvent - enter"); 
 		State state = StateMemory.getSharedState(agent);
 		int numKeywords = state.getNumKeywords(); 
 		
 		if (numKeywords > 0) {
 			Boolean prompted = false; 
 			String[] annotations = me.getAllAnnotations(); 
-			System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
+//			System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
 			Set<String> keywords = state.getKeywords();
 			boolean keywordFound = false;
 			for (int i=0; i < annotations.length; i++) {
@@ -136,54 +148,56 @@ public class KeywordWatcher extends BasilicaAdapter
 			if (keywordFound) {
 				State news = State.copy(state);
 				StateMemory.commitSharedState(news, agent);	
-				System.err.println("*** KeywordWatcher.handleMessageEvent -- updated keyword counts:");
-				news.printKeywordCounts();		
+
 			} else {
 	//			System.out.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
 			}
 			if (freeToComment) {
-				prompted = promptIfAppropriate(); 
+				promptIfAppropriate(); 
 			} else {
-				System.err.println(">>>>>>> KeywordWatcher.handleMessageEvent: Too soon to prompt <<<<<<<<<<"); 
+//				System.err.println(">>>>>>> KeywordWatcher.handleMessageEvent: Too soon to prompt <<<<<<<<<<"); 
 			}
-			if (prompted) {
-				setPromptTimer(repeatedPromptDelay); 
-			}
+//			if (prompted) {
+//				setPromptTimer(repeatedPromptDelay); 
+//			}
 		}
     }
 	
-	private Boolean promptIfAppropriate() {
+	private void promptIfAppropriate() {
 		
-		int promptableCount = 0; 
+//		int promptableCount = 0; 
 
 		// Check if number of keywords mentioned is promptable
 		int numNonZero = nonZeroKeyWordCount(); 
 		if (numNonZero < keywordNumberGoal) {
 			promptable.put("number-goal", true);
-			promptableCount += 1; 
+//			promptableCount += 1; 
 			System.err.println("KeywordWatcher.promptIfAppropriate - number-goal is promptable"); 
 		} else {
-			promptable.put("number-goal", false);
+//			promptable.put("number-goal", false);
+			promptable.remove("number-goal");
 		}
 		
 		// Check if number of mentions for a single keyword is promptable
 		int maxMentions = maxKeywordCount(); 
 		if (maxMentions < keywordMentionsGoal) {
 			promptable.put("mentions-goal", true);
-			promptableCount += 1; 
+//			promptableCount += 1; 
 			System.err.println("KeywordWatcher.promptIfAppropriate - mentions-goal is promptable"); 
 		} else {
-			promptable.put("mentions-goal", false);
+//			promptable.put("mentions-goal", false);
+			promptable.remove("mentions-goal");
 		}
 		
 		// Check if number of keywords with a minimum number of mentions is promptable 
 		int numAtMentionsGoal = numKeywordMinCount(multipleMentionsMinGoal); 
 		if (numAtMentionsGoal < multipleMentionsNumGoal) {
 			promptable.put("multiple-mentions-goal", true);
-			promptableCount += 1; 
+//			promptableCount += 1; 
 			System.err.println("KeywordWatcher.promptIfAppropriate - multiple-mentions-goal is promptable"); 
 		} else {
-			promptable.put("multiple-mentions-goal", false);
+//			promptable.put("multiple-mentions-goal", false);
+			promptable.remove("multiple-mentions-goal");
 		}
 		
 		// Get the the least number of prompts already provided from among the priorities		
@@ -201,27 +215,30 @@ public class KeywordWatcher extends BasilicaAdapter
 		
 		String promptType = null; 
 		String key = null; 
-		int promptCount = 0; 
+//		int promptCount = 0; 
 		for (Map.Entry<String, Integer> entry : prioritiesAndCounts.entrySet()) {    // 
-			if ((entry.getValue() <= minCount) || (promptableCount == 1)) {
+			if (entry.getValue() <= minCount) {
 				key = entry.getKey(); 
-				if (promptable.get(key) == true) {
-					promptType = key; 
-					promptCount = entry.getValue() + 1; 
-					prioritiesAndCounts.put(key,promptCount); 
-					System.err.println("KeywordWatcher.promptIfAppropriate - upcoming prompt count for " + key + " is " + promptCount);
-					break; 
+				if (promptable.containsKey(key)) {
+					if (promptable.get(key) == true) {
+						promptType = key; 
+						proposeKeywordPrompt(key,null); 
+	//					promptCount = entry.getValue() + 1; 
+	//					prioritiesAndCounts.put(key,promptCount); 
+	//					System.err.println("KeywordWatcher.promptIfAppropriate - upcoming prompt count for " + key + " is " + promptCount);
+						break; 
+					}
 				}
 			}				
 		}
 		
-		System.err.println(">>>>>>> KeywordWatcher.promptIfAppropriate - promptType: " + promptType + " <<<<<<<<<<"); 
-		
-		if (promptType != null) {
-			return true;
-		} else {
-			return false; 
-		}
+//		System.err.println(">>>>>>> KeywordWatcher.promptIfAppropriate - promptType: " + promptType + " <<<<<<<<<<"); 
+//		
+//		if (promptType != null) {
+//			return true;
+//		} else {
+//			return false; 
+//		}
 	}
 
 	
@@ -273,7 +290,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	
 	private void setPromptTimer(int promptDelay) {
 	
-		System.err.println("KeywordWatcher.setPromptTimer: " + promptDelay); 
+		System.err.println(">>>> KeywordWatcher.setPromptTimer: " + promptDelay); 
 		freeToComment = false; 
 		
 		// Never set freeToComment to 'true' if promptDelay == 0
@@ -287,6 +304,41 @@ public class KeywordWatcher extends BasilicaAdapter
 				}
 			}).start();
 		}
+	}
+	
+
+
+	private void proposeKeywordPrompt(final String promptKey, Map<String, String> slots)
+	{
+		log(Logger.LOG_NORMAL, "proposing keyword prompt: "+promptKey);
+		System.err.println(">>>>>>> KeywordWatcher.proposeKeywordPrompt - proposing promptKey: " + promptKey + " <<<<<<<<<<"); 
+		final String message = prompter.lookup(promptKey, slots);
+		MessageEvent me = new MessageEvent(source, agentName, message, "KEYWORD", promptKey);
+		PriorityEvent pete = PriorityEvent.makeBlackoutEvent("KEYWORD", me, keywordPriority, keywordWindow, keywordBlackout);
+
+		pete.addCallback(new Callback()
+		{
+			@Override
+			public void accepted(PriorityEvent p)
+			{
+				log(Logger.LOG_NORMAL, "accepted keyword prompt: "+promptKey);
+				bumpPromptCount(promptKey);
+				setPromptTimer(repeatedPromptDelay); 
+			}
+
+			@Override
+			public void rejected(PriorityEvent p)
+			{
+				log(Logger.LOG_NORMAL, "rejected keyword prompt: "+promptKey);
+			}
+		});
+		source.pushProposal(pete);
+	}
+	
+	private void bumpPromptCount(String key) {
+		int oldCount = prioritiesAndCounts.get(key);
+		int updatedCount = oldCount + 1; 
+		prioritiesAndCounts.put(key, updatedCount);		
 	}
 	
 	/**
