@@ -344,8 +344,10 @@ public class InputCoordinator extends Component
             if(preep != null)
             {
             	allMyChildren.put(pp, preep);
-            	for(Class target : preep.getPreprocessorEventClasses())
+            	for(Class target : preep.getPreprocessorEventClasses()) {
+//            		System.err.println("InputCoordinator.addListeners - class: " + target.toString() + "  preprocessor: " + preep.toString());
             		this.addPreProcessor(target, preep);
+            	}
             }
         }
         
@@ -401,6 +403,18 @@ public class InputCoordinator extends Component
     public HashMap getListeners()
     {
     	return listeners;
+    }
+    
+    public BasilicaPreProcessor getPreProcessor(String preProcessorString)
+    {
+    	for (ArrayList<BasilicaPreProcessor> preepList : this.preprocessors.values()) {
+    		for (BasilicaPreProcessor preep : preepList) {
+    			if (preep.toString().contains(preProcessorString)) {
+    				return preep; 
+    			}
+    		}
+    	}
+    	return null; 
     }
     
     public void removeListener(Class key, BasilicaListener blister)

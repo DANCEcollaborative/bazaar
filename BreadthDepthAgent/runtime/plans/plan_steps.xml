@@ -10,7 +10,9 @@
         <step type="whiteboard" delay="0" path="https://i.imgur.com/bn6DWNy.png">SHOW_IMAGE</step>
         <!-- TODO: Gated Step -->
     </stage>
-    <stage name="playGame" type="other" delay="0">
+    <stage name="playGame" type="other" delay="0">   
+		<step type="prompt" delay="5" prompt="TEMPORARY_PROMPT">TEMPORARY_PROMPT</step>
+        <step type="keyword_gated" delay="5" timeout="30" file="testcase-complete_1" delayed_prompt_time="20" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>
     	<step type="prompt" delay="360" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
 		<step type="prompt" delay="60" prompt="JEOPARDY_CATEGORY_WARNING">JEOPARDY_CATEGORY_WARNING</step>
 

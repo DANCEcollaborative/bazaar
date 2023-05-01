@@ -130,6 +130,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	// Checks messages for keywords. If found, adds to keyword count(s) 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
+		
 		State state = StateMemory.getSharedState(agent);
 		int numKeywords = state.getNumKeywords(); 
 		
@@ -318,6 +319,11 @@ public class KeywordWatcher extends BasilicaAdapter
 		int updatedCount = oldCount + 1; 
 		prioritiesAndCounts.put(key, updatedCount);		
 	}
+	
+	public int getPromptableNumEntries() {
+		return promptable.size(); 
+	}
+	
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
