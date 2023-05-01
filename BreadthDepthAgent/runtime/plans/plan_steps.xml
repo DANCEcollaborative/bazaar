@@ -3,9 +3,9 @@
 	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
-    <stage name="initiate" type="other" delay="10">
-        <step type="prompt" delay="5" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step>
-        <step type="prompt" delay="1" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step>
+    <stage name="initiate" type="other" delay="5">
+        <!-- <step type="prompt" delay="5" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step> -->
+        <!-- <step type="prompt" delay="1" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step> -->
         <!-- 3NewImage: Jeopardy Board -->
         <step type="whiteboard" delay="0" path="https://i.imgur.com/bn6DWNy.png">SHOW_IMAGE</step>
         <!-- TODO: Gated Step -->

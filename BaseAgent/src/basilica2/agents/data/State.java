@@ -673,6 +673,26 @@ public class State
 		setKeywordCount(keyword,0); 	
 	}
 	
+	public void resetKeywordCounts(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			setKeywordCount(keywords[i],0); 
+		}
+	}
+	
+	public void resetAllKeywordCounts()
+	{
+		for (String key : keywordCounts.keySet()) {
+			keywordCounts.put(key,0);
+		}
+	}
+
+	public void setKeywordCount(String keyword, int count)
+	{
+//		System.out.println("State.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
+		keywordCounts.put(keyword,count); 
+	}
+	
 	public void bumpKeywordCount(String keyword)
 	{
 		int bumpedCount = 0; 
@@ -682,19 +702,6 @@ public class State
 			keywordCounts.put(keyword, bumpedCount);
 		}
 		System.err.println("State.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
-	}
-	
-	public void clearKeywords(String[] keywords)
-	{
-		for (int i=0; i < keywords.length; i++) {
-			setKeywordCount(keywords[i],0); 
-		}
-	}
-
-	public void setKeywordCount(String keyword, int count)
-	{
-//		System.out.println("State.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
-		keywordCounts.put(keyword,count); 
 	}
 	
 	public void removeKeyword(String keyword)
@@ -708,6 +715,13 @@ public class State
 			removeKeyword(keywords[i]); 
 		}
 	}	
+	
+	public void removeAllKeywords()
+	{
+		for (String key : keywordCounts.keySet()) {
+			keywordCounts.remove(key);
+		}
+	}
 	
 	public Set<String> getKeywords()
 	{

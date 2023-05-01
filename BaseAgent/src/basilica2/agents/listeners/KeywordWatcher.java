@@ -67,7 +67,7 @@ public class KeywordWatcher extends BasilicaAdapter
 													//    the multiple mentions goal
 	private String [] promptPriorities = null; 
 	private Boolean freeToComment = true;
-	private int repeatedPromptDelay = 300;	
+	private int promptInterval = 300;	
 	private HashMap<String,Integer> prioritiesAndCounts = new LinkedHashMap<>(); 
 	private Map<String, Boolean> promptable = new HashMap<String, Boolean>();
 	
@@ -88,15 +88,13 @@ public class KeywordWatcher extends BasilicaAdapter
 			keywordPriority = Double.parseDouble(properties.getProperty("priority", "0.8"));
 			keywordWindow = Double.parseDouble(properties.getProperty("window", "15"));
 			keywordBlackout= Double.parseDouble(properties.getProperty("blackout", "5"));
-			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");		
-			State state = StateMemory.getSharedState(agent);
-			state.addKeywords(keywords);
-			StateMemory.commitSharedState(state, agent);		
+			String[] keywords = properties.getProperty("keywords", "").split("[\\s,]+");
+			addKeywords(keywords);	
 			try{keywordNumberGoal = Integer.valueOf(getProperties().getProperty("number-goal", "0"));}
 			catch(Exception e) {e.printStackTrace();}	
 			try{keywordMentionsGoal = Integer.valueOf(getProperties().getProperty("mentions-goal", "0"));}
 			catch(Exception e) {e.printStackTrace();}	
-			try{repeatedPromptDelay = Integer.valueOf(getProperties().getProperty("repeated-prompt-delay", "300"));}
+			try{promptInterval = Integer.valueOf(getProperties().getProperty("prompt-interval", "300"));}
 			catch(Exception e) {e.printStackTrace();}	
 			
 			try{multipleKeywordMentionsGoal = Stream.of(getProperties().getProperty("multiple-mentions-goal", "").split("[\\s,]+")).mapToInt(Integer::parseInt).toArray();}
@@ -234,7 +232,7 @@ public class KeywordWatcher extends BasilicaAdapter
 		return nonZeroCount; 
 	}
 	
-	private int maxKeywordCount() {
+	public int maxKeywordCount() {
 		int maxValue = 0;
 		State state = StateMemory.getSharedState(agent);
 		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
@@ -267,14 +265,14 @@ public class KeywordWatcher extends BasilicaAdapter
 	}
 	
 	
-	private void setPromptTimer(int promptDelay) {
+	public void setPromptTimer(int promptInterval) {
 	
-//		System.err.println(">>>> KeywordWatcher.setPromptTimer: " + promptDelay); 
+//		System.err.println(">>>> KeywordWatcher.setPromptTimer: " + promptInterval); 
 		freeToComment = false; 
 		
-		// Never set freeToComment to 'true' if promptDelay == 0
-		if (promptDelay > 0) {
-			new Timer(promptDelay, new TimeoutAdapter()
+		// Never set freeToComment to 'true' if promptInterval == 0
+		if (promptInterval > 0) {
+			new Timer(promptInterval, new TimeoutAdapter()
 			{
 				@Override
 				public void timedOut(String id)
@@ -302,7 +300,7 @@ public class KeywordWatcher extends BasilicaAdapter
 			{
 				log(Logger.LOG_NORMAL, "accepted keyword prompt: "+promptKey);
 				bumpPromptCount(promptKey);
-				setPromptTimer(repeatedPromptDelay); 
+				setPromptTimer(promptInterval); 
 			}
 
 			@Override
@@ -322,8 +320,48 @@ public class KeywordWatcher extends BasilicaAdapter
 	
 	public int getPromptableNumEntries() {
 		return promptable.size(); 
+	}	
+	
+	public void addKeywords(String[] keywords) {	
+		State state = StateMemory.getSharedState(agent);
+		state.addKeywords(keywords);
+		StateMemory.commitSharedState(state, agent);		
 	}
 	
+	public void setKeywordNumberGoal (int goal) {
+		keywordNumberGoal = goal; 
+	}	
+	
+	public void setKeywordMentionsGoal (int goal) {
+		keywordMentionsGoal = goal; 
+	}
+		
+	public void setMultipleKeywordMentionsGoal (int[] goals) {
+		multipleMentionsNumGoal = goals[0]; 
+		multipleMentionsMinGoal = goals[1]; 
+	}
+	
+	public void setPromptPriorities (String[] priorities) {
+		for (int i=0; i<priorities.length; i++) {
+			prioritiesAndCounts.put(priorities[i],0); 
+		}
+	}
+	
+	public void setPromptInterval (int intervalSeconds) { 
+		promptInterval = intervalSeconds; 
+	}
+	
+	public void removeAllKeywords () {	
+		State state = StateMemory.getSharedState(agent);
+		state.removeAllKeywords();
+		StateMemory.commitSharedState(state, agent);			
+	}
+	
+	public void resetAllKeywordCounts () {	
+		State state = StateMemory.getSharedState(agent);
+		state.resetAllKeywordCounts();
+		StateMemory.commitSharedState(state, agent);			
+	}
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
