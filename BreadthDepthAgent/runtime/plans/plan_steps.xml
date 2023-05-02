@@ -4,13 +4,12 @@
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
     <stage name="initiate" type="other" delay="5">
-        <!-- 3NewImage: Jeopardy Board -->
-        <step type="whiteboard" delay="0" path="https://i.imgur.com/bn6DWNy.png">SHOW_IMAGE</step>
+		<step type="prompt" delay="10" prompt="HELLO">HELLO</step>
         <!-- TODO: Gated Step -->
     </stage>
-    <stage name="keyword_manipulatio" type="other" delay="0">   
+    <stage name="keyword_manipulation" type="other" delay="0">   
 		<step type="prompt" delay="30" prompt="ENTRY_PROMPT">ENTRY_PROMPT</step>
-        <step type="keyword_gated" delay="5" timeout="240"
+        <step type="keyword_gated" delay="5" timeout="180"
 			   keywords="LOOM,WARP,WEFT,SHAFT" 
 			   number-goal="4" mentions-goal="3" multiple-mentions-goal="2,3" prompt-interval="20"
 			   prompt-priorities="number-goal,mentions-goal,multiple-mentions-goal"
