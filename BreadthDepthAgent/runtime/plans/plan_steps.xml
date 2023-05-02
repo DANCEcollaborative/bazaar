@@ -12,10 +12,10 @@
     </stage>
     <stage name="playGame" type="other" delay="0">   
 		<step type="prompt" delay="5" prompt="TEMPORARY_PROMPT">TEMPORARY_PROMPT</step>
-        <step type="keyword_gated" delay="5" timeout="240"
+        <!-- <step type="keyword_gated" delay="5" timeout="240"
 			   keywords="loom,warp,weft,beater" 
 			   number-goal="4" mentions-goal="3" multiple-mentions-goal="2,3" prompt-interval="20"
-               checkin_prompt="NONE" warning_prompt="NONE">Keyword_Gated_Step</step>
+               checkin_prompt="NONE" warning_prompt="NONE">Keyword_Gated_Step</step> -->
     	<step type="prompt" delay="360" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
 		<step type="prompt" delay="60" prompt="JEOPARDY_CATEGORY_WARNING">JEOPARDY_CATEGORY_WARNING</step>   	
     </stage>
