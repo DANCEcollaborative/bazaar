@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<prompt strategy="task" id="KEYWORD_STEP_TIMEOUT_WARNING" intention="KEYWORD_STEP_TIMEOUT_WARNING">
+		<text>We need to start wrapping up.</text>
+		<text>Okay, let's get ready to move on.</text>
+	</prompt>
+	
+	<prompt strategy="task" id="KEYWORD_STEP_TIMED_OUT" intention="KEYWORD_STEP_TIMED_OUT">
+		<text>Let's move on.</text>
+		<text>Time to move along.</text>
+	</prompt>
+    
+    <prompt strategy="task" id="KEYWORD_STEP_COMPLETE" intention="KEYWORD_STEP_COMPLETE">
+       <text>Nice job. Let's move on.</text>
+       <text>Good discussion. We're ready to move on.</text>
+    </prompt>
+	
+    <prompt strategy="task" id="WAIT_FOR_CHECKIN" intention="WAIT_FOR_CHECKIN">
+       <text>Entering keyword_gated step.</text>
+    </prompt>
+    
+</prompts>

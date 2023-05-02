@@ -9,7 +9,7 @@
         <text>Hello, [NAME]!</text>
     </prompt>
     
-    <prompt strategy="task" id="INTRODUCE">
+    <prompt strategy="task" id="HELLO">
         <text>Hello! I'm [AGENT NAME]. Take a minute to introduce yourselves. Go ahead and chat a little more if you have extra time. :-)</text>
     </prompt>
   
@@ -44,6 +44,14 @@
 
 	<prompt strategy="task" id="THIS_IS_A_PILOT">
         <text>Before we start: You’re piloting a brand new activity! If Sage the Owl should suddenly have to go lie down, don’t worry; you’ll still get credit.</text>
+    </prompt>
+
+	<prompt strategy="task" id="ENTRY_PROMPT">
+        <text>Executing keyword_gated step in 30 seconds ...</text>
+    </prompt>
+
+	<prompt strategy="task" id="EXIT_PROMPT">
+        <text>Keyword_gated step has completed.</text>
     </prompt>
 
 	<prompt strategy="task" id="DIRECTIONS">
