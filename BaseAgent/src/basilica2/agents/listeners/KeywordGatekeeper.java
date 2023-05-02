@@ -69,6 +69,6 @@ public class KeywordGatekeeper extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return null;
+		return new Class[] { MessageEvent.class };
 	}
 }

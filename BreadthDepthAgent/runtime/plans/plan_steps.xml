@@ -9,11 +9,12 @@
     </stage>
     <stage name="keyword_manipulation" type="other" delay="0">   
 		<step type="prompt" delay="30" prompt="ENTRY_PROMPT">ENTRY_PROMPT</step>
-        <step type="keyword_gated" delay="5" timeout="180"
+		<!--The following step has short timeout & prompt-interval for test purposes -->
+        <step type="keyword_gated" delay="10" timeout="120"   
 			   keywords="LOOM,WARP,WEFT,SHAFT" 
-			   number-goal="4" mentions-goal="3" multiple-mentions-goal="2,3" prompt-interval="20"
+			   number-goal="4" mentions-goal="3" multiple-mentions-goal="2,3" prompt-interval="10"
 			   prompt-priorities="number-goal,mentions-goal,multiple-mentions-goal"
-               checkin_prompt="WAIT_FOR_CHECKIN" warning_prompt="NONE">Keyword_Gated_Step</step>  
+               checkin_prompt="WAIT_FOR_CHECKIN" warning_prompt="KEYWORD_STEP_TIMEOUT_WARNING">Keyword_Gated_Step</step>  
 		<step type="prompt" delay="75" prompt="EXIT_PROMPT">EXIT_PROMPT</step> 	
     </stage>
 </plan>

@@ -124,8 +124,8 @@ public class KeywordWatcher extends BasilicaAdapter
 	// Checks messages for keywords. If found, adds to keyword count(s) 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
-		System.err.println("!!!!!! KeywordWatcher.handleMessageEvent - enter:"); 
-		printKeywordCounts();
+//		System.err.println("!!!!!! KeywordWatcher.handleMessageEvent - enter:"); 
+//		printKeywordCounts();
 		
 		int numKeywords = getNumKeywords(); 
 		
@@ -144,7 +144,7 @@ public class KeywordWatcher extends BasilicaAdapter
 			if (freeToComment) {
 				promptIfAppropriate(); 
 			} else {
-				System.err.println("=== KeywordWatcher.handleMessageEvent: freeToComment = false ===");
+//				System.err.println("=== KeywordWatcher.handleMessageEvent: freeToComment = false ===");
 			}
 		}
     }
@@ -152,7 +152,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private void promptIfAppropriate() {
 		
 		if (!shouldPrompt) {
-			System.err.println("KeywordWatcher.promptIfAppropriate.: shouldPrompt == false");
+//			System.err.println("KeywordWatcher.promptIfAppropriate.: shouldPrompt == false");
 			return; 
 		}
 
@@ -285,7 +285,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private void proposeKeywordPrompt(final String promptKey, Map<String, String> slots)
 	{
 		log(Logger.LOG_NORMAL, "proposing keyword prompt: "+promptKey);
-		System.err.println(">>>>>>> KeywordWatcher.proposeKeywordPrompt - proposing promptKey: " + promptKey + " <<<<<<<<<<"); 
+//		System.err.println(">>>>>>> KeywordWatcher.proposeKeywordPrompt - proposing promptKey: " + promptKey + " <<<<<<<<<<"); 
 		final String message = prompter.lookup(promptKey, slots);
 		MessageEvent me = new MessageEvent(source, agentName, message, "KEYWORD", promptKey);
 		PriorityEvent pete = PriorityEvent.makeBlackoutEvent("KEYWORD", me, keywordPriority, keywordWindow, keywordBlackout);
@@ -347,8 +347,8 @@ public class KeywordWatcher extends BasilicaAdapter
 //			keywordCounts.remove(key);
 //		}
 		keywordCounts.clear();
-		System.err.println("!!!!!! KeywordWatcher.removeAllKeywords - exit:"); 
-		printKeywordCounts();
+//		System.err.println("!!!!!! KeywordWatcher.removeAllKeywords - exit:"); 
+//		printKeywordCounts();
 	}
 	
 	public void setShouldPrompt (Boolean shouldPromptSetting) {	
@@ -366,8 +366,8 @@ public class KeywordWatcher extends BasilicaAdapter
 				keywordsAddedCount += 1; 
 			}
 		}
-		System.err.println("!!!!!! KeywordWatcher.addKeywords - exit:"); 
-		printKeywordCounts();
+//		System.err.println("!!!!!! KeywordWatcher.addKeywords - exit:"); 
+//		printKeywordCounts();
 		return keywordsAddedCount; 
 	}	
 
@@ -413,10 +413,10 @@ public class KeywordWatcher extends BasilicaAdapter
 			int currentCount = keywordCounts.get(keyword);
 			bumpedCount = currentCount + 1; 
 			keywordCounts.put(keyword, bumpedCount);
-			System.err.println("KeywordWatcher.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
+//			System.err.println("KeywordWatcher.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
 		}
-		System.err.println("KeywordWatcher.bumpKeywordCount exit - keyword counts: "); 
-		printKeywordCounts(); 
+//		System.err.println("KeywordWatcher.bumpKeywordCount exit - keyword counts: "); 
+//		printKeywordCounts(); 
 	}
 	
 	public void removeKeyword(String keyword)

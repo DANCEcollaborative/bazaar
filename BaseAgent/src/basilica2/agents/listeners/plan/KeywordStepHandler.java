@@ -35,7 +35,7 @@ public class KeywordStepHandler implements StepHandler
 		
 		// Keywords	
 		String keywords = currentStep.attributes.get("keywords");
-		System.err.println("KeywordStepHandler: keywords: " + keywords);		
+//		System.err.println("KeywordStepHandler: keywords: " + keywords);		
 		if (keywords != null) {
 			Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"KeywordStepHandler: keywords before processing: " + keywords);			
 			List<String> keywordList = null; 
@@ -46,7 +46,7 @@ public class KeywordStepHandler implements StepHandler
 			}
 			keywordWatcher.removeAllKeywords();
 			keywordWatcher.addKeywords(keywordList.toArray(new String[0])); 
-			keywordWatcher.printKeywordCounts();
+//			keywordWatcher.printKeywordCounts();
 		}
 
 		// Reset keyword counts	
@@ -55,7 +55,7 @@ public class KeywordStepHandler implements StepHandler
 		{
 			resetCounts = Boolean.valueOf(currentStep.attributes.get("reset-counts"));
 		}
-		System.err.println("KeywordStepHandler: resetCounts: " + Boolean.valueOf(resetCounts));
+//		System.err.println("KeywordStepHandler: resetCounts: " + Boolean.valueOf(resetCounts));
 		if (resetCounts == true) {
 			keywordWatcher.resetAllKeywordCounts();
 		}
@@ -63,14 +63,14 @@ public class KeywordStepHandler implements StepHandler
 		// Goal for number of keywords
 		Integer keywordNumberGoal = Integer.valueOf(currentStep.attributes.get("number-goal"));
 		if (keywordNumberGoal != null) {
-			System.err.println("KeywordStepHandler: keywordNumberGoal: " + keywordNumberGoal);
+//			System.err.println("KeywordStepHandler: keywordNumberGoal: " + keywordNumberGoal);
 			keywordWatcher.setKeywordNumberGoal(keywordNumberGoal);
 		}
 		
 		// Goal for number of mentions for a single keyword
 		Integer keywordMentionsGoal = Integer.valueOf(currentStep.attributes.get("mentions-goal"));
 		if (keywordMentionsGoal != null) {
-			System.err.println("KeywordStepHandler: keywordMentionsGoal: " + keywordMentionsGoal);
+//			System.err.println("KeywordStepHandler: keywordMentionsGoal: " + keywordMentionsGoal);
 			keywordWatcher.setKeywordMentionsGoal(keywordMentionsGoal);
 		}
 
@@ -82,7 +82,7 @@ public class KeywordStepHandler implements StepHandler
 		// promptInterval	
 		Integer promptInterval = Integer.valueOf(currentStep.attributes.get("prompt-interval"));
 		if (promptInterval != null) {
-			System.err.println("KeywordStepHandler: promptInterval: " + promptInterval);
+//			System.err.println("KeywordStepHandler: promptInterval: " + promptInterval);
 			keywordWatcher.setPromptInterval(promptInterval);
 		}
 
@@ -91,7 +91,7 @@ public class KeywordStepHandler implements StepHandler
 		{
 			shouldContinuePrompting = Boolean.valueOf(currentStep.attributes.get("continue-prompting-after"));
 		}
-		System.err.println("KeywordStepHandler: shouldContinuePrompting: " + Boolean.valueOf(shouldContinuePrompting));
+//		System.err.println("KeywordStepHandler: shouldContinuePrompting: " + Boolean.valueOf(shouldContinuePrompting));
 
 		
 		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting keyword gated step...");
