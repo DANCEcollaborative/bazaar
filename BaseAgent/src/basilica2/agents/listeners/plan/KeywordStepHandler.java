@@ -46,6 +46,7 @@ public class KeywordStepHandler implements StepHandler
 			}
 			keywordWatcher.removeAllKeywords();
 			keywordWatcher.addKeywords(keywordList.toArray(new String[0])); 
+			keywordWatcher.printKeywordCounts();
 		}
 
 		// Reset keyword counts	

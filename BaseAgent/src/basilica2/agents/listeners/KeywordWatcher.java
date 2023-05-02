@@ -67,7 +67,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int multipleMentionsNumGoal = 0;		// Goal for number of keywords with at least min number of mentions
 	private int multipleMentionsMinGoal = 0;	    // Min number of mentions for a keyword to be counted as meeting 
 													//    the multiple mentions goal
-	private String [] promptPriorities = null; 
+	private String[] promptPriorities = {"number-goal","mentions-goal","multiple-mentions-goal"}; 
 	private Boolean freeToComment = true;
 	private int promptInterval = 300;	
 	private HashMap<String,Integer> prioritiesAndCounts = new LinkedHashMap<>(); 
@@ -131,8 +131,9 @@ public class KeywordWatcher extends BasilicaAdapter
 	// Checks messages for keywords. If found, adds to keyword count(s) 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
+		System.err.println("!!!!!! KeywordWatcher.handleMessageEvent - enter:"); 
+		printKeywordCounts();
 		
-		State state = StateMemory.getSharedState(agent);
 		int numKeywords = getNumKeywords(); 
 		
 		if (numKeywords > 0) {
@@ -349,10 +350,11 @@ public class KeywordWatcher extends BasilicaAdapter
 	}
 	
 	public void removeAllKeywords () {	
-		System.err.println("!!!!!! KeywordWatcher.removeAllKeywords: enter !!!!!!"); 
-		for (String key : keywordCounts.keySet()) {
-			keywordCounts.remove(key);
-		}
+//		for (String key : keywordCounts.keySet()) {
+//			keywordCounts.remove(key);
+//		}
+		keywordCounts.clear();
+		System.err.println("!!!!!! KeywordWatcher.removeAllKeywords - exit:"); 
 		printKeywordCounts();
 	}
 	
@@ -371,6 +373,8 @@ public class KeywordWatcher extends BasilicaAdapter
 				keywordsAddedCount += 1; 
 			}
 		}
+		System.err.println("!!!!!! KeywordWatcher.addKeywords - exit:"); 
+		printKeywordCounts();
 		return keywordsAddedCount; 
 	}	
 
@@ -416,8 +420,10 @@ public class KeywordWatcher extends BasilicaAdapter
 			int currentCount = keywordCounts.get(keyword);
 			bumpedCount = currentCount + 1; 
 			keywordCounts.put(keyword, bumpedCount);
+			System.err.println("KeywordWatcher.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
 		}
-		System.err.println("KeywordWatcher.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
+		System.err.println("KeywordWatcher.bumpKeywordCount exit - keyword counts: "); 
+		printKeywordCounts(); 
 	}
 	
 	public void removeKeyword(String keyword)
@@ -455,7 +461,8 @@ public class KeywordWatcher extends BasilicaAdapter
 
 	public void printKeywordCounts()
 	{	
-		System.err.println(">>> KeywordWatcher.printKeyWordCounts: " + keywordCounts); 
+		System.err.println(">>> KeywordWatcher.printKeywordCounts: "); 
+		System.err.println(">>> " + keywordCounts); 
 	}	
 	
 	/**
