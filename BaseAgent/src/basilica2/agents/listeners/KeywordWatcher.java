@@ -154,6 +154,8 @@ public class KeywordWatcher extends BasilicaAdapter
 			}
 			if (freeToComment) {
 				promptIfAppropriate(); 
+			} else {
+				System.err.println("=== KeywordWatcher.handleMessageEvent: freeToComment = false ===");
 			}
 		}
     }
