@@ -54,6 +54,8 @@ public class KeywordWatcher extends BasilicaAdapter
 	Agent agent; 
 	private String agentName; 
 	private PromptTable prompter = null;
+	
+	private Map<String, Integer> keywordCounts = new HashMap<String, Integer>();
 	private double keywordPriority;
 	private double keywordWindow;
 	private double keywordBlackout;
@@ -131,26 +133,19 @@ public class KeywordWatcher extends BasilicaAdapter
 	{
 		
 		State state = StateMemory.getSharedState(agent);
-		int numKeywords = state.getNumKeywords(); 
+		int numKeywords = getNumKeywords(); 
 		
 		if (numKeywords > 0) {
 			Boolean prompted = false; 
 			String[] annotations = me.getAllAnnotations(); 
 //			System.err.println("*** KeywordWatcher.handleMessageEvent, annotations: " + Arrays.toString(annotations));
-			Set<String> keywords = state.getKeywords();
+			Set<String> keywords = getKeywords();
 			boolean keywordFound = false;
 			for (int i=0; i < annotations.length; i++) {
 				if (keywords.contains(annotations[i])) {
 					keywordFound = true; 
-					state.bumpKeywordCount(annotations[i]); 					
+					bumpKeywordCount(annotations[i]); 					
 				}
-			}
-			if (keywordFound) {
-				State news = State.copy(state);
-				StateMemory.commitSharedState(news, agent);	
-
-			} else {
-	//			System.out.println("*** KeywordWatcher.handleMessageEvent: No keywords found");
 			}
 			if (freeToComment) {
 				promptIfAppropriate(); 
@@ -230,7 +225,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int nonZeroKeyWordCount() {	
 		int nonZeroCount = 0;
 		State state = StateMemory.getSharedState(agent);
-		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Iterator<Integer> keywordvalueIterator = getKeywordCountsValues().iterator();	
 		while (keywordvalueIterator.hasNext()) {
 			if (keywordvalueIterator.next() != 0) {
 				nonZeroCount += 1; 
@@ -243,7 +238,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	public int maxKeywordCount() {
 		int maxValue = 0;
 		State state = StateMemory.getSharedState(agent);
-		Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+		Iterator<Integer> keywordvalueIterator = getKeywordCountsValues().iterator();	
 		int nextValue; 
 		while (keywordvalueIterator.hasNext()) {
 			nextValue = keywordvalueIterator.next(); 
@@ -259,7 +254,7 @@ public class KeywordWatcher extends BasilicaAdapter
 		int numReachedMin = 0;
 		if (minCount > 0) {
 			State state = StateMemory.getSharedState(agent);
-			Iterator<Integer> keywordvalueIterator = state.getKeywordCountsValues().iterator();	
+			Iterator<Integer> keywordvalueIterator = getKeywordCountsValues().iterator();	
 			int nextValue; 
 			while (keywordvalueIterator.hasNext()) {
 				nextValue = keywordvalueIterator.next(); 
@@ -328,12 +323,6 @@ public class KeywordWatcher extends BasilicaAdapter
 	
 	public int getPromptableNumEntries() {
 		return promptable.size(); 
-	}	
-	
-	public void addKeywords(String[] keywords) {	
-		State state = StateMemory.getSharedState(agent);
-		state.addKeywords(keywords);
-		StateMemory.commitSharedState(state, agent);		
 	}
 	
 	public void setKeywordNumberGoal (int goal) {
@@ -361,21 +350,113 @@ public class KeywordWatcher extends BasilicaAdapter
 	
 	public void removeAllKeywords () {	
 		System.err.println("!!!!!! KeywordWatcher.removeAllKeywords: enter !!!!!!"); 
-		State state = StateMemory.getSharedState(agent);
-		state.removeAllKeywords();
-		StateMemory.commitSharedState(state, agent);
-		state.printKeywordCounts();
-	}
-	
-	public void resetAllKeywordCounts () {	
-		State state = StateMemory.getSharedState(agent);
-		state.resetAllKeywordCounts();
-		StateMemory.commitSharedState(state, agent);			
+		for (String key : keywordCounts.keySet()) {
+			keywordCounts.remove(key);
+		}
+		printKeywordCounts();
 	}
 	
 	public void setShouldPrompt (Boolean shouldPromptSetting) {	
 		shouldPrompt = shouldPromptSetting; 		
 	}
+
+	
+	public Integer addKeywords(String[] keywords)
+	{
+		int keywordsAddedCount = 0; 
+		String addResult = null; 
+		for (int i=0; i < keywords.length; i++) {
+			addResult = addKeyword(keywords[i]);
+			if (addResult != null) {
+				keywordsAddedCount += 1; 
+			}
+		}
+		return keywordsAddedCount; 
+	}	
+
+	public String addKeyword(String keyword)
+	{
+		if (!getKeywords().contains(keyword)) {
+			setKeywordCount(keyword,0); 
+			return keyword; 
+		} else {
+			return null;
+		}
+	}
+	
+	public void resetKeywordCount(String keyword)
+	{
+		setKeywordCount(keyword,0); 	
+	}
+	
+	public void resetKeywordCounts(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			setKeywordCount(keywords[i],0); 
+		}
+	}
+	
+	public void resetAllKeywordCounts()
+	{
+		for (String key : keywordCounts.keySet()) {
+			keywordCounts.put(key,0);
+		}
+	}
+
+	public void setKeywordCount(String keyword, int count)
+	{
+//		System.out.println("KeywordWatcher.setKeywordCount - keyword: " + keyword + "  --  count: " + String.valueOf(count)); 
+		keywordCounts.put(keyword,count); 
+	}
+	
+	public void bumpKeywordCount(String keyword)
+	{
+		int bumpedCount = 0; 
+		if (keywordCounts.containsKey(keyword)) {
+			int currentCount = keywordCounts.get(keyword);
+			bumpedCount = currentCount + 1; 
+			keywordCounts.put(keyword, bumpedCount);
+		}
+		System.err.println("KeywordWatcher.bumpKeywordCount  --  keyword: " + keyword + "  --  count: " + String.valueOf(bumpedCount)); 
+	}
+	
+	public void removeKeyword(String keyword)
+	{
+		keywordCounts.remove(keyword); 	
+	}
+	
+	public void removeKeywords(String[] keywords)
+	{
+		for (int i=0; i < keywords.length; i++) {
+			removeKeyword(keywords[i]); 
+		}
+	}
+	
+	public Set<String> getKeywords()
+	{
+		return keywordCounts.keySet();
+	}	
+	
+	public Integer getNumKeywords()
+	{
+		return keywordCounts.size();
+	}			
+	
+	public Collection<Integer> getKeywordCountsValues()
+	{
+		return keywordCounts.values();
+	}		
+	
+	public Map<String,Integer> getKeywordCounts()
+	{
+		return keywordCounts;
+	}
+	
+
+	public void printKeywordCounts()
+	{	
+		System.err.println(">>> KeywordWatcher.printKeyWordCounts: " + keywordCounts); 
+	}	
 	
 	/**
 	 * @return the classes of events that this Preprocessor cares about
