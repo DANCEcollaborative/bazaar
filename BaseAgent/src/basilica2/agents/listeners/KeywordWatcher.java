@@ -161,6 +161,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private void promptIfAppropriate() {
 		
 		if (!shouldPrompt) {
+			System.err.println("KeywordWatcher.promptIfAppropriate.: shouldPrompt == false");
 			return; 
 		}
 
@@ -357,9 +358,11 @@ public class KeywordWatcher extends BasilicaAdapter
 	}
 	
 	public void removeAllKeywords () {	
+		System.err.println("!!!!!! KeywordWatcher.removeAllKeywords: enter !!!!!!"); 
 		State state = StateMemory.getSharedState(agent);
 		state.removeAllKeywords();
-		StateMemory.commitSharedState(state, agent);			
+		StateMemory.commitSharedState(state, agent);
+		state.printKeywordCounts();
 	}
 	
 	public void resetAllKeywordCounts () {	
