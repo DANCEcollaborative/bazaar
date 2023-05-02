@@ -70,6 +70,7 @@ public class KeywordWatcher extends BasilicaAdapter
 	private int promptInterval = 300;	
 	private HashMap<String,Integer> prioritiesAndCounts = new LinkedHashMap<>(); 
 	private Map<String, Boolean> promptable = new HashMap<String, Boolean>();
+	private Boolean shouldPrompt = true; 
 	
 	
 	
@@ -158,6 +159,10 @@ public class KeywordWatcher extends BasilicaAdapter
     }
 	
 	private void promptIfAppropriate() {
+		
+		if (!shouldPrompt) {
+			return; 
+		}
 
 		// Check if number of keywords mentioned is promptable
 		int numNonZero = nonZeroKeyWordCount(); 
@@ -361,6 +366,10 @@ public class KeywordWatcher extends BasilicaAdapter
 		State state = StateMemory.getSharedState(agent);
 		state.resetAllKeywordCounts();
 		StateMemory.commitSharedState(state, agent);			
+	}
+	
+	public void setShouldPrompt (Boolean shouldPromptSetting) {	
+		shouldPrompt = shouldPromptSetting; 		
 	}
 	
 	/**

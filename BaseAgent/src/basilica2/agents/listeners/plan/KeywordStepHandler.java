@@ -26,7 +26,7 @@ public class KeywordStepHandler implements StepHandler
 	private KeywordGatekeeper keywordGatekeeper = null;
 	private PromptTable prompter = null;
 	private KeywordWatcher keywordWatcher = null;
-//	private HashMap<String, String> slots = null;
+	private Boolean shouldContinuePrompting = false;
 	
 	@Override
 	public void execute(final Step currentStep, final PlanExecutor overmind, final InputCoordinator source)
@@ -60,18 +60,23 @@ public class KeywordStepHandler implements StepHandler
 		}
 
 		// Goal for number of keywords
-		Integer keywordNumberGoal = Integer.valueOf(currentStep.attributes.get("keyword-number-goal"));
+		Integer keywordNumberGoal = Integer.valueOf(currentStep.attributes.get("number-goal"));
 		if (keywordNumberGoal != null) {
 			System.err.println("KeywordStepHandler: keywordNumberGoal: " + keywordNumberGoal);
 			keywordWatcher.setKeywordNumberGoal(keywordNumberGoal);
 		}
 		
 		// Goal for number of mentions for a single keyword
-		Integer keywordMentionsGoal = Integer.valueOf(currentStep.attributes.get("keyword-mentions-goal"));
+		Integer keywordMentionsGoal = Integer.valueOf(currentStep.attributes.get("mentions-goal"));
 		if (keywordMentionsGoal != null) {
 			System.err.println("KeywordStepHandler: keywordMentionsGoal: " + keywordMentionsGoal);
 			keywordWatcher.setKeywordMentionsGoal(keywordMentionsGoal);
 		}
+
+		int[] multipleKeywordMentionsGoal = {0,0};
+		try{multipleKeywordMentionsGoal = Stream.of(currentStep.attributes.get("multiple-mentions-goal").split("[\\s,]+")).mapToInt(Integer::parseInt).toArray();}
+		catch(Exception e) {e.printStackTrace();}	
+		keywordWatcher.setMultipleKeywordMentionsGoal(multipleKeywordMentionsGoal);
 		
 		// promptInterval	
 		Integer promptInterval = Integer.valueOf(currentStep.attributes.get("prompt-interval"));
@@ -79,13 +84,14 @@ public class KeywordStepHandler implements StepHandler
 			System.err.println("KeywordStepHandler: promptInterval: " + promptInterval);
 			keywordWatcher.setPromptInterval(promptInterval);
 		}
-		
-		
-		//vvv TEMP FOR TESTING vvv
-//		System.err.println("\n\n\n>>>>>>>>>>>> KeywordWatcher preprocessor: " + keywordWatcher.toString());
-//		int count = keywordWatcher.maxKeywordCount(); 
-//		System.err.println("maxKeywordCount: " + count + "\n\n\n"); 
-		//^^^ TEMP FOR TESTING ^^^		
+
+		// Continue keyword prompting after step ends? Default to false. 
+		if(currentStep.attributes.containsKey("continue-prompting-after"))
+		{
+			shouldContinuePrompting = Boolean.valueOf(currentStep.attributes.get("continue-prompting-after"));
+		}
+		System.err.println("KeywordStepHandler: shouldContinuePrompting: " + Boolean.valueOf(shouldContinuePrompting));
+
 		
 		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"starting keyword gated step...");
 		if(keywordGatekeeper == null)
@@ -101,19 +107,11 @@ public class KeywordStepHandler implements StepHandler
 		
 		// checkinPrompt
 		String checkinPrompt = currentStep.attributes.get("checkin_prompt");
-		if(checkinPrompt == null)
-		{
-			checkinPrompt = "WAIT_FOR_CHECKIN";
-		}		
 		if(!checkinPrompt.equals("NONE"))
 		{
 			source.pushEventProposal(new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(checkinPrompt), "WAIT_FOR_CHECKIN"), OutputCoordinator.LOW_PRIORITY, 10);
 		}
 
-		
-
-
-		
 		// warningPrompt	
 		String warningPrompt = currentStep.attributes.get("warning_prompt");
 		if(warningPrompt == null)
@@ -131,7 +129,7 @@ public class KeywordStepHandler implements StepHandler
 					if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 					{
 						String warningPrompt = currentStep.attributes.get("warning_prompt");
-						MessageEvent warning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(warningPrompt), "FILE_STEP_TIMEOUT_WARNING");
+						MessageEvent warning = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup(warningPrompt), "KEYWORD_STEP_TIMEOUT_WARNING");
 						source.pushEventProposal(warning, OutputCoordinator.HIGHEST_PRIORITY, 15);
 					}
 				}
@@ -147,8 +145,9 @@ public class KeywordStepHandler implements StepHandler
 				{
 					if(currentStep.equals(overmind.currentPlan.currentStage.currentStep)) //the plan has not progressed on its own yet
 					{
-						MessageEvent timeoutMsgEvent = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("FILE_STEP_TIMED_OUT"), "FILE_STEP_TIMED_OUT");
+						MessageEvent timeoutMsgEvent = new MessageEvent(source, overmind.getAgent().getUsername(), prompter.lookup("KEYWORD_STEP_TIMED_OUT"), "KEYWORD_STEP_TIMED_OUT");
 						source.pushEventProposal(timeoutMsgEvent, OutputCoordinator.HIGHEST_PRIORITY, 10);
+						keywordWatcher.setShouldPrompt(shouldContinuePrompting);
 					}
 				}
 			}).start();

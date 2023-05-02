@@ -12,55 +12,11 @@
     </stage>
     <stage name="playGame" type="other" delay="0">   
 		<step type="prompt" delay="5" prompt="TEMPORARY_PROMPT">TEMPORARY_PROMPT</step>
-        <step type="keyword_gated" delay="5" timeout="30" file="testcase-complete_1" delayed_prompt_time="20" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>
+        <step type="keyword_gated" delay="5" timeout="240"
+			   keywords="loom,warp,weft,beater" 
+			   number-goal="4" mentions-goal="3" multiple-mentions-goal="2,3" prompt-interval="20"
+               checkin_prompt="NONE" warning_prompt="NONE">Keyword_Gated_Step</step>
     	<step type="prompt" delay="360" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
-		<step type="prompt" delay="60" prompt="JEOPARDY_CATEGORY_WARNING">JEOPARDY_CATEGORY_WARNING</step>
-
-    	
-    </stage>
-    <stage name="afterGame" type="other" delay="0">
-        <step type="prompt" delay="30" prompt="JEOPARDY_END">JEOPARDY_WINNER</step>
-        
-    
-    	<!-- // <step type="gated" gated_type="listen" timeout="30" delay="0" checkin_prompt="ALL_READY">WAIT_STEP_1</step>
-        // <step type="prompt" delay="0" prompt="DISCUSS_4a">DISCUSS_4a</step> -->
-   		
-    	<step type="prompt" delay="5" prompt="JEOPARDY_OUTRO" >JEOPARDY_OUTRO</step>
-        <!-- 
-        PIECE OF A PIE -->
-        <!-- 4NEwImage: funnel -->
-        <step type="whiteboard" delay="0" path="https://i.imgur.com/XQSRSCx.png">SHOW_IMAGE</step>
-        <step type="prompt" delay="2" prompt="PIE_INTRO">PIE_INTRO</step>
-        
-        
-        
-        <step type="prompt" delay="8" prompt="PIE_PROMPT" >PIE_PROMPT</step>
-       
-       <!-- SMARTER goals  -->
-<!--        	<step type="whiteboard" delay="1" path="https://i.imgur.com/G7vtzE8.png">SHOW_IMAGE</step> -->
-       	<step type="whiteboard" delay="0" path="https://i.imgur.com/Wql1mt3.png">SHOW_IMAGE</step>
-      <!-- 5NewImage: SmartGoals -->
-        <step type="prompt" delay="5" prompt="TIME_MGMT">TIME_MGMT</step>
-        <!-- <step type="whiteboard" delay="3" path="https://i.imgur.com/l97GY5t.png">SHOW_IMAGE</step> -->
-        <step type="prompt" delay="30" prompt="TIME_MGMT_SHARE">TIME_MGMT_SHARE</step>
-       
-        <!-- <step type="whiteboard" delay="3" path="https://i.imgur.com/cRq4QUF.png">SHOW_IMAGE</step> -->
-        
-        <step type="prompt" delay="180" prompt="SMARTER_GOALS">SMARTER_GOALS</step>
-        <step type="prompt" delay="60" prompt="SMARTER_GOALS_CONT">SMARTER_GOALS_CONT</step>
-        
-        
-        <!-- SOCIAL MEDIA SHARE -->
-        <!-- 6NewImage: social media -->
-        <step type="whiteboard" delay="0" path="https://i.imgur.com/DtTb09V.png">SHOW_IMAGE</step>
-        <step type="prompt" delay="25" prompt="SOCIAL">SOCIAL</step>
-        <!-- 7NewImage: Google Form  -->
-
-        <step type="prompt" delay="1" prompt="GOOGLE_FORM">GOOGLE_FORM</step>
-        <step type="whiteboard" delay="0" path="https://i.imgur.com/skLztOR.png">SHOW_IMAGE</step>
-        <step type="prompt" delay="5" prompt="WGU_GOODBYE">WGU_GOODBYE</step>
-        <step type="chatlog" delay="2" >CHAT_LOGS</step>
-        <step type="logout" delay="1">LOGOUT</step>
-        
+		<step type="prompt" delay="60" prompt="JEOPARDY_CATEGORY_WARNING">JEOPARDY_CATEGORY_WARNING</step>   	
     </stage>
 </plan>
