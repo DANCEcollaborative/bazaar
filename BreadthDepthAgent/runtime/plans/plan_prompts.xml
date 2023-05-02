@@ -46,8 +46,12 @@
         <text>Before we start: You’re piloting a brand new activity! If Sage the Owl should suddenly have to go lie down, don’t worry; you’ll still get credit.</text>
     </prompt>
 
-	<prompt strategy="task" id="TEMPORARY_PROMPT">
-        <text>ABOUT TO EXECUTE keyword_gated STEP</text>
+	<prompt strategy="task" id="ENTRY_PROMPT">
+        <text>Executing keyword_gated step in 30 seconds ...</text>
+    </prompt>
+
+	<prompt strategy="task" id="EXIT_PROMPT">
+        <text>Keyword_gated step has completed.</text>
     </prompt>
 
 	<prompt strategy="task" id="DIRECTIONS">

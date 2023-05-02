@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plan name="Jeopardy game">
+<plan name="Keyword plan">
 	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
     <stage name="initiate" type="other" delay="5">
-        <!-- <step type="prompt" delay="5" prompt="JEOPARDY_INTRO_SHORT" >JEOPARDY_INTRO_SHORT</step> -->
-        <!-- <step type="prompt" delay="1" prompt="JEOPARDY_INSTRUCTIONS" >JEOPARDY_INSTRUCTIONS</step> -->
         <!-- 3NewImage: Jeopardy Board -->
         <step type="whiteboard" delay="0" path="https://i.imgur.com/bn6DWNy.png">SHOW_IMAGE</step>
         <!-- TODO: Gated Step -->
     </stage>
-    <stage name="playGame" type="other" delay="0">   
-		<step type="prompt" delay="30" prompt="TEMPORARY_PROMPT">TEMPORARY_PROMPT</step>
+    <stage name="keyword_manipulatio" type="other" delay="0">   
+		<step type="prompt" delay="30" prompt="ENTRY_PROMPT">ENTRY_PROMPT</step>
         <step type="keyword_gated" delay="5" timeout="240"
 			   keywords="LOOM,WARP,WEFT,SHAFT" 
 			   number-goal="4" mentions-goal="3" multiple-mentions-goal="2,3" prompt-interval="20"
 			   prompt-priorities="number-goal,mentions-goal,multiple-mentions-goal"
-               checkin_prompt="NONE" warning_prompt="NONE">Keyword_Gated_Step</step>
-    	<step type="prompt" delay="360" prompt="JEOPARDY_CATEGORY">JEOPARDY_CATEGORY</step>
-		<step type="prompt" delay="60" prompt="JEOPARDY_CATEGORY_WARNING">JEOPARDY_CATEGORY_WARNING</step>   	
+               checkin_prompt="WAIT_FOR_CHECKIN" warning_prompt="NONE">Keyword_Gated_Step</step>  
+		<step type="prompt" delay="75" prompt="EXIT_PROMPT">EXIT_PROMPT</step> 	
     </stage>
 </plan>
