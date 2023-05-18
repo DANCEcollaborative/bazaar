@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Viewstl Javascript Plugin - Simple Example</title>
+    </head>
+
+    <body>
+        <div id="stl_cont" style="width:1000px;height:1000px;margin:0 auto;"></div>
+
+        <script src="./stl_viewer.min.js"></script>        
+        <script>
+            var stl_viewer=new StlViewer
+            (
+                document.getElementById("stl_cont"),
+                {
+                    models:
+                    [
+                    {filename:"./loom_v3.STL"}
+                    ]
+                }
+            );
+        </script>
+        
+    </body>
+</html>
