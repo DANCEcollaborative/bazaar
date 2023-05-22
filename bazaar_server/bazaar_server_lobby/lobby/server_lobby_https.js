@@ -509,7 +509,7 @@ let LOCKDOWN_TIME = 0;
 // let LOCKDOWN_TIME = 365*24*60*60*1000; //lobby open for 1 year
 let START_TIME = new Date().getTime();
 const chat_url = "https://bazaar.lti.cs.cmu.edu/bazaar/chat/";
-const roomname_prefix = "jeopardybigwgu";
+const roomname_prefix = "fcdsp2";
 // const create_script = "../../scripts/create-cc-rooms.sh"
 
 // when the daemon started
@@ -520,7 +520,7 @@ let teamMemberNames = {};
 function getLoginInstructionText(nick)
 {
     const now = new Date().getTime();
-    message = "<p>Welcome to the matchmaker lobby. Hang on &#8212; it may take up to 10 minutes to match you as we wait for other students to arrive. We'll match you up with a WGU peer as soon as we can.</p><p>Please confirm that you are here at 6pm Mountain Time (5pm Pacific, 7pm Central, 8pm Eastern).</p><p>Follow the instructions on screen as they appear!</p>"
+    message = "<p>Welcome to the matchmaker lobby. Hang on &#8212; it may take up to 10 minutes to match you as we wait for other students to arrive. We'll match you up with a peer as soon as we can.</p><p>Follow the instructions on screen as they appear!</p>"
     return message;
 }
 
