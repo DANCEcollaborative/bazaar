@@ -918,7 +918,7 @@ setInterval(function ()
             const member = team[i];
             
             const memberID = i + 1; 
-            const html = "jeopardy"
+            const html = "sharing_space_chat_mm"
 	
             const roomname = roomname_prefix+pad(teamNumber,2);
             const url = chat_url + roomname + "/" + memberID + "/" + member.nick + "/undefined/?html=" + html + "&forum=undefined";
