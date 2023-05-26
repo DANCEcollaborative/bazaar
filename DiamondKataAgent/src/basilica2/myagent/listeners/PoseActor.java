@@ -99,11 +99,19 @@ public class PoseActor extends BasilicaAdapter
 	{
 		System.err.println("====== PoseActor.poseEventResponseHandraise: ");
 		String location = poseEvent.getLocation(); 
-		String prompt;
+		String prompt = null; 
 		if (location == null) {
 			prompt = prompter.lookup("HANDRAISE_RESPONSE_WITHOUT_LOCATION");
 		} else {
-			prompt = prompter.lookup("HANDRAISE_RESPONSE_WITH_LOCATION");
+			if (location.equals("left")) {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_LEFT");
+			} else if (location.equals("right")) {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_RIGHT");
+			} else if (location.equals("front")) {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_FRONT");
+			} else {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_WITHOUT_LOCATION");
+			}
 		} 
 		MessageEvent newMe = new MessageEvent(source, agent.getName(), prompt);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, newMe, 1.0, 5, 5);
