@@ -24,7 +24,7 @@ import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 
-public class PoseWatcher extends BasilicaAdapter
+public class PoseActor extends BasilicaAdapter
 {
 	private static final String SOURCE_NAME = "PoseActor";
 	InputCoordinator source;
@@ -32,7 +32,7 @@ public class PoseWatcher extends BasilicaAdapter
 	private String identityAllUsers = "group";
 	private PromptTable prompter;
 	
-	public PoseWatcher(Agent a)
+	public PoseActor(Agent a)
 	{
 		super(a, SOURCE_NAME);
 		prompter = new PromptTable("plans/plan_prompts.xml");
@@ -96,7 +96,7 @@ public class PoseWatcher extends BasilicaAdapter
 	
 	private void poseEventResponseHandraise(InputCoordinator source, PoseEvent poseEvent)
 	{
-		System.err.println("====== PoseActor.poseEventResponseHandraise: ");
+		System.err.println("====== PoseActor.poseEventResponseHandraise: " + poseEvent.toString());
 		String location = poseEvent.getLocation(); 
 		String prompt = null; 
 		if (location == null) {
