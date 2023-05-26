@@ -24,7 +24,7 @@ import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 
-public class PoseActor extends BasilicaAdapter
+public class PoseWatcher extends BasilicaAdapter
 {
 	private static final String SOURCE_NAME = "PoseActor";
 	InputCoordinator source;
@@ -32,7 +32,7 @@ public class PoseActor extends BasilicaAdapter
 	private String identityAllUsers = "group";
 	private PromptTable prompter;
 	
-	public PoseActor(Agent a)
+	public PoseWatcher(Agent a)
 	{
 		super(a, SOURCE_NAME);
 		prompter = new PromptTable("plans/plan_prompts.xml");
@@ -182,7 +182,7 @@ public class PoseActor extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{ 
-		return null;
+		return new Class[]{PoseEvent.class};
 	}
 	
 	public String getStatus()
