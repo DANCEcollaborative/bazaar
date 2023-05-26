@@ -31,14 +31,14 @@
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
         <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
-    </prompt>  
+    </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
-     <text>Thanks for participating in today's OPE activity. Execute the submitter script one at a time using './submitter'. Even if the submission fails you will get the post-quiz token for accessing the post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
+     <text>Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
      </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="ope_end">
-     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Remember to execute the submitter script one at a time using './submitter'. Even if the submission fails you will get the post-quiz token for accessing the post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
+     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
     </prompt>
  
 

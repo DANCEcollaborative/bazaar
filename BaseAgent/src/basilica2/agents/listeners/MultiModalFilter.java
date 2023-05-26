@@ -23,6 +23,7 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
 import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
 import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
@@ -125,9 +126,6 @@ public class MultiModalFilter extends BasilicaAdapter
 	// Handles multimodal messages 
 	private void handleMessageEvent(InputCoordinator source, MessageEvent me)
 	{
-		// TEMP for DEBUGGING
-//		State s = StateMemory.getSharedState(source.getAgent());
-		// State currentState = StateMemory.getSharedState(thisAgent);
 		State currentState = StateMemory.getSharedState(agent);
 //		System.err.println("MultiModalFilter, current number of students: " + currentState.getStudentCount());
 		
@@ -158,6 +156,8 @@ public class MultiModalFilter extends BasilicaAdapter
 			
 			// Update the message sender's properties based on multimodal updates
 			boolean processSpeech = false; 
+			poseEventType pose = null; 
+			String location = null; 
 //			String speechText = ""; 
 			for (int i = 0; i < multiModalMessage.length; i++) {
 //				System.out.println("=====" + " Multimodal message entry -- " + multiModalMessage[i] + "======");
@@ -171,55 +171,59 @@ public class MultiModalFilter extends BasilicaAdapter
 //					log(Logger.LOG_NORMAL, "=========== multimodal message ===========");
 					break;
 				case identity:  // already handled above 
-//					System.out.println("identity: " + messagePart[1]);	
+//					System.out.println("MultiModalFilter.handleMessageEvent - identity: " + messagePart[1]);	
 					break;	
 				case from:  
-//					System.out.println("from: " + messagePart[1]);	
+//					System.out.println("MultiModalFilter.handleMessageEvent - from: " + messagePart[1]);	
 //					log(Logger.LOG_NORMAL, "from: " + messagePart[1]);
 					break;		
 				case to:  
-//					System.out.println("to: " + messagePart[1]);	
+//					System.out.println("MultiModalFilter.handleMessageEvent - to: " + messagePart[1]);	
 //					log(Logger.LOG_NORMAL, "to: " + messagePart[1]);
 					break;									
 				case speech:
 					processSpeech = true; 
 					String speechText = messagePart[1]; 
 					me.setText(speechText); 
-					log(Logger.LOG_NORMAL, "speech: " + speechText);
+					log(Logger.LOG_NORMAL, "MultiModalFilter.handleMessageEvent - speech: " + speechText);
 					break;		
 				case intention:  
-//					System.out.println("intention: " + messagePart[1]);	
+//					System.out.println("MultiModalFilter.handleMessageEvent - intention: " + messagePart[1]);	
 //					log(Logger.LOG_NORMAL, "intention: " + messagePart[1]);
 					break;			
 				case location:
-//					System.out.println("location: " + messagePart[1]);
-					if (trackLocation)
+					System.out.println("MultiModalFilter.handleMessageEvent - location: " + messagePart[1]);
+					location = messagePart[1]; 
+					if (trackLocation) {
 						locationUpdate(source,me,messagePart[1]);
+					}
 					break;
 				case facialExp:
-//					System.out.println("facial expression: " + messagePart[1]);
+//					System.out.println("MultiModalFilter.handleMessageEvent - facial expression: " + messagePart[1]);
 					break;
 				case pose:
-//					System.err.println("pose: " + poseEventType.valueOf(messagePart[1]));
-					poseUpdate(source,me,poseEventType.valueOf(messagePart[1])); 
+					System.err.println("MultiModalFilter.handleMessageEvent - pose: " + poseEventType.valueOf(messagePart[1]));
+					pose = poseEventType.valueOf(messagePart[1]); 
+//					poseUpdate(source,me,poseEventType.valueOf(messagePart[1])); 
 					break;
 				case emotion:
-//					System.out.println("emotion: " + messagePart[1]);
+//					System.out.println("MultiModalFilter.handleMessageEvent - emotion: " + messagePart[1]);
 					break;
 				case presence:  
-					System.out.println("presence: " + messagePart[1]);	
+					System.out.println("MultiModalFilter.handleMessageEvent - presence: " + messagePart[1]);	
 					log(Logger.LOG_NORMAL, "presence: " + messagePart[1]);
 					break;	
 				case userID:  
-//					System.out.println("userID: " + messagePart[1]);	
+//					System.out.println("MultiModalFilter.handleMessageEvent - userID: " + messagePart[1]);	
 //					log(Logger.LOG_NORMAL, "userID: " + messagePart[1]);
 					break;	
 					
 				default:
-					System.out.println(">>>>>>>>> Invalid multimodal tag: " + messagePart[0] + "<<<<<<<<<<");
+					System.out.println("MultiModalFilter.handleMessageEvent - >>> Unhandled multimodal tag: " + messagePart[0] + "<<<");
 				}
 			}
 			
+			// Process speech
 			if (processSpeech) {				
 				// So that the agent doesn't hear itself, ignore speech heard while the agent is speaking 
 				if (dontListenWhileSpeaking) {
@@ -242,6 +246,12 @@ public class MultiModalFilter extends BasilicaAdapter
 					}
 				}
 			}
+			
+			// Process pose
+			if (pose != null) {
+				poseUpdate(source,me,pose,location); 
+			}
+			
 		}  
     }
 		
@@ -260,10 +270,10 @@ public class MultiModalFilter extends BasilicaAdapter
 	}
             
 	
-	private void poseUpdate(final InputCoordinator source, MessageEvent me, poseEventType poseType)
+	private void poseUpdate(final InputCoordinator source, MessageEvent me, poseEventType poseType, String location)
 	{
-//		System.err.println("MultiModalFilter pose update -- from: " + me.getFrom() + " -- pose: " + poseType.toString()); 
-		PoseEvent poseE = new PoseEvent(source,me.getFrom(),poseType);
+		System.err.println("MultiModalFilter.poseUpdate -- from: " + me.getFrom() + " -- pose: " + poseType.toString() + " -- location: " + location); 
+		PoseEvent poseE = new PoseEvent(source,me.getFrom(),poseType, location);
 		source.pushEvent(poseE);
 	}
 
@@ -281,7 +291,6 @@ public class MultiModalFilter extends BasilicaAdapter
 	            checkDistances(source, me, identity, location);            	
 	        }   			
 		}
-
 	}
 	
 	private void checkDistances (InputCoordinator source, MessageEvent me, String identity, String myLocation) {

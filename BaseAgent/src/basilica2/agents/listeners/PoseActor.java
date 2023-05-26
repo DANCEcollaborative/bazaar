@@ -1,4 +1,4 @@
-package basilica2.myagent.listeners;
+package basilica2.agents.listeners;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,14 +11,15 @@ import java.util.Scanner;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PoseEvent;
+import basilica2.agents.events.StepDoneEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
-import basilica2.agents.listeners.BasilicaAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
@@ -29,10 +30,12 @@ public class PoseActor extends BasilicaAdapter
 	InputCoordinator source;
 	private String status = "";
 	private String identityAllUsers = "group";
+	private PromptTable prompter;
 	
 	public PoseActor(Agent a)
 	{
 		super(a, SOURCE_NAME);
+		prompter = new PromptTable("plans/plan_prompts.xml");
 		log(Logger.LOG_WARNING, "PoseActor created");
 		System.err.println("PoseActor created"); 
 	}
@@ -57,7 +60,7 @@ public class PoseActor extends BasilicaAdapter
 			poseEventResponseGroup(source, poseEvent);
 		}
 		else {
-			poseEventResponseIndividual(source, poseEvent, identity);
+			poseEventResponseIndividual(source, poseEvent);
 		}
 	}
 	
@@ -78,18 +81,52 @@ public class PoseActor extends BasilicaAdapter
         StateMemory.commitSharedState(s, agent);		
 	}
 	
-	private void poseEventResponseIndividual(InputCoordinator source, PoseEvent poseEvent, String identity)
+	private void poseEventResponseIndividual(InputCoordinator source, PoseEvent poseEvent)
 	{
+		String identity = poseEvent.getIdentity();	
 		if (poseEvent.getPoseEventType() == poseEventType.seated) {
-			poseEventResponseIndividualSeated(source, poseEvent, identity); 
-		}	
+			poseEventResponseIndividualSeated(source, poseEvent); 
+		} else if (poseEvent.getPoseEventType() == poseEventType.handraise) {
+			poseEventResponseHandraise(source, poseEvent); 
+		}
 		State s = State.copy(StateMemory.getSharedState(agent));
         s.setStudentPose(identity,poseEvent.getPoseEventType());
         StateMemory.commitSharedState(s, agent);
 	}
 	
-	private void poseEventResponseIndividualSeated(InputCoordinator source, PoseEvent poseEvent, String thisIdentity)
+	private void poseEventResponseHandraise(InputCoordinator source, PoseEvent poseEvent)
 	{
+		System.err.println("====== PoseActor.poseEventResponseHandraise: " + poseEvent.toString());
+		String location = poseEvent.getLocation(); 
+		String prompt = null; 
+		if (location == null) {
+			prompt = prompter.lookup("HANDRAISE_RESPONSE_WITHOUT_LOCATION");
+		} else {
+			if (location.equals("left")) {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_LEFT");
+			} else if (location.equals("right")) {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_RIGHT");
+			} else if (location.equals("front")) {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_FRONT");
+			} else {
+				prompt = prompter.lookup("HANDRAISE_RESPONSE_WITHOUT_LOCATION");
+			}
+		} 
+		MessageEvent newMe = new MessageEvent(source, agent.getName(), prompt);
+		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent(SOURCE_NAME, newMe, 1.0, 5, 5);
+		blackout.addCallback(new Callback()
+		{
+			@Override
+			public void accepted(PriorityEvent p) {}
+			@Override
+			public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
+		});
+		source.pushProposal(blackout);
+	}
+	
+	private void poseEventResponseIndividualSeated(InputCoordinator source, PoseEvent poseEvent)
+	{
+		String identity = poseEvent.getIdentity();	
 		poseEventType prevGroupPose = StateMemory.getSharedState(agent).getGroupPose(); 	
 		if (poseEvent.getPoseEventType() == poseEventType.seated) {
 			if (prevGroupPose == poseEventType.too_close) {		// Check if users were too close and now are all seated
@@ -100,7 +137,7 @@ public class PoseActor extends BasilicaAdapter
 				System.err.println("poseEventResponseIndividualSeated: checking if all students seated"); 
 				for (int i = 0; i < studentIDs.length; i++)  {
 					String otherIdentity = studentIDs[i]; 
-					if (otherIdentity != thisIdentity) {
+					if (otherIdentity != identity) {
 						poseType = s.getStudentPose(otherIdentity); 
 						if (poseType != poseEventType.seated) {
 							allStudentsSeated = false; 
@@ -145,7 +182,7 @@ public class PoseActor extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{ 
-		return null;
+		return new Class[]{PoseEvent.class};
 	}
 	
 	public String getStatus()

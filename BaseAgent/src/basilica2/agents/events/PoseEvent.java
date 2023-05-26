@@ -44,15 +44,21 @@ public class PoseEvent extends Event {
     private String identity = null;
 	public enum poseEventType  
 	{
-		seated, standing, hand_raised, too_close, none;
+		seated, standing, handraise, too_close, none;
 	}
 	private poseEventType poseType; 
+	private String location; 
 
-    public PoseEvent(Component s, String id, poseEventType pet) {
+    public PoseEvent(Component s, String id, poseEventType pet, String loc) {
         super(s);
         identity = id;
         poseType = pet; 
-        System.err.println("PoseEvent created: identity: " + id + " -- event type:" + pet.toString());
+        location = loc; 
+        System.err.println("PoseEvent created: identity: " + id + " -- event type:" + pet.toString() + " -- location:" + loc);
+    }
+
+    public PoseEvent(Component s, String id, poseEventType pet) {
+        this(s, id, pet, null);
     }
 
     public String getIdentity() {
@@ -61,6 +67,10 @@ public class PoseEvent extends Event {
 
     public poseEventType getPoseEventType() {
         return poseType;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     @Override
