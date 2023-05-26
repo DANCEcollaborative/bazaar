@@ -1,4 +1,4 @@
-package basilica2.myagent.listeners;
+package basilica2.agents.listeners;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +20,6 @@ import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.agents.events.priority.BlacklistSource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
-import basilica2.agents.listeners.BasilicaAdapter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
