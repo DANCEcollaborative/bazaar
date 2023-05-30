@@ -9,7 +9,7 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
-    	<step type="prompt" delay="5" prompt="WAITING_TO_START">WAITING_TO_START</step> 
+    	<!-- <step type="prompt" delay="5" prompt="WAITING_TO_START">WAITING_TO_START</step> -->
      	<step type="greet" timeout="240" delay="0">GREETINGS</step> 
     </stage>  
     
