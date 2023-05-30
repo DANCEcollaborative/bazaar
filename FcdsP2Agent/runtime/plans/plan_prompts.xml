@@ -3,8 +3,12 @@
 
 	<!-- GREETING PROMPTS --> 
 	
+    <prompt strategy="task" id="WAITING_TO_START" intention="WAITING_TO_START">
+        <text>Hi! I'm OPE_Bot. We will start in about 4 minutes. Meanwhile, tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a few moments to learn more about each other.</text>
+    </prompt>
+	
     <prompt strategy="task" id="INTRODUCE" intention="Build_rapport">
-        <text>We're starting! I'm OPE_Bot.|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a moment to learn more about each other.</text>
+        <text>We're starting!</text>
     </prompt>
     
     <prompt strategy="task" id="GREET" intention="Greet">
@@ -30,7 +34,7 @@
 	<!-- GENERAL PROMPTS -->  
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
-        <text>Okay! We are now in the Programming phase. Let's get started with Task 1 and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
+        <text>We're starting! We are now in the Programming phase. Let's get started with Task 1 and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
     </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">

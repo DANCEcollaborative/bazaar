@@ -8,8 +8,9 @@
    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
-    <stage name="StageInitialization" type="other" delay="0"> 
-     	<step type="greet" timeout="45" delay="0">GREETINGS</step> 
+    <stage name="StageInitialization" type="other" delay="0">  
+    	<step type="prompt" delay="5" prompt="WAITING_TO_START">WAITING_TO_START</step> 
+     	<step type="greet" timeout="240" delay="0">GREETINGS</step> 
     </stage>  
     
     <stage name="StageLO1" type="other" delay="0">
@@ -77,7 +78,7 @@
     	<step type="send_end" delay="2">send_end</step>  
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="4800">  
+    <stage name="EndStage" type="other" delay="0" timeout="5040">  
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="5" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
     	<step type="logstate" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END" delay="2">log_state</step>  
