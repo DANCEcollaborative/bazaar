@@ -30,7 +30,7 @@
 	<!-- GENERAL PROMPTS -->  
       
     <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
-        <text>Okay! We are now in the Programming phase. Let's get started with 'task1.py' and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
+        <text>Okay! We are now in the Programming phase. Let's get started with Task 1 and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
     </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
@@ -46,7 +46,7 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
      <prompt strategy="task" id="PROMPT_DISCUSSION1" intention="discussion_phase_start">
-     <text>Now, before we move on to 'task2.py', let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
+     <text>Now, before we move on to Task 2, let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
@@ -62,11 +62,11 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="role_switch_warning">
-        <text>Ok, we are switching roles now. Let's move on to 'task2.py'.</text>
+        <text>Ok, we are switching roles now. Let's move on to Task 2.</text>
     </prompt>
 
      <prompt strategy="task" id="PROMPT_DISCUSSION2" intention="discussion_phase_start">
-     <text>Now, before we move on to 'task3.py', let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
+     <text>Now, before we move on to Task 3, let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
@@ -82,11 +82,11 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
       
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="role_switch_warning">
-        <text>Ok, we are switching roles now. Let's move on to 'task3.py'.</text>
+        <text>Ok, we are switching roles now. Let's move on to Task 3.</text>
     </prompt>
     
      <prompt strategy="task" id="PROMPT_DISCUSSION3" intention="discussion_phase_start">
-     <text>Now, before we move on to 'task4.py', let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
+     <text>Now, before we move on to Task 4, let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
@@ -102,7 +102,7 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
       
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4" intention="role_switch_warning">
-        <text>Ok, we are switching roles now. Let's move on to 'task4.py'.</text>
+        <text>Ok, we are switching roles now. Let's move on to Task 4.</text>
     </prompt>
 
      <prompt strategy="task" id="PROMPT_DISCUSSION4" intention="discussion_phase_start">
