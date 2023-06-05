@@ -100,7 +100,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 	private String dialogueConfigFile = "dialogues/dialogues-example.xml";
 	private int introduction_cue_timeout = 60;
 	private int introduction_cue_timeout2 = 60;
-	private int tutorTimeout = 45;
+	private int tutorTimeout = 10;
 	private String request_poke_prompt_text = "I am waiting for your response to start. Please ask for help if you are stuck.";
 	private String goahead_prompt_text = "Let's go ahead with this.";
 	private String response_poke_prompt_text = "Can you rephrase your response?";

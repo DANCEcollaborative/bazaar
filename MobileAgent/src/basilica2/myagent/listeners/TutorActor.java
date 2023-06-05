@@ -100,7 +100,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 	private String dialogueConfigFile = "dialogues/dialogues-example.xml";
 	private int introduction_cue_timeout = 60;
 	private int introduction_cue_timeout2 = 60;
-	private int tutorTimeout = 45;
+	private int tutorTimeout = 10;
 	private String request_poke_prompt_text = "I am waiting for your response to start. Please ask for help if you are stuck.";
 	private String goahead_prompt_text = "Let's go ahead with this.";
 	private String response_poke_prompt_text = "Can you rephrase your response?";
@@ -222,95 +222,101 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 //		{
 //			return;
 //		}
-
-//		System.out.println("MobileAgent's TutorActor, ProcessEvent -- enter");
-
-		if (block) {
-			/*
-			 * try { Thread.sleep(15000); //1000 milliseconds is one second. }
-			 * catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
-			 * System.out.println("OUT OF SLEEP!");
-			 */
+		if(block)
+		{
+			/*try {
+			    Thread.sleep(15000);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+			System.out.println("OUT OF SLEEP!");*/
 			block = false;
 		}
-		if (e instanceof DoTutoringEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is DoTutoringEvent");
-			// queue up the start of the tutoring engine.
-
+		if (e instanceof DoTutoringEvent)
+		{
+			//queue up the start of the tutoring engine.
+			
 			handleDoTutoringEvent((DoTutoringEvent) e);
-//			 MessageEvent me = ((DoTutoringEvent) e).getMessageEvent();
-//			 if(me != null)
-//			 {
-//			 handleRequestDetectedEvent((MessageEvent) me);
-//			 }
-		} else if (e instanceof TutoringStartedEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is TutoringStartedEvent");
-			// start dialog engine
-//			handleTutoringStartedEvent((TutoringStartedEvent) e);
-		} else if (e instanceof PresenceEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is PresenceEvent");
-			// start dialog engine
-//			PresenceEvent event = (PresenceEvent) e;
-//			numUser = event.getNumUsers();
-		} else if (e instanceof PromptEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is PromptEvent");
-//			PromptEvent event = (PromptEvent) e;
-//			if (event.from.equals("INTRODUCTION")) {
-//				block = true;
-//				System.out.println("GO TO SLEEP!");
-//			}
-		} else if (e instanceof MessageEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is MessageEvent");
-			// check for concept match and start specific dialog - mostly used for
-			// affirmative to 'are you ready'
+			//MessageEvent me = ((DoTutoringEvent) e).getMessageEvent();
+			//if(me != null)
+			//{
+			//	handleRequestDetectedEvent((MessageEvent) me);
+			//}
+		}
+		else if (e instanceof TutoringStartedEvent)
+		{
+			//start dialog engine
+			handleTutoringStartedEvent((TutoringStartedEvent) e);
+		}
+		else if (e instanceof PresenceEvent)
+		{
+			//start dialog engine
+			PresenceEvent event = (PresenceEvent) e;
+			numUser = event.getNumUsers();
+		}
+		else if (e instanceof PromptEvent)
+		{
+			PromptEvent event  = (PromptEvent) e;
+			if(event.from.equals("INTRODUCTION"))
+			{
+				block = true;
+				System.out.println("GO TO SLEEP!");
+			}
+		}
+		else if (e instanceof MessageEvent)
+		{
+			//check for concept match and start specific dialog - mostly used for affirmative to 'are you ready'
 			handleRequestDetectedEvent((MessageEvent) e);
-		} else if (e instanceof StudentTurnsEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is StudentTurnsEvent");
-			// aggregated student input
-//			handleStudentTurnsEvent((StudentTurnsEvent) e);
-		} else if (e instanceof MoveOnEvent) {
-//			System.out.println("MobileAgent's TutorActor, ProcessEvent -- this is MoveOnEvent");
-			// someone's decided we should progress the dialog
-//			handleMoveOnEvent((MoveOnEvent) e);
+		}
+		else if (e instanceof StudentTurnsEvent)
+		{
+			//aggregated student input
+			handleStudentTurnsEvent((StudentTurnsEvent) e);
+		}
+		else if (e instanceof MoveOnEvent)
+		{
+			//someone's decided we should progress the dialog
+			handleMoveOnEvent((MoveOnEvent) e);
 		}
 	}
 
 	private void handleDoTutoringEvent(DoTutoringEvent dte)
 	{
-//		System.out.println("MobileAgent's TutorActor, handleDoTutoringEvent -- enter");
 		Dialog d = proposedDialogs.get(dte.getConcept());
 		if (d != null)
 		{
-			launchDialogOffer(d);
-//			if(isTutoring)
-//			{
-//				if (interruptForNewDialogues)
-//				{
-//					//TODONE: respond to start-tutoring command by ending current tutoring session
-//					sendTutorMessage(moving_on_text);
-//					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
-//					source.queueNewEvent(doneEvent);
-//					prioritySource.setBlocking(false);
-//					
-//	//				TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { moving_on_text });
-//	//				this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
-//	//
-//	//				DoneTutoringEvent dte2 = new DoneTutoringEvent(this, currentConcept, true);
-//	//				this.broadcast(dte2);
-//	
-//					currentAutomata = null;
-//					currentConcept = null;
-//					isTutoring = false;
-//	
-//					// dialogsReadyQueue.add(d);
-//					launchDialogOffer(d);
-//				}
-//			} else {
-//				launchDialogOffer(d);
-//			}
-		} else 
-		{
-//			System.out.println("MobileAgent's TutorActor, handleDoTutoringEvent -- Dialog d == null");
+			if(isTutoring)
+			{
+				if (interruptForNewDialogues)
+				{
+					//TODONE: respond to start-tutoring command by ending current tutoring session
+					sendTutorMessage(moving_on_text);
+					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
+					source.queueNewEvent(doneEvent);
+					prioritySource.setBlocking(false);
+					
+	//				TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { moving_on_text });
+	//				this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
+	//
+	//				DoneTutoringEvent dte2 = new DoneTutoringEvent(this, currentConcept, true);
+	//				this.broadcast(dte2);
+	
+					currentAutomata = null;
+					currentConcept = null;
+					isTutoring = false;
+	
+					// dialogsReadyQueue.add(d);
+					launchDialogOffer(d);
+				}
+				else
+				{
+					log(Logger.LOG_WARNING, "Won't start dialogue "+dte.getConcept()+" while current dialog is running - ask again later!");
+				}
+			}
+			else
+			{
+				launchDialogOffer(d);
+			}
 		}
 	}
 
@@ -319,20 +325,21 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		for(String concept : e.getAllAnnotations())
 		{
 			Dialog killMeNow = null;
-//			System.out.println("MobileAgent's TutorActor, handleRequestDetectedEvent -- enter");
 
-			for (Dialog d : pendingDialogs.values()) {
+			for(Dialog d : pendingDialogs.values())
+			{
 
-				if (d.acceptAnnotation.equals(concept)) {
+				if (d.acceptAnnotation.equals(concept))
+				{
 
 					killMeNow = d;
-//					System.out.println("MobileAgent's TutorActor, handleRequestDetectedEvent, case 1 -- calling sendTutorMessage");
 					sendTutorMessage(d.acceptText);
-//					startDialog(d);
-				} else if (d.cancelAnnotation.equals(concept)) {
+					startDialog(d);
+				}
+				else if(d.cancelAnnotation.equals(concept))
+				{
 
 					killMeNow = d;
-//					System.out.println("MobileAgent's TutorActor, handleRequestDetectedEvent, case 2 -- calling sendTutorMessage");
 					sendTutorMessage(d.cancelText);
 					prioritySource.setBlocking(false);
 					
@@ -429,16 +436,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 								// If expecting non-null response and didnt get
 								// it, poke for response
 								noMatchingResponseCount++;
-								if (noMatchingResponseCount <= numUser + 2)
-								{
-									//TODONE: fire poke event in repsonse to student message
-//									TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { response_poke_prompt_text,
-//											lastTutorTurns.get(lastTutorTurns.size() - 1) });
-//									this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
-									//sendTutorMessage(response_poke_prompt_text, lastTutorTurns.get(lastTutorTurns.size() - 1));
-									System.out.println("unanticipated");
-								}
-								else if (noMatchingResponseCount >= numUser + 2)
+								if (noMatchingResponseCount <= 1000)
 								{
 									// Give up and just go with Unanticipated
 									// Response match
@@ -447,6 +445,24 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 									List<String> tutorTurns = currentAutomata.progress(concept);
 									processTutorTurns(tutorTurns);
 								}
+//								if (noMatchingResponseCount <= numUser + 2)
+//								{
+//									//TODONE: fire poke event in repsonse to student message
+////									TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] { response_poke_prompt_text,
+////											lastTutorTurns.get(lastTutorTurns.size() - 1) });
+////									this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
+//									//sendTutorMessage(response_poke_prompt_text, lastTutorTurns.get(lastTutorTurns.size() - 1));
+//									System.out.println("unanticipated");
+//								}
+//								else if (noMatchingResponseCount <= numUser + 2)
+//								{
+//									// Give up and just go with Unanticipated
+//									// Response match
+//									expectingResponse = false;
+//									noMatchingResponseCount = 0;
+//									List<String> tutorTurns = currentAutomata.progress(concept);
+//									processTutorTurns(tutorTurns);
+//								}
 							}
 							else
 							{
@@ -544,7 +560,6 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 
 	private void launchDialogOffer(Dialog d)
 	{
-//		System.out.println("MobileAgent's TutorActor, launchDialogOffer -- enter");
 		if (enlistedDialog != null)
 		{
 			//TODONE: gracefully clear previous dialog if need be (now handling "requests" internally)
@@ -554,9 +569,8 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		}
 
 		// Prompt IntroText & CueText
-		// TODONE: launch intro & cue for dialog
-//		prioritySource.setBlocking(true);
-//		System.out.println("MobileAgent's TutorActor, launchDialogOffer -- about to sendTutorMessage: " + d.introText);
+		//TODONE: launch intro & cue for dialog
+		prioritySource.setBlocking(true);
 		sendTutorMessage(d.introText);
 //		TutorTurnsEvent tte = new TutorTurnsEvent(this, new String[] {  });
 //		this.dispatchEvent(myAgent.getComponent(tutoring_actor_name), tte);
@@ -565,14 +579,14 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		//TODONE: register for concept 'requests'
 //		EnlistRequestEvent ere = new EnlistRequestEvent(this, d.cueId, d.conceptName);
 //		this.dispatchEvent(myAgent.getComponent(request_detector_name), ere);
-//		enlistedDialog = d.conceptName;
-		// hook up dialog to cue - here, it's any "affirmative" response
-//		pendingDialogs.put(d.acceptAnnotation, d);
+		enlistedDialog = d.conceptName;
+		//hook up dialog to cue - here, it's any "affirmative" response
+		pendingDialogs.put(d.acceptAnnotation, d);
 
 		// Setup timer (or tick count) to poke students if the enlisted request
 		// is not responded to yet!
-//		Timer t = new Timer(introduction_cue_timeout, d.conceptName, this);
-//		t.start();
+		Timer t = new Timer(introduction_cue_timeout, d.conceptName, this);
+		t.start();
 	}
 
 	private void processTutorTurns(List<String> tutorTurns)
