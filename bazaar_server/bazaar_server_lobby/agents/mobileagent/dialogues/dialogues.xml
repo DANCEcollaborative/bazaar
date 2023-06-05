@@ -4,7 +4,7 @@
     <dialog concept="HANDRAISE" scenario="scenario-handraise">
     	<trigger annotation="POSE_HANDRAISE"/>
         <intro>I see that a hand has been raised. Do you have the answer?</intro>
-        <accept annotation="AFFIRMATIVE">Okay</accept>
+        <accept annotation="AFFIRMATIVE">Okay, I will ask you.</accept>
         <cancel annotation="NEGATIVE">Okay. Nevermind.</cancel>
     </dialog>
  
