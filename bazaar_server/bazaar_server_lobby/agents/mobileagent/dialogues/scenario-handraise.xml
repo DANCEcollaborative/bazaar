@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="hug_example">
+	<configuration>
+<!-- 		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> -->
+	</configuration>
+
+	<transitions>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<concepts>
+		
+		<!-- these match against regular expressions. -->
+		
+		<concept label="intro">
+			<phrase>Which word is not in the puzzle?</phrase>
+		</concept>
+		
+		<concept label="correct">
+			<phrase>You're right! Way to go, sport.</phrase>
+		</concept>
+		
+		<concept label="no_answer">
+			<phrase>Okay. Nevermind.</phrase>
+		</concept>
+		
+		<concept label="unintelligible">
+			<phrase>I'm sorry. I didn't understand. Does anybody have the answer?</phrase>
+		</concept>
+
+		<concept label="heddle" type="regex">
+			<phrase>heddle</phrase>
+		</concept>
+		
+		<concept label="yes" type="annotation">
+			<phrase>AFFIRMATIVE</phrase>
+		</concept>
+		
+		<concept label="no" type="annotation">
+			<phrase>NEGATIVE</phrase>
+		</concept>
+		
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+		<concept label="ask_for_answer">
+			<phrase>Great! What is it?</phrase>
+		</concept>
+		
+	</concepts>
+
+	<script>
+		<goal name="start" difficulty="1">
+			<step>
+				<initiation>intro</initiation>
+				<response say="correct">heddle</response>
+				<response say="no_answer">no</response>
+				<response say="unintelligible">unanticipated-response</response>
+			</step>
+		</goal>
+	</script>
+
+</scenario>
