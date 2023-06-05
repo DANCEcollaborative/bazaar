@@ -250,6 +250,7 @@ public class MultiModalFilter extends BasilicaAdapter
 			// Process pose
 			if (pose != null) {
 				poseUpdate(source,me,pose,location); 
+				me.addAnnotation(pose.toString(), null);
 			}
 			
 		}  
