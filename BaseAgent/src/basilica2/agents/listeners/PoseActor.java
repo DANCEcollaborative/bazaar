@@ -46,10 +46,10 @@ public class PoseActor extends BasilicaAdapter
 		System.err.println("PoseActor: entering processEvent"); 
 		this.source = source;
 		if(event instanceof PoseEvent)
-//		{
-			System.err.println("PoseActor: PoseEvent received"); 
-			poseEventResponse(source, (PoseEvent)event);
-//		}
+		{
+//			System.err.println("PoseActor: PoseEvent received"); 
+//			poseEventResponse(source, (PoseEvent)event);
+		}
 		
 	}
 	
