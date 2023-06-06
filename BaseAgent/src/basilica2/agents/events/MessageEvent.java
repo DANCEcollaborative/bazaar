@@ -139,6 +139,7 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 		{
 			annotations = new Hashtable<String, List<String>>();
 		}
+		System.err.println("MessageEvent.java: Adding annotation: " + a.trim()); 
 		annotations.put(a.trim(), ps);
 	}
 

@@ -38,6 +38,10 @@
 		<concept label="heddle" type="regex">
 			<phrase>heddle</phrase>
 		</concept>
+
+		<concept label="weaving" type="regex">
+			<phrase>heddle|bobbin|loom|skein|yarn|weave</phrase>
+		</concept>
 		
 		<concept label="yes" type="annotation">
 			<phrase>AFFIRMATIVE</phrase>
@@ -61,7 +65,7 @@
 		<goal name="start" difficulty="1">
 			<step>
 				<initiation>intro</initiation>
-				<response say="correct">heddle</response>
+				<response say="correct">weaving</response>
 				<response say="no_answer">no</response>
 				<response say="unintelligible">unanticipated-response</response>
 			</step>

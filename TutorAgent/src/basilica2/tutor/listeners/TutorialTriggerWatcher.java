@@ -147,8 +147,12 @@ public class TutorialTriggerWatcher extends BasilicaAdapter
 			if(me.hasAnyAnnotations(trigger))
 			{
 			    // gst edit	
+				System.err.println("TutorialTriggerWatcher: has annotations");
 				DoTutoringEvent toot = new DoTutoringEvent(source, dialogueTriggers.get(trigger), me);
 				source.addPreprocessedEvent(toot);
+			} else {
+
+				System.err.println("TutorialTriggerWatcher: has NO annotations");
 			}
 		}
 		

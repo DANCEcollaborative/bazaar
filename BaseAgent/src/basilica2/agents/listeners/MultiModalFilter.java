@@ -32,6 +32,7 @@ import edu.cmu.cs.lti.project911.utils.time.Timer;
 import java.util.Hashtable;
 import java.util.Map;
 import java.lang.Math; 
+import java.util.*;
 import java.time.LocalDateTime;
 
 
@@ -251,7 +252,8 @@ public class MultiModalFilter extends BasilicaAdapter
 			if (pose != null) {
 				poseUpdate(source,me,pose,location); 
 //				me.addAnnotation(pose.toString(), null);
-				me.addAnnotation("pose_handraise", null);
+				List<String> EmptyList = Collections.<String>emptyList();
+				me.addAnnotation("POSE_HANDRAISE", EmptyList);
 			}
 			
 		}  
