@@ -20,7 +20,7 @@
 		<!-- these match against regular expressions. -->
 		
 		<concept label="intro">
-			<phrase>Which word is not in the puzzle?</phrase>
+			<phrase>What word did you find in the puzzle?</phrase>
 		</concept>
 		
 		<concept label="correct">
@@ -66,7 +66,6 @@
 			<step>
 				<initiation>intro</initiation>
 				<response say="correct">weaving</response>
-				<response say="no_answer">no</response>
 				<response say="unintelligible">unanticipated-response</response>
 			</step>
 		</goal>
