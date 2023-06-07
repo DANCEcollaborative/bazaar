@@ -5,7 +5,7 @@
     	<trigger annotation="POSE_HANDRAISE"/>
         <intro>I see that a hand has been raised. Did you find a weaving word in the puzzle?</intro>
         <accept annotation="AFFIRMATIVE"></accept>
-        <cancel annotation="NEGATIVE">Okay. Nevermind.</cancel>
+        <cancel annotation="NEGATIVE">Oh, well. Nevermind.|||Anyone, raise your hand if you find another weaving word.</cancel>
     </dialog>
  
     <dialog concept="GET_A_HUG" scenario="scenario-hugs">
