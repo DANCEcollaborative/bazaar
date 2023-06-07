@@ -312,7 +312,12 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 				}
 				else
 				{
-					log(Logger.LOG_WARNING, "Won't start dialogue "+dte.getConcept()+" while current dialog is running - ask again later!");
+// 					log(Logger.LOG_WARNING, "Won't start dialogue "+dte.getConcept()+" while current dialog is running - ask again later!");
+					log(Logger.LOG_WARNING, "Cancel current dialog");
+					sendTutorMessage(moving_on_text);
+					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
+					source.queueNewEvent(doneEvent);
+					prioritySource.setBlocking(false);
 				}
 			}
 			else
