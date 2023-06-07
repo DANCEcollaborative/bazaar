@@ -20,11 +20,11 @@
 		<!-- these match against regular expressions. -->
 		
 		<concept label="intro">
-			<phrase>What word did you find in the puzzle?</phrase>
+			<phrase>What weaving word did you find in the puzzle?</phrase>
 		</concept>
 		
 		<concept label="correct">
-			<phrase>You're right! Way to go sport.</phrase>
+			<phrase>You're right! Way to go sport. Anyone, raise your hand if you find another weaving word.</phrase>
 		</concept>
 		
 		<concept label="no_answer">
@@ -32,11 +32,7 @@
 		</concept>
 		
 		<concept label="unintelligible">
-			<phrase>I'm sorry. That didn't work for me. Does anybody have the answer?</phrase>
-		</concept>
-
-		<concept label="heddle" type="regex">
-			<phrase>heddle</phrase>
+			<phrase>I'm sorry. I didn't understand your response. Did anyone find a weaving word in the puzzle?</phrase>
 		</concept>
 
 		<concept label="weaving" type="regex">
