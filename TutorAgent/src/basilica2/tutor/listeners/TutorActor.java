@@ -141,7 +141,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		super(a);
 		introduction_cue_timeout = Integer.parseInt(properties.getProperty("timeout1"));
 		introduction_cue_timeout2 = Integer.parseInt(properties.getProperty("timeout2"));
-		try{tutor_timeout = Integer.parseInt(properties.getProperty("tutorTimeout",tutor_timeout));}
+		try{tutor_timeout = Integer.parseInt(properties.getProperty("tutorTimeout","45"));}
 		catch(Exception e) {e.printStackTrace();}
 		request_poke_prompt_text = properties.getProperty("requestpokeprompt", request_poke_prompt_text);
 		goahead_prompt_text = properties.getProperty("goaheadprompt", goahead_prompt_text);
