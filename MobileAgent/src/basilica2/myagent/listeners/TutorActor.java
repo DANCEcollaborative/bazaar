@@ -93,7 +93,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 	private InputCoordinator source;
 	
 	private double tutorMessagePriority = 0.75;
-	private boolean interrupt_for_new_dialogues = true;
+	private boolean interrupt_for_new_dialogues = false;
 	private boolean startAnyways = true;
 	private String dialogueFolder = "dialogs";
 	
@@ -145,7 +145,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		goahead_prompt_text = properties.getProperty("goaheadprompt", goahead_prompt_text);
 		response_poke_prompt_text = properties.getProperty("responsepokeprompt",response_poke_prompt_text);
 		dont_know_prompt_text = properties.getProperty("dontknowprompt", dont_know_prompt_text);
-		try{interrupt_for_new_dialogues = Boolean.parseBoolean(getProperties().getProperty("interruptForNewDialogues", "true"));}
+		try{interrupt_for_new_dialogues = Boolean.parseBoolean(getProperties().getProperty("interruptForNewDialogues", "false"));}
 		catch(Exception e) {e.printStackTrace();}
 		moving_on_text = properties.getProperty("moveonprompt", moving_on_text);
 		dialogueConfigFile = properties.getProperty("dialogue_config_file",dialogueConfigFile);
@@ -312,12 +312,12 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 				}
 				else
 				{
-// 					log(Logger.LOG_WARNING, "Won't start dialogue "+dte.getConcept()+" while current dialog is running - ask again later!");
-					log(Logger.LOG_WARNING, "Cancel current dialog");
-					sendTutorMessage(moving_on_text);
-					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
-					source.queueNewEvent(doneEvent);
-					prioritySource.setBlocking(false);
+ 					log(Logger.LOG_WARNING, "Won't start dialogue "+dte.getConcept()+" while current dialog is running - ask again later!");
+//					log(Logger.LOG_WARNING, "Cancel current dialog");
+//					sendTutorMessage(moving_on_text);
+//					DoneTutoringEvent doneEvent = new DoneTutoringEvent(source, currentConcept, true);
+//					source.queueNewEvent(doneEvent);
+//					prioritySource.setBlocking(false);
 				}
 			}
 			else
