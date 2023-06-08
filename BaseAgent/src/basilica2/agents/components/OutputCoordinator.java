@@ -63,6 +63,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Integer multimodalWordsPerMinute;
 	private Double multimodalWordsPerSecond; 
 	private Double multimodalConstantDelay; 
+	private Integer betweenPhraseDelay; 
 	private String lastStepName=null;
 	private String removeStepName=null;
 	
@@ -88,6 +89,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			try{multimodalWordsPerMinute = Integer.valueOf(myProperties.getProperty("multimodal_words_per_minute", "150"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{multimodalConstantDelay = Double.valueOf(myProperties.getProperty("multimodal_words_constant_delay", "0.5"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{betweenPhraseDelay = Integer.valueOf(myProperties.getProperty("between_phrase_delay", "5000"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
 			catch(Exception e) {e.printStackTrace();}
@@ -458,7 +461,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					try       											// Don't send message parts too quickly
 					{
 //						System.err.println("Sleeping for 5s before sending next part of message");
-						Thread.sleep(5000);
+						Thread.sleep(betweenPhraseDelay);
 						tick();
 					}
 					catch (Exception e)

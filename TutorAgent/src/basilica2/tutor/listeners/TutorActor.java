@@ -93,14 +93,14 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 	private InputCoordinator source;
 	
 	private double tutorMessagePriority = 0.75;
-	private boolean interruptForNewDialogues = false;
+	private boolean interrupt_for_new_dialogues = false;
 	private boolean startAnyways = true;
 	private String dialogueFolder = "dialogs";
 	
 	private String dialogueConfigFile = "dialogues/dialogues-example.xml";
 	private int introduction_cue_timeout = 60;
 	private int introduction_cue_timeout2 = 60;
-	private int tutorTimeout = 45;
+	private int tutor_timeout = 45;
 	private String request_poke_prompt_text = "I am waiting for your response to start. Please ask for help if you are stuck.";
 	private String goahead_prompt_text = "Let's go ahead with this.";
 	private String response_poke_prompt_text = "Can you rephrase your response?";
@@ -141,10 +141,14 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		super(a);
 		introduction_cue_timeout = Integer.parseInt(properties.getProperty("timeout1"));
 		introduction_cue_timeout2 = Integer.parseInt(properties.getProperty("timeout2"));
+		try{tutor_timeout = Integer.parseInt(properties.getProperty("tutorTimeout","45"));}
+		catch(Exception e) {e.printStackTrace();}
 		request_poke_prompt_text = properties.getProperty("requestpokeprompt", request_poke_prompt_text);
 		goahead_prompt_text = properties.getProperty("goaheadprompt", goahead_prompt_text);
 		response_poke_prompt_text = properties.getProperty("responsepokeprompt",response_poke_prompt_text);
 		dont_know_prompt_text = properties.getProperty("dontknowprompt", dont_know_prompt_text);
+		try{interrupt_for_new_dialogues = Boolean.parseBoolean(getProperties().getProperty("interruptForNewDialogues", "false"));}
+		catch(Exception e) {e.printStackTrace();}
 		moving_on_text = properties.getProperty("moveonprompt", moving_on_text);
 		dialogueConfigFile = properties.getProperty("dialogue_config_file",dialogueConfigFile);
 		dialogueFolder = properties.getProperty("dialogue_folder",dialogueFolder);
@@ -287,7 +291,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		{
 			if(isTutoring)
 			{
-				if (interruptForNewDialogues)
+				if (interrupt_for_new_dialogues)
 				{
 					//TODONE: respond to start-tutoring command by ending current tutoring session
 					sendTutorMessage(moving_on_text);
@@ -596,7 +600,7 @@ public class TutorActor extends BasilicaAdapter implements TimeoutReceiver
 		source.queueNewEvent(tte);
 		//PriorityEvent pete = PriorityEvent.makeBlackoutEvent("TUTOR_DIALOG", new MessageEvent(source, getAgent().getUsername(), join(turns), "TUTOR"), 1.0, 45, 10);
 		//((BlacklistSource)pete.getSource()).addExceptions("TUTOR_DIALOG");
-		PriorityEvent pete = new PriorityEvent(source, new MessageEvent(source, getAgent().getUsername(), join(turns), "TUTOR"), tutorMessagePriority, prioritySource, tutorTimeout);
+		PriorityEvent pete = new PriorityEvent(source, new MessageEvent(source, getAgent().getUsername(), join(turns), "TUTOR"), tutorMessagePriority, prioritySource, tutor_timeout);
 		pete.addCallback(new Callback()
 		{
 			@Override
