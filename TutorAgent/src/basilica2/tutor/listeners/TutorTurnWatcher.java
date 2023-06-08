@@ -45,6 +45,9 @@ public class TutorTurnWatcher extends BasilicaAdapter implements TimeoutReceiver
 	public TutorTurnWatcher(Agent a)
 	{
 		super(a);
+		try{turn_response_timeout = Integer.parseInt(properties.getProperty("tutorResponseTimeout","60"));}
+		catch(Exception e) {e.printStackTrace();}
+		System.err.println("TutorTurnWatcher - turn_response_timeout: " + String.valueOf(turn_response_timeout)); 
 
 		studentTurns = new ArrayList<String>();
 		contributors = new ArrayList<String>();
