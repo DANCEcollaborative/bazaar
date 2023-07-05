@@ -1,6 +1,8 @@
 version: '3.8'
 volumes:
   mysql_data:
+  shared:
+    driver: local
  
 services:
   nodechat:
@@ -10,6 +12,7 @@ services:
     container_name: nodechat_lobby
     volumes:    
      - mysql_data:/var/lib/mysql
+     - shared:/mysql-files 
     platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: smoot
@@ -18,8 +21,6 @@ services:
     ports:
     - "3306:3306"
     - "8500:8500" 
-    volumes:
-     - shared:/mysql-files 
     networks:
     - bazaar-net
   bazaar:
@@ -50,9 +51,6 @@ services:
      - ../../LightSide:/usr/bazaar/LightSide
     networks:
      - bazaar-net
-volumes:
-  shared:
-    driver: local
 networks:
   bazaar-net:
     driver: bridge
