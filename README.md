@@ -20,37 +20,42 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
 Java 1.8 is recommended for running Bazaar. Older and newer versions may not work. Following are instructions for installing Java 1.8 in addition to any other Javas you may have installed. Some of these instructions are specific to Mac but can be generalized to Windows, etc.
 - On Mac:
   - [Install 'brew'](https://brew.sh) if not already installed. This tool makes it easy to install a lot of other things.
-  - [Install jenv](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
-  - [Install Java JDK 1.8](https://installvirtual.com/install-openjdk-8-on-mac-using-brew-adoptopenjdk/).
-  - Set your environment to JDK 1.8.
-    - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
+  - Install Java JDK 1.8 Temurin. Commands: 
+    - *brew tap homebrew/cask-versions*
+    - *brew install --cask temurin8*
+  - If you have more than one version of Java on your system:
+    - [Install jenv](https://developer.bring.com/blog/configuring-jenv-the-right-way/).
+    - Set your environment to this version of JDK 1.8.
+      - E.g., follow [these instructions](https://developer.bring.com/blog/configuring-jenv-the-right-way/) under "Verify."
   - [Install a version 1.10.xx of Apache Ant](https://formulae.brew.sh/formula/ant).
 
 - On PC:
-  - [Install JDK 1.8](https://adoptopenjdk.net/installation.html).
+  - [Install JDK 1.8 Temurin](https://adoptium.net/temurin/archive/?version=8).
   - [Install a version 1.10.xx of Apache Ant](https://ant.apache.org/bindownload.cgi).
 
 # Install this repository
   - Commands:
     - git clone https://github.com/DANCEcollaborative/bazaar.git
     - cd bazaar/LightSide
-    - Make sure you are using Java 1.8 (aka Java 8) for the 'ant build' steps below:
+    - Make sure you are using Java 1.8 (aka Java 8) Temurin for the 'ant build' steps below:
       - java -version
     - ant build
-      - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
+      - This should finish with "BUILD SUCCESSFUL." If it does not
+        - Try the following two steps (*ant build* for Genesis-Plugins), then come back to this step.
+        - If it still does not work you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
     - cd ../Genesis-Plugins
     - ant build
       - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
 
 # Detailed Instructions for Installing in Eclipse
 These instructions were created using Eclipse IDE for Java Developers, version 2021-12 (4.22.0). For other IDEs, use an equivalent procedure
-  - Make sure your Eclipse is set to use Java 1.8 as the default JRE.
+  - Make sure your Eclipse is set to use Java 1.8 Temurin as the default JRE.
     - Select Eclipse > Preferences
       - Select Java > Installed JREs
-        - If more than one JRE is listed, check the box next to JDK 1.8 (a.k.a. JDK 8)
+        - If more than one JRE is listed, check the box next to the JDK 1.8 (a.k.a. JDK 8) Temurin that you have installed.
         - Click "Apply"
       - Select Java > Compiler
-        - Set Compiler Compliance Level to 1.8
+        - Set Compiler Compliance Level to 1.8.
         - Click "Apply and Close"
   - Select from the File menu "Open Projects from File System"
     - Click "Directory"
