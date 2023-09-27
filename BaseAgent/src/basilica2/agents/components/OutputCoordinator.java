@@ -454,7 +454,20 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 						newme.setText(messageText);					
 					}
 					broadcast(newme);			
-					MessageEventLogger.logMessageEvent(newme);					
+					MessageEventLogger.logMessageEvent(newme);	
+					if (outputMultimodal) {
+						try       											// Don't send message parts too quickly
+						{
+//							System.err.println("Sleeping for 5s before sending next part of message");
+							Thread.sleep(betweenPhraseDelay);
+							tick();
+						}
+						catch (Exception e)
+						{
+							log(Logger.LOG_WARNING, "<warning>Throttling problem</warning>");
+							e.printStackTrace();
+						}						
+					}
 				}
 				if (outputToPSI) {
 					publishMessageToPSI(newme);			
