@@ -456,9 +456,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					broadcast(newme);			
 					MessageEventLogger.logMessageEvent(newme);	
 					if (outputMultimodal) {
+						System.err.println("OutputCoordinator: sleep between sending message parts");
 						try       											// Don't send message parts too quickly
 						{
-//							System.err.println("Sleeping for 5s before sending next part of message");
+							System.err.println("Sleeping for 'betweenPhraseDelay' seconds before sending next part of message");
 							Thread.sleep(betweenPhraseDelay);
 							tick();
 						}
