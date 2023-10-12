@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h2>Test send and receive with socket server</h2>
+    <h3>Type a message and click "Submit".</h3>
+    <form>
+      <input autofocus id="input" />
+      <input type="submit" value="Submit" />
+    </form>
+    <p id="received"></p>
+    <p id="outcome"></p>
+    <script src="./node_modules/object-hash/dist/object_hash.js"></script>
+    <script src="./node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script>
+      const transports = ['websocket', 'polling'];
+      const token = objectHash(performance.now());
+      const path = "/bazsocket/";
+
+	  // Customize the following as appropriate.
+	  // >>> Update ROOMNAME to a unique value for a fresh agent <<<
+      const ENDPOINT = 'https://bazaar.lti.cs.cmu.edu';		      
+      const AGENTNAME = 'fcdsp3';      
+//       const AGENTNAME = '15619p2';
+      const CLIENTID = 'ChatServer';
+//       const ROOMNAME = '31201';
+      const ROOMNAME = 'ope-learn-domain-ana-ucm5hl6q-room9069';
+      const USERID = 100; 
+      const USERNAME = 'OPEBot';
+      
+      const auth = {
+        token,
+        agent: {
+        	name: AGENTNAME,
+        	configuration: {
+        		clientID: CLIENTID
+        	}
+        },
+        chat: {
+        	id: ROOMNAME
+        },
+        user: {
+        	id: USERID,
+        	name: USERNAME
+        }
+      };
+      console.log('token', token);
+      console.log('endpoint', ENDPOINT);
+
+      const socket = io(ENDPOINT, {
+        transports,
+        path,
+        auth
+      });;
+
+      const form = document.querySelector('form');
+      const input = document.getElementById('input');
+      const outcome = document.getElementById('outcome');
+      const submit = document.querySelector('input[type=submit]');
+      const received = document.getElementById('received');
+      
+      
+	  const MM_PREFIX = "multimodal:::true;%;from:::"
+	  const MM_MIDDLE = ";%;to:::group;%;speech:::"
+      const onSubmit = () => {
+        const speech = input.value;
+        message = MM_PREFIX + USERNAME + MM_MIDDLE + speech
+        socket.emit('sendchat', message); 
+      };
+
+      form.onsubmit = event => {
+        onSubmit();
+        return false;
+      };
+         
+    
+    function getMultimodalValue(field, data) 
+    {
+    	var fields = data.split(";%;");
+    	var numFields = fields.length; 	
+    	var i = 0; 
+    	var value = ""; 
+    	while (i < numFields) {
+    		var fieldWithValue = fields[i].split(":::");  
+    		i =	i + 1; 	
+    		if (fieldWithValue[0] == field) {
+    			value = fieldWithValue[1];
+    			i = numFields;
+    		}
+    	}
+    	return value;    
+    }
+
+      
+    socket.on('updatechat', function (username, message) 
+	{
+		if (data.search("multimodal:::true;%;") > -1) {
+			username = getMultimodalValue("from",data);
+			speech = getMultimodalValue("speech",data);
+		}
+        received.innerHTML = speech;
+    });
+    
+    
+    
+    </script>
+  </body>
+</html>
