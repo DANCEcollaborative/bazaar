@@ -1,4 +1,22 @@
 <!doctype html>
+
+<!-- 
+Sample of a socket-io messages from this page as received at Bazaar:
+
+=== Initial connection ===
+Message: 0{"token":"dead6753f8f7bebd03ca40ccd29e087b9b472195","agent":{"name":"fcdsp3","configuration":{"clientID":"ChatServer"}},"chat":{"id":"ope-learn-domain-ana-ucm5hl6q-room9070"},"user":{"id":100,"name":"OPEBot"}}
+
+Message decoded by socket.io-parser:  
+{"type":0,"nsp":"/","data":{"token":"dead6753f8f7bebd03ca40ccd29e087b9b472195","agent":{"name":"fcdsp3","configuration":{"clientID":"ChatServer"}},"chat":{"id":"ope-learn-domain-ana-ucm5hl6q-room9070"},"user":{"id":100,"name":"OPEBot"}}}
+
+=== Chat message ===
+Message: 2["sendchat","multimodal:::true;%;from:::OPEBot;%;to:::group;%;speech:::Hi from ChatServer"]
+
+Message decoded by socket.io-parser:  
+{"type":2,"nsp":"/","data":["sendchat","multimodal:::true;%;from:::OPEBot;%;to:::group;%;speech:::Hi from ChatServer"]}
+ -->
+
+
 <html>
   <head>
   </head>
@@ -21,11 +39,10 @@
 	  // Customize the following as appropriate.
 	  // >>> Update ROOMNAME to a unique value for a fresh agent <<<
       const ENDPOINT = 'https://bazaar.lti.cs.cmu.edu';		      
-      const AGENTNAME = 'fcdsp3';      
+      const AGENTNAME = 'fcdsp3';   
 //       const AGENTNAME = '15619p2';
       const CLIENTID = 'ChatServer';
-//       const ROOMNAME = '31201';
-      const ROOMNAME = 'ope-learn-domain-ana-ucm5hl6q-room9069';
+      const ROOMNAME = 'ope-learn-domain-ana-ucm5hl6q-room9070';
       const USERID = 100; 
       const USERNAME = 'OPEBot';
       
