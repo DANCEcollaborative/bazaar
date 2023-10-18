@@ -98,7 +98,7 @@ class ExternalMessageSender implements StepHandler
 //		String response = sendExternalMessageGet(encodedMessage);
 		
 		System.err.println("ExternalMessageSender, execute -- response: " + response); 
-		
+		overmind.stepDone();		
 	}
 
 
