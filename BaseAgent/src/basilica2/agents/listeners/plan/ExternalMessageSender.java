@@ -82,15 +82,16 @@ class ExternalMessageSender implements StepHandler
 	    	return; 
 	    }
 		
-		
+		 
 
 //		String externalMessage = "?" + encodedRoom + "&" + encodedMessage; 
 		String externalMessage = "?" + room + "&" + message; 
 //		String externalMessage = roomName + delimiter + encodedMessage; 
 //		System.err.println("ExternalMessageSender, execute -- encodedMessage: " + encodedMessage); 
 		System.err.println("ExternalMessageSender, execute -- externalMessage: " + externalMessage); 
+//		log(Logger.LOG_NORMAL, "ExternalMessageSender execute -- externalMessage: " + externalMessage);
+		Logger.commonLog("ExternalMessageSender", Logger.LOG_NORMAL, "execute -- externalMessage: \" + externalMessage");
 //		log(Logger.LOG_NORMAL, "ExternalMessageSender, execute -- externalMessage: " + externalMessage);
-		
 		String response = sendExternalMessageGet(externalMessage); 
 //		String response = sendExternalMessage(encodedMessage);
 		
