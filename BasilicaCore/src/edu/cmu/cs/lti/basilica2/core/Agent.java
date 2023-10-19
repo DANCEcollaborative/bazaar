@@ -297,9 +297,12 @@ public abstract class Agent implements LogUser
 		if(split.length > 1)
 			roomName = split[1];
 		else roomName = "";
-//		System.err.println("Agent.java, agentName = " + agentName);
-//		System.err.println("Agent.java, userName = " + userName);
-//		System.err.println("Agent.java, roomName = " + roomName);
+		System.err.println("Agent.java, agentName = " + agentName);
+		System.err.println("Agent.java, userName = " + userName);
+		System.err.println("Agent.java, roomName = " + roomName);
+//		log(Logger.LOG_NORMAL, "Agent.java, agentName = " + agentName);
+//		log(Logger.LOG_NORMAL, "Agent.java, userName = " + userName);
+//		log(Logger.LOG_NORMAL, "Agent.java, roomName = " + roomName);
 	}
 
 	public String getUsername()
