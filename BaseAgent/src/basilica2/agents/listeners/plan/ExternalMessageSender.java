@@ -15,11 +15,12 @@ import java.io.IOException;
 
 class ExternalMessageSender implements StepHandler
 {
-	private String host;
-	private String port; 
-	private String path;
-	private String delimiter;
-	private String charset;
+	public String host;
+	public String port; 
+	public String path;
+	public String charset;
+	public String delimiter;
+	public String start_flag;
 	
 	
 	public static String getStepType()
@@ -36,11 +37,12 @@ class ExternalMessageSender implements StepHandler
 		
 		try
 		{
-			String host = properties.getProperty("host","bazaar.lti.cs.cmu.edu");
-			String port = properties.getProperty("port","1248");
-			String path = properties.getProperty("path","/stepUpdate/");
-			String delimiter = properties.getProperty("delimiter","|||");
-			String charset = properties.getProperty("charset","UTF-8");
+			host = properties.getProperty("host","bazaar.lti.cs.cmu.edu");
+			port = properties.getProperty("port","1248");
+			path = properties.getProperty("path","/stepUpdate/");
+			charset = properties.getProperty("charset","UTF-8");
+			start_flag = properties.getProperty("start_flag","?");
+			delimiter = properties.getProperty("delimiter","&");
 		}
 		catch (Exception e){}
 	}
@@ -48,10 +50,9 @@ class ExternalMessageSender implements StepHandler
 
 	public void execute(Step step, final PlanExecutor overmind, InputCoordinator source)
 	{
-		String charset = "UTF-8";		
 		Agent agent = overmind.getAgent();
-		String roomName = agent.getRoomName();
 		String message = step.attributes.get("message");
+		String roomName = agent.getRoomName();
 		String room = "session_id=" + roomName; 		
 		
 //		String encodedMessage; 
@@ -64,10 +65,10 @@ class ExternalMessageSender implements StepHandler
 //	    	return; 
 //	    }
 		
-		String externalMessage = "?" + room + "&" + message; 
+		String externalMessage = start_flag + room + delimiter + message; 
 		System.err.println("ExternalMessageSender, execute -- externalMessage: " + externalMessage); 
 //		log(Logger.LOG_NORMAL, "ExternalMessageSender execute -- externalMessage: " + externalMessage);
-		Logger.commonLog("ExternalMessageSender", Logger.LOG_NORMAL, "execute -- externalMessage: \" + externalMessage");
+		Logger.commonLog("ExternalMessageSender", Logger.LOG_NORMAL, " execute -- externalMessage:  + externalMessage");
 		String response = sendExternalMessageGet(externalMessage);	
 		System.err.println("ExternalMessageSender, execute -- response: " + response); 
 		
@@ -76,13 +77,13 @@ class ExternalMessageSender implements StepHandler
 
 
 	public String sendExternalMessageGet(String message)
-	{		
-		String host = "http://bazaar.lti.cs.cmu.edu";
-		String port = "1248";
-		String path = "/stepUpdate/";
+	{
+		String requestURL = host + ":" + port + path + message; 
+		System.err.println("ExternalMessageSender, sendExternalMessageGet -- requestURL: " + requestURL); 
+//		log(Logger.LOG_NORMAL, "ExternalMessageSender sendExternalMessageGet -- requestURL: " + requestURL);
+		Logger.commonLog("ExternalMessageSender", Logger.LOG_NORMAL, " sendExternalMessageGet -- requestURL: " + requestURL);	
 		
 		try {
-			String requestURL = host + ":" + port + path + message; 
 			HttpUtility.sendGetRequest(requestURL); 
 			String response = HttpUtility.readSingleLineResponse(); 
 			System.err.println("ExternalMessageSender, sendExternalMessage -- response: " + response); 
