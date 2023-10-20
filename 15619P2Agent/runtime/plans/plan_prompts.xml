@@ -38,7 +38,7 @@
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_PRIMERS" intention="cut_off_PROMPT_PRIMERS">
-     	<text>Please share with the team (and with me) which primer(s) you read for this session.</text>
+     	<text>Please share with the team (and me) which primer(s) you read for this session.</text>
     </prompt> 
 
  
@@ -56,20 +56,15 @@
     </prompt>  
       
     <prompt strategy="task" id="PROMPT_TASK1_REMINDER" intention="cut_off_PROMPT_TASK1_REMINDER">
-        <text>Please read file 'instructions/task1.md' and follow its instructions.</text>
+        <text>Please read and follow the instructions for Task 1 in the workspace.</text>
     </prompt>  
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_1" intention="cut_off_PROMPT_TEST_QUERY_1">
-        <text>To submit your final query for task 1, copy it to file 'solutions/task1.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task1'.</text>
+        <text>To submit your final query for Task 1, copy it to the Task 1 cell within double quotes, then run the Testing Task 1 cell.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_1" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
-        <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task1/feedback'.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1_ORIGINAL" intention="cut_off_PROMPT_DISCUSSION_START_1">
-     	<text>We are moving on from task 1. But first take turns responding to the following question.</text>
-    </prompt> 
+        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 1 cell.</text>
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1" intention="cut_off_PROMPT_DISCUSSION_START_1">
      	<text>IT'S TIME TO MOVE ON FROM TASK 1. But first take turns responding to the following question.</text>
@@ -89,27 +84,19 @@
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
 	
 	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_2" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_2">
-     	<text>In preparation for task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
+     	<text>In preparation for Task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
     </prompt>  
     
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2_ORIGINAL" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
-        <text>It's time to start task 2. Open 'instructions/task2.md'.</text>
-    </prompt>
-    
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="cut_off_PROMPT_ROLE_SWITCH_TASK2">
-        <text>IT'S TIME TO START TASK 2. Open 'instructions/task2.md'.</text>
+        <text>IT'S TIME TO START TASK 2. Read and follow the instructions in the Task 2 cell.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_2" intention="cut_off_PROMPT_TEST_QUERY_2">
-        <text>To submit your final query for task 2, copy it to file 'solutions/task2.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task2'.</text>
-    </prompt>    
+        <text>To submit your final query for Task 2, copy it to the Task 2 cell within double quotes, then run the Testing Task 2 cell.</text>
+    </prompt>
     
     <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_2" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
-        <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task2/feedback'.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2_ORIGINAL" intention="cut_off_PROMPT_DISCUSSION_START_2">
-     	<text>We are moving on from task 2. But first take turns responding to the following question.</text>
+        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 2 cell.</text>
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2" intention="cut_off_PROMPT_DISCUSSION_START_2">
@@ -131,27 +118,19 @@
 	
 	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_3" intention="cut_off_PROMPT_PRE-TASK_DISCUSSION_3">
      	<text>In preparation for the last task, who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
-    </prompt>  
-      
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3_ORIGINAL" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
-        <text>It's time to start the last task. Open 'instructions/task3.md'.</text>
-    </prompt>
+    </prompt> 
       
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="cut_off_PROMPT_ROLE_SWITCH_TASK3">
-        <text>IT'S TIME TO START THE LAST TASK. Open 'instructions/task3.md'.</text>
+        <text>IT'S TIME TO START THE LAST TASK. Read and follow the instructions in the Task 3 cell.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_3" intention="cut_off_PROMPT_TEST_QUERY_3">
-        <text>To submit your final query for task 3, copy it to file 'solutions/task3.sql', then use the terminal to navigate to directory 'submitter/' and execute command './submitter -t task3'.</text>
-    </prompt>     
+        <text>To submit your final query for Task 3, copy it to the Task 3 cell within double quotes, then run the Testing Task 3 cell.</text>
+    </prompt>
     
     <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_3" intention="cut_off_PROMPT_FEEDBACK_LOCATION">
-        <text>You will be able to see feedback for each final query attempt in file 'solutions/local_test_feedback/task3/feedback'.</text>
+        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 3 cell.</text>
     </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3_ORIGINAL" intention="cut_off_PROMPT_DISCUSSION_START_3">
-     	<text>We are moving on from the last task. But first take turns responding to the following question.</text>
-    </prompt>  
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3" intention="cut_off_PROMPT_DISCUSSION_START_3">
      	<text>IT'S TIME TO MOVE ON FROM THE LAST TASK. But first take turns responding to the following question.</text>
@@ -170,11 +149,11 @@
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION" intention="cut_off_PROMPT_STEP_SUBMISSION">
-     	<text>Thanks for participating in today's OPE activity. Execute the final submission script './sail_submitter' ONE AT A TIME to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
+     <text>Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="cut_off_PROMPT_STEP_FINAL">
-     	<text>I'm logging off. Thanks for participating in today's OPE activity. Remember to execute the final submission script './sail_submitter' ONE AT A TIME to submit. You will also obtain the token that will then be used to unlock the graded post-quiz. Don't forget to complete the graded post-quiz for full credit.</text>
+     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
     </prompt>
 
 
