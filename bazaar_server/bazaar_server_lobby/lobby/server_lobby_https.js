@@ -308,7 +308,8 @@ function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger)
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
-	if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
+// 	if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
+	if (!(roomNameAndNumber in numUsers))
 	{
 		numUsers[roomNameAndNumber] = 0;
 		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
