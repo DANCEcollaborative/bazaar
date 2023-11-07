@@ -61,20 +61,22 @@
         <step type="file_gated" delay="5" timeout="1260" file="testcase-complete_3" delayed_prompt_time="960" delayed_prompt="BOTTOM-OUT_TASK-3" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>	<!-- timeout="1320"; delayed_prompt_time="1020" -->      
     </stage>  
      
-    <stage name="StageLO3_Discussion" type="other" delay="0">       	     	      	     	     	      	
+    <stage name="StageLO3_Discussion" type="other" delay="0">     	      	     	     	      	
         <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_3">PROMPT_DISCUSSION_START_3</step>    	
         <step type="prompt" delay="70" prompt="PROMPT_STEP_LO3_REFLECTION_1">PROMPT_STEP_LO3_REFLECTION_1</step>
         <!-- <step type="prompt" delay="75" prompt="PROMPT_STEP_LO3_REFLECTION_2">PROMPT_STEP_LO3_REFLECTION_2</step> -->
     </stage>   <!-- 5,75,75 -->
    
-    <stage name="WrapUp" type="other" delay="0"> 
+    <stage name="WrapUp" type="other" delay="0">    
+    	<step type="send_external_message" delay="5" message="task=end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
         <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>   
     	<step type="send_end" delay="5">send_end</step>  
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="4920">  
+    <stage name="EndStage" type="other" delay="0" timeout="4920">     
+    	<step type="send_external_message" delay="5" message="task=end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="10" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>  
