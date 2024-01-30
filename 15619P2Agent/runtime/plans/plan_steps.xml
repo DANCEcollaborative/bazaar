@@ -57,8 +57,7 @@
     <stage name="StageLO3_Discussion" type="other" delay="0">         	  	
         <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_3">PROMPT_MOVE_ON_3</step>     
     	<step type="send_external_message" delay="90" message="task3 complete">COMPLETE_3</step> 
-    </stage>   
-    </stage>   
+    </stage>  
    
     <stage name="WrapUp" type="other" delay="0">    
     	<step type="send_external_message" delay="5" message="taskall end">MESSAGE_END</step>	    
