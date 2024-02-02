@@ -14,7 +14,7 @@
     	<step type="logstate" state_tag="state" state_value="Programming Phase of OPE" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="80" delay="2">log_state</step> 
     	<step type="logstate" state_tag="ope_iteration" state_value="1" delay="5">log_state</step>  
-    	<step type="send_command" command="COMMAND_1" delay="5">COMMAND_1</step>   
+    	<step type="send_command" delay="4" command="COMMAND_1">COMMAND_1</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">Programming_Phase</step> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>        
 	<step type="file_gated" timeout="4800" delay="5" file="testcase-complete_1" delayed_prompt_time="900" delayed_prompt="PROMPT_STEP_LO1_SOLUTION" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>    <!-- 900 --> 
