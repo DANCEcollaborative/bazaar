@@ -8,19 +8,21 @@
    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
-    <stage name="StageInitialization" type="other" delay="0"> 
+    <!-- <stage name="StageInitialization" type="other" delay="0">  -->
      	<!-- <step type="greet" timeout="45" delay="0">GREETINGS</step> --> 
-    	<step type="prompt" delay="5" prompt="PROMPT_GREETING">PROMPT_GREETING</step>  
-    	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">PROMPT_GREETING</step>
-    </stage>  
+    	<!-- <step type="prompt" delay="4" prompt="PROMPT_GREETING">PROMPT_GREETING</step>   -->
+    	<!-- <step type="prompt" delay="1" prompt="PROMPT_SESSION_TIME">PROMPT_GREETING</step> -->
+    <!-- </stage>   -->s
     
     <stage name="StageLO1" type="other" delay="0">
     	<step type="logstate" delay="3" state_tag="agent" state_value="15619P2" send_log="false">logstate_agent-name</step> 
     	<step type="logstate" delay="3" state_tag="state" state_value="Programming Phase of OPE" send_log="false">logstate_programming-phase</step> 
     	<step type="logstate" delay="3" state_tag="phase_duration" state_value="80">logstate_phase-duration-1</step> 
-    	<step type="logstate" delay="3" state_tag="ope_iteration" state_value="1">logstate_ope-iteration-1</step>   
-    	<step type="send_command" delay="5" command="COMMAND_1">COMMAND_1</step>    
-    	<step type="prompt" delay="5" prompt="PROMPT_START_TASK1">PROMPT_START_TASK1</step>
+    	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="1">logstate_ope-iteration-1</step>  
+    	<step type="prompt" delay="2" prompt="PROMPT_GREETING">PROMPT_GREETING</step>   
+    	<step type="send_command" delay="4" command="COMMAND_1">COMMAND_1</step>  
+    	<step type="prompt" delay="4" prompt="PROMPT_SESSION_TIME">PROMPT_SESSION_TIME</step>  
+    	<step type="prompt" delay="4" prompt="PROMPT_START_TASK1">PROMPT_START_TASK1</step>
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
     	<step type="send_external_message" delay="5" message="task1 start">START_1</step> 
         <step type="file_gated" delay="5" timeout="1620" file="testcase-complete_1" delayed_prompt_time="1320" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>	<!-- timeout="1680"; delayed_prompt_time="1380" --> 
