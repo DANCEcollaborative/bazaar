@@ -19,6 +19,7 @@ public class ExternalChatListener extends BasilicaAdapter
 	public String charset;
 	public String delimiter;
 	public String start_flag;
+	private static String messageSpec = "message=";
 	private static String multiModalDelim = ";%;";
 	private static String withinModeDelim = ":::";	
 	private static String multimodal_spec = "multimodal";
@@ -60,8 +61,8 @@ public class ExternalChatListener extends BasilicaAdapter
 		String room = "session_id=" + roomName; 
 		String identity = me.getFrom();
 		
-//		String message = "multimodal:::true;%;identity:::" + identity + ";%;speech:::" + me.getText();
-		String message = multimodal_spec + withinModeDelim + true_spec + multiModalDelim + identity_spec  + withinModeDelim +
+//		String message = "message=multimodal:::true;%;identity:::" + identity + ";%;speech:::" + me.getText();
+		String message = messageSpec+ multimodal_spec + withinModeDelim + true_spec + multiModalDelim + identity_spec  + withinModeDelim +
 				identity +  multiModalDelim + speech_spec + withinModeDelim + me.getText();
 
 		
