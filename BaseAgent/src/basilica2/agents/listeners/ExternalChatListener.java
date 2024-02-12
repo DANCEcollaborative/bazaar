@@ -1,6 +1,7 @@
 package basilica2.agents.listeners;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 import basilica2.agents.components.InputCoordinator;
@@ -60,10 +61,18 @@ public class ExternalChatListener extends BasilicaAdapter
 		String roomName = agent.getRoomName();
 		String room = "session_id=" + roomName; 
 		String identity = me.getFrom();
+		String encodedMessageText = ""; 
+		
+		try {
+			encodedMessageText = URLEncoder.encode(me.getText(),charset).replace("+", "%20");
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    	return; 
+	    }
 		
 //		String message = "message=multimodal:::true;%;identity:::" + identity + ";%;speech:::" + me.getText();
 		String message = messageSpec+ multimodal_spec + withinModeDelim + true_spec + multiModalDelim + identity_spec  + withinModeDelim +
-				identity +  multiModalDelim + speech_spec + withinModeDelim + me.getText();
+				identity +  multiModalDelim + speech_spec + withinModeDelim + encodedMessageText;
 
 		
 		String externalMessage = start_flag + room + delimiter + message; 
