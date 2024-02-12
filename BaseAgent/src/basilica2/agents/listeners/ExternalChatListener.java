@@ -60,11 +60,12 @@ public class ExternalChatListener extends BasilicaAdapter
 	{
 		String roomName = agent.getRoomName();
 		String room = "session_id=" + roomName; 
-		String identity = me.getFrom();
+		String encodedIdentity = ""; 
 		String encodedMessageText = ""; 
 		
 		try {
 			encodedMessageText = URLEncoder.encode(me.getText(),charset).replace("+", "%20");
+			encodedIdentity = URLEncoder.encode(me.getFrom(),charset).replace("+", "%20");
 	    } catch (IOException e) {
 	    	e.printStackTrace();
 	    	return; 
@@ -72,7 +73,7 @@ public class ExternalChatListener extends BasilicaAdapter
 		
 //		String message = "message=multimodal:::true;%;identity:::" + identity + ";%;speech:::" + me.getText();
 		String message = messageSpec+ multimodal_spec + withinModeDelim + true_spec + multiModalDelim + identity_spec  + withinModeDelim +
-				identity +  multiModalDelim + speech_spec + withinModeDelim + encodedMessageText;
+				encodedIdentity +  multiModalDelim + speech_spec + withinModeDelim + encodedMessageText;
 
 		
 		String externalMessage = start_flag + room + delimiter + message; 
