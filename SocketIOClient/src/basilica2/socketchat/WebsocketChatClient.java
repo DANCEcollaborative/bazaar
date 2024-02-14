@@ -473,6 +473,19 @@ public class WebsocketChatClient extends Component implements ChatClient
 					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
 					WebsocketChatClient.this.broadcast(me);
 				}
+			}).on("sendpm", new Emitter.Listener() { 
+
+				@Override
+				public void call(Object... args)
+				{
+					String message = (String)args[1];
+					String user = (String)args[2];
+					message = StringEscapeUtils.unescapeHtml4(message);
+					// MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
+					System.err.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
+			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, sendpm received from user " + user + ": " + message);
+					// WebsocketChatClient.this.broadcast(me);
+				}	        
 			}).on("sendfile", new Emitter.Listener() { 
 
 				@Override
