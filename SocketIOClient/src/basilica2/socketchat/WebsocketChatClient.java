@@ -38,6 +38,8 @@ import basilica2.agents.events.EndEvent;
 import basilica2.agents.events.SendCommandEvent;
 import basilica2.agents.events.StartExternalTimerEvent;
 import basilica2.agents.events.PoseEvent.poseEventType;
+import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.events.priority.PriorityEvent.Callback;
 import basilica2.agents.listeners.MultiModalFilter;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Component;
@@ -474,21 +476,21 @@ public class WebsocketChatClient extends Component implements ChatClient
 					WebsocketChatClient.this.broadcast(me);
 				}
 				
-			// I think Bazaar does not receive 'sendpm' from NodeJS. Instead it could receive 'update_private_chat'
+			// I think Bazaar does not receive 'sendpm' from NodeJS. Instead it receives 'update_private_chat'.
 			}).on("sendpm", new Emitter.Listener() { 
 
 				@Override
 				public void call(Object... args)
 				{
-//					String message = (String)args[1];
-//					String user = (String)args[2];
-					// message = StringEscapeUtils.unescapeHtml4(message);
-					// MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
-					// System.err.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
-			        // Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, sendpm received from user " + user + ": " + message);
-//					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], "Shhhh. I got a private message");
-					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Private message");
-					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], test_message);
+					String user = (String)args[0];
+					String message = (String)args[1];
+					user = StringEscapeUtils.unescapeHtml4(user);
+					message = StringEscapeUtils.unescapeHtml4(message);
+					System.err.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
+			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, sendpm received from user " + user + ": " + message);
+//					MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, message);
+					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private message.");
+			        MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, test_message);
 					WebsocketChatClient.this.broadcast(me);
 				}	        
 			}).on("update_private_chat", new Emitter.Listener() { 
@@ -496,16 +498,19 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-//					String message = (String)args[1];
-//					String user = (String)args[2];
-					// message = StringEscapeUtils.unescapeHtml4(message);
-					// MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
-					// System.err.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
-			        // Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, sendpm received from user " + user + ": " + message);
-//					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], "Shhhh. I got a private message");
-					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private messaged");
-					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], test_message);
-					WebsocketChatClient.this.broadcast(me);
+					String user = (String)args[0];
+					String message = (String)args[1];
+					user = StringEscapeUtils.unescapeHtml4(user);
+					message = StringEscapeUtils.unescapeHtml4(message);
+					System.err.println("WebsocketChatClient, update_private_chat received from user " + user + ": " + message);
+			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, update_private_chat received from user " + user + ": " + message);
+					String test_message = "Shhhh. Bazaar received a private message from " + user + "."; 
+//					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private message."); 
+//					MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, message);
+//			        MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, test_message);
+//					WebsocketChatClient.this.broadcast(me);
+					insertMessage(test_message); 
+					
 				}	        
 			}).on("sendfile", new Emitter.Listener() { 
 
