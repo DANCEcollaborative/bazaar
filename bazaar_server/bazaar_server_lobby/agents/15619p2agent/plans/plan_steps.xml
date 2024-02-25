@@ -24,18 +24,18 @@
     	<step type="prompt" delay="4" prompt="PROMPT_SESSION_TIME">PROMPT_SESSION_TIME</step>  
     	<step type="prompt" delay="4" prompt="PROMPT_START_TASK1">PROMPT_START_TASK1</step>
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
-    	<step type="send_external_message" delay="5" message="task1 start">START_1</step> 
+    	<step type="send_external_message" delay="5" message="task1-start">START_1</step> 
         <step type="file_gated" delay="5" timeout="1620" file="testcase-complete_1" delayed_prompt_time="1320" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>	<!-- timeout="1680"; delayed_prompt_time="1380" --> 
     </stage>   
      
     <stage name="StageLO1_Discussion" type="other" delay="0">    	  	
         <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_1">PROMPT_MOVE_ON_1</step>  
-    	<step type="send_external_message" delay="90" message="task1 complete">COMPLETE_1</step> 
+    	<step type="send_external_message" delay="90" message="task1-complete">COMPLETE_1</step> 
     </stage>  
     
     <stage name="StageLO2" type="other" delay="0">  
     	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-2</step>  
-    	<step type="send_external_message" delay="5" message="task2 start">MESSAGE_2</step>
+    	<step type="send_external_message" delay="5" message="task2-start">MESSAGE_2</step>
     	<step type="send_command" delay="5" command="COMMAND_2">COMMAND_2</step>     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2_Rotate</step> 
@@ -44,12 +44,12 @@
      
     <stage name="StageL02_Discussion" type="other" delay="0">      	  	
         <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_2">PROMPT_MOVE_ON_2</step>    
-    	<step type="send_external_message" delay="90" message="task2 complete">COMPLETE_2</step> 
+    	<step type="send_external_message" delay="90" message="task2-complete">COMPLETE_2</step> 
     </stage>   
     
     <stage name="StageLO3" type="other" delay="0">  
     	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="3">logstate_ope-iteration-3</step>  
-    	<step type="send_external_message" delay="5" message="task3 start">MESSAGE_3</step>
+    	<step type="send_external_message" delay="5" message="task3-start">MESSAGE_3</step>
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
         <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
@@ -58,11 +58,11 @@
      
     <stage name="StageLO3_Discussion" type="other" delay="0">         	  	
         <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_3">PROMPT_MOVE_ON_3</step>     
-    	<step type="send_external_message" delay="90" message="task3 complete">COMPLETE_3</step> 
+    	<step type="send_external_message" delay="90" message="task3-complete">COMPLETE_3</step> 
     </stage>  
    
     <stage name="WrapUp" type="other" delay="0">    
-    	<step type="send_external_message" delay="5" message="taskall end">MESSAGE_END</step>	    
+    	<step type="send_external_message" delay="5" message="taskall-end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
         <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>   
@@ -70,7 +70,7 @@
     </stage> 
   
     <stage name="EndStage" type="other" delay="0" timeout="4920">  
-    	<step type="send_external_message" delay="5" message="taskall end">MESSAGE_END</step>	    
+    	<step type="send_external_message" delay="5" message="taskall-end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="10" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
     	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>  
