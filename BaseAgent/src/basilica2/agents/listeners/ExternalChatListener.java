@@ -6,6 +6,8 @@ import java.util.Properties;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.events.priority.PriorityEvent.Callback;
 import basilica2.util.HttpUtility;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -82,6 +84,17 @@ public class ExternalChatListener extends BasilicaAdapter
 		Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, " execute -- externalMessage:  + externalMessage");
 		String response = sendExternalMessageGet(externalMessage);	
 		System.err.println("ExternalChatListener, execute -- response: " + response); 
+		
+//		MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
+//		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
+//		blackout.addCallback(new Callback()
+//		{
+//			@Override
+//			public void accepted(PriorityEvent p) {}
+//			@Override
+//			public void rejected(PriorityEvent p) {}  // ignore our rejected proposals
+//		});
+//		source.pushProposal(blackout);
 	}
 
 
