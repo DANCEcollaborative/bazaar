@@ -24,7 +24,7 @@
 	<!-- GENERAL PROMPTS -->  
       
     <prompt strategy="task" id="PROMPT_INSTRUCTIONS">
-        <text>We're starting!|||Start by reading the Introduction to the left. I'll give you a little  time.</text>
+        <text>We're starting!|||Start by reading the introduction on the left. I'll give you a little  time.</text>
     </prompt> 
    
     <prompt strategy="task" id="PROMPT_TAKING_TURNS">
@@ -39,8 +39,8 @@
 	<!-- HINTS & DISCUSSION FOR SCENARIO 1 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
-     <prompt strategy="task" id="PROMPT_SCENARIO1_INTRO">
-     <text>Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     <prompt strategy="task" id="PROMPT_INTRO_SCENARIO_1">
+     <text>Alright, a scenario is displayed on the left. Start out by explaining the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION">
@@ -116,105 +116,76 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
+    </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_4">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO-MOB">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]|||Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-[ROLE3] - [NAME3]|||Since we are missing a member, the project manager will monitor the group's progress towards the milestones and refer to resources like the primer as necessary. If someone joins later, have them assume the missing role until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_4">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-[ROLE3] - [NAME3]
-[ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+        <text>[NAME1], you're in charge of writing up the next response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY-MOB">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-[ROLE3] - [NAME3]
-[ROLE4] - [NAME4]
-Whoever doesn't have an assignment is a researcher for this round.|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+        <text>[NAME1], you're in charge of writing up the next response. Remember that the entire team is responsible for the response -- [NAME1] is just doing the write=up. When you've come to a consensus, [NAME1] should write "Our policy is" followed by the group response. Once you've completed your response, everyone should enter "All set."</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. When you've come to a consensus, write "Our policy is" followed by the group response. Everyone enter "All set" when you're done.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. When you've come to a consensus, write "Our policy is" followed by the group response. Everyone enter "All set" when you're done.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-If someone joins later, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. When you've come to a consensus, write "Our policy is" followed by the group response. Everyone enter "All set" when you're done.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-[ROLE3] - [NAME3]
-If someone joins later, have them assume the missing role until you pass a test case.</text>
+        <text>[NAME1], you're in charge of writing up the next response. When you've come to a consensus, write "Our policy is" followed by the group response. Everyone enter "All set" when you're done.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_4">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-[ROLE3] - [NAME3]
-[ROLE4] - [NAME4]</text>
+        <text>[NAME1], you're in charge of writing up the next response. When you've come to a consensus, write "Our policy is" followed by the group response. Everyone enter "All set" when you're done.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4-MOB">
-        <text>The new roles are -
-[ROLE1] - [NAME1]
-[ROLE2] - [NAME2]
-[ROLE3] - [NAME3]
-[ROLE4] - [NAME4]
-Whoever doesn't have an assignment is a researcher for this round.</text>
+        <text>[NAME1], you're in charge of writing up the next response. When you've come to a consensus, write "Our policy is" followed by the group response. Everyone enter "All set" when you're done.</text>
     </prompt>
 
 
