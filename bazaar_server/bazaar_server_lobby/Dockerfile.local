@@ -4,7 +4,7 @@ FROM openjdk:8
 RUN apt-get update
 RUN apt-get install -y netcat screen vim wget
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 RUN apt-get update && apt-get install -y default-mysql-client
 RUN apt-get install python3
