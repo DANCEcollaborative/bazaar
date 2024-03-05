@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import basilica2.agents.components.InputCoordinator;
@@ -14,6 +15,7 @@ import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.ReadyEvent;
 import basilica2.agents.events.StepDoneEvent;
+import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
@@ -25,7 +27,7 @@ public class Gatekeeper extends BasilicaAdapter
 	private Collection<String> receivedKeys = new ArrayList<String>();
 	// private String keyPhrase = "^(ok|okay)?\\s*(ready)|(next)|(done)(\\p{Punct}+|\\s*$)";
 	private String keyPhrase = ".*(ready|next|done).*";
-	private Pattern keyPattern = Pattern.compile(keyPhrase, Pattern.CASE_INSENSITIVE);
+	private Pattern keyPattern;
 	private String stepName = "step";
 	private PromptTable prompter;
 	private Map<String, String> slots;
@@ -39,6 +41,17 @@ public class Gatekeeper extends BasilicaAdapter
 	public Gatekeeper(Agent a)
 	{
 		super(a);
+		
+		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");	
+		if (properties != null)
+		{
+			try{keyPhrase = getProperties().getProperty("keyPhrase", keyPhrase);}
+			catch(Exception e) {e.printStackTrace();}
+		}
+		
+		keyPattern = Pattern.compile(keyPhrase, Pattern.CASE_INSENSITIVE);
+		System.err.println("\n\n*** GATEKEEPER *** keyPhrase: " + keyPhrase + "\n\n");
+		
 		keymasters = StateMemory.getSharedState(a).getStudentIdList();
 		prompter = new PromptTable("plans/gatekeeper_prompts.xml");
 		slots = new HashMap<String, String>();

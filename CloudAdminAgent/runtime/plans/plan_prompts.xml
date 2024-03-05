@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<!--- GATED PROMPTS are in gatekeeper_prompts.xml --->
+
+
+	<!---------------------------------->
+	<!-------- GREETING PROMPTS -------->
+	<!---------------------------------->
+	
+    <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Hi! I'm OPE_Bot. Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a few moments to learn more about each other.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+        <text>Whazup, [NAME]?</text>
+    </prompt>
+
+ 
+	<!--------------------------------------------------->
+	<!------ HINTS & DISCUSSION FOR INITIALIZATION ------>
+	<!--------------------------------------------------->
+      
+    <prompt strategy="task" id="INSTRUCTIONS">
+        <text>We're starting!|||Start by reading the introduction on the left. I'll give you some time.</text>
+    </prompt> 
+   
+    <prompt strategy="task" id="TAKING_TURNS">
+        <text>In this activity, your entire team is responsible for each response but you will take turns doing the write-up.</text>
+    </prompt> 
+	
+ 
+	<!--------------------------------------------------->
+	<!-------- HINTS & DISCUSSION FOR SCENARIO 1 -------->
+	<!--------------------------------------------------->
+	
+     <prompt strategy="task" id="SCENARIO_1_INTRO">
+     <text>Here we go. A scenario is now displayed on the left. I'll give you a little time to read it.</text>
+     </prompt> 
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q1  -->
+    
+     <prompt strategy="task" id="SCENARIO_1_Q1">
+     <text>Start out by explaining the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q1_SUGGEST">
+     <text>Since the decline in your VMs’ workload is steady, it is predictable, so you can use predictive autoscaling. Predictive autoscaling is faster since you don’t have to wait for metrics and then for additional resources to spool up. Predictive autoscaling can also be cheaper since it does not require resources for monitoring. However, you will also need reactive scaling to handle unexpected events.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q1_FOLLOW">
+     <text>Based on my suggestion, would you change anything about your policy? If so, what? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q2  -->
+    
+     <prompt strategy="task" id="SCENARIO_1_Q2">
+     <text>You will need to decide how much to scale in or out.|||Should you adjust the number of instances in small or large steps? Justify your response.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q2_SUGGEST">
+     <text>Your workload is declining slowly and steadily, so you can scale-in regularly in small steps to maintain sufficient performance. If you scale-in too much, it will thus be by a small amount.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q2_FOLLOW">
+     <text>Does my suggestion inspire you to change want to anything about your policy? If so, what? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q3  -->
+    
+     <prompt strategy="task" id="SCENARIO_1_Q3">
+     <text>Alright, let's talk about performance metrics.|||Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q3_SUGGEST">
+     <text>You can aggregate workload and performance measures over longer periods of time. Since the workload is declining slowly and steadily, there is less change from moment to moment.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q3_FOLLOW">
+     <text>Is there anything you would change about your policy? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q4  -->
+    
+     <prompt strategy="task" id="SCENARIO_1_Q4">
+     <text>Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q4_SUGGEST">
+     <text>You can minimize costs by scaling in using small decrements as often as possible while maintaining sufficient performance. If you scale-in too early, you may be able to throttle for a while by delaying activity reports.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_1_Q4_FOLLOW">
+     <text>Would you like to change anything about your policy? Discuss.</text>
+     </prompt> 
+	
+ 
+	<!--------------------------------------------------->
+	<!-------- HINTS & DISCUSSION FOR SCENARIO 2 -------->
+	<!--------------------------------------------------->
+	
+     <prompt strategy="task" id="SCENARIO_2_INTRO">
+     <text>Okay! Another scenario is now displayed on the left. I'll give you some time to read it.</text>
+     </prompt> 
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q1  -->
+    
+     <prompt strategy="task" id="SCENARIO_2_Q1">
+     <text>Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q1_SUGGEST">
+     <text>You will need to use reactive autoscaling to respond to sudden, sustained increases in workload. If you have information about when new vendors will come online and what their traffic will be, you can also use predictive autoscaling, which would enable you to scale out in time to meet increases in workload. With only reactive autoscaling, your service might under-perform as you wait for your metrics to indicate a need and then wait for the resources to spool up.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q1_FOLLOW">
+     <text>Based on my suggestion, would you change anything about your policy? If so, what? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q2  -->
+    
+     <prompt strategy="task" id="SCENARIO_2_Q2">
+     <text>You will need to decide how much to scale in or out.|||Should you adjust the number of instances in small or large steps? Justify your response.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q2_SUGGEST">
+     <text>Your workload increases in large jumps, so you will need to scale out aggressively (in large steps) to handle the sustained increases. If you scale out too much, you can scale in after a while by smaller amounts to more accurately tune your capacity to the workload.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q2_FOLLOW">
+     <text>Does my suggestion inspire you to change want to anything about your policy? If so, what? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q3  -->
+    
+     <prompt strategy="task" id="SCENARIO_2_Q3">
+     <text>Let's discuss performance metrics.|||Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q3_SUGGEST">
+     <text>Your workload can increase quite quickly by a significant amount, so your metrics will need to use short aggregation periods in order to detect step-ups quickly.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q3_FOLLOW">
+     <text>Is there anything you would change about your policy? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q4  -->
+    
+     <prompt strategy="task" id="SCENARIO_2_Q4">
+     <text>Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q4_SUGGEST">
+     <text>You can use historical workload data to estimate how much to scale out at time. Or if you know about the vendors coming online, you can use information about them to estimate how much to scale out. You can use short metric aggregation periods to know when to scale back in if you scale out too much. While waiting for scaling out to take effect, you can throttle to preserve resources by delaying transaction reports and bill generation.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_2_Q4_FOLLOW">
+     <text>Would you like to change anything about your policy? Discuss.</text>
+     </prompt> 
+	
+ 
+	<!--------------------------------------------------->
+	<!-------- HINTS & DISCUSSION FOR SCENARIO 3 -------->
+	<!--------------------------------------------------->
+	
+     <prompt strategy="task" id="SCENARIO_3_INTRO">
+     <text>Alright! The last scenario is now displayed on the left. I'll give you a little time to read it.</text>
+     </prompt> 
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q1  -->
+    
+     <prompt strategy="task" id="SCENARIO_3_Q1">
+     <text>Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q1_SUGGEST">
+     <text>Since the decline in your VMs’ workload is steady, it is predictable, so you can use predictive autoscaling. Predictive autoscaling is faster since you don’t have to wait for metrics and then for additional resources to spool up. Predictive autoscaling can also be cheaper since it does not require resources for monitoring. However, you will also need reactive scaling to handle unexpected events.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q1_FOLLOW">
+     <text>Based on my suggestion, would you change anything about your policy? If so, what? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q2  -->
+    
+     <prompt strategy="task" id="SCENARIO_3_Q2">
+     <text>You will need to decide how much to scale in or out.|||Should you adjust the number of instances in small or large steps? Justify your response.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q2_SUGGEST">
+     <text>Your workload is declining slowly and steadily, so you can scale-in regularly in small steps to maintain sufficient performance. If you scale-in too much, it will thus be by a small amount.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q2_FOLLOW">
+     <text>Does my suggestion inspire you to change want to anything about your policy? If so, what? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q3  -->
+    
+     <prompt strategy="task" id="SCENARIO_3_Q3">
+     <text>Let's talk about performance metrics.|||Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q3_SUGGEST">
+     <text>You can aggregate workload and performance measures over longer periods of time. Since the workload is declining slowly and steadily, there is less change from moment to moment.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q3_FOLLOW">
+     <text>Is there anything you would change about your policy? Discuss.</text>
+     </prompt> 
+    
+    
+    <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q4  -->
+    
+     <prompt strategy="task" id="SCENARIO_3_Q4">
+     <text>Last question! Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q4_SUGGEST">
+     <text>You can minimize costs by scaling in using small decrements as often as possible while maintaining sufficient performance. If you scale-in too early, you may be able to throttle for a while by delaying activity reports.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_3_Q4_FOLLOW">
+     <text>Would you like to change anything about your policy? Discuss.</text>
+     </prompt> 
+    
+
+	<!-------------------------------->
+	<!-------- ENDING PROMPTS -------->
+	<!-------------------------------->
+     
+    <prompt strategy="task" id="FINAL">
+     	<text>It's time for me to logoff. Thanks for participating in today's OPE activity. Bye!</text>
+    </prompt>
+     
+     
+
+	<!------------------------------------>
+	<!-------- ASSIGNMENT PROMPTS -------->
+	<!------------------------------------>
+    
+    <prompt strategy="task" id="MATCH">
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="MATCH_1">
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="MATCH_2">
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="MATCH_3">
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="MATCH_4">
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response. </text>
+    </prompt>
+
+    <prompt strategy="task" id="MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO-MOB">
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write=up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_FANCY">
+        <text>[NAME1], it's your turn to do the write-up. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_FANCY_1">
+        <text>[NAME1], it's your turn to do the write-up. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_FANCY_2">
+        <text>[NAME1], it's your turn to do the write-up. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_FANCY_3">
+        <text>[NAME1], it's your turn to do the write-up. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_FANCY_4">
+        <text>[NAME1], it's your turn to do the write-up. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY-MOB">
+        <text>[NAME1], it's your turn to do the write-up. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_PLAIN">
+        <text>[NAME1], you're next to do the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_PLAIN_1">
+        <text>[NAME1], you're next to do the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_PLAIN_2">
+        <text>[NAME1], you're next to do the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_PLAIN_3">
+        <text>[NAME1], you're next to do the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_PLAIN_4">
+        <text>[NAME1], you're next to do the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4-MOB">
+        <text>[NAME1], you're next to do the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+    </prompt>
+
+
+</prompts>

@@ -400,9 +400,18 @@ ul.tab li a:focus, .active {
            }
 	});
 	
-		// listener, whenever the server emits 'updatechat', this updates the chat body
+	// listener, whenever the server emits 'update_private_chat', this updates the chat body
 	socket.on('update_private_chat', function (username, data) 
-	{
+	{		
+		if (data.search("multimodal:::true;%;") > -1) {
+			console.log("updatechat - multimodal message found");
+			username = getMultimodalValue("from",data);
+			data = getMultimodalValue("speech",data);
+		} else {
+			console.log("update_private_chat - multimodal message NOT found");
+		}
+		console.log("update_private_chat - username: " + username);
+		console.log("update_private_chat - data:     " + data);
         appendMessage(new Date(), username+' (Private Message)', data, getUserColor(username));
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
