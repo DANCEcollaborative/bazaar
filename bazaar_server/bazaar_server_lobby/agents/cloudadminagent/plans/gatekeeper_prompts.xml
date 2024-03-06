@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+	
+    <prompt strategy="task" id="ENTER_READY_FANCY">
+       <text>Once you've completed your response, everyone should enter "ready."</text>
+    </prompt>
+	
+    <prompt strategy="task" id="ENTER_READY_PLAIN">
+       <text>Everyone enter "ready" when you're done.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="TIMEOUT_WARNING">
+       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
+       <text>We're about to move on. Remember to type "ready" if you are done.</text>
+    </prompt>
+    
+ 
+    <!-- Gated Prompts for READY_GENERIC -->    
+    <prompt strategy="task" id="READY_GENERIC" intention="cut_off_READY_GENERIC">
+       <text>Type "ready" when you are ready to move on.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="READY_GENERIC_NO_READY" intention="cut_off_READY_GENERIC_NO_READY">
+       <text>We will move on after a while or when everyone is ready.</text>
+    </prompt>
+         
+    <prompt strategy="task" id="WAIT_FOR_CONSENSUS" intention="cut_off_WAIT_FOR_CONSENSUS">
+       <text>When you've reached consensus in your group, type "ready".</text>
+       <text>Make sure your partner agrees before continuing.</text>
+       <text>We'll move to the next part once everyone is in agreement.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ACKNOWLEDGE" intention="cut_off_ACKNOWLEDGE">
+       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
+       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
+       <text>Hang on until your team is ready, [STUDENT].</text>
+       <text>Thanks, [STUDENT]. Hang on until your team is ready...</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ALL_READY" intention="cut_off_ALL_READY">
+       <text>Okay, let's move on.</text>
+       <text>Onward!</text>
+    </prompt>
+  
+    
+</prompts>
+
