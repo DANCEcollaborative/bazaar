@@ -235,6 +235,10 @@
 
 	<!-- ENDING PROMPTS -->
      
+    <prompt strategy="task" id="DONE">
+     	<text>That's all! Thanks for participating in this activity.</text>
+    </prompt>
+     
     <prompt strategy="task" id="FINAL">
      	<text>Thanks for participating in this activity.|||It's time for me to logoff. Bye!</text>
     </prompt>
