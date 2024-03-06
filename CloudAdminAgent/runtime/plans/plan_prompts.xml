@@ -44,60 +44,60 @@
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q1  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q1">
-     <text>Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     <text>QUESTION: Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q1_SUGGEST">
-     <text>Consider this approach: Since the decline in your VMs’ workload is steady, it is predictable, so you can use predictive autoscaling. Predictive autoscaling is faster since you don’t have to wait for metrics and then for additional resources to spool up. Predictive autoscaling can also be cheaper since it does not require resources for monitoring. However, you will also need reactive scaling to handle unexpected events.</text>
+     <text>CONSIDER THIS APPROACH: Since the decline in your VMs’ workload is steady, it is predictable, so you can use predictive autoscaling. Predictive autoscaling is faster since you don’t have to wait for metrics and then for additional resources to spool up. Predictive autoscaling can also be cheaper since it does not require resources for monitoring. However, you will also need reactive scaling to handle unexpected events.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q1_FOLLOW">
-     <text>Based on these considerations, would you change anything about your policy? If so, what? Discuss, and revise your response if appropriate.|||When you're done discussing and revising your response, everyone should enter "ready."</text>
+     <text>QUESTION: Based on these considerations, would you change anything about your policy? If so, what? Discuss, and revise your response if appropriate.|||When you're done discussing and revising your response, everyone should enter "ready."</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q2  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q2">
-     <text>You will need to decide how much to scale in or out.|||Should you adjust the number of instances in small or large steps? Justify your response.</text>
+     <text>QUESTION: Should you adjust the number of instances in small or large steps? Justify your response.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q2_SUGGEST">
-     <text>Consider this approach: Your workload is declining slowly and steadily, so you can scale-in regularly in small steps to maintain sufficient performance. If you scale-in too much, it will thus be by a small amount.</text>
+     <text>CONSIDER THIS APPROACH: Your workload is declining slowly and steadily, so you can scale-in regularly in small steps to maintain sufficient performance. If you scale-in too much, it will thus be by a small amount.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q2_FOLLOW">
-     <text>Does this consideration prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Does this consideration prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q3  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q3">
-     <text>Alright, let's talk about performance metrics.|||Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
+     <text>QUESTION: Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q3_SUGGEST">
-     <text>Consider this approach: You can aggregate workload and performance measures over longer periods of time: Since the workload is declining slowly and steadily, there is less change from moment to moment.</text>
+     <text>CONSIDER THIS APPROACH: You can aggregate workload and performance measures over longer periods of time: Since the workload is declining slowly and steadily, there is less change from moment to moment.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q3_FOLLOW">
-     <text>Is there anything you would change about your policy? Discuss, and revise your response if appropriate..</text>
+     <text>QUESTION: Is there anything you would change about your policy? Discuss, and revise your response if appropriate..</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q4  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q4">
-     <text>Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     <text>QUESTION: How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q4_SUGGEST">
-     <text>Consider this approach: You can minimize costs by scaling in using small decrements as often as possible while maintaining sufficient performance. If you scale-in too early, you may be able to throttle for a while by delaying activity reports.</text>
+     <text>CONSIDER THIS APPROACH: You can minimize costs by scaling in using small decrements as often as possible while maintaining sufficient performance. If you scale-in too early, you may be able to throttle for a while by delaying activity reports.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q4_FOLLOW">
-     <text>Would you like to change anything about your policy? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Would you like to change anything about your policy? Discuss, and revise your response if appropriate.</text>
      </prompt> 
 	
   
@@ -110,60 +110,60 @@
     <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q1  -->
     
      <prompt strategy="task" id="SCENARIO_2_Q1">
-     <text>Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     <text>QUESTION: Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q1_SUGGEST">
-     <text>Consider this approach: You will need to use reactive autoscaling to respond to sudden, sustained increases in workload. If you have information about when new vendors will come online and what their traffic will be, you can also use predictive autoscaling, which would enable you to scale out in time to meet increases in workload. With only reactive autoscaling, your service might under-perform as you wait for your metrics to indicate a need and then wait for the resources to spool up.</text>
+     <text>CONSIDER THIS APPROACH: You will need to use reactive autoscaling to respond to sudden, sustained increases in workload. If you have information about when new vendors will come online and what their traffic will be, you can also use predictive autoscaling, which would enable you to scale out in time to meet increases in workload. With only reactive autoscaling, your service might under-perform as you wait for your metrics to indicate a need and then wait for the resources to spool up.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q1_FOLLOW">
-     <text>Based on these considerations, would you change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Based on these considerations, would you change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q2  -->
     
      <prompt strategy="task" id="SCENARIO_2_Q2">
-     <text>You will need to decide how much to scale in or out.|||Should you adjust the number of instances in small or large steps? Justify your response.</text>
+     <text>QUESTION: Should you adjust the number of instances in small or large steps? Justify your response.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q2_SUGGEST">
-     <text>Consider this approach: Your workload increases in large jumps, so you will need to scale out aggressively (in large steps) to handle the sustained increases. If you scale out too much, you can scale in after a while by smaller amounts to more accurately tune your capacity to the workload.</text>
+     <text>CONSIDER THIS APPROACH: Your workload increases in large jumps, so you will need to scale out aggressively (in large steps) to handle the sustained increases. If you scale out too much, you can scale in after a while by smaller amounts to more accurately tune your capacity to the workload.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q2_FOLLOW">
-     <text>Do these considerations prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Do these considerations prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q3  -->
     
      <prompt strategy="task" id="SCENARIO_2_Q3">
-     <text>Let's discuss performance metrics.|||Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
+     <text>QUESTION: Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q3_SUGGEST">
-     <text>Consider this approach: Your workload can increase quite quickly by a significant amount, so your metrics will need to use short aggregation periods in order to detect step-ups quickly.</text>
+     <text>CONSIDER THIS APPROACH: Your workload can increase quite quickly by a significant amount, so your metrics will need to use short aggregation periods in order to detect step-ups quickly.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q3_FOLLOW">
-     <text>Is there anything you would change about your policy? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Is there anything you would change about your policy? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_2_Q4  -->
     
      <prompt strategy="task" id="SCENARIO_2_Q4">
-     <text>Cost considerations are always important ...|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     <text>QUESTION: How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q4_SUGGEST">
-     <text>Consider this approach: You can use historical workload data to estimate how much to scale out at time. Or if you know about the vendors coming online, you can use information about them to estimate how much to scale out. You can use short metric aggregation periods to know when to scale back in if you scale out too much. While waiting for scaling out to take effect, you can throttle to preserve resources by delaying transaction reports and bill generation.</text>
+     <text>CONSIDER THIS APPROACH: You can use historical workload data to estimate how much to scale out at time. Or if you know about the vendors coming online, you can use information about them to estimate how much to scale out. You can use short metric aggregation periods to know when to scale back in if you scale out too much. While waiting for scaling out to take effect, you can throttle to preserve resources by delaying transaction reports and bill generation.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_2_Q4_FOLLOW">
-     <text>Would you like to change anything about your policy? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Would you like to change anything about your policy? Discuss, and revise your response if appropriate.</text>
      </prompt> 
 	
   
@@ -176,60 +176,60 @@
     <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q1  -->
     
      <prompt strategy="task" id="SCENARIO_3_Q1">
-     <text>Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     <text>QUESTION: Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q1_SUGGEST">
-     <text>Consider this approach: You should predictively scale-out shortly before 9:30am and scale-in at 4:30pm. You need to start scaling out before the 9:30am increase in activity because scaling takes some time. You will also need to have reactive scaling in place to handle bursts in activity and any other unexpected events. However, since it takes time to detect a need and then to scale out, a burst may be over before reactive scaling is completed.</text>
+     <text>CONSIDER THIS APPROACH: You should predictively scale-out shortly before 9:30am and scale-in at 4:30pm. You need to start scaling out before the 9:30am increase in activity because scaling takes some time. You will also need to have reactive scaling in place to handle bursts in activity and any other unexpected events. However, since it takes time to detect a need and then to scale out, a burst may be over before reactive scaling is completed.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q1_FOLLOW">
-     <text>Based on these considerations, would you change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Based on these considerations, would you change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q2  -->
     
      <prompt strategy="task" id="SCENARIO_3_Q2">
-     <text>You will need to decide how much to scale in or out.|||Should you adjust the number of instances in small or large steps? Justify your response.</text>
+     <text>QUESTION: Should you adjust the number of instances in small or large steps? Justify your response.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q2_SUGGEST">
-     <text>Consider this approach: You can use historical workload data to estimate how much to scale out and scale in throughout the day. Since sudden increases in activity are likely to be short-lived bursts, you can scale out in relatively small steps, if at all, because a burst may be over before scaling out is completed.</text>
+     <text>CONSIDER THIS APPROACH: You can use historical workload data to estimate how much to scale out and scale in throughout the day. Since sudden increases in activity are likely to be short-lived bursts, you can scale out in relatively small steps, if at all, because a burst may be over before scaling out is completed.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q2_FOLLOW">
-     <text>Do these suggestions prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Do these suggestions prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q3  -->
     
      <prompt strategy="task" id="SCENARIO_3_Q3">
-     <text>Let's talk about performance metrics.|||Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
+     <text>QUESTION: Should you aggregate your workload and performance metrics over relatively short or long periods of time? Explain.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q3_SUGGEST">
-     <text>Consider this approach: You should aggregate your metrics over a period long enough to smooth out short bursts that will likely end before you can scale out.</text>
+     <text>CONSIDER THIS APPROACH: You should aggregate your metrics over a period long enough to smooth out short bursts that will likely end before you can scale out.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q3_FOLLOW">
-     <text>Is there anything you would change about your policy? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Is there anything you would change about your policy? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q4  -->
     
      <prompt strategy="task" id="SCENARIO_3_Q4">
-     <text>Last question! Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     <text>QUESTION: Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q4_SUGGEST">
-     <text>Consider this approach: In addition to predictively scaling in and out, you can scale out in relatively small steps, if at all, in response to bursts. To maintain performance during bursts and while scaling up, you can throttle to preserve resources for most time-critical transactions: (1) limit the rate of transactions per investor, and/or (2), delay transaction reports.</text>
+     <text>CONSIDER THIS APPROACH: In addition to predictively scaling in and out, you can scale out in relatively small steps, if at all, in response to bursts. To maintain performance during bursts and while scaling up, you can throttle to preserve resources for most time-critical transactions: (1) limit the rate of transactions per investor, and/or (2), delay transaction reports.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q4_FOLLOW">
-     <text>Would you like to change anything about your policy? Discuss, and revise your response if appropriate.</text>
+     <text>LAST QUESTION! Would you like to change anything about your policy? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
 
