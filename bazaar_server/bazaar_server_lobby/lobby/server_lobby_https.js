@@ -1558,7 +1558,8 @@ io.sockets.on('connection', async (socket) => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		logMessage(socket, data, "private");
 		if(socket.room in user_sockets && to_user in user_sockets[socket.room])
-    		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
+//     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
+    		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data.value);
 	});
 	
 	
