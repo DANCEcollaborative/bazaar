@@ -31,7 +31,7 @@
     </prompt> 
       
     <prompt strategy="task" id="READ_INTRO">
-        <text>Start by reading the introduction on the left. I'll give you some time to read it.</text>
+        <text>Start by reading the introduction on the left.|||Type "ready" when you're ready to move on. We'll move on in a little while or when everyone is ready.</text>
     </prompt> 
      
     <prompt strategy="task" id="TAKING_TURNS">
@@ -42,7 +42,7 @@
 	<!-- HINTS & DISCUSSION FOR SCENARIO 1 -->
 	
      <prompt strategy="task" id="SCENARIO_1_INTRO">
-     <text>Here we go. I've displayed a scenario on the left. I'll give you a little time to read it.</text>
+     <text>Here we go. I've displayed a scenario on the left. (You may need to scroll down.) I'll give you a little time to read it.</text>
      </prompt> 
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q1  -->
@@ -86,7 +86,7 @@
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q3_FOLLOW">
-     <text>QUESTION: Is there anything you would change about your policy? Discuss, and revise your response if appropriate..</text>
+     <text>QUESTION: Is there anything you would change about your policy? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
@@ -203,7 +203,7 @@
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q2_FOLLOW">
-     <text>QUESTION: Do these suggestions prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
+     <text>QUESTION: Do these considerations prompt you to change anything about your policy? If so, what? Discuss, and revise your response if appropriate.</text>
      </prompt> 
     
     
@@ -225,7 +225,7 @@
     <!-- HINTS & DISCUSSION FOR SCENARIO_3_Q4  -->
     
      <prompt strategy="task" id="SCENARIO_3_Q4">
-     <text>QUESTION: Cost considerations are always important.|||How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
+     <text>QUESTION: How can you minimize costs while maintaining sufficient performance? Decide on a plan.</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_3_Q4_SUGGEST">
