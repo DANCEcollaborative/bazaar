@@ -42,13 +42,13 @@
 	<!-- HINTS & DISCUSSION FOR SCENARIO 1 -->
 	
      <prompt strategy="task" id="SCENARIO_1_INTRO">
-     <text>Here we go. I've displayed a scenario on the left. (You may need to scroll down.) I'll give you a little time to read it.</text>
+     <text>Here we go. I've displayed your first scenario on the left. (You'll need to scroll down as we go along.) I'll give you a little time to look at it.</text>
      </prompt> 
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q1  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q1">
-     <text>QUESTION: Explain the benefits of predictive autoscaling, reactive autoscaling, or a combination of both for this scenario.</text>
+     <text>Your first prompt is now displayed on the left. Next, we'll assign your roles and you ca</text>
      </prompt> 
     
      <prompt strategy="task" id="SCENARIO_1_Q1_SUGGEST">
@@ -252,75 +252,75 @@
 	<!-- ASSIGNMENT PROMPTS -->
     
     <prompt strategy="task" id="MATCH">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.|||Once you've completed your response, everyone should enter "ready."</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've completed your response, everyone should enter "ready."</text>
     </prompt>
     
     <prompt strategy="task" id="MATCH_1">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.|||Once you've completed your response, everyone should enter "ready."</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've completed your response, everyone should enter "ready."</text>
     </prompt>
     
     <prompt strategy="task" id="MATCH_2">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.|||Once you've completed your response, everyone should enter "ready."</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've completed your response, everyone should enter "ready."</text>
     </prompt>
     
     <prompt strategy="task" id="MATCH_3">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.|||Once you've completed your response, everyone should enter "ready."</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've completed your response, everyone should enter "ready."</text>
     </prompt>
     
     <prompt strategy="task" id="MATCH_4">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.|||Once you've completed your response, everyone should enter "ready."</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've completed your response, everyone should enter "ready."</text>
     </prompt>
 
     <prompt strategy="task" id="MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO-MOB">
-        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've come to a consensus, write "Our policy is" followed by the group response.|||Once you've completed your response, everyone should enter "ready."</text>
+        <text>[NAME1], you're in charge of writing up the first response. Remember that the entire team is responsible -- [NAME1] is just doing the write-up.|||Use this chat window to discuss as a team. When you've completed your response, everyone should enter "ready."</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_FANCY">
-        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_FANCY_1">
-        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>NAME1], you'll do the write-up this time. Remember that the entire team is responsible.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_FANCY_2">
-        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>NAME1], you'll do the write-up this time. Remember that the entire team is responsible.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_FANCY_3">
-        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>NAME1], you'll do the write-up this time. Remember that the entire team is responsible.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_FANCY_4">
-        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>NAME1], you'll do the write-up this time. Remember that the entire team is responsible.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY-MOB">
-        <text>[NAME1], you'll do the write-up this time. Remember that the entire team is responsible. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>NAME1], you'll do the write-up this time. Remember that the entire team is responsible.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_PLAIN">
-        <text>[NAME1], you're in charge of the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of the write-up this time.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_PLAIN_1">
-        <text>[NAME1], you're in charge of the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of the write-up this time.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_PLAIN_2">
-        <text>[NAME1], you're in charge of the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[[NAME1], you're in charge of the write-up this time.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_PLAIN_3">
-        <text>[NAME1], you're in charge of the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of the write-up this time.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_PLAIN_4">
-        <text>[NAME1], you're in charge of the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of the write-up this time.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4-MOB">
-        <text>[NAME1], you're in charge of the write-up. When you've come to a consensus, write "Our policy is" followed by the group response.</text>
+        <text>[NAME1], you're in charge of the write-up this time.</text>
     </prompt>
 
 
