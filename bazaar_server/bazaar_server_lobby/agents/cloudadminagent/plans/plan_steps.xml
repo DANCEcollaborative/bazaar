@@ -17,7 +17,7 @@
     
     <stage name="Introduction" type="other" delay="0">
         <step type="prompt" delay="3" prompt="STARTING">STARTING</step>  
-        <step type="prompt" delay="10" prompt="READ_INTRO">READ_INTRO</step>INTRODUCTION_READ_INTRO</step>      <!-- 240 -->  	    
+        <step type="prompt" delay="10" prompt="READ_INTRO">INTRODUCTION_READ_INTRO</step>      <!-- 240 -->  	    
         <step type="gated" gated_type="listen" timeout="150" delay="5" checkin_prompt="NONE">READ_INTRO_WAIT</step>      <!-- 240 -->     	   	
     	<step type="prompt" delay="5" prompt="TAKING_TURNS">TAKING_TURNS</step>     	 	   	
     	<step type="prompt" delay="5" prompt="ENTER_READY">ENTER_READY</step>     	  
