@@ -208,12 +208,15 @@
     <!-- ENDING PROMPTS -->
     
     <stage name="DoneStage" type="other" delay="0"> 
-        <step type="prompt" delay="5" prompt="DONE" >DONE</step>
+    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
     	<step type="logstate" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END" delay="2">log_state</step>
     	<step type="send_end" delay="2">send_end</step>  
     </stage>
     
-    <stage name="EndStage" type="other" delay="4800"> 
+    <stage name="EndStage" type="other" delay="4800">   
+    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
         <step type="prompt" delay="5" prompt="FINAL" >FINAL</step>
     	<step type="logstate" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END" delay="2">log_state</step>  
         <step type="chatlog" delay="5" >CHAT_LOGS</step> 
