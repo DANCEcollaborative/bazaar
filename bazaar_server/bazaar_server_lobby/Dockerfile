@@ -1,9 +1,8 @@
 FROM node:18
 
 RUN apt-get update && \
-    apt-get install -y netcat screen vim wget curl && \
+    apt-get install -y netcat-openbsd screen vim wget curl && \
     apt-get install -y default-mysql-client python3
-
 
 WORKDIR /usr/bazaar/
 
