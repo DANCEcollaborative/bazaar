@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:16
 
 RUN apt-get update && \
     apt-get install -y netcat-openbsd screen vim wget curl && \
