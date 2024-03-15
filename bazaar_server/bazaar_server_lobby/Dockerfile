@@ -1,12 +1,12 @@
-FROM node:16
+FROM timbru31/java-node:8-hydrogen
 
 RUN apt-get update && \
     apt-get install -y netcat-openbsd screen vim wget curl && \
     apt-get install -y default-mysql-client python3 
     
-ENV JAVA_HOME=/opt/java/openjdk
-COPY --from=eclipse-temurin:8 $JAVA_HOME $JAVA_HOME
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
+# ENV JAVA_HOME=/opt/java/openjdk
+# COPY --from=eclipse-temurin:8 $JAVA_HOME $JAVA_HOME
+# ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 
 WORKDIR /usr/bazaar/
@@ -20,7 +20,7 @@ RUN cd lobby && npm install && cd ..
 
 EXPOSE 443 444 5555
 
-
+# ENV DEBUG=*
 ENV DEBUG=socket.io*
 
 
