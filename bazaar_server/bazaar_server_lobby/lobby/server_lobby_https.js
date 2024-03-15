@@ -1495,13 +1495,13 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('sendchatwithroom', async (room, data)  => {
 		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
-		console.log("info","socket.on_sendchatwithroom: -- room: " + socket.room + "  -- username: " + socket.username + "  -- text: " + data);
+		console.log("info","socket.on_sendchatwithroom: -- room: " + room + "  -- username: " + socket.username + "  -- text: " + data);
 		
 		if (!socket.username) 
 			{ socket.username = "OPEBot" }
 		
 		logMessage(socket, data, "text");
-                console.log("socket.on('sendchatwithroom: -- room: " + socket.room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+                console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
@@ -1517,7 +1517,7 @@ io.sockets.on('connection', async (socket) => {
 	// when the client emits 'sendfile', this listens and executes
 	socket.on('sendfile', async (data)  => {
 		logMessage(socket, data, "sendfile");
-        console.log("socket.on('sendfile'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+        console.log("socket.on('sendfile'): socket.room = " + socket.room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
         io.sockets.in(socket.room).emit('sendfile', socket.username, data);		
 	});
 
