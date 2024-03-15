@@ -1472,7 +1472,11 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('sendchat', async (data)  => {
 		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
-		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
+		console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.username + "  -- text: " + data);
+		
+		if (!socket.username) 
+			{ socket.username = "OPEBot" }
+		
 		logMessage(socket, data, "text");
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
 
