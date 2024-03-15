@@ -474,6 +474,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 				{
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
+					System.err.println("WebsocketChatClient, updatechat received message: " + message);
+			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);
 					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
 					WebsocketChatClient.this.broadcast(me);
 				}
@@ -520,8 +522,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 				public void call(Object... args)
 				{
 					String filename = (String)args[1];
-//					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
-//					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
+					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
 					FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 					FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
 					WebsocketChatClient.this.broadcast(fe);
