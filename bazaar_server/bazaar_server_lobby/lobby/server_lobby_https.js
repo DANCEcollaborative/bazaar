@@ -1491,17 +1491,17 @@ io.sockets.on('connection', async (socket) => {
 
 
 // ================================= VERSION WITH ROOM EXPLICITLY SPECIFIED =================================
-	// when the client emits 'sendchat', this listens and executes
-	socket.on('sendchat', async (room, data)  => {
+	// when the client emits 'sendchatwithroom', this listens and executes
+	socket.on('sendchatwithroom', async (room, data)  => {
 		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
-		console.log("info","socket.on_sendchat-2: -- room: " + socket.room + "  -- username: " + socket.username + "  -- text: " + data);
+		console.log("info","socket.on_sendchatwithroom: -- room: " + socket.room + "  -- username: " + socket.username + "  -- text: " + data);
 		
 		if (!socket.username) 
 			{ socket.username = "OPEBot" }
 		
 		logMessage(socket, data, "text");
-                console.log("socket.on('sendchat-2: -- room: " + socket.room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+                console.log("socket.on('sendchatwithroom: -- room: " + socket.room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
@@ -1554,10 +1554,10 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 // ================================= VERSION WITH ROOM EXPLICITLY SPECIFIED =================================
-	// when the client emits 'sendcommandevent', this listens and executes
-	socket.on('sendcommandevent', async (room, command)  => {
+	// when the client emits 'sendcommandeventwithroom', this listens and executes
+	socket.on('sendcommandeventwithroom', async (room, command)  => {
 		logMessage(socket, command, "sendcommandevent-2");
-        console.log("socket.on('sendcommandevent-2'): room = " + room + "  socket.clientID = " + socket.clientID + " command = " + command);
+        console.log("socket.on('sendcommandeventwithroom'): room = " + room + "  socket.clientID = " + socket.clientID + " command = " + command);
         io.sockets.in(room).emit('sendcommandevent', command);		
 	});
 
