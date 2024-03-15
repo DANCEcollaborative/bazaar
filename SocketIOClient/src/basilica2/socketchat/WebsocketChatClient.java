@@ -311,7 +311,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 	protected void insertMessage(String message)
 	{
-		socket.emit("sendchat", message);
+//		socket.emit("sendchat", message);
+		socket.emit("sendchat", agentRoomName, message);
 	}
 
 	protected void insertPrivateMessage(String message, String toUser)
@@ -344,7 +345,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 	{
         System.err.println("WebsocketChatClient, insertSendCommandEvent - command: " + command);
         Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertSendCommandEvent - command: " + command);
-		socket.emit("sendcommandevent", command);
+        socket.emit("sendcommandevent", agentRoomName, command);
+//		socket.emit("sendcommandevent", command);
 	}
 
 	protected void insertStartExternalTimerEvent(String time)
