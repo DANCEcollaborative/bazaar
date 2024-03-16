@@ -1520,12 +1520,13 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('sendfile', async (data)  => {
 		logMessage(socket, data, "sendfile");
         console.log("socket.on('sendfile'): socket.room = " + socket.room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
-//         io.sockets.in(socket.room).emit('sendfile', socket.username, data);	io.sockets.in(socket.room).emit('sendfile', socket.username, data, (ack) => {
-		if (ack) {
-			console.log('File sent successfully to at least one client in the room.');
-		} else {
-			console.log('No acknowledgement received. Potential delivery issues.');
-		}
+		io.sockets.in(socket.room).emit('sendfile', socket.username, data);	
+//		io.sockets.in(socket.room).emit('sendfile', socket.username, data, (ack) => {
+//		if (ack) {
+//			console.log('File sent successfully to at least one client in the room.');
+//		} else {
+//			console.log('No acknowledgement received. Potential delivery issues.');
+//		}
 	});
 
 
