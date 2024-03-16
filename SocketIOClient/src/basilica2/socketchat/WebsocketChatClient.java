@@ -68,6 +68,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 	@Override
 	public void disconnect()
 	{
+		log(Logger.LOG_NORMAL, "WebsocketChatClient, disconnect");
 		socket.disconnect();
 	}
 
@@ -376,6 +377,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 			public void call(Object... args)
 			{
 				System.err.println("an Error occurred...");
+
+				log(Logger.LOG_NORMAL, "WebsocketChatClient, setCallbacks - enter");
 				//socketIOException.printStackTrace();
 
 				System.err.println("attempting to reconnect...");
@@ -419,14 +422,17 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.err.println("Connection terminated.");
+					System.err.println("Connection terminated.");				
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, EVENT_DISCONNECT");
 				}
+				
 			}).on(Socket.EVENT_CONNECT, new Emitter.Listener() { 
 
 				@Override
 				public void call(Object... args)
 				{
 					System.err.println("Connection established");
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, EVENT_CONNECT");
 				}
 			}).on("updateusers", new Emitter.Listener() { 
 
