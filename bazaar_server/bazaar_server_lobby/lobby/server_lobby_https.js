@@ -1563,7 +1563,7 @@ io.sockets.on('connection', async (socket) => {
 // ================================= VERSION WITH ROOM EXPLICITLY SPECIFIED =================================
 	// when the client emits 'sendcommandeventwithroom', this listens and executes
 	socket.on('sendcommandeventwithroom', async (room, command)  => {
-		logMessage(socket, command, "sendcommandevent-2");
+		logMessage(socket, command, "sendcommandeventwithroom");
         console.log("socket.on('sendcommandeventwithroom'): room = " + room + "  socket.clientID = " + socket.clientID + " command = " + command);
         io.sockets.in(room).emit('sendcommandevent', command);		
 	});
