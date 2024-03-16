@@ -1526,7 +1526,6 @@ io.sockets.on('connection', async (socket) => {
 		} else {
 			console.log('No acknowledgement received. Potential delivery issues.');
 		}
-});	
 	});
 
 
