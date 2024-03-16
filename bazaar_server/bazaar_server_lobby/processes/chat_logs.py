@@ -38,7 +38,7 @@ end_tag = ";%;"
 # users_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
 # users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
 # users_to_exclude = []
-users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk","OPE_Bot","OPEBot"]
+users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk","OPE_Bot","OPEBot","OPE-Bot"]
 
 def create_filename (prefix, suffix):
     # suffix includes the period, if any -- e.g., '.csv
