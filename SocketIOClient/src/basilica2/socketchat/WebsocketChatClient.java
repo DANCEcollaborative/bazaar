@@ -56,6 +56,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 	String agentRoomName = "ROOM";
 //	private String multiModalDelim = ";%;";
 //	private String withinModeDelim = ":::";	
+	private String sendFilePrefix = "sendfile-";
 
 
 	boolean connected = false;
@@ -481,9 +482,20 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
 					System.out.println("WebsocketChatClient, updatechat received message: " + message);
-			        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);	        
-					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
-					WebsocketChatClient.this.broadcast(me);
+			        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);	
+			        
+			        if (message.startsWith(sendFilePrefix)) {
+			        	String filename = message.replace(sendFilePrefix,"");
+						System.out.println("WebsocketChatClient, updatechat with sendfile received: " + filename); 
+						log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat with sendfile received - filename = " + filename);					
+						FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
+						FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
+						WebsocketChatClient.this.broadcast(fe);
+			        	
+			        } else {			        
+						MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
+						WebsocketChatClient.this.broadcast(me);
+			        }
 				}
 				
 			// I think Bazaar does not receive 'sendpm' from NodeJS. Instead it receives 'update_private_chat'.
