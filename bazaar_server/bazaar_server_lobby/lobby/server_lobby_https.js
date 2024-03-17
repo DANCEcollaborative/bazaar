@@ -1511,7 +1511,6 @@ io.sockets.on('connection', async (socket) => {
 		if (socket.username == "MLAgent") 
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		else {
-			io.sockets.in(socket.room).emit('sendfile', socket.username, data);
 			io.sockets.in(socket.room).emit('updatechat', socket.username, data);	
 			}		
 	});
