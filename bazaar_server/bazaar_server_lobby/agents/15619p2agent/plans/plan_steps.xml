@@ -30,11 +30,13 @@
      
     <stage name="StageLO1_Discussion" type="other" delay="0">    	  	
         <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_1">PROMPT_MOVE_ON_1</step>  
-    	<step type="send_external_message" delay="90" message="task=task1-complete">COMPLETE_1</step> 
+    	<step type="send_external_message" delay="30" message="task=task1-complete-a">COMPLETE_1A</step>  
+    	<step type="send_external_message" delay="30" message="task=task1-complete-b">COMPLETE_1B</step>  
+    	<step type="send_external_message" delay="18" message="task=task1-complete-c">COMPLETE_1C</step> 
     </stage>  
     
     <stage name="StageLO2" type="other" delay="0">  
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-2</step>  
+    	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-2</step>  
     	<step type="send_external_message" delay="5" message="task=task2-start">MESSAGE_2</step>
     	<step type="send_command" delay="5" command="COMMAND_2">COMMAND_2</step>     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
@@ -44,11 +46,13 @@
      
     <stage name="StageL02_Discussion" type="other" delay="0">      	  	
         <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_2">PROMPT_MOVE_ON_2</step>    
-    	<step type="send_external_message" delay="90" message="task=task2-complete">COMPLETE_2</step> 
+    	<step type="send_external_message" delay="30" message="task=task2-complete-a">COMPLETE_2A</step>  
+    	<step type="send_external_message" delay="30" message="task=task2-complete-b">COMPLETE_2B</step>  
+    	<step type="send_external_message" delay="18" message="task=task2-complete-c">COMPLETE_2C</step> 
     </stage>   
     
     <stage name="StageLO3" type="other" delay="0">  
-    	<step type="logstate" delay="5" state_tag="ope_iteration" state_value="3">logstate_ope-iteration-3</step>  
+    	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="3">logstate_ope-iteration-3</step>  
     	<step type="send_external_message" delay="5" message="task=task3-start">MESSAGE_3</step>
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
@@ -57,8 +61,10 @@
     </stage>  
      
     <stage name="StageLO3_Discussion" type="other" delay="0">         	  	
-        <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_3">PROMPT_MOVE_ON_3</step>     
-    	<step type="send_external_message" delay="90" message="task=task3-complete">COMPLETE_3</step> 
+        <step type="prompt" delay="5" prompt="PROMPT_MOVE_ON_3">PROMPT_MOVE_ON_3</step>        
+    	<step type="send_external_message" delay="30" message="task=task3-complete-a">COMPLETE_3A</step>  
+    	<step type="send_external_message" delay="30" message="task=task3-complete-b">COMPLETE_3B</step>  
+    	<step type="send_external_message" delay="20" message="task=task3-complete-c">COMPLETE_3C</step> 
     </stage>  
    
     <stage name="WrapUp" type="other" delay="0">    
