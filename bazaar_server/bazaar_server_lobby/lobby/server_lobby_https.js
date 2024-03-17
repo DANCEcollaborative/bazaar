@@ -223,6 +223,31 @@ app.post('/login*', async (req, res) => {
 
 });
 
+app.post('/forward_oais_msg', async (req, res) => {
+
+    console.log("socket.on('forward_oais_message')");
+    console.log(req.query.room);
+    console.log(req.query.username);
+    console.log(req.query.msg);
+    parsedMsg = "multimodal:::true;%;from:::OPEBot;%;to:::group;%;speech:::" + decodeAndFixString(req.query.msg);
+    console.log(parsedMsg)
+    io.sockets.in(req.query.room).emit('sendchat', req.query.username, parsedMsg);
+    io.sockets.in(req.query.room).emit('updatechat', req.query.username, parsedMsg);
+ 
+    res.status(200).send("OAIS Message received");
+});
+
+
+function decodeAndFixString(str) {
+  // Decode URL-encoded characters
+  const decodedString = decodeURIComponent(str);
+
+  // Replace escaped apostrophes (if needed)
+  const fixedString = decodedString.replace(/\\'/g, "'");
+
+  return fixedString;
+}
+
 
 function createWorker() {
   return new Worker('./agentup.js');
