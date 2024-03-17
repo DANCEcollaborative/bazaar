@@ -23,8 +23,8 @@
     	<step type="send_command" delay="4" command="COMMAND_1">COMMAND_1</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">PROMPT_SESSION_TIME</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_START_TASK1">PROMPT_START_TASK1</step>
-        <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
     	<step type="send_external_message" delay="5" message="task=task1-start">START_1</step> 
+        <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step> 
         <step type="file_gated" delay="5" timeout="1620" file="testcase-complete_1" delayed_prompt_time="1320" delayed_prompt="BOTTOM-OUT_TASK-1" checkin_prompt="NONE" warning_prompt="NONE">Test_case_1</step>	<!-- timeout="1680"; delayed_prompt_time="1380" --> 
     </stage>   
      
@@ -40,7 +40,7 @@
     	<step type="send_external_message" delay="5" message="task=task2-start">MESSAGE_2</step>
     	<step type="send_command" delay="5" command="COMMAND_2">COMMAND_2</step>     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
-        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2_Rotate</step> 
+        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2_Rotate</step> 
         <step type="file_gated" delay="5" timeout="1260" file="testcase-complete_2" delayed_prompt_time="960" delayed_prompt="BOTTOM-OUT_TASK-2" checkin_prompt="NONE" warning_prompt="NONE">Test_case_2</step>	<!-- timeout="1320"; delayed_prompt_time="1020" -->  
     </stage> 
      
@@ -56,7 +56,7 @@
     	<step type="send_external_message" delay="5" message="task=task3-start">MESSAGE_3</step>
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
-        <step type="rotate" delay="10" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
+        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3_Rotate</step> 
         <step type="file_gated" delay="5" timeout="1260" file="testcase-complete_3" delayed_prompt_time="960" delayed_prompt="BOTTOM-OUT_TASK-3" checkin_prompt="NONE" warning_prompt="NONE">Test_case_3</step>	<!-- timeout="1320"; delayed_prompt_time="1020" -->      
     </stage>  
      
