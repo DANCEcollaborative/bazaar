@@ -169,7 +169,7 @@ app.get('/login*', async (req, res) => {
 
 // May launch an agent directly -- IS THIS USED? 
 app.post('/login*', async (req, res) => {
-//console.log("Enter app.post /login");
+   console.log("info","*** YES, THIS app.post(/login IS USED ***");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
