@@ -227,7 +227,8 @@ try:
     ##################################################################################
 
     # print('Before reader')
-    csvfile = open(args.csvfile,'r')
+    # csvfile = open(args.csvfile,'r')
+    csvfile = open(args.csvfile,'r',encoding='utf-8')
     reader = csv.reader(csvfile)
     # print('After reader')
 
