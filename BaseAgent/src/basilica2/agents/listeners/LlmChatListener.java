@@ -3,6 +3,8 @@ package basilica2.agents.listeners;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
@@ -38,6 +40,7 @@ public class LlmChatListener extends BasilicaAdapter
 	private String modelName;
 	private String context;
 	private double temperature;
+	
 	private static String messageSpec = "message=";
 	private static String multiModalDelim = ";%;";
 	private static String withinModeDelim = ":::";	
@@ -45,6 +48,12 @@ public class LlmChatListener extends BasilicaAdapter
 	private static String true_spec = "true"; 
 	private static String identity_spec = "identity";
 	private static String speech_spec = "speech"; 
+	
+	// Timer to track inactivity
+    private Timer inactivityTimer;
+    private long inactivityPeriod = 30 * 1000; // 30 seconds in milliseconds by default
+    private String inactivityPrompt;
+    private boolean inactivityPromptFlag;
 
 	public LlmChatListener(Agent a)
 	{
@@ -69,6 +78,15 @@ public class LlmChatListener extends BasilicaAdapter
 			modelName = llm_prop.getProperty("openai.model.name");
 			temperature = Double.valueOf(llm_prop.getProperty("openai.temperature"));
 			context = llm_prop.getProperty("openai.prompt.context");
+			inactivityPeriod = Long.parseLong(llm_prop.getProperty("openai.timer.timeout")) * 1000;
+			inactivityPrompt = llm_prop.getProperty("openai.prompt.timeout");
+			// Initialize the inactivity timer
+			inactivityPromptFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.flag.timeout"));
+			if (inactivityPromptFlag) {
+				inactivityTimer = new Timer();
+			}
+	        
+	        
 		}
 		catch (Exception e){}
 	}
@@ -80,6 +98,11 @@ public class LlmChatListener extends BasilicaAdapter
 		if (e instanceof MessageEvent)
 		{
 			handleMessageEvent(source, (MessageEvent) e);
+//			if ((((MessageEvent) e).getFrom() != "OPEBot") && (inactivityPromptFlag)){
+			if (inactivityPromptFlag) {
+				resetInactivityTimer(source);
+				Logger.commonLog("LLMChatListener", Logger.LOG_NORMAL, "TIME OUT... sending prompt to the room");
+			}
 		}
 	}
 	
@@ -100,8 +123,8 @@ public class LlmChatListener extends BasilicaAdapter
 	    	    "]" +
 	    	"}";
 	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(jsonPayload);
-
+	    String response = sendToOpenAI(source, jsonPayload);
+	    
 
         MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
@@ -115,38 +138,11 @@ public class LlmChatListener extends BasilicaAdapter
 		source.pushProposal(blackout);
 	    Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
 	}
-//	public void handleMessageEvent(InputCoordinator source, MessageEvent me)
-//	{
-//		String roomName = agent.getRoomName();
-//		String room = "session_id=" + roomName; 
-//		String encodedIdentity = ""; 
-//		String encodedMessageText = ""; 
-//		
-//		try {
-//			encodedMessageText = URLEncoder.encode(me.getText(),charset).replace("+", "%20");
-//			encodedIdentity = URLEncoder.encode(me.getFrom(),charset).replace("+", "%20");
-//	    } catch (IOException e) {
-//	    	e.printStackTrace();
-//	    	return; 
-//	    }
-//		
-////		String message = "message=multimodal:::true;%;identity:::" + identity + ";%;speech:::" + me.getText();
-//		String message = messageSpec+ multimodal_spec + withinModeDelim + true_spec + multiModalDelim + identity_spec  + withinModeDelim +
-//				encodedIdentity +  multiModalDelim + speech_spec + withinModeDelim + encodedMessageText;
-//
-//		
-//		String externalMessage = start_flag + room + delimiter + message; 
-//		System.err.println("ExternalChatListener, execute -- externalMessage: " + externalMessage); 
-//		log(Logger.LOG_NORMAL, "ExternalChatListener execute -- externalMessage: " + externalMessage);
-//		Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, " execute -- externalMessage:  + externalMessage");
-//		String response = sendExternalMessageGet(externalMessage);	
-//		System.err.println("ExternalChatListener, execute -- response: " + response); 
-//	}
 
-	public String sendToOpenAI(String jsonPayload) {
+
+	public String sendToOpenAI(InputCoordinator source, String jsonPayload) {
 	    String apiKey = this.apiKey;
 	    String requestURL = this.requestURL;
-	    
 	    try {
 	        URL url = new URL(requestURL);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -184,6 +180,8 @@ public class LlmChatListener extends BasilicaAdapter
 		            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
 		            String responseText = responseMessage.getString("content");
 		            System.out.println("Extracted Response Text: " + responseText);
+		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
+		    		
 		            return responseText;
 		        } else {
 		            System.err.println("No choices found in the response.");
@@ -203,45 +201,61 @@ public class LlmChatListener extends BasilicaAdapter
 	            System.err.println("Error response: " + response.toString());
 	            return "Error response: " + response.toString();
 	        }
-//	        // Read the response...
-//	        StringBuilder response = new StringBuilder();
-//	        try (BufferedReader reader = new BufferedReader(
-//	                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-//	            String line;
-//	            while ((line = reader.readLine()) != null) {
-//	                response.append(line.trim());
-//	            }
-//	        }
-//	        
-//	        return response.toString();
-//	        
+       
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "Failed to send message to OpenAI";
 	    }
 	    
+	    
 	}
-
-//	public String sendExternalMessageGet(String message)
-//	{
-//		String requestURL = host + ":" + port + path + message; 
-//		System.err.println("ExternalChatListener, sendExternalMessageGet -- requestURL: " + requestURL); 
-//		log(Logger.LOG_NORMAL, "ExternalChatListener sendExternalMessageGet -- requestURL: " + requestURL);
-//		Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, " sendExternalMessageGet -- requestURL: " + requestURL);	
-//		
-//		try {
-//			HttpUtility.sendGetRequest(requestURL); 
-//			String response = HttpUtility.readSingleLineResponse(); 
-//			System.err.println("ExternalChatListener, sendExternalMessage -- response: " + response); 
-//			return response; 
-//			
-//	    } catch (IOException e) {
-//	    	e.printStackTrace();
-//	    	return "sendExternalMessage returned an IOException"; 
-//	    }	
-//	}
 	
+	public void sendActivePromptToOpenAI(InputCoordinator source) {
+	    // Prepare the prompt based on the received message
+	    String prompt = this.inactivityPrompt;
+	    String modelName = this.modelName;
+	    Double temperature = this.temperature;
+	    // Construct the payload for OpenAI
+	    String jsonPayload = "{" +
+	    	    "\"model\": \"" + modelName + "\"," +
+	    	    "\"temperature\": " + temperature + "," +
+	    	    "\"messages\": [" +
+	    	        "{" +
+	    	            "\"role\": \"user\"," +
+	    	            "\"content\": \"" + prompt.replace("\"", "\\\"") + "\"" +
+	    	        "}" +
+	    	    "]" +
+	    	"}";
+	    // Sending the message to OpenAI and receiving the response
+	    String response = sendToOpenAI(source, jsonPayload);
 
+
+        MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
+		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
+		blackout.addCallback(new Callback()
+		{
+			@Override
+			public void accepted(PriorityEvent p) {}
+			@Override
+			public void rejected(PriorityEvent p) {} // ignore our rejected proposals
+		});
+		source.pushProposal(blackout);
+	    Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute active prompt -- response from OpenAI: " + response); 
+	}
+	
+	private void resetInactivityTimer(InputCoordinator source) {
+        // Cancel any existing tasks
+        inactivityTimer.cancel();
+        inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
+
+        // Schedule a new task
+        inactivityTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sendActivePromptToOpenAI(source);
+            }
+        }, inactivityPeriod);
+    }
 
 	@Override
 	public void processEvent(InputCoordinator source, Event event) {
