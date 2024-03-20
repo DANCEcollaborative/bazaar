@@ -1,10 +1,13 @@
 package basilica2.agents.listeners;
 
 import java.io.IOException;
+
 import java.net.URLEncoder;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
@@ -26,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class LlmChatListener extends BasilicaAdapter
 {
@@ -54,6 +58,9 @@ public class LlmChatListener extends BasilicaAdapter
     private long inactivityPeriod = 30 * 1000; // 30 seconds in milliseconds by default
     private String inactivityPrompt;
     private boolean inactivityPromptFlag;
+    private boolean contextFlag;
+    private int contextLen;
+    private List<String> chatHistory;
 
 	public LlmChatListener(Agent a)
 	{
@@ -85,6 +92,11 @@ public class LlmChatListener extends BasilicaAdapter
 			if (inactivityPromptFlag) {
 				inactivityTimer = new Timer();
 			}
+			contextFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.context.flag"));
+			if (contextFlag) {
+				contextLen = Integer.parseInt(llm_prop.getProperty("openai.context.length"));
+				chatHistory = new ArrayList<>();
+			}
 	        
 	        
 		}
@@ -97,7 +109,12 @@ public class LlmChatListener extends BasilicaAdapter
 	{
 		if (e instanceof MessageEvent)
 		{
-			handleMessageEvent(source, (MessageEvent) e);
+			try {
+				handleMessageEvent(source, (MessageEvent) e);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 //			if ((((MessageEvent) e).getFrom() != "OPEBot") && (inactivityPromptFlag)){
 			if (inactivityPromptFlag) {
 				resetInactivityTimer(source);
@@ -106,24 +123,16 @@ public class LlmChatListener extends BasilicaAdapter
 		}
 	}
 	
-	public void handleMessageEvent(InputCoordinator source, MessageEvent me) {
+	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
-	    String prompt = this.context.length() > 0 ? this.context + " " + me.getText() : me.getText();
-	    String modelName = this.modelName;
-	    Double temperature = this.temperature;
-	    // Construct the payload for OpenAI
-	    String jsonPayload = "{" +
-	    	    "\"model\": \"" + modelName + "\"," +
-	    	    "\"temperature\": " + temperature + "," +
-	    	    "\"messages\": [" +
-	    	        "{" +
-	    	            "\"role\": \"user\"," +
-	    	            "\"content\": \"" + prompt.replace("\"", "\\\"") + "\"" +
-	    	        "}" +
-	    	    "]" +
-	    	"}";
+	    String prompt = me.getText();
+	    String jsonPayload = constructPayloadWithHistory(prompt);
+	    
+	    
 	    // Sending the message to OpenAI and receiving the response
+	    this.chatHistory.add("User: " + prompt);
 	    String response = sendToOpenAI(source, jsonPayload);
+	    
 	    
 
         MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
@@ -181,7 +190,7 @@ public class LlmChatListener extends BasilicaAdapter
 		            String responseText = responseMessage.getString("content");
 		            System.out.println("Extracted Response Text: " + responseText);
 		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
-		    		
+		            chatHistory.add("Bot: " + responseText);
 		            return responseText;
 		        } else {
 		            System.err.println("No choices found in the response.");
@@ -256,7 +265,74 @@ public class LlmChatListener extends BasilicaAdapter
             }
         }, inactivityPeriod);
     }
+	
+	private String constructPayloadWithHistory(String prompt) {
+	    JSONObject payload = new JSONObject();
+	    try {
+			payload.put("model", this.modelName);
+			payload.put("temperature", this.temperature);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 
+	    JSONArray messages = new JSONArray();
+
+	    // Add the fixed context as the first message
+	    JSONObject fixedContextMessage = new JSONObject();
+	    try {
+			fixedContextMessage.put("role", "system");
+			fixedContextMessage.put("content", this.context);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    messages.put(fixedContextMessage);
+
+	    // Add the last `contextLen` messages from chatHistory
+	    for (int i = Math.max(0, chatHistory.size() - this.contextLen); i < chatHistory.size(); i++) {
+	        String message = chatHistory.get(i);
+	        String role = message.startsWith("User: ") ? "user" : "assistant"; // Assuming messages are stored with these prefixes
+	        String content = message.substring(message.indexOf(": ") + 2);
+
+	        JSONObject chatMessage = new JSONObject();
+	        
+	        try {
+	        	chatMessage.put("role", role);
+				chatMessage.put("content", content);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        messages.put(chatMessage);
+	    }
+
+	    // Add the current prompt as the last message
+	    JSONObject promptMessage = new JSONObject();
+	    try {
+			promptMessage.put("role", "user");
+			promptMessage.put("content", prompt);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    messages.put(promptMessage);
+
+	    try {
+			payload.put("messages", messages);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    return payload.toString();
+	}
+
+	
+	
 	@Override
 	public void processEvent(InputCoordinator source, Event event) {
 		// TODO Auto-generated method stub
