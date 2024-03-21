@@ -109,23 +109,36 @@ public class LlmChatListener extends BasilicaAdapter
 	{
 		if (e instanceof MessageEvent)
 		{
-			try {
-				handleMessageEvent(source, (MessageEvent) e);
-			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-//			if ((((MessageEvent) e).getFrom() != "OPEBot") && (inactivityPromptFlag)){
+
+			boolean decision = messageFilter((MessageEvent) e);
+			if (decision) {
+				try {
+					handleMessageEvent(source, (MessageEvent) e);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	
+			} 
 			if (inactivityPromptFlag) {
 				resetInactivityTimer(source);
 				Logger.commonLog("LLMChatListener", Logger.LOG_NORMAL, "TIME OUT... sending prompt to the room");
 			}
+			
 		}
 	}
 	
+	public boolean messageFilter(MessageEvent e) {
+		String message = e.getText();
+		if (message.startsWith("SnowBot: ")) {
+            return true;
+        } else {
+        	return false;
+        }
+	}
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
-	    String prompt = me.getText();
+	    String prompt = me.getText(); // student chat message
 	    String jsonPayload = constructPayloadWithHistory(prompt);
 	    
 	    
@@ -136,15 +149,19 @@ public class LlmChatListener extends BasilicaAdapter
 	    
 
         MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
-		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
-		blackout.addCallback(new Callback()
-		{
-			@Override
-			public void accepted(PriorityEvent p) {}
-			@Override
-			public void rejected(PriorityEvent p) {} // ignore our rejected proposals
-		});
-		source.pushProposal(blackout);
+        
+//		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
+//		blackout.addCallback(new Callback()
+//		{
+//			@Override
+//			public void accepted(PriorityEvent p) {}
+//			@Override
+//			public void rejected(PriorityEvent p) {} // ignore our rejected proposals
+//		});
+//		source.pushProposal(blackout);
+        
+        source.pushEventProposal(newMe);
+
 	    Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
 	}
 
@@ -190,7 +207,10 @@ public class LlmChatListener extends BasilicaAdapter
 		            String responseText = responseMessage.getString("content");
 		            System.out.println("Extracted Response Text: " + responseText);
 		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
-		            chatHistory.add("Bot: " + responseText);
+		            chatHistory.add("Assistant: " + responseText);
+		            if (this.inactivityPromptFlag) {
+		            	resetInactivityTimer(source);
+		            }
 		            return responseText;
 		        } else {
 		            System.err.println("No choices found in the response.");
@@ -222,22 +242,13 @@ public class LlmChatListener extends BasilicaAdapter
 	public void sendActivePromptToOpenAI(InputCoordinator source) {
 	    // Prepare the prompt based on the received message
 	    String prompt = this.inactivityPrompt;
-	    String modelName = this.modelName;
-	    Double temperature = this.temperature;
-	    // Construct the payload for OpenAI
-	    String jsonPayload = "{" +
-	    	    "\"model\": \"" + modelName + "\"," +
-	    	    "\"temperature\": " + temperature + "," +
-	    	    "\"messages\": [" +
-	    	        "{" +
-	    	            "\"role\": \"user\"," +
-	    	            "\"content\": \"" + prompt.replace("\"", "\\\"") + "\"" +
-	    	        "}" +
-	    	    "]" +
-	    	"}";
+	    String jsonPayload = constructPayloadWithHistory(prompt);
+	    
+	    
 	    // Sending the message to OpenAI and receiving the response
+	    this.chatHistory.add("System: " + prompt);
 	    String response = sendToOpenAI(source, jsonPayload);
-
+	    
 
         MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
 		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
@@ -249,7 +260,7 @@ public class LlmChatListener extends BasilicaAdapter
 			public void rejected(PriorityEvent p) {} // ignore our rejected proposals
 		});
 		source.pushProposal(blackout);
-	    Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute active prompt -- response from OpenAI: " + response); 
+	    Logger.commonLog("@@@@ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute active prompt -- chat history from OpenAI: " + this.chatHistory); 
 	}
 	
 	private void resetInactivityTimer(InputCoordinator source) {
@@ -294,7 +305,17 @@ public class LlmChatListener extends BasilicaAdapter
 	    // Add the last `contextLen` messages from chatHistory
 	    for (int i = Math.max(0, chatHistory.size() - this.contextLen); i < chatHistory.size(); i++) {
 	        String message = chatHistory.get(i);
-	        String role = message.startsWith("User: ") ? "user" : "assistant"; // Assuming messages are stored with these prefixes
+	        String role;
+	        if (message.startsWith("User: ")) {
+	            role = "user";
+	        } else if (message.startsWith("Assistant: ")) {
+	            role = "assistant";
+	        } else if (message.startsWith("System: ")) {
+	            role = "system";
+	        } else {
+	            // Default to user role if the prefix is unknown
+	            role = "user";
+	        }
 	        String content = message.substring(message.indexOf(": ") + 2);
 
 	        JSONObject chatMessage = new JSONObject();

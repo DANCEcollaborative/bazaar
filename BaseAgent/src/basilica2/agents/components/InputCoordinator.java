@@ -291,8 +291,8 @@ public class InputCoordinator extends Component
 	{
 //		Class<? extends Event> eventClass = eve.getClass();
 //		if(listeners.containsKey(eventClass))
-		
 		super.notifyEventObservers(eve);
+		System.err.println("processOneEvent: " + eve.toString());
 		
         for(Class<? extends Event> keyClass : listeners.keySet())
         {

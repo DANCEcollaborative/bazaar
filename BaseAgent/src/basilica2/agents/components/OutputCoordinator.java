@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 import org.jivesoftware.smack.packet.Message;
 
+import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.AbstractPrioritySource;
@@ -52,6 +53,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean outputToPSI = false; 
 	private Boolean separateOutputToPSI = false;
 	private Boolean multimodalFormatToPSI = true; 
+	private Boolean outputBotMessage = false;
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -93,6 +95,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			try{betweenPhraseDelay = Integer.valueOf(myProperties.getProperty("between_phrase_delay", "5000"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
+			catch(Exception e) {e.printStackTrace();}
+			try{outputBotMessage = Boolean.parseBoolean(myProperties.getProperty("output_bot_message", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 // 			catch(Exception e) {e.printStackTrace();}
@@ -401,9 +405,16 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
 
-		log(Logger.LOG_NORMAL, "OutputCoordinator.publishMessage - Enter - message: " + me.getText());
+		log(Logger.LOG_NORMAL, "OutputCoordinator.publishMessage - Enter - message: " + me.getText() + " from " + me.getFrom());
 		System.err.print("OutputCoordinator.publishMessage - Enter - message: " + me.getText());
-		
+		if (outputBotMessage) {
+			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
+			InputCoordinator IC = (InputCoordinator)me.getSender();
+			System.err.println("OutputCoordinator: pushing bot message...");
+			IC.pushEvent(newBM);
+				
+			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
+		} 
 		String withinPromptDelimiter = "|||"; 
 		String messageText; 
 		if (!me.getText().contains(withinPromptDelimiter))
@@ -411,7 +422,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			if ((!outputToPSI) || (separateOutputToPSI)) {
 				if (outputMultimodal) {
 					messageText = formatMultimodalMessage(me);
-					me.setText(messageText);					
+					me.setText(messageText);
+					log(Logger.LOG_NORMAL, "OutputCoordinator.broadcaseMessage - case 1.1");
 				}
 				broadcast(me);
 			}		
@@ -419,12 +431,14 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				publishMessageToPSI(me);
 			}
 			MessageEventLogger.logMessageEvent(me);
+			
 		}
 
 		else
 		{
 			String[] messageParts = me.getParts();
 			String[] allAnnotations = me.getAllAnnotations();
+			
 			for (int i = 0; i < messageParts.length; i++)
 			{
 				String mappedPrompt = messageParts[i].trim();
