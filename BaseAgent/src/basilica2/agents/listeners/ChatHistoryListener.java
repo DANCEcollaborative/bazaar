@@ -102,10 +102,10 @@ public class ChatHistoryListener extends BasilicaAdapter
 	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener saved for " + sender + ": " + me.getText()); 
 	}
 	
-	public void handleBotMessageEvent(InputCoordinator source, BotMessageEvent me) throws JSONException {
-		String sender = me.getFrom();
-		String content = me.getText();
-
+	public void handleBotMessageEvent(InputCoordinator source, BotMessageEvent e) throws JSONException {
+		String sender = e.getFrom();
+		String content = e.getText();
+		saveMessageToHistory(sender, content);
 	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener heard from : " + content); 
 	}
 
@@ -133,7 +133,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 
 
 	public JSONArray retrieveChatHistory(int numberOfMessages) {
-	    JSONArray messages = new JSONArray();
+		JSONArray messages = new JSONArray();
 	    try {
 	        // Read all lines from the file into a list
 	        List<String> lines = Files.readAllLines(Paths.get(path));
@@ -154,7 +154,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 	    } catch (IOException e) {
 	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error reading from chat history file: " + e.getMessage());
 	    }
-
+	    System.err.println("ChatHisoryListener retrieved chat history: " + messages.toString());
 	    return messages;
 	}
 
@@ -166,6 +166,12 @@ public class ChatHistoryListener extends BasilicaAdapter
 				
 	//			handleMessageEvent(source, (BotMessageEvent) e);
 			BotMessageEvent bm = (BotMessageEvent) e;
+			try {
+				handleBotMessageEvent(source, (BotMessageEvent) e);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener got BotMessageEvent " + bm.getText()); 
 			System.err.print("chatHistoryListener got BotMessageEvent " + bm.getText());
 				

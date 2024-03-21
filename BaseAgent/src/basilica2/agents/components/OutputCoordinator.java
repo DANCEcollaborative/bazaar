@@ -410,7 +410,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if (outputBotMessage) {
 			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
 			InputCoordinator IC = (InputCoordinator)me.getSender();
-			System.err.println("OutputCoordinator: pushing bot message...");
+//			System.err.println("OutputCoordinator: pushing bot message...");
 			IC.pushEvent(newBM);
 				
 			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());

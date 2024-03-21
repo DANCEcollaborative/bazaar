@@ -22,6 +22,7 @@ import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import edu.cmu.cs.lti.project911.utils.log.Logger;
+import basilica2.agents.listeners.*;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -62,7 +63,8 @@ public class LlmChatListener extends BasilicaAdapter
     private boolean inactivityPromptFlag;
     private boolean contextFlag;
     private int contextLen;
-    private List<String> chatHistory;
+//    private ChatHistoryListener CHL;
+//    private List<String> chatHistory;
 
 	public LlmChatListener(Agent a)
 	{
@@ -97,20 +99,13 @@ public class LlmChatListener extends BasilicaAdapter
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.context.flag"));
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty("openai.context.length"));
-				chatHistory = new ArrayList<>();
 			}
 	        
 	        
 		}
 		catch (Exception e){}
 		
-		// find chathistorylistener
-		try {
-			InputCoordinator IC = (InputCoordinator)a.getComponent("inputCoordinator");
-			BasilicaListener CHListener;
 		
-			CHListener = IC.getListenerByName("ChatHistoryListener");
-		} catch(Exception e) {};
 		
 		
 	}
@@ -151,11 +146,10 @@ public class LlmChatListener extends BasilicaAdapter
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
 	    String prompt = me.getText(); // student chat message
-	    String jsonPayload = constructPayloadWithHistory(prompt);
+	    String jsonPayload = constructPayloadWithHistory(source, prompt);
 	    
 	    
 	    // Sending the message to OpenAI and receiving the response
-	    this.chatHistory.add("User: " + prompt);
 	    String response = sendToOpenAI(source, jsonPayload);
 	    
 	    
@@ -219,7 +213,6 @@ public class LlmChatListener extends BasilicaAdapter
 		            String responseText = responseMessage.getString("content");
 		            System.out.println("Extracted Response Text: " + responseText);
 		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
-		            chatHistory.add("Assistant: " + responseText);
 		            if (this.inactivityPromptFlag) {
 		            	resetInactivityTimer(source);
 		            }
@@ -254,25 +247,15 @@ public class LlmChatListener extends BasilicaAdapter
 	public void sendActivePromptToOpenAI(InputCoordinator source) {
 	    // Prepare the prompt based on the received message
 	    String prompt = this.inactivityPrompt;
-	    String jsonPayload = constructPayloadWithHistory(prompt);
+	    String jsonPayload = constructPayloadWithHistory(source, prompt);
 	    
 	    
 	    // Sending the message to OpenAI and receiving the response
-	    this.chatHistory.add("System: " + prompt);
 	    String response = sendToOpenAI(source, jsonPayload);
 	    
 
         MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
-		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
-		blackout.addCallback(new Callback()
-		{
-			@Override
-			public void accepted(PriorityEvent p) {}
-			@Override
-			public void rejected(PriorityEvent p) {} // ignore our rejected proposals
-		});
-		source.pushProposal(blackout);
-	    Logger.commonLog("@@@@ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute active prompt -- chat history from OpenAI: " + this.chatHistory); 
+        source.pushEventProposal(newMe);
 	}
 	
 	private void resetInactivityTimer(InputCoordinator source) {
@@ -289,7 +272,8 @@ public class LlmChatListener extends BasilicaAdapter
         }, inactivityPeriod);
     }
 	
-	private String constructPayloadWithHistory(String prompt) {
+	
+	private String constructPayloadWithHistory(InputCoordinator source, String prompt) {
 	    JSONObject payload = new JSONObject();
 	    try {
 			payload.put("model", this.modelName);
@@ -313,35 +297,34 @@ public class LlmChatListener extends BasilicaAdapter
 		}
 	    
 	    messages.put(fixedContextMessage);
+	    
+	 // find chathistorylistener
+ 		try {
+ 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
+		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+		    for (int i = 0; i < chatHistory.length(); i++) {
+	            JSONObject originalMessage = chatHistory.getJSONObject(i);
+	            JSONObject reformattedMessage = new JSONObject();
 
-	    // Add the last `contextLen` messages from chatHistory
-	    for (int i = Math.max(0, chatHistory.size() - this.contextLen); i < chatHistory.size(); i++) {
-	        String message = chatHistory.get(i);
-	        String role;
-	        if (message.startsWith("User: ")) {
-	            role = "user";
-	        } else if (message.startsWith("Assistant: ")) {
-	            role = "assistant";
-	        } else if (message.startsWith("System: ")) {
-	            role = "system";
-	        } else {
-	            // Default to user role if the prefix is unknown
-	            role = "user";
+	            // Determine the role based on the "sender" field
+	            String role = "user"; // Default role
+	            if ("SnowBot".equals(originalMessage.getString("sender"))) {
+	                role = "assistant"; // If the sender is SnowBot, set role to assistant
+	            }
+
+	            // Copy the "content" field directly
+	            String content = originalMessage.getString("content");
+
+	            // Construct the new message objectß
+	            reformattedMessage.put("role", role);
+	            reformattedMessage.put("content", content);
+
+	            // Add the reformatted message to the new JSONArray
+	            messages.put(reformattedMessage);
 	        }
-	        String content = message.substring(message.indexOf(": ") + 2);
 
-	        JSONObject chatMessage = new JSONObject();
-	        
-	        try {
-	        	chatMessage.put("role", role);
-				chatMessage.put("content", content);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        messages.put(chatMessage);
-	    }
-
+		    System.err.println("Loaded chatHisory: " + chatHistory.toString());
+ 		} catch(Exception e) {};
 	    // Add the current prompt as the last message
 	    JSONObject promptMessage = new JSONObject();
 	    try {
