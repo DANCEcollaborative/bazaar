@@ -24,7 +24,19 @@ import edu.cmu.cs.lti.project911.utils.log.Logger;
 
 
 import org.json.JSONException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.io.IOException;
+import java.util.stream.Collectors;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 public class ChatHistoryListener extends BasilicaAdapter
 {
@@ -43,10 +55,29 @@ public class ChatHistoryListener extends BasilicaAdapter
 	{
 		super(a);
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
-		path = properties.getProperty("path","runtime/chatHistory/");
-		
+		System.err.println(this.getClass().getSimpleName());
+		path = properties.getProperty("path","./chat_hisotry/ChatHistory.json");
 
-	}
+        // Create the file and its directory structure if they do not exist
+        createFileIfNotExists(path);
+    }
+
+    private void createFileIfNotExists(String filePathStr) {
+        try {
+            Path filePath = Paths.get(filePathStr);
+            // Ensure directory exists
+            if (Files.notExists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
+            }
+            // Create the file if it doesn't exist
+            if (Files.notExists(filePath)) {
+                Files.createFile(filePath);
+                System.out.println("Created chat history file at: " + filePath.toAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while creating the chat history file: " + e.getMessage());
+        }
+    }
 	
 
 	@Override
@@ -60,23 +91,15 @@ public class ChatHistoryListener extends BasilicaAdapter
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
-		} else if (e instanceof BotMessageEvent) {
-
-			try {
-				handleBotMessageEvent(source, (BotMessageEvent) e);
-			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	
-	}
+		}
 	}
 	
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 		String sender = me.getFrom();
 		String content = me.getText();
-
-	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener heard from " + sender + ": " + me.getText()); 
+		saveMessageToHistory(sender, content);
+	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener saved for " + sender + ": " + me.getText()); 
 	}
 	
 	public void handleBotMessageEvent(InputCoordinator source, BotMessageEvent me) throws JSONException {
@@ -86,8 +109,54 @@ public class ChatHistoryListener extends BasilicaAdapter
 	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener heard from : " + content); 
 	}
 
+	public synchronized void saveMessageToHistory(String sender, String content) {
+	    JSONObject messageJson = new JSONObject();
+	    try {
+			messageJson.put("sender", sender);
+			messageJson.put("content", content);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formattedDate = dateFormat.format(System.currentTimeMillis());
+		    messageJson.put("timestamp", formattedDate);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 
-	
+	    try {
+	        // Save the JSON object to a file, each message on a new line
+	        Files.write(Paths.get(path), (messageJson.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+	    } catch (IOException e) {
+	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error writing to chat history file: " + e.getMessage());
+	    }
+	}
+
+
+	public JSONArray retrieveChatHistory(int numberOfMessages) {
+	    JSONArray messages = new JSONArray();
+	    try {
+	        // Read all lines from the file into a list
+	        List<String> lines = Files.readAllLines(Paths.get(path));
+
+	        // Get the last N lines from the list
+	        int start = Math.max(0, lines.size() - numberOfMessages);
+	        List<String> lastNLines = lines.subList(start, lines.size());
+
+	        // Convert each line into a JSON object and add it to the JSONArray
+	        lastNLines.forEach(line -> {
+				try {
+					messages.put(new JSONObject(line));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+	    } catch (IOException e) {
+	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error reading from chat history file: " + e.getMessage());
+	    }
+
+	    return messages;
+	}
 
 
 	

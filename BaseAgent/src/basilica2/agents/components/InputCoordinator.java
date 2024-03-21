@@ -309,6 +309,7 @@ public class InputCoordinator extends Component
 		}
 	}
     
+
     /**
      * construct a single instance of each given class of event (pre)processor, and add to the appropriate event-mappings
      * @param preprocessors must implement BasilicaPreprocessor
@@ -403,6 +404,20 @@ public class InputCoordinator extends Component
     public HashMap getListeners()
     {
     	return listeners;
+    }
+    
+    public BasilicaListener getListenerByName(String listenerName) {
+        // Iterate through all registered listener lists
+        for (List<BasilicaListener> listenerList : listeners.values()) {
+            // Search each list for a listener with the matching class name
+            for (BasilicaListener listener : listenerList) {
+                if (listener.getClass().getSimpleName().equals(listenerName)) {
+                    return listener;
+                }
+            }
+        }
+        // Return null if no matching listener is found
+        return null;
     }
     
     public BasilicaPreProcessor getPreProcessor(String preProcessorString)

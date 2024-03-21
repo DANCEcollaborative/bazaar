@@ -7,9 +7,11 @@ import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
@@ -101,6 +103,16 @@ public class LlmChatListener extends BasilicaAdapter
 	        
 		}
 		catch (Exception e){}
+		
+		// find chathistorylistener
+		try {
+			InputCoordinator IC = (InputCoordinator)a.getComponent("inputCoordinator");
+			BasilicaListener CHListener;
+		
+			CHListener = IC.getListenerByName("ChatHistoryListener");
+		} catch(Exception e) {};
+		
+		
 	}
 	
 
