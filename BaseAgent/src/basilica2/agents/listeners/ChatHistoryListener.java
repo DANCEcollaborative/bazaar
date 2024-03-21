@@ -38,6 +38,7 @@ import java.nio.file.Files;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+
 public class ChatHistoryListener extends BasilicaAdapter
 {
 	public String host;
@@ -46,7 +47,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 	public String charset;
 	public String delimiter;
 	public String start_flag;
-
+	private int sessionID;
 	
 
 
@@ -60,7 +61,34 @@ public class ChatHistoryListener extends BasilicaAdapter
 
         // Create the file and its directory structure if they do not exist
         createFileIfNotExists(path);
+        readAndSetSessionId();
     }
+	
+	private void readAndSetSessionId() {
+	        try {
+	            Path filePath = Paths.get(path);
+	            if (Files.exists(filePath)) {
+	                List<String> allLines = Files.readAllLines(filePath);
+	                if (!allLines.isEmpty()) {
+	                    // Check if the last line contains "session_id"
+	                    String lastLine = allLines.get(allLines.size() - 1);
+	                    if (lastLine.contains("session_id")) {
+	                        JSONObject lastLineJson = new JSONObject(lastLine);
+	                        // Assuming "session_id" is an integer
+	                        this.sessionID = lastLineJson.getInt("session_id") + 1;
+	                    } else {
+	                        this.sessionID = 0; // Reset session_id to 0 if not found
+	                    }
+	                }
+	            }
+	        } catch (IOException e) {
+	            System.err.println("An error occurred while reading the chat history file: " + e.getMessage());
+	        } catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+
 
     private void createFileIfNotExists(String filePathStr) {
         try {
@@ -112,6 +140,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 	public synchronized void saveMessageToHistory(String sender, String content) {
 	    JSONObject messageJson = new JSONObject();
 	    try {
+	    	messageJson.put("session_id", this.sessionID);
 			messageJson.put("sender", sender);
 			messageJson.put("content", content);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -145,7 +174,10 @@ public class ChatHistoryListener extends BasilicaAdapter
 	        // Convert each line into a JSON object and add it to the JSONArray
 	        lastNLines.forEach(line -> {
 				try {
-					messages.put(new JSONObject(line));
+					JSONObject me = new JSONObject(line);
+					if (me.has("session_id") && me.getInt("session_id") == this.sessionID) {
+						messages.put(new JSONObject(line));
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
