@@ -169,7 +169,7 @@ app.get('/login*', async (req, res) => {
 
 // May launch an agent directly -- IS THIS USED? 
 app.post('/login*', async (req, res) => {
-//console.log("Enter app.post /login");
+   console.log("*** YES, THIS app.post(/login IS USED ***");
   teamNumber = 0;
   logger = winston.createLogger({
     transports: [
@@ -222,6 +222,31 @@ app.post('/login*', async (req, res) => {
 //console.log("Exit app.post /login");
 
 });
+
+app.post('/forward_oais_msg', async (req, res) => {
+
+    console.log("socket.on('forward_oais_message')");
+    console.log(req.query.room);
+    console.log(req.query.username);
+    console.log(req.query.msg);
+    parsedMsg = "multimodal:::true;%;from:::OPEBot;%;to:::group;%;speech:::" + decodeAndFixString(req.query.msg);
+    console.log(parsedMsg)
+    io.sockets.in(req.query.room).emit('sendchat', req.query.username, parsedMsg);
+    io.sockets.in(req.query.room).emit('updatechat', req.query.username, parsedMsg);
+ 
+    res.status(200).send("OAIS Message received");
+});
+
+
+function decodeAndFixString(str) {
+  // Decode URL-encoded characters
+  const decodedString = decodeURIComponent(str);
+
+  // Replace escaped apostrophes (if needed)
+  const fixedString = decodedString.replace(/\\'/g, "'");
+
+  return fixedString;
+}
 
 
 function createWorker() {
@@ -1472,7 +1497,11 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('sendchat', async (data)  => {
 		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
-		// console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.uusername + "  -- text: " + data);
+		console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.username + "  -- text: " + data);
+		
+		if (!socket.username) 
+			{ socket.username = "OPEBot" }
+		
 		logMessage(socket, data, "text");
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
 
@@ -1481,16 +1510,47 @@ io.sockets.on('connection', async (socket) => {
 // 		else if (socket.username == "MLAgent") 
 		if (socket.username == "MLAgent") 
 			io.sockets.in(socket.room).emit('interjection', { message: data }); 
-		else	
-			io.sockets.in(socket.room).emit('updatechat', socket.username, data);			
+		else {
+			io.sockets.in(socket.room).emit('updatechat', socket.username, data);	
+			}		
 	});
+
+
+// ================================= VERSION WITH ROOM EXPLICITLY SPECIFIED =================================
+	// when the client emits 'sendchatwithroom', this listens and executes
+	socket.on('sendchatwithroom', async (room, data)  => {
+		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
+		// we tell the client to execute 'updatechat' with 2 parameters
+		console.log("info","socket.on_sendchatwithroom: -- room: " + room + "  -- username: " + socket.username + "  -- text: " + data);
+		
+		if (!socket.username) 
+			{ socket.username = "OPEBot" }
+		
+		logMessage(socket, data, "text");
+                console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+
+// 		if (socket.clientID == "ClientServer-NoEcho") {
+// 			// Do nothing for no echo
+// 		else if (socket.username == "MLAgent") 
+		if (socket.username == "MLAgent") 
+			io.sockets.in(room).emit('interjection', { message: data }); 
+		else	
+			io.sockets.in(room).emit('updatechat', socket.username, data);			
+	});
+
 
 
 	// when the client emits 'sendfile', this listens and executes
 	socket.on('sendfile', async (data)  => {
 		logMessage(socket, data, "sendfile");
-        console.log("socket.on('sendfile'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
-        io.sockets.in(socket.room).emit('sendfile', socket.username, data);		
+        console.log("socket.on('sendfile'): socket.room = " + socket.room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+		io.sockets.in(socket.room).emit('sendfile', socket.username, data);	
+//		io.sockets.in(socket.room).emit('sendfile', socket.username, data, (ack) => {
+//		if (ack) {
+//			console.log('File sent successfully to at least one client in the room.');
+//		} else {
+//			console.log('No acknowledgement received. Potential delivery issues.');
+//		}
 	});
 
 
@@ -1524,6 +1584,15 @@ io.sockets.on('connection', async (socket) => {
         console.log("socket.on('sendcommandevent'): socket.clientID = " + socket.clientID + " command = " + command);
         io.sockets.in(socket.room).emit('sendcommandevent', command);		
 	});
+
+// ================================= VERSION WITH ROOM EXPLICITLY SPECIFIED =================================
+	// when the client emits 'sendcommandeventwithroom', this listens and executes
+	socket.on('sendcommandeventwithroom', async (room, command)  => {
+		logMessage(socket, command, "sendcommandeventwithroom");
+        console.log("socket.on('sendcommandeventwithroom'): room = " + room + "  socket.clientID = " + socket.clientID + " command = " + command);
+        io.sockets.in(room).emit('sendcommandevent', command);		
+	});
+
 
 
 	// when the client emits 'starttimer', this listens and executes
