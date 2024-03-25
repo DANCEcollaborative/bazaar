@@ -134,6 +134,24 @@ public class ChatHistoryListener extends BasilicaAdapter
 		String sender = e.getFrom();
 		String content = e.getText();
 		saveMessageToHistory(sender, content);
+		BasilicaPreProcessor lis1 = source.getPreProcessor("LlmChatListener");
+		LlmChatListener LCL = (LlmChatListener) lis1;
+		if (LCL != null) {
+			LCL.resetInactivityTimer(source);
+			System.err.println("CHAT HISOTRY LISTENER1::: reset timer 1");
+		} else {
+			System.err.println("CHAT HISOTRY LISTENER1::: NULL PTR");
+		}
+		
+		BasilicaPreProcessor lis2 = source.getPreProcessor("LlmChatListener2");
+		LlmChatListener2 LCL2 = (LlmChatListener2) lis2;
+		if (LCL2 != null) {
+			LCL2.resetInactivityTimer(source);
+			System.err.println("CHAT HISOTRY LISTENER2::: reset timer 2");
+		} else {
+			System.err.println("CHAT HISOTRY LISTENER2::: NULL PTR");
+		}
+		
 	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener heard from : " + content); 
 	}
 

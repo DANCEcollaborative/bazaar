@@ -14,6 +14,7 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
+import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
@@ -137,29 +138,20 @@ public class LlmChatListener extends BasilicaAdapter
 	    
 	    
 	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(source, jsonPayload);
+	    String response = sendToOpenAI(source, jsonPayload, false);
 	    
 	    
 
 //        MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
         MessageEvent newMe = new MessageEvent(source, this.myName, response);
         
-//		PriorityEvent blackout = PriorityEvent.makeBlackoutEvent("LLM", newMe, 1.0, 5, 5);
-//		blackout.addCallback(new Callback()
-//		{
-//			@Override
-//			public void accepted(PriorityEvent p) {}
-//			@Override
-//			public void rejected(PriorityEvent p) {} // ignore our rejected proposals
-//		});
-//		source.pushProposal(blackout);
-        State s = State.copy(StateMemory.getSharedState(agent));
-        if  (response.contains("?")) {
-	        s.setGlobalActiveListener(this.myName);
-	    } else {
-        	s.setGlobalActiveListener("");
-        }
-        StateMemory.commitSharedState(s, agent);
+//        State s = State.copy(StateMemory.getSharedState(agent));
+//        if  (response.contains("?")) {
+//	        s.setGlobalActiveListener(this.myName);
+//	    } else {
+//        	s.setGlobalActiveListener("");
+//        }
+//        StateMemory.commitSharedState(s, agent);
         source.pushEventProposal(newMe);
 
 
@@ -167,7 +159,7 @@ public class LlmChatListener extends BasilicaAdapter
 	}
 
 
-	public String sendToOpenAI(InputCoordinator source, String jsonPayload) {
+	public String sendToOpenAI(InputCoordinator source, String jsonPayload, Boolean fromAgent) {
 	    String apiKey = this.apiKey;
 	    String requestURL = this.requestURL;
 	    try {
@@ -208,6 +200,15 @@ public class LlmChatListener extends BasilicaAdapter
 		            String responseText = responseMessage.getString("content");
 		            System.out.println("Extracted Response Text: " + responseText);
 		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
+		            
+		            State s = State.copy(StateMemory.getSharedState(agent));
+		            if  (responseText.contains("?") && !fromAgent) {
+		    	        s.setGlobalActiveListener(this.myName);
+		    	    } else {
+		            	s.setGlobalActiveListener("");
+		            }
+		            StateMemory.commitSharedState(s, agent);
+		            
 		            if (this.inactivityPromptFlag) {
 		            	resetInactivityTimer(source);
 		            }
@@ -245,22 +246,23 @@ public class LlmChatListener extends BasilicaAdapter
 	    String jsonPayload = constructPayloadWithHistory(source, prompt);
 	    
 	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(source, jsonPayload);
+	    String response = sendToOpenAI(source, jsonPayload, true);
 	    
-        MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
+        MessageEvent newMe = new MessageEvent(source, this.myName, response);
         source.pushEventProposal(newMe);
 	}
 	
-	private void resetInactivityTimer(InputCoordinator source) {
+	public void resetInactivityTimer(InputCoordinator source) {
         // Cancel any existing tasks
         inactivityTimer.cancel();
         inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
-
+        System.err.println(this.getClass().getSimpleName() + "RESETTIING TIMER 1...");
         // Schedule a new task
         inactivityTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 sendActivePromptToOpenAI(source);
+                System.err.println(this.getClass().getSimpleName() + "TIMER 1 TRIGGERED!!!");
             }
         }, inactivityPeriod);
     }
@@ -343,9 +345,16 @@ public class LlmChatListener extends BasilicaAdapter
 	
 	
 	@Override
-	public void processEvent(InputCoordinator source, Event event) {
+	public void processEvent(InputCoordinator source, Event e) {
 		// TODO Auto-generated method stub
-		
+//		if (e instanceof BotMessageEvent) {
+//			BotMessageEvent bme = (BotMessageEvent)e;
+//			System.err.println(bme.getSender() + ": " + bme.getText());
+//			if (inactivityPromptFlag) {
+//				resetInactivityTimer(source);
+//				System.err.println("PROCESS_EVENT:::" + this.getClass().getSimpleName() + ":::reset timer for bot message");
+//			}
+//		}
 	}	
 	
 	/**
@@ -362,5 +371,6 @@ public class LlmChatListener extends BasilicaAdapter
 	public Class[] getListenerEventClasses() {
 		// TODO Auto-generated method stub
 		return null;
+//		return new Class[]{BotMessageEvent.class};
 	}
 }
