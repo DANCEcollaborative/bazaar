@@ -31,7 +31,7 @@
     </prompt> 
       
     <prompt strategy="task" id="READ_INTRO">
-        <text>Start by reading the introduction on the left.|||Type "ready" when you're ready to move on. We'll move on in a little while or when everyone is ready.</text>
+        <text>Start by reading the introduction on the left.|||Type "ready" when you're ready to move on. We'll move on in a few minutes or when everyone is ready.</text>
     </prompt> 
      
     <prompt strategy="task" id="TAKING_TURNS">
@@ -52,22 +52,44 @@
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q1  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q1">
-     <text>Okay, now your first prompt is displayed on the left. It's about autoscaling for this scenario.</text>
+     <text>Okay, your first prompt is displayed on the left.|||Remember to type "ready" when you're ready to move on.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_1_Q1_APPROACH">
-     <text>I've displayed my approach to an autoscaling policy for this scenario. Take a look and revise your response above if appropriate.|||Remember to type "ready" if you're ready to move on.</text>
+     <prompt strategy="task" id="SCENARIO_1_Q1_HINT">
+     <text>A hint is displayed on left.|||Remember to type "ready" when you're ready to move on.</text>
+     </prompt> 
+    
+    <!-- HINTS & DISCUSSION FOR MOST SCENARIOS  -->
+    
+     <prompt strategy="task" id="SCENARIO_Q1">
+     <text>Your first question for this scenario is displayed on the left.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_HINT">
+     <text>A hint is displayed on left.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_Q2">
+     <text>Another question is displayed on the left.</text>
+     </prompt>  
+    
+     <prompt strategy="task" id="SCENARIO_Q3">
+     <text>Another question is displayed on the left.</text>
+     </prompt> 
+    
+     <prompt strategy="task" id="SCENARIO_Q4">
+     <text>The last question for this scenario is displayed on the left.</text>
      </prompt> 
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_1_Q2  -->
     
      <prompt strategy="task" id="SCENARIO_1_Q2">
-     <text>I've displayed a prompt on the left about how aggressively to scale.</text>
+     <text>Another prompt on the left.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_1_Q2_APPROACH">
-     <text>I've displayed my approach for how aggressively to scale in this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_1_Q2_HINT">
+     <text>A hint is displayed on left.</text>
      </prompt> 
     
     
@@ -77,8 +99,8 @@
      <text>Okay, now I've displayed a prompt about workload and performance metrics.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_1_Q3_APPROACH">
-     <text>I've displayed my approach for workload and performance metrics for this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_1_Q3_HINT">
+     <text>I've displayed my hint for workload and performance metrics for this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -88,8 +110,8 @@
      <text>Cost is always important. I've displayed a prompt about balancing cost and performance on the left.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_1_Q4_APPROACH">
-     <text>I've displayed my approach for balancing cost and performance in this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_1_Q4_HINT">
+     <text>I've displayed my hint for balancing cost and performance in this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
 	
   
@@ -105,8 +127,8 @@
      <text>I've displayed a prompt about autoscaling for this scenario.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_2_Q1_APPROACH">
-     <text>I've displayed my approach to an autoscaling policy for this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_2_Q1_HINT">
+     <text>I've displayed my hint to an autoscaling policy for this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -116,8 +138,8 @@
      <text>I've displayed a prompt about how aggressively to scale.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_2_Q2_APPROACH">
-     <text>I've displayed my approach for how aggressively to scale in this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_2_Q2_HINT">
+     <text>I've displayed my hint for how aggressively to scale in this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -127,8 +149,8 @@
      <text>A prompt about workload and performance metrics is now displayed.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_2_Q3_APPROACH">
-     <text>I've displayed my approach for workload and performance metrics for this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_2_Q3_HINT">
+     <text>I've displayed my hint for workload and performance metrics for this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -138,8 +160,8 @@
      <text>Now I've displayed a prompt about balancing cost and performance.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_2_Q4_APPROACH">
-     <text>I've displayed my approach for balancing cost and performance in this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_2_Q4_HINT">
+     <text>I've displayed my hint for balancing cost and performance in this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
 	
   
@@ -155,8 +177,8 @@
      <text>A prompt about autoscaling for this scenario is now displayed.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_3_Q1_APPROACH">
-     <text>I've displayed my approach to an autoscaling policy for this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_3_Q1_HINT">
+     <text>I've displayed my hint to an autoscaling policy for this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -166,8 +188,8 @@
      <text>Now a prompt about how aggressively to scale is displayed.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_3_Q2_APPROACH">
-     <text>I've displayed my approach for how aggressively to scale in this scenario. Take a look at and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_3_Q2_HINT">
+     <text>I've displayed my hint for how aggressively to scale in this scenario. Take a look at and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -177,8 +199,8 @@
      <text>I've displayed a prompt about workload and performance metrics.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_3_Q3_APPROACH">
-     <text>My approach to workload and performance metrics for this scenario is now displayed. Take a look at and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_3_Q3_HINT">
+     <text>My hint to workload and performance metrics for this scenario is now displayed. Take a look at and revise your response in the cell above appropriate.</text>
      </prompt> 
     
     
@@ -188,8 +210,8 @@
      <text>A prompt about balancing cost and performance for this scenario is displayed on the left.</text>
      </prompt> 
     
-     <prompt strategy="task" id="SCENARIO_3_Q4_APPROACH">
-     <text>Last prompt! I've displayed my approach for balancing cost and performance in this scenario. Take a look and revise your response in the cell above appropriate.</text>
+     <prompt strategy="task" id="SCENARIO_3_Q4_HINT">
+     <text>Last prompt! I've displayed my hint for balancing cost and performance in this scenario. Take a look and revise your response in the cell above appropriate.</text>
      </prompt>
     
 
