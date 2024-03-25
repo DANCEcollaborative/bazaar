@@ -18,7 +18,7 @@
     <stage name="Introduction" type="other" delay="0">
         <step type="prompt" delay="3" prompt="STARTING">STARTING</step>  
         <step type="prompt" delay="10" prompt="READ_INTRO">INTRODUCTION_READ_INTRO</step>      <!-- 240 -->  	    
-        <step type="gated" gated_type="listen" timeout="150" delay="5" checkin_prompt="NONE">READ_INTRO_WAIT</step>      <!-- 240 -->     	   	
+        <step type="gated" gated_type="listen" timeout="300" delay="5" checkin_prompt="NONE">READ_INTRO_WAIT</step>      <!-- 300 -->     	   	
     	<step type="prompt" delay="5" prompt="TAKING_TURNS">TAKING_TURNS</step>     	 	   	
     	<step type="prompt" delay="5" prompt="ENTER_READY">ENTER_READY</step>     	  
     </stage> 
@@ -32,13 +32,13 @@
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q1" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="204" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="1" delay="2">log_state</step>  
-    	<step type="send_command" command="COMMAND_1A" delay="5">COMMAND_1A</step>  
+    	<step type="send_command" command="COMMAND_1A" delay="3">COMMAND_1A</step>    
         <step type="prompt" delay="5" prompt="SCENARIO_1_Q1">SCENARIO_1_Q1</step>   
-        <step type="match" delay="10" prompt="MATCH" >SCENARIO_1_Q1_MATCH</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q1_DISCUSS</step>      <!-- 240 --> 
-    	<step type="send_command" command="COMMAND_1A2" delay="5">COMMAND_1A2</step>   	       	
-        <step type="prompt" delay="5" prompt="SCENARIO_1_Q1_APPROACH">SCENARIO_1_Q1_APPROACH</step>      <!-- 15 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_DISCUSSION_2</step>  <!-- 180 -->
+        <step type="match" delay="10" prompt="MATCH" >SCENARIO_MATCH</step>  
+        <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>      <!-- 240 --> 
+    	<step type="send_command" command="COMMAND_1A2" delay="3">COMMAND_1A2</step>  	       	
+        <step type="prompt" delay="4" prompt="SCENARIO_1_Q1_HINT">SCENARIO_1_Q1_HINT</step>      <!-- 15 -->	
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 180 -->
     </stage>   
         
     <!-- SCENARIO_1_Question_2  -->
@@ -47,12 +47,12 @@
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
     	<step type="send_command" command="COMMAND_1B" delay="5">COMMAND_1B</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_1_Q2">SCENARIO_1_Q2</step>     
-        <step type="match" delay="5" prompt="ROTATE_FANCY" >SCENARIO_1_Q2_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q2_DISCUSS</step>   	   <!-- 180 -->  
+        <step type="prompt" delay="5" prompt="SCENARIO_Q2">SCENARIO_Q2</step>     
+        <step type="match" delay="5" prompt="ROTATE_FANCY" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
     	<step type="send_command" command="COMMAND_1B2" delay="5">COMMAND_1B2</step>   	       		       	
-        <step type="prompt" delay="10" prompt="SCENARIO_1_Q2_APPROACH">SCENARIO_1_Q2_APPROACH</step>      <!-- 10 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q2_APPROACH_DISCUSS</step>    <!-- 180 -->
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
     </stage>   
         
     <!-- SCENARIO_1_Question_3  -->
@@ -60,46 +60,46 @@
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q3" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
-    	<step type="send_command" command="COMMAND_1C" delay="5">COMMAND_1C</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_1_Q3">SCENARIO_1_Q3</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_1_Q3_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q3_DISCUSS</step>       <!-- 180 -->	
-    	<step type="send_command" command="COMMAND_1C2" delay="5">COMMAND_1C2</step>   	       		       	  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_1_Q3_APPROACH">SCENARIO_1_Q3_APPROACH</step>      <!-- 10 -->  	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q3_APPROACH_DISCUSS</step>    <!-- 180 -->
-    </stage>    
+    	<step type="send_command" command="COMMAND_1C" delay="5">COMMAND_1C</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_Q3">SCENARIO_Q3</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_1C2" delay="5">COMMAND_1C2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
+    </stage>      
         
     <!-- SCENARIO_1_Question_4  -->
     <stage name="Scenario_1_Q4" type="other" delay="0">
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q4" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
-    	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step>  
-    	<step type="send_command" command="COMMAND_1D" delay="5">COMMAND_1D</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_1_Q4">SCENARIO_1_Q4</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_1_Q4_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q4_DISCUSS</step>      <!-- 180 --> 
-    	<step type="send_command" command="COMMAND_1D2" delay="5">COMMAND_1D2</step>   	       		       	  	       		  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_1_Q4_APPROACH">SCENARIO_1_Q4_APPROACH</step>     <!-- 10 -->   	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_1_Q4_APPROACH_DISCUSS</step>    <!-- 180 -->
-    </stage> 
+    	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
+    	<step type="send_command" command="COMMAND_1D" delay="5">COMMAND_1D</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_Q4">SCENARIO_Q4</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_1D2" delay="5">COMMAND_1D2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 180 -->
+    </stage>
         
         
     <!-- SCENARIO 2  -->
     
     <!-- SCENARIO_2_Question_1  -->
     <stage name="Scenario_2_Q1" type="other" delay="0">
+    	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>  
+        <step type="prompt" delay="9" prompt="SCENARIO_2_INTRO">SCENARIO_2_INTRO</step>   <!-- 9 --> 	       	
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q1" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="204" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="1" delay="2">log_state</step>  
-    	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>  
-        <step type="prompt" delay="15" prompt="SCENARIO_2_INTRO">SCENARIO_2_INTRO</step>     <!-- 15 -->
-    	<step type="send_command" command="COMMAND_2A" delay="5">COMMAND_2A</step>  
-        <step type="prompt" delay="5" prompt="SCENARIO_2_Q1">SCENARIO_2_Q1</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_2_Q1_MATCH</step>  
-        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_2_Q1_DISCUSS</step>   	      <!--240  -->	 
-    	<step type="send_command" command="COMMAND_2A2" delay="5">COMMAND_2A2</step>   	       	      	
-        <step type="prompt" delay="15" prompt="SCENARIO_2_Q1_APPROACH">SCENARIO_2_Q1_APPROACH</step>        <!-- 15 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_DISCUSSION_2</step>   <!-- 180 -->
+    	<step type="send_command" command="COMMAND_2A" delay="3">COMMAND_2A</step>   
+        <step type="prompt" delay="5" prompt="SCENARIO_Q1">SCENARIO_Q1</step>   
+        <step type="match" delay="10" prompt="ROTATE_PLAIN" >SCENARIO_MATCH</step>  
+        <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>      <!-- 240 --> 
+    	<step type="send_command" command="COMMAND_2A2" delay="3">COMMAND_2A2</step>  	       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 15 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 120 -->
     </stage>   
         
     <!-- SCENARIO_2_Question_2  -->
@@ -108,12 +108,12 @@
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
     	<step type="send_command" command="COMMAND_2B" delay="5">COMMAND_2B</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_2_Q2">SCENARIO_2_Q2</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_2_Q2_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_Q2_DISCUSS</step>      <!-- 180 --> 	
-    	<step type="send_command" command="COMMAND_2B2" delay="5">COMMAND_2B2</step>   	       		       	  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_2_Q2_APPROACH">SCENARIO_2_Q2_APPROACH</step>          <!-- 10 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_Q2_APPROACH_DISCUSS</step>    <!-- 180 -->
+        <step type="prompt" delay="5" prompt="SCENARIO_Q2">SCENARIO_Q2</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_2B2" delay="5">COMMAND_2B2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
     </stage>   
         
     <!-- SCENARIO_2_Question_3  -->
@@ -121,46 +121,46 @@
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q3" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
-    	<step type="send_command" command="COMMAND_2C" delay="5">COMMAND_2C</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_2_Q3">SCENARIO_2_Q3</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_2_Q3_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_Q3_DISCUSS</step>   	       <!-- 180 -->		
-    	<step type="send_command" command="COMMAND_2C2" delay="5">COMMAND_2C2</step>   	       		       	  	       	 	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_2_Q3_APPROACH">SCENARIO_2_Q3_APPROACH</step>        <!-- 10 -->	  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_Q3_APPROACH_DISCUSS</step>      <!-- 180 -->	
-    </stage>    
+    	<step type="send_command" command="COMMAND_2C" delay="5">COMMAND_2C</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_Q3">SCENARIO_Q3</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_2C2" delay="5">COMMAND_2C2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
+    </stage>      
         
     <!-- SCENARIO_2_Question_4  -->
     <stage name="Scenario_2_Q4" type="other" delay="0">
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q4" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
-    	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step>  
-    	<step type="send_command" command="COMMAND_2D" delay="5">COMMAND_2D</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_2_Q4">SCENARIO_2_Q4</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_2_Q4_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_Q4_DISCUSS</step>  	       <!-- 180 -->  
-    	<step type="send_command" command="COMMAND_2D2" delay="5">COMMAND_2D2</step>   	       		       	  	       		  	       	 	  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_2_Q4_APPROACH">SCENARIO_2_Q4_APPROACH</step>        <!-- 10 -->	  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_2_Q4_APPROACH_DISCUSS</step>      <!-- 180 -->	
-    </stage> 
+    	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
+    	<step type="send_command" command="COMMAND_2D" delay="5">COMMAND_2D</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_Q4">SCENARIO_Q4</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_2D2" delay="5">COMMAND_2D2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
+    </stage>
     
         
     <!-- SCENARIO 3  -->
-    	
+    
     <!-- SCENARIO_3_Question_1  -->
     <stage name="Scenario_3_Q1" type="other" delay="0">
+    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>  
+        <step type="prompt" delay="9" prompt="SCENARIO_3_INTRO">SCENARIO_3_INTRO</step>   <!-- 9 --> 	       	
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q1" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="204" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="1" delay="2">log_state</step>  
-    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>  
-        <step type="prompt" delay="15" prompt="SCENARIO_3_INTRO">SCENARIO_3_INTRO</step>       <!-- 15 -->
-    	<step type="send_command" command="COMMAND_3A" delay="5">COMMAND_3A</step>  
-        <step type="prompt" delay="5" prompt="SCENARIO_3_Q1">SCENARIO_3_Q1</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_3_Q1_MATCH</step>  
-        <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="NONE">SCENARIO_3_Q1_DISCUSS</step>   	      <!-- 240 -->   
-    	<step type="send_command" command="COMMAND_3A2" delay="5">COMMAND_3A2</step>   	       	      		       	
-        <step type="prompt" delay="15" prompt="SCENARIO_3_Q1_APPROACH">SCENARIO_3_Q1_APPROACH</step>          <!-- 15 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_DISCUSSION_2</step>      <!-- 180 -->
+    	<step type="send_command" command="COMMAND_3A" delay="3">COMMAND_3A</step>   
+        <step type="prompt" delay="5" prompt="SCENARIO_Q1">SCENARIO_Q1</step>   
+        <step type="match" delay="10" prompt="ROTATE_PLAIN" >SCENARIO_MATCH</step>  
+        <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>      <!-- 240 --> 
+    	<step type="send_command" command="COMMAND_3A2" delay="3">COMMAND_3A2</step>  	       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 15 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 120 -->
     </stage>   
         
     <!-- SCENARIO_3_Question_2  -->
@@ -169,12 +169,12 @@
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
     	<step type="send_command" command="COMMAND_3B" delay="5">COMMAND_3B</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_3_Q2">SCENARIO_3_Q2</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_3_Q2_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_Q2_DISCUSS</step>         <!-- 180 -->	
-    	<step type="send_command" command="COMMAND_3B2" delay="5">COMMAND_3B2</step>   	       		       	  	       	  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_3_Q2_APPROACH">SCENARIO_3_Q2_APPROACH</step>       <!-- 10 -->  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_Q2_APPROACH_DISCUSS</step>      <!-- 180 -->
+        <step type="prompt" delay="5" prompt="SCENARIO_Q2">SCENARIO_Q2</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_3B2" delay="5">COMMAND_3B2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
     </stage>   
         
     <!-- SCENARIO_3_Question_3  -->
@@ -182,28 +182,29 @@
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q3" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
     	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
-    	<step type="send_command" command="COMMAND_3C" delay="5">COMMAND_3C</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_3_Q3">SCENARIO_3_Q3</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_3_Q3_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_Q3_DISCUSS</step>         <!-- 180 -->			
-    	<step type="send_command" command="COMMAND_3C2" delay="5">COMMAND_3C2</step>   	       		       	  	       	 	       	  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_3_Q3_APPROACH">SCENARIO_3_Q3_APPROACH</step>         <!-- 10 --> 	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_Q3_APPROACH_DISCUSS</step>      <!-- 180 -->
-    </stage>    
+    	<step type="send_command" command="COMMAND_3C" delay="5">COMMAND_3C</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_Q3">SCENARIO_Q3</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_3C2" delay="5">COMMAND_3C2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
+    </stage>      
         
     <!-- SCENARIO_3_Question_4  -->
     <stage name="Scenario_3_Q4" type="other" delay="0">
     	<step type="logstate" state_tag="state" state_value="Scenario 1 Q4" send_log="false" delay="2">log_state</step> 
     	<step type="logstate" state_tag="phase_duration" state_value="151" delay="2">log_state</step>  
-    	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step>
-    	<step type="send_command" command="COMMAND_3D" delay="5">COMMAND_3D</step>   
-        <step type="prompt" delay="5" prompt="SCENARIO_3_Q4">SCENARIO_3_Q4</step>    
-        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_3_Q4_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_Q4_DISCUSS</step>        <!-- 180 --> 
-    	<step type="send_command" command="COMMAND_3D2" delay="5">COMMAND_3D2</step>   	       		       	  	       		  	       	 	  	 	  	       	
-        <step type="prompt" delay="10" prompt="SCENARIO_3_Q4_APPROACH">SCENARIO_3_Q4_APPROACH</step>        <!-- 10 -->  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_3_Q4_APPROACH_DISCUSS</step>      <!-- 180 -->
-    </stage> 
+    	<step type="logstate" state_tag="ope_iteration" state_value="2" delay="2">log_state</step> 
+    	<step type="send_command" command="COMMAND_3D" delay="5">COMMAND_3D</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_Q4">SCENARIO_Q4</step>     
+        <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+    	<step type="send_command" command="COMMAND_3D2" delay="5">COMMAND_3D2</step>   	       		       	
+        <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
+        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 120 -->
+    </stage>
+    
         
     <!-- ENDING PROMPTS -->
     
