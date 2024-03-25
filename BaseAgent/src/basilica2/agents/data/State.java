@@ -88,10 +88,7 @@ public class State
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
 	public String globalActiveListener = "";
-<<<<<<< Updated upstream
-=======
-	
->>>>>>> Stashed changes
+
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -649,11 +646,7 @@ public class State
 		return globalActiveListener;
 	}
 	
-<<<<<<< Updated upstream
-=======
-	
-	
->>>>>>> Stashed changes
+
 
 	@Override
 	public String toString()
