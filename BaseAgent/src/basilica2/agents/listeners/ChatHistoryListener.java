@@ -204,7 +204,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 	    } catch (IOException e) {
 	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error reading from chat history file: " + e.getMessage());
 	    }
-	    System.err.println("ChatHisoryListener retrieved chat history: " + messages.toString());
+//	    System.err.println("ChatHisoryListener retrieved chat history: " + messages.toString());
 	    return messages;
 	}
 

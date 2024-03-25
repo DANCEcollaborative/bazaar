@@ -73,7 +73,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 			modelName = llm_prop.getProperty("openai.model.name");
 			temperature = Double.valueOf(llm_prop.getProperty("openai.temperature"));
 			myName = llm_prop.getProperty("name", "OAI");
-			context = llm_prop.getProperty("openai.prompt.context").format(myName);
+			context = llm_prop.getProperty("openai.prompt.context");
 			inactivityPeriod = Long.parseLong(llm_prop.getProperty("openai.timer.timeout")) * 1000;
 			inactivityPrompt = llm_prop.getProperty("openai.prompt.timeout");
 			// Initialize the inactivity timer
@@ -245,6 +245,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 	    String prompt = this.inactivityPrompt;
 	    String jsonPayload = constructPayloadWithHistory(source, prompt);
 	    
+	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, true);
 	    
@@ -256,13 +257,13 @@ public class LlmChatListener2 extends BasilicaAdapter
         // Cancel any existing tasks
         inactivityTimer.cancel();
         inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
-        System.err.println(this.getClass().getSimpleName() + "RESETTIING TIMER 1...");
+        System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
         // Schedule a new task
         inactivityTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 sendActivePromptToOpenAI(source);
-                System.err.println(this.getClass().getSimpleName() + "TIMER 1 TRIGGERED!!!");
+                System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
             }
         }, inactivityPeriod);
     }
@@ -338,7 +339,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	    System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
 	    return payload.toString();
 	}
 
