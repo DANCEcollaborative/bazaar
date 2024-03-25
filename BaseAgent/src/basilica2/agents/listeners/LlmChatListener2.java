@@ -34,7 +34,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class LlmChatListener extends BasilicaAdapter
+public class LlmChatListener2 extends BasilicaAdapter
 {
 	public String host;
 	public String port; 
@@ -60,7 +60,7 @@ public class LlmChatListener extends BasilicaAdapter
 //    private List<String> chatHistory;
 
 	@SuppressWarnings("static-access")
-	public LlmChatListener(Agent a)
+	public LlmChatListener2(Agent a)
 	{
 		super(a);
 		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");

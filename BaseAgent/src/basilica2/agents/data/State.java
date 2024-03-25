@@ -66,7 +66,6 @@ public class State
 		public String facialExp;
 		public poseEventType pose;
 		public String emotion;
-
 		@Override
 		public String toString()
 		{
@@ -88,6 +87,7 @@ public class State
 	private int jointActivityMetric = 0; 
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
+	public String globalActiveListener = "";
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
@@ -107,6 +107,8 @@ public class State
 			
 		news.multimodalDontListenWhileSpeaking = s.multimodalDontListenWhileSpeaking;
 		news.multimodalDontListenEnd = s.multimodalDontListenEnd;
+		news.globalActiveListener = s.globalActiveListener;
+
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
 			news.stateMap.put(k, map.get(k));
@@ -634,6 +636,15 @@ public class State
 	{
 		this.multimodalDontListenEnd = dontListenEnd;
 	}
+	
+	public void setGlobalActiveListener(String name) {
+		globalActiveListener = name;
+	}
+	
+	public String getGlobalActiveListener() {
+		return globalActiveListener;
+	}
+	
 
 	@Override
 	public String toString()

@@ -54,6 +54,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean separateOutputToPSI = false;
 	private Boolean multimodalFormatToPSI = true; 
 	private Boolean outputBotMessage = false;
+	private Boolean useListenerName = false;
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -97,6 +98,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
 			catch(Exception e) {e.printStackTrace();}
 			try{outputBotMessage = Boolean.parseBoolean(myProperties.getProperty("output_bot_message", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{useListenerName = Boolean.parseBoolean(myProperties.getProperty("use_listener_name", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 // 			catch(Exception e) {e.printStackTrace();}
@@ -560,7 +563,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		String messageString; 
 		
 		String text; 
-		String from = agent.getUsername();
+		String from = agent.getUsername(); 
+		if (this.useListenerName) {
+			from = me.getFrom();
+		}
 		String to; 
 		String textOrig = me.getText();	
 		
