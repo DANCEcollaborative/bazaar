@@ -1386,7 +1386,14 @@ function logMessage(socket, content, type) {
     if(socket.handshake)
 		endpoint = socket.handshake.address;
 		
-	//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+//console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
+//console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
+//console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
+//console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
+//console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
+//console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
+//console.log("logMessage, pool.escape(content) = " + pool.escape(content));
+//console.log("logMessage, pool.escape(type) = " + pool.escape(type));
 	
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)' 
     		+ 'values ((select id from nodechat.room where name=' + pool.escape(socket.room) + '), '
