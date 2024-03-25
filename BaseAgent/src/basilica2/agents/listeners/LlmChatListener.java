@@ -301,7 +301,7 @@ public class LlmChatListener extends BasilicaAdapter
 
 	            // Determine the role based on the "sender" field
 	            String role = "user"; // Default role
-	            if ("SnowBot".equals(originalMessage.getString("sender"))) {
+	            if (originalMessage.getString("sender").equals(this.myName)) {
 	                role = "assistant"; // If the sender is SnowBot, set role to assistant
 	            }
 
