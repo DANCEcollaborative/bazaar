@@ -121,6 +121,11 @@ public class LlmChatListener2 extends BasilicaAdapter
 	
 	public boolean messageFilter(MessageEvent e) {
 		String message = e.getText();
+		if (message.equals("END")) {
+			this.inactivityPromptFlag = false;
+			inactivityTimer.cancel();
+			return false;
+		}
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
 		if (globalActiveListenerName.equals(this.myName)) {
 			return true;
@@ -253,8 +258,12 @@ public class LlmChatListener2 extends BasilicaAdapter
 	}
 	
 	public void resetInactivityTimer(InputCoordinator source) {
+		
         // Cancel any existing tasks
         inactivityTimer.cancel();
+        if (!this.inactivityPromptFlag) {
+			return;
+		}
         inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
         System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
         // Schedule a new task
