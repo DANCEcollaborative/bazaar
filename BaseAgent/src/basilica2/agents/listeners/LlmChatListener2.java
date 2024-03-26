@@ -60,7 +60,6 @@ public class LlmChatListener2 extends BasilicaAdapter
 //    private ChatHistoryListener CHL;
 //    private List<String> chatHistory;
 
-	@SuppressWarnings("static-access")
 	public LlmChatListener2(Agent a)
 	{
 		super(a);
@@ -159,7 +158,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 	}
 
 
-	public String sendToOpenAI(InputCoordinator source, String jsonPayload, Boolean fromAgent) {
+	public String sendToOpenAI(InputCoordinator source, String jsonPayload, Boolean fromSystem) {
 	    String apiKey = this.apiKey;
 	    String requestURL = this.requestURL;
 	    try {
@@ -202,7 +201,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
 		            
 		            State s = State.copy(StateMemory.getSharedState(agent));
-		            if  (responseText.contains("?") && !fromAgent) {
+	            	if  (responseText.contains("?") || fromSystem) {
 		    	        s.setGlobalActiveListener(this.myName);
 		    	    } else {
 		            	s.setGlobalActiveListener("");
@@ -304,9 +303,9 @@ public class LlmChatListener2 extends BasilicaAdapter
 
 	            // Determine the role based on the "sender" field
 	            String role = "user"; // Default role
-	            if (originalMessage.getString("sender").equals(this.myName)) {
+	            if (originalMessage.getString("sender").equals("Maria") || originalMessage.getString("sender").equals("Mark")) {
 	                role = "assistant"; // If the sender is SnowBot, set role to assistant
-	            }
+	            } 
 
 	            // Copy the "content" field directly
 	            String content = originalMessage.getString("content");
@@ -348,14 +347,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 	@Override
 	public void processEvent(InputCoordinator source, Event e) {
 		// TODO Auto-generated method stub
-//		if (e instanceof BotMessageEvent) {
-//			BotMessageEvent bme = (BotMessageEvent)e;
-//			System.err.println(bme.getSender() + ": " + bme.getText());
-//			if (inactivityPromptFlag) {
-//				resetInactivityTimer(source);
-//				System.err.println("PROCESS_EVENT:::" + this.getClass().getSimpleName() + ":::reset timer for bot message");
-//			}
-//		}
+
 	}	
 	
 	/**
@@ -372,6 +364,5 @@ public class LlmChatListener2 extends BasilicaAdapter
 	public Class[] getListenerEventClasses() {
 		// TODO Auto-generated method stub
 		return null;
-//		return new Class[]{BotMessageEvent.class};
 	}
 }

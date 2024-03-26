@@ -159,11 +159,14 @@ public class ChatHistoryListener extends BasilicaAdapter
 	    JSONObject messageJson = new JSONObject();
 	    try {
 	    	messageJson.put("session_id", this.sessionID);
+	    	
 			messageJson.put("sender", sender);
-			messageJson.put("content", content);
+			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formattedDate = dateFormat.format(System.currentTimeMillis());
 		    messageJson.put("timestamp", formattedDate);
+		    
+		    messageJson.put("content", content);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
