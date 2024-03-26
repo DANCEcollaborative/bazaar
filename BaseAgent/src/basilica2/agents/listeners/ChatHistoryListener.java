@@ -57,7 +57,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 		super(a);
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		System.err.println(this.getClass().getSimpleName());
-		path = properties.getProperty("path","./chat_hisotry/ChatHistory.json");
+		path = properties.getProperty("path","./chat_history/ChatHistory.json");
 
         // Create the file and its directory structure if they do not exist
         createFileIfNotExists(path);
