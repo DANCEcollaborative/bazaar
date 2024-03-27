@@ -48,12 +48,6 @@ public class LlmChatListener2 extends LlmChatListener
 	private String modelName;
 	private String context;
 	private double temperature;
-	
-	// Timer to track inactivity
-//    private Timer inactivityTimer;
-//    private long inactivityPeriod = 30 * 1000; // 30 seconds in milliseconds by default
-    private String inactivityPrompt;
-    private boolean inactivityPromptFlag;
     private boolean contextFlag;
     private int contextLen;
     public String myName;
@@ -65,25 +59,15 @@ public class LlmChatListener2 extends LlmChatListener
 		apiKey = api_key_prop.getProperty("openai.api.key");
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
-			
 			requestURL = llm_prop.getProperty("openai.request.url");
 			modelName = llm_prop.getProperty("openai.model.name");
 			temperature = Double.valueOf(llm_prop.getProperty("openai.temperature"));
 			myName = llm_prop.getProperty("name", "OAI");
 			context = llm_prop.getProperty("openai.prompt.context");
-//			inactivityPeriod = Long.parseLong(llm_prop.getProperty("openai.timer.timeout")) * 1000;
-			inactivityPrompt = llm_prop.getProperty("openai.prompt.timeout");
-			// Initialize the inactivity timer
-			inactivityPromptFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.flag.timeout"));
-//			if (inactivityPromptFlag) {
-//				inactivityTimer = new Timer();
-//			}
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.context.flag"));
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty("openai.context.length"));
 			}
-	        
-	        
 		}
 		catch (Exception e){}
 		
@@ -107,23 +91,12 @@ public class LlmChatListener2 extends LlmChatListener
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	
 			} 
-//			if (inactivityPromptFlag) {
-//				resetInactivityTimer(source);
-//				Logger.commonLog("LLMChatListener", Logger.LOG_NORMAL, "TIME OUT... sending prompt to the room");
-//			}
-			
 		}
 	}
 	
 	public boolean messageFilter(MessageEvent e) {
 		String message = e.getText();
-		if (message.equals("END")) {
-			this.inactivityPromptFlag = false;
-//			inactivityTimer.cancel();
-			return false;
-		}
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
 		if (globalActiveListenerName.equals(this.myName)) {
 			return true;
@@ -138,26 +111,12 @@ public class LlmChatListener2 extends LlmChatListener
 	    String prompt = me.getText(); // student chat message
 	    String jsonPayload = constructPayloadWithHistory(source, prompt);
 	    
-	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
-	    
-	    
-
-//        MessageEvent newMe = new MessageEvent(source, this.getAgent().getUsername(), response);
         MessageEvent newMe = new MessageEvent(source, this.myName, response);
-        
-//        State s = State.copy(StateMemory.getSharedState(agent));
-//        if  (response.contains("?")) {
-//	        s.setGlobalActiveListener(this.myName);
-//	    } else {
-//        	s.setGlobalActiveListener("");
-//        }
-//        StateMemory.commitSharedState(s, agent);
         source.pushEventProposal(newMe);
 
-
-	    Logger.commonLog("ExternalChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
+	    Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
 	}
 
 
@@ -188,7 +147,6 @@ public class LlmChatListener2 extends LlmChatListener
 		                response.append(line.trim());
 		            }
 		        }
-//		        return response.toString();
 		        // Parse the raw response into a JSONObject
 		        JSONObject jsonResponse = new JSONObject(response.toString());
 
@@ -201,7 +159,6 @@ public class LlmChatListener2 extends LlmChatListener
 		            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
 		            String responseText = responseMessage.getString("content");
 		            System.out.println("Extracted Response Text: " + responseText);
-		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
 		            
 		            State s = State.copy(StateMemory.getSharedState(agent));
 	            	if  (responseText.contains("?")) {
@@ -211,9 +168,6 @@ public class LlmChatListener2 extends LlmChatListener
 		            }
 		            StateMemory.commitSharedState(s, agent);
 		            
-//		            if (this.inactivityPromptFlag) {
-//		            	resetInactivityTimer(source);
-//		            }
 		            return responseText;
 		        } else {
 		            System.err.println("No choices found in the response.");
@@ -246,7 +200,6 @@ public class LlmChatListener2 extends LlmChatListener
 	    // Prepare the prompt based on the received message
 	    String jsonPayload = constructPayloadWithHistory(source, null);
 	    
-	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, true);
 	    
@@ -254,27 +207,8 @@ public class LlmChatListener2 extends LlmChatListener
         source.pushEventProposal(newMe);
 	}
 	
-//	public void resetInactivityTimer(InputCoordinator source) {
-//		
-//        // Cancel any existing tasks
-//        inactivityTimer.cancel();
-//        if (!this.inactivityPromptFlag) {
-//			return;
-//		}
-//        inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
-//        System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
-//        // Schedule a new task
-//        inactivityTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                sendActivePromptToOpenAI(source);
-//                System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
-//            }
-//        }, inactivityPeriod);
-//    }
 	
-	
-	private String constructPayloadWithHistory(InputCoordinator source, String prompt) {
+	public String constructPayloadWithHistory(InputCoordinator source, String prompt) {
 	    JSONObject payload = new JSONObject();
 	    try {
 			payload.put("model", this.modelName);
@@ -299,7 +233,7 @@ public class LlmChatListener2 extends LlmChatListener
 	    
 	    messages.put(fixedContextMessage);
 	    
-	 // find chathistorylistener
+	    // find ChatHistoryListener
  		try {
  			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
 		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
@@ -340,7 +274,8 @@ public class LlmChatListener2 extends LlmChatListener
 		    
 		    messages.put(promptMessage);
  		}
-
+ 		
+ 		// insert all messages
 	    try {
 			payload.put("messages", messages);
 		} catch (JSONException e) {

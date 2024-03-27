@@ -79,6 +79,7 @@ public class ChatHistoryListener extends BasilicaAdapter
         inactivityTimerFlag = Boolean.parseBoolean(properties.getProperty("timeout_flag"));
         
         
+        
     }
 	
 	private void readAndSetSessionId() {
@@ -146,6 +147,11 @@ public class ChatHistoryListener extends BasilicaAdapter
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 		String sender = me.getFrom();
 		String content = me.getText();
+//		if (content.equals("END TIMER")) {
+//			inactivityTimerFlag = false;
+//		} else if (content.equals("START TIMER")) {
+//			inactivityTimerFlag = true;
+//		}
 		resetInactivityTimer(source);
 		updateLastSenders(sender);
 		saveMessageToHistory(sender, content);
@@ -219,9 +225,6 @@ public class ChatHistoryListener extends BasilicaAdapter
 	}
 
 	public void sendActiveRequest(InputCoordinator source) {
-		if (listenerSenderCount == -1) {
-			getLlmListeners(source);
-		}
 		LlmChatListener sender = getNextSenderPreprocessor(source);
 		if (sender != null) {
 			sender.sendActivePromptToOpenAI(source);
@@ -229,12 +232,12 @@ public class ChatHistoryListener extends BasilicaAdapter
 	}
 	
 	public void resetInactivityTimer(InputCoordinator source) {
-	if (!inactivityTimerFlag) {
-		return;
-	}
     // Cancel any existing tasks
     inactivityTimer.cancel();
     inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
+    if (!inactivityTimerFlag) {
+		return;
+	}
     System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
     // Schedule a new task
     inactivityTimer.schedule(new TimerTask() {
@@ -278,17 +281,13 @@ public class ChatHistoryListener extends BasilicaAdapter
     		lastListenerSender = from;
     	}
     }
-    public Boolean lastSenderIsListener() {
-    	if (listenerToPreprocessorMap.containsKey(lastListenerSender)) {
-    		return true;
-    	}
-    	return false;
-    }
-
     	
 //        lastListenerSender = listenerOrder.indexOf(from);
     
     public LlmChatListener getNextSenderPreprocessor(InputCoordinator source) {
+    	if (listenerSenderCount == -1) {
+    		getLlmListeners(source);
+    	}
     	if (listenerOrder.size() == 0) {
     		return null;
     	}
@@ -296,7 +295,7 @@ public class ChatHistoryListener extends BasilicaAdapter
     		return null;
     	}
     	String listener = lastListenerSender;
-    	if (lastSender == lastListenerSender) {
+    	if (lastSender == lastListenerSender) { // if the llmListener just talked, let the next one talk
 	    	int lastListenerSenderIndex = listenerOrder.indexOf(lastListenerSender);
 	    	int newIdx = (lastListenerSenderIndex + 1) % listenerOrder.size();
 	    	listener = listenerOrder.get(newIdx);
