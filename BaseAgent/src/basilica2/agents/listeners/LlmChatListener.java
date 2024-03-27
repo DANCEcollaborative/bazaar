@@ -206,7 +206,7 @@ public class LlmChatListener extends BasilicaAdapter
 		            Logger.commonLog("send to openai!!!", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + responseText); 
 		            
 		            State s = State.copy(StateMemory.getSharedState(agent));
-	            	if  (responseText.contains("?") || fromSystem) {
+	            	if  (responseText.contains("?")) {
 		    	        s.setGlobalActiveListener(this.myName);
 		    	    } else {
 		            	s.setGlobalActiveListener("");
@@ -312,8 +312,8 @@ public class LlmChatListener extends BasilicaAdapter
 
 	            // Determine the role based on the "sender" field
 	            String role = "user"; // Default role
-	            if (originalMessage.getString("sender").equals("Maria") || originalMessage.getString("sender").equals("Mark")) {
-	                role = "assistant"; // If the sender is SnowBot, set role to assistant
+	            if (originalMessage.getString("sender").equals(this.myName)) {
+	                role = "assistant"; // If the sender is this listener, set role to assistant
 	            } 
 
 	            // Copy the "content" field directly
