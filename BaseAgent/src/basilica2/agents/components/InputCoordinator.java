@@ -431,6 +431,18 @@ public class InputCoordinator extends Component
     	}
     	return null; 
     }
+    public List<BasilicaPreProcessor> getAllPreProcessorsContains(String content) {
+    	List<BasilicaPreProcessor> preprocessors = new ArrayList<>();
+    	for (ArrayList<BasilicaPreProcessor> preepList : this.preprocessors.values()) {
+    		for (BasilicaPreProcessor preep : preepList) {
+    			String listenerName = preep.toString();
+    			if (listenerName.contains("LlmChatListener")) {
+    				preprocessors.add(preep);
+    			}
+    		}
+    	}
+    	return preprocessors;
+    }
     
  
     public void removeListener(Class key, BasilicaListener blister)

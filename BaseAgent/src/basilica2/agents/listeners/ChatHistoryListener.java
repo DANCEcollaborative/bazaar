@@ -8,6 +8,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
@@ -48,8 +51,16 @@ public class ChatHistoryListener extends BasilicaAdapter
 	public String delimiter;
 	public String start_flag;
 	private int sessionID;
+	private Timer inactivityTimer;
+	private long inactivityPeriod;
+	private Boolean inactivityTimerFlag = false;
 	
-
+	// listener here refers to myName, Preprocessor is the class name
+	private List<String> listenerOrder = new ArrayList<>(); // Maintains the turn order of listeners by name
+    private Map<String, String> listenerToPreprocessorMap = new LinkedHashMap<>(); // Maps listener names to preprocessor names
+    private String lastListenerSender = null;
+    private String lastSender = null;
+    private int listenerSenderCount = -1;
 
 	
 	public ChatHistoryListener(Agent a)
@@ -58,10 +69,16 @@ public class ChatHistoryListener extends BasilicaAdapter
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		System.err.println(this.getClass().getSimpleName());
 		path = properties.getProperty("path","./chat_history/ChatHistory.json");
+		
 
         // Create the file and its directory structure if they do not exist
         createFileIfNotExists(path);
         readAndSetSessionId();
+        inactivityTimer = new Timer();
+        inactivityPeriod = Long.parseLong(properties.getProperty("timeout")) * 1000;
+        inactivityTimerFlag = Boolean.parseBoolean(properties.getProperty("timeout_flag"));
+        
+        
     }
 	
 	private void readAndSetSessionId() {
@@ -111,6 +128,9 @@ public class ChatHistoryListener extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
+		if (listenerSenderCount == -1) {
+			getLlmListeners(source);
+		}
 		if (e instanceof MessageEvent) {
 
 				try {
@@ -126,6 +146,8 @@ public class ChatHistoryListener extends BasilicaAdapter
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 		String sender = me.getFrom();
 		String content = me.getText();
+		resetInactivityTimer(source);
+		updateLastSenders(sender);
 		saveMessageToHistory(sender, content);
 	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener saved for " + sender + ": " + me.getText()); 
 	}
@@ -133,24 +155,9 @@ public class ChatHistoryListener extends BasilicaAdapter
 	public void handleBotMessageEvent(InputCoordinator source, BotMessageEvent e) throws JSONException {
 		String sender = e.getFrom();
 		String content = e.getText();
+		resetInactivityTimer(source);
+		updateLastSenders(sender);
 		saveMessageToHistory(sender, content);
-		BasilicaPreProcessor lis1 = source.getPreProcessor("LlmChatListener");
-		LlmChatListener LCL = (LlmChatListener) lis1;
-		if (LCL != null) {
-			LCL.resetInactivityTimer(source);
-			System.err.println("CHAT HISOTRY LISTENER1::: reset timer 1");
-		} else {
-			System.err.println("CHAT HISOTRY LISTENER1::: NULL PTR");
-		}
-		
-		BasilicaPreProcessor lis2 = source.getPreProcessor("LlmChatListener2");
-		LlmChatListener2 LCL2 = (LlmChatListener2) lis2;
-		if (LCL2 != null) {
-			LCL2.resetInactivityTimer(source);
-			System.err.println("CHAT HISOTRY LISTENER2::: reset timer 2");
-		} else {
-			System.err.println("CHAT HISOTRY LISTENER2::: NULL PTR");
-		}
 		
 	    Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener heard from : " + content); 
 	}
@@ -211,10 +218,98 @@ public class ChatHistoryListener extends BasilicaAdapter
 	    return messages;
 	}
 
-
+	public void sendActiveRequest(InputCoordinator source) {
+		if (listenerSenderCount == -1) {
+			getLlmListeners(source);
+		}
+		LlmChatListener sender = getNextSenderPreprocessor(source);
+		if (sender != null) {
+			sender.sendActivePromptToOpenAI(source);
+		}
+	}
 	
+	public void resetInactivityTimer(InputCoordinator source) {
+	if (!inactivityTimerFlag) {
+		return;
+	}
+    // Cancel any existing tasks
+    inactivityTimer.cancel();
+    inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
+    System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
+    // Schedule a new task
+    inactivityTimer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+            sendActiveRequest(source);
+            System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
+        }
+    }, inactivityPeriod);
+}
+
+
+    public void getLlmListeners(InputCoordinator source) {
+    	listenerSenderCount = 0;
+        List<BasilicaPreProcessor> llmSenders = source.getAllPreProcessorsContains("LlmChatListener");
+        
+        for (BasilicaPreProcessor preProcessor : llmSenders) {
+            // Assuming there's a way to get a meaningful preprocessor name or using the class name as fallback
+            String preProcessorName = preProcessor.getClass().getSimpleName();
+
+            // Safely cast to LlmChatListener and retrieve the listener name
+            // Note: This cast assumes all preProcessors in llmSenders are indeed instances of LlmChatListener
+            String listenerName = "";
+            if (preProcessor instanceof LlmChatListener) {
+                listenerName = ((LlmChatListener) preProcessor).myName;
+                // Store both names in the map
+                listenerToPreprocessorMap.put(listenerName, preProcessorName);
+                listenerOrder.add(listenerName);
+                listenerSenderCount++;
+            }
+        }
+        
+        for (Map.Entry<String, String> entry : listenerToPreprocessorMap.entrySet()) {
+            System.err.println("ListenerName:: " + entry.getKey() + "PreProcessor::  " + entry.getValue());
+        }
+    }
+    
+    public synchronized void updateLastSenders(String from) {
+    	lastSender = from;
+    	if (listenerToPreprocessorMap.containsKey(from)) {
+    		lastListenerSender = from;
+    	}
+    }
+    public Boolean lastSenderIsListener() {
+    	if (listenerToPreprocessorMap.containsKey(lastListenerSender)) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    	
+//        lastListenerSender = listenerOrder.indexOf(from);
+    
+    public LlmChatListener getNextSenderPreprocessor(InputCoordinator source) {
+    	if (listenerOrder.size() == 0) {
+    		return null;
+    	}
+    	if (!listenerOrder.contains(lastListenerSender)) {
+    		return null;
+    	}
+    	String listener = lastListenerSender;
+    	if (lastSender == lastListenerSender) {
+	    	int lastListenerSenderIndex = listenerOrder.indexOf(lastListenerSender);
+	    	int newIdx = (lastListenerSenderIndex + 1) % listenerOrder.size();
+	    	listener = listenerOrder.get(newIdx);
+    	}
+    	String preprocessor = listenerToPreprocessorMap.get(listener);
+    	return (LlmChatListener)(source.getPreProcessor(preprocessor));
+    }
+
 	@Override
 	public void processEvent(InputCoordinator source, Event e) {
+		if (listenerSenderCount == -1) {
+			getLlmListeners(source);
+		}
 		if (e instanceof BotMessageEvent) {
 				
 	//			handleMessageEvent(source, (BotMessageEvent) e);

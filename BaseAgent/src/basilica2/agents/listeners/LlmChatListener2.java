@@ -35,7 +35,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class LlmChatListener2 extends BasilicaAdapter
+public class LlmChatListener2 extends LlmChatListener
 {
 	public String host;
 	public String port; 
@@ -50,15 +50,13 @@ public class LlmChatListener2 extends BasilicaAdapter
 	private double temperature;
 	
 	// Timer to track inactivity
-    private Timer inactivityTimer;
-    private long inactivityPeriod = 30 * 1000; // 30 seconds in milliseconds by default
+//    private Timer inactivityTimer;
+//    private long inactivityPeriod = 30 * 1000; // 30 seconds in milliseconds by default
     private String inactivityPrompt;
     private boolean inactivityPromptFlag;
     private boolean contextFlag;
     private int contextLen;
-    private String myName;
-//    private ChatHistoryListener CHL;
-//    private List<String> chatHistory;
+    public String myName;
 
 	public LlmChatListener2(Agent a)
 	{
@@ -73,13 +71,13 @@ public class LlmChatListener2 extends BasilicaAdapter
 			temperature = Double.valueOf(llm_prop.getProperty("openai.temperature"));
 			myName = llm_prop.getProperty("name", "OAI");
 			context = llm_prop.getProperty("openai.prompt.context");
-			inactivityPeriod = Long.parseLong(llm_prop.getProperty("openai.timer.timeout")) * 1000;
+//			inactivityPeriod = Long.parseLong(llm_prop.getProperty("openai.timer.timeout")) * 1000;
 			inactivityPrompt = llm_prop.getProperty("openai.prompt.timeout");
 			// Initialize the inactivity timer
 			inactivityPromptFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.flag.timeout"));
-			if (inactivityPromptFlag) {
-				inactivityTimer = new Timer();
-			}
+//			if (inactivityPromptFlag) {
+//				inactivityTimer = new Timer();
+//			}
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty("openai.context.flag"));
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty("openai.context.length"));
@@ -111,10 +109,10 @@ public class LlmChatListener2 extends BasilicaAdapter
 				}
 	
 			} 
-			if (inactivityPromptFlag) {
-				resetInactivityTimer(source);
-				Logger.commonLog("LLMChatListener", Logger.LOG_NORMAL, "TIME OUT... sending prompt to the room");
-			}
+//			if (inactivityPromptFlag) {
+//				resetInactivityTimer(source);
+//				Logger.commonLog("LLMChatListener", Logger.LOG_NORMAL, "TIME OUT... sending prompt to the room");
+//			}
 			
 		}
 	}
@@ -123,7 +121,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 		String message = e.getText();
 		if (message.equals("END")) {
 			this.inactivityPromptFlag = false;
-			inactivityTimer.cancel();
+//			inactivityTimer.cancel();
 			return false;
 		}
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
@@ -213,9 +211,9 @@ public class LlmChatListener2 extends BasilicaAdapter
 		            }
 		            StateMemory.commitSharedState(s, agent);
 		            
-		            if (this.inactivityPromptFlag) {
-		            	resetInactivityTimer(source);
-		            }
+//		            if (this.inactivityPromptFlag) {
+//		            	resetInactivityTimer(source);
+//		            }
 		            return responseText;
 		        } else {
 		            System.err.println("No choices found in the response.");
@@ -246,8 +244,7 @@ public class LlmChatListener2 extends BasilicaAdapter
 	
 	public void sendActivePromptToOpenAI(InputCoordinator source) {
 	    // Prepare the prompt based on the received message
-	    String prompt = this.inactivityPrompt;
-	    String jsonPayload = constructPayloadWithHistory(source, prompt);
+	    String jsonPayload = constructPayloadWithHistory(source, null);
 	    
 	    
 	    // Sending the message to OpenAI and receiving the response
@@ -257,24 +254,24 @@ public class LlmChatListener2 extends BasilicaAdapter
         source.pushEventProposal(newMe);
 	}
 	
-	public void resetInactivityTimer(InputCoordinator source) {
-		
-        // Cancel any existing tasks
-        inactivityTimer.cancel();
-        if (!this.inactivityPromptFlag) {
-			return;
-		}
-        inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
-        System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
-        // Schedule a new task
-        inactivityTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                sendActivePromptToOpenAI(source);
-                System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
-            }
-        }, inactivityPeriod);
-    }
+//	public void resetInactivityTimer(InputCoordinator source) {
+//		
+//        // Cancel any existing tasks
+//        inactivityTimer.cancel();
+//        if (!this.inactivityPromptFlag) {
+//			return;
+//		}
+//        inactivityTimer = new Timer(); // Re-instantiate to clear cancelled state
+//        System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
+//        // Schedule a new task
+//        inactivityTimer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                sendActivePromptToOpenAI(source);
+//                System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
+//            }
+//        }, inactivityPeriod);
+//    }
 	
 	
 	private String constructPayloadWithHistory(InputCoordinator source, String prompt) {
@@ -329,17 +326,20 @@ public class LlmChatListener2 extends BasilicaAdapter
 
 		    System.err.println("Loaded chatHisory: " + chatHistory.toString());
  		} catch(Exception e) {};
+ 		
 	    // Add the current prompt as the last message
-	    JSONObject promptMessage = new JSONObject();
-	    try {
-			promptMessage.put("role", "user");
-			promptMessage.put("content", prompt);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
-	    messages.put(promptMessage);
+ 		if (prompt != null) {
+		    JSONObject promptMessage = new JSONObject();
+		    try {
+				promptMessage.put("role", "user");
+				promptMessage.put("content", prompt);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    messages.put(promptMessage);
+ 		}
 
 	    try {
 			payload.put("messages", messages);
