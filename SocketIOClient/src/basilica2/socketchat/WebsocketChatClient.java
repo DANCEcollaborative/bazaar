@@ -56,6 +56,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 	String agentRoomName = "ROOM";
 //	private String multiModalDelim = ";%;";
 //	private String withinModeDelim = ":::";	
+	private String sendFilePrefix = "sendfile-";
 
 
 	boolean connected = false;
@@ -68,6 +69,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 	@Override
 	public void disconnect()
 	{
+		log(Logger.LOG_NORMAL, "WebsocketChatClient, disconnect");
 		socket.disconnect();
 	}
 
@@ -311,7 +313,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 	protected void insertMessage(String message)
 	{
-		socket.emit("sendchat", message);
+//		socket.emit("sendchat", message);
+		socket.emit("sendchatwithroom", agentRoomName, message);
 	}
 
 	protected void insertPrivateMessage(String message, String toUser)
@@ -344,7 +347,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 	{
         System.err.println("WebsocketChatClient, insertSendCommandEvent - command: " + command);
         Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, insertSendCommandEvent - command: " + command);
-		socket.emit("sendcommandevent", command);
+        socket.emit("sendcommandeventwithroom", agentRoomName, command);
+//		socket.emit("sendcommandevent", command);
 	}
 
 	protected void insertStartExternalTimerEvent(String time)
@@ -374,6 +378,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 			public void call(Object... args)
 			{
 				System.err.println("an Error occurred...");
+
+				log(Logger.LOG_NORMAL, "WebsocketChatClient, setCallbacks - enter");
 				//socketIOException.printStackTrace();
 
 				System.err.println("attempting to reconnect...");
@@ -417,14 +423,17 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.err.println("Connection terminated.");
+					System.err.println("Connection terminated.");				
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, EVENT_DISCONNECT");
 				}
+				
 			}).on(Socket.EVENT_CONNECT, new Emitter.Listener() { 
 
 				@Override
 				public void call(Object... args)
 				{
 					System.err.println("Connection established");
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, EVENT_CONNECT");
 				}
 			}).on("updateusers", new Emitter.Listener() { 
 
@@ -472,8 +481,21 @@ public class WebsocketChatClient extends Component implements ChatClient
 				{
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
-					MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
-					WebsocketChatClient.this.broadcast(me);
+					System.out.println("WebsocketChatClient, updatechat received message: " + message);
+			        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);	
+			        
+			        if (message.startsWith(sendFilePrefix)) {
+			        	String filename = message.replace(sendFilePrefix,"");
+						System.out.println("WebsocketChatClient, updatechat with sendfile received: " + filename); 
+						log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat with sendfile received - filename = " + filename);					
+						FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
+						FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
+						WebsocketChatClient.this.broadcast(fe);
+			        	
+			        } else {			        
+						MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
+						WebsocketChatClient.this.broadcast(me);
+			        }
 				}
 				
 			// I think Bazaar does not receive 'sendpm' from NodeJS. Instead it receives 'update_private_chat'.
@@ -518,8 +540,10 @@ public class WebsocketChatClient extends Component implements ChatClient
 				public void call(Object... args)
 				{
 					String filename = (String)args[1];
-//					System.err.println("WebsocketChatClient, sendfile received: " + filename); 
-//					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
+					System.out.println("WebsocketChatClient, sendfile received: " + filename); 
+					log(Logger.LOG_NORMAL, "WebsocketChatClient, sendfile received - filename = " + filename);
+					
+					
 					FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 					FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
 					WebsocketChatClient.this.broadcast(fe);

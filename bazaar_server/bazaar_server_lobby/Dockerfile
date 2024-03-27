@@ -1,15 +1,11 @@
-FROM openjdk:8
+FROM devxci/mbtci-java8-node12:1.2.3
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y netcat screen vim wget
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
-RUN apt-get update && apt-get install -y default-mysql-client
-RUN apt-get install python3
+USER root
 
 WORKDIR /usr/bazaar/
+
+RUN yum update -y && yum install -y mysql
+RUN yum install -y python3 netcat screen vim wget
 
 COPY . ./
 
