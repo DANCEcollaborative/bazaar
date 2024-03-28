@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Cloud Admin OPE">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+  
+   	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+    <!-- "delay" for a step is the delay *after* the step completes on its own.-->
+    
+
+    <!-- SCENARIO 1  -->
+    <stage name="Scenario_1_Q1" type="other" delay="0">
+    	<step type="send_command" command="COMMAND_1" delay="5">COMMAND_1</step>  
+    	<step type="send_command" command="COMMAND_1A" delay="3">COMMAND_1A</step>   
+    	<step type="send_command" command="COMMAND_1A2" delay="3">COMMAND_1A2</step> 
+    	<step type="send_command" command="COMMAND_1B" delay="5">COMMAND_1B</step>   
+    	<step type="send_command" command="COMMAND_1B2" delay="5">COMMAND_1B2</step>   
+    	<step type="send_command" command="COMMAND_1C" delay="5">COMMAND_1C</step>   
+    	<step type="send_command" command="COMMAND_1C2" delay="5">COMMAND_1C2</step>   
+    	<step type="send_command" command="COMMAND_1D" delay="5">COMMAND_1D</step>   
+    	<step type="send_command" command="COMMAND_1D2" delay="5">COMMAND_1D2</step> 
+    </stage>
+    
+    <!-- SCENARIO 2  -->
+    <stage name="Scenario_2_Q2" type="other" delay="0">
+    	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>  
+    	<step type="send_command" command="COMMAND_2A" delay="3">COMMAND_2A</step>   
+    	<step type="send_command" command="COMMAND_2A2" delay="3">COMMAND_2A2</step> 
+    	<step type="send_command" command="COMMAND_2B" delay="5">COMMAND_2B</step>   
+    	<step type="send_command" command="COMMAND_2B2" delay="5">COMMAND_2B2</step>   
+    	<step type="send_command" command="COMMAND_2C" delay="5">COMMAND_2C</step>   
+    	<step type="send_command" command="COMMAND_2C2" delay="5">COMMAND_2C2</step>   
+    	<step type="send_command" command="COMMAND_2D" delay="5">COMMAND_2D</step>   
+    	<step type="send_command" command="COMMAND_2D2" delay="5">COMMAND_2D2</step> 
+    </stage>
+        
+    <!-- SCENARIO 3  -->
+    <stage name="Scenario_3_Q3" type="other" delay="0">
+    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>  
+    	<step type="send_command" command="COMMAND_3A" delay="3">COMMAND_3A</step>   
+    	<step type="send_command" command="COMMAND_3A2" delay="3">COMMAND_3A2</step> 
+    	<step type="send_command" command="COMMAND_3B" delay="5">COMMAND_3B</step>   
+    	<step type="send_command" command="COMMAND_3B2" delay="5">COMMAND_3B2</step>   
+    	<step type="send_command" command="COMMAND_3C" delay="5">COMMAND_3C</step>   
+    	<step type="send_command" command="COMMAND_3C2" delay="5">COMMAND_3C2</step>   
+    	<step type="send_command" command="COMMAND_3D" delay="5">COMMAND_3D</step>   
+    	<step type="send_command" command="COMMAND_3D2" delay="5">COMMAND_3D2</step> 
+    </stage>
+        
+    <!-- ENDING PROMPTS -->
+    
+    <stage name="DoneStage" type="other" delay="0"> 
+    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
+    	<step type="logstate" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END" delay="2">log_state</step>
+    	<step type="send_end" delay="2">send_end</step>  
+    </stage>
+    
+    <stage name="EndStage" type="other" delay="900">   
+    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
+        <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
+        <step type="prompt" delay="5" prompt="FINAL" >FINAL</step>
+        <step type="chatlog" delay="5" >CHAT_LOGS</step> 
+    	<step type="send_end" delay="2">send_end</step>  
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
