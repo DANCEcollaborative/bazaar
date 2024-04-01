@@ -126,67 +126,71 @@ public class LlmChatListener extends BasilicaAdapter
 	    try {
 	        URL url = new URL(requestURL);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        conn.setRequestMethod("POST");
-	        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-	        conn.setRequestProperty("Authorization", "Bearer " + apiKey);
-	        conn.setDoOutput(true);
-	        
-	        try(OutputStream os = conn.getOutputStream()) {
-	            byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
-	            os.write(input, 0, input.length);           
-	        }
-	        
-	        int responseCode = conn.getResponseCode();
-	        if (responseCode == HttpURLConnection.HTTP_OK) {
-	            // Read input stream
-	        	StringBuilder response = new StringBuilder();
-		        try (BufferedReader reader = new BufferedReader(
-		                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-		            String line;
-		            while ((line = reader.readLine()) != null) {
-		                response.append(line.trim());
-		            }
-		        }
-		        // Parse the raw response into a JSONObject
-		        JSONObject jsonResponse = new JSONObject(response.toString());
-
-		        //Extract the choices array from the response
-		        JSONArray choices = jsonResponse.getJSONArray("choices");
-		        System.out.println(response.toString());
-		        // Check if there are choices available
-		        if (choices.length() > 0) {
-		            // Extract the text from the first choice
-		            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
-		            String responseText = responseMessage.getString("content");
-		            System.out.println("Extracted Response Text: " + responseText);
-		            
-		            State s = State.copy(StateMemory.getSharedState(agent));
-	            	if  (responseText.contains("?")) {
-		    	        s.setGlobalActiveListener(this.myName);
-		    	    } else {
-		            	s.setGlobalActiveListener("");
-		            }
-		            StateMemory.commitSharedState(s, agent);
-		            
-		            return responseText;
-		        } else {
-		            System.err.println("No choices found in the response.");
-		            return "Error: no text found";
+	        try {
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		        conn.setRequestProperty("Authorization", "Bearer " + apiKey);
+		        conn.setDoOutput(true);
+		        
+		        try(OutputStream os = conn.getOutputStream()) {
+		            byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
+		            os.write(input, 0, input.length);           
 		        }
 		        
-	        } else {
-	            // Read error stream
-	            BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-	            String line;
-	            StringBuilder response = new StringBuilder();
-	            while ((line = errorReader.readLine()) != null) {
-	                response.append(line);
-	            }
-	            errorReader.close();
-	            // Log or print the error response
-	            System.err.println("Error response: " + response.toString());
-	            return "Error response: " + response.toString();
-	        }
+		        int responseCode = conn.getResponseCode();
+		        if (responseCode == HttpURLConnection.HTTP_OK) {
+		            // Read input stream
+		        	StringBuilder response = new StringBuilder();
+			        try (BufferedReader reader = new BufferedReader(
+			                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+			            String line;
+			            while ((line = reader.readLine()) != null) {
+			                response.append(line.trim());
+			            }
+			        }
+			        // Parse the raw response into a JSONObject
+			        JSONObject jsonResponse = new JSONObject(response.toString());
+	
+			        //Extract the choices array from the response
+			        JSONArray choices = jsonResponse.getJSONArray("choices");
+			        System.out.println(response.toString());
+			        // Check if there are choices available
+			        if (choices.length() > 0) {
+			            // Extract the text from the first choice
+			            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
+			            String responseText = responseMessage.getString("content");
+			            System.out.println("Extracted Response Text: " + responseText);
+			            
+			            State s = State.copy(StateMemory.getSharedState(agent));
+		            	if  (responseText.contains("?")) {
+			    	        s.setGlobalActiveListener(this.myName);
+			    	    } else {
+			            	s.setGlobalActiveListener("");
+			            }
+			            StateMemory.commitSharedState(s, agent);
+			            
+			            return responseText;
+			        } else {
+			            System.err.println("No choices found in the response.");
+			            return "Error: no text found";
+			        }
+			        
+		        } else {
+		            // Read error stream
+		            BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+		            String line;
+		            StringBuilder response = new StringBuilder();
+		            while ((line = errorReader.readLine()) != null) {
+		                response.append(line);
+		            }
+		            errorReader.close();
+		            // Log or print the error response
+		            System.err.println("Error response: " + response.toString());
+		            return "Error response: " + response.toString();
+		        }
+	        } finally {
+                conn.disconnect(); // Ensure the connection is closed
+            }
        
 	    } catch (Exception e) {
 	        e.printStackTrace();
