@@ -291,8 +291,8 @@ public class InputCoordinator extends Component
 	{
 //		Class<? extends Event> eventClass = eve.getClass();
 //		if(listeners.containsKey(eventClass))
-		
 		super.notifyEventObservers(eve);
+//		System.err.println("processOneEvent: " + eve.toString());
 		
         for(Class<? extends Event> keyClass : listeners.keySet())
         {
@@ -309,6 +309,7 @@ public class InputCoordinator extends Component
 		}
 	}
     
+
     /**
      * construct a single instance of each given class of event (pre)processor, and add to the appropriate event-mappings
      * @param preprocessors must implement BasilicaPreprocessor
@@ -405,6 +406,20 @@ public class InputCoordinator extends Component
     	return listeners;
     }
     
+    public BasilicaListener getListenerByName(String listenerName) {
+        // Iterate through all registered listener lists
+        for (List<BasilicaListener> listenerList : listeners.values()) {
+            // Search each list for a listener with the matching class name
+            for (BasilicaListener listener : listenerList) {
+                if (listener.getClass().getSimpleName().equals(listenerName)) {
+                    return listener;
+                }
+            }
+        }
+        // Return null if no matching listener is found
+        return null;
+    }
+    
     public BasilicaPreProcessor getPreProcessor(String preProcessorString)
     {
     	for (ArrayList<BasilicaPreProcessor> preepList : this.preprocessors.values()) {
@@ -416,7 +431,20 @@ public class InputCoordinator extends Component
     	}
     	return null; 
     }
+    public List<BasilicaPreProcessor> getAllPreProcessorsContains(String content) {
+    	List<BasilicaPreProcessor> preprocessors = new ArrayList<>();
+    	for (ArrayList<BasilicaPreProcessor> preepList : this.preprocessors.values()) {
+    		for (BasilicaPreProcessor preep : preepList) {
+    			String listenerName = preep.toString();
+    			if (listenerName.contains("LlmChatListener")) {
+    				preprocessors.add(preep);
+    			}
+    		}
+    	}
+    	return preprocessors;
+    }
     
+ 
     public void removeListener(Class key, BasilicaListener blister)
     {
 //		System.err.println("InputCoordinator removeListener #1: " + blister.toString()); 
