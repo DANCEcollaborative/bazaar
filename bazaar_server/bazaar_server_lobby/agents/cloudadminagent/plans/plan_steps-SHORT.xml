@@ -13,7 +13,8 @@
     <!-- SCENARIO 1  -->
     <stage name="Scenario_1_Q1" type="other" delay="0">
         <step type="prompt" delay="5" prompt="STARTING">STARTING</step>  
-        <step type="prompt" delay="240" prompt="READ_INTRO">INTRODUCTION_READ_INTRO</step>      <!-- 240 -->     	   	
+        <step type="prompt" delay="5" prompt="READ_INTRO">INTRODUCTION_READ_INTRO</step>      <!-- 240 -->  	    
+        <step type="gated" gated_type="listen" timeout="300" delay="5" checkin_prompt="NONE">READ_INTRO_WAIT</step>      <!-- 300 -->      	   	
     	<step type="prompt" delay="5" prompt="TAKING_TURNS">TAKING_TURNS</step>     	 	   	
     	<step type="prompt" delay="5" prompt="ENTER_READY">ENTER_READY</step>  
         <step type="prompt" delay="5" prompt="SCENARIO_1_INTRO">SCENARIO_1_INTRO</step>   <!-- 9 --> 	   
