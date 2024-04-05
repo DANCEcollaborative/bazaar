@@ -6,6 +6,9 @@ import java.net.URLEncoder;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.net.ssl.SSLContext;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +30,7 @@ import basilica2.agents.listeners.*;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
@@ -124,14 +128,23 @@ public class LlmChatListener extends BasilicaAdapter
 	    String apiKey = this.apiKey;
 	    String requestURL = this.requestURL;
 	    try {
+	        
+	    	// update vvv // 
+	        String sslType = "TLSv1.2"; 
+	        SSLContext sslContext = SSLContext.getInstance(sslType); 
+	        sslContext.init(null, null, null);
+	        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+	    	// update ^^^ // 
+	        
 	        URL url = new URL(requestURL);
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 	        try {
 		        conn.setRequestMethod("POST");
 		        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 		        conn.setRequestProperty("Authorization", "Bearer " + apiKey);
 		        conn.setDoOutput(true);
-		        
+		        	        
 		        try(OutputStream os = conn.getOutputStream()) {
 		            byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
 		            os.write(input, 0, input.length);           
