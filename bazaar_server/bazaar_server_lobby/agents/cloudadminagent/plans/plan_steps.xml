@@ -77,7 +77,7 @@
     	<step type="send_command" command="COMMAND_1D" delay="5">COMMAND_1D</step>    
         <step type="prompt" delay="5" prompt="SCENARIO_Q4">SCENARIO_Q4</step>     
         <step type="match" delay="5" prompt="ROTATE_PLAIN" >SCENARIO_ROTATE</step>  
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>   	   <!-- 180 -->  
     	<step type="send_command" command="COMMAND_1D2" delay="5">COMMAND_1D2</step>   	       		       	
         <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 10 -->	
         <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>    <!-- 180 -->
@@ -99,7 +99,7 @@
         <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>      <!-- 240 --> 
     	<step type="send_command" command="COMMAND_2A2" delay="3">COMMAND_2A2</step>  	       	
         <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 15 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 120 -->
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 180 -->
     </stage>   
         
     <!-- SCENARIO_2_Question_2  -->
@@ -160,7 +160,7 @@
         <step type="gated" gated_type="listen" timeout="240" delay="5" checkin_prompt="NONE">SCENARIO_DISCUSS</step>      <!-- 240 --> 
     	<step type="send_command" command="COMMAND_3A2" delay="3">COMMAND_3A2</step>  	       	
         <step type="prompt" delay="4" prompt="SCENARIO_HINT">SCENARIO_HINT</step>      <!-- 15 -->	
-        <step type="gated" gated_type="listen" timeout="120" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 120 -->
+        <step type="gated" gated_type="listen" timeout="180" delay="5" checkin_prompt="NONE">SCENARIO_HINT_DISCUSS</step>  <!-- 180 -->
     </stage>   
         
     <!-- SCENARIO_3_Question_2  -->
