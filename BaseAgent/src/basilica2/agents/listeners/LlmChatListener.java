@@ -125,8 +125,11 @@ public class LlmChatListener extends BasilicaAdapter
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        MessageEvent newMe = new MessageEvent(source, this.myName, response);
-        source.pushEventProposal(newMe);
+	    if (! response.isEmpty()) {
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	        source.pushEventProposal(newMe);
+	    }
+        
 
 	    Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
 	}
@@ -193,7 +196,7 @@ public class LlmChatListener extends BasilicaAdapter
 			            return responseText;
 			        } else {
 			            System.err.println("No choices found in the response.");
-			            return "Error: no text found";
+			            return "";
 			        }
 			        
 		        } else {
@@ -207,7 +210,7 @@ public class LlmChatListener extends BasilicaAdapter
 		            errorReader.close();
 		            // Log or print the error response
 		            System.err.println("Error response: " + response.toString());
-		            return "Error response: " + response.toString();
+		            return "";
 		        }
 	        } finally {
                 conn.disconnect(); // Ensure the connection is closed
@@ -215,7 +218,7 @@ public class LlmChatListener extends BasilicaAdapter
        
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return "Failed to send message to OpenAI";
+	        return "";
 	    }
 	    
 	    
@@ -227,9 +230,10 @@ public class LlmChatListener extends BasilicaAdapter
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, true);
-	    
-        MessageEvent newMe = new MessageEvent(source, this.myName, response);
-        source.pushEventProposal(newMe);
+	    if (! response.isEmpty() ) {
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	        source.pushEventProposal(newMe);
+	    }
 	}
 	
 	

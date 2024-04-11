@@ -6,6 +6,9 @@ import java.net.URLEncoder;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.net.ssl.SSLContext;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +30,7 @@ import basilica2.agents.listeners.*;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
@@ -35,6 +39,8 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.time.Instant;
+import java.time.Duration;
 public class LlmChatListener2 extends LlmChatListener
 {
 	public String host;
@@ -51,6 +57,8 @@ public class LlmChatListener2 extends LlmChatListener
     private boolean contextFlag;
     private int contextLen;
     public String myName;
+    private Instant start = Instant.now();
+    private Instant finish;
 
 	public LlmChatListener2(Agent a)
 	{
@@ -82,16 +90,20 @@ public class LlmChatListener2 extends LlmChatListener
 	{
 		if (e instanceof MessageEvent)
 		{
-
-			boolean proceed = messageFilter((MessageEvent) e);
-			if (proceed) {
-				try {
-					handleMessageEvent(source, (MessageEvent) e);
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			} 
+			finish = Instant.now();
+			long timeElapsed = Duration.between(start, finish).toMillis();
+			if (timeElapsed > 1500) {
+				boolean proceed = messageFilter((MessageEvent) e);
+				if (proceed) {
+					try {
+						handleMessageEvent(source, (MessageEvent) e);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				start = finish;
+			}
 		}
 	}
 	
@@ -113,8 +125,11 @@ public class LlmChatListener2 extends LlmChatListener
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        MessageEvent newMe = new MessageEvent(source, this.myName, response);
-        source.pushEventProposal(newMe);
+	    if (! response.isEmpty()) {
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	        source.pushEventProposal(newMe);
+	    }
+        
 
 	    Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
 	}
@@ -124,14 +139,23 @@ public class LlmChatListener2 extends LlmChatListener
 	    String apiKey = this.apiKey;
 	    String requestURL = this.requestURL;
 	    try {
+	        
+	    	// update vvv // 
+	        String sslType = "TLSv1.2"; 
+	        SSLContext sslContext = SSLContext.getInstance(sslType); 
+	        sslContext.init(null, null, null);
+	        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+	    	// update ^^^ // 
+	        
 	        URL url = new URL(requestURL);
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 	        try {
 		        conn.setRequestMethod("POST");
 		        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 		        conn.setRequestProperty("Authorization", "Bearer " + apiKey);
 		        conn.setDoOutput(true);
-		        
+		        	        
 		        try(OutputStream os = conn.getOutputStream()) {
 		            byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
 		            os.write(input, 0, input.length);           
@@ -172,7 +196,7 @@ public class LlmChatListener2 extends LlmChatListener
 			            return responseText;
 			        } else {
 			            System.err.println("No choices found in the response.");
-			            return "Error: no text found";
+			            return "";
 			        }
 			        
 		        } else {
@@ -186,14 +210,15 @@ public class LlmChatListener2 extends LlmChatListener
 		            errorReader.close();
 		            // Log or print the error response
 		            System.err.println("Error response: " + response.toString());
-		            return "Error response: " + response.toString();
+		            return "";
 		        }
 	        } finally {
                 conn.disconnect(); // Ensure the connection is closed
             }
+       
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return "Failed to send message to OpenAI";
+	        return "";
 	    }
 	    
 	    
@@ -205,9 +230,10 @@ public class LlmChatListener2 extends LlmChatListener
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, true);
-	    
-        MessageEvent newMe = new MessageEvent(source, this.myName, response);
-        source.pushEventProposal(newMe);
+	    if (! response.isEmpty() ) {
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	        source.pushEventProposal(newMe);
+	    }
 	}
 	
 	
