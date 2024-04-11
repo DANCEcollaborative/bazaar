@@ -8,12 +8,16 @@ import java.util.Map;
 import java.time.LocalDateTime;
 
 import org.jivesoftware.smack.packet.Message;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.AbstractPrioritySource;
 import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.listeners.BasilicaListener;
+import basilica2.agents.listeners.ChatHistoryListener;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.util.MessageEventLogger;
@@ -204,8 +208,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 // 		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
 // 		System.err.println("===================================================================================");
 // 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
-// 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
-// 		printProposalQueue(); 
+ 		System.err.println("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
+ 		printProposalQueue(); 
 // 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
 // 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
 // 		printActiveSources(); 
@@ -216,9 +220,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		{
 			if (!proposalQueue.isEmpty())
 			{
-
+				
 				cleanUp();
-
+				
+//		 		printProposalQueue(); 
 				PriorityEvent best = null;
 				double bestBelief = 0;
 
@@ -236,9 +241,11 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					}
 
 				}
-
+				System.err.println("==================== PROPOSAL QUEUE -- after best ====================" + best.toString());
+	
 				if (best != null)
 				{
+					System.err.println("OutputCoordinator: best is not null");
 // 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - Execute 'best': " + best.toString() + "  microStepName: " + best.getMicroStepName() + "  lastStepName: " + lastStepName);
 // 					System.err.println("OutputCoordinator.timedout - Execute 'best': " + best.toString());
 					// if the proposal about to be executed belongs to a new step, 
@@ -409,12 +416,20 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// connect them directly
 
 		log(Logger.LOG_NORMAL, "OutputCoordinator.publishMessage - Enter - message: " + me.getText() + " from " + me.getFrom());
-		System.err.print("OutputCoordinator.publishMessage - Enter - message: " + me.getText());
+		System.err.println("OutputCoordinator.publishMessage - Enter - message: " + me.getText());
 		if (outputBotMessage) {
-			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
+//			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
 			InputCoordinator IC = (InputCoordinator)me.getSender();
-//			System.err.println("OutputCoordinator: pushing bot message...");
-			IC.pushEvent(newBM);
+			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
+//			IC.pushEvent(newBM);
+			BasilicaListener CHL = IC.getListenerByName("ChatHistoryListener");
+			try {
+				((ChatHistoryListener) CHL).handleMessageEvent(IC, me);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
 				
 			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
 		} 

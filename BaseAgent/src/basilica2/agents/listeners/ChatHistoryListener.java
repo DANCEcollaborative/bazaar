@@ -197,6 +197,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 
 	public JSONArray retrieveChatHistory(int numberOfMessages) {
 		JSONArray messages = new JSONArray();
+		
 	    try {
 	        // Read all lines from the file into a list
 	        List<String> lines = Files.readAllLines(Paths.get(path));
@@ -306,9 +307,11 @@ public class ChatHistoryListener extends BasilicaAdapter
 
 	@Override
 	public void processEvent(InputCoordinator source, Event e) {
+		System.err.println("ChatHistoryListener: enter processEvent ");
 		if (listenerSenderCount == -1) {
 			getLlmListeners(source);
 		}
+		System.err.println("ChatHistoryListener: got LlmListeners " + Integer.toString(listenerSenderCount));
 		if (e instanceof BotMessageEvent) {
 				
 	//			handleMessageEvent(source, (BotMessageEvent) e);
@@ -320,7 +323,7 @@ public class ChatHistoryListener extends BasilicaAdapter
 				e1.printStackTrace();
 			}
 			Logger.commonLog("chatHistoryListener", Logger.LOG_NORMAL, "chatHistoryListener got BotMessageEvent " + bm.getText()); 
-			System.err.print("chatHistoryListener got BotMessageEvent " + bm.getText());
+			System.err.println("chatHistoryListener got BotMessageEvent " + bm.getText());
 				
 			
 		}

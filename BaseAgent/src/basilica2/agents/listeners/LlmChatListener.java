@@ -39,6 +39,8 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.time.Instant;
+import java.time.Duration;
 public class LlmChatListener extends BasilicaAdapter
 {
 	public String host;
@@ -55,6 +57,8 @@ public class LlmChatListener extends BasilicaAdapter
     private boolean contextFlag;
     private int contextLen;
     public String myName;
+    private Instant start = Instant.now();
+    private Instant finish;
 
 	public LlmChatListener(Agent a)
 	{
@@ -86,16 +90,20 @@ public class LlmChatListener extends BasilicaAdapter
 	{
 		if (e instanceof MessageEvent)
 		{
-
-			boolean proceed = messageFilter((MessageEvent) e);
-			if (proceed) {
-				try {
-					handleMessageEvent(source, (MessageEvent) e);
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			} 
+			finish = Instant.now();
+			long timeElapsed = Duration.between(start, finish).toMillis();
+			if (timeElapsed > 1500) {
+				boolean proceed = messageFilter((MessageEvent) e);
+				if (proceed) {
+					try {
+						handleMessageEvent(source, (MessageEvent) e);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				start = finish;
+			}
 		}
 	}
 	
