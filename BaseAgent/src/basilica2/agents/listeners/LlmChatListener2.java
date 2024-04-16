@@ -121,7 +121,8 @@ public class LlmChatListener2 extends LlmChatListener
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
 	    String prompt = me.getText(); // student chat message
-	    String jsonPayload = constructPayloadWithHistory(source, prompt);
+	    String sender = me.getFrom();
+	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
@@ -183,6 +184,8 @@ public class LlmChatListener2 extends LlmChatListener
 			            // Extract the text from the first choice
 			            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
 			            String responseText = responseMessage.getString("content");
+			            String[] parseResponse = responseText.split(": ");
+			            responseText = parseResponse[parseResponse.length - 1];
 			            System.out.println("Extracted Response Text: " + responseText);
 			            
 			            State s = State.copy(StateMemory.getSharedState(agent));
@@ -226,7 +229,7 @@ public class LlmChatListener2 extends LlmChatListener
 	
 	public void sendActivePromptToOpenAI(InputCoordinator source) {
 	    // Prepare the prompt based on the received message
-	    String jsonPayload = constructPayloadWithHistory(source, null);
+	    String jsonPayload = constructPayloadMultiParty(source, null, null);
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, true);
@@ -236,9 +239,9 @@ public class LlmChatListener2 extends LlmChatListener
 	    }
 	}
 	
-	
-	public String constructPayloadWithHistory(InputCoordinator source, String prompt) {
-	    JSONObject payload = new JSONObject();
+	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
+		
+		JSONObject payload = new JSONObject();
 	    try {
 			payload.put("model", this.modelName);
 			payload.put("temperature", this.temperature);
@@ -262,58 +265,123 @@ public class LlmChatListener2 extends LlmChatListener
 	    
 	    messages.put(fixedContextMessage);
 	    
-	    // find ChatHistoryListener
- 		try {
+	    JSONObject allPromptMessage = new JSONObject();
+	    
+
+	    String allMessages = "Conversation in the chatroom:\n\n";
+	    try {
  			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
 		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
 		    for (int i = 0; i < chatHistory.length(); i++) {
 	            JSONObject originalMessage = chatHistory.getJSONObject(i);
-	            JSONObject reformattedMessage = new JSONObject();
+//	            JSONObject reformattedMessage = new JSONObject();
 
 	            // Determine the role based on the "sender" field
-	            String role = "user"; // Default role
-	            if (originalMessage.getString("sender").equals(this.myName)) {
-	                role = "assistant"; // If the sender is this listener, set role to assistant
-	            } 
-
-	            // Copy the "content" field directly
+	             // Default role
 	            String content = originalMessage.getString("content");
-
-	            // Construct the new message objectß
-	            reformattedMessage.put("role", role);
-	            reformattedMessage.put("content", content);
-
-	            // Add the reformatted message to the new JSONArray
-	            messages.put(reformattedMessage);
+	            String sender = originalMessage.getString("sender");
+	            String currentMessage = sender + ": " + content + "\n";
+	            allMessages += currentMessage;
 	        }
 
-		    System.err.println("Loaded chatHisory: " + chatHistory.toString());
- 		} catch(Exception e) {};
- 		
-	    // Add the current prompt as the last message
- 		if (prompt != null) {
-		    JSONObject promptMessage = new JSONObject();
-		    try {
-				promptMessage.put("role", "user");
-				promptMessage.put("content", prompt);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    
-		    messages.put(promptMessage);
- 		}
- 		
- 		// insert all messages
+	    } catch(Exception e) {};
+	    
+	    if (prompt != null && promptSender != null) {
+	    	allMessages += promptSender + ": " + prompt + "\n";
+	    }
+	    
 	    try {
+			allPromptMessage.put("role", "user");
+			allPromptMessage.put("content", allMessages);
+			messages.put(allPromptMessage);
 			payload.put("messages", messages);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    
+	    
 	    System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
 	    return payload.toString();
 	}
+	
+//	public String constructPayloadWithHistory(InputCoordinator source, String prompt) {
+//	    JSONObject payload = new JSONObject();
+//	    try {
+//			payload.put("model", this.modelName);
+//			payload.put("temperature", this.temperature);
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	    
+//
+//	    JSONArray messages = new JSONArray();
+//
+//	    // Add the fixed context as the first message
+//	    JSONObject fixedContextMessage = new JSONObject();
+//	    try {
+//			fixedContextMessage.put("role", "system");
+//			fixedContextMessage.put("content", this.context);
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	    
+//	    messages.put(fixedContextMessage);
+//	    
+//	    // find ChatHistoryListener
+// 		try {
+// 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
+//		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+//		    for (int i = 0; i < chatHistory.length(); i++) {
+//	            JSONObject originalMessage = chatHistory.getJSONObject(i);
+//	            JSONObject reformattedMessage = new JSONObject();
+//
+//	            // Determine the role based on the "sender" field
+//	            String role = "user"; // Default role
+//	            if (originalMessage.getString("sender").equals(this.myName)) {
+//	                role = "assistant"; // If the sender is this listener, set role to assistant
+//	            } 
+//
+//	            // Copy the "content" field directly
+//	            String content = originalMessage.getString("content");
+//
+//	            // Construct the new message objectß
+//	            reformattedMessage.put("role", role);
+//	            reformattedMessage.put("content", content);
+//
+//	            // Add the reformatted message to the new JSONArray
+//	            messages.put(reformattedMessage);
+//	        }
+//
+//		    System.err.println("Loaded chatHisory: " + chatHistory.toString());
+// 		} catch(Exception e) {};
+// 		
+//	    // Add the current prompt as the last message
+// 		if (prompt != null) {
+//		    JSONObject promptMessage = new JSONObject();
+//		    try {
+//				promptMessage.put("role", "user");
+//				promptMessage.put("content", prompt);
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		    
+//		    messages.put(promptMessage);
+// 		}
+// 		
+// 		// insert all messages
+//	    try {
+//			payload.put("messages", messages);
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	    System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
+//	    return payload.toString();
+//	}
 
 	
 	
