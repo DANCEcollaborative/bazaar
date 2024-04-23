@@ -294,26 +294,26 @@ public class InputCoordinator extends Component
 	{
 //		Class<? extends Event> eventClass = eve.getClass();
 //		if(listeners.containsKey(eventClass))
-		System.err.println("processOneEvent: before notifyEventObservers " + eve.toString());
+//		System.err.println("processOneEvent: before notifyEventObservers " + eve.toString());
 		super.notifyEventObservers(eve);
-		System.err.println("processOneEvent: after notifyEventObservers " + eve.toString());
+//		System.err.println("processOneEvent: after notifyEventObservers " + eve.toString());
 		
         for(Class<? extends Event> keyClass : listeners.keySet())
         {
-        	System.err.println("processOneEvent: in the for loop");
+//        	System.err.println("processOneEvent: in the for loop");
         	if(keyClass.isInstance(eve))
         	{
-        		System.err.println("processOneEvent: in the if condition");
+//        		System.err.println("processOneEvent: in the if condition");
 				List<BasilicaListener> blisters = listeners.get(keyClass);
 			    for(int i = 0; i < blisters.size(); i++)
 			    {
-			    	System.err.println("processOneEvent: in the second for loop, size=" + Integer.toString(blisters.size()) + ", index=" + Integer.toString(i));
+//			    	System.err.println("processOneEvent: in the second for loop, size=" + Integer.toString(blisters.size()) + ", index=" + Integer.toString(i));
 			    	
 			    	BasilicaListener blister = blisters.get(i); // This line!!!!
-			    	System.err.println("blister=" + blister.toString());
+//			    	System.err.println("blister=" + blister.toString());
 			    	log(Logger.LOG_NORMAL,"processOneEvent: keyClass="+keyClass+" blister="+blister);
 			        blister.processEvent(this, eve);
-			        System.err.println("After blister processEvent");
+//			        System.err.println("After blister processEvent");
 			    }
         	}
 		}
