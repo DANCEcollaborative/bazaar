@@ -10,7 +10,7 @@
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
     	<step type="prompt" delay="30" prompt="WAITING_TO_START">WAITING_TO_START</step>
-     	<step type="greet" timeout="45" delay="0">GREETINGS</step> 
+     	<step type="greet" timeout="30" delay="0">GREETINGS</step> 
     </stage>  
     
     <stage name="StageLO1" type="other" delay="0">
