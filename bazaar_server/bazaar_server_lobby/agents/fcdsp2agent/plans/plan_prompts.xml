@@ -59,7 +59,7 @@
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection1">
-     <text>Time to discuss. There were at least two ways to do this. One way was using the cumsum function, and the other way was using a loop to get values iteratively. Which one did you choose and why? Take turns to explain.</text>
+     <text>There were at least two ways to do this. One way was using the cumsum function, and the other way was using a loop to get values iteratively. Which one did you choose and why? Take turns to explain.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW" intention="reflection_report1">
@@ -79,7 +79,7 @@
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
-     <text>Time to discuss again. As before, there were at least two ways to do this. One way was using the [1, -1, 1, -1, ...] and another was to think of it as the difference between the series (x0y0 + x2y2 + ...) and (x1y1 + x3y3 + x5y5 ...). Which one did you choose and why? Take turns to explain.</text>
+     <text>As before, there were at least two ways to do this. One way was using the [1, -1, 1, -1, ...] and another was to think of it as the difference between the series (x0y0 + x2y2 + ...) and (x1y1 + x3y3 + x5y5 ...). Which one did you choose and why? Take turns to explain.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW" intention="reflection_report2">
@@ -99,7 +99,7 @@
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
-     <text>Discussion time. Take turns to explain whether you used integer array indexing or element-wise multiplication to solve this problem. Take turns to explain the approach to each other.</text>
+     <text>Take turns to explain whether you used integer array indexing or element-wise multiplication to solve this problem. Take turns to explain the approach to each other.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW" intention="reflection_report3">
@@ -119,7 +119,7 @@
      </prompt> 
      
      <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION" intention="prompt_for_reflection4">
-     <text>Final discussion time. As before, there were a couple of ways to do this: index slicing, or element-wise multiplication. Which one did you end up choosing, and why? Take turns explaining before submitting to record your grade.</text>
+     <text>As before, there were a couple of ways to do this: index slicing, or element-wise multiplication. Which one did you end up choosing, and why? Take turns explaining before submitting your work.</text>
      </prompt>
      
      <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW" intention="reflection_report4">
