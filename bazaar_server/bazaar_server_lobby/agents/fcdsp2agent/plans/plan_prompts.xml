@@ -54,6 +54,10 @@
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
 	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
     
+     <prompt strategy="task" id="PROMPT_ONE_AT_A_TIME" intention="prompt_one_at_a_time">
+     <text>*** IT IS VERY IMPORTANT THAT ONLY ONE PERSON AT A TIME -- THE DRIVER -- EDIT CELLS. *** If there is more than one editor, you could lose your work.</text>
+     </prompt> 
+    
      <prompt strategy="task" id="PROMPT_DISCUSSION1" intention="discussion_phase_start">
      <text>Now, before we move on to Task 2, let's spend some time to understand what we learned here. You can make up some of your score by participating in this discussion in case you don't finish. We will move on in about 2 minutes.</text>
      </prompt> 
