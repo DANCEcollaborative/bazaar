@@ -20,6 +20,7 @@
     	<step type="send_command" command="COMMAND_1" delay="5">COMMAND_1</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_PROGRAMMNG_PHASE">instr5</step> 
         <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_LO1_Match</step>  
+        <step type="prompt" delay="5" prompt="PROMPT_ONE_AT_A_TIME" >Prompt_One_at_a_Time</step>  
         <step type="file_gated" timeout="4800" delay="5" file="testcase-complete_1" delayed_prompt_time="840" delayed_prompt="P1b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>    	<!--   300,840 P1a,P1b -->
     </stage>   
      
