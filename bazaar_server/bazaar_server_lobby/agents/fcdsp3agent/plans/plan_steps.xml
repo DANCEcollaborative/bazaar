@@ -8,6 +8,7 @@
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
 	<stage name="StageInitialization" type="other" delay="0"> 
      	<!-- <step type="greet" timeout="45" delay="0">GREETINGS</step> --> 
+    	<step type="prompt" delay="30" prompt="WAITING_TO_START">WAITING_TO_START</step>
     	<step type="prompt" delay="10" prompt="PROMPT_WELCOME_PREQUIZ">Prompt_Welcome_Prequiz</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_STARTING">Prompt_Starting</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">Prompt_Session_Time</step> 

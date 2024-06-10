@@ -25,6 +25,9 @@
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
 	
+    <prompt strategy="task" id="WAITING_TO_START" intention="WAITING_TO_START">
+        <text>Hi! I'm OPE_Bot. We'll wait just a bit in case more teammates come to join in. In the meantime, you can chat within this space.</text>
+    </prompt>
 		
 	<prompt strategy="task" id="PROMPT_WELCOME_PREQUIZ" intention="PROMPT_GREETING">
      	<text>Welcome! Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it.</text>
