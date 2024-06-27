@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<!-- GREETING PROMPTS --> 
+	
+    <prompt strategy="task" id="INTRODUCE" intention="Build_rapport">
+        <text>We're starting! I'm OPE_Bot.|||Tell the team your name and share something about yourself, such as a hobby you have or a game you like to play. Ask questions about what the others share. Take a moment to learn more about each other.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET" intention="Greet">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+
+
+
+	<!-- GENERAL PROMPTS -->  
+    
+     <prompt strategy="task" id="PROMPT_DISCUSSION_CREDIT" intention="discussion_phase_credit">
+     <text>Because we want you to learn from the activity, you can make up some of your score by participating in this discussion in case you don't get a full score from the activity.</text>
+     </prompt> 
+
+
+	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+	
+    <prompt strategy="task" id="WAITING_TO_START" intention="WAITING_TO_START">
+        <text>Hi! I'm OPE_Bot. We'll wait just a bit in case more teammates come to join in. In the meantime, you can chat within this space.</text>
+    </prompt>
+		
+	<prompt strategy="task" id="PROMPT_WELCOME_PREQUIZ" intention="PROMPT_GREETING">
+     	<text>Welcome! Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_STARTING" intention="PROMPT_GREETING">
+     	<text>We're starting! I'm OPE_Bot.</text>
+    </prompt> 
+
+	<prompt strategy="task" id="PROMPT_SESSION_TIME" intention="PROMPT_SESSION_TIME">
+     	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
+    </prompt> 
+
+ 
+
+	<!-- HINTS & DISCUSSION FOR TASK 1 -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+      
+    <prompt strategy="task" id="PROMPT_ASSIGNMENT_INITIAL" intention="program1">
+        <text>Okay! Let's assign your initial roles and then you can get started. We will rotate roles for each task.</text>
+    </prompt>   
+      
+    <prompt strategy="task" id="PROMPT_BEGIN_EXERCISE" intention="program1">
+        <text>You can begin the exercise. The Jupyter Notebook includes everything you need, including the submission code. Please read the instructions carefully.</text>
+    </prompt> 
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION" intention="prompt_for_reflection_LO1">
+     <text>Which genres have the highest production rates? Name a few.</text>
+     </prompt>
+ 
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 2 -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
+    
+     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2" intention="role_switch_warning">
+     <text>Ok, we are switching roles now. Let's move on to the second analysis.</text>
+     </prompt> 
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION" intention="prompt_for_reflection2">
+     <text>Which genres have high average rating? Name a few.</text>
+     </prompt>
+ 
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 3 -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+    
+     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3" intention="role_switch_warning">
+     <text>Ok, we are switching roles now. Let's move on to the third analysis.</text>
+     </prompt> 
+     
+     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION" intention="prompt_for_reflection3">
+     <text>Based on the three analyses, which genre would you choose to invest in, and why?</text>
+     </prompt>
+
+
+
+	<!-- WRAP-UP AND END-STAGE PROMPTS -->\
+     
+     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+     <text>Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the cells to do a final test of your code and then submit your code to Sail().|||After submission, your post-quiz token will be displayed below the bottom cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+     </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_FINAL" intention="ope_end">
+     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the cells to do a final test of your code and then submit your code to Sail().|||After submission, your post-quiz token will be displayed below the bottom cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+    </prompt>
+
+
+ 
+
+	<!-- ASSIGNMENT PROMPTS --> 
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH" intention="ROLE_ASSIGNMENT_TEMPLATE_1_INTRO">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1_INTRO">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+    </prompt>
+    
+    <!-- 
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+    </prompt>
+ -->
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_INTRO+MOB">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY" intention="ROLE_ASSIGNMENT_TEMPLATE_1_FANCY">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1_FANCY">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2_FANCY">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3_FANCY">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Recall that the researcher refers to resources like the primer as necessary.</text>
+    </prompt>
+    
+<!-- 
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]|||Recall that the researcher refers to resources like the primer as necessary and the project manager monitors the group's progress towards the milestones.</text>
+    </prompt>
+ -->
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4_FANCY+MOB">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1" intention="ROLE_ASSIGNMENT_TEMPLATE_1">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2" intention="ROLE_ASSIGNMENT_TEMPLATE_2">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3" intention="ROLE_ASSIGNMENT_TEMPLATE_3">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]</text>
+    </prompt>
+    
+<!-- 
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_4" intention="ROLE_ASSIGNMENT_TEMPLATE_4">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+[ROLE4] - [NAME4]</text>
+    </prompt>
+ -->
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL" intention="ROLE_ASSIGNMENT_TEMPLATE_4+MOB">
+        <text>The new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Whoever doesn't have an assignment is a researcher for this round.</text>
+    </prompt>
+
+</prompts>
