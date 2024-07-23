@@ -197,9 +197,9 @@ public class LlmChatListener extends BasilicaAdapter
 				            responseText = responseMessage.getString("content");
 				            System.out.println("Extracted Response Text: " + responseText);
 				            
-				            State s = State.copy(StateMemory.getSharedState(agent));
-		                    s.setGlobalActiveListener("");
-		                    StateMemory.commitSharedState(s, agent);
+//				            State s = State.copy(StateMemory.getSharedState(agent));
+//		                    s.setGlobalActiveListener("");
+//		                    StateMemory.commitSharedState(s, agent);
 				            return responseText;
 				        }
 //			        } else if (this.model.equals("llama2")) {
@@ -351,45 +351,34 @@ public class LlmChatListener extends BasilicaAdapter
 	    
 	}
 	
-	public void sendActivePromptToOpenAI(InputCoordinator source) {
-//	    // Prepare the prompt based on the received message
-//	    String jsonPayload = constructPayloadMultiParty(source, null, null);
-//	    
-//	    // Sending the message to OpenAI and receiving the response
-//	    String response = sendToOpenAI(source, jsonPayload, true);
-//	    if (! response.isEmpty() ) {
-//	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-//	        source.pushEventProposal(newMe);
-//	    }
-	}
 	
 	public JSONArray getAllMessages(InputCoordinator source, String prompt, String promptSender) {
 		JSONArray messages = new JSONArray();
-	    try {
- 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
-		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
-		    for (int i = 0; i < chatHistory.length(); i++) {
-	            JSONObject originalMessage = chatHistory.getJSONObject(i);
-//		            JSONObject reformattedMessage = new JSONObject();
-
-	            // Determine the role based on the "sender" field
-	             // Default role
-	            String content = originalMessage.getString("content");
-	            String sender = originalMessage.getString("sender");
-	            
-	            if ((content.startsWith("Prompty!") && !sender.equals(this.myName)) || sender.equals(this.myName)) {
-	            	JSONObject message = new JSONObject();
-	                message.put("role", sender.equals(this.myName) ? "assistant" : "user");
-	                message.put("content", content);
-	                messages.put(message);
-	            }
-	            
-	        }
-
-	    } catch (Exception e) {
-            e.printStackTrace();
-        }
-	    
+//	    try {
+// 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
+//		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+//		    for (int i = 0; i < chatHistory.length(); i++) {
+//	            JSONObject originalMessage = chatHistory.getJSONObject(i);
+////		            JSONObject reformattedMessage = new JSONObject();
+//
+//	            // Determine the role based on the "sender" field
+//	             // Default role
+//	            String content = originalMessage.getString("content");
+//	            String sender = originalMessage.getString("sender");
+//	            
+//	            if ((content.startsWith("Prompty!") && !sender.equals(this.myName)) || sender.equals(this.myName)) {
+//	            	JSONObject message = new JSONObject();
+//	                message.put("role", sender.equals(this.myName) ? "assistant" : "user");
+//	                message.put("content", content);
+//	                messages.put(message);
+//	            }
+//	            
+//	        }
+//
+//	    } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//	    
 	    if (prompt != null && promptSender != null) {
             JSONObject promptMessage = new JSONObject();
             try {
