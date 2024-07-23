@@ -33,7 +33,6 @@ services:
     volumes:
      - shared:/mysql-files
      - ./agents:/usr/bazaar/agents 
-    platform: linux/amd64
     networks:
      - bazaar-net
   front:
@@ -50,7 +49,6 @@ services:
      - ./agents:/usr/bazaar/agents
      - ./lobby:/usr/bazaar/lobby
      - ../../LightSide:/usr/bazaar/LightSide
-    platform: linux/amd64
     networks:
      - bazaar-net
 networks:
