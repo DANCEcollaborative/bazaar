@@ -377,11 +377,13 @@ public class LlmChatListener extends BasilicaAdapter
 	            String content = originalMessage.getString("content");
 	            String sender = originalMessage.getString("sender");
 	            
-
-	            JSONObject message = new JSONObject();
-                message.put("role", sender.equals(this.myName) ? "assistant" : "user");
-                message.put("content", content);
-                messages.put(message);
+	            if ((content.startsWith("Prompty!") && !sender.equals(this.myName)) || sender.equals(this.myName)) {
+	            	JSONObject message = new JSONObject();
+	                message.put("role", sender.equals(this.myName) ? "assistant" : "user");
+	                message.put("content", content);
+	                messages.put(message);
+	            }
+	            
 	        }
 
 	    } catch (Exception e) {
