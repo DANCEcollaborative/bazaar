@@ -8,11 +8,16 @@ import java.util.Map;
 import java.time.LocalDateTime;
 
 import org.jivesoftware.smack.packet.Message;
+import org.json.JSONArray;
+import org.json.JSONException;
 
+import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.AbstractPrioritySource;
 import basilica2.agents.events.priority.PriorityEvent;
+import basilica2.agents.listeners.BasilicaListener;
+import basilica2.agents.listeners.ChatHistoryListener;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.util.MessageEventLogger;
@@ -52,6 +57,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean outputToPSI = false; 
 	private Boolean separateOutputToPSI = false;
 	private Boolean multimodalFormatToPSI = true; 
+	private Boolean outputBotMessage = false;
+	private Boolean useListenerName = false;
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -93,6 +100,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			try{betweenPhraseDelay = Integer.valueOf(myProperties.getProperty("between_phrase_delay", "5000"));}
 			catch(Exception e) {e.printStackTrace();}
 			try{bazaarToPSITopic = myProperties.getProperty("Bazaar_to_PSI_Topic", bazaarToPSITopic);}
+			catch(Exception e) {e.printStackTrace();}
+			try{outputBotMessage = Boolean.parseBoolean(myProperties.getProperty("output_bot_message", "false"));}
+			catch(Exception e) {e.printStackTrace();}
+			try{useListenerName = Boolean.parseBoolean(myProperties.getProperty("use_listener_name", "false"));}
 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 // 			catch(Exception e) {e.printStackTrace();}
@@ -401,9 +412,24 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		// Might be a better idea to merge output coordinator and actor, or
 		// connect them directly
 
-		log(Logger.LOG_NORMAL, "OutputCoordinator.publishMessage - Enter - message: " + me.getText());
-		System.err.print("OutputCoordinator.publishMessage - Enter - message: " + me.getText());
-		
+		log(Logger.LOG_NORMAL, "OutputCoordinator.publishMessage - Enter - message: " + me.getText() + " from " + me.getFrom());
+		System.err.println("OutputCoordinator.publishMessage - Enter - message: " + me.getText());
+		if (outputBotMessage) {
+//			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
+			InputCoordinator IC = (InputCoordinator)me.getSender();
+			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
+//			IC.pushEvent(newBM);
+			BasilicaListener CHL = IC.getListenerByName("ChatHistoryListener");
+			try {
+				((ChatHistoryListener) CHL).handleMessageEvent(IC, me);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+				
+			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
+		} 
 		String withinPromptDelimiter = "|||"; 
 		String messageText; 
 		if (!me.getText().contains(withinPromptDelimiter))
@@ -546,7 +572,10 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		String messageString; 
 		
 		String text; 
-		String from = agent.getUsername();
+		String from = agent.getUsername(); 
+		if (this.useListenerName) {
+			from = me.getFrom();
+		}
 		String to; 
 		String textOrig = me.getText();	
 		
