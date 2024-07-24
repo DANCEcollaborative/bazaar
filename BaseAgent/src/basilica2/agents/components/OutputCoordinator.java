@@ -11,13 +11,13 @@ import org.jivesoftware.smack.packet.Message;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import basilica2.agents.events.BotMessageEvent;
+//import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.AbstractPrioritySource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.listeners.BasilicaListener;
-import basilica2.agents.listeners.ChatHistoryListener;
+//import basilica2.agents.listeners.ChatHistoryListener;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.util.MessageEventLogger;
@@ -417,22 +417,22 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 
 		log(Logger.LOG_NORMAL, "OutputCoordinator.publishMessage - Enter - message: " + me.getText() + " from " + me.getFrom());
 		System.err.println("OutputCoordinator.publishMessage - Enter - message: " + me.getText());
-		if (outputBotMessage) {
-//			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
-			InputCoordinator IC = (InputCoordinator)me.getSender();
-			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
-//			IC.pushEvent(newBM);
-			BasilicaListener CHL = IC.getListenerByName("ChatHistoryListener");
-			try {
-				((ChatHistoryListener) CHL).handleMessageEvent(IC, me);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
-				
-			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
-		} 
+//		if (outputBotMessage) {
+////			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
+//			InputCoordinator IC = (InputCoordinator)me.getSender();
+//			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
+////			IC.pushEvent(newBM);
+//			BasilicaListener CHL = IC.getListenerByName("ChatHistoryListener");
+//			try {
+//				((ChatHistoryListener) CHL).handleMessageEvent(IC, me);
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+////		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+//				
+//			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
+//		} 
 		String withinPromptDelimiter = "|||"; 
 		String messageText; 
 		if (!me.getText().contains(withinPromptDelimiter))

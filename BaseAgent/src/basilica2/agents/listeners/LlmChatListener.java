@@ -125,31 +125,22 @@ public class LlmChatListener extends BasilicaAdapter
 	
 	public boolean messageFilter(MessageEvent e) {
 		String message = e.getText();
-		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
-		if (globalActiveListenerName.equals(this.myName)) {
-			return true;
-		} else if (globalActiveListenerName.equals("") && message.contains(this.myName)) {
-			return true;
-		}
-		return false;
+		return message.startsWith("Prompty!");
 	}
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
-	    // Prepare the prompt based on the received message
-	    String prompt = me.getText(); // student chat message
-	    String sender = me.getFrom();
-	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-	    
-	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(source, jsonPayload, false);
-	    if (! response.isEmpty()) {
-	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-	        source.pushEventProposal(newMe);
-	    }
-        
+        String prompt = me.getText().substring("Prompty!".length()).trim(); // Get the prompt after "Prompty!"
+        String sender = me.getFrom();
+        String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
 
-	    Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
-	}
+        String response = sendToOpenAI(source, jsonPayload, false);
+        if (!response.isEmpty()) {
+            MessageEvent newMe = new MessageEvent(source, this.myName, response);
+            source.pushEventProposal(newMe);
+        }
+
+        Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response);
+    }
 
 
 	public String sendToOpenAI(InputCoordinator source, String jsonPayload, Boolean fromSystem) {
@@ -204,17 +195,11 @@ public class LlmChatListener extends BasilicaAdapter
 				            // Extract the text from the first choice
 				            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
 				            responseText = responseMessage.getString("content");
-				            String[] parseResponse = responseText.split(": ");
-				            responseText = parseResponse[parseResponse.length - 1];
 				            System.out.println("Extracted Response Text: " + responseText);
 				            
-				            State s = State.copy(StateMemory.getSharedState(agent));
-			            	if  (responseText.contains("?")) {
-				    	        s.setGlobalActiveListener(this.myName);
-				    	    } else {
-				            	s.setGlobalActiveListener("");
-				            }
-				            StateMemory.commitSharedState(s, agent);
+//				            State s = State.copy(StateMemory.getSharedState(agent));
+//		                    s.setGlobalActiveListener("");
+//		                    StateMemory.commitSharedState(s, agent);
 				            return responseText;
 				        }
 //			        } else if (this.model.equals("llama2")) {
@@ -366,109 +351,64 @@ public class LlmChatListener extends BasilicaAdapter
 	    
 	}
 	
-	public void sendActivePromptToOpenAI(InputCoordinator source) {
-	    // Prepare the prompt based on the received message
-	    String jsonPayload = constructPayloadMultiParty(source, null, null);
-	    
-	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(source, jsonPayload, true);
-	    if (! response.isEmpty() ) {
-	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-	        source.pushEventProposal(newMe);
-	    }
-	}
 	
-	public String getAllMessages(InputCoordinator source, String prompt, String promptSender) {
-		String allMessages = "Conversation in the chatroom:\n\n";
-	    try {
- 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
-		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
-		    for (int i = 0; i < chatHistory.length(); i++) {
-	            JSONObject originalMessage = chatHistory.getJSONObject(i);
-//		            JSONObject reformattedMessage = new JSONObject();
-
-	            // Determine the role based on the "sender" field
-	             // Default role
-	            String content = originalMessage.getString("content");
-	            String sender = originalMessage.getString("sender");
-	            String currentMessage = sender + ": " + content + "\n";
-	            allMessages += currentMessage;
-	        }
-
-	    } catch(Exception e) {};
-	    
+	public JSONArray getAllMessages(InputCoordinator source, String prompt, String promptSender) {
+		JSONArray messages = new JSONArray();
+//	    try {
+// 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
+//		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+//		    for (int i = 0; i < chatHistory.length(); i++) {
+//	            JSONObject originalMessage = chatHistory.getJSONObject(i);
+////		            JSONObject reformattedMessage = new JSONObject();
+//
+//	            // Determine the role based on the "sender" field
+//	             // Default role
+//	            String content = originalMessage.getString("content");
+//	            String sender = originalMessage.getString("sender");
+//	            
+//	            if ((content.startsWith("Prompty!") && !sender.equals(this.myName)) || sender.equals(this.myName)) {
+//	            	JSONObject message = new JSONObject();
+//	                message.put("role", sender.equals(this.myName) ? "assistant" : "user");
+//	                message.put("content", content);
+//	                messages.put(message);
+//	            }
+//	            
+//	        }
+//
+//	    } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//	    
 	    if (prompt != null && promptSender != null) {
-	    	allMessages += promptSender + ": " + prompt + "\n";
-	    }
-	    return allMessages;
+            JSONObject promptMessage = new JSONObject();
+            try {
+				promptMessage.put("role", "user");
+				promptMessage.put("content", prompt);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            messages.put(promptMessage);
+        }
+
+        return messages;
 	}
 	
 	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
-		JSONObject payload = new JSONObject();
-		if (model.equals("openai")) {
-			
-		    try {
-				payload.put("model", this.modelName);
-				payload.put("temperature", this.temperature);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    JSONArray messages = new JSONArray();
+        JSONObject payload = new JSONObject();
+        try {
+            payload.put("model", this.modelName);
+            payload.put("temperature", this.temperature);
 
-		    // Add the fixed context as the first message
-		    JSONObject fixedContextMessage = new JSONObject();
-		    try {
-				fixedContextMessage.put("role", "system");
-				fixedContextMessage.put("content", this.context);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    
-		    messages.put(fixedContextMessage);
-		    
-		    JSONObject allPromptMessage = new JSONObject();
-		    
-		    String allMessages = getAllMessages(source, prompt, promptSender);
+            JSONArray messages = getAllMessages(source, prompt, promptSender);
 
-		    
-		    try {
-				allPromptMessage.put("role", "user");
-				allPromptMessage.put("content", allMessages);
-				messages.put(allPromptMessage);
-				payload.put("messages", messages);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			    
-		} else if (model.equals("llama2")) {
-			
-			JSONObject input = new JSONObject();
-			
-			try {
-				String allMessages = getAllMessages(source, prompt, promptSender);
-				input.put("max_new_tokens", 500);
-				input.put("top_p", 1);
-				input.put("top_k", 0);
-				input.put("temperature", 0.7);
-				input.put("prompt", allMessages);
-				input.put("system_prompt", this.context);
-				input.put("prompt_template", "<s>[INST] <<SYS>>\\n{system_prompt}\\n<</SYS>>\\n\\n{prompt} [/INST]");
-				input.put("max_new_tokens", 256);
-				input.put("min_new_tokens", 1);
-				
-//				payload.put("stream", true);
-				payload.put("input", input);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		    
-		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
-	    return payload.toString();
+            payload.put("messages", messages);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.err.println("INPUT PAYLOAD: " + payload.toString());
+        return payload.toString();
 	}
 
 
