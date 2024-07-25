@@ -19,6 +19,7 @@ import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
 import basilica2.util.HttpUtility;
@@ -62,6 +63,9 @@ public class LlmChatListener extends BasilicaAdapter
     public String myName;
     private Instant start = Instant.now();
     private Instant finish;
+    private Boolean waitingForFirstEntry = true;
+    private String instructionContent;
+    private List<String> userNames = new ArrayList<>();
 
 	public LlmChatListener(Agent a)
 	{
@@ -78,6 +82,7 @@ public class LlmChatListener extends BasilicaAdapter
 			context = llm_prop.getProperty(model+".prompt.context");
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
+			instructionContent = llm_prop.getProperty("room.instruction");
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
 			}
@@ -110,7 +115,10 @@ public class LlmChatListener extends BasilicaAdapter
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
-				if (proceed) {
+				boolean sendInstruction = instructionFilter((MessageEvent) e);
+				if (sendInstruction) {
+					sendInstruction(source);
+				}else if (proceed) {
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -120,12 +128,48 @@ public class LlmChatListener extends BasilicaAdapter
 				} 
 				start = finish;
 			}
+		} else if (e instanceof PresenceEvent) {
+			handlePresenceEvent(source, (PresenceEvent) e);
 		}
 	}
 	
+	public void sendInstruction(InputCoordinator source) {
+		MessageEvent newMe = new MessageEvent(source, "PromoptBot", instructionContent);
+		source.pushEventProposal(newMe);
+	}
+	
+	public boolean instructionFilter(MessageEvent e) {
+		String message = e.getText();
+		return message.replaceAll("[^a-zA-Z]", "").trim().toLowerCase().equals("instruction");
+	}
 	public boolean messageFilter(MessageEvent e) {
 		String message = e.getText();
 		return message.startsWith("Prompty!");
+	}
+	
+	public void handlePresenceEvent(InputCoordinator source, PresenceEvent pe) {
+		String userName = pe.getUsername(); 
+		Boolean isAgentName = source.isAgentName(userName);
+		
+		if (!isAgentName) {
+			if (!userNames.contains(userName)) {
+				userNames.add(userName);
+				if (waitingForFirstEntry) {
+					String welcomeMe = "Welcome " + userName + "! Here's the instruction for using the PromptBot.\n\n" + instructionContent +  "\n\nTo access this instruction again, type \"instruction\"."; 
+					MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
+					source.pushEventProposal(newMe);
+//					sendInstruction(source);
+					waitingForFirstEntry = false;
+				} else {
+					String welcomeMe = "Welcome " + userName + "! Type \"instruction\" for details."; 
+					MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
+					source.pushEventProposal(newMe);
+				}
+			}
+			
+		}
+		
+		System.err.println("presence event!! userName: " + userName + ", isAgentName: " + isAgentName.toString());
 	}
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
@@ -426,7 +470,7 @@ public class LlmChatListener extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[]{MessageEvent.class};
+		return new Class[]{MessageEvent.class, PresenceEvent.class};
 	}
 
 
