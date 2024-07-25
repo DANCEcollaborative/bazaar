@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.io.FileReader;
 
 import javax.net.ssl.SSLContext;
 
@@ -35,6 +36,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -70,7 +72,24 @@ public class LlmChatListener extends BasilicaAdapter
 	public LlmChatListener(Agent a)
 	{
 		super(a);
-		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
+//		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
+		List<String> apiKeys = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("properties"+File.separator+"apiKeys.properties"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+            	apiKeys.add(line);
+            }
+            String roomName = a.getRoomName().replaceAll("[^0-9]", "");
+            System.err.println("roomName@@@@" + roomName);
+            Integer roomNumber = 0;
+            if (!roomName.isEmpty()) {
+            	roomNumber = Integer.parseInt(roomName);
+            }
+            apiKey = apiKeys.get(roomNumber % apiKeys.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        apiKeys.forEach(System.out::println); 
 		
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
@@ -78,7 +97,7 @@ public class LlmChatListener extends BasilicaAdapter
 			model = llm_prop.getProperty("model");
 //			System.err.println(myName + " model: "+model);
 			requestURL = llm_prop.getProperty(model+".request.url");
-			apiKey = api_key_prop.getProperty(model+".api.key");
+//			apiKey = api_key_prop.getProperty(model+".api.key");
 			context = llm_prop.getProperty(model+".prompt.context");
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
@@ -152,20 +171,20 @@ public class LlmChatListener extends BasilicaAdapter
 		Boolean isAgentName = source.isAgentName(userName);
 		
 		if (!isAgentName) {
-			if (!userNames.contains(userName)) {
-				userNames.add(userName);
-				if (waitingForFirstEntry) {
-					String welcomeMe = "Welcome " + userName + "! Here's the instruction for using the PromptBot.\n\n" + instructionContent +  "\n\nTo access this instruction again, type \"instruction\"."; 
-					MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
-					source.pushEventProposal(newMe);
+//			if (!userNames.contains(userName)) {
+			userNames.add(userName);
+			if (waitingForFirstEntry) {
+				String welcomeMe = "Welcome " + userName + "! Here's the instruction for using the PromptBot.\n\n" + instructionContent +  "\n\nTo access this instruction again, type \"instruction\"."; 
+				MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
+				source.pushEventProposal(newMe);
 //					sendInstruction(source);
-					waitingForFirstEntry = false;
-				} else {
-					String welcomeMe = "Welcome " + userName + "! Type \"instruction\" for details."; 
-					MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
-					source.pushEventProposal(newMe);
-				}
+				waitingForFirstEntry = false;
+			} else {
+				String welcomeMe = "Welcome " + userName + "! Type \"instruction\" for details."; 
+				MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
+				source.pushEventProposal(newMe);
 			}
+//			}
 			
 		}
 		
