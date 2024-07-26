@@ -103,7 +103,7 @@ public class LlmChatListener extends BasilicaAdapter
 			context = llm_prop.getProperty(model+".prompt.context");
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
-			instructionContent = llm_prop.getProperty("room.instruction") + "\n\nThe room number is: "+ roomNumber+"; the api key index is: " + roomNumber % apiKeys.size();
+			instructionContent = llm_prop.getProperty("room.instruction");// + "\n\nThe room number is: "+ roomNumber+"; the api key index is: " + roomNumber % apiKeys.size();
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
 			}
