@@ -68,20 +68,22 @@ public class LlmChatListener extends BasilicaAdapter
     private Boolean waitingForFirstEntry = true;
     private String instructionContent;
     private List<String> userNames = new ArrayList<>();
-
+    private String roomName;
+    private Integer roomNumber = 0;
+    private List<String> apiKeys;
 	public LlmChatListener(Agent a)
 	{
 		super(a);
 //		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
-		List<String> apiKeys = new ArrayList<>();
+		apiKeys = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("properties"+File.separator+"apiKeys.properties"))) {
             String line;
             while ((line = reader.readLine()) != null) {
             	apiKeys.add(line);
             }
-            String roomName = a.getRoomName().replaceAll("[^0-9]", "");
+            roomName = a.getRoomName().replaceAll("[^0-9]", "");
             System.err.println("roomName@@@@" + roomName);
-            Integer roomNumber = 0;
+            
             if (!roomName.isEmpty()) {
             	roomNumber = Integer.parseInt(roomName);
             }
@@ -101,7 +103,7 @@ public class LlmChatListener extends BasilicaAdapter
 			context = llm_prop.getProperty(model+".prompt.context");
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
-			instructionContent = llm_prop.getProperty("room.instruction");
+			instructionContent = llm_prop.getProperty("room.instruction") + "\n\nThe room number is: "+ roomNumber+"; the api key index is: " + roomNumber % apiKeys.size();
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
 			}
@@ -153,7 +155,7 @@ public class LlmChatListener extends BasilicaAdapter
 	}
 	
 	public void sendInstruction(InputCoordinator source) {
-		MessageEvent newMe = new MessageEvent(source, "PromoptBot", instructionContent);
+		MessageEvent newMe = new MessageEvent(source, "PromptBot", instructionContent);
 		source.pushEventProposal(newMe);
 	}
 	
@@ -171,20 +173,20 @@ public class LlmChatListener extends BasilicaAdapter
 		Boolean isAgentName = source.isAgentName(userName);
 		
 		if (!isAgentName) {
-//			if (!userNames.contains(userName)) {
-			userNames.add(userName);
-			if (waitingForFirstEntry) {
-				String welcomeMe = "Welcome " + userName + "! Here's the instruction for using the PromptBot.\n\n" + instructionContent +  "\n\nTo access this instruction again, type \"instruction\"."; 
-				MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
-				source.pushEventProposal(newMe);
-//					sendInstruction(source);
-				waitingForFirstEntry = false;
-			} else {
-				String welcomeMe = "Welcome " + userName + "! Type \"instruction\" for details."; 
-				MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
-				source.pushEventProposal(newMe);
+			if (!userNames.contains(userName)) {
+				userNames.add(userName);
+				if (waitingForFirstEntry) {
+					String welcomeMe = "Welcome " + userName + "! Here's the instruction for using the PromptBot.\n\n" + instructionContent +  "\n\nTo access this instruction again, type \"instruction\"."; 
+					MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
+					source.pushEventProposal(newMe);
+	//					sendInstruction(source);
+					waitingForFirstEntry = false;
+				} else {
+					String welcomeMe = "Welcome " + userName + "! Type \"instruction\" for details."; 
+					MessageEvent newMe = new MessageEvent(source, "PromptBot", welcomeMe);
+					source.pushEventProposal(newMe);
+				}
 			}
-//			}
 			
 		}
 		
