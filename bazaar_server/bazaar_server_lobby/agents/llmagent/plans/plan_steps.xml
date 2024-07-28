@@ -14,7 +14,7 @@
     	<!-- <step type="prompt" delay="1" prompt="PROMPT_SESSION_TIME">PROMPT_GREETING</step> -->
     <!-- </stage>   -->s
   
-    <stage name="EndStage" type="other" delay="0" timeout="4920">   
+    <stage name="EndStage" type="other" delay="0" timeout="7200">   
         <step type="chatlog" delay="10" >CHAT_LOGS</step>   
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
