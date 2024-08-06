@@ -208,8 +208,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 // 		System.err.println("==================== OutputCoordinator.timedout -- ENTER ==========================");
 // 		System.err.println("===================================================================================");
 // 		log(Logger.LOG_NORMAL, "==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
- 		System.err.println("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
- 		printProposalQueue(); 
+// 		System.err.print("==================== PROPOSAL QUEUE -- ENTER OutputCoordinator.timedout ====================");
+// 		printProposalQueue(); 
 // 		log(Logger.LOG_NORMAL, "==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
 // 		System.err.print("==================== activeSources -- ENTER OutputCoordinator.timedout ====================");
 // 		printActiveSources(); 
@@ -220,10 +220,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		{
 			if (!proposalQueue.isEmpty())
 			{
-				
+
 				cleanUp();
-				
-//		 		printProposalQueue(); 
+
 				PriorityEvent best = null;
 				double bestBelief = 0;
 
@@ -241,11 +240,9 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					}
 
 				}
-				System.err.println("==================== PROPOSAL QUEUE -- after best ====================" + best.toString());
-	
+
 				if (best != null)
 				{
-					System.err.println("OutputCoordinator: best is not null");
 // 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - Execute 'best': " + best.toString() + "  microStepName: " + best.getMicroStepName() + "  lastStepName: " + lastStepName);
 // 					System.err.println("OutputCoordinator.timedout - Execute 'best': " + best.toString());
 					// if the proposal about to be executed belongs to a new step, 
@@ -440,8 +437,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			if ((!outputToPSI) || (separateOutputToPSI)) {
 				if (outputMultimodal) {
 					messageText = formatMultimodalMessage(me);
-					me.setText(messageText);
-					log(Logger.LOG_NORMAL, "OutputCoordinator.broadcaseMessage - case 1.1");
+					me.setText(messageText);					
 				}
 				broadcast(me);
 			}		
@@ -449,14 +445,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				publishMessageToPSI(me);
 			}
 			MessageEventLogger.logMessageEvent(me);
-			
 		}
 
 		else
 		{
 			String[] messageParts = me.getParts();
 			String[] allAnnotations = me.getAllAnnotations();
-			
 			for (int i = 0; i < messageParts.length; i++)
 			{
 				String mappedPrompt = messageParts[i].trim();
