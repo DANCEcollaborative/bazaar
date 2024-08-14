@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="PromptBot">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+  
+   	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+    <!-- "delay" for a step is the delay *after* the step completes on its own.-->
+    <!-- <stage name="StageInitialization" type="other" delay="0">  -->
+     	<!-- <step type="greet" timeout="45" delay="0">GREETINGS</step> --> 
+    	<!-- <step type="prompt" delay="4" prompt="PROMPT_GREETING">PROMPT_GREETING</step>   -->
+    	<!-- <step type="prompt" delay="1" prompt="PROMPT_SESSION_TIME">PROMPT_GREETING</step> -->
+    <!-- </stage>   -->s
+  
+    <stage name="EndStage" type="other" delay="0" timeout="7200">   
+        <step type="chatlog" delay="10" >CHAT_LOGS</step>   
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
