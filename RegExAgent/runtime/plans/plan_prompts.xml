@@ -12,13 +12,20 @@
         <text>Welcome to this Regex OPE activity!|||Let’s begin with introductions. Please type your name and any interesting facts about yourself (such as your favorite hobby or game). We will spend 1 minute on these introductions.</text>
     </prompt>
     
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
     <prompt strategy="task" id="PROMPT_GREET">
         <text>Hi, [NAME].</text>
         <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME].</text>
         <text>Hello, [NAME].</text>
     </prompt>
-	
+    
 	<prompt strategy="task" id="PROMPT_GREETING">
      	<text>We're starting! I'm OPE_Bot.|||Use this window for chat and discussion.</text>
     </prompt> 
@@ -32,6 +39,14 @@
 -- Command: mysql -u root -pCloudCC@100 -h 127.0.0.1
 -- Within MySQL, use database 'employees'.</text>
     </prompt> 
+       
+    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
+        <text>We're starting! We are now in the Programming phase. Let's get started with Task 1 and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
+    </prompt> 
+    
+     <prompt strategy="task" id="PROMPT_ONE_AT_A_TIME" intention="prompt_one_at_a_time">
+     	<text>*** IT IS VERY IMPORTANT THAT ONLY ONE PERSON AT A TIME -- THE DRIVER -- EDIT CELLS. *** If there is more than one editor, you could lose your work.</text>
+     </prompt> 
  
 
 
