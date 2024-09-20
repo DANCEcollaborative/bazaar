@@ -95,12 +95,16 @@
     </prompt> 
     
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1">
-     	<text>Exactly how can creating a denormalized table improve efficiency?</text>
+     	<text>Discuss how your regex worked for part 1.</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_2" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_2">
-     	<text>Give some examples of how changing a datatype can decrease space usage, query time, or both.</text>
+         <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW">
+     	<text>Follow up your Discussion.</text>
     </prompt>
+     
+<!--    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_Follow" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_2">-->
+<!--     	<text>Can you find a test/counterexample where your regex will not pass?</text>-->
+<!--    </prompt>-->
 
 
 
@@ -119,7 +123,9 @@
         <text>To submit your final query for Task 2, copy it to the Task 2 cell within double quotes, then run the Testing Task 2 cell.</text>
     </prompt>
     
-    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_2">
+    <prompt strategy="tas
+    
+    k" id="PROMPT_FEEDBACK_LOCATION_2">
         <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 2 cell.</text>
     </prompt> 
 	
@@ -132,11 +138,11 @@
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1">
-     	<text>Exactly how can creating an index improve query speed?</text>
+     	<text>Reflect on second regex. </text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_2">
-     	<text>Exactly how can creating an index improve query speed?</text>
+    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW">
+     	<text>Finish reflecting on second regex. </text>
     </prompt>
 
 
@@ -149,7 +155,7 @@
     </prompt> 
       
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3">
-        <text>IT'S TIME TO START THE LAST TASK. Read and follow the instructions in the Task 3 cell.</text>
+        <text>IT'S TIME TO START THE THIRD TASK. Read and follow the instructions in the Task 3 cell.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_TEST_QUERY_3">
@@ -161,7 +167,7 @@
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3">
-     	<text>IT'S TIME TO MOVE ON FROM THE LAST TASK. But first take turns responding to the following question.</text>
+     	<text>IT'S TIME TO MOVE ON FROM THE third TASK. But first take turns responding to the following question.</text>
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_MOVE_ON_3">
@@ -169,14 +175,33 @@
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1">
-     	<text>What are some tradeoffs that you considered between the three optimization methods -- for example between indexing and denormalization?</text>
+     	<text>ReFlect on ReGex</text>
     </prompt>
      
-    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_2">
-     	<text>What are the advantages to using a composite index and what are some of its limitations?</text>
+    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW">
+     	<text>Finish and Follow regex 3</text>
+    </prompt>
+    
+          
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4">
+        <text>IT'S TIME TO START THE Fourth TASK. Read and follow the instructions in the Task 4 cell.</text>
     </prompt>
 
-
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_4">
+     	<text>IT'S TIME TO MOVE ON FROM THE fourth and final TASK. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MOVE_ON_4">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 4.</text>
+    </prompt> 
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_1">
+     	<text>ReFlect on 4th ReGex </text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW">
+     	<text>Finish and Follow up your disccusion regex 4 </text>
+    </prompt>
 
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
