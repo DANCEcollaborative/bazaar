@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+
+	<!-- GREETING PROMPTS --> 
+	
+    <prompt strategy="task" id="WAITING_TO_START">
+        <text>Hi! I’m BazaarBot. I will facilitate the student group collaboration during this activity. We’ll wait 1 minute for more teammates to join in, so please feel free to chat within this chatroom. </text>
+    </prompt> 
+	
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Welcome to this Regex OPE activity!|||Let’s begin with introductions. Please type your name and any interesting facts about yourself (such as your favorite hobby or game). We will spend 1 minute on these introductions.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+    </prompt>
+    
+	<prompt strategy="task" id="PROMPT_GREETING">
+     	<text>We're starting! I'm OPE_Bot.|||Use this window for chat and discussion.</text>
+    </prompt> 
+
+
+
+	<!-- GENERAL PROMPTS --> 
+    
+	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER">
+     	<text>Remember that you can login to MySQL as follows.
+-- Command: mysql -u root -pCloudCC@100 -h 127.0.0.1
+-- Within MySQL, use database 'employees'.</text>
+    </prompt> 
+       
+    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
+        <text>We're starting! We are now in the Programming phase. Let's get started with Task 1 and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
+    </prompt> 
+    
+     <prompt strategy="task" id="PROMPT_ONE_AT_A_TIME" intention="prompt_one_at_a_time">
+     	<text>*** IT IS VERY IMPORTANT THAT ONLY ONE PERSON AT A TIME -- THE DRIVER -- EDIT CELLS. *** If there is more than one editor, you could lose your work.</text>
+     </prompt> 
+ 
+
+
+	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+
+	<prompt strategy="task" id="PROMPT_SESSION_TIME">
+     	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_PRIMERS">
+     	<text>Please share with the team (and me) which primer(s) you read for this session.</text>
+    </prompt> 
+
+ 
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 1 -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>  
+	
+	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_1">
+     	<text>In preparation for the first task, who can share with the team when it is appropriate to apply denormalization within a database? This was discussed in the Normalization and Denormalization primer.</text>
+    </prompt>  
+      
+    <prompt strategy="task" id="PROMPT_START_TASK1">
+        <text>Okay! Let's assign your responsibilities and get started with Task 1.|||You will have approximately 80 minutes to complete programming and submit to receive your grades.</text>
+    </prompt>  
+      
+    <prompt strategy="task" id="PROMPT_TASK1_REMINDER">
+        <text>Please connect to MySQL by following the instructions in the workspace, then continue with the instructions for Task 1.</text>
+    </prompt>  
+    
+    <prompt strategy="task" id="PROMPT_TEST_QUERY_1">
+        <text>To submit your final query for Task 1, copy it to the Task 1 cell within double quotes, then run the Testing Task 1 cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_1">
+        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 1 cell.</text>
+    </prompt>
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 1. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MOVE_ON_1">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 1.</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1">
+     	<text>Discuss how your regex worked for part 1.</text>
+    </prompt>
+     
+         <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW">
+     	<text>Follow up your Discussion.</text>
+    </prompt>
+     
+<!--    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_Follow" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_2">-->
+<!--     	<text>Can you find a test/counterexample where your regex will not pass?</text>-->
+<!--    </prompt>-->
+
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 2 -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
+	
+	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_2">
+     	<text>In preparation for Task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
+    </prompt>  
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2">
+        <text>IT'S TIME TO START TASK 2. Read and follow the instructions in the Task 2 cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_TEST_QUERY_2">
+        <text>To submit your final query for Task 2, copy it to the Task 2 cell within double quotes, then run the Testing Task 2 cell.</text>
+    </prompt>
+    
+    <prompt strategy="tas
+    
+    k" id="PROMPT_FEEDBACK_LOCATION_2">
+        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 2 cell.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 2. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MOVE_ON_2">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 2.</text>
+    </prompt> 
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1">
+     	<text>Reflect on second regex. </text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW">
+     	<text>Finish reflecting on second regex. </text>
+    </prompt>
+
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 3 -->
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
+	
+	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_3">
+     	<text>In preparation for the last task, who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
+    </prompt> 
+      
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3">
+        <text>IT'S TIME TO START THE THIRD TASK. Read and follow the instructions in the Task 3 cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_TEST_QUERY_3">
+        <text>To submit your final query for Task 3, copy it to the Task 3 cell within double quotes, then run the Testing Task 3 cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_3">
+        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 3 cell.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3">
+     	<text>IT'S TIME TO MOVE ON FROM THE third TASK. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MOVE_ON_3">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 3.</text>
+    </prompt> 
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1">
+     	<text>ReFlect on ReGex</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW">
+     	<text>Finish and Follow regex 3</text>
+    </prompt>
+    
+          
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4">
+        <text>IT'S TIME TO START THE Fourth TASK. Read and follow the instructions in the Task 4 cell.</text>
+    </prompt>
+
+	<prompt strategy="task" id="PROMPT_DISCUSSION_START_4">
+     	<text>IT'S TIME TO MOVE ON FROM THE fourth and final TASK. But first take turns responding to the following question.</text>
+    </prompt> 
+	
+	<prompt strategy="task" id="PROMPT_MOVE_ON_4">
+     	<text>IT'S TIME TO MOVE ON FROM TASK 4.</text>
+    </prompt> 
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_1">
+     	<text>ReFlect on 4th ReGex </text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW">
+     	<text>Finish and Follow up your disccusion regex 4 </text>
+    </prompt>
+
+	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
+     
+    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+     <text>Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_FINAL">
+     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+    </prompt>
+
+
+ 
+	<!-- ASSIGNMENT PROMPTS --> 
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
+        <text>Your initial roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2">
+        <text>Your new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3">
+        <text>Your new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Recall that the researcher refers to resources like the primer as necessary.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
+        <text>Your new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2">
+        <text>Your new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3">
+        <text>Your new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL">
+        <text>Your new roles are -
+[ROLE1] - [NAME1]
+[ROLE2] - [NAME2]
+[ROLE3] - [NAME3]
+Whoever doesn't have an assignment is a researcher for this round.</text>
+    </prompt>
+
+
+</prompts>
