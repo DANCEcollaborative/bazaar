@@ -19,8 +19,7 @@
     <stage name="Introduction" type="other" delay="0">
         <step type="prompt" delay="10" prompt="STARTING">STARTING</step>  
         <step type="prompt" delay="5" prompt="PREVIEW_DATASET">PREVIEW_DATASET</step>   
-        <step type="prompt" delay="5" prompt="EXAMINE_DATASET">EXAMINE_DATASET</step>   	 	   	   	    
-        <step type="gated" gated_type="listen" timeout="280" delay="5" checkin_prompt="NONE">PREVIEW</step>      <!-- 1200 -->   
+        <step type="prompt" delay="5" prompt="EXAMINE_DATASET">EXAMINE_DATASET</step>  
     </stage> 
     
     <!-- SCENARIO 1  --> 	 
