@@ -25,30 +25,30 @@
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
       
     <prompt strategy="task" id="STARTING">
-        <text>In this collaborative session, you will, as a team, engage in a data-driven debate, applying data exploration and visualization techniques to construct and defend a position on a debatable topic.|||Before we begin Milestone 1, please spend 5 minutes to review the introduction in workspace.ipynb, the Jupyter Notebook document your team will work on.</text>
-    </prompt> 
-      
-    <prompt strategy="task" id="PREVIEW_DATASET">
-        <text>Take a moment to preview the dataset. Start thinking about how the data might support different arguments. Discuss your first impressions with your team. Share what stands out, raise questions, and talk about how you might approach the data.</text>
-    </prompt> 
-     
-    <prompt strategy="task" id="EXAMINE_DATASET">
-        <text>You may write and run some code to examine the dataset. Remember to avoid editing the same code cell simultaneously to prevent losing work. Coordinate in the chat to manage this.</text>
+        <text>In this collaborative session, you will, as a team, engage in a data-driven debate, applying data exploration and visualization techniques to construct and defend a position on a debatable topic.</text>
     </prompt> 
 	
  
 	<!-- HINTS & DISCUSSION FOR SCENARIO 1 -->
      
     <prompt strategy="task" id="ACTIVITY_PREVIEW">
-        <text>Starting now, you have 60 more minutes to complete today’s activity, divided into three milestones. For each milestone, you’ll be assigned a group role, and roles will rotate at the end of each milestone. Let’s assign roles for Milestone 1!</text>
+        <text>Starting now, you have 65 minutes to complete today’s activity, divided into three milestones. For each milestone, you’ll be assigned a group role, and roles will rotate at the end of each milestone. Let’s assign roles for Milestone 1!</text>
     </prompt> 
 	
      <prompt strategy="task" id="TAKING_TURNS">
-     <text>NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you risk losing your code!</text>
+     	<text>NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you risk losing your code!</text>
      </prompt> 
 	
      <prompt strategy="task" id="SCENARIO_1_INTRO">
-     <text>It is now time to begin Milestone 1. You will have up to 20 minutes to complete this milestone. If your team agrees that you have gathered sufficient evdience for this milestone, you may unlock the next milestone by ** everyone ** typing special word ** 'milestone_completed' ** in the chat.</text>
+     	<text>It is now time to begin Milestone 1. You will have up to 25 minutes to complete this milestone.</text>
+     </prompt> 
+	
+     <prompt strategy="task" id="KEYWORD">
+     	<text>If your team feels that sufficient evdience has been gathered for this milestone, you may move on to the next milestone early. To unlock the next milestone, all team members must type the special word 'ready' in the chat.</text>
+     </prompt> 
+	
+     <prompt strategy="task" id="PLANNING">
+     	<text>Since this is the first milestone, let's take a few minutes to conduct an initial inspection of the dataset. Please complete the two collaborative tasks in the Jupyter Notebook. Discuss your first impressions with your team: Highlight what stands out, raise any questions, and consider how you might approach the data. Once everyone has shared their thoughts, proceed to identify and visualize data that supports the argument that EIPs were effective and equitable.</text>
      </prompt> 
     
     
@@ -70,10 +70,6 @@
 	
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
      <text>It is time to wrap up today's activity! Your team may continue analysis and interpration later. Please run the cell in “Submit your code” to save your work and confirm that your work is uploaded to the Sail() platform.|||Thanks for participating in today's online programming exercise!|||Don't forget to run the cell in the "Submit your code" to save your team's work on the Sail() platform.</text>
-    </prompt>
-     
-    <prompt strategy="task" id="DONE">
-     	<text>That's all! Thanks for participating in this activity.</text>
     </prompt>
      
     <prompt strategy="task" id="FINAL">
@@ -123,11 +119,11 @@ Whoever has not been assigned a role will be a researcher for this milestone.</t
     </prompt>
     
     <prompt strategy="task" id="ROTATE2">
-        <text>[NAME1], for Milestone 2 you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat.|||If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
+        <text>[NAME1], for Milestone 2, you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat.|||If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE2_1">
-        <text>[NAME1], for Milestone 2 you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat. If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
+        <text>[NAME1], for Milestone 2, you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat. If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
     </prompt>>
     
     <prompt strategy="task" id="ROTATE2_2">
@@ -162,22 +158,22 @@ Whoever has not been assigned a role will be a researcher for this milestone.</t
     </prompt>
     
     <prompt strategy="task" id="ROTATE3">
-        <text>[NAME1], for Milestone 2 you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat.|||If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
+        <text>[NAME1], for Milestone 3, you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat.|||If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE3_1">
-        <text>[NAME1], for Milestone 2 you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat. If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
+        <text>[NAME1], for Milestone 3, you will be both the Navigator and Driver: Decide what visualization to implement; do the implementation; interpret the results; and record your findings in the chat. If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
     </prompt>>
     
     <prompt strategy="task" id="ROTATE3_2">
-        <text>For Milestone 2, you are assigned to the following roles:
+        <text>For Milestone 3, you are assigned to the following roles:
 [ROLE1] - [NAME1], you will lead the analysis by deciding what visualization to implement in the chat. You also need to interpret results and write down your findings in the chat.   
 [ROLE2] - [NAME2], you will implement the code.   
 If someone joins late, have them assume the Researcher role and assist until the end of the current milestone.</text>
     </prompt>
     
     <prompt strategy="task" id="ROTATE3_3">
-        <text>For Milestone 2, you are assigned to the following roles:
+        <text>For Milestone 3, you are assigned to the following roles:
 [ROLE1] - [NAME1], you will lead the analysis by deciding what visualization to implement in the chat. You also need to interpret results and write down your findings in the chat.   
 [ROLE2] - [NAME2], you will implement the code.    
 [ROLE3] - [NAME3], you will actively assist the Driver with implementation (e.g., searching library documentation). You will also review the Driver’s code and challenge the Navigator's interpretations to ensure accuracy.    
@@ -185,7 +181,7 @@ If someone joins late, have them assume the Researcher role and assist until the
     </prompt>
     
     <prompt strategy="task" id="ROTATE3_4">
-        <text>For Milestone 2, you are assigned to the following roles:
+        <text>For Milestone 3, you are assigned to the following roles:
 [ROLE1] - [NAME1], you will lead the analysis by deciding what visualization to implement in the chat. You also need to interpret results and write down your findings in the chat.   
 [ROLE2] - [NAME2], you will implement the code.   
 [ROLE3] - [NAME3], you will actively assist the Driver with implementation (e.g., searching library documentation). You will also review the Driver’s code and challenge the Navigator's interpretations to ensure accuracy.   
@@ -193,11 +189,28 @@ Whoever has not been assigned a role will be a researcher for this milestone.</t
     </prompt>
 
     <prompt strategy="task" id="ROTATE3_MAX_ALL">
-        <text>For Milestone 2, you are assigned to the following roles:
+        <text>For Milestone 3, you are assigned to the following roles:
 [ROLE1] - [NAME1], you will lead the analysis by deciding what visualization to implement in the chat. You also need to interpret results and write down your findings in the chat.   
 [ROLE2] - [NAME2], you will implement the code.   
 [ROLE3] - [NAME3], you will actively assist the Driver with implementation (e.g., searching library documentation). You will also review the Driver’s code and challenge the Navigator's interpretations to ensure accuracy.   
 Whoever has not been assigned a role will be a researcher for this milestone.</text>
+    </prompt>
+    
+    
+    
+
+	<!-- NO LONGER USED -->
+      
+    <prompt strategy="task" id="PREVIEW_DATASET">
+        <text>Take a moment to preview the dataset. Start thinking about how the data might support different arguments. Discuss your first impressions with your team. Share what stands out, raise questions, and talk about how you might approach the data.</text>
+    </prompt> 
+     
+    <prompt strategy="task" id="EXAMINE_DATASET">
+        <text>You may write and run some code to examine the dataset. Remember to avoid editing the same code cell simultaneously to prevent losing work. Coordinate in the chat to manage this.</text>
+    </prompt> 
+     
+    <prompt strategy="task" id="DONE">
+     	<text>That's all! Thanks for participating in this activity.</text>
     </prompt>
 
 
