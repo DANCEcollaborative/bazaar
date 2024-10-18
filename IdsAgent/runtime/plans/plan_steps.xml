@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="Cloud Admin OPE">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+  
+   	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+    <!-- "delay" for a step is the delay *after* the step completes on its own.-->
+    
+    <!-- INITIALIZATION  -->    
+	<stage name="StageInitialization" type="other" delay="0"> 
+    	<step type="prompt" delay="60" prompt="WAITING_TO_START">WAITING_TO_START</step>
+     	<step type="greet" timeout="60" delay="0">GREETINGS</step> 
+    </stage> 
+    
+    <!-- INTRODUCTION  -->    
+    <stage name="Introduction" type="other" delay="0">
+        <step type="prompt" delay="10" prompt="STARTING">STARTING</step>  
+    </stage> 
+    
+    <!-- SCENARIO 1  --> 	 
+    <stage name="Scenario_1" type="other" delay="0">   	
+    	<step type="send_command" command="COMMAND_1" delay="5">COMMAND_1</step>    
+        <step type="prompt" delay="5" prompt="ACTIVITY_PREVIEW">ACTIVITY_PREVIEW</step> 
+        <step type="match" delay="10" prompt="MATCH" >SCENARIO_MATCH</step>   	   	
+    	<step type="prompt" delay="5" prompt="TAKING_TURNS">TAKING_TURNS</step>    
+        <step type="prompt" delay="5" prompt="SCENARIO_1_INTRO">SCENARIO_1_INTRO</step>  
+        <step type="prompt" delay="5" prompt="PLANNING">PLANNING</step>  	  
+        <step type="prompt" delay="5" prompt="KEYWORD">KEYWORD</step>  	    	   	   	    	   	   	    
+        <step type="gated_with_hint" gated_type="listen" timeout="1500" delay="5" delayed_prompt_time="900" delayed_prompt="MILESTONE_1_HINT" checkin_prompt="NONE">MILESTONE_1</step>        
+    </stage>  
+    
+    <!-- SCENARIO 2  --> 	 
+    <stage name="Scenario_2" type="other" delay="0">   	
+    	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>   	
+        <step type="prompt" delay="5" prompt="SCENARIO_2_INTRO">SCENARIO_2_INTRO</step> 
+        <step type="match" delay="10" prompt="ROTATE2" >SCENARIO_MATCH</step>      	   	   	    
+        <step type="gated_with_hint" gated_type="listen" timeout="1200" delay="5" delayed_prompt_time="600" delayed_prompt="MILESTONE_2_HINT" checkin_prompt="NONE">MILESTONE_1</step>    
+    </stage>  
+    
+    <!-- SCENARIO 3  --> 	 
+    <stage name="Scenario_3" type="other" delay="0">   	
+    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>   	
+        <step type="prompt" delay="5" prompt="SCENARIO_3_INTRO">SCENARIO_3_INTRO</step> 
+        <step type="match" delay="10" prompt="ROTATE3" >SCENARIO_MATCH</step>     	   	   	    
+        <step type="gated_with_hint" gated_type="listen" timeout="1200" delay="5" delayed_prompt_time="600" delayed_prompt="MILESTONE_3_HINT" checkin_prompt="NONE">MILESTONE_1</step>   
+    </stage> 
+        
+    <!-- ENDING PROMPTS -->
+    
+    <stage name="DoneStage" type="other" delay="0"> 
+    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
+    	<step type="send_end" delay="2">send_end</step>  
+    </stage>
+    
+    <stage name="EndStage" type="other" delay="4080">   
+    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
+        <step type="prompt" delay="30" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
+        <step type="prompt" delay="5" prompt="FINAL" >FINAL</step>
+        <step type="chatlog" delay="5" >CHAT_LOGS</step> 
+    	<step type="send_end" delay="2">send_end</step>  
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
