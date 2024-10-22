@@ -5,21 +5,16 @@
 	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="WAITING_TO_START">
-        <text>Hi! I’m BazaarBot. I will facilitate the student group collaboration during this activity. We’ll wait 1 minute for more teammates to join in, so please feel free to chat within this chatroom. </text>
+        <text>Hi! I’m OPEBot. I will facilitate the student group collaboration during this activity. We’ll wait 1 minute for more teammates to join in, so please feel free to chat within this chat room. </text>
     </prompt> 
-	
+
+	<!-- GREETING PROMPTS -->	
+    <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->	
     <prompt strategy="task" id="INTRODUCE">
-        <text>Welcome to this Regex OPE activity!|||Let’s begin with introductions. Please type your name and any interesting facts about yourself (such as your favorite hobby or game). We will spend 1 minute on these introductions.</text>
+        <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself (such as your favorite hobby or game). We will spend 1 minute on these introductions.</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
-        <text>Hi, [NAME].</text>
-        <text>Nice to meet you, [NAME].</text>
-        <text>Howdy, [NAME].</text>
-        <text>Hello, [NAME].</text>
-    </prompt>
-    
-    <prompt strategy="task" id="PROMPT_GREET">
         <text>Hi, [NAME].</text>
         <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME].</text>
@@ -34,16 +29,6 @@
 
 	<!-- GENERAL PROMPTS --> 
     
-	<prompt strategy="task" id="PROMPT_MYSQL_REMINDER">
-     	<text>Remember that you can login to MySQL as follows.
--- Command: mysql -u root -pCloudCC@100 -h 127.0.0.1
--- Within MySQL, use database 'employees'.</text>
-    </prompt> 
-       
-    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
-        <text>We're starting! We are now in the Programming phase. Let's get started with Task 1 and assign your responsibilities. You will have approximately 80 minutes to complete programming and to submit to receive your grades.</text>
-    </prompt> 
-    
      <prompt strategy="task" id="PROMPT_ONE_AT_A_TIME" intention="prompt_one_at_a_time">
      	<text>*** IT IS VERY IMPORTANT THAT ONLY ONE PERSON AT A TIME -- THE DRIVER -- EDIT CELLS. *** If there is more than one editor, you could lose your work.</text>
      </prompt> 
@@ -51,6 +36,14 @@
 
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+       
+    <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
+        <text>Now, before we begin Task 1, please spend 1 minute reading the Regex cheat sheet and the assignment introduction.</text>
+    </prompt> 
+       
+    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
+        <text>Starting now, you will have 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute. Let’s assign roles for Task 1!</text>
+    </prompt> 
 
 	<prompt strategy="task" id="PROMPT_SESSION_TIME">
      	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
@@ -218,26 +211,26 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 & 2. If more team members join later, first fill the Navigator role and then have any additional members be Researchers.|||Your team will rotate roles as you progress through the activity.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 & 2. If more team members join later, first fill the Navigator role and then have any additional members be Researchers.|||Your team will rotate roles as you progress through the activity.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||Your team will rotate roles as you progress through the activity.</text>
     </prompt>
-    
+
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
         <text>Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
@@ -245,7 +238,7 @@ Recall that the researcher refers to resources like the primer as necessary. The
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary. Anyone who is unassigned will be a Researcher</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
