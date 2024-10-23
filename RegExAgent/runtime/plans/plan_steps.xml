@@ -35,78 +35,42 @@
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3A_Rotate</step>    
         <step type="file_gated" timeout="600" delay="5" file="testcase-complete_3" delayed_prompt_time="210,420" delayed_prompt="P3a,P3b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task3</step>   	  	<!-- 300,780  P3a,P3b  -->     
-    </stage>   
-      
-    <stage name="Stage3_Discussion" type="other" delay="0">           	      	    	        	      	
-        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_3">Prompt_Step_LO3_Discussion</step>    	
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO3_REFLECTION">Prompt_Step_LO3_Reflection</step>  	<!--  120   -->
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO3_REFLECTION_FOLLOW">Prompt_Step_LO3_Reflection_Follow</step>   	<!--  30   -->
-    </stage> 
+    </stage>  
     
     <stage name="Stage4" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_4" delay="5">COMMAND_4A</step> 
+    	<step type="send_command" command="COMMAND_4" delay="5">COMMAND_4</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
         <step type="file_gated" timeout="120" delay="5" file="testcase-complete_4" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
-    </stage>    
-     
-    <stage name="Stage4_Discussion" type="other" delay="0">                	     	
-        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_4">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>  	<!--  120   -->
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>   	<!--  30   -->
     </stage> 
     
     <stage name="Stage5" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_5" delay="5">COMMAND_4A</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
+    	<step type="send_command" command="COMMAND_5" delay="5">COMMAND_5</step> 
+    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK5">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
         <step type="file_gated" timeout="120" delay="5" file="testcase-complete_5" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
-    </stage>    
-     
-    <stage name="Stage5_Discussion" type="other" delay="0">                	     	
-        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_4">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>  	<!--  120   -->
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>   	<!--  30   -->
-    </stage> 
+    </stage>  
     
     <stage name="Stage6" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_6" delay="5">COMMAND_4A</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
+    	<step type="send_command" command="COMMAND_6" delay="5">COMMAND_6</step> 
+    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK5">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
         <step type="file_gated" timeout="120" delay="5" file="testcase-complete_6" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
-    </stage>    
-     
-    <stage name="Stage6_Discussion" type="other" delay="0">                	     	
-        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_4">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>  	<!--  120   -->
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>   	<!--  30   -->
-    </stage> 
+    </stage>  
     
     <stage name="Stage7" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_7" delay="5">COMMAND_4A</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
+    	<step type="send_command" command="COMMAND_7" delay="5">COMMAND_7</step> 
+    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK7">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
         <step type="file_gated" timeout="120" delay="5" file="testcase-complete_7" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
-    </stage>    
-     
-    <stage name="Stage7_Discussion" type="other" delay="0">                	     	
-        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_4">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>  	<!--  120   -->
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>   	<!--  30   -->
-    </stage> 
+    </stage>  
     
     <stage name="Stage8" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_8" delay="5">COMMAND_4A</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
+    	<step type="send_command" command="COMMAND_8" delay="5">COMMAND_8</step> 
+    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK8">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
         <step type="file_gated" timeout="120" delay="5" file="testcase-complete_8" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
-    </stage>    
-     
-    <stage name="Stage8_Discussion" type="other" delay="0">                	     	
-        <step type="prompt" delay="5" prompt="PROMPT_DISCUSSION_START_4">Prompt_Step_LO4_Discussion</step>    	
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION">Prompt_Step_LO4_Reflection</step>  	<!--  120   -->
-        <step type="prompt" delay="3" prompt="PROMPT_STEP_LO4_REFLECTION_FOLLOW">Prompt_Step_LO4_Reflection_Follow</step>   	<!--  30   -->
-    </stage> 
+    </stage>  
     
     <stage name="WrapUP" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
