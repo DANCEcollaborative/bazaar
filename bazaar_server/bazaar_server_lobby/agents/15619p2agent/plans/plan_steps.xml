@@ -20,7 +20,7 @@
     	<step type="logstate" delay="2" state_tag="phase_duration" state_value="80">logstate_phase-duration-1</step> 
     	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="1">logstate_ope-iteration-1</step>  
     	<step type="prompt" delay="4" prompt="PROMPT_GREETING">PROMPT_GREETING</step>   
-    	<step type="send_command" delay="4" command="COMMAND_1">COMMAND_1</step>  
+    	<step type="send_command" delay="5" command="COMMAND_1">COMMAND_1</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">PROMPT_SESSION_TIME</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_START_TASK1">PROMPT_START_TASK1</step>
     	<step type="send_external_message" delay="5" message="task=task1-start">START_1</step> 
