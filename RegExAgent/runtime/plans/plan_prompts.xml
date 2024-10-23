@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
 
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->  
 
 	<!-- GREETING PROMPTS --> 
 	
@@ -20,180 +21,76 @@
         <text>Howdy, [NAME].</text>
         <text>Hello, [NAME].</text>
     </prompt>
-    
-	<prompt strategy="task" id="PROMPT_GREETING">
-     	<text>We're starting! I'm OPE_Bot.|||Use this window for chat and discussion.</text>
-    </prompt> 
 
 
-
-	<!-- GENERAL PROMPTS --> 
-    
-     <prompt strategy="task" id="PROMPT_ONE_AT_A_TIME" intention="prompt_one_at_a_time">
-     	<text>*** IT IS VERY IMPORTANT THAT ONLY ONE PERSON AT A TIME -- THE DRIVER -- EDIT CELLS. *** If there is more than one editor, you could lose your work.</text>
-     </prompt> 
+	<!-- GENERAL PROMPTS -->
  
 
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
        
-    <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
-        <text>Now, before we begin Task 1, please spend 1 minute reading the Regex cheat sheet and the assignment introduction.</text>
-    </prompt> 
+    <prompt strategy="task" id="PROMPT_OVERVIEW" intention="program1">
+        <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
        
-    <prompt strategy="task" id="PROMPT_PROGRAMMNG_PHASE" intention="program1">
-        <text>Starting now, you will have 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute. Let’s assign roles for Task 1!</text>
+    <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
+        <text>Now, before we begin Task 1, please spend a minute reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
     </prompt> 
-
-	<prompt strategy="task" id="PROMPT_SESSION_TIME">
-     	<text>Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_PRIMERS">
-     	<text>Please share with the team (and me) which primer(s) you read for this session.</text>
-    </prompt> 
-
- 
-
+    
 
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->>  
-	
-	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_1">
-     	<text>In preparation for the first task, who can share with the team when it is appropriate to apply denormalization within a database? This was discussed in the Normalization and Denormalization primer.</text>
-    </prompt>  
-      
-    <prompt strategy="task" id="PROMPT_START_TASK1">
-        <text>Okay! Let's assign your responsibilities and get started with Task 1.|||You will have approximately 80 minutes to complete programming and submit to receive your grades.</text>
-    </prompt>  
-      
-    <prompt strategy="task" id="PROMPT_TASK1_REMINDER">
-        <text>Please connect to MySQL by following the instructions in the workspace, then continue with the instructions for Task 1.</text>
-    </prompt>  
-    
-    <prompt strategy="task" id="PROMPT_TEST_QUERY_1">
-        <text>To submit your final query for Task 1, copy it to the Task 1 cell within double quotes, then run the Testing Task 1 cell.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_1">
-        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 1 cell.</text>
-    </prompt>
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 1. But first take turns responding to the following question.</text>
+    </prompt>   
+       
+    <prompt strategy="task" id="TASK_1_READ" intention="program1">
+        <text>Before we assign roles, please carefully understand the Task 1 instructions and discuss with each other what Task 1 is looking for. We will spend 30 seconds on this.</text>
     </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_1">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 1.</text>
-    </prompt> 
-    
-    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1">
-     	<text>Discuss how your regex worked for part 1.</text>
-    </prompt>
-     
-         <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_FOLLOW">
-     	<text>Follow up your Discussion.</text>
-    </prompt>
-     
-<!--    <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_Follow" intention="cut_off_PROMPT_STEP_LO1_REFLECTION_2">-->
-<!--     	<text>Can you find a test/counterexample where your regex will not pass?</text>-->
-<!--    </prompt>-->
-
 
 
 	<!-- HINTS & DISCUSSION FOR TASK 2 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml --> 
-	
-	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_2">
-     	<text>In preparation for Task 2, who can share with the team the key considerations for creating effective composite indexes in a database? This was discussed in the Indexing primer.</text>
-    </prompt>  
     
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK2">
-        <text>IT'S TIME TO START TASK 2. Read and follow the instructions in the Task 2 cell.</text>
+        <text>Now, it is time to begin Task 2. We will start off by reassigning roles! </text>
     </prompt>
-    
-    <prompt strategy="task" id="PROMPT_TEST_QUERY_2">
-        <text>To submit your final query for Task 2, copy it to the Task 2 cell within double quotes, then run the Testing Task 2 cell.</text>
-    </prompt>
-    
-    <prompt strategy="tas
-    
-    k" id="PROMPT_FEEDBACK_LOCATION_2">
-        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 2 cell.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 2. But first take turns responding to the following question.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_2">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 2.</text>
-    </prompt> 
-     
-    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1">
-     	<text>Reflect on second regex. </text>
-    </prompt>
-     
-    <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_FOLLOW">
-     	<text>Finish reflecting on second regex. </text>
-    </prompt>
-
 
 
 	<!-- HINTS & DISCUSSION FOR TASK 3 -->
-	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->
-	
-	<prompt strategy="task" id="PROMPT_PRE-TASK_DISCUSSION_3">
-     	<text>In preparation for the last task, who can share with the team when it is more suitable to use INT rather than CHAR in a database? This was discussed in the Data Types primer.</text>
-    </prompt> 
-      
+    
     <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK3">
-        <text>IT'S TIME TO START THE THIRD TASK. Read and follow the instructions in the Task 3 cell.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="PROMPT_TEST_QUERY_3">
-        <text>To submit your final query for Task 3, copy it to the Task 3 cell within double quotes, then run the Testing Task 3 cell.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="PROMPT_FEEDBACK_LOCATION_3">
-        <text>You will be able to see feedback for each final query attempt in the output of the Testing Task 3 cell.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3">
-     	<text>IT'S TIME TO MOVE ON FROM THE third TASK. But first take turns responding to the following question.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_3">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 3.</text>
-    </prompt> 
-     
-    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1">
-     	<text>ReFlect on ReGex</text>
-    </prompt>
-     
-    <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_FOLLOW">
-     	<text>Finish and Follow regex 3</text>
-    </prompt>
-    
-          
-    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4">
-        <text>IT'S TIME TO START THE Fourth TASK. Read and follow the instructions in the Task 4 cell.</text>
+        <text>Now, it is time to begin Task 3. We will start off by reassigning roles! </text>
     </prompt>
 
-	<prompt strategy="task" id="PROMPT_DISCUSSION_START_4">
-     	<text>IT'S TIME TO MOVE ON FROM THE fourth and final TASK. But first take turns responding to the following question.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_4">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 4.</text>
-    </prompt> 
-     
-    <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_1">
-     	<text>ReFlect on 4th ReGex </text>
+
+	<!-- HINTS & DISCUSSION FOR TASK 4 -->
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK4">
+        <text>Now, it is time to begin Task 4. We will start off by reassigning roles! </text>
     </prompt>
-     
-    <prompt strategy="task" id="PROMPT_STEP_LO4_REFLECTION_FOLLOW">
-     	<text>Finish and Follow up your disccusion regex 4 </text>
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 5 -->
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK5">
+        <text>Now, it is time to begin Task 5. We will start off by reassigning roles! </text>
+    </prompt>
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 6 -->
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK6">
+        <text>Now, it is time to begin Task 6. We will start off by reassigning roles! </text>
+    </prompt>
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 7 -->
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK7">
+        <text>Now, it is time to begin Task 7. We will start off by reassigning roles! </text>
+    </prompt>
+
+
+	<!-- HINTS & DISCUSSION FOR TASK 8 -->
+    
+    <prompt strategy="task" id="PROMPT_ROLE_SWITCH_TASK8">
+        <text>Now, it is time to begin Task 8. We will start off by reassigning roles! </text>
     </prompt>
 
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
@@ -211,49 +108,50 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 & 2. If more team members join later, first fill the Navigator role and then have any additional members be Researchers.|||Your team will rotate roles as you progress through the activity.</text>
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity. |||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 & 2. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 & 2. If more team members join later, first fill the Navigator role and then have any additional members be Researchers.|||Your team will rotate roles as you progress through the activity.</text>
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 & 2. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
+    
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
-        <text>Your initial roles are -
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||Your team will rotate roles as you progress through the activity.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
-        <text>Your initial roles are -
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
-        <text>Your initial roles are -
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary. Anyone who is unassigned will be a Researcher</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary. Anyone who is unassigned will be a Researcher.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2">
         <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-Recall that the navigator brainstorms ideas and decides on one which the driver then implements. If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3">
@@ -261,7 +159,7 @@ Recall that the navigator brainstorms ideas and decides on one which the driver 
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the researcher refers to resources like the primer as necessary.</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
@@ -269,22 +167,22 @@ Recall that the researcher refers to resources like the primer as necessary.</te
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary.</text>
+Whoever doesn't have an assignment is a Researcher for this round. Recall that the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this round since no one else joined in time.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it.|||If someone joins late, have them assume one of the missing roles and assist until you pass a test case.</text>
+        <text>[NAME1], you will be the Driver for this round since no one else joined in time.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2">
         <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-If someone joins late, have them assume the researcher role and assist until you pass a test case.</text>
+If someone joins late, have them assume the Researcher role for this round.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3">
@@ -299,7 +197,7 @@ If someone joins late, have them assume the researcher role and assist until you
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Whoever doesn't have an assignment is a researcher for this round.</text>
+Whoever doesn't have an assignment is a Researcher for this round.</text>
     </prompt>
 
 

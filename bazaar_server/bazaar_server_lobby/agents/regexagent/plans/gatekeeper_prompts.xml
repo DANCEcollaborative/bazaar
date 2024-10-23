@@ -30,35 +30,44 @@
     </prompt>
 
  
-    <!-- PROMPTS DURING TASK 1 -->
-    <prompt strategy="task" id="P1a" intention="transactivity_prompt_1">
-      	<text>Hint 1: When approaching the regex pattern, you want to break it down to the key components which are:
-(1) an initial whitespace.
-(2) the first integer number [digit from 0 to 9].
-(3) the optional group, which contains a hyphen and second integer number [digit from 0-9].
-(4) the word “hour” with optional “s” character.
-
-Breaking down the phrase into small sections helps a lot in figuring out which regex characters to use! Keep it up! You guys got this! 
-</text>
+    <!-- PROMPTS DURING TASK 1 -->  
+    
+    <prompt strategy="task" id="P1a">
+      	<text>Hint: Break your regex down to the key components:
+1. An initial whitespace.  
+2. The first integer number (digit from 0 to 9).     
+3. The optional group, which contains a hyphen and a second integer number.    
+4. The word “hour” with an optional “s” character.</text>
     </prompt>   
     
-    <prompt strategy="task" id="P1b" intention="cut_off_0_1">
-    
-     	<text>Hint 2: Don't forget to use re.IGNORECASE in re.compile() to ensure case-insensitivity! Also, make sure that your regex pattern does not extract “5 hours” from “4-5 hours” or “4.5-5.5 Hours”.</text>
+    <prompt strategy="task" id="P1b">  
+     	<text>Don't forget to use re.IGNORECASE in re.compile() to ensure case-insensitivity! Also, make sure that your regex pattern does not extract “5 hours” from “4-5 hours” or “4.5-5.5 Hours”.</text>
     </prompt>
 
 
     <!-- PROMPTS DURING TASK 2 -->
-    <prompt strategy="task" id="P2a" intention="transactivity_prompt_2">
-     	<text>Hint 1: Let’s break down the parts for this regex pattern! |||So, we want to ultimately find a regex pattern to satisfy/match to “n.n hour(s)” or “n.n - n.n hours”, where “n” stands for any number, such as “1.5 hours” or “4.5 - 5.5 hours”|| When looking at the regex pattern, it would be:
-(1) an initial whitespace.
-(2) the first decimal number (first digit, period, second digit).
-(3) the optional group, which contains a hyphen, second decimal number (first digit, period, second digit), and final whitespace.
-(4) the word “hour” with optional “s” character.
-||| When approaching this problem, it also really helps to use the “find” button on Jupyter notebooks to figure out which regex syntax to use. </text>
-    </prompt>   
+    <prompt strategy="task" id="P2a">
+     	<text>Hint: There is a short and simple built-in regex method for doing this.</text>
+    </prompt>  
+
+
+    <!-- PROMPTS DURING TASK 3 -->
+
+     <prompt strategy="task" id="P3a">
+     	<text>Hint: The regex needs to match “n.n hour(s)” or “n.n - n.n hours”, where “n” stands for any number and "hour(s)" is case-insensitive: 
+|||
+So, breaking it down according to the syntax, it would have a similar format:
+(1) optional group ( )?
+(2) hyphen, which you can isolate by using “\”.
+(3) first digit, which will be used 1 or more times.
+(4) period, which you can isolate by using “\”.
+(5) second digit, which will be used 1 or more times.
+|||
+Hopefully this helps to provide a clear direction for one way to approach this problem. Best of luck! 
+</text>
+     </prompt>
     
-     <prompt strategy="task" id="P2b" intention="cut_off_1_1">
+     <prompt strategy="task" id="P3b">
      	<text>Hint 2: For the regex pattern’s optional group, let’s break it down further! For the optional group, this contains a hyphen second decimal number (first digit, period, second digit), and final whitespace.
 |||
 So, breaking it down according to the syntax, it would have a similar format:
@@ -74,7 +83,7 @@ Hopefully this helps to provide a clear direction for one way to approach this p
  
  
     <!-- PROMPTS DURING TASK 3 -->
-    <prompt strategy="task" id="P3a" intention="transactivity_prompt_3">
+    <prompt strategy="task" id="P3a">
      	<text> Hint 1: For this question, you want to first define `spaced_recipe_text` variable and store a compiled regex pattern that will have the following raw string: 
 (1) starts with ‘Recipe’
 (2) whitespace
@@ -85,18 +94,18 @@ Then, after defining your regex pattern, utilize a regex method to split the rec
 </text>
     </prompt>  
           
-     <prompt strategy="task" id="P3b" intention="cut_off_2_1">
+     <prompt strategy="task" id="P3b">
      	<text>Hint 2: After splitting the text, you want to iterate through the `spaced_recipe_text. Use strip() to remove any leading or trailing whitespace and add a blank line by inserting ‘print()’ between the recipes for better readability! </text>
  
      </prompt>
  
  
     <!-- PROMPTS DURING TASK 4 -->
-    <prompt strategy="task" id="P4a" intention="transactivity_prompt_4">
+    <prompt strategy="task" id="P4a">
      	<text>Hint 1: For this question, you want to write a regex pattern that will compile the raw string containing ‘two hours’ and/or ‘2 Hours’. Make sure to look back on the regex cheat sheet for what character will refer to “and/or”! </text>
     </prompt>   
         
-     <prompt strategy="task" id="P4b" intention="cut_off_3_1">
+     <prompt strategy="task" id="P4b">
      	<text>Hint 2: For using a single regex method to replace both of the specified phrases, use the format re.[insert regex method](replace_regex_pattern, [replacement phrase], recipe_text). Make sure to fill in the correct blanks! Best of luck on approaching this problem! </text>
      	
      </prompt>
