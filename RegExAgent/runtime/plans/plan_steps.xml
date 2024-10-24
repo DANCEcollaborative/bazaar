@@ -27,7 +27,7 @@
     	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>    
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2A_Rotate</step>    
-        <step type="file_gated" timeout="600" delay="5" file="testcase-complete_2" delayed_prompt_time="300" delayed_prompt="P2a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task2</step>   	  	<!--   -->     
+        <step type="file_gated" timeout="600" delay="5" file="testcase-complete_2" delayed_prompt_time="300,600" delayed_prompt="P2a,P2b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task2</step>   	  	<!--   -->     
     </stage>  
     
     <stage name="Stage3" type="other" delay="0">  
@@ -41,35 +41,35 @@
     	<step type="send_command" command="COMMAND_4" delay="5">COMMAND_4</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_4" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
+        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_4" delayed_prompt_time="5" delayed_prompt="P4a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
     </stage> 
     
     <stage name="Stage5" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_5" delay="5">COMMAND_5</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK5">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_5" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
+        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_5" delayed_prompt_time="5,10" delayed_prompt="P5a,P5b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task5</step>    	<!--  300,780  P4a,P4b -->
     </stage>  
     
     <stage name="Stage6" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_6" delay="5">COMMAND_6</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK5">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_6" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
+        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_6" delayed_prompt_time="5" delayed_prompt="P6a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task6</step>    	<!--  300,780  P4a,P4b -->
     </stage>  
     
     <stage name="Stage7" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_7" delay="5">COMMAND_7</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK7">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_7" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
+        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_7" delayed_prompt_time="5" delayed_prompt="P7a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task7</step>    	<!--  300,780  P4a,P4b -->
     </stage>  
     
     <stage name="Stage8" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_8" delay="5">COMMAND_8</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK8">instr5</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_8" delayed_prompt_time="5,10" delayed_prompt="P4b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!--  300,780  P4a,P4b -->
+        <step type="file_gated" timeout="120" delay="5" file="testcase-complete_8" delayed_prompt_time="5" delayed_prompt="P8a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task8</step>    	<!--  300,780  P4a,P4b -->
     </stage>  
     
     <stage name="WrapUP" type="other" delay="0">   
