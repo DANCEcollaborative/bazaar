@@ -29,10 +29,17 @@
        <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
     </prompt>
 
+
  
-    <!-- PROMPTS DURING TASK 1 -->  
+    <!-- PROMPTS DURING TASK 1 -->    
     
-    <prompt strategy="task" id="P1a">
+    <prompt strategy="task" id="P1a">  
+     	<text>Hints:  
+     	-- Use a \ before metacharacters like the hyphen to indicate they are actually text.  
+     	-- Surround some of your regex element(s) with parentheses to create a group to be treated as a unit.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="P1b">
       	<text>Hint: Break your regex down to the key components:
 1. An initial whitespace.  
 2. The first integer number: digit(s) from 0 to 9.     
@@ -40,54 +47,83 @@
 4. The word “hour” with an optional "s" character.  
 5. Compile your expression.
 6. Make your regex case-insensitive.</text>
-    </prompt>   
-    
-    <prompt strategy="task" id="P1b">  
-     	<text>Hint: 
-     	-- You use a \ before symbols like a hyphen to indicate they are text. 
-     	-- You can surround some of your regex element(s) with parentheses to create a group. 
-     	</text>
-    </prompt>
+    </prompt> 
+
 
 
     <!-- PROMPTS DURING TASK 2 -->
     <prompt strategy="task" id="P2a">
-     	<text>Hint: There is a short and simple built-in regex method for doing this.</text>
+     	<text>Hint: Define a non-capturing group for the optional hyphen and second integer.</text>
     </prompt>  
+    
+    
+    <prompt strategy="task" id="P2b">
+      	<text>Hint: Break your regex down to the key components:
+1. Whitespace.  
+2. The first integer number.     
+3. An optional *non-capturing group*, which contains a hyphen and a second integer number.    
+4. The word “hour” with an optional "s" character.  
+5. Compile your expression.
+6. Make your regex case-insensitive.</text>
+    </prompt>  
+    
 
 
-    <!-- PROMPTS DURING TASK 3 -->
+  <!-- PROMPTS DURING TASK 3 -->
     
     <prompt strategy="task" id="P3a">
-      	<text>The key components for this regex are similar to Task 1. The only difference is adding a decimal point (.) and one or more digits following each integer.</text>
-    </prompt>   
-    
+      	<text>Hint: The key components for this regex are similar to Task 1. The only difference is adding a decimal point (.) and one or more digits following each integer. The decimal point is also a metacharacter, so make sure to escape it properly.</text>
+    </prompt>  
+     
     <prompt strategy="task" id="P3b">
-      	<text>The key components for this regex are 
-1. An initial whitespace.   
-2. The first decimal number: digit(s) from 0 to 9, a decimal point, digits from 0 to 9.   
-3. An optional *group*, which contains a hyphen followed by a decimal number.    
-4. The word “hour” with an optional “s” character.
+      	<text>Hint: Break your regex down to the key components:
+1. Whitespace.  
+2. The first decimal number.     
+3. An optional group, which contains a hyphen and a second decimal number.    
+4. The word “hour” with an optional "s" character.  
 5. Compile your expression.
 6. Make your regex case-insensitive.</text>
     </prompt>  
  
  
+ 
     <!-- PROMPTS DURING TASK 4 -->
     <prompt strategy="task" id="P4a">
-     	<text>Hint: The regex method for this decimal pattern is very similar to the method you created for Task 2, using a decimal pattern rather than an integer pattern.</text>
+     	<text>Hint: As with 're.findall' with integers, use a *non-capturing* group for the optional hyphen and second decimal number.</text>
     </prompt>  
+ 
  
  
     <!-- PROMPTS DURING TASK 5 -->
     <prompt strategy="task" id="P5a">
-     	<text>Hint: For this question, you want to write a regex pattern that will compile the raw string containing ‘two hours’ and/or ‘2 Hours’. Make sure to look back on the regex cheat sheet for what character will refer to “and/or”! </text>
+		   <text> Hint: Your regular expression should pick up the start of each recipe. Notice that each recipe
+		(1) starts with ‘Recipe’   
+		(2) followed by whitespace   
+		(3) one or more digits (0-9)      
+		(4) and finally, a colon character, ‘:’</text>
+    </prompt>  
+
+
+
+    <!-- PROMPTS DURING TASK 6 -->
+    <prompt strategy="task" id="P6a">
+		   <text>Hints: 
+		   -- Your lookahead pattern should include the entire "Recipe #:" text string.  
+		   -- Make sure to compile your regex expression.</text>
+    </prompt>  
+
+    <!-- PROMPTS DURING TASK 7 -->
+    <prompt strategy="task" id="P7a">
+		   <text>Hint: Make sure you test every way to spell a variation of “two hours” - including upper and lower case!</text>
     </prompt>   
-        
-     <prompt strategy="task" id="P4b">
-     	<text>Hint 2: For using a single regex method to replace both of the specified phrases, use the format re.[insert regex method](replace_regex_pattern, [replacement phrase], recipe_text). Make sure to fill in the correct blanks! Best of luck on approaching this problem! </text>
-     	
-     </prompt>
+    
+    
+    <!-- PROMPTS DURING TASK 8 -->
+    <prompt strategy="task" id="P8a">
+		   <text> Hint: Check the text(s) after your replacement(s) - did the substitution work? Did you replace it at EVERY location you needed to replace the string at?
+		</text>
+    </prompt>   
+
 
     <!-- for READY_GENERIC -->    
     <prompt strategy="task" id="READY_GENERIC">

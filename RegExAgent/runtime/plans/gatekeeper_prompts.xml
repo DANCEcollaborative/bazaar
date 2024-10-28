@@ -29,10 +29,17 @@
        <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
     </prompt>
 
+
  
-    <!-- PROMPTS DURING TASK 1 -->  
+    <!-- PROMPTS DURING TASK 1 -->    
     
-    <prompt strategy="task" id="P1a">
+    <prompt strategy="task" id="P1a">  
+     	<text>Hints:  
+     	-- Use a \ before metacharacters like the hyphen to indicate they are actually text.  
+     	-- Surround some of your regex element(s) with parentheses to create a group to be treated as a unit.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="P1b">
       	<text>Hint: Break your regex down to the key components:
 1. An initial whitespace.  
 2. The first integer number: digit(s) from 0 to 9.     
@@ -40,69 +47,70 @@
 4. The word “hour” with an optional "s" character.  
 5. Compile your expression.
 6. Make your regex case-insensitive.</text>
-    </prompt>   
-    
-    <prompt strategy="task" id="P1b">  
-     	<text>Hint: 
-     	-- You use a \ before symbols like a hyphen to indicate they are text. 
-     	-- You can surround some of your regex element(s) with parentheses to create a group. 
-     	</text>
-    </prompt>
+    </prompt> 
+
 
 
     <!-- PROMPTS DURING TASK 2 -->
     <prompt strategy="task" id="P2a">
-     	<text>Hint: Which characters indicate a group? Inside those, which characters indicate that it is a non-capturing group?</text>
+     	<text>Hint: Define a non-capturing group for the optional hyphen and second integer.</text>
+    </prompt>  
+    
+    
+    <prompt strategy="task" id="P2b">
+      	<text>Hint: Break your regex down to the key components:
+1. Whitespace.  
+2. The first integer number.     
+3. An optional *non-capturing group*, which contains a hyphen and a second integer number.    
+4. The word “hour” with an optional "s" character.  
+5. Compile your expression.
+6. Make your regex case-insensitive.</text>
     </prompt>  
     
 
-  	<prompt strategy="task" id="P2b">
-     	<text>Hint: If you are not seeing the correct output in your matches, double-check the worksheet for the definition of findall - when will groups appear the output, and when not?</text>
-    </prompt>  
-    
 
   <!-- PROMPTS DURING TASK 3 -->
     
     <prompt strategy="task" id="P3a">
-      	<text>Hint: The key components for this regex are similar to Task 1. The only difference is adding a decimal point (.) and one or more digits following each integer. The period ‘.’  character is also a metacharacter. Make sure to escape it properly!</text>
-    </prompt>   
-    
-    <prompt strategy="task" id="P3b">
-      	<text> Hint: Can a dash appear in a decimal hour pattern? Check the recipe_text to see if these occur, and check your function to see if your regex matches them. 
-</text>
+      	<text>Hint: The key components for this regex are similar to Task 1. The only difference is adding a decimal point (.) and one or more digits following each integer. The decimal point is also a metacharacter, so make sure to escape it properly.</text>
     </prompt>  
+     
+    <prompt strategy="task" id="P3b">
+      	<text>Hint: Break your regex down to the key components:
+1. Whitespace.  
+2. The first decimal number.     
+3. An optional group, which contains a hyphen and a second decimal number.    
+4. The word “hour” with an optional "s" character.  
+5. Compile your expression.
+6. Make your regex case-insensitive.</text>
+    </prompt>  
+ 
  
  
     <!-- PROMPTS DURING TASK 4 -->
     <prompt strategy="task" id="P4a">
-     	<text>  When applying to recipe_text, does your decimal hour pattern ONLY match decimals or will it also match integer hour patterns from before?</text>
+     	<text>Hint: As with 're.findall' with integers, use a *non-capturing* group for the optional hyphen and second decimal number.</text>
     </prompt>  
+ 
  
  
     <!-- PROMPTS DURING TASK 5 -->
     <prompt strategy="task" id="P5a">
 		   <text> Hint: Your regular expression should pick up the start of each recipe. Notice that each recipe
-		(1) starts with ‘Recipe’
-		(2) followed by whitespace
-		(3) one or more digits [0-9] 
-		(4) and finally, a colon character, ‘:’
-		</text>
-    </prompt>   
-        
-     <prompt strategy="task" id="P5b">
-     	<text>Hint: What kinds of numbers appear before recipes? Do you need to match decimals for this task?
-</text>
-     	
-     </prompt>
+		(1) starts with ‘Recipe’   
+		(2) followed by whitespace   
+		(3) one or more digits (0-9)      
+		(4) and finally, a colon character, ‘:’</text>
+    </prompt>  
 
 
 
     <!-- PROMPTS DURING TASK 6 -->
     <prompt strategy="task" id="P6a">
-		   <text>Hint: You want to split at a location in the string, not at a character. The regular expression you will define with lookahead express that you split at the location BEFORE the pattern, not AT the pattern.
-		</text>
-    </prompt>   
-
+		   <text>Hints: 
+		   -- Your lookahead pattern should include the entire "Recipe #:" text string.  
+		   -- Make sure to compile your regex expression.</text>
+    </prompt>  
 
     <!-- PROMPTS DURING TASK 7 -->
     <prompt strategy="task" id="P7a">
