@@ -110,17 +110,24 @@
 		   <text>Hints: 
 		   -- Your lookahead pattern should include the entire "Recipe #:" text string.  
 		   -- Make sure to compile your regex expression.</text>
-    </prompt>  
+    </prompt>
+    
+    
 
     <!-- PROMPTS DURING TASK 7 -->
     <prompt strategy="task" id="P7a">
-		   <text>Hint: Make sure you test every way to spell a variation of “two hours” - including upper and lower case!</text>
+		   <text>Hint: Make sure you test every way to spell a variation of “two hours” - including upper and lower case variations.</text>
     </prompt>   
     
     
     <!-- PROMPTS DURING TASK 8 -->
+    
     <prompt strategy="task" id="P8a">
-		   <text> Hint: Check the text(s) after your replacement(s) - did the substitution work? Did you replace it at EVERY location you needed to replace the string at?
+		   <text>Hint: Only ONE regex function is required to do the replacement.</text>
+    </prompt>   
+    
+    <prompt strategy="task" id="P8b">
+		   <text>Hint: Check the text(s) after your replacement(s) - did the substitution work? Did you replace it at EVERY location you needed to replace the string at?
 		</text>
     </prompt>   
 
