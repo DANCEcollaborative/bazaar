@@ -6,13 +6,13 @@
 	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="WAITING_TO_START">
-        <text>Hi! I’m OPEBot. I will facilitate the student group collaboration during this activity. We’ll wait 1 minute for more teammates to join in. Meanwhile, please feel free to chat within this chat room. </text>
+        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait 1 minute for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
     </prompt> 
 
 	<!-- GREETING PROMPTS -->	
     <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->	
     <prompt strategy="task" id="INTRODUCE">
-        <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself (such as your favorite hobby or game). We will spend 1 minute on these introductions.</text>
+        <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself, such as your favorite hobby or game. We will spend 1 minute on these introductions.</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
@@ -96,11 +96,11 @@
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
-     <text>Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+     <text>Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cells. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL">
-     	<text>I'm logging off. Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+     	<text>I'm logging off. Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
     </prompt>
 
 
@@ -108,11 +108,11 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity. |||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 and 2. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity. |||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 and 2. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 and 2. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for Tasks 1 and 2. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     
@@ -120,7 +120,7 @@
         <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||Your initial roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
@@ -128,7 +128,7 @@ Recall that the Navigator brainstorms ideas and decides on which one the Driver 
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
@@ -136,22 +136,22 @@ Recall that the Navigator brainstorms ideas and decides on which one the Driver 
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary. Anyone who is unassigned will be a Researcher.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary. Anyone who is unassigned will be a Researcher.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1">
-        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2">
         <text>Your new roles are -
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3">
@@ -159,7 +159,7 @@ Recall that the Navigator brainstorms ideas and decides on which one the Driver 
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
@@ -167,7 +167,7 @@ Recall that the Navigator brainstorms ideas and decides on which one the Driver 
 [ROLE1] - [NAME1]
 [ROLE2] - [NAME2]
 [ROLE3] - [NAME3]
-Whoever doesn't have an assignment is a Researcher for this round. Recall that the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT THE CELL! If more than one person edits the cell, you could lose all of your code!</text>
+Whoever doesn't have an assignment is a Researcher for this round. Recall that the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN">

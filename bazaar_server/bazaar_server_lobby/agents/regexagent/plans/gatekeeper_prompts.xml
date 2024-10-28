@@ -97,10 +97,10 @@
     <!-- PROMPTS DURING TASK 5 -->
     <prompt strategy="task" id="P5a">
 		   <text> Hint: Your regular expression should pick up the start of each recipe. Notice that each recipe
-		(1) starts with ‘Recipe’   
-		(2) followed by whitespace   
-		(3) one or more digits (0-9)      
-		(4) and finally, a colon character, ‘:’</text>
+		(1) starts with "Recipe", 
+		(2) is followed by whitespace, 
+		(3) has one or more digits (0-9), 
+		(4) and ends with a colon character, ‘:’</text>
     </prompt>  
 
 
@@ -127,7 +127,7 @@
     </prompt>   
     
     <prompt strategy="task" id="P8b">
-		   <text>Hint: Check the text(s) after your replacement(s) - did the substitution work? Did you replace it at EVERY location you needed to replace the string at?
+		   <text>Hint: Check the text(s) after your replacement(s). Did the substitution work? Did you replace it at EVERY location you needed to replace the string at?
 		</text>
     </prompt>   
 
