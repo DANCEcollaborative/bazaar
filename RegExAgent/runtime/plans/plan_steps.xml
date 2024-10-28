@@ -53,7 +53,7 @@
     
     <stage name="Stage6" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_6" delay="5">COMMAND_6</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK5">instr5</step> 
+    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK6">PROMPT_ROLE_SWITCH_TASK6</step> 
         <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
         <step type="file_gated" timeout="720" delay="5" file="testcase-complete_6" delayed_prompt_time="20" delayed_prompt="P6a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task6</step>    	<!-- 600  -->
     </stage>  
