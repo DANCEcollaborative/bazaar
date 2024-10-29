@@ -33,11 +33,11 @@
         <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.|||Now, before we begin Task 1, please spend a minute reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
     </prompt>
        
-    <prompt strategy="task" id="PROMPT_OVERVIEW_REG" intention="program1">
+    <prompt strategy="task" id="PROMPT_OVERVIEW_ORIG" intention="program1">
         <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
        
     <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
-        <text>Now, before we begin Task 1, please spend a minute reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
+        <text>Please spend a minute reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
     </prompt> 
     
 
@@ -45,7 +45,11 @@
     </prompt>   
        
     <prompt strategy="task" id="TASK_1_READ" intention="program1">
-        <text>Before we assign roles, please carefully understand the Task 1 instructions and discuss with each other what Task 1 is looking for. We will spend 30 seconds on this.</text>
+        <text>Task 1 is now displayed. Please read the instructions carefully, make sure you understand, and discuss what Task 1 is looking for. We will spend 30 seconds on this, then we will assign roles so you can begin to implement your solution.</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="TASK_1_READ_ORIG" intention="program1">
+        <text>Task 1 is now displayed. Before we assign roles for implementing the solution, please carefully understand the Task 1 instructions and discuss with each other what Task 1 is looking for. We will spend 30 seconds on this.</text>
     </prompt> 
 
 
