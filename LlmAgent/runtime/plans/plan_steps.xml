@@ -3,6 +3,21 @@
 	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+
+   <stage name="initiate" type="other" delay="0">   -->	
+    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
+        <!-- <step type="prompt" delay="20" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>   -->
+        <!-- <step type="greet" timeout="28800" delay="0">GREETINGS</step>   -->   <!-- Increase to {120} for actual use -->
+    	<step type="prompt" delay="28800" prompt="WELCOME">Prompt_Starting</step> 
+	</stage> 
+
+ <!--    
+    <stage name="stageA" type="other" delay="0">
+        <step type="gated" gated_type="listen" timeout="28800" delay="0" checkin_prompt="">DIALOG_ONLY</step>
+    </stage>
+-->
 	
   
    	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
