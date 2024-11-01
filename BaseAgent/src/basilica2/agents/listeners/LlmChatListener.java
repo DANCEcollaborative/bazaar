@@ -106,11 +106,13 @@ public class LlmChatListener extends BasilicaAdapter
 	{
 		if (e instanceof MessageEvent)
 		{
+	        System.err.println("LlmChatListener1/2 preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
 				if (proceed) {
+			        System.err.println("LlmChatListener1/2 preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -126,11 +128,16 @@ public class LlmChatListener extends BasilicaAdapter
 	public boolean messageFilter(MessageEvent e) {
 		String message = e.getText();
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
-		if (globalActiveListenerName.equals(this.myName)) {
+        System.err.println("LlmChatListener1/2 messageFilter -- this.myName: " + this.myName);
+        System.err.println("LlmChatListener1/2 messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
+		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
+	        System.err.println("LlmChatListener1/2 messageFilter -- name match!");
 			return true;
 		} else if (globalActiveListenerName.equals("") && message.contains(this.myName)) {
+	        System.err.println("LlmChatListener1/2 messageFilter -- name match!");
 			return true;
 		}
+        System.err.println("LlmChatListener1/2 messageFilter -- NO name MATCH");
 		return false;
 	}
 	
@@ -139,9 +146,11 @@ public class LlmChatListener extends BasilicaAdapter
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+        System.err.println("LlmChatListener1/2 handleMessageEvent -- jsonPayload: " + jsonPayload);
 	    
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
+        System.err.println("LlmChatListener1/2 handleMessageEvent -- OpenAI response: " + response);
 	    if (! response.isEmpty()) {
 	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 	        source.pushEventProposal(newMe);
