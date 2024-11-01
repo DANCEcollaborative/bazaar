@@ -138,7 +138,8 @@ public class LlmChatListener extends BasilicaAdapter
 			return true;
 		}
         System.err.println("LlmChatListener1/2 messageFilter -- NO name MATCH");
-		return false;
+//		return false;
+		return true;    // TEMPORARY
 	}
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
