@@ -6,11 +6,9 @@
 
    <stage name="initiate" type="other" delay="0">   -->	
     	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
-		<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
         <!-- "delay" for a step is the delay *after* the step completes on its own.-->   
-        <!-- <step type="prompt" delay="20" prompt="GREET_AND_WAIT" >GREET_AND_WAIT</step>   -->
-        <!-- <step type="greet" timeout="28800" delay="0">GREETINGS</step>   -->   <!-- Increase to {120} for actual use -->
-    	<step type="prompt" delay="28800" prompt="WELCOME">Prompt_Starting</step> 
+    	<step type="prompt" delay="600" prompt="WELCOME">Prompt_Starting</step> 
 	</stage> 
 
  <!--    
@@ -18,18 +16,8 @@
         <step type="gated" gated_type="listen" timeout="28800" delay="0" checkin_prompt="">DIALOG_ONLY</step>
     </stage>
 -->
-	
   
-   	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
-	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
-    <!-- "delay" for a step is the delay *after* the step completes on its own.-->
-    <!-- <stage name="StageInitialization" type="other" delay="0">  -->
-     	<!-- <step type="greet" timeout="45" delay="0">GREETINGS</step> --> 
-    	<!-- <step type="prompt" delay="4" prompt="PROMPT_GREETING">PROMPT_GREETING</step>   -->
-    	<!-- <step type="prompt" delay="1" prompt="PROMPT_SESSION_TIME">PROMPT_GREETING</step> -->
-    <!-- </stage>   -->s
-  
-    <stage name="EndStage" type="other" delay="0" timeout="4920">   
+    <stage name="EndStage" type="other" delay="0" timeout="660">   
         <step type="chatlog" delay="10" >CHAT_LOGS</step>   
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
