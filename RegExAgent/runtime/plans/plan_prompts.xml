@@ -12,6 +12,10 @@
 	<!-- GREETING PROMPTS -->	
     <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->	
     <prompt strategy="task" id="INTRODUCE">
+        <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself, such as your favorite hobby or game.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="INTRODUCE_WITH_TIME">
         <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself, such as your favorite hobby or game. We will spend 1 minute on these introductions.</text>
     </prompt>
     
