@@ -35,7 +35,7 @@
     <stage name="Scenario_2" type="other" delay="0">   	
     	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>   	
         <step type="prompt" delay="5" prompt="SCENARIO_2_INTRO">SCENARIO_2_INTRO</step> 
-        <step type="match" delay="10" prompt="ROTATE2" >SCENARIO_MATCH</step>      	   	   	    
+        <step type="rotate" delay="10" prompt="ROTATE2" >SCENARIO_MATCH</step>      	   	   	    
         <step type="gated_with_hint" gated_type="listen" timeout="1200" delay="5" delayed_prompt_time="600" delayed_prompt="MILESTONE_2_HINT" checkin_prompt="NONE">MILESTONE_1</step>    
     </stage>  
     
@@ -43,7 +43,7 @@
     <stage name="Scenario_3" type="other" delay="0">   	
     	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>   	
         <step type="prompt" delay="5" prompt="SCENARIO_3_INTRO">SCENARIO_3_INTRO</step> 
-        <step type="match" delay="10" prompt="ROTATE3" >SCENARIO_MATCH</step>     	   	   	    
+        <step type="rotate" delay="10" prompt="ROTATE3" >SCENARIO_MATCH</step>     	   	   	    
         <step type="gated_with_hint" gated_type="listen" timeout="1200" delay="5" delayed_prompt_time="600" delayed_prompt="MILESTONE_3_HINT" checkin_prompt="NONE">MILESTONE_1</step>   
     </stage> 
         
