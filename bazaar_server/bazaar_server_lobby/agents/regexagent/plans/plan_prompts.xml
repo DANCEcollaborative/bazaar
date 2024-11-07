@@ -6,7 +6,7 @@
 	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="WAITING_TO_START">
-        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait 1 minute for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
+        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait one minute for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
     </prompt> 
 
 	<!-- GREETING PROMPTS -->	
@@ -24,6 +24,7 @@
         <text>Nice to meet you, [NAME].</text>
         <text>Howdy, [NAME].</text>
         <text>Hello, [NAME].</text>
+        <text>Whazup, [NAME]?</text>
     </prompt>
 
 
@@ -33,12 +34,9 @@
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
        
-    <prompt strategy="task" id="PROMPT_OVERVIEW_APPENDED" intention="program1">
-        <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.|||Now, before we begin Task 1, please spend a minute reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
-    </prompt>
-       
     <prompt strategy="task" id="PROMPT_OVERVIEW" intention="program1">
         <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
+     </prompt>
        
     <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
         <text>Please spend some time reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
@@ -46,7 +44,6 @@
     
 
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
-    </prompt>   
        
     <prompt strategy="task" id="TASK_1_READ" intention="program1">
         <text>Task 1 is now displayed. Please read the instructions carefully, make sure you understand, and discuss what Task 1 is looking for. We will spend 30 seconds on this, then we will assign roles so you can begin to implement your solution.</text>
