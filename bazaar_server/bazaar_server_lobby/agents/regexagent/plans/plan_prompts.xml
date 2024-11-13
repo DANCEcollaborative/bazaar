@@ -6,17 +6,13 @@
 	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="WAITING_TO_START">
-        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait one minute for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
+        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait 30 seconds for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
     </prompt> 
 
 	<!-- GREETING PROMPTS -->	
     <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->	
     <prompt strategy="task" id="INTRODUCE">
         <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself, such as your favorite hobby or game.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="INTRODUCE_WITH_TIME">
-        <text>Welcome to this Regex OPE activity! Let’s begin with introductions. Please tell the team your name and any interesting facts about yourself, such as your favorite hobby or game. We will spend 1 minute on these introductions.</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
@@ -35,7 +31,7 @@
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
        
     <prompt strategy="task" id="PROMPT_OVERVIEW" intention="program1">
-        <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
+        <text>Starting now, you will have approximately 70 minutes to complete this assignment and submit it. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.|||PLEASE NOTE: IT IS OKAY IF YOU DO NOT COMPLETE EVERY TASK. We want to give you plenty to do and to learn.</text>
      </prompt>
        
     <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
@@ -46,11 +42,7 @@
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
        
     <prompt strategy="task" id="TASK_1_READ" intention="program1">
-        <text>Task 1 is now displayed. Please read the instructions carefully, make sure you understand, and discuss what Task 1 is looking for. We will spend 30 seconds on this, then we will assign roles so you can begin to implement your solution.</text>
-    </prompt> 
-    
-    <prompt strategy="task" id="TASK_1_READ_ORIG" intention="program1">
-        <text>Task 1 is now displayed. Before we assign roles for implementing the solution, please carefully understand the Task 1 instructions and discuss with each other what Task 1 is looking for. We will spend 30 seconds on this.</text>
+        <text>Task 1 is now displayed. Please read the instructions carefully and discuss what you need to do. Next, we will assign roles so you can begin to implement your solution.</text>
     </prompt> 
 
 

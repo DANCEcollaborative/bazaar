@@ -7,18 +7,18 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
-    	<step type="prompt" delay="60" prompt="WAITING_TO_START">WAITING_TO_START</step>   <!-- 60  -->
+    	<step type="prompt" delay="30" prompt="WAITING_TO_START">WAITING_TO_START</step>   <!-- 30  -->
      	<step type="greet" timeout="35" delay="5">GREETINGS</step> 
     </stage>  =
     
     <stage name="Stage_Introduction" type="other" delay="0">  
-    	<step type="prompt" delay="10" prompt="PROMPT_OVERVIEW">PROMPT_OVERVIEW</step> 
-    	<step type="prompt" delay="30" prompt="BEFORE_STARTING">BEFORE_STARTING</step>
+    	<step type="prompt" delay="10" prompt="PROMPT_OVERVIEW">PROMPT_OVERVIEW</step>   <!-- 10  -->
+    	<step type="prompt" delay="20" prompt="BEFORE_STARTING">BEFORE_STARTING</step>  <!-- 20  -->
     </stage>  
     
     <stage name="Stage1" type="other" delay="0">
     	<step type="send_command" command="COMMAND_1" delay="5">COMMAND_1</step>  
-    	<step type="prompt" delay="30" prompt="TASK_1_READ">TASK_1_READ</step> 
+    	<step type="prompt" delay="10" prompt="TASK_1_READ">TASK_1_READ</step>    <!-- 10  -->
         <step type="match" delay="15" prompt="PROMPT_STEP_MATCH" >Prompt_Step_Task1_Match</step>  
         <step type="file_gated" timeout="900" delay="5" file="testcase-complete_1" delayed_prompt_time="300,600" delayed_prompt="P1a,P1b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>    	<!--  300,600  -->
     </stage>  
@@ -78,7 +78,7 @@
     	<step type="send_end" delay="2">send_end</step>  
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="5040">  
+    <stage name="EndStage" type="other" delay="0" timeout="4260">     <!-- 4260 -->
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="5" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step> 
