@@ -43,8 +43,12 @@
      	<text>It is now time to begin Milestone 1. You will have up to 25 minutes to complete this milestone.</text>
      </prompt> 
 	
-     <prompt strategy="task" id="KEYWORD">
-     	<text>If your team feels that sufficient evdience has been gathered for this milestone, you may move on to the next milestone early. To unlock the next milestone, all team members must type the special word 'ready' in the chat.</text>
+     <prompt strategy="task" id="KEYWORD_1">
+     	<text>When the time for this milestone runs out, the next milestone will automatically unlock. However, if your team finishes the current milestone (*** Milestone 1 ***) and would like to proceed to the next milestone EARLY, all team members must type the special word `ready` in the chat to unlock it.</text>
+     </prompt> 
+	
+     <prompt strategy="task" id="KEYWORD_2">
+     	<text>When the time for this milestone runs out, the next milestone will automatically unlock. However, if your team finishes the current milestone (*** Milestone 2 ***) and would like to proceed to the next milestone EARLY, all team members must type the special word `ready` in the chat to unlock it.</text>
      </prompt> 
 	
      <prompt strategy="task" id="PLANNING">
@@ -69,7 +73,7 @@
 	<!-- ENDING PROMPTS -->
 	
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
-     <text>It is time to wrap up today's activity! Your team may continue analysis and interpration later. Please run the cell in “Submit your code” to save your work and confirm that your work is uploaded to the Sail() platform.|||Thanks for participating in today's online programming exercise!|||Don't forget to run the cell in the "Submit your code" to save your team's work on the Sail() platform.</text>
+     <text>It is time to wrap up today's activity! Your team may continue analysis and interpretation later. Please run the cell in “Submit your code” to save your work and confirm that your work is uploaded to the Sail() platform.|||Thanks for participating in today's online programming exercise!|||Don't forget to run the cell in the "Submit your code" to save your team's work on the Sail() platform.</text>
     </prompt>
      
     <prompt strategy="task" id="FINAL">

@@ -27,7 +27,7 @@
     	<step type="prompt" delay="5" prompt="TAKING_TURNS">TAKING_TURNS</step>    
         <step type="prompt" delay="5" prompt="SCENARIO_1_INTRO">SCENARIO_1_INTRO</step>  
         <step type="prompt" delay="5" prompt="PLANNING">PLANNING</step>  	  
-        <step type="prompt" delay="5" prompt="KEYWORD">KEYWORD</step>  	    	   	   	    	   	   	    
+        <step type="prompt" delay="5" prompt="KEYWORD_1">KEYWORD_1</step>  	    	   	   	    	   	   	    
         <step type="gated_with_hint" gated_type="listen" timeout="1500" delay="5" delayed_prompt_time="900" delayed_prompt="MILESTONE_1_HINT" checkin_prompt="NONE">MILESTONE_1</step>        
     </stage>  
     
@@ -35,7 +35,8 @@
     <stage name="Scenario_2" type="other" delay="0">   	
     	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>   	
         <step type="prompt" delay="5" prompt="SCENARIO_2_INTRO">SCENARIO_2_INTRO</step> 
-        <step type="rotate" delay="10" prompt="ROTATE2" >SCENARIO_MATCH</step>      	   	   	    
+        <step type="rotate" delay="10" prompt="ROTATE2" >SCENARIO_MATCH</step>   	  
+        <step type="prompt" delay="5" prompt="KEYWORD_2">KEYWORD_2</step>    	   	   	    
         <step type="gated_with_hint" gated_type="listen" timeout="1200" delay="5" delayed_prompt_time="600" delayed_prompt="MILESTONE_2_HINT" checkin_prompt="NONE">MILESTONE_1</step>    
     </stage>  
     
