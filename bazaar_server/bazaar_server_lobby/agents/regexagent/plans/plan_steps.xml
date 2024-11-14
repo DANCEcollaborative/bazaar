@@ -80,7 +80,7 @@
   
     <stage name="EndStage" type="other" delay="0" timeout="3840">     <!-- 3840 -->
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
-        <step type="prompt" delay="5" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
+        <step type="prompt" delay="20" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step> 
     	<step type="send_end" delay="2">send_end</step>  
         <step type="logout" delay="0">LOGOUT</step>
