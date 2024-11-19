@@ -175,7 +175,7 @@ public class LlmTopicListener extends BasilicaAdapter
 	    }
         
 
-	    Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
+	    Logger.commonLog("LlmTopicListener", Logger.LOG_NORMAL, "LlmTopicListener, execute -- response from OpenAI: " + response); 
 	}
 
 
