@@ -125,22 +125,22 @@ public class LlmTopicListener2 extends BasilicaAdapter
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
         System.err.println("LlmTopicListener messageFilter -- this.myName: " + this.myName);
         System.err.println("LlmTopicListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
-		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
-	        System.err.println("LlmTopicListener messageFilter -- name match!");
-			return true;
-		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
-	        System.err.println("LlmTopicListener messageFilter -- name match!");
+//		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
+//	        System.err.println("LlmTopicListener messageFilter -- name match!");
+//			return true;
+//		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
+//	        System.err.println("LlmTopicListener messageFilter -- name match!");
+//			return true;
+//		} else {
+		List<String> topicWords = getTopicWords(messageText);
+		if (!topicWords.isEmpty()) {
+			System.err.println("LlmTopicListener messageFilter -- topic match!");
 			return true;
 		} else {
-			List<String> topicWords = getTopicWords(messageText);
-			if (!topicWords.isEmpty()) {
-				System.err.println("LlmTopicListener messageFilter -- topic match!");
-				return true;
-			} else {
-				System.err.println("LlmTopicListener messageFilter -- NO topic match");
-				return false;
-			}
+			System.err.println("LlmTopicListener messageFilter -- NO topic match");
+			return false;
 		}
+//		}
 	}
 	
 	public List<String> getTopicWords (String messageText) {
