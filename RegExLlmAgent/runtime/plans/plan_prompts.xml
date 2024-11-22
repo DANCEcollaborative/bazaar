@@ -109,7 +109,7 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||[NAME1], you will be the Root for this task since no one else joined in time. While you are by yourself, first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If more team members join later, their role will be Backup.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity. |||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for this task. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
