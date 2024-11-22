@@ -29,7 +29,6 @@
        <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
     </prompt>
 
-
  
     <!-- PROMPTS DURING TASK 1 -->    
     
@@ -50,7 +49,6 @@
     </prompt> 
 
 
-
     <!-- PROMPTS DURING TASK 2 -->
     <prompt strategy="task" id="P2a">
      	<text>Hint: Define a non-capturing group for the optional hyphen and second integer.</text>
@@ -68,13 +66,12 @@
     </prompt>  
     
 
-
   <!-- PROMPTS DURING TASK 3 -->
     
     <prompt strategy="task" id="P3a">
       	<text>Hint: The key components for this regex are similar to Task 1. The only difference is adding a decimal point (.) and one or more digits following each integer. The decimal point is also a metacharacter, so make sure to escape it properly.</text>
-    </prompt>  
-     
+    </prompt>   
+    
     <prompt strategy="task" id="P3b">
       	<text>Hint: Break your regex down to the key components:
 (1) Whitespace.  
@@ -86,12 +83,10 @@
     </prompt>  
  
  
- 
     <!-- PROMPTS DURING TASK 4 -->
     <prompt strategy="task" id="P4a">
      	<text>Hint: As with 're.findall' with integers, use a *non-capturing* group for the optional hyphen and second decimal number.</text>
     </prompt>  
- 
  
  
     <!-- PROMPTS DURING TASK 5 -->
@@ -114,6 +109,7 @@
     
     
 
+
     <!-- PROMPTS DURING TASK 7 -->
     <prompt strategy="task" id="P7a">
 		   <text>Hint: Make sure you test every variation of “two hours” - including number and text, upper- and lower-case.</text>
@@ -121,7 +117,6 @@
     
     
     <!-- PROMPTS DURING TASK 8 -->
-    
     <prompt strategy="task" id="P8a">
 		   <text>Hint: Only ONE regex function is required to do the replacement.</text>
     </prompt>   

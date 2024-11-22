@@ -6,7 +6,7 @@
 	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="WAITING_TO_START">
-        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait 30 seconds for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
+        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait one minute for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
     </prompt> 
 
 	<!-- GREETING PROMPTS -->	
@@ -31,7 +31,7 @@
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
        
     <prompt strategy="task" id="PROMPT_OVERVIEW" intention="program1">
-        <text>Starting now, you will have approximately 60 minutes to complete this assignment and submit it. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.|||PLEASE NOTE: IT IS OKAY IF YOU DO NOT COMPLETE EVERY TASK. We want to give you plenty to do and to learn.</text>
+        <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
      </prompt>
        
     <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
@@ -42,7 +42,7 @@
 	<!-- HINTS & DISCUSSION FOR TASK 1 -->
        
     <prompt strategy="task" id="TASK_1_READ" intention="program1">
-        <text>Task 1 is now displayed. Please read the instructions carefully and discuss what you need to do. Next, we will assign roles so you can begin to implement your solution.</text>
+        <text>Task 1 is now displayed. Please read the instructions carefully and discuss what you need to do. We will spend 30 seconds on this, then we will assign roles so you can begin to implement your solution.</text>
     </prompt> 
 
 
@@ -97,11 +97,11 @@
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
-     <text>Next, ONE TEAM MEMBER should execute the cells to submit your work.|||After submission, navigate to the "Post OPE Quiz" section of this module on Sail() to complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
+     <text>Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cells. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL">
-     	<text>It's time to wrap up.|||Next, ONE TEAM MEMBER should execute the cells to submit your work.|||After submission, navigate to the "Post OPE Quiz" section of this module on Sail() to complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
+     	<text>It's time to wrap up.|||Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
     </prompt>
 
 
@@ -113,7 +113,7 @@
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||[NAME1], you will be the Root for this task since no one else joined in time. While you are by yourself, first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If more team members join later, their role will be Backup.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+        <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||[NAME1], you will be the [ROLE1]. You are in charge of typing the code for this task. If more team members join later, first fill the Navigator role and then any additional members will be Researchers.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     
@@ -121,15 +121,15 @@
         <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||Your initial roles are -
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
-The Backup will brainstorm ideas and decide which one the Root will implement. If any team members join later, have them assume the Backup role.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
         <text>Let's assign your initial roles! Your team will rotate roles as you progress through the activity.|||Your initial roles are -
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
-[ROLE3] - [NAME3].    
-The Backups will brainstorm ideas and decide which one the Root will implement. If any team members join later, have them assume the Backup role as well.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+[ROLE3] - [NAME3].   
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
@@ -137,23 +137,22 @@ The Backups will brainstorm ideas and decide which one the Root will implement. 
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
 [ROLE3] - [NAME3].   
-[ROLE4] - [NAME4].     
-The Backups will brainstorm ideas and decide which one the Root will implement. If anyone doesn't have an assignment, or if someone joins later, they will assume the Backup role as well.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary. Anyone who is unassigned will be a Researcher.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
-        <text>[NAME1], you will be the Root for this task since no one else joined in time. While you are by yourself, first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If more team members join later, their role will be Backup.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1">
-        <text>[NAME1], you will be the Root for this task since no one else joined in time. While you are by yourself, first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If more team members join later, their role will be Backup.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2">
         <text>Your new roles are -
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
-The Backups will brainstorm ideas and decide which one the Root will implement. If any team members join later, have them assume the Backup role as well.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3">
@@ -161,31 +160,30 @@ The Backups will brainstorm ideas and decide which one the Root will implement. 
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
 [ROLE3] - [NAME3].   
-The Backups will brainstorm ideas and decide which one the Root will implement. If any team members join later, have them assume the Backup role as well.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
         <text>Your new roles are -
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
-[ROLE3] - [NAME3].    
-[ROLE4] - [NAME4].   
-The Backups will brainstorm ideas and decide which one the Root will implement. If anyone doesn't have an assignment, or if someone joins later, they will assume the Backup role as well.|||NOTE: It is very important that ONLY ONE PERSON (THE ROOT) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+[ROLE3] - [NAME3].   
+Whoever doesn't have an assignment is a Researcher for this round. Recall that the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN">
-        <text>[NAME1], you will be the Root for this round since no one else joined in time.</text>
+        <text>[NAME1], you will be the Driver for this round since no one else joined in time.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1">
-        <text>[NAME1], you will be the Root for this round since no one else joined in time.</text>
+        <text>[NAME1], you will be the Driver for this round since no one else joined in time.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2">
         <text>Your new roles are -
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
-If someone joins late, have them assume the Backup role for this round.</text>
+If someone joins late, have them assume the Researcher role for this round.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3">
@@ -200,7 +198,7 @@ If someone joins late, have them assume the Backup role for this round.</text>
 [ROLE1] - [NAME1].   
 [ROLE2] - [NAME2].   
 [ROLE3] - [NAME3].   
-Anyone who doesn't have an assignment will be a Backup for this round.</text>
+Whoever doesn't have an assignment is a Researcher for this round.</text>
     </prompt>
 
 
