@@ -2,26 +2,18 @@ package basilica2.agents.listeners;
 
 import java.io.IOException;
 
-import java.net.URLEncoder;
 import java.util.Properties;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.net.ssl.SSLContext;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import basilica2.agents.components.InputCoordinator;
-import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
-import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
-import basilica2.agents.events.priority.PriorityEvent;
-import basilica2.agents.events.priority.PriorityEvent.Callback;
-import basilica2.util.HttpUtility;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -41,7 +33,6 @@ import org.json.JSONException;
 
 import java.time.Instant;
 import java.time.Duration;
-import java.util.Scanner;
 
 public class LlmChatListener extends BasilicaAdapter
 {
@@ -60,6 +51,7 @@ public class LlmChatListener extends BasilicaAdapter
     private boolean contextFlag;
     private int contextLen;
     public String myName;
+    public List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
 
@@ -71,6 +63,13 @@ public class LlmChatListener extends BasilicaAdapter
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
 			myName = llm_prop.getProperty("name");
+			String[] topicList = properties.getProperty("topics", "").split("[\\s,]+");
+			int topicIndex = 0;
+	        for (String topic : topicList) {
+	        	topicList[topicIndex] = topic.toLowerCase();
+	        	topicIndex++;
+	        }		
+			topics = Arrays.asList(topicList);
 			model = llm_prop.getProperty("model");
 //			System.err.println(myName + " model: "+model);
 			requestURL = llm_prop.getProperty(model+".request.url");
@@ -94,10 +93,6 @@ public class LlmChatListener extends BasilicaAdapter
 			
 		}
 		catch (Exception e){}
-		
-		
-		
-		
 	}
 	
 
@@ -126,20 +121,38 @@ public class LlmChatListener extends BasilicaAdapter
 	}
 	
 	public boolean messageFilter(MessageEvent e) {
-		String message = e.getText();
+		String messageText = e.getText();
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
         System.err.println("LlmChatListener1/2 messageFilter -- this.myName: " + this.myName);
         System.err.println("LlmChatListener1/2 messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
 		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
 	        System.err.println("LlmChatListener1/2 messageFilter -- name match!");
 			return true;
-		} else if (globalActiveListenerName.equals("") && message.contains(this.myName)) {
+		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
 	        System.err.println("LlmChatListener1/2 messageFilter -- name match!");
 			return true;
 		}
-        System.err.println("LlmChatListener1/2 messageFilter -- NO name MATCH");
-//		return false;
-		return true;    // TEMPORARY
+		List<String> topicWords = getTopicWords(messageText);
+		if (!topicWords.isEmpty()) {
+			System.err.println("LlmChatListener1/2 messageFilter -- topic match!");
+			return true;
+		} else {
+			System.err.println("LlmChatListener1/2r messageFilter -- NO topic match");
+			return false;
+		}
+	}
+	
+	public List<String> getTopicWords (String messageText) {
+        List<String> foundWords = topics.stream()
+                .filter(messageText::contains)
+                .collect(Collectors.toList());
+        System.err.println("getTopicWords - messageText: " + messageText);
+        System.err.println("getTopicWords - found words: ");
+        for (String word : foundWords) {
+        	System.err.println("   " + word);
+        }
+        foundWords.forEach(System.err::println);
+        return foundWords;				
 	}
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
