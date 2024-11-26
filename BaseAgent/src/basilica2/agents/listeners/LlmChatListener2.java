@@ -128,7 +128,7 @@ public class LlmChatListener2 extends LlmChatListener
 		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
 	        System.err.println("LlmChatListener1/2 messageFilter -- name match!");
 			return true;
-		} else if (globalActiveListenerName.equals("") && message.contains(this.myName)) {
+		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
 	        System.err.println("LlmChatListener1/2 messageFilter -- name match!");
 			return true;
 		}
