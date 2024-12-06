@@ -37,11 +37,15 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(err => console.error('Error accessing microphone:', err));
     }
 
-    // Set up ZeroMQ dealer
-    const dealer = new JSMQ.Dealer();
-    // dealer.connect('ws://localhost:8080');
-    dealer.connect('wss://128.2.204.249:40001');
-    // tcp://128.2.204.249:40001
+    // // Set up ZeroMQ dealer
+    // const dealer = new JSMQ.Dealer();
+    // dealer.connect('wss://128.2.204.249:40001');
+    // // tcp://128.2.204.249:40001
+
+    const dealer = new JSMQ({ 
+        url: 'wss://128.2.204.249:40001', 
+        onMessage: function (message) 
+        { console.log('Received message:', message); } });
 
     dealer.sendReady = function() {
         // Send JSON data at startup
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         streamAudioData(dealer);
     });
 
-    dealer.onMessage = function(message) {
-        console.log('Received response:', message.popString());
-    };
+    // dealer.onMessage = function(message) {
+    //     console.log('Received response:', message.popString());
+    // };
 });
