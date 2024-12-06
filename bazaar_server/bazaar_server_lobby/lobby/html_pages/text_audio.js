@@ -47,9 +47,12 @@ document.addEventListener("DOMContentLoaded", function() {
     //     onMessage: function (message) 
     //     { console.log('Received message:', message); } });
    
+
+    // UPDATE:
+
     const dealer = new JSMQ.Socket('dealer');
 
-    dealer.connect('wss://128.2.204.249:40001');
+    dealer.connect('wss://bree.lti.cs.cmu.edu:40001');
 
 
 
