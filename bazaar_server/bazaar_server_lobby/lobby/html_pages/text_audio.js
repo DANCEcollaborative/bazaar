@@ -42,10 +42,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // dealer.connect('wss://128.2.204.249:40001');
     // // tcp://128.2.204.249:40001
 
-    const dealer = new JSMQ.Dealer({ 
-        url: 'wss://128.2.204.249:40001', 
-        onMessage: function (message) 
-        { console.log('Received message:', message); } });
+    // const dealer = new JSMQ.Dealer({ 
+    //     url: 'wss://128.2.204.249:40001', 
+    //     onMessage: function (message) 
+    //     { console.log('Received message:', message); } });
+   
+    const dealer = new JSMQ.Socket('dealer');
+
+    dealer.connect('wss://128.2.204.249:40001');
+
+
 
     dealer.sendReady = function() {
         // Send JSON data at startup
