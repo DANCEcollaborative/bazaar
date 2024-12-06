@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Set up ZeroMQ dealer
     const dealer = new JSMQ.Dealer();
     // dealer.connect('ws://localhost:8080');
-    dealer.connect('ws://128.2.204.249:40001');
+    dealer.connect('wss://128.2.204.249:40001');
     // tcp://128.2.204.249:40001
 
     dealer.sendReady = function() {
