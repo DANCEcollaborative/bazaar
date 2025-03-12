@@ -15,10 +15,6 @@
     <!-- </stage>   -->s
     
     <stage name="StageLO1" type="other" delay="0">
-    	<step type="logstate" delay="2" state_tag="agent" state_value="15619P2" send_log="false">logstate_agent-name</step> 
-    	<step type="logstate" delay="2" state_tag="state" state_value="Programming Phase of OPE" send_log="false">logstate_programming-phase</step> 
-    	<step type="logstate" delay="2" state_tag="phase_duration" state_value="80">logstate_phase-duration-1</step> 
-    	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="1">logstate_ope-iteration-1</step>  
     	<step type="prompt" delay="4" prompt="PROMPT_GREETING">PROMPT_GREETING</step>   
     	<step type="send_command" delay="5" command="COMMAND_1">COMMAND_1</step>  
     	<step type="prompt" delay="5" prompt="PROMPT_SESSION_TIME">PROMPT_SESSION_TIME</step>  
@@ -36,7 +32,6 @@
     </stage>  
     
     <stage name="StageLO2" type="other" delay="0">  
-    	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="2">logstate_ope-iteration-2</step>  
     	<step type="send_external_message" delay="5" message="task=task2-start">MESSAGE_2</step>
     	<step type="send_command" delay="5" command="COMMAND_2">COMMAND_2</step>     
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">Prompt_Role_Switch_Task2</step>  
@@ -52,7 +47,6 @@
     </stage>   
     
     <stage name="StageLO3" type="other" delay="0">  
-    	<step type="logstate" delay="2" state_tag="ope_iteration" state_value="3">logstate_ope-iteration-3</step>  
     	<step type="send_external_message" delay="5" message="task=task3-start">MESSAGE_3</step>
     	<step type="send_command" delay="5" command="COMMAND_3">COMMAND_3</step> 
     	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">Prompt_Role_Switch_Task3</step>  
@@ -71,7 +65,6 @@
     	<step type="send_external_message" delay="5" message="task=taskall-end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>    
         <step type="prompt" delay="10" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
-    	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>   
     	<step type="send_end" delay="5">send_end</step>  
     </stage> 
   
@@ -79,7 +72,6 @@
     	<step type="send_external_message" delay="5" message="task=taskall-end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="10" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
-    	<step type="logstate" delay="5" state_tag="state" state_value="OPE ITERS END" log_tag="OPE END">log_state</step>  
         <step type="chatlog" delay="10" >CHAT_LOGS</step> 
     	<step type="send_end" delay="5">send_end</step>  
         <step type="logout" delay="0">LOGOUT</step>
