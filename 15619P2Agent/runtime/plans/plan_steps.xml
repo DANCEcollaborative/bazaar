@@ -68,7 +68,7 @@
     	<step type="send_end" delay="5">send_end</step>  
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="4920">  
+    <stage name="EndStage" type="other" delay="0" timeout="6060">  
     	<step type="send_external_message" delay="5" message="task=taskall-end">MESSAGE_END</step>	    
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="10" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
