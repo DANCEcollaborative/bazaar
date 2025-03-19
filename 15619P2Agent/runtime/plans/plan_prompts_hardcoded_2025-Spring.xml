@@ -153,8 +153,12 @@
 
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
-    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION_PREVIOUS">
      <text>Thanks for participating in today's OPE activity.|||Next, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+     <text>The time allotted for each of the three tasks has passed. However, if there is more you would like to do, you may keep working until 100 minutes have passed. at which point I will tell you I am logging off.|||When you are ready, ONE TEAM MEMBER should execute the submit cell. After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE.</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL">
