@@ -32,6 +32,8 @@ services:
     volumes:
      - shared:/mysql-files
      - ./agents:/usr/bazaar/agents 
+     - ./lobby/html_pages:/usr/bazaar/lobby/html_pages
+     - ./bazaar:/usr/bazaar/bazaar
     networks:
      - bazaar-net
   front:
@@ -47,6 +49,8 @@ services:
      - shared:/mysql-files
      - ./agents:/usr/bazaar/agents
      - ./lobby:/usr/bazaar/lobby
+     - ./lobby/html_pages:/usr/bazaar/lobby/html_pages
+     - ./bazaar:/usr/bazaar/bazaar
      - ../../LightSide:/usr/bazaar/LightSide
     networks:
      - bazaar-net

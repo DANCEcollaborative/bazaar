@@ -1,0 +1,431 @@
+    body
+    {
+        font-family: Oxygen;
+        background-color:#000080;
+/*         background-color:#f1f1f1; */
+    }
+    div,input,button
+    {
+
+        font-size: 13px;
+    }
+    h2
+    {
+
+        color:#ffffff
+    }
+/* 
+    .button {
+        background-color:#fc9b14;
+        -moz-border-radius:10px;
+        -webkit-border-radius:10px;
+        border-radius:0px;
+        border:0px solid #ff8400;
+        display:inline-block;
+        cursor:pointer;
+        color:black;
+        font-family:Oxygen;
+        font-size:13px;
+        padding:5px 10px;
+        text-decoration:none;
+        margin-top:10px;
+        margin-right:10px;
+    }
+    .button:hover {
+        background-color:#ffaa00;
+    }
+    .button:active {
+        position:relative;
+        top:1px;
+    }
+    .button:disabled
+    {
+    background-color:#ccaa77;
+    color:black;
+    }
+    .button.toggled
+    {
+        background-color:#ffcc22;
+        outline: solid 2px;
+    }
+ */
+
+    input:disabled,textarea:disabled
+    {
+    background-color:#ddd;
+    }
+    
+/* 
+    .info
+    {
+        background-color:#fc9b14;
+        color:#ffffff;
+        overflow:hidden;
+        width:100%;
+        padding-left:10px;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+    
+    .image_info
+    {
+        background-color:#fc9b14;
+        color:#ffffff;
+        overflow:hidden;
+        padding-left:10px;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+ */
+    
+    .message
+    {
+        padding-left:10px;
+        padding-right:10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        float:left;
+        width:90%;
+        height:auto;
+        white-space:pre-wrap;
+    }
+    
+    .image_line
+    {
+        width:auto;
+        overflow-x:hidden;
+        background-color:#55aaee;
+    }
+    
+    .message_line
+    {
+        width:100%;
+        overflow-x:hidden;
+        background-color:#ffffff;
+    }
+    
+    .message_agent
+    {
+         background-color: #ffff66;
+         font-weight: bold;
+    }
+    
+    .blinker
+    {
+         padding-top: 8px;
+         color: orange;
+    }
+
+
+    .info a:link
+    {
+    color:#ffffff;
+    }
+
+    .info a:visited
+    {
+    color:#cccccc;
+    }
+    
+    .date
+    {
+        width:100;
+        float:right;
+    }
+    
+    .user
+    {
+        float:left;
+    }
+    
+/* 
+    .shared_image
+    {
+        height:auto;
+        width:auto;
+        overflow:hidden;
+        max-width:100%;
+    }
+ */
+    
+    .header
+    {
+        height:20px;
+        position: relative;
+        z-index:1;
+    }
+    
+    .scrollable
+    {
+        width:100%;
+    overflow-x:hidden;        
+        overflow-y:scroll;
+        
+        height: 100%;
+    }
+
+
+    .control
+    {
+        position:relative;
+        z-index:1;
+        width:100%;
+        height:100px;
+        padding-top:10px;
+    }
+    
+    .container
+    {
+        height: 100%;
+        margin-top: -40px;
+        margin-bottom: -150px;
+        margin-left: 0px;
+        margin-right:0px;
+        padding-top: 40px;
+        padding-bottom: 150px;
+        padding-left: 0px;
+        padding-right: 0px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    
+/*     #image_column */
+/*     { */
+    /*background-color:#f1f1f1*/
+/* 
+    height: 100%;
+    float: left; 
+    left:67%;
+    /*min-width: 45%;*/
+    /*max-width: 45%;*/
+/* 
+    width: 64%;
+    right: 30px;    }
+ */
+ */
+    
+/* 
+    #images
+    { 
+    }
+ */
+    
+    
+    #conversation_column
+    {
+    height: 100%;
+    float: right;
+    /*width: 54%;*/
+    width: 35%;
+    }
+    
+    
+    #conversation
+    {
+    }
+    
+    #data
+    {
+        width:100%;
+        height:60px;
+    }
+    
+    #everything
+    {
+        overflow:scroll;
+        min-height:400px;
+    }
+    
+    #image_url_input
+    {
+        width:100%;
+        height:30px;
+        margin-top:30px;
+    }
+    
+    #roomname
+    {
+        position:fixed;right:30px;
+    }
+    
+    
+
+
+    .connected, .sortable, .exclude, .handles {
+            margin: auto;
+            padding: 0;
+            width: auto;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .sortable.grid {
+            overflow: hidden;
+        }
+        .connected li, .sortable li, .exclude li, .handles li {
+            list-style: none;
+            border: 1px solid #777;
+            background: #FCFCFC;
+            font-family: "Tahoma";
+            color: #1C94C4;
+            margin: 5px;
+            padding: 5px;
+            height: 22px;
+            white-space: nowrap;
+            overflow:hidden;
+        }
+        .handles span {
+            cursor: move;
+        }
+        li.disabled {
+            opacity: 0.5;
+            background:#CCDDEE;
+            color:#777
+        }
+        .sortable.grid li {
+            line-height: 80px;
+            float: left;
+            width: 80px;
+            height: 80px;
+            text-align: left;
+        }
+        li.highlight {
+            background: #FEE25F;
+        }
+        #connected {
+            width: 100px;
+            overflow: hidden;
+            margin: auto;
+        }
+        .connected {
+            float: left;
+            width: 100px;
+        }
+        .connected.no2 {
+            float: right;
+        }
+        li.sortable-placeholder {
+            border: 1px dashed #CCC;
+            background: none;
+        }
+
+/* 
+        .chem_long
+        {
+            float:left;
+            width:150px;
+        }  
+
+        .chem_drawing
+        {
+            float:left;
+            width:150px;
+            height:75px;
+        }
+        
+        .chem_fact
+        {
+            float:left;
+            width:100px;
+        }
+
+
+        li.chem_structure
+        {       
+            background: #FCFCFC;
+            font-family: "Tahoma";
+            color: #1C94C4;
+            margin: 5px;
+            padding: 5px;
+            float:left;
+            height:75px;
+            
+            background: #FFFFFF;
+        }
+        
+        
+    .chem_box, .chem_comment, p
+    {
+        display:block;
+        clear:both;
+        padding:5px;
+        max-width:100px;
+    }
+        
+    .chem_comment
+    {
+        font-style:italic;
+        color:#555555
+    }
+    
+    .chem_notes
+    {
+        width:100px;
+        height:50px
+    }
+
+    .chem_image
+    {
+        height:auto;
+        width:auto;
+        overflow:hidden;
+        max-width:90%;
+        max-height:100%;
+    }
+    
+    .chem_text
+    {
+    background:#ffffff; 
+        padding:5px;
+    }
+    
+    
+    .chem_text h2
+    {
+        font-family: Oxygen;
+        color:#003355
+    }
+ */
+    
+    #messagebutton_div 
+    {
+         float: left;
+    }
+    
+    #conversation_text_div
+    {
+         display: none;
+         padding: 10px;
+         width: 400px;
+         height: 400px;
+         position: fixed;
+         left: 50%;
+         top: 50%;
+         margin-top: -200px;
+         margin-left: -200px;
+         background-color: white;
+         border: 2px solid black;
+         z-index: 100;
+    }
+    
+    #conversation_text_div h3 {
+         color: black;
+         width: 100%;
+    }
+    
+    #conversation_text_div button {
+         position: absolute;
+         top: 5px;
+         right: 5px;
+    }
+    
+    #conversation_text {
+         width: 100%;
+         height: 350px;
+         background-color: white;
+    }
+    
