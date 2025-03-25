@@ -1,0 +1,35 @@
+# Creating a Bazaar LLM Agent
+The easiest way to create a Bazaar LLM agent is to duplicate an existing Bazaar LLM agent and then customize it to suit your needs.  For more extensive information about creating Bazaar agents, consult other resources within the [Bazaar repository](https://github.com/DANCEcollaborative/bazaar/tree/main). For additional support, you may contact [Chas Murray](mailto:rcmurray@andrew.cmu.edu).
+
+For this quick start for creating a Bazaar LLM agent, we'll use the [RegExLLMAgent](https://github.com/DANCEcollaborative/bazaar/tree/main/RegExLlmAgent) as an example.
+
+In your local copy of the Bazaar repository, duplicate the entire *RegExLLMAgent* directory and rename it. The name must end with 'Agent' to match the naming convention for running Bazaar agents. For now, let's use the name *BazaarLLMAgent*.  
+
+## Creating LLM Agent(s)
+
+One or more *LLM agents* may be included as part of a Bazaar LLM agent. Bazaar provides default LLM agent code that may be customized: Plain-text parameters can easily be set so that each agent can employ a different LLM model, API key, name, persona, set of goals, set of topics that it listens for, temperature (variability of responses), and length of context that it considers for each query. We'll describe customizing parameters in the next section. This section is about creating LLM agents and optionally modifying their source code.
+
+Most of the default source code for any Bazaar agent is located in Bazaar's [BaseAgent directory](https://github.com/DANCEcollaborative/bazaar/tree/main/BaseAgent). Code in this directory is intended for general use so that it may be included in any agent that references it (how to do that is described below). LLM agents are *listeners* within Bazaar's architecture: They listen to the chat stream for aspects of the chat (e.g., topics, participation, tone) in which they are interested. The default LLM agent code is in the default Bazaar directory for listeners: [BaseAgent/src/basilica2/agents/listeners/](https://github.com/DANCEcollaborative/bazaar/tree/main/BaseAgent/src/basilica2/agents/listeners). Code for two LLM agent listeners is provided in this directory: [LLMChatListener.java](https://github.com/DANCEcollaborative/bazaar/blob/main/BaseAgent/src/basilica2/agents/listeners/LlmChatListener.java) and [LLMChatListener2.java](https://github.com/DANCEcollaborative/bazaar/blob/main/BaseAgent/src/basilica2/agents/listeners/LlmChatListener.java). If additional default LLM chat listeners should be desired, more copies of this code can be created -- e.g., *LlmChatListener3.java*. Below, I'll show you how to include this code for your agent, and how to add parameters to customize your LLM agent behavior. 
+
+First, however, if you want to customize the code itself (rather than just the parameters) for a particular agent (i.e., not for general use by any agent), there is a provision for customizing any Bazaar agent's code: Within the agent's directory (e.g., *BazaarLlmAgent*), create a subdirectory, *src/basilica2/myagent/*, then create an appropriate subdirectory under that. For customized *LlmChatListener.java* code, this would go in a *listeners* subdirectory, *src/basilica2/myagent/listeners/*. An example of this (for a different agent) is at this [link](https://github.com/DANCEcollaborative/bazaar/tree/main/JeopardyBigWGUAgent/src/basilica2/myagent/listeners). 
+
+To include your LLM chat listener code in your Bazaar agent, add path(s) to your listener(s) in your agent's *runtime/properties/operation.properties* file within its *operation.preprocessors* list. (Note: **not** in this file's *operation.listeners* list -- the name discrepancy is due to historical reasons.) For an example, see [RegExLlmAgent's operation.properties file](https://github.com/DANCEcollaborative/bazaar/blob/main/RegExLlmAgent/runtime/properties/operation.properties).
+
+## Customizing LLM Agent(s) Using Parameters
+
+As mentioned above, plain-text parameters can easily be set so that each LLM agent can employ a different LLM model, API key, name, persona, set of goals, set of topics that it listens for, temperature (variability of responses), and length of context that it considers for each query. Additional customizations can be created by modifying your agent's LLM chat listener code, as described above.
+
+By default, the parameters for each agent are located in the agent's *runtime/properties/* directory. For example, here is [RegExLlmAgent's properties directory](https://github.com/DANCEcollaborative/bazaar/tree/main/RegExLlmAgent/runtime/properties). Within this directory, by default, the name of the properties file associated with any of Bazaar's Java source files is the same as the name of the source file except with *.properties* rather than *.java* at the end. For example, the properties file associated with *LlmChatListener.java* is ***LlmChatListener.properties***. For LLM chat listeners, this properties file specifies all of the listener's parameters except for its API key. 
+
+Within the properties file for a default LLM chat listener, the following parameters may be specified in plain text. (Additional parameters could be created by creating customized LLM chat listener source code, as described above.)  
+*   **model**: The LLM model provider. -- e.g., *openai*. The properties file may contain parameters for more than one model, so this value specifies the substitution to use for *\<model\>* in some of the parameters below. 
+*   **name**: The name that (1) will be used to label the agent's contributions within the chat, and (2) the agent will listen for to know it is being referred to within the chat.
+*   **topics**: A list of topics to which the agent will pay special attention. 
+*  **\<model\>.request.url**: The URL for referencing the model.
+*  **\<model\>.model.name**: The particular LLM model -- e.g. gpt-3.5-turbo. 
+*  **\<model\>.temperature**: A value between 0 and 1 specifying the variability of responses: A higher temperature setting leads to more diverse and creative replies, while a lower temperature setting produces more consistent and deterministic outputs.
+*  **\<model\>.prompt.context**: A free-form description of the agent's persona, goals, and context. 
+*  **\<model\>.context.length**: The number of recent conversational turns the model considers when generating a response.
+*  **\<model\>.context.flag**: *true* or *false* to indicate whether the model considers recent conversational context.
+  
+The API key(s) that the LLM agents will use are specified in the Bazaar agent's ***runtime/properties/apiKey.properties*** file. This file currently contains parameters for API keys for OpenAI and Llama2. Note that API keys must be kept private -- e.g., do not check API key values into GitHub. Consequently, values for these keys are unspecified in the [Bazaar repository](https://github.com/DANCEcollaborative/bazaar).
