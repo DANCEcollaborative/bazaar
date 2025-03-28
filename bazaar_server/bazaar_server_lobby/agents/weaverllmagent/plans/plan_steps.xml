@@ -7,26 +7,26 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
-    	<step type="prompt" delay="5" prompt="INTRODUCTION">INTRODUCTION</step>  
+    	<step type="prompt" delay="10" prompt="INTRODUCTION">INTRODUCTION</step>  
     	<step type="prompt" delay="5" prompt="HOW_TO_QUERY_BOT">INTRODUCTION</step>   
      	<step type="greet" timeout="45" delay="5">GREETINGS</step> 
     </stage>  
     
     <stage name="Stage1" type="other" delay="0"> 
         <step type="match" delay="90" prompt="PROMPT_STEP_MATCH" >Prompt_Step_Match</step>  
-    	<step type="prompt" delay="45" prompt="ANY_ISSUES">ANY_ISSUES</step> 
-    	<step type="prompt" delay="45" prompt="THEMES">ANY_ISSUES</step> 
+    	<step type="prompt" delay="330" prompt="ANY_ISSUES">ANY_ISSUES</step> 
+    	<step type="prompt" delay="180" prompt="THEMES">ANY_ISSUES</step> 
     </stage>  
-    
+
     <stage name="Stage2" type="other" delay="0"> 
     	<step type="prompt" delay="60" prompt="SELECT_MOTIFS">SELECT_MOTIFS</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_1</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_2</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_3</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_4</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_5</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_6</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_7</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_1">STAGE_2_PROMPT_1</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_2">STAGE_2_PROMPT_2</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_3">STAGE_2_PROMPT_3</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_4">STAGE_2_PROMPT_4</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_5">STAGE_2_PROMPT_5</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_6">STAGE_2_PROMPT_6</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_7">STAGE_2_PROMPT_7</step> 
     	<step type="prompt" delay="120" prompt="STAGE_2_ENDING_PROMPT">STAGE_2_ENDING_PROMPT</step> 
     </stage>  
     
@@ -38,18 +38,22 @@
     
     <stage name="Stage4" type="other" delay="0">  
     	<step type="prompt" delay="150" prompt="CSV_TO_APPEARANCE">CSV_TO_APPEARANCE</step> 
-    	<step type="prompt" delay="150" prompt="STAGE_4_RANDOM_PROMPTS">STAGE_4_RANDOM_PROMPT_1</step> 
-    	<step type="prompt" delay="150" prompt="STAGE_4_RANDOM_PROMPTS">STAGE_4_RANDOM_PROMPT_2</step> 
-    	<step type="prompt" delay="150" prompt="STAGE_4_RANDOM_PROMPTS">STAGE_4_RANDOM_PROMPT_3</step> 
+    	<step type="prompt" delay="150" prompt="STAGE_4_PROMPT_1">STAGE_4_PROMPT_1</step> 
+    	<step type="prompt" delay="150" prompt="STAGE_4_PROMPT_2">STAGE_4_PROMPT_2</step> 
+    	<step type="prompt" delay="150" prompt="STAGE_4_PROMPT_3">STAGE_4_PROMPT_3</step> 
     </stage> 
     
     <stage name="Stage5" type="other" delay="0">   
-    	<step type="prompt" delay="60" prompt="WHAT_DO_YOU_THINK">instr5</step>   
-    	<step type="prompt" delay="60" prompt="DO_YOU_UNDERSTAND">instr5</step>   
-    	<step type="prompt" delay="120" prompt="ASK_ME">instr5</step> 
+    	<step type="prompt" delay="60" prompt="WHAT_DO_YOU_THINK">WHAT_DO_YOU_THINK</step>   
+    	<step type="prompt" delay="120" prompt="DO_YOU_UNDERSTAND">DO_YOU_UNDERSTAND</step>   
+    	<step type="prompt" delay="120" prompt="ASK_ME">ASK_ME</step> 
+    </stage> 
+    
+    <stage name="Stage6" type="other" delay="0">   
+    	<step type="prompt" delay="2640" prompt="KEEP_WORKING">KEEP_WORKING</step>   
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="4800">  
+    <stage name="EndStage" type="other" delay="0" timeout="5400">  
         <step type="prompt" delay="20" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step> 
     	<step type="send_end" delay="2">send_end</step>  

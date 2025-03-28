@@ -61,13 +61,31 @@
         <text>Now it is time to select between 2 and 3 motifs for your design. You should start with motifs in csv format from your homework, but you can adjust them as desired.  Try to pick a set that fits a theme that can be the theme of your potholder design.</text>
     </prompt>
     
-    <prompt strategy="task" id="STAGE_2_RANDOM_PROMPTS">
+    <prompt strategy="task" id="STAGE_2_PROMPT_1">
         <text>Don’t forget to consider the constraints on motifs – they need to be symmetrical and no more than 11 pixels wide altogether.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_2">
         <text>Describe what you think is tricky about making motifs that fit the constraints.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_3">
         <text>What is it about the threading of the loom that requires the motifs to be symmetrical?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_4">
         <text>What is it about the threading of the loom that restricts the width of motifs to be 11 threads wide at most?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_5">
         <text>Don’t forget you’ll need between 2 and 3 motifs that you can describe as fitting together in a theme.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_6">
         <text>Why is the length of a motif potentially unlimited but the width is not?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_7">
         <text>Don’t forget that you need to put each motif in the motif folder and update the motif database.</text>
     </prompt>
     
@@ -99,9 +117,15 @@
         <text>As you continue working on your design, let’s think about how the details in the potholder csv affect the visual appearance of the potholder.</text>
     </prompt>
     
-    <prompt strategy="task" id="STAGE_4_RANDOM_PROMPTS">
+    <prompt strategy="task" id="STAGE_4_PROMPT_1">
         <text>Is it different to set the color mode to monochrome and then invert the image or just invert the 2- color mode image?  Why or why not?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_4_PROMPT_2">
         <text>How would you design a potholder with vertical stripes both in the background color and where the motifs appear?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_4_PROMPT_3">
         <text>How would you make a solid colored potholder with no motifs showing?</text>
     </prompt>
 
@@ -123,6 +147,14 @@
 
 
 
+	<!-- HINTS & DISCUSSION FOR STAGE 6 -->
+    
+    <prompt strategy="task" id="KEEP_WORKING">
+        <text>Feel free to keep working, discussing, and asking questions. I'm here for 90 minutes.</text>
+    </prompt>
+
+
+
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
@@ -138,24 +170,24 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
     </prompt>
     
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
     </prompt>
 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
