@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+
+	<!-- GATED PROMPTS are in gatekeeper_prompts.xml -->  
+
+	<!-- GREETING PROMPTS --> 
+	
+    <prompt strategy="task" id="INTRODUCTION">
+        <text>Hi Team, I’m Weaver Lee!  Welcome to the potholder design activity.  We will explore weaving in Pique as an opportunity to make ideas from artificial intelligence and machine learning more concrete.</text>
+    </prompt> 
+    
+    <prompt strategy="task" id="HOW_TO_QUERY_BOT">
+        <text>You can ask me general questions about looms, weaving, ideas for themes, and even matrix math and how it relates to design of weaving drafts.  When you want to ask me a question, start your turn with “Weaver Lee” to get my attention, since I get distracted.</text>
+    </prompt>  
+    
+    <prompt strategy="task" id="OPEN_NOTEBOOK">
+        <text>Please open your Jupyter notebook at the following URL:|||https://colab.research.google.com/drive/1JgIn0EXlLlj8TdPCCMsNuAOJPmfJ5nhD</text>
+    </prompt> 
+    
+
+	<!-- GREETING PROMPTS -->	
+    <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->	
+    <prompt strategy="task" id="INTRODUCE">
+        <text>Please tell me your name and how you came to be interested in weaving.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="GREET">
+        <text>Hi, [NAME].</text>
+        <text>Nice to meet you, [NAME].</text>
+        <text>Howdy, [NAME].</text>
+        <text>Hello, [NAME].</text>
+        <text>Whazup, [NAME]?</text>
+    </prompt>
+
+
+	<!-- GENERAL PROMPTS -->
+ 
+
+	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+    
+
+	<!-- HINTS & DISCUSSION FOR STAGE 1 -->
+       
+    <prompt strategy="task" id="ANY_ISSUES">
+        <text>Team, do you see any issues with this motif?</text>
+     </prompt>
+     
+    <prompt strategy="task" id="THEMES">
+        <text>What themes do you see emerging?</text>
+     </prompt>
+       
+    <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
+        <text>Please spend some time reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
+    </prompt> 
+
+
+
+	<!-- HINTS & DISCUSSION FOR STAGE 2 -->
+    
+    <prompt strategy="task" id="SELECT_MOTIFS">
+        <text>Now it is time to select between 2 and 3 motifs for your design. You should start with motifs in csv format from your homework, but you can adjust them as desired.  Try to pick a set that fits a theme that can be the theme of your potholder design.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_RANDOM_PROMPTS">
+        <text>Don’t forget to consider the constraints on motifs – they need to be symmetrical and no more than 11 pixels wide altogether.</text>
+        <text>Describe what you think is tricky about making motifs that fit the constraints.</text>
+        <text>What is it about the threading of the loom that requires the motifs to be symmetrical?</text>
+        <text>What is it about the threading of the loom that restricts the width of motifs to be 11 threads wide at most?</text>
+        <text>Don’t forget you’ll need between 2 and 3 motifs that you can describe as fitting together in a theme.</text>
+        <text>Why is the length of a motif potentially unlimited but the width is not?</text>
+        <text>Don’t forget that you need to put each motif in the motif folder and update the motif database.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_ENDING_PROMPT">
+        <text>Based on your discussion, what is your set of motifs?  What is the theme?</text>
+    </prompt>
+
+
+
+	<!-- HINTS & DISCUSSION FOR STAGE 3 -->
+    
+    <prompt strategy="task" id="FIT_MOTIFS_INTO_DESIGN">
+        <text>It’s time to fit the motifs into a design. Start with each motif on a separate row of a potholder csv.  You can leave the other columns with default values to begin with. Each time you change your design, insert it into the database and view the image.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DECIDE_ROW_ARRANGEMENT">
+        <text>Decide together how you want the motifs to be arranged across rows.  For example, do you want to alternate every other row?  Or do you have a different pattern in mind?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DECIDE_MOTIF_APPEARANCE">
+        <text>Now decide how you want to adjust the appearance of the motif on each row.  For example, you could alternate the orientation of the motifs or alternate between two- color and monochrome.</text>
+    </prompt>
+
+
+
+	<!-- HINTS & DISCUSSION FOR STAGE 4 -->
+    
+    <prompt strategy="task" id="CSV_TO_APPEARANCE">
+        <text>As you continue working on your design, let’s think about how the details in the potholder csv affect the visual appearance of the potholder.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_4_RANDOM_PROMPTS">
+        <text>Is it different to set the color mode to monochrome and then invert the image or just invert the 2- color mode image?  Why or why not?</text>
+        <text>How would you design a potholder with vertical stripes both in the background color and where the motifs appear?</text>
+        <text>How would you make a solid colored potholder with no motifs showing?</text>
+    </prompt>
+
+
+
+	<!-- HINTS & DISCUSSION FOR STAGE 5 -->
+    
+    <prompt strategy="task" id="WHAT_DO_YOU_THINK">
+        <text>I hope I have been helpful.  What do you think about Generative AI?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="DO_YOU_UNDERSTAND">
+        <text>How well do you think I understand your design task?  Feel free to test me and see if you are satisfied with my answers.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="ASK_ME">
+        <text>Ask me a hard question about your design and see if I can answer it properly.  Then tell me what you think my answer reveals about my capabilities.</text>
+    </prompt>
+
+
+
+	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
+     
+    <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
+     <text>Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cells. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
+    </prompt>
+     
+    <prompt strategy="task" id="PROMPT_STEP_FINAL">
+     	<text>It's time to wrap up.|||Thanks for participating in today's OPE activity!</text>
+    </prompt>
+
+
+ 
+	<!-- ASSIGNMENT PROMPTS --> 
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH">
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+    </prompt>
+    
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+    </prompt>
+
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
+        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif by executing the function ... in a Jupyter notebook cell.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_1">
+        <text>[NAME1], you will be the Driver for this task since no one else joined in time. While you are by yourself, try to follow the responsibilities associated with all the roles -- i.e. try to first brainstorm for ideas, then analyze their pros and cons to choose one, and then implement it. If someone joins late, have them assume one of the missing roles and assist.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_2">
+        <text>Your new roles are -
+[ROLE1] - [NAME1].   
+[ROLE2] - [NAME2].   
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement. If any team members join later, have them assume the Researcher role.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_3">
+        <text>Your new roles are -
+[ROLE1] - [NAME1].   
+[ROLE2] - [NAME2].   
+[ROLE3] - [NAME3].   
+Recall that the Navigator brainstorms ideas and decides on which one the Driver will implement, and the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY_MAX_ALL">
+        <text>Your new roles are -
+[ROLE1] - [NAME1].   
+[ROLE2] - [NAME2].   
+[ROLE3] - [NAME3].   
+Whoever doesn't have an assignment is a Researcher for this round. Recall that the Researcher refers to resources like the primer as necessary.|||NOTE: It is very important that ONLY ONE PERSON (THE DRIVER) EDIT CELLS! If more than one person edits a cell, you could lose all of your code!</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN">
+        <text>[NAME1], you will be the Driver for this round since no one else joined in time.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_1">
+        <text>[NAME1], you will be the Driver for this round since no one else joined in time.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_2">
+        <text>Your new roles are -
+[ROLE1] - [NAME1].   
+[ROLE2] - [NAME2].   
+If someone joins late, have them assume the Researcher role for this round.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_3">
+        <text>Your new roles are -
+[ROLE1] - [NAME1].   
+[ROLE2] - [NAME2].   
+[ROLE3] - [NAME3]</text>
+    </prompt>
+    
+    <prompt strategy="task" id="PROMPT_STEP_ROTATE_PLAIN_MAX_ALL">
+        <text>Your new roles are -
+[ROLE1] - [NAME1].   
+[ROLE2] - [NAME2].   
+[ROLE3] - [NAME3].   
+Whoever doesn't have an assignment is a Researcher for this round.</text>
+    </prompt>
+
+
+</prompts>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="RegExAgent Plan">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+   	<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
+    <!-- "delay" for a step is the delay *after* the step completes on its own.-->
+    <stage name="StageInitialization" type="other" delay="0">  
+    	<step type="prompt" delay="5" prompt="INTRODUCTION">INTRODUCTION</step>  
+    	<step type="prompt" delay="5" prompt="HOW_TO_QUERY_BOT">INTRODUCTION</step>   
+     	<step type="greet" timeout="45" delay="5">GREETINGS</step> 
+    </stage>  
+    
+    <stage name="Stage1" type="other" delay="0"> 
+    	<step type="prompt" delay="30" prompt="OPEN_NOTEBOOK">OPEN_NOTEBOOK</step>   
+        <step type="match" delay="90" prompt="PROMPT_STEP_MATCH" >Prompt_Step_Match</step>  
+    	<step type="prompt" delay="45" prompt="ANY_ISSUES">ANY_ISSUES</step> 
+    	<step type="prompt" delay="45" prompt="THEMES">ANY_ISSUES</step> 
+    </stage>  
+    
+    <stage name="Stage2" type="other" delay="0"> 
+    	<step type="prompt" delay="60" prompt="SELECT_MOTIFS">SELECT_MOTIFS</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_1</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_2</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_3</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_4</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_5</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_6</step> 
+    	<step type="prompt" delay="60" prompt="STAGE_2_RANDOM_PROMPTS">STAGE_2_RANDOM_PROMPT_7</step> 
+    	<step type="prompt" delay="120" prompt="STAGE_2_ENDING_PROMPT">STAGE_2_ENDING_PROMPT</step> 
+    </stage>  
+    
+    <stage name="Stage3" type="other" delay="0"> 
+    	<step type="prompt" delay="10" prompt="FIT_MOTIFS_INTO_DESIGN">FIT_MOTIFS_INTO_DESIGN</step> 
+    	<step type="prompt" delay="230" prompt="DECIDE_ROW_ARRANGEMENT">DECIDE_ROW_ARRANGEMENT</step> 
+    	<step type="prompt" delay="360" prompt="DECIDE_MOTIF_APPEARANCE">DECIDE_MOTIF_APPEARANCE</step> 
+    </stage>  
+    
+    <stage name="Stage4" type="other" delay="0">  
+    	<step type="prompt" delay="150" prompt="CSV_TO_APPEARANCE">CSV_TO_APPEARANCE</step> 
+    	<step type="prompt" delay="150" prompt="STAGE_4_RANDOM_PROMPTS">STAGE_4_RANDOM_PROMPT_1</step> 
+    	<step type="prompt" delay="150" prompt="STAGE_4_RANDOM_PROMPTS">STAGE_4_RANDOM_PROMPT_2</step> 
+    	<step type="prompt" delay="150" prompt="STAGE_4_RANDOM_PROMPTS">STAGE_4_RANDOM_PROMPT_3</step> 
+    </stage> 
+    
+    <stage name="Stage5" type="other" delay="0">   
+    	<step type="prompt" delay="60" prompt="WHAT_DO_YOU_THINK">instr5</step>   
+    	<step type="prompt" delay="60" prompt="DO_YOU_UNDERSTAND">instr5</step>   
+    	<step type="prompt" delay="120" prompt="ASK_ME">instr5</step> 
+    </stage> 
+  
+    <stage name="EndStage" type="other" delay="0" timeout="4800">  
+        <step type="prompt" delay="20" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
+        <step type="chatlog" delay="2" >CHAT_LOGS</step> 
+    	<step type="send_end" delay="2">send_end</step>  
+        <step type="logout" delay="0">LOGOUT</step>
+    </stage>
+    
+</plan>
