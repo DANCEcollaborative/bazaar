@@ -13,7 +13,6 @@
     </stage>  
     
     <stage name="Stage1" type="other" delay="0"> 
-    	<step type="prompt" delay="30" prompt="OPEN_NOTEBOOK">OPEN_NOTEBOOK</step>   
         <step type="match" delay="90" prompt="PROMPT_STEP_MATCH" >Prompt_Step_Match</step>  
     	<step type="prompt" delay="45" prompt="ANY_ISSUES">ANY_ISSUES</step> 
     	<step type="prompt" delay="45" prompt="THEMES">ANY_ISSUES</step> 
