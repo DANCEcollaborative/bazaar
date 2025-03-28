@@ -39,6 +39,8 @@ services:
      - shared:/mysql-files
      - ./agents:/usr/bazaar/agents
      - ../../LightSide:/usr/bazaar/LightSide
+     - ./lobby/html_pages:/usr/bazaar/lobby/html_pages
+     - ./bazaar:/usr/bazaar/bazaar
     networks:
     - bazaar-net
 networks:
