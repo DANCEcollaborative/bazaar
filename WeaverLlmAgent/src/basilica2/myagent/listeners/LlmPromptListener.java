@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import java.io.FileReader;
 
 import javax.net.ssl.SSLContext;
+import java.util.stream.Collectors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,10 +121,6 @@ public class LlmPromptListener extends BasilicaAdapter
 			
 		}
 		catch (Exception e){}
-		
-		
-		
-		
 	}
 	
 
@@ -132,14 +129,17 @@ public class LlmPromptListener extends BasilicaAdapter
 	{
 		if (e instanceof MessageEvent)
 		{
+	        System.err.println("LlmPromptListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
-				boolean sendInstruction = instructionFilter((MessageEvent) e);
-				if (sendInstruction) {
-					sendInstruction(source);
-				}else if (proceed) {
+// 				boolean sendInstruction = instructionFilter((MessageEvent) e);
+// 				if (sendInstruction) {
+// 					sendInstruction(source);
+// 				}else if (proceed) {
+				if (proceed) {
+			        System.err.println("LlmPromptListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -197,15 +197,15 @@ public class LlmPromptListener extends BasilicaAdapter
         String prompt = me.getText().substring("Weaver Lee".length()).trim(); // Get the prompt after "Weaver Lee"
         String sender = me.getFrom();
         String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+        System.err.println("LlmPromptListener handleMessageEvent -- jsonPayload: " + jsonPayload);
 
         String response = sendToOpenAI(source, jsonPayload, false);
+        System.err.println("LlmPromptListener handleMessageEvent -- OpenAI response: " + response);
         if (!response.isEmpty()) {
             MessageEvent newMe = new MessageEvent(source, this.myName, response);
             source.pushEventProposal(newMe);
         }
-
-        Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response);
-    }
+	}
 
 
 	public String sendToOpenAI(InputCoordinator source, String jsonPayload, Boolean fromSystem) {
@@ -260,11 +260,20 @@ public class LlmPromptListener extends BasilicaAdapter
 				            // Extract the text from the first choice
 				            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
 				            responseText = responseMessage.getString("content");
+				            String[] parseResponse = responseText.split(": ");
+				            responseText = parseResponse[parseResponse.length - 1];
 				            System.out.println("Extracted Response Text: " + responseText);
 				            
 //				            State s = State.copy(StateMemory.getSharedState(agent));
 //		                    s.setGlobalActiveListener("");
 //		                    StateMemory.commitSharedState(s, agent);
+				            State s = State.copy(StateMemory.getSharedState(agent));
+			            	if  (responseText.contains("?")) {
+				    	        s.setGlobalActiveListener(this.myName);
+				    	    } else {
+				            	s.setGlobalActiveListener("");
+				            }
+				            StateMemory.commitSharedState(s, agent);
 				            return responseText;
 				        }
 //			        } else if (this.model.equals("llama2")) {
@@ -416,9 +425,113 @@ public class LlmPromptListener extends BasilicaAdapter
 	    
 	}
 	
+	public void sendActivePromptToOpenAI(InputCoordinator source) {
+	    // Prepare the prompt based on the received message
+	    String jsonPayload = constructPayloadMultiParty(source, null, null);
+	    
+	    // Sending the message to OpenAI and receiving the response
+	    String response = sendToOpenAI(source, jsonPayload, true);
+	    if (! response.isEmpty() ) {
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	        source.pushEventProposal(newMe);
+	    }
+	}
 	
-	public JSONArray getAllMessages(InputCoordinator source, String prompt, String promptSender) {
-		JSONArray messages = new JSONArray();
+	public String getAllMessages(InputCoordinator source, String prompt, String promptSender) {
+		String allMessages = "Conversation in the chatroom:\n\n";
+	    try {
+ 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
+		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+		    for (int i = 0; i < chatHistory.length(); i++) {
+	            JSONObject originalMessage = chatHistory.getJSONObject(i);
+//		            JSONObject reformattedMessage = new JSONObject();
+
+	            // Determine the role based on the "sender" field
+	             // Default role
+	            String content = originalMessage.getString("content");
+	            String sender = originalMessage.getString("sender");
+	            String currentMessage = sender + ": " + content + "\n";
+	            allMessages += currentMessage;
+	        }
+
+	    } catch(Exception e) {};
+	    
+	    if (prompt != null && promptSender != null) {
+	    	allMessages += promptSender + ": " + prompt + "\n";
+	    }
+	    return allMessages;
+	}
+	
+	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
+		JSONObject payload = new JSONObject();
+		if (model.equals("openai")) {
+			
+		    try {
+				payload.put("model", this.modelName);
+				payload.put("temperature", this.temperature);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    JSONArray messages = new JSONArray();
+
+		    // Add the fixed context as the first message
+		    JSONObject fixedContextMessage = new JSONObject();
+		    try {
+				fixedContextMessage.put("role", "system");
+				fixedContextMessage.put("content", this.context);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    messages.put(fixedContextMessage);
+		    
+		    JSONObject allPromptMessage = new JSONObject();
+		    
+		    String allMessages = getAllMessages(source, prompt, promptSender);
+
+		    
+		    try {
+				allPromptMessage.put("role", "user");
+				allPromptMessage.put("content", allMessages);
+				messages.put(allPromptMessage);
+				payload.put("messages", messages);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			    
+		} else if (model.equals("llama2")) {
+			
+			JSONObject input = new JSONObject();
+			
+			try {
+				String allMessages = getAllMessages(source, prompt, promptSender);
+				input.put("max_new_tokens", 500);
+				input.put("top_p", 1);
+				input.put("top_k", 0);
+				input.put("temperature", 0.7);
+				input.put("prompt", allMessages);
+				input.put("system_prompt", this.context);
+				input.put("prompt_template", "<s>[INST] <<SYS>>\\n{system_prompt}\\n<</SYS>>\\n\\n{prompt} [/INST]");
+				input.put("max_new_tokens", 256);
+				input.put("min_new_tokens", 1);
+				
+//				payload.put("stream", true);
+				payload.put("input", input);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		    
+		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
+	    return payload.toString();
+	}
+	
+//	public JSONArray getAllMessages(InputCoordinator source, String prompt, String promptSender) {
+//		JSONArray messages = new JSONArray();
 //	    try {
 // 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
 //		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
@@ -444,37 +557,37 @@ public class LlmPromptListener extends BasilicaAdapter
 //            e.printStackTrace();
 //        }
 //	    
-	    if (prompt != null && promptSender != null) {
-            JSONObject promptMessage = new JSONObject();
-            try {
-				promptMessage.put("role", "user");
-				promptMessage.put("content", prompt);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            
-            messages.put(promptMessage);
-        }
-
-        return messages;
-	}
+//	    if (prompt != null && promptSender != null) {
+//            JSONObject promptMessage = new JSONObject();
+//            try {
+//				promptMessage.put("role", "user");
+//				promptMessage.put("content", prompt);
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//            
+//            messages.put(promptMessage);
+//        }
+//
+//        return messages;
+//	}
 	
-	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
-        JSONObject payload = new JSONObject();
-        try {
-            payload.put("model", this.modelName);
-            payload.put("temperature", this.temperature);
-
-            JSONArray messages = getAllMessages(source, prompt, promptSender);
-
-            payload.put("messages", messages);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        System.err.println("INPUT PAYLOAD: " + payload.toString());
-        return payload.toString();
-	}
+//	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
+//        JSONObject payload = new JSONObject();
+//        try {
+//            payload.put("model", this.modelName);
+//            payload.put("temperature", this.temperature);
+//
+//            JSONArray messages = getAllMessages(source, prompt, promptSender);
+//
+//            payload.put("messages", messages);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        System.err.println("INPUT PAYLOAD: " + payload.toString());
+//        return payload.toString();
+//	}
 
 
 	
