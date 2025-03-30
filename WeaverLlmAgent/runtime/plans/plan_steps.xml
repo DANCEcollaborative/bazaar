@@ -19,21 +19,24 @@
     </stage>  
 
     <stage name="Stage2" type="other" delay="0"> 
-    	<step type="prompt" delay="60" prompt="SELECT_MOTIFS">SELECT_MOTIFS</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_1">STAGE_2_PROMPT_1</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_2">STAGE_2_PROMPT_2</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_3">STAGE_2_PROMPT_3</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_4">STAGE_2_PROMPT_4</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_5">STAGE_2_PROMPT_5</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_6">STAGE_2_PROMPT_6</step> 
-    	<step type="prompt" delay="60" prompt="STAGE_2_PROMPT_7">STAGE_2_PROMPT_7</step> 
+    	<step type="prompt" delay="10" prompt="SELECT_MOTIFS">SELECT_MOTIFS</step> 
+     	<step type="prompt" delay="46" prompt="STAGE_2_PROMPT_1">STAGE_2_PROMPT_1</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_2">STAGE_2_PROMPT_2</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_3">STAGE_2_PROMPT_3</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_4">STAGE_2_PROMPT_4</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_5">STAGE_2_PROMPT_5</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_6">STAGE_2_PROMPT_6</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_7">STAGE_2_PROMPT_7</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_8">STAGE_2_PROMPT_8</step> 
+    	<step type="prompt" delay="53" prompt="STAGE_2_PROMPT_9">STAGE_2_PROMPT_9</step> 
     	<step type="prompt" delay="120" prompt="STAGE_2_ENDING_PROMPT">STAGE_2_ENDING_PROMPT</step> 
     </stage>  
     
     <stage name="Stage3" type="other" delay="0"> 
     	<step type="prompt" delay="10" prompt="FIT_MOTIFS_INTO_DESIGN">FIT_MOTIFS_INTO_DESIGN</step> 
-    	<step type="prompt" delay="230" prompt="DECIDE_ROW_ARRANGEMENT">DECIDE_ROW_ARRANGEMENT</step> 
-    	<step type="prompt" delay="360" prompt="DECIDE_MOTIF_APPEARANCE">DECIDE_MOTIF_APPEARANCE</step> 
+    	<step type="prompt" delay="145" prompt="DECIDE_ROW_ARRANGEMENT">DECIDE_ROW_ARRANGEMENT</step> 
+    	<step type="prompt" delay="145" prompt="DECIDE_MOTIF_APPEARANCE">DECIDE_MOTIF_APPEARANCE</step>  
+    	<step type="prompt" delay="300" prompt="MOTIF_ORIENTATION">DECIDE_MOTIF_APPEARANCE</step> 
     </stage>  
     
     <stage name="Stage4" type="other" delay="0">  
@@ -44,13 +47,14 @@
     </stage> 
     
     <stage name="Stage5" type="other" delay="0">   
-    	<step type="prompt" delay="60" prompt="WHAT_DO_YOU_THINK">WHAT_DO_YOU_THINK</step>   
-    	<step type="prompt" delay="120" prompt="DO_YOU_UNDERSTAND">DO_YOU_UNDERSTAND</step>   
-    	<step type="prompt" delay="120" prompt="ASK_ME">ASK_ME</step> 
+    	<step type="prompt" delay="150" prompt="MOTIF_ASSUMPTION">MOTIF_ASSUMPTION</step>    
+    	<step type="prompt" delay="150" prompt="WHAT_DO_YOU_THINK">WHAT_DO_YOU_THINK</step>   
+    	<step type="prompt" delay="150" prompt="DO_I_UNDERSTAND">DO_YOU_UNDERSTAND</step>   
+    	<step type="prompt" delay="150" prompt="ASK_ME">ASK_ME</step> 
     </stage> 
     
     <stage name="Stage6" type="other" delay="0">   
-    	<step type="prompt" delay="2640" prompt="KEEP_WORKING">KEEP_WORKING</step>   
+    	<step type="prompt" delay="2340" prompt="KEEP_WORKING">KEEP_WORKING</step>   
     </stage> 
   
     <stage name="EndStage" type="other" delay="0" timeout="5400">  

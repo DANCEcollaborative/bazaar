@@ -10,18 +10,14 @@
     </prompt> 
     
     <prompt strategy="task" id="HOW_TO_QUERY_BOT">
-        <text>You can ask me general questions about looms, weaving, ideas for themes, and even matrix math and how it relates to design of weaving drafts.  When you want to ask me a question, start your turn with “Weaver Lee” to get my attention, since I get distracted.</text>
+        <text>You can ask me general questions about looms, weaving, ideas for themes, and even matrix math and how it relates to design of weaving drafts.  When you want to ask me a question, start your turn with “Weaver Lee” to get my attention since I get distracted.</text>
     </prompt>  
-    
-    <prompt strategy="task" id="OPEN_NOTEBOOK">
-        <text>Please open your Jupyter notebook at the following URL:|||https://colab.research.google.com/drive/1JgIn0EXlLlj8TdPCCMsNuAOJPmfJ5nhD</text>
-    </prompt> 
     
 
 	<!-- GREETING PROMPTS -->	
     <!-- The INTRODUCE prompt is used automatically for 'greet' steps   -->	
     <prompt strategy="task" id="INTRODUCE">
-        <text>Please tell me your name and how you came to be interested in weaving.</text>
+        <text>Please tell me your name and something about yourself, like maybe how you came to be interested in weaving.</text>
     </prompt>
     
     <prompt strategy="task" id="GREET">
@@ -30,6 +26,8 @@
         <text>Howdy, [NAME].</text>
         <text>Hello, [NAME].</text>
         <text>Whazup, [NAME]?</text>
+        <text>Hey, [NAME]!</text>
+        <text>What's shakin', [NAME]! Got any new threads?</text>
     </prompt>
 
 
@@ -48,44 +46,48 @@
     <prompt strategy="task" id="THEMES">
         <text>What themes do you see emerging?</text>
      </prompt>
-       
-    <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
-        <text>Please spend some time reading the assignment introduction and the Regex cheat sheet, then execute the first two notebook cells.</text>
-    </prompt> 
 
 
 
 	<!-- HINTS & DISCUSSION FOR STAGE 2 -->
     
     <prompt strategy="task" id="SELECT_MOTIFS">
-        <text>Now it is time to select between 2 and 3 motifs for your design. You should start with motifs in csv format from your homework, but you can adjust them as desired.  Try to pick a set that fits a theme that can be the theme of your potholder design.</text>
+        <text>Now it is time to select between 2 and 3 motifs for your design. You should start with motifs in csv format from your homework, but you can adjust them as desired. Try to pick a set that fits a theme that can be the theme of your potholder design.</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_1">
-        <text>Don’t forget to consider the constraints on motifs – they need to be symmetrical and no more than 11 pixels wide altogether.</text>
+        <text>Who wants to suggest a motif?</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_2">
-        <text>Describe what you think is tricky about making motifs that fit the constraints.</text>
+        <text>Don’t forget to consider the constraints on motifs – they need to be symmetrical and no more than 11 pixels wide altogether.</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_3">
-        <text>What is it about the threading of the loom that requires the motifs to be symmetrical?</text>
+        <text>Describe what you think is tricky about making motifs that fit the constraints.</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_4">
-        <text>What is it about the threading of the loom that restricts the width of motifs to be 11 threads wide at most?</text>
+        <text>Try making a motif that breaks a constraint and then look at what the preview shows. That illustrates what happens when data violates assumptions machine learning models make about the world.</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_5">
-        <text>Don’t forget you’ll need between 2 and 3 motifs that you can describe as fitting together in a theme.</text>
+        <text>What is it about the threading of the loom that requires the motifs to be symmetrical?</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_6">
-        <text>Why is the length of a motif potentially unlimited but the width is not?</text>
+        <text>What is it about the threading of the loom that restricts the width of motifs to be 11 threads wide at most?</text>
     </prompt>
     
     <prompt strategy="task" id="STAGE_2_PROMPT_7">
+        <text>Don’t forget you’ll need between 2 and 3 motifs that you can describe as fitting together in a theme.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_8">
+        <text>Why is the length of a motif potentially unlimited but the width is not?</text>
+    </prompt>
+    
+    <prompt strategy="task" id="STAGE_2_PROMPT_9">
         <text>Don’t forget that you need to put each motif in the motif folder and update the motif database.</text>
     </prompt>
     
@@ -98,7 +100,7 @@
 	<!-- HINTS & DISCUSSION FOR STAGE 3 -->
     
     <prompt strategy="task" id="FIT_MOTIFS_INTO_DESIGN">
-        <text>It’s time to fit the motifs into a design. Start with each motif on a separate row of a potholder csv.  You can leave the other columns with default values to begin with. Each time you change your design, insert it into the database and view the image.</text>
+        <text>It’s time to fit the motifs into a design. Start with each motif on a separate row of a potholder csv. You can leave the other columns with default values to begin with. Each time you change your design, insert it into the database and view the image.</text>
     </prompt>
     
     <prompt strategy="task" id="DECIDE_ROW_ARRANGEMENT">
@@ -107,6 +109,10 @@
     
     <prompt strategy="task" id="DECIDE_MOTIF_APPEARANCE">
         <text>Now decide how you want to adjust the appearance of the motif on each row.  For example, you could alternate the orientation of the motifs or alternate between two- color and monochrome.</text>
+    </prompt>
+    
+    <prompt strategy="task" id="MOTIF_ORIENTATION">
+        <text>You can easily change the orientation of motifs between rows. Can you see why alternating orientation within rows is harder? This illustrates a challenge of machine learning models to understand the world since what looks similar based on surface form does not always correspond to the same inner workings of the world.</text>
     </prompt>
 
 
@@ -133,11 +139,15 @@
 
 	<!-- HINTS & DISCUSSION FOR STAGE 5 -->
     
+    <prompt strategy="task" id="MOTIF_ASSUMPTION">
+        <text>Something about my current setup makes the assumption that you never want the orientation of motifs to vary across columns of the potholder. If I saw a potholder in the world where this was not true, my image of it would enforce the assumption I made. What do you think such a potholder would look like to me based on your experience with motifs?</text>
+    </prompt>
+    
     <prompt strategy="task" id="WHAT_DO_YOU_THINK">
         <text>I hope I have been helpful.  What do you think about Generative AI?</text>
     </prompt>
     
-    <prompt strategy="task" id="DO_YOU_UNDERSTAND">
+    <prompt strategy="task" id="DO_I_UNDERSTAND">
         <text>How well do you think I understand your design task?  Feel free to test me and see if you are satisfied with my answers.</text>
     </prompt>
     
@@ -150,9 +160,8 @@
 	<!-- HINTS & DISCUSSION FOR STAGE 6 -->
     
     <prompt strategy="task" id="KEEP_WORKING">
-        <text>Feel free to keep working, discussing, and asking questions. I'm here for 90 minutes.</text>
+        <text>Hey team, you seem to be well engaged and so I'm going to quiet down for a bit. I'm still available if you need me, however -- just summon me by saying my name at the beginning of your prompt.|||Don't forget to turn in your files when you're done!</text>
     </prompt>
-
 
 
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
