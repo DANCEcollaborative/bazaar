@@ -5,8 +5,12 @@
 
 	<!-- GREETING PROMPTS --> 
 	
+    <prompt strategy="task" id="WAITING_TO_START">
+        <text>Hi! I'm Weaver Lee. I'll facilitate this activity. We’ll wait one minute in case anyone else joins in. Meanwhile, please feel free to chat within this chat space. </text>
+    </prompt> 
+	
     <prompt strategy="task" id="INTRODUCTION">
-        <text>Hi Team, I’m Weaver Lee!  Welcome to the potholder design activity.  We will explore weaving in Pique as an opportunity to make ideas from artificial intelligence and machine learning more concrete.|||Please make sure you each have your Colab up and ready.</text>
+        <text>Hi (again) Team, I’m Weaver Lee!  Welcome to the potholder design activity.  We will explore weaving in Pique as an opportunity to make ideas from artificial intelligence and machine learning more concrete.|||Please make sure you each have your Colab up and ready.</text>
     </prompt> 
     
     <prompt strategy="task" id="HOW_TO_QUERY_BOT">

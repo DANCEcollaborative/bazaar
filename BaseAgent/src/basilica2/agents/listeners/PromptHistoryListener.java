@@ -61,6 +61,8 @@ public class PromptHistoryListener extends BasilicaAdapter
     private String lastListenerSender = null;
     private String lastSender = null;
     private int listenerSenderCount = -1;
+    public int numMsgsSinceLastRetrieval = 0; 
+	public int numMsgsToRetrieve; 
 
 	
 	public PromptHistoryListener(Agent a)
@@ -177,9 +179,9 @@ public class PromptHistoryListener extends BasilicaAdapter
 			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formattedDate = dateFormat.format(System.currentTimeMillis());
-		    messageJson.put("timestamp", formattedDate);
-		    
+		    messageJson.put("timestamp", formattedDate);		    
 		    messageJson.put("content", content);
+		    numMsgsSinceLastRetrieval += 1; 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -196,6 +198,15 @@ public class PromptHistoryListener extends BasilicaAdapter
 
 
 	public JSONArray retrieveChatHistory(int numberOfMessages) {
+		if (numberOfMessages > numMsgsSinceLastRetrieval) {
+			numMsgsToRetrieve = numMsgsSinceLastRetrieval;
+		} else {
+			numMsgsToRetrieve = numberOfMessages; 
+		}
+		
+		System.err.println("\n\nPromptHistoryListener: numMsgsToRetrieve: " + Integer.toString(numMsgsToRetrieve) + "\n\n");
+		
+		
 		JSONArray messages = new JSONArray();
 		
 //		System.err.println("\nPromptHistoryListener, numberOfMessages: " +  String.valueOf(numberOfMessages));
@@ -205,7 +216,7 @@ public class PromptHistoryListener extends BasilicaAdapter
 	        List<String> lines = Files.readAllLines(Paths.get(path));
 
 	        // Get the last N lines from the list
-	        int start = Math.max(0, lines.size() - numberOfMessages);
+	        int start = Math.max(0, lines.size() - numMsgsToRetrieve);
 	        List<String> lastNLines = lines.subList(start, lines.size());
 
 	        // Convert each line into a JSON object and add it to the JSONArray
@@ -224,6 +235,7 @@ public class PromptHistoryListener extends BasilicaAdapter
 	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error reading from chat history file: " + e.getMessage());
 	    }
 //	    System.err.println("PromptHisoryListener retrieved chat history: " + messages.toString());
+	    numMsgsSinceLastRetrieval = 0; 
 	    return messages;
 	}
 

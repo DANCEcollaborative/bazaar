@@ -7,6 +7,7 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
+    	<step type="prompt" delay="60" prompt="WAITING_TO_START">WAITING_TO_START</step> 
     	<step type="prompt" delay="10" prompt="INTRODUCTION">INTRODUCTION</step>  
     	<step type="prompt" delay="5" prompt="HOW_TO_QUERY_BOT">INTRODUCTION</step>   
      	<step type="greet" timeout="45" delay="5">GREETINGS</step> 
