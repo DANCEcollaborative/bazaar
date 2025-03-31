@@ -14,7 +14,7 @@
     </prompt> 
 	
     <prompt strategy="task" id="SEPARATE_WINDOW">
-        <text>Put this chat in a separate (narrow) window so you can see the Colab and the chat at the same time.</text>
+        <text>Put this chat in a separate (narrow) window so you can see the Colab and the chat at the same time.|||*** Communicate with each other in this chat rather than over Zoom. ***</text>
     </prompt> 
     
     <prompt strategy="task" id="HOW_TO_QUERY_BOT">
@@ -45,10 +45,31 @@
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
     
 
+	<!-- HINTS & DISCUSSION FOR STAGE 0 -->
+       
+    <prompt strategy="task" id="WHO_HAS_GOOD_COLAB">
+        <text>Who has their Colab running well *today*? (Note that a Colab left over from yesterday will need to be re-initialized with the files re-loaded.)</text>
+     </prompt>
+       
+    <prompt strategy="task" id="CHOOSE_ONE_COLAB">
+        <text>For this activity, one of you will run the Colab notebook and share their screen while the others share their files over email. Decide amongst yourselves who will run the Colab notebook.</text>
+     </prompt>
+       
+    <prompt strategy="task" id="SHARE_FILES">
+        <text>Team, share your motif files with the teammate you have chosen to run the notebook. You can reply-all to the 'Share your files' email you should have received by now, attaching your files.</text>
+     </prompt>
+    
+    
+    
+
 	<!-- HINTS & DISCUSSION FOR STAGE 1 -->
        
     <prompt strategy="task" id="ANY_ISSUES">
         <text>Team, do you see any issues with this motif?</text>
+     </prompt>
+     
+    <prompt strategy="task" id="LOAD_OTHER_MOTIFS">
+        <text>Load the other motifs created by your team members, one at a time, and discuss each in turn.</text>
      </prompt>
      
     <prompt strategy="task" id="THEMES">
@@ -187,24 +208,23 @@
 	<!-- ASSIGNMENT PROMPTS --> 
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
+        <text>Next, display [NAME1]'s motif. [NAME1], describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show the motif using the Colab utilities, and you can also share it in the Zoom session.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_1">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
+        <text>Next, display [NAME1]'s motif. [NAME1], describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show the motif using the Colab utilities, and you can also share it in the Zoom session.</text>
     </prompt>
     
-    
     <prompt strategy="task" id="PROMPT_STEP_MATCH_2">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
+        <text>Next, display [NAME1]'s motif. [NAME1], describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show the motif using the Colab utilities, and you can also share it in the Zoom session.</text>
     </prompt>
 
     <prompt strategy="task" id="PROMPT_STEP_MATCH_3">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
+        <text>Next, display [NAME1]'s motif. [NAME1], describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show the motif using the Colab utilities, and you can also share it in the Zoom session.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_MATCH_MAX_ALL">
-        <text>[NAME1], show the group your motif and describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show your motif in the Zoom session.</text>
+        <text>Next, display [NAME1]'s motif. [NAME1], describe why you chose that as well as how you ensured it met the motif design constraints (i.e., symmetrical and no more than 11 pixels wide).|||You can show the motif using the Colab utilities, and you can also share it in the Zoom session.</text>
     </prompt>
     
     <prompt strategy="task" id="PROMPT_STEP_ROTATE_FANCY">
