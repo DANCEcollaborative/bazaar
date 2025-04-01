@@ -46,11 +46,11 @@
      <prompt strategy="task" id="KEYWORD_1">
      	<text>When the time for this milestone runs out, the next milestone will automatically unlock. However, if your team finishes the current milestone (*** Milestone 1 ***) and would like to proceed to the next milestone EARLY, all team members must type the special word `ready` in the chat to unlock it.</text>
      </prompt> 
-	
-     <prompt strategy="task" id="KEYWORD_2">
-     	<text>When the time for this milestone runs out, the next milestone will automatically unlock. However, if your team finishes the current milestone (*** Milestone 2 ***) and would like to proceed to the next milestone EARLY, all team members must type the special word `ready` in the chat to unlock it.</text>
-     </prompt> 
-	
+     
+     <prompt strategy="task" id="MILESTONE_1_HINT">
+     <text>Hint: Since this milestone is about identifying and visualizing data that supports the effectiveness and equity of EIPs, consider examing how EIPs benefited low-income and underrepresented groups, and analyze how these recipients spent the payments.</text>
+     </prompt>	
+     
      <prompt strategy="task" id="PLANNING">
      	<text>Since this is the first milestone, let's take a few minutes to conduct an initial inspection of the dataset. Please complete the two collaborative tasks in the Jupyter Notebook. Discuss your first impressions with your team: Highlight what stands out, raise any questions, and consider how you might approach the data. Once everyone has shared their thoughts, proceed to identify and visualize data that supports the argument that EIPs were effective and equitable.</text>
      </prompt> 
@@ -61,6 +61,15 @@
      <prompt strategy="task" id="SCENARIO_2_INTRO">
      <text>Now, it is time to begin Milestone 2. We will start off by reassigning roles!</text>
      </prompt> 
+	
+     <prompt strategy="task" id="KEYWORD_2">
+     	<text>When the time for this milestone runs out, the next milestone will automatically unlock. However, if your team finishes the current milestone (*** Milestone 2 ***) and would like to proceed to the next milestone EARLY, all team members must type the special word `ready` in the chat to unlock it.</text>
+     </prompt>  
+    
+     <prompt strategy="task" id="MILESTONE_2_HINT">
+     <text>Since this milestone challenges the effectiveness and equity of EIPs, consider examining whether individuals who didn’t truly need EIPs received them, how these recipients spent the payments, and whether EIPs improved well-being by analyzing mental health data.</text>
+     </prompt> 
+     
     
     
     <!-- HINTS & DISCUSSION FOR SCENARIO_3  -->
@@ -68,6 +77,10 @@
      <prompt strategy="task" id="SCENARIO_3_INTRO">
      <text>Now, it is time to begin Milestone 3. We will start off by reassigning roles!</text>
      </prompt> 
+    
+     <prompt strategy="task" id="MILESTONE_3_HINT">
+     <text>Since this milestone is about making a final decision, synthesize your team's findings from previous milestones to choose a side. Focus on the most compelling evidence to support your argument.</text>
+     </prompt>   
     
 
 	<!-- ENDING PROMPTS -->
