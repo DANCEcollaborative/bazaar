@@ -15,15 +15,14 @@
     </stage>  
     
     <stage name="Stage0" type="other" delay="0"> 
-    	<step type="prompt" delay="60" prompt="WHO_HAS_GOOD_COLAB">WHO_HAS_GOOD_COLAB</step> 
-    	<step type="prompt" delay="60" prompt="CHOOSE_ONE_COLAB">CHOOSE_ONE_COLAB</step> 
+    	<step type="prompt" delay="90" prompt="CHOOSE_ONE_COLAB">CHOOSE_ONE_COLAB</step> 
     	<step type="prompt" delay="120" prompt="SHARE_FILES">SHARE_FILES</step> 
     </stage>  
     
     <stage name="Stage1" type="other" delay="0"> 
-        <step type="match" delay="90" prompt="PROMPT_STEP_MATCH" >PROMPT_STEP_MATCH</step>  
+        <step type="match" delay="60" prompt="PROMPT_STEP_MATCH" >PROMPT_STEP_MATCH</step>  
     	<step type="prompt" delay="60" prompt="ANY_ISSUES">ANY_ISSUES</step> 
-    	<step type="prompt" delay="270" prompt="LOAD_OTHER_MOTIFS">LOAD_OTHER_MOTIFS</step> 
+    	<step type="prompt" delay="300" prompt="LOAD_OTHER_MOTIFS">LOAD_OTHER_MOTIFS</step> 
     	<step type="prompt" delay="180" prompt="THEMES">THEMES</step> 
     </stage>  
 
@@ -63,7 +62,7 @@
     </stage> 
     
     <stage name="Stage6" type="other" delay="0">   
-    	<step type="prompt" delay="2350" prompt="KEEP_WORKING">KEEP_WORKING</step>   
+    	<step type="prompt" delay="2080" prompt="KEEP_WORKING">KEEP_WORKING</step>   
     </stage> 
   
     <stage name="EndStage" type="other" delay="0" timeout="5400">  
