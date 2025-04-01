@@ -7,11 +7,11 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
-    	<step type="prompt" delay="60" prompt="WAITING_TO_START">WAITING_TO_START</step> 
+    	<step type="prompt" delay="30" prompt="WAITING_TO_START">WAITING_TO_START</step> 
     	<step type="prompt" delay="10" prompt="INTRODUCTION">INTRODUCTION</step>  
     	<step type="prompt" delay="20" prompt="SEPARATE_WINDOW">SEPARATE_WINDOW</step>  
     	<step type="prompt" delay="15" prompt="HOW_TO_QUERY_BOT">HOW_TO_QUERY_BOT</step>   
-     	<step type="greet" timeout="45" delay="5">GREETINGS</step> 
+     	<step type="greet" timeout="30" delay="5">GREETINGS</step> 
     </stage>  
     
     <stage name="Stage0" type="other" delay="0"> 
@@ -63,7 +63,7 @@
     </stage> 
     
     <stage name="Stage6" type="other" delay="0">   
-    	<step type="prompt" delay="2010" prompt="KEEP_WORKING">KEEP_WORKING</step>   
+    	<step type="prompt" delay="2350" prompt="KEEP_WORKING">KEEP_WORKING</step>   
     </stage> 
   
     <stage name="EndStage" type="other" delay="0" timeout="5400">  
