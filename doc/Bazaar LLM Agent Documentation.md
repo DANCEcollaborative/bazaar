@@ -1,4 +1,4 @@
-# Bazaar LLM Agent References
+# Bazaar LLM Agent Documentation
 *   Slides: [Human-AI Teams](https://docs.google.com/presentation/d/1qIxm10cjCrcwKO5-6gAjzGBfJQZfJux2)
 *    Slides: [Creating a Bazaar LLM Agent](https://docs.google.com/presentation/d/1o8nzVMiesaFo8KKTXDDx9emv1XKyRNsu)
 *    Slides: [Running the Python Regex OPE Demo](https://docs.google.com/presentation/d/1wPpz5OUBsK10lwY3KPw_2PvP8iE24J_L)
