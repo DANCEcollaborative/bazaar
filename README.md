@@ -9,7 +9,7 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
 # Resources
 
 - [DANCE website](http://dance.cs.cmu.edu/resources/)
-- [Creating a Bazaar LLM Agent](https://github.com/DANCEcollaborative/bazaar/blob/main/doc/Creating%20a%20Bazaar%20LLM%20agent.md)
+- [Bazaar LLM Agent Documentation](https://github.com/DANCEcollaborative/bazaar/blob/main/doc/Bazaar%20LLM%20Agent%20Documentation.md)
 - [Bazaar video tutorials and slides](http://dance.cs.cmu.edu/talks/talk12.html)
 - [Architecture Overview](http://ankara.lti.cs.cmu.edu/bazaar/Bazaar%20Overview.pdf)
 - [Atlas of the Bazaar](http://ankara.lti.cs.cmu.edu/bazaar/AtlasOfTheBazaar.pdf) - Explanations about many of the customizable Bazaar files.
