@@ -11,7 +11,7 @@
     <!-- INITIALIZATION  -->    
 	<stage name="StageInitialization" type="other" delay="0"> 
     	<step type="prompt" delay="60" prompt="WAITING_TO_START">WAITING_TO_START</step>
-     	<step type="greet" timeout="60" delay="0">GREETINGS</step> 
+    	<step type="prompt" delay="60" prompt="INTRODUCE">INTRODUCE</step>
     </stage> 
     
     <!-- INTRODUCTION  -->    
