@@ -73,13 +73,13 @@
     </stage>  
     
     <stage name="WrapUP" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
+    	<step type="send_command" command="COMMAND_SUBMIT_WITHOUT_TASKS" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="2" prompt="PROMPT_STEP_SUBMISSION" >Prompt_Step_Submission</step>
     	<step type="send_end" delay="2">send_end</step>  
     </stage> 
   
     <stage name="EndStage" type="other" delay="0" timeout="3065">     <!-- 3065 -->
-    	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
+    	<step type="send_command" command="COMMAND_SUBMIT_WITHOUT_TASKS" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="20" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step> 
     	<step type="send_end" delay="2">send_end</step>  
