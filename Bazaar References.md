@@ -1,10 +1,12 @@
 # Selected Bazaar References
-<!-- <div style="text-align: center;">
-  <img src="raw.githubusercontent.com/DANCEcollaborative/HTML/main/Teledia.png" alt="Teledia icon" width="400">
-</div> -->
 
+<br>
 
-![Bazaar References](assets/Teledia.png?raw=true)
+<div style="text-align: center;">
+  <img src="assets/Teledia.png" alt="Description" style="width:200px;" />
+</div>
+
+<br>
 
 - [Bazaar project](https://hcii.cmu.edu/project/bazaar) - Link to faculty leader Carolyn Rosé with Teledia news, talks, and publications.
 - [DANCE website](http://dance.cs.cmu.edu/resources/)
