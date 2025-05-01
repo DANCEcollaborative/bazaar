@@ -6,6 +6,10 @@
   <img src="assets/Teledia.png" alt="Description" style="width:200px;" />
 </div>
 
+<div style="display: flex; justify-content: center;">
+  <img src="assets/Teledia.png" alt="Description" style="width:200px;" />
+</div>
+
 <br>
 
 - [Bazaar project](https://hcii.cmu.edu/project/bazaar) - Link to faculty leader Carolyn Rosé with Teledia news, talks, and publications.
