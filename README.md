@@ -6,7 +6,7 @@ Bazaar is a modular framework for designing multi-party collaborative agents tha
 
 ![Basic Bazaar Network Chart](assets/Basic_Bazaar_Network_Chart.png?raw=true)
 
-# Resources
+# [Resources](https://github.com/DANCEcollaborative/bazaar/blob/main/Bazaar%20References.md)
 
 - [Bazaar project](https://hcii.cmu.edu/project/bazaar) - Link to faculty leader Carolyn Rosé with Teledia news, talks, and publications.
 - [DANCE website](http://dance.cs.cmu.edu/resources/)
