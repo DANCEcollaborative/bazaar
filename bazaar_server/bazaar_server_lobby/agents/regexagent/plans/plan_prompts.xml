@@ -6,7 +6,7 @@
 	<!-- GREETING PROMPTS --> 
 	
     <prompt strategy="task" id="WAITING_TO_START">
-        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait one minute for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
+        <text>Hi! I’m OPEBot. I will facilitate collaboration during this activity. We’ll wait about 30 seconds for more teammates to join in. Meanwhile, please feel free to chat within this chat space. </text>
     </prompt> 
 
 	<!-- GREETING PROMPTS -->	
@@ -31,7 +31,7 @@
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
        
     <prompt strategy="task" id="PROMPT_OVERVIEW" intention="program1">
-        <text>Starting now, you will have approximately 80 minutes to complete this assignment and submit it for a grade. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
+        <text>Starting now, you will have approximately 45 minutes to complete this assignment and submit it. For each task, you will be assigned a group role, and roles will rotate after each task to give everyone a chance to contribute.</text>
      </prompt>
        
     <prompt strategy="task" id="BEFORE_STARTING" intention="program1">
@@ -97,11 +97,11 @@
 	<!-- WRAP-UP AND END-STAGE PROMPTS --> 
      
     <prompt strategy="task" id="PROMPT_STEP_SUBMISSION">
-     <text>Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cells. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
+     <text>Next, ONE TEAM MEMBER should execute the cell to submit your work.|||Thanks for participating in today's OPE activity!</text>
     </prompt>
      
     <prompt strategy="task" id="PROMPT_STEP_FINAL">
-     	<text>I'm logging off. Next, ONE TEAM MEMBER should execute the cells to (1) submit your work, and then (2) get your post-quiz tokens.|||After submission, your post-quiz token will be displayed below the cell. Copy this token and navigate to the "Post OPE Quiz" section of this module on Sail() to unlock and complete your post-quiz.|||Thanks for participating in today's OPE activity!</text>
+     	<text>I'm logging off. Next, ONE TEAM MEMBER should execute the cell to submit your work.|||Thanks for participating in today's OPE activity!</text>
     </prompt>
 
 
