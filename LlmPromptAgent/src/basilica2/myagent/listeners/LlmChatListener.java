@@ -165,7 +165,7 @@ public class LlmChatListener extends BasilicaAdapter
 	}
 	public boolean messageFilter(MessageEvent e) {
 		String message = e.getText();
-		return message.startsWith("Prompty!");
+		return ((message.startsWith("Prompty!")) || (message.startsWith("prompty!")));
 	}
 	
 	public void handlePresenceEvent(InputCoordinator source, PresenceEvent pe) {
