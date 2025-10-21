@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+    <prompt strategy="task" id="WELCOME_WAIT">
+        <text>Hi! I'm LabAssistant. We'll wait here until both teammates are settled before we start the experiment.</text>
+    </prompt>
+    <prompt strategy="task" id="WELCOME_CONTEXT">
+        <text>Once you're both ready, we'll follow the wizard's clue together.</text>
+    </prompt>
+
+    <prompt strategy="task" id="STAGE1_FRAMING">
+        <text>A friendly wizard tipped us off that substances A, B, C, and D react in a mysterious way. Your job is to uncover the full reaction and its stoichiometric coefficients using the virtual lab.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE1_COLLABORATION">
+        <text>The stockroom has 1.00 M solutions of each reagent. Use the shared Google document for sketches, calculations, and rough plans. We collect it at the end.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE1_GOAL">
+        <text>Stage 1 goal: identify which substances are the reactants.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE1_STRATEGY">
+        <text>Coordinate before you test anything. Talk through a plan so both of you know how you'll probe the reactions.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE1_READY_INSTRUCTION">
+        <text>When you both agree on next steps, type ready:stage1 in chat. Each teammate needs to send it so we can move on together.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE1_READY_GATE">
+        <text>Waiting for ready:stage1 from both of you. Give the signal when you're set.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE1_NOTE_TAKING">
+        <text>Great. Record the reactants in your scratchpads, look over each other's notes, and discuss anything that differs. We'll move on shortly.</text>
+    </prompt>
+
+    <prompt strategy="task" id="STAGE2_TASK">
+        <text>Stage 2: determine the complete reaction, including the stoichiometric coefficients.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE2_COORDINATION">
+        <text>Keep the conversation going. Share observations, propose candidate equations, and double-check each other before submitting.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE2_READY_INSTRUCTION">
+        <text>Ready to tackle the final reaction? Each of you type ready:stage2 so we know you're set.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE2_SUBMIT_INSTRUCTIONS">
+        <text>Submit your best answer as [REACTION_FORMAT]. You have up to three tries, so double-check the stoichiometry before you send it.</text>
+    </prompt>
+    <prompt strategy="task" id="STAGE2_READY_GATE">
+        <text>Listening for ready:stage2 from both teammates. Ping me when you're ready to finalize the reaction.</text>
+    </prompt>
+
+    <prompt strategy="task" id="REACTION_SUCCESS">
+        <text>That matches the wizard's tip exactly! Nice work. Thanks for collaborating -- I'll collect your notes and close the session now.</text>
+    </prompt>
+    <prompt strategy="task" id="REACTION_RETRY">
+        <text>Not quite there yet. You have [ATTEMPTS_LEFT] attempt(s) remaining. Revisit your notes and refine the equation together.</text>
+    </prompt>
+    <prompt strategy="task" id="REACTION_FAILURE">
+        <text>Thanks for giving it a go. Let's stop here and review the work you've recorded in the Google document so you can revisit the reaction offline. I'll close the session now.</text>
+    </prompt>
+</prompts>

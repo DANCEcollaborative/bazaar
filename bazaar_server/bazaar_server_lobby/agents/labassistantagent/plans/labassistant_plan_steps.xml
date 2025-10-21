@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<plan name="LabAssistant">
+    
+    
+    
+    
+    
+    
+    <stage name="StageInitialization" type="other" delay="0">
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="10" prompt="WELCOME_WAIT">WELCOME_WAIT</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="WELCOME_CONTEXT">WELCOME_CONTEXT</step>
+        
+        
+        
+    
+    
+    
+    </stage>
+    
+    
+    
+
+    
+    
+    
+    <stage name="StageIdentifyReactants" type="other" delay="0">
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE1_FRAMING">STAGE1_FRAMING</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE1_COLLABORATION">STAGE1_COLLABORATION</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE1_GOAL">STAGE1_GOAL</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE1_STRATEGY">STAGE1_STRATEGY</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE1_READY_INSTRUCTION">STAGE1_READY_INSTRUCTION</step>
+        
+        
+        
+        
+        
+        
+        <step type="gated" timeout="900" delay="0" checkin_prompt="NONE" pattern="(?i)^\s*ready:stage1\s*$" required_participants="2">STAGE1_READY_GATE</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="60" prompt="STAGE1_NOTE_TAKING">STAGE1_NOTE_TAKING</step>
+        
+        
+        
+    
+    
+    
+    </stage>
+    
+    
+    
+
+    
+    
+    
+    <stage name="StageDetermineReaction" type="other" delay="0">
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE2_TASK">STAGE2_TASK</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE2_COORDINATION">STAGE2_COORDINATION</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE2_READY_INSTRUCTION">STAGE2_READY_INSTRUCTION</step>
+        
+        
+        
+        
+        
+        
+        <step type="gated" timeout="900" delay="0" checkin_prompt="NONE" pattern="(?i)^\s*ready:stage2\s*$" required_participants="2">STAGE2_READY_GATE</step>
+        
+        
+        
+        
+        
+        
+        <step type="prompt" delay="5" prompt="STAGE2_SUBMIT_INSTRUCTIONS" expected_reaction="${EXPECTED_REACTION|A+2C-&gt;B+D}" reaction_format="${REACTION_FORMAT|reaction: A+B-&gt;C+D}">STAGE2_SUBMIT_INSTRUCTIONS</step>
+        
+        
+        
+        
+        
+        
+        <step type="reaction" delay="0" attempts="3" expected="${EXPECTED_REACTION|A+2C-&gt;B+D}" success_prompt="REACTION_SUCCESS" retry_prompt="REACTION_RETRY" failure_prompt="REACTION_FAILURE">REACTION_CHECK</step>
+        
+        
+        
+    
+    
+    
+    </stage>
+    
+    
+    
+
+    
+    
+    
+    <stage name="StageWrapUp" type="other" delay="0">
+        
+        
+        
+        
+        <step type="chatlog" delay="0">CHAT_LOG</step>
+        
+        
+        <step type="send_end" delay="0">SEND_END</step>
+        
+        
+        <step type="logout" delay="0">LOGOUT</step>
+        
+    
+    </stage>
+    
+    
+
+
+</plan>
