@@ -1,0 +1,230 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package basilica2.agents.listeners;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.PromptTable;
+import basilica2.agents.data.State;
+import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PrivateMessageEvent;
+import basilica2.agents.events.priority.PriorityEvent;
+import edu.cmu.cs.lti.basilica2.core.Agent;
+import edu.cmu.cs.lti.basilica2.core.Event;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
+import edu.cmu.cs.lti.project911.utils.time.TimeoutReceiver;
+import edu.cmu.cs.lti.project911.utils.time.Timer;
+
+/**
+ *
+ * @author dadamson
+ */
+public class IntroductionsHandler extends BasilicaAdapter
+{
+    Agent agent;
+    
+    final List<String> users = new ArrayList<String>();
+    private double wait1 = 30;
+    private PromptTable prompter;
+    private Boolean displayGiveUpPrompt = false; 
+    
+    Map<String, String> slots = new HashMap<String, String>();
+            
+    public IntroductionsHandler(Agent a)
+    {
+        super(a, "INTRODUCTION");
+        agent = a;
+        prompter = new PromptTable(properties.getProperty("prompt_file", "plans/plan_prompts.xml"));
+        displayGiveUpPrompt = Boolean.parseBoolean(properties.getProperty("display_give_up_prompt"));
+        wait1 = Integer.parseInt(properties.getProperty("timeout", ""+wait1));
+        
+        
+        slots = new HashMap<String, String>();
+		slots.put("[AGENT NAME]", a.getUsername().split(" ")[0]);
+		
+    }
+
+    @Override
+    public void processEvent(InputCoordinator source, Event event)
+    {
+        if(event instanceof MessageEvent)
+        {
+            MessageEvent me = (MessageEvent)event;
+            
+            String[] names = me.checkAnnotation("GIVING_NAME");
+            
+            if(names != null)
+            {
+                recognizeUser(names[0], me.getFrom(), source);
+            }
+        }
+    }
+
+    @Override
+    public void preProcessEvent(InputCoordinator source, Event event)
+    {
+        if(event instanceof MessageEvent)
+        {
+            
+            MessageEvent me = (MessageEvent)event;
+            
+            String normalizedText = MessageAnnotator.normalize(me.getText());
+            List<String> namesFound = new ArrayList<String>();
+            Pattern intro = Pattern.compile("((i am)|(i'm)|(im)|(name is)|(llama es)|(this is)) (\\w+)");
+            Matcher nameMatcher = intro.matcher(normalizedText);
+            if(nameMatcher.find())
+            {
+                namesFound.add(nameMatcher.group(nameMatcher.groupCount()));
+            }
+
+            if (namesFound.size() > 0) 
+            {
+                me.addAnnotation("GIVING_NAME", namesFound);
+            }
+        }
+    }
+
+    private void updateUsers()
+    {
+        synchronized(users)
+        {
+            State state = StateMemory.getSharedState(agent);
+            String[] userIds = state.getStudentIds();
+
+            users.clear();
+            for(String id : userIds)
+            {
+                if(state.getStudentName(id).equals(id))
+                {
+                    users.add(id);
+                }
+            }
+        }
+    }
+    
+
+    @Override
+    public void startListening(final InputCoordinator source)
+    {
+        super.startListening(source);
+        
+        // Variable introduction message depending upon a single student vs. multiple students
+        int numStudents = StateMemory.getSharedState(agent).getStudentCount(); 
+        String introduceText;
+        if (numStudents > 1) {
+        	introduceText = prompter.lookup("INTRODUCE", slots); 
+        }
+        else {
+        	introduceText = prompter.lookup("INTRODUCE", slots); 
+        }
+        // System.err.println("=====  numStudents: " + numStudents + "  ====="); 
+        	      
+        MessageEvent me = new MessageEvent(source, agent.getUsername(), introduceText, "INTRODUCE");
+        source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));
+        
+        TimeoutReceiver tim = new TimeoutReceiver()
+        {
+            @Override
+            public void timedOut(String id)
+            {
+                updateUsers();
+                if(id.equals("WAIT FOR NAMES"))
+                {
+                    if(users.isEmpty())
+                    {
+                        return;
+                    }
+                                
+                    HashMap<String, String> slots = new HashMap<String, String>();
+                    
+                    slots.put("[NAMES]", StateMemory.getSharedState(agent).getStudentNamesString(users));
+                    slots.putAll(IntroductionsHandler.this.slots);
+                    
+                    if (displayGiveUpPrompt) {
+                    	System.err.println("Displaying GIVE_UP_ON_INTRODUCTIONS prompt");
+                    	MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GIVE_UP_ON_INTRODUCTIONS", slots),"GIVE_UP_ON_INTRODUCTIONS");
+	                    source.pushProposal(new PriorityEvent(source, me, 0.3, prioritySource));                   	
+                    } else {
+                    	System.err.println("NOT displaying GIVE_UP_ON_INTRODUCTIONS prompt");
+                    }
+                    
+	                    
+                    
+                    //assign remaining names
+                    //uninstall:
+            		System.err.println("IntroductionsHandler about to call stopListening"); 
+            		Logger.commonLog(getClass().getSimpleName(), Logger.LOG_NORMAL, "IntroductionsHandler about to call stopListening"); 
+                    stopListening(source);
+                }
+            }
+
+            @Override
+            public void log(String from, String level, String msg)
+            {
+                agent.log(from, level, msg);
+            }
+        };
+        
+        new Timer(wait1, "WAIT FOR NAMES", tim).start();
+    }
+
+    private void recognizeUser(String name, String sid, InputCoordinator source)
+    {
+        name = toProperCase(name);
+        synchronized(users)
+        {
+            updateUsers();
+
+            State s = State.copy(StateMemory.getSharedState(agent));
+            s.setName(sid, name);
+            StateMemory.commitSharedState(s, agent);
+
+            users.remove(sid);
+            
+//            if(users.isEmpty())
+//                this.stopListening(source);
+        }
+                
+        HashMap<String, String> slots = new HashMap<String, String>();
+        slots.put("[NAME]", name);
+        MessageEvent me = new MessageEvent(source, agent.getUsername(), prompter.lookup("GREET", slots), "GREET");
+        me.setDestinationUser(sid);
+        source.addProposal(new PriorityEvent(source, me, 0.3, prioritySource));
+    }
+
+    public static String toProperCase(String name) 
+    {
+        String ret = name.toLowerCase();
+        if (name.length() > 0) 
+        {
+            ret = name.substring(0, 1).toUpperCase().concat(name.substring(1).toLowerCase());
+        }
+        return ret;
+    }
+    
+    public String getStatus()
+    {
+        return StateMemory.getSharedState(agent).getStudentNamesString()+": "+(this.delegate == null ? "no delegate":("delegate="+delegate));
+    }
+
+    @Override
+    public Class[] getPreprocessorEventClasses() 
+    {
+        return new Class[]{MessageEvent.class};
+    }
+
+    @Override
+    public Class[] getListenerEventClasses() 
+    {
+        return new Class[]{MessageEvent.class};
+    }
+}

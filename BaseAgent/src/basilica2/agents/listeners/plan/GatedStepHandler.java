@@ -28,6 +28,11 @@ public class GatedStepHandler implements StepHandler
 		}
 		
 		gatekeeper.setStepName(currentStep.name);
+		gatekeeper.resetKeyPhrase();
+		if(currentStep.attributes.containsKey("pattern"))
+		{
+			gatekeeper.setKeyPhrase(currentStep.attributes.get("pattern"));
+		}
 		gatekeeper.resetGateForAllStudents();
 		
 		overmind.addHelper(gatekeeper);
