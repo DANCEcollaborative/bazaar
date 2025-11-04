@@ -288,13 +288,32 @@ ul.tab li a:focus, .active {
 
         document.getElementById('scratchpad1').src =  "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihva" + "j" +  room + "?showChat=false&noColors=false";
         document.getElementById('scratchpad2').src =  "https://docs.google.com/document/d/18i2HB9LP6PODSbrTQrLpjOpyl34IqWooPaQIsEG71gM/edit?tab=t.0#heading=h.tlnk9tihva" + "j" +  room + "?showChat=false&noColors=false";
-        document.getElementById('virtualLab').src =  "https://melodic-souffle-afa758.netlify.app/?name=student1" + "j" +  room + "?showChat=false&noColors=false";    
+        document.getElementById('virtualLab').src  = "https://chemcollective.org/vlabdirect/load/Stoichiometry/oracle-test-1";
+        document.getElementById('virtualLab2').src = "https://chemcollective.org/vlabdirect/load/Stoichiometry/oracle-test-2";
+        document.getElementById('virtualLab3').src = "https://chemcollective.org/vlabdirect/load/Stoichiometry/oracle-test-3";
         });
 	
 
 	// listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('updatechat', function (username, data) 
 	{
+		// Intercept optional inline UI commands sent in-band via chat.
+		// Format options:
+		//   1) JSON wrapped with [[CMD ...]] e.g., [[CMD {"action":"show","selectors":["#el1"]}]]
+		//   2) Simple string e.g., [[CMD show:#el1,#el2]] or [[CMD hide:.className]]
+		if (typeof data === 'string' && data.indexOf('[[CMD') === 0) {
+			try {
+				var inner = data.replace(/^\[\[CMD\s*/, '').replace(/\s*\]\]$/, '');
+				var cmd = null;
+				try { cmd = JSON.parse(inner); } catch (e) { cmd = inner; }
+				applyUICommand(cmd);
+				// Do not display command messages in the conversation.
+				return;
+			} catch (e) {
+				// If parsing fails, fall through to normal rendering.
+			}
+		}
+
 		if (data.search("multimodal:::true;%;") > -1) {
 // 			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("from",data);
@@ -359,6 +378,49 @@ ul.tab li a:focus, .active {
 
 			   lastDate = new Date();
 	});
+
+	// Listen for out-of-band UI commands from the agent/server.
+	// Agents can emit Socket.IO event 'sendcommandeventwithroom' which the server
+	// relays to clients as 'sendcommandevent'. The payload can be JSON or a simple string.
+	socket.on('sendcommandevent', function (command) {
+		try { applyUICommand(command); } catch (e) { /* no-op */ }
+	});
+
+	// Applies a UI command to show/hide/toggle elements or add/remove classes.
+	function applyUICommand(command) {
+		var cmdObj = command;
+		if (typeof command === 'string') {
+			// support simple forms like "show:#id,.cls" or "hide:.x"
+			var m = command.match(/^(show|hide|toggle|addClass|removeClass)\s*:\s*(.*)$/i);
+			if (m) {
+				cmdObj = { action: m[1].toLowerCase(), selectors: m[2].split(/\s*,\s*/) };
+			} else {
+				// try JSON in string form
+				try { cmdObj = JSON.parse(command); } catch (e) { return; }
+			}
+		}
+
+		if (!cmdObj) return;
+		var action = (cmdObj.action || cmdObj.op || '').toLowerCase();
+		var selectors = cmdObj.selectors || cmdObj.targets || [];
+		if (typeof selectors === 'string') selectors = selectors.split(/\s*,\s*/);
+
+		selectors.forEach(function(sel) {
+			try {
+				var nodes = document.querySelectorAll(sel);
+				nodes.forEach(function(el) {
+					switch (action) {
+						case 'show': el.style.display = 'initial'; break;
+						case 'hide': el.style.display = 'none'; break;
+						case 'toggle': el.style.display = (el.style.display === 'none') ? 'initial' : 'none'; break;
+						case 'addclass': if (cmdObj.class) el.classList.add(cmdObj.class); break;
+						case 'removeclass': if (cmdObj.class) el.classList.remove(cmdObj.class); break;
+						default: break;
+					}
+				});
+			} catch (e) { /* ignore bad selectors */ }
+		});
+	}
 	
 	    // listener, whenever the server emits 'updaterooms', this updates the room list
 	socket.on('updaterooms', function (rooms, my_room) 
@@ -575,11 +637,25 @@ ul.tab li a:focus, .active {
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Virtual Lab</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 1')">Scratchpad 1</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 2')">Scratchpad 2</a></li>
+    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 2')">Virtual Lab 2</a></li>
+    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 3')">Virtual Lab 3</a></li>
     </ul>
     
    <div id="Virtual Lab" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><embed id= "virtualLab" width="100%" height="100%"></embed></div>
+        <div id="images" class="scrollable"><iframe id="virtualLab" width="100%" height="100%" style="border:0;"></iframe></div>
+      </div>
+    </div>
+
+   <div id="Virtual Lab 2" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable"><iframe id="virtualLab2" width="100%" height="100%" style="border:0;"></iframe></div>
+      </div>
+    </div>
+
+   <div id="Virtual Lab 3" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable"><iframe id="virtualLab3" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
@@ -655,4 +731,3 @@ ul.tab li a:focus, .active {
 
 </body>
 </html>
-
