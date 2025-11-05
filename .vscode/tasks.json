@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Bazaar agents",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-lc",
+                "JAVA_HOME=$( /usr/libexec/java_home -v 1.8 2>/dev/null ); if [ -z \"$JAVA_HOME\" ]; then echo 'JDK 8 not found; please install or set JAVA_HOME.'; exit 1; fi; export JAVA_HOME; export PATH=\"$JAVA_HOME/bin:$PATH\"; ./build-all.sh"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Run ClimateChangeAgent script",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-lc",
+                "cd ClimateChangeAgent && ./launch-simple.sh --room ${input:room} ${input:launchFlag}"
+            ],
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "room",
+            "type": "promptString",
+            "default": "ROOM",
+            "description": "Room name to join"
+        },
+        {
+            "id": "launchFlag",
+            "type": "pickString",
+            "default": "--launch",
+            "description": "Launch without UI?",
+            "options": [
+                "--launch",
+                ""
+            ]
+        }
+    ]
+}

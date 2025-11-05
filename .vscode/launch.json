@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ClimateChangeAgent: NewAgentRunner",
+            "request": "launch",
+            "mainClass": "basilica2.myagent.operation.NewAgentRunner",
+            "projectName": "ClimateChangeAgent",
+            "cwd": "${workspaceFolder}/ClimateChangeAgent/runtime",
+            "vmArgs": "-Dbasilica2.agents.room_name=${input:room}",
+            "args": "--room ${input:room} ${input:launchFlag}",
+            "console": "internalConsole",
+            "preLaunchTask": "Build Bazaar agents"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "room",
+            "type": "promptString",
+            "default": "ROOM",
+            "description": "Room name to join"
+        },
+        {
+            "id": "launchFlag",
+            "type": "pickString",
+            "description": "Launch mode",
+            "default": "--launch",
+            "options": [
+                "--launch",
+                ""
+            ]
+        }
+    ]
+}
