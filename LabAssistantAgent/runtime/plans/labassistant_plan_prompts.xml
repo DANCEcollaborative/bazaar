@@ -38,7 +38,7 @@
         <text>We'll reveal the wizard's Part 1 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART1_SOLUTION">
-        <text><![CDATA[<div class="wizard-solution"><strong>Wizard's Part 1 solution:</strong> $$0.1\,	ext{L} 	imes rac{1.0\,	ext{mol A}}{1\,	ext{L}} = 0.10\,	ext{mol A}$$</div>]]></text>
+        <text><![CDATA[${PART1_SOLUTION|Wizard's Part 1 solution: $$A + B ightarrow 2C$$}]]></text>
     </prompt>
 
     <prompt strategy="task" id="PART2_QUESTION">
@@ -72,6 +72,6 @@
         <text>Let's review the wizard's Part 2 solution and continue.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SOLUTION">
-        <text><![CDATA[<div class="wizard-solution"><strong>Wizard's Part 2 solutions include:</strong><div class="wizard-equation">$$A + 2C \rightarrow B + D$$</div><div class="wizard-equation">$$B + 2C \rightarrow E$$</div></div>]]></text>
+        <text><![CDATA[${PART2_SOLUTION|Wizard's Part 2 solution: $$A + 2C ightarrow B + D$$}]]></text>
     </prompt>
 </prompts>
