@@ -1,126 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
-
-	<prompt strategy="task" id="FILE_STEP_TIMEOUT_WARNING">
-		<text>We need to start wrapping up.</text>
-		<text>Okay, let's get ready to move on to reflection.</text>
-	</prompt>
-
-	
-	<prompt strategy="task" id="FILE_STEP_TIMED_OUT">
-		<text>We need to be moving along on this test case.</text>
-		<text>Time for this test case is almost over.</text>
-		<text>Time to move along on this test case if you can.</text>
-	</prompt>
-    
-	<prompt strategy="task" id="FILE_STEP_COMPLETE">
-       <text>You've passed the testcase!</text>
-       <text>Great! You have passed the testcase.</text>
-       <text>Way to go! You've passed the testcase.</text>
-       <text>Good job. You've passed the testcase.</text>
-	</prompt>
-
-	<prompt strategy="task" id="STAGE1_READY_GATE">
-		<text>Waiting for ready:stage1 from both of you. Give the signal when you're set.</text>
-	</prompt>
-
-	<prompt strategy="task" id="STAGE2_READY_GATE">
-		<text>Listening for ready:stage2 from both teammates. Ping me when you're ready to finalize the reaction.</text>
-	</prompt>
-	
-    <prompt strategy="task" id="WAIT_FOR_CHECKIN">
-       <text>Okay, we're about to begin.</text>
+    <prompt id="WAIT_FOR_CHECKIN">
+        <text>I'm listening for your ready signal. Type the phrase when you're prepared to continue.</text>
     </prompt>
-    
-    <prompt strategy="task" id="TIMEOUT_WARNING">
-       <text>We need to start wrapping up. Remember to type "ready" when you're ready to move on.</text>
-       <text>Okay, let's get ready to move on. Remember to type "ready" if you're done with this step.</text>
+    <prompt id="ACKNOWLEDGE">
+        <text>Thanks! I'm still waiting for your teammate.</text>
     </prompt>
-
- 
-    <!-- PROMPTS DURING TASK 1 -->
-    <prompt strategy="task" id="P1a" intention="transactivity_prompt_1">
-     	<text>Can you think of how to construct the array [[1,2],[2,3],[3,4]] from [1,2,3,4]? How can you use that to complete this task?</text>
-    </prompt>   
-    
-    <prompt strategy="task" id="P1b" intention="cut_off_0_1">
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to consider an array x' that contains everything but the last element in x, and x'' that contains everything but the first element in x. How can you use them to derive the answer?</text>
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Let's say x = [1, 2, 3, 4]. Think about how you can construct the following array: [[1, 2], [2, 3], [3, 4]]. How can you use this array to derive the answer?</text>
+    <prompt id="ALL_READY">
+        <text>Great, both signals received. Let's move on.</text>
     </prompt>
-
-
-    <!-- PROMPTS DURING TASK 2 -->
-    <prompt strategy="task" id="P2a" intention="transactivity_prompt_2">
-     	<text>Can you think of how to construct the array [1, -1, 1, -1, 1, -1, ...]? How can you use that to complete this task?</text>
-    </prompt>   
-    
-     <prompt strategy="task" id="P2b" intention="cut_off_1_1">
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to think about how you can construct the array [1, -1, 1, -1, 1, -1, ...]. Which vector operations can be used on this array and x, y to get the desired alternating sum?</text>
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Observe that S = (x0y0 + x2y2 + x4y4 + ...) - (x1y1 + x3y3 + x5y5 + ...). How would you obtain the first sum and the second sum through index slicing?</text>
-     </prompt>
- 
- 
-    <!-- PROMPTS DURING TASK 3 -->
-    <prompt strategy="task" id="P3a" intention="transactivity_prompt_3">
-     	<text>Can you identify two 1D arrays u and v such that H[u, v] contains all the terms that you need for the loss function? How can you use these arrays for the task?</text>
-    </prompt>  
-          
-     <prompt strategy="task" id="P3b" intention="cut_off_2_1">
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to think about how to use integer array indexing. In other words, identify two 1D arrays u and v such that H[u, v] contains all the terms that you need for the loss function.</text>
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Think about how to construct a binary matrix M such that H * M (element-wise multiplication) contains all the terms that you need for the loss function.</text>
-     </prompt>
- 
- 
-    <!-- PROMPTS DURING TASK 4 -->
-    <prompt strategy="task" id="P4a" intention="transactivity_prompt_4">
-     	<text>Can you think of how the concept of outer product introduced in the NumPy primer could be relevant here?</text>
-    </prompt>   
-        
-     <prompt strategy="task" id="P4b" intention="cut_off_3_1">
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||Here's one way to do this - Given that (i + j) % 3 == 0, what are the possible values of (i % 3) and (j % 3)? Think about how to use slicing index to retrieve all the valid i's and j's.</text>
-     	<text>You should be moving along on this test case. Here's a hint in case you are stuck ...|||One way to do this is to think about how to construct a matrix M such that X * M (element-wise multiplication) contains all the terms that you need for the sum. M is very similar to the concept of 'outer product' that was introduced in the NumPy primer.</text>
-     </prompt>
-
-    <!-- for READY_GENERIC -->    
-    <prompt strategy="task" id="READY_GENERIC">
-       <text>Type "ready" when you are ready to move on.</text>
+    <prompt id="TIMEOUT_WARNING">
+        <text>Everything alright? Let me know when you're ready to continue.</text>
     </prompt>
-     
-    <prompt strategy="task" id="READY_GENERIC_NO_READY">
-       <text>We will move on after a while or when everyone is ready.</text>
-    </prompt>
-         
-    <prompt strategy="task" id="WAIT_FOR_CONSENSUS">
-       <text>When you've reached consensus in your group, type "ready".</text>
-       <text>Make sure your partner agrees before continuing.</text>
-       <text>We'll move to the next part once everyone is in agreement.</text>
-    </prompt>
-    
-    <prompt strategy="task" id="ACKNOWLEDGE">
-       <text>Thanks, [STUDENT]. Make sure your team is in agreement.</text>
-       <text>Okay, [STUDENT]. Make sure your team agrees.</text>
-       <text>Hang on until your team is ready, [STUDENT].</text>
-       <text>Thanks, [STUDENT]. Hang on until your team is ready...</text>
-    </prompt>
-    
-    <prompt strategy="task" id="ALL_READY">
-       <text>Okay, let's move on...</text>
-       <text>Moving on...</text>
-       <text>Onward!</text>
-    </prompt>
-  
-  
- <!-- ================================ -->
- <!-- The following prompts are unused -->
- <!-- ================================ -->
-      
-    <prompt strategy="task" id="WAIT_FOR_DISCUSSION">
-       <text>We'll move on when everyone is ready.</text>
-    </prompt>
-       
-    <prompt strategy="task" id="WAIT_FOR_READING">
-       <text>Once you've read this and discussed it with your team, type "ready".</text>
-       <text>When everyone is comfortable with this material, type "ready".</text>
-    </prompt>
-    
 </prompts>

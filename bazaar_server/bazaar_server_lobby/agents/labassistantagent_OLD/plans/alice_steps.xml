@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="stress_test">
+    <stage name="initiate" type="other" delay="0">
+        <step type="greet" delay="30">INTRODUCE</step>
+        <step type="prompt" delay="5">DO_GREETING</step>
+    </stage>
+    <stage name="task" type="other" delay="30">
+        <step type="prompt" delay="10">STEP_A</step>
+        <step type="prompt" delay="10">STEP_B</step>
+        <step type="prompt" delay="10">FINISH</step>
+    </stage>
+</plan>
