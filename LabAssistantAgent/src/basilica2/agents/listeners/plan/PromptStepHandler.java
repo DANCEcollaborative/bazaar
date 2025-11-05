@@ -158,6 +158,8 @@ class PromptStepHandler implements StepHandler
         } else {
         	promptText = prompter.lookup(promptKey, slots);
         }
+
+		promptText = resolveTemplate(promptText);
 		
 		final double delay = constantDelay + (rateLimited?(promptText.split(" ").length/wordsPerSecond):0);
 		

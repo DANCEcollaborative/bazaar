@@ -1,6 +1,8 @@
 package basilica2.agents.listeners.plan;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -38,85 +40,260 @@ public class ReactionStepHandler implements StepHandler
 	@Override
 	public void execute(Step currentStep, PlanExecutor overmind, InputCoordinator source)
 	{
-        String expected = "";
-        if (currentStep.attributes.containsKey("expected"))
+        List<String> expectedSpecs = new ArrayList<String>();
+
+        if (currentStep.attributes.containsKey("expected_reactions"))
         {
-            expected = resolveTemplate(currentStep.attributes.get("expected"));
-            currentStep.attributes.put("expected", expected);
+            String resolved = resolveTemplate(currentStep.attributes.get("expected_reactions"));
+            currentStep.attributes.put("expected_reactions", resolved);
+            expectedSpecs.addAll(splitExpectedList(resolved));
+        }
+        else if (currentStep.attributes.containsKey("expected"))
+        {
+            String resolved = resolveTemplate(currentStep.attributes.get("expected"));
+            currentStep.attributes.put("expected", resolved);
+            expectedSpecs.addAll(splitExpectedList(resolved));
         }
 
-        if(currentStep.attributes.containsKey("expected_reaction"))
+        List<ParsedReaction> expectedReactions = new ArrayList<ParsedReaction>();
+        for (String spec : expectedSpecs)
         {
-            currentStep.attributes.put("expected_reaction", resolveTemplate(currentStep.attributes.get("expected_reaction")));
+            if (spec == null || spec.trim().isEmpty()) { continue; }
+            try
+            {
+                expectedReactions.add(parseReactionFormula(spec));
+            }
+            catch (Exception e)
+            {
+                Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING,
+                        "Unable to parse expected reaction '" + spec + "' for step " + currentStep.name);
+            }
         }
 
-        if(currentStep.attributes.containsKey("reaction_format"))
+        int attempts = 1;
+        if (currentStep.attributes.containsKey("attempts"))
         {
-            currentStep.attributes.put("reaction_format", resolveTemplate(currentStep.attributes.get("reaction_format")));
+            try
+            {
+                attempts = Integer.parseInt(currentStep.attributes.get("attempts"));
+            }
+            catch (NumberFormatException e)
+            {
+                Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING,
+                        "Invalid attempts value '" + currentStep.attributes.get("attempts") + "' for step " + currentStep.name);
+            }
         }
 
-		int attempts = 1;
-		if (currentStep.attributes.containsKey("attempts"))
-		{
-			try
-			{
-				attempts = Integer.parseInt(currentStep.attributes.get("attempts"));
-			}
-			catch (NumberFormatException e)
-			{
-				Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING,
-						"Invalid attempts value '" + currentStep.attributes.get("attempts") + "' for step " + currentStep.name);
-			}
-		}
+        String successPrompt = currentStep.attributes.get("success_prompt");
+        String retryPrompt = currentStep.attributes.get("retry_prompt");
+        String failurePrompt = currentStep.attributes.get("failure_prompt");
+        String secretFlag = currentStep.attributes.get("secret_flag");
+        String reactantFeedbackPrompt = currentStep.attributes.get("reactant_feedback_prompt");
+        String productFeedbackPrompt = currentStep.attributes.get("product_feedback_prompt");
+        String stoichiometryFeedbackPrompt = currentStep.attributes.get("stoichiometry_feedback_prompt");
+        String generalFeedbackPrompt = currentStep.attributes.get("general_feedback_prompt");
 
-		String successPrompt = currentStep.attributes.get("success_prompt");
-		String retryPrompt = currentStep.attributes.get("retry_prompt");
-		String failurePrompt = currentStep.attributes.get("failure_prompt");
-
-        ReactionMonitor monitor = new ReactionMonitor(overmind, source, currentStep, prompter, expected, attempts,
-                successPrompt, retryPrompt, failurePrompt);
+        ReactionMonitor monitor = new ReactionMonitor(overmind, source, currentStep, prompter, expectedReactions,
+                secretFlag, attempts, successPrompt, retryPrompt, failurePrompt,
+                reactantFeedbackPrompt, productFeedbackPrompt, stoichiometryFeedbackPrompt, generalFeedbackPrompt);
         overmind.addHelper(monitor);
+        monitor.checkForSecretSkip();
     }
 
-	private static String normalize(String candidate)
-	{
-		if (candidate == null) { return ""; }
-		return candidate.replaceAll("\\s+", "").toUpperCase();
-	}
+    private static final double COEFF_TOLERANCE = 1e-6;
+    private static final Pattern TERM_PATTERN = Pattern.compile("^(\\d+(?:\\.\\d+)?)?(.*)$");
 
-	private static class ReactionMonitor extends BasilicaAdapter
-	{
+    private static class ParsedReaction
+    {
+        final Map<String, Double> reactants;
+        final Map<String, Double> products;
+
+        ParsedReaction(Map<String, Double> reactants, Map<String, Double> products)
+        {
+            this.reactants = reactants;
+            this.products = products;
+        }
+    }
+
+    private static ParsedReaction parseReactionFormula(String reactionText)
+    {
+        if (reactionText == null)
+        {
+            throw new IllegalArgumentException("Reaction text is null");
+        }
+
+        String cleaned = reactionText.trim();
+        if (cleaned.isEmpty())
+        {
+            throw new IllegalArgumentException("Reaction text is empty");
+        }
+
+        cleaned = cleaned.toUpperCase();
+        cleaned = cleaned.replaceAll("\\s+", "");
+
+        String[] sides = cleaned.split("(?:->|=)");
+        if (sides.length != 2)
+        {
+            throw new IllegalArgumentException("Reaction must contain exactly one arrow");
+        }
+
+        Map<String, Double> reactants = parseSide(sides[0]);
+        Map<String, Double> products = parseSide(sides[1]);
+
+        if (reactants.isEmpty() || products.isEmpty())
+        {
+            throw new IllegalArgumentException("Reaction sides cannot be empty");
+        }
+
+        return new ParsedReaction(reactants, products);
+    }
+
+    private static Map<String, Double> parseSide(String side)
+    {
+        Map<String, Double> sideMap = new HashMap<String, Double>();
+        String[] terms = side.split("\\+");
+        for (String term : terms)
+        {
+            if (term == null || term.trim().isEmpty())
+            {
+                continue;
+            }
+            Matcher matcher = TERM_PATTERN.matcher(term.trim());
+            if (!matcher.matches())
+            {
+                throw new IllegalArgumentException("Unable to parse term: " + term);
+            }
+
+            double coefficient = 1.0;
+            if (matcher.group(1) != null && !matcher.group(1).isEmpty())
+            {
+                coefficient = Double.parseDouble(matcher.group(1));
+            }
+
+            String species = matcher.group(2).trim();
+            if (species.isEmpty())
+            {
+                throw new IllegalArgumentException("Missing species for term: " + term);
+            }
+
+            Double existing = sideMap.get(species);
+            if (existing == null)
+            {
+                sideMap.put(species, coefficient);
+            }
+            else
+            {
+                sideMap.put(species, existing + coefficient);
+            }
+        }
+        return sideMap;
+    }
+
+    private static boolean reactionsMatch(ParsedReaction expected, ParsedReaction candidate)
+    {
+        return compareSides(expected.reactants, candidate.reactants)
+                && compareSides(expected.products, candidate.products);
+    }
+
+    private static boolean compareSides(Map<String, Double> expected, Map<String, Double> actual)
+    {
+        if (expected.size() != actual.size())
+        {
+            return false;
+        }
+
+        for (Map.Entry<String, Double> entry : expected.entrySet())
+        {
+            Double actualValue = actual.get(entry.getKey());
+            if (actualValue == null)
+            {
+                return false;
+            }
+            if (Math.abs(actualValue - entry.getValue()) > COEFF_TOLERANCE)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static List<String> splitExpectedList(String value)
+    {
+        List<String> items = new ArrayList<String>();
+        if (value == null)
+        {
+            return items;
+        }
+
+        String[] parts = value.split("[;,]\\s*");
+        for (String part : parts)
+        {
+            if (part != null && !part.trim().isEmpty())
+            {
+                items.add(part.trim());
+            }
+        }
+        return items;
+    }
+
+    private static class ReactionMonitor extends BasilicaAdapter
+ 	{
 		private final PlanExecutor overmind;
 		@SuppressWarnings("unused")
 		private final Step step;
 		private final PromptTable prompter;
 		private final InputCoordinator source;
-		private final String expected;
+		private final List<ParsedReaction> expectedReactions;
+		private final String secretFlagKey;
 		private final String successPrompt;
 		private final String retryPrompt;
 		private final String failurePrompt;
+        private final String reactantFeedbackPrompt;
+        private final String productFeedbackPrompt;
+        private final String stoichiometryFeedbackPrompt;
+        private final String generalFeedbackPrompt;
 		private int attemptsRemaining;
 		private boolean finished = false;
 
 		ReactionMonitor(PlanExecutor overmind, InputCoordinator source, Step step, PromptTable prompter,
-				String expectedReaction, int maxAttempts, String successPrompt, String retryPrompt, String failurePrompt)
+			List<ParsedReaction> expectedReactions, String secretFlagKey, int maxAttempts, String successPrompt,
+			String retryPrompt, String failurePrompt, String reactantFeedbackPrompt,
+            String productFeedbackPrompt, String stoichiometryFeedbackPrompt, String generalFeedbackPrompt)
 		{
 			super(overmind.getAgent());
 			this.overmind = overmind;
 			this.source = source;
 			this.step = step;
 			this.prompter = prompter;
-			this.expected = normalize(expectedReaction);
+            this.expectedReactions = expectedReactions;
+            this.secretFlagKey = secretFlagKey;
 			this.successPrompt = successPrompt;
 			this.retryPrompt = retryPrompt;
 			this.failurePrompt = failurePrompt;
+            this.reactantFeedbackPrompt = reactantFeedbackPrompt;
+            this.productFeedbackPrompt = productFeedbackPrompt;
+            this.stoichiometryFeedbackPrompt = stoichiometryFeedbackPrompt;
+            this.generalFeedbackPrompt = generalFeedbackPrompt;
 			this.attemptsRemaining = Math.max(1, maxAttempts);
+		}
+
+		void checkForSecretSkip()
+		{
+			if (isSecretTriggered())
+			{
+				finishViaSecret();
+			}
 		}
 
 		@Override
 		public void processEvent(InputCoordinator source, edu.cmu.cs.lti.basilica2.core.Event event)
 		{
 			if (finished) { return; }
+			if (isSecretTriggered())
+			{
+				finishViaSecret();
+				return;
+			}
 			if (event instanceof MessageEvent)
 			{
 				handleMessage((MessageEvent) event);
@@ -132,39 +309,169 @@ public class ReactionStepHandler implements StepHandler
 			String trimmed = text.trim();
 			if (trimmed.length() == 0) { return; }
 
-			String lower = trimmed.toLowerCase();
-			if (!lower.startsWith("reaction:")) { return; }
-
-			String candidate = trimmed.substring("reaction:".length()).trim();
+			String candidate = extractCandidate(trimmed);
 			if (candidate.length() == 0) { return; }
 
 			evaluateCandidate(candidate);
 		}
 
+        private String extractCandidate(String trimmed)
+        {
+            String lower = trimmed.toLowerCase();
+            if (lower.startsWith("reaction:"))
+            {
+                return trimmed.substring("reaction:".length()).trim();
+            }
+
+            if (trimmed.contains("->") || trimmed.contains("="))
+            {
+                return trimmed;
+            }
+
+            return "";
+        }
+
 		private void evaluateCandidate(String candidate)
 		{
-			String normalizedCandidate = normalize(candidate);
-		if (normalizedCandidate.equals(expected))
-		{
-			sendPrompt(successPrompt, null);
-			finishStep();
-				return;
-			}
+            ParsedReaction candidateReaction;
+            try
+            {
+                candidateReaction = parseReactionFormula(candidate);
+            }
+            catch (Exception e)
+            {
+                provideFeedback(MatchOutcome.NO_MATCH);
+                handleIncorrectAttempt();
+                return;
+            }
 
-			attemptsRemaining = Math.max(0, attemptsRemaining - 1);
+            MatchOutcome outcome = evaluateMatch(expectedReactions, candidateReaction);
+            if (outcome == MatchOutcome.EXACT_MATCH)
+            {
+                sendPrompt(successPrompt, null);
+                finishStep();
+                return;
+            }
 
-			if (attemptsRemaining > 0)
-			{
-				Map<String, String> slots = new HashMap<String, String>();
-				slots.put("[ATTEMPTS_LEFT]", Integer.toString(attemptsRemaining));
-				sendPrompt(retryPrompt, slots);
-			}
-			else
-			{
-				sendPrompt(failurePrompt, null);
-				finishStep();
-			}
+			provideFeedback(outcome);
+			handleIncorrectAttempt();
 		}
+
+        private void provideFeedback(MatchOutcome outcome)
+        {
+            String promptId = null;
+            switch (outcome)
+            {
+                case STOICHIOMETRY_MISMATCH:
+                    promptId = stoichiometryFeedbackPrompt;
+                    break;
+                case REACTANT_MATCH_ONLY:
+                    promptId = reactantFeedbackPrompt;
+                    break;
+                case PRODUCT_MATCH_ONLY:
+                    promptId = (productFeedbackPrompt != null && productFeedbackPrompt.length() > 0)
+                            ? productFeedbackPrompt : stoichiometryFeedbackPrompt;
+                    break;
+                default:
+                    promptId = generalFeedbackPrompt;
+                    break;
+            }
+
+            if (promptId != null && promptId.length() > 0)
+            {
+                sendPrompt(promptId, null);
+            }
+        }
+
+        private MatchOutcome evaluateMatch(List<ParsedReaction> expectedList, ParsedReaction candidate)
+        {
+            if (expectedList == null || expectedList.isEmpty())
+            {
+                return MatchOutcome.EXACT_MATCH;
+            }
+
+            MatchOutcome best = MatchOutcome.NO_MATCH;
+            for (ParsedReaction expected : expectedList)
+            {
+                boolean reactantSpecies = speciesMatch(expected.reactants, candidate.reactants);
+                boolean productSpecies = speciesMatch(expected.products, candidate.products);
+                boolean reactantStoichiometry = reactantSpecies && compareSides(expected.reactants, candidate.reactants);
+                boolean productStoichiometry = productSpecies && compareSides(expected.products, candidate.products);
+
+                if (reactantStoichiometry && productStoichiometry)
+                {
+                    return MatchOutcome.EXACT_MATCH;
+                }
+
+                if (reactantSpecies && productSpecies)
+                {
+                    best = upgradeOutcome(best, MatchOutcome.STOICHIOMETRY_MISMATCH);
+                }
+                else if (reactantSpecies)
+                {
+                    best = upgradeOutcome(best, MatchOutcome.REACTANT_MATCH_ONLY);
+                }
+                else if (productSpecies)
+                {
+                    best = upgradeOutcome(best, MatchOutcome.PRODUCT_MATCH_ONLY);
+                }
+            }
+            return best;
+        }
+
+        private MatchOutcome upgradeOutcome(MatchOutcome current, MatchOutcome candidate)
+        {
+            if (candidate == MatchOutcome.NO_MATCH)
+            {
+                return current;
+            }
+            if (current == MatchOutcome.NO_MATCH)
+            {
+                return candidate;
+            }
+            return (priority(candidate) < priority(current)) ? candidate : current;
+        }
+
+        private int priority(MatchOutcome outcome)
+        {
+            switch (outcome)
+            {
+                case STOICHIOMETRY_MISMATCH:
+                    return 1;
+                case REACTANT_MATCH_ONLY:
+                    return 2;
+                case PRODUCT_MATCH_ONLY:
+                    return 3;
+                default:
+                    return 99;
+            }
+        }
+
+        private boolean speciesMatch(Map<String, Double> expected, Map<String, Double> actual)
+        {
+            if (expected.size() != actual.size())
+            {
+                return false;
+            }
+            return actual.keySet().equals(expected.keySet());
+        }
+
+        private void handleIncorrectAttempt()
+        {
+            attemptsRemaining = Math.max(0, attemptsRemaining - 1);
+
+            if (attemptsRemaining > 0)
+            {
+                Map<String, String> slots = new HashMap<String, String>();
+                slots.put("[ATTEMPTS_LEFT]", Integer.toString(attemptsRemaining));
+                sendPrompt(retryPrompt, slots);
+            }
+            else
+            {
+                sendPrompt(failurePrompt, null);
+                finishStep();
+            }
+        }
 
 		private void sendPrompt(String promptId, Map<String, String> slots)
 		{
@@ -197,6 +504,34 @@ public class ReactionStepHandler implements StepHandler
 			}
 		}
 
+		private boolean isSecretTriggered()
+		{
+			if (secretFlagKey == null || secretFlagKey.isEmpty())
+			{
+				return false;
+			}
+			State state = StateMemory.getSharedState(overmind.getAgent());
+			if (state == null)
+			{
+				return false;
+			}
+			Object value = state.more().get(secretFlagKey);
+			if (value instanceof Boolean)
+			{
+				return ((Boolean) value).booleanValue();
+			}
+			return value != null && "true".equalsIgnoreCase(value.toString());
+		}
+
+		private void finishViaSecret()
+		{
+			if (!finished)
+			{
+				finished = true;
+				source.pushEvent(new StepDoneEvent(source, step.name));
+			}
+		}
+
 		@Override
 		public Class[] getListenerEventClasses()
 		{
@@ -210,9 +545,18 @@ public class ReactionStepHandler implements StepHandler
 		@Override
 		public Class[] getPreprocessorEventClasses()
 		{
-			return new Class[] {};
-		}
+		return new Class[] {};
 	}
+	}
+
+    private enum MatchOutcome
+    {
+        EXACT_MATCH,
+        STOICHIOMETRY_MISMATCH,
+        REACTANT_MATCH_ONLY,
+        PRODUCT_MATCH_ONLY,
+        NO_MATCH
+    }
 
     private static String resolveTemplate(String template)
     {

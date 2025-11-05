@@ -53,11 +53,14 @@ ul.tab li a:focus, .active {
 
 <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-L11A1eGZTZ9qWZ75VDV2JK1J3tOHxZdfps+AKmke7gZ0y3jR9LMwMdQ5b9kgQ0n8" crossorigin="anonymous">
 <script type="text/javascript" src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" ></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
 <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-5CMIGxGZHOcXERZt2cM1mjdbKjCJmtIt0dGjO18m0orb56qP9RPMdEAVnXW86PK0" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQH0ZqB0dEPNIIDl12szREOG7imBjM+W3uMgjjt7GkmR1XB/tJu6v3+gXrZ" crossorigin="anonymous"></script>
 
 <script>
     // Update these URLs to change embedded resources.
@@ -72,6 +75,26 @@ ul.tab li a:focus, .active {
     function resolveResourceUrl(template, roomName) {
         return template.replace(/\{ROOM\}/g, roomName || "");
     }
+
+    function renderMath(target) {
+        if (!target) {
+            target = document.body;
+        }
+        if (window.renderMathInElement) {
+            window.renderMathInElement(target, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "$", right: "$", display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    }
+
+    window.addEventListener('load', function() {
+        renderMath(document.body);
+    });
 
     var windowHasFocus = true;
     var unreadMessages = 0;
@@ -134,104 +157,117 @@ ul.tab li a:focus, .active {
 		
     function appendMessage(timestamp, username, text, color) 
     {
-        
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-    
-		$('#conversation').append(
-		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
-		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username + '</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+'<div class="message">' +  text +'</div>'
-                //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-                //+'</div>'
-		+'</div><br/>');
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+
+        var messageClass = (username=='VirtualProfessor' ? ' message_agent' : '');
+        var $line = $('<div/>', { 'class': 'message_line' + messageClass });
+        var $info = $('<div/>', { 'class': 'info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        var $message = $('<div/>', { 'class': 'message' }).html(text);
+        $line.append($info).append($message);
+        $('#conversation').append($line).append('<br/>');
+        renderMath($line[0]);
+        noticeNewMessage();
+        if(lastDate > timestamp)
+          lastDate = timestamp;
     }
-    
+
     function appendNote(timestamp, username, text, color) 
     {
-        
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-    
-		$('#conversation').append(
-		 '<div class="message_line">'
-		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username +'</div>'
-		+'<div class="user" style="padding-left:5px">'+ text +'</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+'</div><br/>');
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+
+        var $line = $('<div/>', { 'class': 'message_line' });
+        var $info = $('<div/>', { 'class': 'info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'user' }).css('padding-left','5px').html(text));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        $line.append($info);
+        $('#conversation').append($line).append('<br/>');
+        renderMath($line[0]);
+        noticeNewMessage();
+        if(lastDate > timestamp)
+          lastDate = timestamp;
     }
-    
+
     var anchorID = 0;
     function appendImage(timestamp, username, image_url, color) 
-	{
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-	    anchor = 'sharedItem'+(anchorID++)
-	    
-		$('#images').append(
-		 '<a id='+anchor+'/>'
-		+'<div class="image_line">'
-		+'<div class="image_info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username + '</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+'<div><a href="'+image_url+'" target="blank"><img class="shared_image" src="' + image_url + '"></img></a></div>'
-		+'</div><br/>');
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
-		
-		return anchor;
+    {
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+        anchor = 'sharedItem'+(anchorID++)
+        
+        var $anchor = $('<a/>', { id: anchor });
+        var $line = $('<div/>', { 'class': 'image_line' });
+        var $info = $('<div/>', { 'class': 'image_info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        var $imgWrapper = $('<div/>').append($('<a/>', { href: image_url, target: 'blank' }).append($('<img/>', { 'class': 'shared_image', src: image_url })));
+        $line.append($info).append($imgWrapper);
+
+        $('#images').append($anchor).append($line).append('<br/>');
+        renderMath($line[0]);
+        noticeNewMessage();
+        if(lastDate > timestamp)
+            lastDate = timestamp;
+        
+        return anchor;
 
     }
-    
+
     function appendHTML(timestamp, username, html, color) 
-	{
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-	    anchor = 'sharedItem'+(anchorID++)
-	    
-		$('#images').append(
-		 '<a id='+anchor+'/>'
-		+'<div class="image_line">'
-		+'<div class="image_info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username + '</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+html
-		+'</div><br/>');
-		
-		
-        $('.sortable').sortable();			
+    {
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+        anchor = 'sharedItem'+(anchorID++)
+        
+        var $anchor = $('<a/>', { id: anchor });
+        var $line = $('<div/>', { 'class': 'image_line' });
+        var $info = $('<div/>', { 'class': 'image_info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        var $content = $(html);
+        $line.append($info).append($content);
+        
+        $('#images').append($anchor).append($line).append('<br/>');
+        renderMath($line[0]);
+        
+        $('.sortable').sortable();		
         $('.exclude').sortable({
-				items: ':not(.disabled)'
-			});
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
-		return anchor;
+                items: ':not(.disabled)'
+        });
+        noticeNewMessage();
+        if(lastDate > timestamp)
+            lastDate = timestamp;
+        return anchor;
     }
-    
-    
+
     function getMultimodalValue(field, data) 
     {
     	var fields = data.split(";%;");
