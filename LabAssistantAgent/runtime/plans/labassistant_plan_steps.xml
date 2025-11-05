@@ -9,8 +9,8 @@
         <step type="prompt" delay="0" prompt="PART1_COLLAB">PART1_COLLAB</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready:part1\s*$" required_participants="2" secret_property="PART1_SECRET_WORD" secret_flag="PART1_SECRET_TRIGGERED">PART1_READY</step>
         <step type="prompt" delay="0" prompt="PART1_SUBMIT_PROMPT">PART1_SUBMIT_PROMPT</step>
-        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART1_EXPECTED|A+B-&gt;2C}" secret_flag="PART1_SECRET_TRIGGERED" success_prompt="PART1_CORRECT" retry_prompt="PART1_RETRY" failure_prompt="PART1_FAILURE" reactant_feedback_prompt="PART1_REACTANT_FEEDBACK" product_feedback_prompt="PART1_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART1_STOICHIOMETRY_FEEDBACK">PART1_REACTION</step>
-        <step type="solution" delay="0" property="PART1_SOLUTION">PART1_SOLUTION_STEP</step>
+        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART1_EXPECTED|A+B-&gt;2C}" secret_flag="PART1_SECRET_TRIGGERED" success_prompt="PART1_CORRECT" retry_prompt="PART1_RETRY" failure_prompt="PART1_FAILURE" reactant_feedback_prompt="PART1_REACTANT_FEEDBACK" product_feedback_prompt="PART1_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART1_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART1_GENERAL_FEEDBACK">PART1_REACTION</step>
+        <step type="prompt" delay="0" prompt="PART1_SOLUTION">PART1_SOLUTION_STEP</step>
     </stage>
     <stage name="StagePart2" type="other" delay="0">
         <step type="send_command" delay="0">SHOW_VLAB2</step>
@@ -18,8 +18,8 @@
         <step type="prompt" delay="0" prompt="PART2_COLLAB">PART2_COLLAB</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready:part2\s*$" required_participants="2" secret_property="PART2_SECRET_WORD" secret_flag="PART2_SECRET_TRIGGERED">PART2_READY</step>
         <step type="prompt" delay="0" prompt="PART2_SUBMIT_PROMPT">PART2_SUBMIT_PROMPT</step>
-        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART2_EXPECTED|A+2C-&gt;B+D;B+2C-&gt;E}" secret_flag="PART2_SECRET_TRIGGERED" success_prompt="PART2_CORRECT" retry_prompt="PART2_RETRY" failure_prompt="PART2_FAILURE" reactant_feedback_prompt="PART2_REACTANT_FEEDBACK" product_feedback_prompt="PART2_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART2_STOICHIOMETRY_FEEDBACK">PART2_REACTION</step>
-        <step type="solution" delay="0" property="PART2_SOLUTION">PART2_SOLUTION_STEP</step>
+        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART2_EXPECTED|A+2C-&gt;B+D;B+2C-&gt;E}" secret_flag="PART2_SECRET_TRIGGERED" success_prompt="PART2_CORRECT" retry_prompt="PART2_RETRY" failure_prompt="PART2_FAILURE" reactant_feedback_prompt="PART2_REACTANT_FEEDBACK" product_feedback_prompt="PART2_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART2_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART2_GENERAL_FEEDBACK">PART2_REACTION</step>
+        <step type="prompt" delay="0" prompt="PART2_SOLUTION">PART2_SOLUTION_STEP</step>
     </stage>
     <stage name="StagePart3" type="other" delay="0">
         <step type="send_command" delay="0">SHOW_VLAB3</step>

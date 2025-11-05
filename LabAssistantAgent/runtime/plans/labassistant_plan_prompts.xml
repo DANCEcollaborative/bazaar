@@ -25,6 +25,9 @@
     <prompt strategy="task" id="PART1_STOICHIOMETRY_FEEDBACK">
         <text>The substances look correct, but the stoichiometric ratios need adjusting.</text>
     </prompt>
+    <prompt strategy="task" id="PART1_GENERAL_FEEDBACK">
+        <text>That combination doesn't match the wizard's clue yet. Re-examine both reactants and products before trying again.</text>
+    </prompt>
     <prompt strategy="task" id="PART1_CORRECT">
         <text>Great! Your Part 1 reaction matches the wizard's clue.</text>
     </prompt>
@@ -35,7 +38,7 @@
         <text>We'll reveal the wizard's Part 1 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART1_SOLUTION">
-        <text><![CDATA[${PART1_SOLUTION|Wizard's Part 1 solution: $$A + B \rightarrow 2C$$}]]></text>
+        <text><![CDATA[<div class="wizard-solution"><strong>Wizard's Part 1 solution:</strong> $$0.1\,	ext{L} 	imes rac{1.0\,	ext{mol A}}{1\,	ext{L}} = 0.10\,	ext{mol A}$$</div>]]></text>
     </prompt>
 
     <prompt strategy="task" id="PART2_QUESTION">
@@ -56,6 +59,9 @@
     <prompt strategy="task" id="PART2_STOICHIOMETRY_FEEDBACK">
         <text>Reactants and products look solid—tune the coefficients to balance the equation.</text>
     </prompt>
+    <prompt strategy="task" id="PART2_GENERAL_FEEDBACK">
+        <text>That equation doesn't line up with the wizard's instructions. Revisit both sides and try another balanced reaction.</text>
+    </prompt>
     <prompt strategy="task" id="PART2_CORRECT">
         <text>Nice work! That reaction satisfies the wizard's second clue.</text>
     </prompt>
@@ -66,6 +72,6 @@
         <text>Let's review the wizard's Part 2 solution and continue.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SOLUTION">
-        <text><![CDATA[${PART2_SOLUTION|Wizard's Part 2 solution: $$A + 2C \rightarrow B + D$$}]]></text>
+        <text><![CDATA[<div class="wizard-solution"><strong>Wizard's Part 2 solutions include:</strong><div class="wizard-equation">$$A + 2C \rightarrow B + D$$</div><div class="wizard-equation">$$B + 2C \rightarrow E$$</div></div>]]></text>
     </prompt>
 </prompts>
