@@ -60,6 +60,19 @@ ul.tab li a:focus, .active {
 <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
 
 <script>
+    // Update these URLs to change embedded resources.
+    const RESOURCE_URLS = {
+        virtualLab: "https://melodic-souffle-afa758.netlify.app/", // should contain some username mapping
+        virtualLab2: "https://graceful-torrone-c9b66d.netlify.app/",
+        virtualLab3: "https://transcendent-sunburst-b5c638.netlify.app/",
+        scratchpad1: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
+        scratchpad2: "https://docs.google.com/document/d/18i2HB9LP6PODSbrTQrLpjOpyl34IqWooPaQIsEG71gM/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false"
+    };
+
+    function resolveResourceUrl(template, roomName) {
+        return template.replace(/\{ROOM\}/g, roomName || "");
+    }
+
     var windowHasFocus = true;
     var unreadMessages = 0;
     var lastDate = null;
@@ -286,11 +299,11 @@ ul.tab li a:focus, .active {
 	}
         $('#roomname').text(room);   
 
-        document.getElementById('scratchpad1').src =  "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihva" + "j" +  room + "?showChat=false&noColors=false";
-        document.getElementById('scratchpad2').src =  "https://docs.google.com/document/d/18i2HB9LP6PODSbrTQrLpjOpyl34IqWooPaQIsEG71gM/edit?tab=t.0#heading=h.tlnk9tihva" + "j" +  room + "?showChat=false&noColors=false";
-        document.getElementById('virtualLab').src  = "https://chemcollective.org/vlabdirect/load/Stoichiometry/oracle-test-1";
-        document.getElementById('virtualLab2').src = "https://chemcollective.org/vlabdirect/load/Stoichiometry/oracle-test-2";
-        document.getElementById('virtualLab3').src = "https://chemcollective.org/vlabdirect/load/Stoichiometry/oracle-test-3";
+        document.getElementById('scratchpad1').src = resolveResourceUrl(RESOURCE_URLS.scratchpad1, room);
+        document.getElementById('scratchpad2').src = resolveResourceUrl(RESOURCE_URLS.scratchpad2, room);
+        document.getElementById('virtualLab').src  = resolveResourceUrl(RESOURCE_URLS.virtualLab, room);
+        document.getElementById('virtualLab2').src = resolveResourceUrl(RESOURCE_URLS.virtualLab2, room);
+        document.getElementById('virtualLab3').src = resolveResourceUrl(RESOURCE_URLS.virtualLab3, room);
         });
 	
 
@@ -634,11 +647,11 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Virtual Lab</a></li>
+    <li><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Part 1</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 1')">Scratchpad 1</a></li>
     <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 2')">Scratchpad 2</a></li>
-    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 2')">Virtual Lab 2</a></li>
-    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 3')">Virtual Lab 3</a></li>
+    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 2')">Part 2</a></li>
+    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 3')">Part 3</a></li>
     </ul>
     
    <div id="Virtual Lab" class="tabcontent">
