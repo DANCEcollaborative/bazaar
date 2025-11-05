@@ -70,7 +70,7 @@ Current plan is defined in `labassistant_plan_steps.xml`:
    - Sends `SHOW_VLAB2` command to the HTML (via `send_command`).
    - Repeats prompt → ready → reaction → solution cycle for the second part.
 4. **StagePart3**
-   - Reveals tab 3 (`SHOW_VLAB3`), waits briefly (`no-op` with delay), dumps chat log, ends session.
+   - Reveals tab 3 (`SHOW_VLAB3`), delivers final prompts, waits for `ready:part3` (or secret), accepts unlimited reaction attempts until correct, then shares the solution and proceeds to wait/log/end steps.
 
 ### 3.5 Step Handlers (PlanExecutor step types)
 
@@ -134,7 +134,7 @@ Step types you’ll see in `labassistant_plan_steps.xml` with corresponding hand
 | StageInitialization | Greeting & wait | Two `prompt`s (WELCOME_WAIT/CONTEXT). |
 | StagePart1 | Part 1 question & answer | `prompt` cues, `ready_secret`, `reaction` (3 attempts), `solution`. |
 | StagePart2 | Part 2 challenge | `send_command` (show tab), similar prompt → ready → reaction → solution. Supports multiple valid reactions. |
-| StagePart3 | Wrap-up | Reveal Part 3 tab, wait (no-op), log chat, send end message, logout. |
+| StagePart3 | Final challenge & wrap-up | `send_command` (show tab), prompt/ready cycle, `reaction` with **unlimited** attempts, `solution`, then wait/log/end/logout. |
 
 ## 8. Configuration Properties
 
@@ -167,7 +167,7 @@ Step types you’ll see in `labassistant_plan_steps.xml` with corresponding hand
 | `prompt` | `PromptStepHandler` | Send a message after optional typewriter delay. |
 | `gated` | `GatedStepHandler` | Wait for ready keywords; prompt/ack users. |
 | `ready_secret` | `ReadyOrSecretStepHandler` | Gated plus secret phrase unlock. |
-| `reaction` | `ReactionStepHandler` | Evaluate reactions, provide targeted feedback, enforce attempts. |
+| `reaction` | `ReactionStepHandler` | Evaluate reactions, provide targeted feedback, enforce attempts (or unlimited when configured). |
 | `send_command` | `SendCommandStepHandler` | Emit commands to the Socket.IO server (e.g., reveal tabs). |
 | `solution` | `SolutionStepHandler` | Pull solution text from properties, send to chat. |
 | `no-op` | `DoNothingStepHandler` | After configured delay, mark step done. |

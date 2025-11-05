@@ -235,6 +235,33 @@ ul.tab li a:focus, .active {
 
     }
 
+    
+    function reorderTabs() {
+        var ul = document.querySelector('ul.tab');
+        if (!ul) return;
+        var preferredOrder = [
+            'tab-virtualLab3-li',
+            'tab-virtualLab2-li',
+            'tab-virtualLab1-li',
+            'tab-scratchpad1-li',
+            'tab-scratchpad2-li'
+        ];
+        var existing = Array.prototype.slice.call(ul.children);
+        var frag = document.createDocumentFragment();
+        preferredOrder.forEach(function(id) {
+            var node = document.getElementById(id);
+            if (node) {
+                frag.appendChild(node);
+            }
+        });
+        existing.forEach(function(node) {
+            if (preferredOrder.indexOf(node.id) === -1) {
+                frag.appendChild(node);
+            }
+        });
+        ul.appendChild(frag);
+    }
+
     function appendHTML(timestamp, username, html, color) 
     {
        if(!color)
@@ -454,21 +481,29 @@ ul.tab li a:focus, .active {
 		var selectors = cmdObj.selectors || cmdObj.targets || [];
 		if (typeof selectors === 'string') selectors = selectors.split(/\s*,\s*/);
 
-		selectors.forEach(function(sel) {
-			try {
-				var nodes = document.querySelectorAll(sel);
-				nodes.forEach(function(el) {
-					switch (action) {
-						case 'show': el.style.display = 'initial'; break;
-						case 'hide': el.style.display = 'none'; break;
+        var affectsTabs = false;
+        selectors.forEach(function(sel) {
+            try {
+                var trimmed = (sel || '').trim();
+                if (!affectsTabs && /^#tab-virtualLab[123]-li$/i.test(trimmed)) {
+                    affectsTabs = true;
+                }
+                var nodes = document.querySelectorAll(sel);
+                nodes.forEach(function(el) {
+                    switch (action) {
+                        case 'show': el.style.display = 'initial'; break;
+                        case 'hide': el.style.display = 'none'; break;
 						case 'toggle': el.style.display = (el.style.display === 'none') ? 'initial' : 'none'; break;
 						case 'addclass': if (cmdObj.class) el.classList.add(cmdObj.class); break;
 						case 'removeclass': if (cmdObj.class) el.classList.remove(cmdObj.class); break;
 						default: break;
 					}
-				});
-			} catch (e) { /* ignore bad selectors */ }
-		});
+                });
+            } catch (e) { /* ignore bad selectors */ }
+        });
+        if (affectsTabs && (action === 'show' || action === 'hide' || action === 'toggle')) {
+            reorderTabs();
+        }
 	}
 	
 	    // listener, whenever the server emits 'updaterooms', this updates the room list
@@ -683,9 +718,9 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Part 1</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 1')">Scratchpad 1</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 2')">Scratchpad 2</a></li>
+    <li id="tab-virtualLab1-li"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Part 1</a></li>
+    <li id="tab-scratchpad1-li"><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 1')">Scratchpad 1</a></li>
+    <li id="tab-scratchpad2-li"><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 2')">Scratchpad 2</a></li>
     <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 2')">Part 2</a></li>
     <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 3')">Part 3</a></li>
     </ul>

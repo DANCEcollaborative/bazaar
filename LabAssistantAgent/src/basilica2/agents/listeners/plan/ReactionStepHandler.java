@@ -70,17 +70,26 @@ public class ReactionStepHandler implements StepHandler
             }
         }
 
+        boolean unlimitedAttempts = false;
         int attempts = 1;
         if (currentStep.attributes.containsKey("attempts"))
         {
-            try
+            String attemptAttr = currentStep.attributes.get("attempts");
+            if (attemptAttr != null && attemptAttr.trim().equalsIgnoreCase("unlimited"))
             {
-                attempts = Integer.parseInt(currentStep.attributes.get("attempts"));
+                unlimitedAttempts = true;
             }
-            catch (NumberFormatException e)
+            else
             {
-                Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING,
-                        "Invalid attempts value '" + currentStep.attributes.get("attempts") + "' for step " + currentStep.name);
+                try
+                {
+                    attempts = Integer.parseInt(attemptAttr);
+                }
+                catch (NumberFormatException e)
+                {
+                    Logger.commonLog(getClass().getSimpleName(), Logger.LOG_WARNING,
+                            "Invalid attempts value '" + attemptAttr + "' for step " + currentStep.name);
+                }
             }
         }
 
@@ -94,7 +103,7 @@ public class ReactionStepHandler implements StepHandler
         String generalFeedbackPrompt = currentStep.attributes.get("general_feedback_prompt");
 
         ReactionMonitor monitor = new ReactionMonitor(overmind, source, currentStep, prompter, expectedReactions,
-                secretFlag, attempts, successPrompt, retryPrompt, failurePrompt,
+                secretFlag, attempts, unlimitedAttempts, successPrompt, retryPrompt, failurePrompt,
                 reactantFeedbackPrompt, productFeedbackPrompt, stoichiometryFeedbackPrompt, generalFeedbackPrompt);
         overmind.addHelper(monitor);
         monitor.checkForSecretSkip();
@@ -245,37 +254,39 @@ public class ReactionStepHandler implements StepHandler
 		private final InputCoordinator source;
 		private final List<ParsedReaction> expectedReactions;
 		private final String secretFlagKey;
-		private final String successPrompt;
-		private final String retryPrompt;
-		private final String failurePrompt;
+        private final String successPrompt;
+        private final String retryPrompt;
+        private final String failurePrompt;
         private final String reactantFeedbackPrompt;
         private final String productFeedbackPrompt;
         private final String stoichiometryFeedbackPrompt;
         private final String generalFeedbackPrompt;
-		private int attemptsRemaining;
-		private boolean finished = false;
+        private final boolean unlimitedAttempts;
+        private int attemptsRemaining;
+        private boolean finished = false;
 
-		ReactionMonitor(PlanExecutor overmind, InputCoordinator source, Step step, PromptTable prompter,
-			List<ParsedReaction> expectedReactions, String secretFlagKey, int maxAttempts, String successPrompt,
-			String retryPrompt, String failurePrompt, String reactantFeedbackPrompt,
+        ReactionMonitor(PlanExecutor overmind, InputCoordinator source, Step step, PromptTable prompter,
+            List<ParsedReaction> expectedReactions, String secretFlagKey, int maxAttempts, boolean unlimitedAttempts, String successPrompt,
+            String retryPrompt, String failurePrompt, String reactantFeedbackPrompt,
             String productFeedbackPrompt, String stoichiometryFeedbackPrompt, String generalFeedbackPrompt)
-		{
-			super(overmind.getAgent());
-			this.overmind = overmind;
-			this.source = source;
-			this.step = step;
-			this.prompter = prompter;
+        {
+            super(overmind.getAgent());
+            this.overmind = overmind;
+            this.source = source;
+            this.step = step;
+            this.prompter = prompter;
             this.expectedReactions = expectedReactions;
             this.secretFlagKey = secretFlagKey;
-			this.successPrompt = successPrompt;
-			this.retryPrompt = retryPrompt;
-			this.failurePrompt = failurePrompt;
+            this.successPrompt = successPrompt;
+            this.retryPrompt = retryPrompt;
+            this.failurePrompt = failurePrompt;
             this.reactantFeedbackPrompt = reactantFeedbackPrompt;
             this.productFeedbackPrompt = productFeedbackPrompt;
             this.stoichiometryFeedbackPrompt = stoichiometryFeedbackPrompt;
             this.generalFeedbackPrompt = generalFeedbackPrompt;
-			this.attemptsRemaining = Math.max(1, maxAttempts);
-		}
+            this.unlimitedAttempts = unlimitedAttempts;
+            this.attemptsRemaining = unlimitedAttempts ? Integer.MAX_VALUE : Math.max(1, maxAttempts);
+        }
 
 		void checkForSecretSkip()
 		{
@@ -458,18 +469,28 @@ public class ReactionStepHandler implements StepHandler
 
         private void handleIncorrectAttempt()
         {
-            attemptsRemaining = Math.max(0, attemptsRemaining - 1);
-
-            if (attemptsRemaining > 0)
+            if (!unlimitedAttempts)
             {
-                Map<String, String> slots = new HashMap<String, String>();
-                slots.put("[ATTEMPTS_LEFT]", Integer.toString(attemptsRemaining));
-                sendPrompt(retryPrompt, slots);
+                attemptsRemaining = Math.max(0, attemptsRemaining - 1);
+
+                if (attemptsRemaining > 0)
+                {
+                    Map<String, String> slots = new HashMap<String, String>();
+                    slots.put("[ATTEMPTS_LEFT]", Integer.toString(attemptsRemaining));
+                    sendPrompt(retryPrompt, slots);
+                }
+                else
+                {
+                    sendPrompt(failurePrompt, null);
+                    finishStep();
+                }
             }
             else
             {
-                sendPrompt(failurePrompt, null);
-                finishStep();
+                if (retryPrompt != null && retryPrompt.length() > 0)
+                {
+                    sendPrompt(retryPrompt, null);
+                }
             }
         }
 

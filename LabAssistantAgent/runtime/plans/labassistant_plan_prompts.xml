@@ -1,77 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
     <prompt strategy="task" id="WELCOME_WAIT">
-        <text>Hi! I'm LabAssistant. I'll hold tight until both teammates have joined the discussion.</text>
+        <text>Hi! I'm LabAssistant. Let us wait until both teammates have joined the discussion.</text>
     </prompt>
+
     <prompt strategy="task" id="WELCOME_CONTEXT">
-        <text>Once everyone is ready, we'll tackle three wizard riddles together using the virtual lab.</text>
+        <text>Once everyone is ready, we'll tackle three different parts of our experiment in the Virtual Lab.</text>
     </prompt>
 
     <prompt strategy="task" id="PART1_QUESTION">
-        <text>Part 1 — Use the first virtual lab tab to uncover the reaction behind the opening clue. Talk it through, then each teammate type ready:part1 when prepared. Submit answers in chat as reaction: REACTANTS-&gt;PRODUCTS (for example, reaction: A+2C-&gt;B+D).</text>
+        <text>Part 1 - Mix A and B and use the species viewer to determine the stoichiometry of the reaction between A and B, including the stoichiometric coefficients. You will find 1 M solutions of each reagent in the stockroom. Talk it through, then each teammate type <span style="color:#d9534f; font-weight:bold;">ready:part1</span> when prepared.</text>
     </prompt>
     <prompt strategy="task" id="PART1_COLLAB">
         <text>Compare notes before you lock in an answer. What observations or tests support your Part 1 reaction?</text>
     </prompt>
     <prompt strategy="task" id="PART1_SUBMIT_PROMPT">
-        <text>When you're ready, send me your reaction as reaction: REACTANTS->PRODUCTS. You have up to three tries, so double-check before you submit.</text>
+        <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
     </prompt>
     <prompt strategy="task" id="PART1_REACTANT_FEEDBACK">
-        <text>Your reactants line up with the clue. Revisit the products to finish the equation.</text>
+        <text>Your reactants are correct. Revisit the products to reach the correct equation.</text>
     </prompt>
     <prompt strategy="task" id="PART1_PRODUCT_FEEDBACK">
-        <text>The products make sense. Check which reactants should combine to produce them.</text>
+        <text>Your products are correct. Check which reactants should combine to produce these products.</text>
     </prompt>
     <prompt strategy="task" id="PART1_STOICHIOMETRY_FEEDBACK">
-        <text>The substances look correct, but the stoichiometric ratios need adjusting.</text>
+        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
     </prompt>
     <prompt strategy="task" id="PART1_GENERAL_FEEDBACK">
-        <text>That combination doesn't match the wizard's clue yet. Re-examine both reactants and products before trying again.</text>
+        <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>
     </prompt>
     <prompt strategy="task" id="PART1_CORRECT">
-        <text>Great! Your Part 1 reaction matches the wizard's clue.</text>
+        <text>Great! Your Part 1 reaction is correct!.</text>
     </prompt>
     <prompt strategy="task" id="PART1_RETRY">
         <text>Not quite. You have [ATTEMPTS_LEFT] attempt(s) left for Part 1. Revisit your evidence and adjust the reaction together.</text>
     </prompt>
     <prompt strategy="task" id="PART1_FAILURE">
-        <text>We'll reveal the wizard's Part 1 solution and keep moving.</text>
+        <text>We'll reveal the Part 1 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART1_SOLUTION">
-        <text><![CDATA[${PART1_SOLUTION|Wizard's Part 1 solution: $$A + B ightarrow 2C$$}]]></text>
+        <text>Part 1 solution: A + B -> 2C</text>
     </prompt>
 
     <prompt strategy="task" id="PART2_QUESTION">
-        <text>Part 2 — Open the second lab tab (Part 2) and determine the reaction for the next clue. When both of you are ready, type ready:part2. Submit each attempt as reaction: REACTANTS-&gt;PRODUCTS.</text>
+        <text>Part 2 — Open the second lab tab (Part 2). Mix the available reagents and use the species viewer to determine the stoichiometry of the reaction, including the stoichiometric coefficients. Note that one of the reacting species is not visible in the species viewer. You will find 1 M solutions of the available reagents in the stockroom. When both of you are ready, type <span style="color:#d9534f; font-weight:bold;">ready:part2</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART2_COLLAB">
         <text>Share your observations from the new setup before sending an answer. What evidence confirms your Part 2 reaction?</text>
     </prompt>
     <prompt strategy="task" id="PART2_SUBMIT_PROMPT">
-        <text>Type your answer as reaction: REACTANTS->PRODUCTS. Remember, you have up to three attempts for Part 2.</text>
+        <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
     </prompt>
     <prompt strategy="task" id="PART2_REACTANT_FEEDBACK">
-        <text>Your starting substances look right. Revisit what they should form in the second step.</text>
+        <text>Your reactants are correct. Revisit the products to reach the correct equation.</text>
     </prompt>
     <prompt strategy="task" id="PART2_PRODUCT_FEEDBACK">
-        <text>The products check out. Double-check which reactants should lead to them.</text>
+        <text>Your products are correct. Check which reactants should combine to produce these products.</text>
     </prompt>
     <prompt strategy="task" id="PART2_STOICHIOMETRY_FEEDBACK">
-        <text>Reactants and products look solid—tune the coefficients to balance the equation.</text>
+        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
     </prompt>
     <prompt strategy="task" id="PART2_GENERAL_FEEDBACK">
-        <text>That equation doesn't line up with the wizard's instructions. Revisit both sides and try another balanced reaction.</text>
+        <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>
     </prompt>
     <prompt strategy="task" id="PART2_CORRECT">
-        <text>Nice work! That reaction satisfies the wizard's second clue.</text>
+        <text>Great! Your Part 2 reaction is correct!.</text>
     </prompt>
     <prompt strategy="task" id="PART2_RETRY">
-        <text>That doesn't quite fit. [ATTEMPTS_LEFT] attempt(s) remain for Part 2 — double-check coefficients and products.</text>
+        <text>Not quite. You have [ATTEMPTS_LEFT] attempt(s) left for Part 2. Revisit your evidence and adjust the reaction together.</text>
     </prompt>
     <prompt strategy="task" id="PART2_FAILURE">
-        <text>Let's review the wizard's Part 2 solution and continue.</text>
+        <text>We'll reveal the Part 2 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SOLUTION">
-        <text><![CDATA[${PART2_SOLUTION|Wizard's Part 2 solution: $$A + 2C ightarrow B + D$$}]]></text>
+        <text>Part 2 solution: B + D -> A + 2C</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_QUESTION">
+        <text>Part 3 — Open the third lab tab (Part 3). Mix the available reagents and use the species viewer to determine the stoichiometry of the reaction, including the stoichiometric coefficients. Note that one of the reacting species is not visible in the species viewer. You will find 1 M solutions of the available reagents in the stockroom. Once both of you are ready, type <span style="color:#d9534f; font-weight:bold;">ready:part3</span>.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_COLLAB">
+        <text>Share observations from the third setup before locking in an answer. What evidence supports your final reaction?</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_SUBMIT_PROMPT">
+        <text>You can have as many attempts as you like. Submit your answer as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span>.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_REACTANT_FEEDBACK">
+        <text>Your reactants are correct. Revisit the products to reach the correct equation.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_PRODUCT_FEEDBACK">
+        <text>Your products are correct. Check which reactants should combine to produce these products.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_STOICHIOMETRY_FEEDBACK">
+        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_GENERAL_FEEDBACK">
+        <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_CORRECT">
+        <text>Great! Your Part 3 reaction is correct!.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_RETRY">
+        <text>Not quite. Keep revisiting your evidence and adjust the reaction together.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_FAILURE">
+        <text>We'll reveal the Part 3 solution and keep moving.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_SOLUTION">
+        <text>Part 3 solution: A + 2C → B + 2D</text>
     </prompt>
 </prompts>
