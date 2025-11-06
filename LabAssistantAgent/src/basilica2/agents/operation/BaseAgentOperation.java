@@ -31,6 +31,7 @@
  */
 package basilica2.agents.operation;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
@@ -101,6 +102,8 @@ public class BaseAgentOperation extends AgentOperation
 		myAgentUIs = new HashMap<String, AgentUI>();
 		roomnameQueue = new ArrayList<String>();
 
+		ensureDefaultLogDirectory();
+
 		myLogger.setConfiguration(true, true, true, true, false, true);
 	}
 
@@ -123,6 +126,22 @@ public class BaseAgentOperation extends AgentOperation
 		catch (IOException ex)
 		{
 			ex.printStackTrace();
+		}
+	}
+
+	private void ensureDefaultLogDirectory()
+	{
+		File defaultLogDir = new File("logs");
+		if (!defaultLogDir.exists())
+		{
+			if (!defaultLogDir.mkdirs())
+			{
+				System.err.println("Warning: unable to create default log directory at " + defaultLogDir.getAbsolutePath());
+			}
+		}
+		else if (!defaultLogDir.isDirectory())
+		{
+			System.err.println("Warning: log path " + defaultLogDir.getAbsolutePath() + " is not a directory; logging to files may fail.");
 		}
 	}
 
@@ -268,7 +287,10 @@ public class BaseAgentOperation extends AgentOperation
 	@Override
 	public void tick()
 	{
-		myUI.tick();
+		if (myUI != null)
+		{
+			myUI.tick();
+		}
 	}
 
 	@Override
@@ -347,33 +369,55 @@ public class BaseAgentOperation extends AgentOperation
 		File outDir = new File(outLogDirectory);
     	if(!outDir.exists())
     	{
-    		outDir.mkdir();
+    		if(!outDir.mkdirs())
+    		{
+    			System.err.println("Unable to create output log directory: "+outDir.getPath());
+    			return;
+    		}
     	}
     	else if(!outDir.isDirectory())
     	{
     		System.err.println("Not a Folder: "+outDir.getPath());
+    		return;
     	}
-    	else
-    	{
-    		try
-			{
-				String outLogFilename = outDir+"/"+roomName+"-"+(timeFormat.format(new Date()))+".log";
-				PrintStream logPrintStream = new PrintStream(outLogFilename);
-				System.out.println("redirecting output to "+outLogFilename);
-				System.setOut(logPrintStream);
-			}
-			catch (FileNotFoundException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+
+    	try
+		{
+			String outLogFilename = outDir+"/"+roomName+"-"+(timeFormat.format(new Date()))+".log";
+			PrintStream logPrintStream = new PrintStream(outLogFilename);
+			System.out.println("redirecting output to "+outLogFilename);
+			System.setOut(logPrintStream);
+		}
+		catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	
 	}
 	public static void main(final String[] args)
 	{
 		
 		initializeSystemProperties("system.properties");
+		final boolean headlessRuntime = GraphicsEnvironment.isHeadless() || hasNoUiFlag(args);
+
+		if (headlessRuntime)
+		{
+			BaseAgentOperation thisOperation = new BaseAgentOperation();
+			if (GraphicsEnvironment.isHeadless())
+			{
+				System.out.println("Headless graphics environment detected; running LabAssistant without UI.");
+			}
+			else
+			{
+				System.out.println("UI disabled by command-line flag; running LabAssistant without UI.");
+			}
+			thisOperation.startOperation();
+			thisOperation.processArgs(args, "Test01", false);
+			return;
+		}
+
 		java.awt.EventQueue.invokeLater(new Runnable()
 		{
 
@@ -389,6 +433,23 @@ public class BaseAgentOperation extends AgentOperation
 				thisOperation.processArgs(args);
 			}
 		});
+	}
+
+	private static boolean hasNoUiFlag(String[] args)
+	{
+		for (String arg : args)
+		{
+			if (arg == null)
+			{
+				continue;
+			}
+			String lowerArg = arg.toLowerCase();
+			if ("--noui".equals(lowerArg) || "-noui".equals(lowerArg) || "--headless".equals(lowerArg) || "-headless".equals(lowerArg))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	protected void processArgsNoUI(String[] args)
@@ -410,12 +471,15 @@ public class BaseAgentOperation extends AgentOperation
 		parser.accepts("outdir").withRequiredArg();
 		parser.accepts("condition").withRequiredArg();
 		parser.accepts("launch");
+		parser.accepts("noui");
+		parser.accepts("headless");
 		
 		OptionSet options = parser.parse(args);
 
 		String room = (String)options.valueOf("room");
+		boolean uiEnabled = hasUI && !(options.has("noui") || options.has("headless"));
 		
-		if (hasUI) {
+		if (uiEnabled) {
 			myUI.setRoomName(room);
 			myUI.setLocation(new Point((Integer)options.valueOf("x"), (Integer)options.valueOf("y")));
 		}
@@ -439,7 +503,7 @@ public class BaseAgentOperation extends AgentOperation
 			System.out.println("launching...");
 			log(Logger.LOG_NORMAL, "launching hands-free!");
 			System.setProperty("basilica2.handsfree", "true");
-			this.launchAgent(room,hasUI);
+			this.launchAgent(room, uiEnabled);
 		}
 	}
 	
@@ -452,6 +516,8 @@ public class BaseAgentOperation extends AgentOperation
 		parser.accepts("outdir").withRequiredArg();
 		parser.accepts("condition").withRequiredArg();
 		parser.accepts("launch");
+		parser.accepts("noui");
+		parser.accepts("headless");
 		
 		OptionSet options = parser.parse(args);
 
