@@ -56,6 +56,17 @@ class SendCommandStepHandler implements StepHandler
 		}
 		
 		String command = commander.lookup(commandKey);
+
+		if(news != null && step.attributes.containsKey("state_key") && step.attributes.containsKey("state_value"))
+		{
+			String stateKey = step.attributes.get("state_key");
+			String stateValue = step.attributes.get("state_value");
+			if(stateKey != null && stateValue != null)
+			{
+				news.more().put(stateKey, stateValue);
+				StateMemory.commitSharedState(news, overmind.getAgent());
+			}
+		}
 		
 		SendCommandEvent sendCommandEvent = new SendCommandEvent(source,command); 	
 //      System.err.println("LogStepHandler, execute - SendCommandEvent created: tag: " + tag + "   details: " + details);
