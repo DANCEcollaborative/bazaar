@@ -68,12 +68,102 @@ ul.tab li a:focus, .active {
         virtualLab: "https://melodic-souffle-afa758.netlify.app/", // should contain some username mapping
         virtualLab2: "https://graceful-torrone-c9b66d.netlify.app/",
         virtualLab3: "https://transcendent-sunburst-b5c638.netlify.app/",
-        scratchpad1: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
-        scratchpad2: "https://docs.google.com/document/d/18i2HB9LP6PODSbrTQrLpjOpyl34IqWooPaQIsEG71gM/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false"
+        virtualLab4: "https://transcendent-sunburst-b5c638.netlify.app/",
+        scratchpad: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
+        tutorial: "https://munano.org/virtual-lab-hints-template/"
     };
+
+    const PART_TAB_IDS = ['tab-virtualLab1-li', 'tab-virtualLab2-li', 'tab-virtualLab3-li', 'tab-virtualLab4-li'];
+    const PART_CONTENT_IDS = ['Part 1', 'Part 2', 'Part 3', 'Part 4'];
 
     function resolveResourceUrl(template, roomName) {
         return template.replace(/\{ROOM\}/g, roomName || "");
+    }
+
+    function activateTab(tabLinkEl, targetId) {
+        var tabcontent = document.getElementsByClassName("tabcontent");
+        for (var i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        var tablinks = document.getElementsByClassName("tablinks");
+        for (var j = 0; j < tablinks.length; j++) {
+            tablinks[j].classList.remove("active");
+        }
+        if (targetId) {
+            var target = document.getElementById(targetId);
+            if (target) {
+                target.style.display = "block";
+            }
+        }
+        if (tabLinkEl) {
+            tabLinkEl.classList.add("active");
+        }
+    }
+
+    function getPartIndexFromSelector(selector) {
+        if (!selector) { return -1; }
+        var normalized = selector.replace(/^#/, '');
+        for (var i = 0; i < PART_TAB_IDS.length; i++) {
+            if (PART_TAB_IDS[i].toLowerCase() === normalized.toLowerCase()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function setActivePart(index) {
+        if (index < 0 || index >= PART_TAB_IDS.length) { return; }
+        PART_TAB_IDS.forEach(function(tabId, idx) {
+            var tab = document.getElementById(tabId);
+            var contentId = PART_CONTENT_IDS[idx];
+            var content = document.getElementById(contentId);
+            if (!tab || !content) { return; }
+            if (idx === index) {
+                tab.style.display = '';
+                var link = tab.querySelector('.tablinks');
+                activateTab(link, contentId);
+            } else {
+                tab.style.display = 'none';
+                var otherLink = tab.querySelector('.tablinks');
+                if (otherLink) {
+                    otherLink.classList.remove("active");
+                }
+                content.style.display = 'none';
+            }
+        });
+        var ul = document.querySelector('ul.tab');
+        var activeTab = document.getElementById(PART_TAB_IDS[index]);
+        if (ul && activeTab) {
+            ul.insertBefore(activeTab, ul.firstElementChild);
+        }
+        reorderTabs();
+    }
+
+    function hidePart(index) {
+        if (index < 0 || index >= PART_TAB_IDS.length) { return; }
+        var tab = document.getElementById(PART_TAB_IDS[index]);
+        var content = document.getElementById(PART_CONTENT_IDS[index]);
+        if (tab) {
+            tab.style.display = 'none';
+            var link = tab.querySelector('.tablinks');
+            if (link) {
+                link.classList.remove("active");
+            }
+        }
+        if (content) {
+            content.style.display = 'none';
+        }
+    }
+
+    function handlePartTabAction(action, selector) {
+        var idx = getPartIndexFromSelector(selector);
+        if (idx === -1) { return false; }
+        if (action === 'hide') {
+            hidePart(idx);
+        } else {
+            setActivePart(idx);
+        }
+        return true;
     }
 
     function renderMath(target) {
@@ -238,28 +328,19 @@ ul.tab li a:focus, .active {
     
     function reorderTabs() {
         var ul = document.querySelector('ul.tab');
-        if (!ul) return;
-        var preferredOrder = [
-            'tab-virtualLab3-li',
-            'tab-virtualLab2-li',
-            'tab-virtualLab1-li',
-            'tab-scratchpad1-li',
-            'tab-scratchpad2-li'
-        ];
-        var existing = Array.prototype.slice.call(ul.children);
-        var frag = document.createDocumentFragment();
-        preferredOrder.forEach(function(id) {
-            var node = document.getElementById(id);
-            if (node) {
-                frag.appendChild(node);
-            }
+        if (!ul) { return; }
+        var scratchpad = document.getElementById('tab-scratchpad-li');
+        var tutorial = document.getElementById('tab-tutorial-li');
+        var activePart = PART_TAB_IDS.map(function(id) {
+            return document.getElementById(id);
+        }).find(function(tab) {
+            return tab && tab.style.display !== 'none';
         });
-        existing.forEach(function(node) {
-            if (preferredOrder.indexOf(node.id) === -1) {
-                frag.appendChild(node);
-            }
-        });
-        ul.appendChild(frag);
+        if (activePart && ul.firstElementChild !== activePart) {
+            ul.insertBefore(activePart, ul.firstElementChild);
+        }
+        if (scratchpad) { ul.appendChild(scratchpad); }
+        if (tutorial) { ul.appendChild(tutorial); }
     }
 
     function appendHTML(timestamp, username, html, color) 
@@ -362,11 +443,12 @@ ul.tab li a:focus, .active {
 	}
         $('#roomname').text(room);   
 
-        document.getElementById('scratchpad1').src = resolveResourceUrl(RESOURCE_URLS.scratchpad1, room);
-        document.getElementById('scratchpad2').src = resolveResourceUrl(RESOURCE_URLS.scratchpad2, room);
+        document.getElementById('scratchpad').src = resolveResourceUrl(RESOURCE_URLS.scratchpad, room);
         document.getElementById('virtualLab').src  = resolveResourceUrl(RESOURCE_URLS.virtualLab, room);
         document.getElementById('virtualLab2').src = resolveResourceUrl(RESOURCE_URLS.virtualLab2, room);
         document.getElementById('virtualLab3').src = resolveResourceUrl(RESOURCE_URLS.virtualLab3, room);
+        document.getElementById('virtualLab4').src = resolveResourceUrl(RESOURCE_URLS.virtualLab4, room);
+        document.getElementById('tutorial').src = RESOURCE_URLS.tutorial;
         });
 	
 
@@ -463,11 +545,11 @@ ul.tab li a:focus, .active {
 	});
 
 	// Applies a UI command to show/hide/toggle elements or add/remove classes.
-	function applyUICommand(command) {
-		var cmdObj = command;
-		if (typeof command === 'string') {
-			// support simple forms like "show:#id,.cls" or "hide:.x"
-			var m = command.match(/^(show|hide|toggle|addClass|removeClass)\s*:\s*(.*)$/i);
+    function applyUICommand(command) {
+        var cmdObj = command;
+        if (typeof command === 'string') {
+            // support simple forms like "show:#id,.cls" or "hide:.x"
+            var m = command.match(/^(show|hide|toggle|addClass|removeClass)\s*:\s*(.*)$/i);
 			if (m) {
 				cmdObj = { action: m[1].toLowerCase(), selectors: m[2].split(/\s*,\s*/) };
 			} else {
@@ -476,35 +558,37 @@ ul.tab li a:focus, .active {
 			}
 		}
 
-		if (!cmdObj) return;
-		var action = (cmdObj.action || cmdObj.op || '').toLowerCase();
-		var selectors = cmdObj.selectors || cmdObj.targets || [];
-		if (typeof selectors === 'string') selectors = selectors.split(/\s*,\s*/);
+        if (!cmdObj) return;
+        var action = (cmdObj.action || cmdObj.op || '').toLowerCase();
+        var selectors = cmdObj.selectors || cmdObj.targets || [];
+        if (typeof selectors === 'string') selectors = selectors.split(/\s*,\s*/);
 
         var affectsTabs = false;
         selectors.forEach(function(sel) {
+            var trimmed = (sel || '').trim();
+            if (!trimmed) { return; }
+            if (/^#?tab-virtualLab[1234]-li$/i.test(trimmed)) {
+                affectsTabs = handlePartTabAction(action, trimmed) || affectsTabs;
+                return;
+            }
             try {
-                var trimmed = (sel || '').trim();
-                if (!affectsTabs && /^#tab-virtualLab[123]-li$/i.test(trimmed)) {
-                    affectsTabs = true;
-                }
                 var nodes = document.querySelectorAll(sel);
                 nodes.forEach(function(el) {
                     switch (action) {
                         case 'show': el.style.display = 'initial'; break;
                         case 'hide': el.style.display = 'none'; break;
-						case 'toggle': el.style.display = (el.style.display === 'none') ? 'initial' : 'none'; break;
-						case 'addclass': if (cmdObj.class) el.classList.add(cmdObj.class); break;
-						case 'removeclass': if (cmdObj.class) el.classList.remove(cmdObj.class); break;
-						default: break;
-					}
+                        case 'toggle': el.style.display = (el.style.display === 'none') ? 'initial' : 'none'; break;
+                        case 'addclass': if (cmdObj.class) el.classList.add(cmdObj.class); break;
+                        case 'removeclass': if (cmdObj.class) el.classList.remove(cmdObj.class); break;
+                        default: break;
+                    }
                 });
             } catch (e) { /* ignore bad selectors */ }
         });
         if (affectsTabs && (action === 'show' || action === 'hide' || action === 'toggle')) {
             reorderTabs();
         }
-	}
+    }
 	
 	    // listener, whenever the server emits 'updaterooms', this updates the room list
 	socket.on('updaterooms', function (rooms, my_room) 
@@ -718,68 +802,58 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <li id="tab-virtualLab1-li"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Part 1</a></li>
-    <li id="tab-scratchpad1-li"><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 1')">Scratchpad 1</a></li>
-    <li id="tab-scratchpad2-li"><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 2')">Scratchpad 2</a></li>
-    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 2')">Part 2</a></li>
-    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 3')">Part 3</a></li>
+    <li id="tab-virtualLab1-li"><a href="#" class="tablinks" onclick="openTab(event, 'Part 1')">Part 1</a></li>
+    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Part 2')">Part 2</a></li>
+    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Part 3')">Part 3</a></li>
+    <li id="tab-virtualLab4-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Part 4')">Part 4</a></li>
+    <li id="tab-scratchpad-li"><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad')">Scratchpad</a></li>
+    <li id="tab-tutorial-li"><a href="#" class="tablinks" onclick="openTab(event, 'VirtualLabTutorial')">VirtualLab Tutorial</a></li>
     </ul>
     
-   <div id="Virtual Lab" class="tabcontent">
+   <div id="Part 1" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id="virtualLab" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Virtual Lab 2" class="tabcontent">
+   <div id="Part 2" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id="virtualLab2" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Virtual Lab 3" class="tabcontent">
+   <div id="Part 3" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id="virtualLab3" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Scratchpad 1" class="tabcontent">
+   <div id="Part 4" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "scratchpad1" width="100%" height="100%"></iframe></div>
+        <div id="images" class="scrollable"><iframe id="virtualLab4" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Scratchpad 2" class="tabcontent">
+   <div id="Scratchpad" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "scratchpad2" width="100%" height="100%"></iframe></div>
+        <div id="images" class="scrollable"><iframe id="scratchpad" width="100%" height="100%"></iframe></div>
+      </div>
+    </div>
+
+   <div id="VirtualLabTutorial" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable"><iframe id="tutorial" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
     <script>
-    function openTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-    if (cityName=="Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/"+spreadsheet;
+    function openTab(evt, tabId) {
+      activateTab(evt.currentTarget, tabId);
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      var defaultTab = document.querySelector(".tablinks");
-      if (!defaultTab) {
-        return;
-      }
-      document.getElementById("Virtual Lab").style.display = "block";
-      if (defaultTab.className.indexOf("active") === -1) {
-        defaultTab.className += " active";
-      }
+      setActivePart(0);
+      reorderTabs();
     });
     </script>
 <!-- End of tab edits -->
