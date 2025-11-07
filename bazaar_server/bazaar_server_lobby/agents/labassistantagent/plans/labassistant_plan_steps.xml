@@ -5,6 +5,7 @@
         <step type="prompt" delay="5" prompt="WELCOME_CONTEXT">WELCOME_CONTEXT</step>
     </stage>
     <stage name="StagePart1" type="other" delay="0">
+        <step type="send_command" delay="0" state_key="CURRENT_PART_COMMAND" state_value="SHOW_VLAB1">SHOW_VLAB1</step>
         <step type="prompt" delay="5" prompt="PART1_QUESTION">PART1_QUESTION</step>
         <step type="prompt" delay="0" prompt="PART1_COLLAB">PART1_COLLAB</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready:part1\s*$" required_participants="2" secret_property="PART1_SECRET_WORD" secret_flag="PART1_SECRET_TRIGGERED">PART1_READY</step>
@@ -13,8 +14,9 @@
         <step type="solution" delay="0" property="PART1_SOLUTION">PART1_SOLUTION_STEP</step>
     </stage>
     <stage name="StagePart2" type="other" delay="0">
-        <step type="send_command" delay="0">SHOW_VLAB2</step>
+        <step type="send_command" delay="0" state_key="CURRENT_PART_COMMAND" state_value="SHOW_VLAB2">SHOW_VLAB2</step>
         <step type="prompt" delay="5" prompt="PART2_QUESTION">PART2_QUESTION</step>
+        <step type="prompt" delay="0" prompt="PART2_CONCENTRATION_REMINDER">PART2_CONCENTRATION_REMINDER</step>
         <step type="prompt" delay="0" prompt="PART2_COLLAB">PART2_COLLAB</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready:part2\s*$" required_participants="2" secret_property="PART2_SECRET_WORD" secret_flag="PART2_SECRET_TRIGGERED">PART2_READY</step>
         <step type="prompt" delay="0" prompt="PART2_SUBMIT_PROMPT">PART2_SUBMIT_PROMPT</step>
@@ -22,14 +24,23 @@
         <step type="solution" delay="0" property="PART2_SOLUTION">PART2_SOLUTION_STEP</step>
     </stage>
     <stage name="StagePart3" type="other" delay="0">
-        <step type="send_command" delay="0">SHOW_VLAB3</step>
+        <step type="send_command" delay="0" state_key="CURRENT_PART_COMMAND" state_value="SHOW_VLAB3">SHOW_VLAB3</step>
         <step type="prompt" delay="5" prompt="PART3_QUESTION">PART3_QUESTION</step>
         <step type="prompt" delay="0" prompt="PART3_COLLAB">PART3_COLLAB</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready:part3\s*$" required_participants="2" secret_property="PART3_SECRET_WORD" secret_flag="PART3_SECRET_TRIGGERED">PART3_READY</step>
         <step type="prompt" delay="0" prompt="PART3_SUBMIT_PROMPT">PART3_SUBMIT_PROMPT</step>
-        <step type="reaction" delay="0" attempts="unlimited" expected_reactions="${PART3_EXPECTED|A+B-&gt;C}" secret_flag="PART3_SECRET_TRIGGERED" success_prompt="PART3_CORRECT" retry_prompt="PART3_RETRY" failure_prompt="PART3_FAILURE" reactant_feedback_prompt="PART3_REACTANT_FEEDBACK" product_feedback_prompt="PART3_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART3_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART3_GENERAL_FEEDBACK">PART3_REACTION</step>
+        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART3_EXPECTED|A+B-&gt;C}" secret_flag="PART3_SECRET_TRIGGERED" success_prompt="PART3_CORRECT" retry_prompt="PART3_RETRY" failure_prompt="PART3_FAILURE" reactant_feedback_prompt="PART3_REACTANT_FEEDBACK" product_feedback_prompt="PART3_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART3_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART3_GENERAL_FEEDBACK">PART3_REACTION</step>
         <step type="solution" delay="0" property="PART3_SOLUTION">PART3_SOLUTION_STEP</step>
-        <step type="no-op" delay="10">PART3_WAIT</step>
+    </stage>
+    <stage name="StagePart4" type="other" delay="0">
+        <step type="send_command" delay="0" state_key="CURRENT_PART_COMMAND" state_value="SHOW_VLAB4">SHOW_VLAB4</step>
+        <step type="prompt" delay="5" prompt="PART4_QUESTION">PART4_QUESTION</step>
+        <step type="prompt" delay="0" prompt="PART4_COLLAB">PART4_COLLAB</step>
+        <step type="ready_secret" delay="0" pattern="(?i)^\s*ready:part4\s*$" required_participants="2" secret_property="PART4_SECRET_WORD" secret_flag="PART4_SECRET_TRIGGERED">PART4_READY</step>
+        <step type="prompt" delay="0" prompt="PART4_SUBMIT_PROMPT">PART4_SUBMIT_PROMPT</step>
+        <step type="reaction" delay="0" attempts="unlimited" expected_reactions="${PART4_EXPECTED|A+B-&gt;C}" secret_flag="PART4_SECRET_TRIGGERED" success_prompt="PART4_CORRECT" retry_prompt="PART4_RETRY" failure_prompt="PART4_FAILURE" reactant_feedback_prompt="PART4_REACTANT_FEEDBACK" product_feedback_prompt="PART4_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART4_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART4_GENERAL_FEEDBACK">PART4_REACTION</step>
+        <step type="solution" delay="0" property="PART4_SOLUTION">PART4_SOLUTION_STEP</step>
+        <step type="no-op" delay="10">PART4_WAIT</step>
         <step type="chatlog" delay="0">CHAT_LOG</step>
         <step type="send_end" delay="0">SEND_END</step>
         <step type="logout" delay="0">LOGOUT</step>
