@@ -41,6 +41,30 @@ ul.tab li a:focus, .active {
     border: 1px solid #ccc;
     border-top: none;
 }
+
+.ready-emphasis {
+    color: #d9534f;
+    font-weight: 600;
+}
+
+.reaction-label,
+.reaction-equation {
+    color: #0275d8;
+    font-weight: 600;
+}
+
+.prompt-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 8px;
+}
+
+.prompt-figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 </style>
 <!-- End of additions for tab edits -->
 
@@ -68,7 +92,7 @@ ul.tab li a:focus, .active {
         virtualLab: "https://melodic-souffle-afa758.netlify.app/", // should contain some username mapping
         virtualLab2: "https://graceful-torrone-c9b66d.netlify.app/",
         virtualLab3: "https://transcendent-sunburst-b5c638.netlify.app/",
-        virtualLab4: "https://transcendent-sunburst-b5c638.netlify.app/",
+        virtualLab4: "https://frabjous-bonbon-c3ec30.netlify.app/",
         scratchpad: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
         tutorial: "https://munano.org/virtual-lab-hints-template/"
     };
@@ -207,6 +231,95 @@ ul.tab li a:focus, .active {
           return entityMap[s];
         });
       }
+
+    function highlightImportantPhrases(html) {
+        if (!html) {
+            return html;
+        }
+        var container = document.createElement('div');
+        container.innerHTML = html;
+
+        injectPromptFigures(container);
+        applyHighlightPattern(container, /(ready:part\d+)/gi, 'ready-emphasis');
+        applyHighlightPattern(container, /(reaction:\s*)/gi, 'reaction-label');
+        applyHighlightPattern(container, /(?:\b[A-Za-z0-9()]+\b(?:\s*\+\s*\b[A-Za-z0-9()]+\b)*)\s*(?:->|→)\s*(?:\b[A-Za-z0-9()]+\b(?:\s*\+\s*\b[A-Za-z0-9()]+\b)*)/gi, 'reaction-equation');
+
+        return container.innerHTML;
+    }
+
+    function injectPromptFigures(root) {
+        var placeholder = /\[\[IMAGE:PARTNER_COOP_HINT\]\]/i;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var nodesToReplace = [];
+        while (walker.nextNode()) {
+            var node = walker.currentNode;
+            if (placeholder.test(node.nodeValue)) {
+                nodesToReplace.push(node);
+            }
+        }
+        nodesToReplace.forEach(function(node) {
+            var html = node.nodeValue.replace(placeholder, '').trim();
+            var fragment = document.createDocumentFragment();
+            if (html.length) {
+                fragment.appendChild(document.createTextNode(html + ' '));
+            }
+            var figure = document.createElement('div');
+            figure.className = 'prompt-figure';
+            var img = document.createElement('img');
+            img.src = 'https://i.postimg.cc/5y6rPc9g/Screenshot-2025-11-06-at-8-30-11-PM.png';
+            img.alt = 'Hidden concentration example';
+            figure.appendChild(img);
+            fragment.appendChild(figure);
+            node.parentNode.replaceChild(fragment, node);
+        });
+    }
+
+    function applyHighlightPattern(root, regex, className) {
+        function traverse(node) {
+            var child = node.firstChild;
+            while (child) {
+                var next = child.nextSibling;
+                if (child.nodeType === Node.TEXT_NODE) {
+                    replaceTextNode(child, regex, className);
+                } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== 'SCRIPT' && child.tagName !== 'STYLE') {
+                    traverse(child);
+                }
+                child = next;
+            }
+        }
+        traverse(root);
+    }
+
+    function replaceTextNode(textNode, regex, className) {
+        var text = textNode.nodeValue;
+        regex.lastIndex = 0;
+        var match;
+        var lastIndex = 0;
+        var fragments = [];
+        while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+                fragments.push(document.createTextNode(text.slice(lastIndex, match.index)));
+            }
+            var span = document.createElement('span');
+            span.className = className;
+            span.textContent = match[0];
+            fragments.push(span);
+            lastIndex = regex.lastIndex;
+            if (!regex.global) {
+                break;
+            }
+        }
+        if (fragments.length) {
+            if (lastIndex < text.length) {
+                fragments.push(document.createTextNode(text.slice(lastIndex)));
+            }
+            var fragment = document.createDocumentFragment();
+            fragments.forEach(function(part) {
+                fragment.appendChild(part);
+            });
+            textNode.parentNode.replaceChild(fragment, textNode);
+        }
+    }
 	
     function showConvText()
     {
@@ -261,7 +374,8 @@ ul.tab li a:focus, .active {
         }
         $info.append($('<div/>', { 'class': 'user' }).text(username));
         $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
-        var $message = $('<div/>', { 'class': 'message' }).html(text);
+        var decoratedText = highlightImportantPhrases(text);
+        var $message = $('<div/>', { 'class': 'message' }).html(decoratedText);
         $line.append($info).append($message);
         $('#conversation').append($line).append('<br/>');
         renderMath($line[0]);
@@ -284,7 +398,8 @@ ul.tab li a:focus, .active {
             $info.css('background-color', color);
         }
         $info.append($('<div/>', { 'class': 'user' }).text(username));
-        $info.append($('<div/>', { 'class': 'user' }).css('padding-left','5px').html(text));
+        var decoratedNote = highlightImportantPhrases(text);
+        $info.append($('<div/>', { 'class': 'user' }).css('padding-left','5px').html(decoratedNote));
         $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
         $line.append($info);
         $('#conversation').append($line).append('<br/>');

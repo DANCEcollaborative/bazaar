@@ -40,6 +40,7 @@ import edu.cmu.cs.lti.project911.utils.log.Logger;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -49,9 +50,17 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
@@ -77,6 +86,39 @@ public class PromptTable
 	public PromptTable()
 	{
 		this("prompts.xml");
+	}
+
+	private String getInnerXml(Element element)
+	{
+		NodeList children = element.getChildNodes();
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < children.getLength(); i++)
+		{
+			Node child = children.item(i);
+			builder.append(serializeNode(child));
+		}
+		return builder.toString().trim();
+	}
+
+	private String serializeNode(Node node)
+	{
+		if (node.getNodeType() == Node.TEXT_NODE)
+		{
+			return node.getNodeValue();
+		}
+		try
+		{
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+			StringWriter writer = new StringWriter();
+			transformer.transform(new DOMSource(node), new StreamResult(writer));
+			return writer.toString();
+		}
+		catch (TransformerException e)
+		{
+			return node.getTextContent();
+		}
 	}
 
 	public PromptTable(String filename)
@@ -113,19 +155,19 @@ public class PromptTable
 				NodeList ns2 = promptsElement.getElementsByTagName("prompt");
 				if ((ns2 != null) && (ns2.getLength() != 0))
 				{
-					for (int i = 0; i < ns2.getLength(); i++)
-					{
-						Element promptElement = (Element) ns2.item(i);
-						String promptId = promptElement.getAttribute("id");
-						NodeList ns3 = promptElement.getElementsByTagName("text");
-						if ((ns3 != null) && (ns3.getLength() != 0))
+				for (int i = 0; i < ns2.getLength(); i++)
+				{
+					Element promptElement = (Element) ns2.item(i);
+					String promptId = promptElement.getAttribute("id");
+					NodeList ns3 = promptElement.getElementsByTagName("text");
+					if ((ns3 != null) && (ns3.getLength() != 0))
 						{
 							List<String> promptTexts = new ArrayList<String>();
-							for (int j = 0; j < ns3.getLength(); j++)
-							{
-								Element textElement = (Element) ns3.item(j);
-								promptTexts.add(textElement.getTextContent());
-							}
+						for (int j = 0; j < ns3.getLength(); j++)
+						{
+							Element textElement = (Element) ns3.item(j);
+							promptTexts.add(getInnerXml(textElement));
+						}
 							prompts.put(promptId, promptTexts);
 						}
 					}

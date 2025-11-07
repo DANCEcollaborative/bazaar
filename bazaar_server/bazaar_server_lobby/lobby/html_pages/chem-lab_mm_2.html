@@ -41,6 +41,30 @@ ul.tab li a:focus, .active {
     border: 1px solid #ccc;
     border-top: none;
 }
+
+.ready-emphasis {
+    color: #d9534f;
+    font-weight: 600;
+}
+
+.reaction-label,
+.reaction-equation {
+    color: #0275d8;
+    font-weight: 600;
+}
+
+.prompt-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 8px;
+}
+
+.prompt-figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 </style>
 <!-- End of additions for tab edits -->
 
@@ -53,11 +77,14 @@ ul.tab li a:focus, .active {
 
 <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-L11A1eGZTZ9qWZ75VDV2JK1J3tOHxZdfps+AKmke7gZ0y3jR9LMwMdQ5b9kgQ0n8" crossorigin="anonymous">
 <script type="text/javascript" src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" ></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
 <script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-5CMIGxGZHOcXERZt2cM1mjdbKjCJmtIt0dGjO18m0orb56qP9RPMdEAVnXW86PK0" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQH0ZqB0dEPNIIDl12szREOG7imBjM+W3uMgjjt7GkmR1XB/tJu6v3+gXrZ" crossorigin="anonymous"></script>
 
 <script>
     // Update these URLs to change embedded resources.
@@ -65,13 +92,123 @@ ul.tab li a:focus, .active {
         virtualLab: "https://melodic-souffle-afa758.netlify.app/", // should contain some username mapping
         virtualLab2: "https://harmonious-taiyaki-fe3d07.netlify.app/",
         virtualLab3: "https://precious-sunburst-f465c5.netlify.app/",
-        scratchpad1: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
-        scratchpad2: "https://docs.google.com/document/d/18i2HB9LP6PODSbrTQrLpjOpyl34IqWooPaQIsEG71gM/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false"
+        virtualLab4: "https://frabjous-bonbon-c3ec30.netlify.app/",
+        scratchpad: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
+        tutorial: "https://munano.org/virtual-lab-hints-template/"
     };
+
+    const PART_TAB_IDS = ['tab-virtualLab1-li', 'tab-virtualLab2-li', 'tab-virtualLab3-li', 'tab-virtualLab4-li'];
+    const PART_CONTENT_IDS = ['Part 1', 'Part 2', 'Part 3', 'Part 4'];
 
     function resolveResourceUrl(template, roomName) {
         return template.replace(/\{ROOM\}/g, roomName || "");
     }
+
+    function activateTab(tabLinkEl, targetId) {
+        var tabcontent = document.getElementsByClassName("tabcontent");
+        for (var i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        var tablinks = document.getElementsByClassName("tablinks");
+        for (var j = 0; j < tablinks.length; j++) {
+            tablinks[j].classList.remove("active");
+        }
+        if (targetId) {
+            var target = document.getElementById(targetId);
+            if (target) {
+                target.style.display = "block";
+            }
+        }
+        if (tabLinkEl) {
+            tabLinkEl.classList.add("active");
+        }
+    }
+
+    function getPartIndexFromSelector(selector) {
+        if (!selector) { return -1; }
+        var normalized = selector.replace(/^#/, '');
+        for (var i = 0; i < PART_TAB_IDS.length; i++) {
+            if (PART_TAB_IDS[i].toLowerCase() === normalized.toLowerCase()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function setActivePart(index) {
+        if (index < 0 || index >= PART_TAB_IDS.length) { return; }
+        PART_TAB_IDS.forEach(function(tabId, idx) {
+            var tab = document.getElementById(tabId);
+            var contentId = PART_CONTENT_IDS[idx];
+            var content = document.getElementById(contentId);
+            if (!tab || !content) { return; }
+            if (idx === index) {
+                tab.style.display = '';
+                var link = tab.querySelector('.tablinks');
+                activateTab(link, contentId);
+            } else {
+                tab.style.display = 'none';
+                var otherLink = tab.querySelector('.tablinks');
+                if (otherLink) {
+                    otherLink.classList.remove("active");
+                }
+                content.style.display = 'none';
+            }
+        });
+        var ul = document.querySelector('ul.tab');
+        var activeTab = document.getElementById(PART_TAB_IDS[index]);
+        if (ul && activeTab) {
+            ul.insertBefore(activeTab, ul.firstElementChild);
+        }
+        reorderTabs();
+    }
+
+    function hidePart(index) {
+        if (index < 0 || index >= PART_TAB_IDS.length) { return; }
+        var tab = document.getElementById(PART_TAB_IDS[index]);
+        var content = document.getElementById(PART_CONTENT_IDS[index]);
+        if (tab) {
+            tab.style.display = 'none';
+            var link = tab.querySelector('.tablinks');
+            if (link) {
+                link.classList.remove("active");
+            }
+        }
+        if (content) {
+            content.style.display = 'none';
+        }
+    }
+
+    function handlePartTabAction(action, selector) {
+        var idx = getPartIndexFromSelector(selector);
+        if (idx === -1) { return false; }
+        if (action === 'hide') {
+            hidePart(idx);
+        } else {
+            setActivePart(idx);
+        }
+        return true;
+    }
+
+    function renderMath(target) {
+        if (!target) {
+            target = document.body;
+        }
+        if (window.renderMathInElement) {
+            window.renderMathInElement(target, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "$", right: "$", display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    }
+
+    window.addEventListener('load', function() {
+        renderMath(document.body);
+    });
 
     var windowHasFocus = true;
     var unreadMessages = 0;
@@ -94,6 +231,95 @@ ul.tab li a:focus, .active {
           return entityMap[s];
         });
       }
+
+    function highlightImportantPhrases(html) {
+        if (!html) {
+            return html;
+        }
+        var container = document.createElement('div');
+        container.innerHTML = html;
+
+        injectPromptFigures(container);
+        applyHighlightPattern(container, /(ready:part\d+)/gi, 'ready-emphasis');
+        applyHighlightPattern(container, /(reaction:\s*)/gi, 'reaction-label');
+        applyHighlightPattern(container, /(?:\b[A-Za-z0-9()]+\b(?:\s*\+\s*\b[A-Za-z0-9()]+\b)*)\s*(?:->|→)\s*(?:\b[A-Za-z0-9()]+\b(?:\s*\+\s*\b[A-Za-z0-9()]+\b)*)/gi, 'reaction-equation');
+
+        return container.innerHTML;
+    }
+
+    function injectPromptFigures(root) {
+        var placeholder = /\[\[IMAGE:PARTNER_COOP_HINT\]\]/i;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var nodesToReplace = [];
+        while (walker.nextNode()) {
+            var node = walker.currentNode;
+            if (placeholder.test(node.nodeValue)) {
+                nodesToReplace.push(node);
+            }
+        }
+        nodesToReplace.forEach(function(node) {
+            var html = node.nodeValue.replace(placeholder, '').trim();
+            var fragment = document.createDocumentFragment();
+            if (html.length) {
+                fragment.appendChild(document.createTextNode(html + ' '));
+            }
+            var figure = document.createElement('div');
+            figure.className = 'prompt-figure';
+            var img = document.createElement('img');
+            img.src = 'https://i.postimg.cc/5y6rPc9g/Screenshot-2025-11-06-at-8-30-11-PM.png';
+            img.alt = 'Hidden concentration example';
+            figure.appendChild(img);
+            fragment.appendChild(figure);
+            node.parentNode.replaceChild(fragment, node);
+        });
+    }
+
+    function applyHighlightPattern(root, regex, className) {
+        function traverse(node) {
+            var child = node.firstChild;
+            while (child) {
+                var next = child.nextSibling;
+                if (child.nodeType === Node.TEXT_NODE) {
+                    replaceTextNode(child, regex, className);
+                } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== 'SCRIPT' && child.tagName !== 'STYLE') {
+                    traverse(child);
+                }
+                child = next;
+            }
+        }
+        traverse(root);
+    }
+
+    function replaceTextNode(textNode, regex, className) {
+        var text = textNode.nodeValue;
+        regex.lastIndex = 0;
+        var match;
+        var lastIndex = 0;
+        var fragments = [];
+        while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+                fragments.push(document.createTextNode(text.slice(lastIndex, match.index)));
+            }
+            var span = document.createElement('span');
+            span.className = className;
+            span.textContent = match[0];
+            fragments.push(span);
+            lastIndex = regex.lastIndex;
+            if (!regex.global) {
+                break;
+            }
+        }
+        if (fragments.length) {
+            if (lastIndex < text.length) {
+                fragments.push(document.createTextNode(text.slice(lastIndex)));
+            }
+            var fragment = document.createDocumentFragment();
+            fragments.forEach(function(part) {
+                fragment.appendChild(part);
+            });
+            textNode.parentNode.replaceChild(fragment, textNode);
+        }
+    }
 	
     function showConvText()
     {
@@ -134,104 +360,137 @@ ul.tab li a:focus, .active {
 		
     function appendMessage(timestamp, username, text, color) 
     {
-        
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-    
-		$('#conversation').append(
-		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
-		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username + '</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+'<div class="message">' +  text +'</div>'
-                //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-                //+'</div>'
-		+'</div><br/>');
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+
+        var messageClass = (username=='VirtualProfessor' ? ' message_agent' : '');
+        var $line = $('<div/>', { 'class': 'message_line' + messageClass });
+        var $info = $('<div/>', { 'class': 'info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        var decoratedText = highlightImportantPhrases(text);
+        var $message = $('<div/>', { 'class': 'message' }).html(decoratedText);
+        $line.append($info).append($message);
+        $('#conversation').append($line).append('<br/>');
+        renderMath($line[0]);
+        noticeNewMessage();
+        if(lastDate > timestamp)
+          lastDate = timestamp;
     }
-    
+
     function appendNote(timestamp, username, text, color) 
     {
-        
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-    
-		$('#conversation').append(
-		 '<div class="message_line">'
-		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username +'</div>'
-		+'<div class="user" style="padding-left:5px">'+ text +'</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+'</div><br/>');
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+
+        var $line = $('<div/>', { 'class': 'message_line' });
+        var $info = $('<div/>', { 'class': 'info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        var decoratedNote = highlightImportantPhrases(text);
+        $info.append($('<div/>', { 'class': 'user' }).css('padding-left','5px').html(decoratedNote));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        $line.append($info);
+        $('#conversation').append($line).append('<br/>');
+        renderMath($line[0]);
+        noticeNewMessage();
+        if(lastDate > timestamp)
+          lastDate = timestamp;
     }
-    
+
     var anchorID = 0;
     function appendImage(timestamp, username, image_url, color) 
-	{
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-	    anchor = 'sharedItem'+(anchorID++)
-	    
-		$('#images').append(
-		 '<a id='+anchor+'/>'
-		+'<div class="image_line">'
-		+'<div class="image_info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username + '</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+'<div><a href="'+image_url+'" target="blank"><img class="shared_image" src="' + image_url + '"></img></a></div>'
-		+'</div><br/>');
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
-		
-		return anchor;
+    {
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+        var anchor = 'sharedItem'+(anchorID++)
+        
+        var $anchor = $('<a/>', { id: anchor });
+        var $line = $('<div/>', { 'class': 'image_line' });
+        var $info = $('<div/>', { 'class': 'image_info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        var $imgWrapper = $('<div/>').append($('<a/>', { href: image_url, target: 'blank' }).append($('<img/>', { 'class': 'shared_image', src: image_url })));
+        $line.append($info).append($imgWrapper);
+
+        $('#images').append($anchor).append($line).append('<br/>');
+        renderMath($line[0]);
+        noticeNewMessage();
+        if(lastDate > timestamp)
+            lastDate = timestamp;
+        
+        return anchor;
 
     }
+
     
-    function appendHTML(timestamp, username, html, color) 
-	{
-	   if(!color)
-	   {
-	      color = getUserColor(username);
-	   }
-	    anchor = 'sharedItem'+(anchorID++)
-	    
-		$('#images').append(
-		 '<a id='+anchor+'/>'
-		+'<div class="image_line">'
-		+'<div class="image_info" '+(color?'style="background-color:'+color+'"':'')+'>'
-		+'<div class="user">'+ username + '</div>'
-		+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
-		+'</div>'
-		+html
-		+'</div><br/>');
-		
-		
-        $('.sortable').sortable();			
-        $('.exclude').sortable({
-				items: ':not(.disabled)'
-			});
-      noticeNewMessage()
-      if(lastDate > timestamp)
-        lastDate = timestamp;
-		return anchor;
+    function reorderTabs() {
+        var ul = document.querySelector('ul.tab');
+        if (!ul) { return; }
+        var scratchpad = document.getElementById('tab-scratchpad-li');
+        var tutorial = document.getElementById('tab-tutorial-li');
+        var activePart = PART_TAB_IDS.map(function(id) {
+            return document.getElementById(id);
+        }).find(function(tab) {
+            return tab && tab.style.display !== 'none';
+        });
+        if (activePart && ul.firstElementChild !== activePart) {
+            ul.insertBefore(activePart, ul.firstElementChild);
+        }
+        if (scratchpad) { ul.appendChild(scratchpad); }
+        if (tutorial) { ul.appendChild(tutorial); }
     }
-    
-    
+
+    function appendHTML(timestamp, username, html, color) 
+    {
+       if(!color)
+       {
+          color = getUserColor(username);
+       }
+        var anchor = 'sharedItem'+(anchorID++)
+        
+        var $anchor = $('<a/>', { id: anchor });
+        var $line = $('<div/>', { 'class': 'image_line' });
+        var $info = $('<div/>', { 'class': 'image_info' });
+        if (color)
+        {
+            $info.css('background-color', color);
+        }
+        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
+        var $content = $(html);
+        $line.append($info).append($content);
+        
+        $('#images').append($anchor).append($line).append('<br/>');
+        renderMath($line[0]);
+        
+        $('.sortable').sortable();		
+        $('.exclude').sortable({
+                items: ':not(.disabled)'
+        });
+        noticeNewMessage();
+        if(lastDate > timestamp)
+            lastDate = timestamp;
+        return anchor;
+    }
+
     function getMultimodalValue(field, data) 
     {
     	var fields = data.split(";%;");
@@ -299,11 +558,12 @@ ul.tab li a:focus, .active {
 	}
         $('#roomname').text(room);   
 
-        document.getElementById('scratchpad1').src = resolveResourceUrl(RESOURCE_URLS.scratchpad1, room);
-        document.getElementById('scratchpad2').src = resolveResourceUrl(RESOURCE_URLS.scratchpad2, room);
+        document.getElementById('scratchpad').src = resolveResourceUrl(RESOURCE_URLS.scratchpad, room);
         document.getElementById('virtualLab').src  = resolveResourceUrl(RESOURCE_URLS.virtualLab, room);
         document.getElementById('virtualLab2').src = resolveResourceUrl(RESOURCE_URLS.virtualLab2, room);
         document.getElementById('virtualLab3').src = resolveResourceUrl(RESOURCE_URLS.virtualLab3, room);
+        document.getElementById('virtualLab4').src = resolveResourceUrl(RESOURCE_URLS.virtualLab4, room);
+        document.getElementById('tutorial').src = RESOURCE_URLS.tutorial;
         });
 	
 
@@ -400,11 +660,11 @@ ul.tab li a:focus, .active {
 	});
 
 	// Applies a UI command to show/hide/toggle elements or add/remove classes.
-	function applyUICommand(command) {
-		var cmdObj = command;
-		if (typeof command === 'string') {
-			// support simple forms like "show:#id,.cls" or "hide:.x"
-			var m = command.match(/^(show|hide|toggle|addClass|removeClass)\s*:\s*(.*)$/i);
+    function applyUICommand(command) {
+        var cmdObj = command;
+        if (typeof command === 'string') {
+            // support simple forms like "show:#id,.cls" or "hide:.x"
+            var m = command.match(/^(show|hide|toggle|addClass|removeClass)\s*:\s*(.*)$/i);
 			if (m) {
 				cmdObj = { action: m[1].toLowerCase(), selectors: m[2].split(/\s*,\s*/) };
 			} else {
@@ -413,27 +673,37 @@ ul.tab li a:focus, .active {
 			}
 		}
 
-		if (!cmdObj) return;
-		var action = (cmdObj.action || cmdObj.op || '').toLowerCase();
-		var selectors = cmdObj.selectors || cmdObj.targets || [];
-		if (typeof selectors === 'string') selectors = selectors.split(/\s*,\s*/);
+        if (!cmdObj) return;
+        var action = (cmdObj.action || cmdObj.op || '').toLowerCase();
+        var selectors = cmdObj.selectors || cmdObj.targets || [];
+        if (typeof selectors === 'string') selectors = selectors.split(/\s*,\s*/);
 
-		selectors.forEach(function(sel) {
-			try {
-				var nodes = document.querySelectorAll(sel);
-				nodes.forEach(function(el) {
-					switch (action) {
-						case 'show': el.style.display = 'initial'; break;
-						case 'hide': el.style.display = 'none'; break;
-						case 'toggle': el.style.display = (el.style.display === 'none') ? 'initial' : 'none'; break;
-						case 'addclass': if (cmdObj.class) el.classList.add(cmdObj.class); break;
-						case 'removeclass': if (cmdObj.class) el.classList.remove(cmdObj.class); break;
-						default: break;
-					}
-				});
-			} catch (e) { /* ignore bad selectors */ }
-		});
-	}
+        var affectsTabs = false;
+        selectors.forEach(function(sel) {
+            var trimmed = (sel || '').trim();
+            if (!trimmed) { return; }
+            if (/^#?tab-virtualLab[1234]-li$/i.test(trimmed)) {
+                affectsTabs = handlePartTabAction(action, trimmed) || affectsTabs;
+                return;
+            }
+            try {
+                var nodes = document.querySelectorAll(sel);
+                nodes.forEach(function(el) {
+                    switch (action) {
+                        case 'show': el.style.display = 'initial'; break;
+                        case 'hide': el.style.display = 'none'; break;
+                        case 'toggle': el.style.display = (el.style.display === 'none') ? 'initial' : 'none'; break;
+                        case 'addclass': if (cmdObj.class) el.classList.add(cmdObj.class); break;
+                        case 'removeclass': if (cmdObj.class) el.classList.remove(cmdObj.class); break;
+                        default: break;
+                    }
+                });
+            } catch (e) { /* ignore bad selectors */ }
+        });
+        if (affectsTabs && (action === 'show' || action === 'hide' || action === 'toggle')) {
+            reorderTabs();
+        }
+    }
 	
 	    // listener, whenever the server emits 'updaterooms', this updates the room list
 	socket.on('updaterooms', function (rooms, my_room) 
@@ -647,68 +917,58 @@ ul.tab li a:focus, .active {
     <div id="image_column">
 <!-- Edits by @sreechas for multiple tabs -->
     <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab')">Part 1</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 1')">Scratchpad 1</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad 2')">Scratchpad 2</a></li>
-    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 2')">Part 2</a></li>
-    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Virtual Lab 3')">Part 3</a></li>
+    <li id="tab-virtualLab1-li"><a href="#" class="tablinks" onclick="openTab(event, 'Part 1')">Part 1</a></li>
+    <li id="tab-virtualLab2-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Part 2')">Part 2</a></li>
+    <li id="tab-virtualLab3-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Part 3')">Part 3</a></li>
+    <li id="tab-virtualLab4-li" style="display:none"><a href="#" class="tablinks" onclick="openTab(event, 'Part 4')">Part 4</a></li>
+    <li id="tab-scratchpad-li"><a href="#" class="tablinks" onclick="openTab(event, 'Scratchpad')">Scratchpad</a></li>
+    <li id="tab-tutorial-li"><a href="#" class="tablinks" onclick="openTab(event, 'VirtualLabTutorial')">VirtualLab Tutorial</a></li>
     </ul>
     
-   <div id="Virtual Lab" class="tabcontent">
+   <div id="Part 1" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id="virtualLab" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Virtual Lab 2" class="tabcontent">
+   <div id="Part 2" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id="virtualLab2" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Virtual Lab 3" class="tabcontent">
+   <div id="Part 3" class="tabcontent">
       <div id="image_container" class="container">
         <div id="images" class="scrollable"><iframe id="virtualLab3" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Scratchpad 1" class="tabcontent">
+   <div id="Part 4" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "scratchpad1" width="100%" height="100%"></iframe></div>
+        <div id="images" class="scrollable"><iframe id="virtualLab4" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
-   <div id="Scratchpad 2" class="tabcontent">
+   <div id="Scratchpad" class="tabcontent">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "scratchpad2" width="100%" height="100%"></iframe></div>
+        <div id="images" class="scrollable"><iframe id="scratchpad" width="100%" height="100%"></iframe></div>
+      </div>
+    </div>
+
+   <div id="VirtualLabTutorial" class="tabcontent">
+      <div id="image_container" class="container">
+        <div id="images" class="scrollable"><iframe id="tutorial" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </div>
 
     <script>
-    function openTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-    if (cityName=="Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/"+spreadsheet;
+    function openTab(evt, tabId) {
+      activateTab(evt.currentTarget, tabId);
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      var defaultTab = document.querySelector(".tablinks");
-      if (!defaultTab) {
-        return;
-      }
-      document.getElementById("Virtual Lab").style.display = "block";
-      if (defaultTab.className.indexOf("active") === -1) {
-        defaultTab.className += " active";
-      }
+      setActivePart(0);
+      reorderTabs();
     });
     </script>
 <!-- End of tab edits -->

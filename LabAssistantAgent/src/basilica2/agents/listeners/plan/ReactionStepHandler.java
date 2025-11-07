@@ -328,18 +328,32 @@ public class ReactionStepHandler implements StepHandler
 
         private String extractCandidate(String trimmed)
         {
-            String lower = trimmed.toLowerCase();
-            if (lower.startsWith("reaction:"))
+            if (trimmed == null)
             {
-                return trimmed.substring("reaction:".length()).trim();
+                return "";
             }
 
-            if (trimmed.contains("->") || trimmed.contains("="))
+            String normalized = trimmed.trim();
+            if (normalized.length() == 0)
             {
-                return trimmed;
+                return "";
             }
 
-            return "";
+            String lower = normalized.toLowerCase();
+            int prefixIndex = lower.indexOf("reaction");
+            if (prefixIndex != 0)
+            {
+                return "";
+            }
+
+            int colonIndex = lower.indexOf(':', "reaction".length());
+            if (colonIndex == -1)
+            {
+                return "";
+            }
+
+            String afterColon = normalized.substring(colonIndex + 1).trim();
+            return afterColon;
         }
 
 		private void evaluateCandidate(String candidate)
