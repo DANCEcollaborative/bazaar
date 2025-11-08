@@ -4,9 +4,12 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 import basilica2.agents.components.InputCoordinator;
+import basilica2.agents.components.OutputCoordinator;
 import basilica2.agents.components.StateMemory;
+import basilica2.agents.data.PromptTable;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
 import basilica2.agents.listeners.Gatekeeper;
 import basilica2.util.PropertiesLoader;
@@ -15,10 +18,12 @@ import edu.cmu.cs.lti.project911.utils.log.Logger;
 class ReadyOrSecretStepHandler implements StepHandler
 {
     private final Properties planProperties;
+    private final PromptTable promptTable;
 
     ReadyOrSecretStepHandler()
     {
         planProperties = PropertiesLoader.loadProperties("PlanExecutor.properties");
+        promptTable = new PromptTable("plans/labassistant_plan_prompts.xml");
     }
 
     public static String getStepType()
@@ -72,6 +77,13 @@ class ReadyOrSecretStepHandler implements StepHandler
         {
             BasilicaAdapter secretListener = new SecretListener(overmind, source, secretWord, secretFlagKey);
             overmind.addHelper(secretListener);
+        }
+
+        String ackPromptId = currentStep.attributes.get("ack_prompt");
+        if (pattern != null && ackPromptId != null && ackPromptId.length() > 0)
+        {
+            BasilicaAdapter ackListener = new ReadyAckListener(overmind, source, pattern, ackPromptId, promptTable);
+            overmind.addHelper(ackListener);
         }
     }
 
@@ -131,6 +143,61 @@ class ReadyOrSecretStepHandler implements StepHandler
             {
                 state.more().put(secretFlagKey, Boolean.TRUE);
                 StateMemory.commitSharedState(state, getAgent());
+            }
+        }
+
+        @Override
+        public Class[] getListenerEventClasses()
+        {
+            return new Class[] { MessageEvent.class };
+        }
+
+        @Override
+        public Class[] getPreprocessorEventClasses()
+        {
+            return new Class[0];
+        }
+    }
+
+    private static class ReadyAckListener extends BasilicaAdapter
+    {
+        private final Pattern readyPattern;
+        private final String promptId;
+        private final InputCoordinator source;
+        private final PromptTable promptTable;
+
+        ReadyAckListener(PlanExecutor overmind, InputCoordinator source, String pattern, String promptId, PromptTable promptTable)
+        {
+            super(overmind.getAgent());
+            this.source = source;
+            this.promptId = promptId;
+            this.promptTable = promptTable;
+            this.readyPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        }
+
+        @Override
+        public void processEvent(InputCoordinator source, edu.cmu.cs.lti.basilica2.core.Event event)
+        {
+            if (!(event instanceof MessageEvent))
+            {
+                return;
+            }
+            MessageEvent me = (MessageEvent) event;
+            if (source.isAgentName(me.getFrom()))
+            {
+                return;
+            }
+            String text = me.getText();
+            if (text == null)
+            {
+                return;
+            }
+            if (readyPattern.matcher(text).matches())
+            {
+                String ackText = promptTable.lookup(promptId);
+                MessageEvent ack = new MessageEvent(source, getAgent().getUsername(), ackText, promptId);
+                source.pushProposal(PriorityEvent.makeBlackoutEvent("macro", "ReadyAck", ack,
+                        OutputCoordinator.LOW_PRIORITY, 3.0, 2));
             }
         }
 
