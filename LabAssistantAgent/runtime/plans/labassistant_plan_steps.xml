@@ -3,6 +3,8 @@
     <stage name="StageInitialization" type="other" delay="0">
         <step type="prompt" delay="10" prompt="WELCOME_WAIT">WELCOME_WAIT</step>
         <step type="prompt" delay="5" prompt="WELCOME_CONTEXT">WELCOME_CONTEXT</step>
+        <step type="prompt" delay="0" prompt="WELCOME_READY_PROMPT">WELCOME_READY_PROMPT</step>
+        <step type="ready_secret" delay="0" pattern="(?i)^\s*ready\s*$" required_participants="2">INIT_READY</step>
     </stage>
     <stage name="StagePart1" type="other" delay="0">
         <step type="send_command" delay="0" state_key="CURRENT_PART_COMMAND" state_value="SHOW_VLAB1">SHOW_VLAB1</step>
