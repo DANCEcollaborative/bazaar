@@ -89,10 +89,10 @@ ul.tab li a:focus, .active {
 <script>
     // Update these URLs to change embedded resources.
     const RESOURCE_URLS = {
-        virtualLab: "https://melodic-souffle-afa758.netlify.app/?name=student-1", // should contain some username mapping
-        virtualLab2: "https://graceful-torrone-c9b66d.netlify.app/?name=student-1",
-        virtualLab3: "https://transcendent-sunburst-b5c638.netlify.app/?name=student-1",
-        virtualLab4: "https://frabjous-bonbon-c3ec30.netlify.app/?name=student-1",
+        virtualLab: "https://melodic-souffle-afa758.netlify.app/?name=student-1-part1", // should contain some username mapping
+        virtualLab2: "https://graceful-torrone-c9b66d.netlify.app/?name=student-1-part2",
+        virtualLab3: "https://transcendent-sunburst-b5c638.netlify.app/?name=student-1-part3",
+        virtualLab4: "https://frabjous-bonbon-c3ec30.netlify.app/?name=student-1-part4",
         scratchpad: "https://docs.google.com/document/d/1afc5ujBMcT6XcnQ0BiOz3kwsPfjDWxqOn96_9iCMe3g/edit?tab=t.0#heading=h.tlnk9tihvaj{ROOM}?showChat=false&noColors=false",
         tutorial: "https://munano.org/virtual-lab-hints-template/?name=student-1"
     };
@@ -358,12 +358,22 @@ ul.tab li a:focus, .active {
         document.getElementById("conversation_text_div").style.display = "none";
     }
 		
+    function formatDisplayName(name) {
+        if (!name) { return name; }
+        var match = /.+_([A-Za-z])$/.exec(name);
+        if (match && match[1]) {
+            return "Student " + match[1].toUpperCase();
+        }
+        return name;
+    }
+
     function appendMessage(timestamp, username, text, color) 
     {
        if(!color)
        {
           color = getUserColor(username);
        }
+        var displayName = formatDisplayName(username);
 
         var messageClass = (username=='VirtualProfessor' ? ' message_agent' : '');
         var $line = $('<div/>', { 'class': 'message_line' + messageClass });
@@ -372,7 +382,7 @@ ul.tab li a:focus, .active {
         {
             $info.css('background-color', color);
         }
-        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'user' }).text(displayName));
         $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
         var decoratedText = highlightImportantPhrases(text);
         var $message = $('<div/>', { 'class': 'message' }).html(decoratedText);
@@ -390,6 +400,7 @@ ul.tab li a:focus, .active {
        {
           color = getUserColor(username);
        }
+        var displayName = formatDisplayName(username);
 
         var $line = $('<div/>', { 'class': 'message_line' });
         var $info = $('<div/>', { 'class': 'info' });
@@ -397,7 +408,7 @@ ul.tab li a:focus, .active {
         {
             $info.css('background-color', color);
         }
-        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'user' }).text(displayName));
         var decoratedNote = highlightImportantPhrases(text);
         $info.append($('<div/>', { 'class': 'user' }).css('padding-left','5px').html(decoratedNote));
         $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
@@ -416,6 +427,7 @@ ul.tab li a:focus, .active {
        {
           color = getUserColor(username);
        }
+        var displayName = formatDisplayName(username);
         var anchor = 'sharedItem'+(anchorID++)
         
         var $anchor = $('<a/>', { id: anchor });
@@ -425,7 +437,7 @@ ul.tab li a:focus, .active {
         {
             $info.css('background-color', color);
         }
-        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'user' }).text(displayName));
         $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
         var $imgWrapper = $('<div/>').append($('<a/>', { href: image_url, target: 'blank' }).append($('<img/>', { 'class': 'shared_image', src: image_url })));
         $line.append($info).append($imgWrapper);
@@ -464,6 +476,7 @@ ul.tab li a:focus, .active {
        {
           color = getUserColor(username);
        }
+        var displayName = formatDisplayName(username);
         var anchor = 'sharedItem'+(anchorID++)
         
         var $anchor = $('<a/>', { id: anchor });
@@ -473,7 +486,7 @@ ul.tab li a:focus, .active {
         {
             $info.css('background-color', color);
         }
-        $info.append($('<div/>', { 'class': 'user' }).text(username));
+        $info.append($('<div/>', { 'class': 'user' }).text(displayName));
         $info.append($('<div/>', { 'class': 'date' }).text(timestamp.toLocaleTimeString()));
         var $content = $(html);
         $line.append($info).append($content);
@@ -831,9 +844,13 @@ ul.tab li a:focus, .active {
 		// when the client clicks READY
 		$('#ready_button').click( function() 
 		{
-            $('#ready_button').toggleClass("toggled");
-            sendReady($('#ready_button').hasClass("toggled"));
-            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
+			$('#ready_button').toggleClass("toggled");
+			sendReady($('#ready_button').hasClass("toggled"));
+			//appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
+		});
+
+		$('#conv_message').click(function() {
+			sendMessage();
 		});
 
 		// when the client hits ENTER on their keyboard
@@ -987,7 +1004,7 @@ ul.tab li a:focus, .active {
                 <!--  <input class="button" type="button" id="ready_button" value="Ready"/> -->
             <!--  </div> -->
             <!--  <div class="blinker">Click the "Ready" button when you are ready to move on to the next step.</div> -->
-            <div><input class="button" type="button" id="conv_message" value="Download Discussion Log" onClick="showConvText();"/></div>
+            <div><input class="button" type="button" id="conv_message" value="Send" /></div>
         </div>
     </div>
     
