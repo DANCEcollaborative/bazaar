@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
 <plan name="LabAssistant">
     <stage name="StageInitialization" type="other" delay="0">
-        <step type="prompt" delay="10" prompt="WELCOME_WAIT">WELCOME_WAIT</step>
-        <step type="prompt" delay="5" prompt="WELCOME_CONTEXT">WELCOME_CONTEXT</step>
+        <step type="prompt" delay="3" prompt="WELCOME_WAIT">WELCOME_WAIT</step>
+        <step type="prompt" delay="2" prompt="WELCOME_CONTEXT">WELCOME_CONTEXT</step>
+        <step type="presence_gate" delay="0" required_participants="2">WAIT_FOR_STUDENTS</step>
         <step type="prompt" delay="0" prompt="WELCOME_READY_PROMPT">WELCOME_READY_PROMPT</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready\s*$" required_participants="2" ack_prompt="READY_ACK">INIT_READY</step>
     </stage>
