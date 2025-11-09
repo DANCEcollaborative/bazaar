@@ -102,9 +102,15 @@ public class ReactionStepHandler implements StepHandler
         String stoichiometryFeedbackPrompt = currentStep.attributes.get("stoichiometry_feedback_prompt");
         String generalFeedbackPrompt = currentStep.attributes.get("general_feedback_prompt");
 
+        String retryChoicePrompt = currentStep.attributes.get("retry_choice_prompt");
+        String retryChoiceAckPrompt = currentStep.attributes.get("retry_choice_ack_prompt");
+        String retryChoiceYesPattern = currentStep.attributes.get("retry_choice_yes_pattern");
+        String retryChoiceNoPattern = currentStep.attributes.get("retry_choice_no_pattern");
+
         ReactionMonitor monitor = new ReactionMonitor(overmind, source, currentStep, prompter, expectedReactions,
                 secretFlag, attempts, unlimitedAttempts, successPrompt, retryPrompt, failurePrompt,
-                reactantFeedbackPrompt, productFeedbackPrompt, stoichiometryFeedbackPrompt, generalFeedbackPrompt);
+                reactantFeedbackPrompt, productFeedbackPrompt, stoichiometryFeedbackPrompt, generalFeedbackPrompt,
+                retryChoicePrompt, retryChoiceAckPrompt, retryChoiceYesPattern, retryChoiceNoPattern);
         overmind.addHelper(monitor);
         monitor.checkForSecretSkip();
     }
@@ -262,13 +268,21 @@ public class ReactionStepHandler implements StepHandler
         private final String stoichiometryFeedbackPrompt;
         private final String generalFeedbackPrompt;
         private final boolean unlimitedAttempts;
+        private final String retryChoicePromptId;
+        private final String retryChoiceAckPromptId;
+        private final Pattern retryYesPattern;
+        private final Pattern retryNoPattern;
+        private final int maxAttemptsPerCycle;
         private int attemptsRemaining;
         private boolean finished = false;
+        private boolean awaitingRetryChoice = false;
+        private RetryChoiceListener retryChoiceListener;
 
         ReactionMonitor(PlanExecutor overmind, InputCoordinator source, Step step, PromptTable prompter,
             List<ParsedReaction> expectedReactions, String secretFlagKey, int maxAttempts, boolean unlimitedAttempts, String successPrompt,
             String retryPrompt, String failurePrompt, String reactantFeedbackPrompt,
-            String productFeedbackPrompt, String stoichiometryFeedbackPrompt, String generalFeedbackPrompt)
+            String productFeedbackPrompt, String stoichiometryFeedbackPrompt, String generalFeedbackPrompt,
+            String retryChoicePromptId, String retryChoiceAckPromptId, String retryYesPattern, String retryNoPattern)
         {
             super(overmind.getAgent());
             this.overmind = overmind;
@@ -285,7 +299,12 @@ public class ReactionStepHandler implements StepHandler
             this.stoichiometryFeedbackPrompt = stoichiometryFeedbackPrompt;
             this.generalFeedbackPrompt = generalFeedbackPrompt;
             this.unlimitedAttempts = unlimitedAttempts;
-            this.attemptsRemaining = unlimitedAttempts ? Integer.MAX_VALUE : Math.max(1, maxAttempts);
+            this.maxAttemptsPerCycle = unlimitedAttempts ? Integer.MAX_VALUE : Math.max(1, maxAttempts);
+            this.attemptsRemaining = this.maxAttemptsPerCycle;
+            this.retryChoicePromptId = retryChoicePromptId;
+            this.retryChoiceAckPromptId = retryChoiceAckPromptId;
+            this.retryYesPattern = (retryYesPattern != null && retryYesPattern.length() > 0) ? Pattern.compile(retryYesPattern, Pattern.CASE_INSENSITIVE) : null;
+            this.retryNoPattern = (retryNoPattern != null && retryNoPattern.length() > 0) ? Pattern.compile(retryNoPattern, Pattern.CASE_INSENSITIVE) : null;
         }
 
 		void checkForSecretSkip()
@@ -321,7 +340,11 @@ public class ReactionStepHandler implements StepHandler
 			if (trimmed.length() == 0) { return; }
 
 			String candidate = extractCandidate(trimmed);
-			if (candidate.length() == 0) { return; }
+			if (candidate.length() == 0)
+			{
+                sendFormatReminder(trimmed);
+                return;
+            }
 
 			evaluateCandidate(candidate);
 		}
@@ -354,6 +377,71 @@ public class ReactionStepHandler implements StepHandler
 
             String afterColon = normalized.substring(colonIndex + 1).trim();
             return afterColon;
+        }
+
+        private void sendFormatReminder(String originalText)
+        {
+            if (step.attributes.containsKey("format_prompt") && isPotentialReaction(originalText))
+            {
+                String promptId = step.attributes.get("format_prompt");
+                sendPrompt(promptId, null);
+            }
+        }
+
+        private boolean isPotentialReaction(String text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+            String simplified = text.replaceAll("\\s+", "").toUpperCase();
+            int arrowIndex = simplified.indexOf("->");
+            int equalsIndex = simplified.indexOf('=');
+            int splitIndex;
+            int delimiterLength;
+            if (arrowIndex >= 0)
+            {
+                splitIndex = arrowIndex;
+                delimiterLength = 2;
+            }
+            else if (equalsIndex >= 0)
+            {
+                splitIndex = equalsIndex;
+                delimiterLength = 1;
+            }
+            else
+            {
+                return false;
+            }
+
+            String lhs = simplified.substring(0, splitIndex);
+            String rhs = simplified.substring(splitIndex + delimiterLength);
+            return isReactionSide(lhs) && isReactionSide(rhs);
+        }
+
+        private boolean isReactionSide(String side)
+        {
+            if (side == null || side.length() == 0)
+            {
+                return false;
+            }
+            String[] species = side.split("\\+");
+            if (species.length == 0)
+            {
+                return false;
+            }
+            for (String sp : species)
+            {
+                if (sp.length() == 0)
+                {
+                    return false;
+                }
+                if (!sp.matches("[A-Z0-9()]+"))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
 		private void evaluateCandidate(String candidate)
@@ -495,8 +583,11 @@ public class ReactionStepHandler implements StepHandler
                 }
                 else
                 {
-                    sendPrompt(failurePrompt, null);
-                    finishStep();
+                    if (!tryOfferExtraAttempts())
+                    {
+                        sendPrompt(failurePrompt, null);
+                        finishStep();
+                    }
                 }
             }
             else
@@ -505,6 +596,102 @@ public class ReactionStepHandler implements StepHandler
                 {
                     sendPrompt(retryPrompt, null);
                 }
+            }
+        }
+
+        private boolean tryOfferExtraAttempts()
+        {
+            if (retryChoicePromptId == null || retryYesPattern == null || retryNoPattern == null || unlimitedAttempts)
+            {
+                return false;
+            }
+            if (awaitingRetryChoice)
+            {
+                return true;
+            }
+            awaitingRetryChoice = true;
+            sendPrompt(retryChoicePromptId, null);
+            retryChoiceListener = new RetryChoiceListener(overmind, retryYesPattern, retryNoPattern);
+            overmind.addHelper(retryChoiceListener);
+            return true;
+        }
+
+        private void resetAttemptsForRetry()
+        {
+            attemptsRemaining = maxAttemptsPerCycle;
+            awaitingRetryChoice = false;
+            if (retryChoiceListener != null)
+            {
+                retryChoiceListener.stopListening(source);
+                retryChoiceListener = null;
+            }
+            if (retryChoiceAckPromptId != null && retryChoiceAckPromptId.length() > 0)
+            {
+                sendPrompt(retryChoiceAckPromptId, null);
+            }
+        }
+
+        private void declineExtraAttempts()
+        {
+            awaitingRetryChoice = false;
+            if (retryChoiceListener != null)
+            {
+                retryChoiceListener.stopListening(source);
+                retryChoiceListener = null;
+            }
+            finishStep();
+        }
+
+        private class RetryChoiceListener extends BasilicaAdapter
+        {
+            private final Pattern yesPattern;
+            private final Pattern noPattern;
+
+            RetryChoiceListener(PlanExecutor overmind, Pattern yesPattern, Pattern noPattern)
+            {
+                super(overmind.getAgent());
+                this.yesPattern = yesPattern;
+                this.noPattern = noPattern;
+            }
+
+            @Override
+            public void processEvent(InputCoordinator source, edu.cmu.cs.lti.basilica2.core.Event event)
+            {
+                if (!(event instanceof MessageEvent))
+                {
+                    return;
+                }
+                MessageEvent me = (MessageEvent) event;
+                if (source.isAgentName(me.getFrom()))
+                {
+                    return;
+                }
+                String text = me.getText();
+                if (text == null)
+                {
+                    return;
+                }
+                String trimmed = text.trim();
+                if (yesPattern.matcher(trimmed).matches())
+                {
+                    resetAttemptsForRetry();
+                }
+                else if (noPattern.matcher(trimmed).matches())
+                {
+                    declineExtraAttempts();
+                }
+            }
+
+            @Override
+            public Class[] getListenerEventClasses()
+            {
+                return new Class[] { MessageEvent.class };
+            }
+
+            @Override
+            public Class[] getPreprocessorEventClasses()
+            {
+                return new Class[0];
             }
         }
 

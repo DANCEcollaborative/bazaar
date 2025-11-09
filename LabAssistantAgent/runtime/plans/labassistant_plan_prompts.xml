@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
     <prompt strategy="task" id="WELCOME_WAIT">
-        <text>Hi! I'm LabAssistant. Let us wait until both teammates have joined the discussion.</text>
+        <text>Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.</text>
     </prompt>
 
     <prompt strategy="task" id="WELCOME_CONTEXT">
-        <text>Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab.</text>
+        <text>Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.</text>
     </prompt>
     <prompt strategy="task" id="WELCOME_READY_PROMPT">
         <text>Please navigate to the "Scratchpad" tab and make sure you are logged in with your Google account in the document. Also review the "VirtualLab Tutorial" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style="color:#d9534f; font-weight:bold;">ready</span> to begin the experiment.</text>
@@ -15,13 +15,16 @@
     </prompt>
 
     <prompt strategy="task" id="PART1_QUESTION">
-        <text>Part 1 - Mix A and B and use the species viewer to determine the stoichiometry of the reaction between A and B, including the stoichiometric coefficients. You will find 1 M solutions of each reagent in the stockroom. Talk it through together.</text>
+        <text>Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style='font-weight:bold;'>VirtualLab Tutorial</span> tab.</text>
     </prompt>
     <prompt strategy="task" id="PART1_COLLAB">
-        <text>Compare notes before you lock in an answer. What observations or tests support your Part 1 reaction? Use the document in the "Scratchpad" tab to record your observations. When each teammate is ready, type <span style="color:#d9534f; font-weight:bold;">ready:part1</span>.</text>
+        <text>Use the chat or "Scratchpad" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part1</span>.</text>    
     </prompt>
-    <prompt strategy="task" id="PART1_SUBMIT_PROMPT">
-        <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
+   <prompt strategy="task" id="PART1_SUBMIT_PROMPT">
+       <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
+   </prompt>
+   <prompt strategy="task" id="REACTION_FORMAT_REMINDER">
+        <text>To submit an answer, start with <span style="color:#0275d8; font-weight:bold;">reaction:</span> followed by the equation (e.g., <span style="color:#0275d8; font-weight:bold;">reaction: A+B-&gt;C</span>).</text>
     </prompt>
     <prompt strategy="task" id="PART1_REACTANT_FEEDBACK">
         <text>Your reactants are correct. Revisit the products to reach the correct equation.</text>
@@ -39,23 +42,23 @@
         <text>Great! Your Part 1 reaction is correct!.</text>
     </prompt>
     <prompt strategy="task" id="PART1_RETRY">
-        <text>Not quite. You have [ATTEMPTS_LEFT] attempt(s) left for Part 1. Revisit your evidence and adjust the reaction together.</text>
+        <text>You have [ATTEMPTS_LEFT] attempt(s) left for Part 1. Revisit your evidence and adjust the reaction together.</text>
     </prompt>
     <prompt strategy="task" id="PART1_FAILURE">
         <text>We'll reveal the Part 1 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART1_SOLUTION">
-        <text>Part 1 solution: A + B -&gt; 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-01-simple/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-01-simple/</a> to reinforce the concept.</text>
+        <text>Part 1 solution: A + B -&gt; 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-01-simple/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-01-simple/</a> to reinforce the concept before moving on to the next part.</text>
     </prompt>
 
     <prompt strategy="task" id="PART2_QUESTION">
-        <text>Part 2 — Open the second lab tab (Part 2). Mix the available reagents and use the species viewer to determine the stoichiometry of the reaction, including the stoichiometric coefficients. Note that one of the reacting species is not visible in the species viewer. You will find 1 M solutions of the available reagents in the stockroom.</text>
+        <text>Part 2: Open the Part 2 tab. Given four substances A, B, C, and D that are known to react in some weird and mysterious way, design and perform virtual lab experiments to determine the reaction between these substances, including the stoichiometric coefficients. You will find 1.00 M solutions of each of these chemical reagents in the stockroom. </text>
     </prompt>
     <prompt strategy="task" id="PART2_CONCENTRATION_REMINDER">
-        <text>Concentration of one of the reactants will not be visible to you in the species viewer. For example, [[IMAGE:PARTNER_COOP_HINT]] the photo below shows that concentration of D is not available. The species hidden from you can be observed by your partner and vice versa. Coordinate your experiments and findings to get to the answer!</text>
+        <text>The moles of one substance will not be visible to you in the species viewer. For example, [[IMAGE:PARTNER_COOP_HINT]] the image below shows the amount of D is not visible. The species hidden from you can be observed by your partner and vice versa. Coordinate your experiments to get to the answer!</text>
     </prompt>
     <prompt strategy="task" id="PART2_COLLAB">
-        <text>Share your observations from the new setup before sending an answer. What evidence confirms your Part 2 reaction? Use the document in the "Scratchpad" tab to record your observations. Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part2</span>.</text>
+        <text>Use the chat or Scratchpad to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part2</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SUBMIT_PROMPT">
         <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
@@ -76,19 +79,19 @@
         <text>Great! Your Part 2 reaction is correct!.</text>
     </prompt>
     <prompt strategy="task" id="PART2_RETRY">
-        <text>Not quite. You have [ATTEMPTS_LEFT] attempt(s) left for Part 2. Revisit your evidence and adjust the reaction together.</text>
+        <text>You have [ATTEMPTS_LEFT] attempt(s) left for Part 2. Revisit your evidence and adjust the reaction together.</text>
     </prompt>
     <prompt strategy="task" id="PART2_FAILURE">
         <text>We'll reveal the Part 2 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SOLUTION">
-        <text>Part 2 solution: B + D -&gt; A + 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-02-hidden/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-02-hidden/</a> to reinforce the concept.</text>
+        <text>Part 2 solution: B + D -&gt; A + 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-02-hidden/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-02-hidden/</a> to reinforce the concept before moving on to the next part.</text>
     </prompt>
     <prompt strategy="task" id="PART3_QUESTION">
-        <text>Part 3 — Open the third lab tab (Part 3). Mix the available reagents and use the species viewer to determine the stoichiometry of the reaction, including the stoichiometric coefficients. Note that one of the reacting species is not visible in the species viewer. You will find 1 M solutions of the available reagents in the stockroom.</text>
+        <text>Part 3: Open the Part 3 tab. You are given four substances A, B, C, and D that are known to react. Design and perform virtual lab experiments to determine the reaction between these substances, including the stoichiometric coefficients. Just as in part 2, one of the substances is hidden but your partner can see it.</text>
     </prompt>
     <prompt strategy="task" id="PART3_COLLAB">
-        <text>Share observations from the third setup before locking in an answer. What evidence supports your final reaction? Use the document in the "Scratchpad" tab to record your observations. When both of you feel ready, type <span style="color:#d9534f; font-weight:bold;">ready:part3</span>.</text>
+        <text>Use the chat or Scratchpad to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part3</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART3_SUBMIT_PROMPT">
         <text>You have up to three tries. Submit your answer as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span>.</text>
@@ -108,24 +111,29 @@
     <prompt strategy="task" id="PART3_CORRECT">
         <text>Great! Your Part 3 reaction is correct!.</text>
     </prompt>
-    <prompt strategy="task" id="PART3_RETRY">
-        <text>Not quite. Keep revisiting your evidence and adjust the reaction together.</text>
+   <prompt strategy="task" id="PART3_RETRY">
+        <text>You have [ATTEMPTS_LEFT] attempt(s) left for Part 3. Revisit your evidence and adjust the reaction together.</text>
     </prompt>
-    <prompt strategy="task" id="PART3_FAILURE">
-        <text>We'll reveal the Part 3 solution and keep moving.</text>
+   <prompt strategy="task" id="PART3_FAILURE">
+       <text>We'll reveal the Part 3 solution and keep moving.</text>
+   </prompt>
+    <prompt strategy="task" id="PART3_RETRY_CHOICE">
+        <text>You’ve used all of your attempts. Do you want to keep trying? Answer by typing <span style="color:#d9534f; font-weight:bold;">yes</span> or <span style="color:#d9534f; font-weight:bold;">no</span> in the chat.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_RETRY_ACK">
+        <text>Okay, I’ll reset your attempts so you can try again.</text>
     </prompt>
     <prompt strategy="task" id="PART3_SOLUTION">
-        <text>Part 3 solution: A + 2C -&gt; B + 2D. Review the walkthrough at <a href="https://munano.org/chem-pilot-03-limiting/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-03-limiting/</a> to reinforce the concept.</text>
+        <text>Part 3 solution: A + 2C -&gt; B + 2D. Review the walkthrough at <a href="https://munano.org/chem-pilot-03-limiting/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-03-limiting/</a> to reinforce the concept before moving on to the next part.</text>
     </prompt>
-
     <prompt strategy="task" id="PART4_QUESTION">
-        <text>Part 4 — Open the fourth lab tab (Part 4). Mix the available reagents and use the species viewer to determine the stoichiometry of the reaction, including the stoichiometric coefficients. Note that one of the reacting species is not visible in the species viewer. You will find 1 M solutions of the available reagents in the stockroom.</text>
+        <text>Part 4: Open the Part 4 tab. You are given four substances A, B, C, and D that are known to react. Design and perform virtual lab experiments to determine the reaction between these substances, including the stoichiometric coefficients. All substances are visible to you but the units are <span style='font-weight:bold;'>Molarity</span> instead of moles.</text>
     </prompt>
     <prompt strategy="task" id="PART4_COLLAB">
-        <text>Share observations from the fourth setup before locking in an answer. What evidence supports your final reaction? Use the document in the "Scratchpad" tab to record your observations. When both of you feel ready, type <span style="color:#d9534f; font-weight:bold;">ready:part4</span>.</text>
+        <text>se the chat or Scratchpad to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part4</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART4_SUBMIT_PROMPT">
-        <text>You can have as many attempts as you like. Submit your answer as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span>.</text>
+        <text>You have unlimited attempts. Submit your answer as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART4_REACTANT_FEEDBACK">
         <text>Your reactants are correct. Revisit the products to reach the correct equation.</text>
@@ -143,7 +151,7 @@
         <text>Great! Your Part 4 reaction is correct!.</text>
     </prompt>
     <prompt strategy="task" id="PART4_RETRY">
-        <text>Not quite. Keep revisiting your evidence and adjust the reaction together.</text>
+        <text>Keep revisiting your evidence and adjust the reaction together.</text>
     </prompt>
     <prompt strategy="task" id="PART4_FAILURE">
         <text>We'll reveal the Part 4 solution and keep moving.</text>

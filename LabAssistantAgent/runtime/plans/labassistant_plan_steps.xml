@@ -31,7 +31,7 @@
         <step type="prompt" delay="0" prompt="PART3_COLLAB">PART3_COLLAB</step>
         <step type="ready_secret" delay="0" pattern="(?i)^\s*ready\s*:\s*part3\s*$" required_participants="2" secret_property="PART3_SECRET_WORD" secret_flag="PART3_SECRET_TRIGGERED" ack_prompt="READY_ACK">PART3_READY</step>
         <step type="prompt" delay="0" prompt="PART3_SUBMIT_PROMPT">PART3_SUBMIT_PROMPT</step>
-        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART3_EXPECTED|A+B-&gt;C}" secret_flag="PART3_SECRET_TRIGGERED" success_prompt="PART3_CORRECT" retry_prompt="PART3_RETRY" failure_prompt="PART3_FAILURE" reactant_feedback_prompt="PART3_REACTANT_FEEDBACK" product_feedback_prompt="PART3_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART3_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART3_GENERAL_FEEDBACK" format_prompt="REACTION_FORMAT_REMINDER">PART3_REACTION</step>
+        <step type="reaction" delay="0" attempts="3" expected_reactions="${PART3_EXPECTED|A+B-&gt;C}" secret_flag="PART3_SECRET_TRIGGERED" success_prompt="PART3_CORRECT" retry_prompt="PART3_RETRY" failure_prompt="PART3_FAILURE" reactant_feedback_prompt="PART3_REACTANT_FEEDBACK" product_feedback_prompt="PART3_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART3_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART3_GENERAL_FEEDBACK" format_prompt="REACTION_FORMAT_REMINDER" retry_choice_prompt="PART3_RETRY_CHOICE" retry_choice_yes_pattern="(?i)^\s*yes\s*$" retry_choice_no_pattern="(?i)^\s*no\s*$" retry_choice_ack_prompt="PART3_RETRY_ACK">PART3_REACTION</step>
         <step type="solution" delay="0" property="PART3_SOLUTION">PART3_SOLUTION_STEP</step>
     </stage>
     <stage name="StagePart4" type="other" delay="0">
@@ -45,6 +45,9 @@
         <step type="no-op" delay="10">PART4_WAIT</step>
         <step type="chatlog" delay="0">CHAT_LOG</step>
         <step type="send_end" delay="0">SEND_END</step>
+    </stage>
+    <stage name="EndStage" type="other" delay="0" timeout="18000">  
+        <step type="chatlog" delay="2" >CHAT_LOG</step> 
         <step type="logout" delay="0">LOGOUT</step>
     </stage>
 </plan>
