@@ -46,6 +46,7 @@
         <step type="prompt" delay="0" prompt="PART4_SUBMIT_PROMPT">PART4_SUBMIT_PROMPT</step>
         <step type="reaction" delay="0" attempts="unlimited" expected_reactions="${PART4_EXPECTED|A+B-&gt;C}" secret_flag="PART4_SECRET_TRIGGERED" success_prompt="PART4_CORRECT" retry_prompt="PART4_RETRY" failure_prompt="PART4_FAILURE" reactant_feedback_prompt="PART4_REACTANT_FEEDBACK" product_feedback_prompt="PART4_PRODUCT_FEEDBACK" stoichiometry_feedback_prompt="PART4_STOICHIOMETRY_FEEDBACK" general_feedback_prompt="PART4_GENERAL_FEEDBACK" format_prompt="REACTION_FORMAT_REMINDER">PART4_REACTION</step>
         <step type="solution" delay="0" property="PART4_SOLUTION">PART4_SOLUTION_STEP</step>
+        <step type="prompt" delay="0" prompt="PART4_POSTTEST">PART4_POSTTEST</step>
         <step type="no-op" delay="10">PART4_WAIT</step>
         <step type="chatlog" delay="0">CHAT_LOG</step>
         <step type="send_end" delay="0">SEND_END</step>
