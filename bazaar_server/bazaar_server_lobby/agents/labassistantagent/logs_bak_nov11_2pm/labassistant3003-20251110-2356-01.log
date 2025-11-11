@@ -1,0 +1,287 @@
+setting basilica2.agents.condition to 'none'
+23:56:01 [NORMAL] BaseAgentOperation:	setting basilica2.agents.condition to 'none'
+launching...
+23:56:01 [NORMAL] BaseAgentOperation:	launching hands-free!
+23:56:01 [NORMAL] BaseAgentOperation:	setting basilica2.agents.room_name to labassistant3003
+23:56:01 [NORMAL] BaseAgentOperation:	<launching room=labassistant3003/>
+23:56:01 [NORMAL] AgentFactory:	Making Agent from agent.xml
+23:56:01 [NORMAL] AgentFactory:	File Read
+23:56:01 [NORMAL] AgentFactory:	Agent Tag Read
+23:56:01 [NORMAL] AgentFactory:	Components Tag Read
+23:56:01 [NORMAL] AgentFactory:	Components read. N=5
+23:56:01 [NORMAL] FactoryBuiltAgent:	CONFIGURING AGENT LabAssistant_labassistant3003
+23:56:01 [NORMAL] LabAssistant_labassistant3003.AGENT:	<created>LabAssistant_labassistant3003</created>
+23:56:01 [NORMAL] AgentFactory:	Agent build. LabAssistant_labassistant3003
+23:56:01 [NORMAL] BaseAgentOperation:	Adding agent LabAssistant_labassistant3003
+23:56:01 [NORMAL] LabAssistant_labassistant3003.stateMemory:	<created>stateMemory</created>
+23:56:01 [NORMAL] LabAssistant_labassistant3003.client:	<created>client</created>
+23:56:01 [NORMAL] LabAssistant_labassistant3003.client:	Property read: socket_url =	http://bree.lti.cs.cmu.edu:8300
+23:56:01 [NORMAL] LabAssistant_labassistant3003.client:	Property read: socket_suburl =	/bazsocket/socket.io
+23:56:01 [NORMAL] LabAssistant_labassistant3003.ccActor:	<created>ccActor</created>
+23:56:01 [NORMAL] LabAssistant_labassistant3003.ccActor:	Property read: typingScale =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	<created>inputCoordinator</created>
+23:56:01 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	<created>outputCoordinator</created>
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: output_multimodal =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: output_to_PSI =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: separate_output_to_PSI =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: multimodal_format_to_PSI =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: dont_listen_while_speaking =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: multimodal_words_per_minute =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: multimodal_words_constant_delay =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: between_phrase_delay =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: Bazaar_to_PSI_Topic =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: output_bot_message =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	Property read: use_listener_name =	null
+23:56:01 [NORMAL] LabAssistant_labassistant3003.AGENT:	<initialized>LabAssistant_labassistant3003</initialized>
+23:56:01 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+23:56:01 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+23:56:01 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+23:56:01 [NORMAL] PlanExecutor:	<configuration planfile="plans/labassistant_plan_steps.xml">
+23:56:02 [ERROR] PlanExecutor:	PlanExecutor: Can't do that...java.io.IOException: No such file or directory
+23:56:02 [ERROR] PlanExecutor:	Error while reading Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+23:56:02 [NORMAL] PromptStepHandler:	default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps
+23:56:02 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+23:56:02 [NORMAL] LabAssistant_labassistant3003.AGENT:	<starting>Initializing each component</starting>
+23:56:02 [NORMAL] LabAssistant_labassistant3003.stateMemory:	<initialized>stateMemory</initialized>
+23:56:02 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	<initialized>inputCoordinator</initialized>
+23:56:02 [NORMAL] LabAssistant_labassistant3003.client:	<initialized>client</initialized>
+23:56:02 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	<initialized>outputCoordinator</initialized>
+23:56:02 [NORMAL] LabAssistant_labassistant3003.ccActor:	<initialized>ccActor</initialized>
+23:56:02 [NORMAL] LabAssistant_labassistant3003.AGENT:	<starting>All components initialized</starting>
+23:56:02 [NORMAL] BaseAgentOperation:	Agent added LabAssistant_labassistant3003
+23:56:02 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, EVENT_CONNECT
+23:56:02 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:48:09 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.LaunchEvent blister=basilica2.agents.listeners.plan.PlanExecutor@63b5c9d6
+18:48:09 [NORMAL] PlanExecutor:	Plan: <stage name="StageInitialization" timeout="0">set</stage>
+18:48:09 [NORMAL] PlanExecutor:	Plan: <stage name="EndStage" timeout="20000">set</stage>
+18:48:09 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:48:09 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #2 - about to clearHelpers and activate stage StageInitialization
+18:48:09 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #2 -  activating next stage: StageInitialization
+18:48:09 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: Firing Stage 'StageInitialization'
+18:48:09 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: {next stage}: StageInitialization
+18:48:09 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:48:09 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:48:09 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:48:09 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:48:09 [NORMAL] Step:	Handlers for WELCOME_WAIT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+18:48:09 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:48:09 [NORMAL] PromptStepHandler:	starting 3.6999999999999997 second prompt delay
+18:48:09 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:48:10 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:48:11 [NORMAL] :	accepted. Message from LabAssistant: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion. WELCOME_WAIT.
+Starting blockout countdown... 
+18:48:11 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion. from LabAssistant
+2025-11-11,18:48:09,0,LabAssistant,1762886891477,Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.,WELCOME_WAIT
+WebsocketChatClient, updatechat received message: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.
+18:48:11 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.
+18:48:13 [NORMAL] PromptStepHandler:	ending 3.6999999999999997 second prompt delay
+18:48:13 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: WELCOME_WAIT
+18:48:13 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - starting 3 second delay timer for currentStep: WELCOME_WAIT
+18:48:16 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #1 - about to clearHelpers for WELCOME_WAIT
+18:48:16 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:48:16 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:48:16 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:48:16 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:48:16 [NORMAL] Step:	Handlers for WELCOME_CONTEXT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+18:48:16 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:48:16 [NORMAL] PromptStepHandler:	starting 9.399999999999999 second prompt delay
+18:48:16 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:48:17 [NORMAL] :	accepted. Message from LabAssistant: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs. WELCOME_CONTEXT.
+Starting blockout countdown... 
+18:48:17 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs. from LabAssistant
+2025-11-11,18:48:16,0,LabAssistant,1762886897496,"Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.",WELCOME_CONTEXT
+WebsocketChatClient, updatechat received message: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.
+18:48:17 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.
+18:48:26 [NORMAL] PromptStepHandler:	ending 9.399999999999999 second prompt delay
+18:48:26 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: WELCOME_CONTEXT
+18:48:26 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - starting 2 second delay timer for currentStep: WELCOME_CONTEXT
+18:48:28 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #1 - about to clearHelpers for WELCOME_CONTEXT
+18:48:28 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:48:28 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:48:28 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:48:28 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:48:28 [NORMAL] Step:	Handlers for WAIT_FOR_STUDENTS(presence_gate): [basilica2.agents.listeners.plan.PresenceGateStepHandler@1cd072a9]
+18:48:28 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:48:28 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:48:28 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+
+18:48:28 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:48:54 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:48:54 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+18:48:55 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:48:55 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+18:48:56 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:48:56 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+18:49:05 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:49:05 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+18:49:05 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:49:05 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+18:49:05 [NORMAL] PresenceWatcher:	BasilicaAdpater stopListening
+18:49:05 [NORMAL] PlanExecutor:	PlanExecutor.stepDone(stepName) - entering - stepname:WAIT_FOR_STUDENTS -- currentStep:WAIT_FOR_STUDENTS
+18:49:05 [NORMAL] PlanExecutor:	PlanExecutor.stepDone(stepName): stepName == currentStep
+18:49:05 [NORMAL] PlanExecutor:	PlanExecutor clearHelpers - helper: basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@35440e91
+
+18:49:05 [NORMAL] PresenceWatcher:	BasilicaAdpater stopListening
+18:49:05 [NORMAL] PlanExecutor:	PlanExecutor.stepDone(stepName): calling currentPlan.currentStage.progressStage
+18:49:05 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:49:05 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:49:05 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:49:05 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:49:05 [NORMAL] Step:	Handlers for WELCOME_READY_PROMPT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+18:49:05 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:49:05 [NORMAL] PromptStepHandler:	starting 15.399999999999999 second prompt delay
+18:49:05 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:49:05 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@39a3699
+18:49:07 [NORMAL] :	accepted. Message from LabAssistant: Please navigate to the "Scratchpad" tab and make sure you are logged in with your Google account in the document. Also review the "VirtualLab Tutorial" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style="color:#d9534f; font-weight:bold;">ready</span> to begin the experiment. WELCOME_READY_PROMPT.
+Starting blockout countdown... 
+18:49:07 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Please navigate to the "Scratchpad" tab and make sure you are logged in with your Google account in the document. Also review the "VirtualLab Tutorial" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style="color:#d9534f; font-weight:bold;">ready</span> to begin the experiment. from LabAssistant
+2025-11-11,18:49:05,0,LabAssistant,1762886947520,"Please navigate to the ""Scratchpad"" tab and make sure you are logged in with your Google account in the document. Also review the ""VirtualLab Tutorial"" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style=""color:#d9534f; font-weight:bold;"">ready</span> to begin the experiment.",WELCOME_READY_PROMPT
+WebsocketChatClient, updatechat received message: Please navigate to the "Scratchpad" tab and make sure you are logged in with your Google account in the document. Also review the "VirtualLab Tutorial" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style="color:#d9534f; font-weight:bold;">ready</span> to begin the experiment.
+18:49:07 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Please navigate to the "Scratchpad" tab and make sure you are logged in with your Google account in the document. Also review the "VirtualLab Tutorial" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style="color:#d9534f; font-weight:bold;">ready</span> to begin the experiment.
+WebsocketChatClient, updatechat received message: Ready
+18:49:17 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Ready
+2025-11-11,18:49:17,0,2VD4M3WB_A,1762886957514,Ready,AFFIRMATIVE
+18:49:21 [NORMAL] PromptStepHandler:	ending 15.399999999999999 second prompt delay
+18:49:21 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: WELCOME_READY_PROMPT
+18:49:21 [NORMAL] PlanExecutor:	PlanExecutor.stepDone: calling progressStage(source) for source: inputCoordinator
+18:49:21 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:49:21 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:49:21 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:49:21 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:49:21 [NORMAL] Step:	Handlers for INIT_READY(ready_secret): [basilica2.agents.listeners.plan.ReadyOrSecretStepHandler@2d209079]
+18:49:21 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:49:21 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:49:21 [ERROR] PropertiesLoader:	no properties file at Gatekeeper.properties
+18:49:21 [NORMAL] Gatekeeper:	waiting for responses from [32SU834F_B]
+18:49:21 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.Gatekeeper@38c29e59
+
+18:49:21 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:49:21 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:49:21 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$ReadyAckListener@323af529
+
+18:49:21 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+WebsocketChatClient, updatechat received message: ready 
+18:49:29 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: ready 
+2025-11-11,18:49:29,0,32SU834F_B,1762886969130,ready ,AFFIRMATIVE
+18:49:29 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.MessageEvent blister=basilica2.agents.listeners.Gatekeeper@38c29e59
+18:49:29 [NORMAL] Gatekeeper:	ready 
+18:49:29 [NORMAL] Gatekeeper:	waiting on ready from []
+18:49:29 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	addProposal: Message from LabAssistant_labassistant3003: Thanks! I'm still waiting for your teammate. to:32SU834F_B+ACKNOWLEDGE+PRIVATE_MESSAGE
+18:49:29 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.MessageEvent blister=basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$ReadyAckListener@323af529
+18:49:29 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:49:29 [NORMAL] :	accepted. Message from LabAssistant: Thanks! I've logged your ready signal—waiting on your teammate. READY_ACK.
+Starting blockout countdown... 
+18:49:29 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Thanks! I've logged your ready signal—waiting on your teammate. from LabAssistant
+2025-11-11,18:49:29,0,LabAssistant,1762886969532,Thanks! I've logged your ready signal—waiting on your teammate.,READY_ACK
+WebsocketChatClient, updatechat received message: Thanks! I've logged your ready signal—waiting on your teammate.
+18:49:29 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Thanks! I've logged your ready signal—waiting on your teammate.
+18:49:31 [NORMAL] :	ACCEPTED! Message from LabAssistant_labassistant3003: Thanks! I'm still waiting for your teammate. to:32SU834F_B+ACKNOWLEDGE+PRIVATE_MESSAGE
+18:49:31 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Thanks! I'm still waiting for your teammate. from LabAssistant_labassistant3003
+2025-11-11,18:49:29,0,LabAssistant_labassistant3003,1762886971536,Thanks! I'm still waiting for your teammate.,to:32SU834F_B+ACKNOWLEDGE+PRIVATE_MESSAGE
+WebsocketChatClient, updatechat received message: ready
+18:49:41 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: ready
+2025-11-11,18:49:41,0,2VD4M3WB_A,1762886981250,ready,AFFIRMATIVE
+18:49:41 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.MessageEvent blister=basilica2.agents.listeners.Gatekeeper@38c29e59
+18:49:41 [NORMAL] Gatekeeper:	ready
+18:49:41 [NORMAL] Gatekeeper:	waiting on ready from []
+18:49:41 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.StepDoneEvent blister=basilica2.agents.listeners.plan.PlanExecutor@63b5c9d6
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.handleStepDoneEvent - received step done event for DONE_PROMPTING_EVENT - step: INIT_READY
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: INIT_READY
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor clearHelpers - helper: basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$ReadyAckListener@323af529
+
+18:49:41 [NORMAL] ReadyAckListener:	BasilicaAdpater stopListening
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor clearHelpers - helper: basilica2.agents.listeners.Gatekeeper@38c29e59
+
+18:49:41 [NORMAL] Gatekeeper:	BasilicaAdpater stopListening
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.stepDone: calling progressStage(source) for source: inputCoordinator
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: finished stage StageInitialization
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: Firing Stage 'StagePart1'
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: stopping current stage: StageInitialization
+18:49:41 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: {next stage}: StagePart1
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:49:41 [NORMAL] Step:	Handlers for SHOW_VLAB1(send_command): [basilica2.agents.listeners.plan.SendCommandStepHandler@27f674d]
+18:49:41 [NORMAL] SendCommandEvent:	SendCommandEvent, constructor - SendCommandEvent created: command: show:#tab-virtualLab1-li
+18:49:41 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: SHOW_VLAB1
+18:49:41 [NORMAL] PlanExecutor:	PlanExecutor.stepDone: calling progressStage(source) for source: inputCoordinator
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:49:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:49:41 [NORMAL] Step:	Handlers for PART1_QUESTION(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+18:49:41 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:49:41 [NORMAL] PromptStepHandler:	starting 17.8 second prompt delay
+18:49:41 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:49:41 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:49:41 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	addProposal: Unready Event: Global
+18:49:41 [NORMAL] :	accepted. <SEND_COMMAND_EVENT command = "show:#tab-virtualLab1-li/>.
+Starting blockout countdown... 
+18:49:41 [NORMAL] SendCommandEvent:	SendCommandEvent, getCommand: show:#tab-virtualLab1-li
+18:49:41 [NORMAL] SendCommandEvent:	SendCommandEvent, getCommand: show:#tab-virtualLab1-li
+18:49:41 [NORMAL] WebsocketChatClient:	WebsocketChatClient, processEvent, SendCommandEvent - commannd: show:#tab-virtualLab1-li
+18:49:41 [NORMAL] SendCommandEvent:	SendCommandEvent, getCommand: show:#tab-virtualLab1-li
+18:49:41 [NORMAL] WebsocketChatClient:	WebsocketChatClient, insertSendCommandEvent - command: show:#tab-virtualLab1-li
+18:49:43 [NORMAL] :	REJECTED!Message from LabAssistant: Great, both signals received. Let's move on. ALL_READY
+18:49:43 [NORMAL] :	accepted. Message from LabAssistant: Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style="font-weight:bold;">VirtualLab Tutorial</span> tab. PART1_QUESTION.
+Starting blockout countdown... 
+18:49:43 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style="font-weight:bold;">VirtualLab Tutorial</span> tab. from LabAssistant
+2025-11-11,18:49:41,0,LabAssistant,1762886983544,"Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style=""font-weight:bold;"">VirtualLab Tutorial</span> tab.",PART1_QUESTION
+WebsocketChatClient, updatechat received message: Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style="font-weight:bold;">VirtualLab Tutorial</span> tab.
+18:49:43 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style="font-weight:bold;">VirtualLab Tutorial</span> tab.
+18:49:45 [NORMAL] :	ACCEPTED! Unready Event: Global
+18:49:59 [NORMAL] PromptStepHandler:	ending 17.8 second prompt delay
+18:49:59 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: PART1_QUESTION
+18:49:59 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - starting 5 second delay timer for currentStep: PART1_QUESTION
+18:50:04 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #1 - about to clearHelpers for PART1_QUESTION
+18:50:04 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:50:04 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:50:04 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:50:04 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:50:04 [NORMAL] Step:	Handlers for PART1_COLLAB(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+18:50:04 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+18:50:04 [NORMAL] PromptStepHandler:	starting 7.8999999999999995 second prompt delay
+18:50:04 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+18:50:05 [NORMAL] :	accepted. Message from LabAssistant: Use the chat or "Scratchpad" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part1</span>. PART1_COLLAB.
+Starting blockout countdown... 
+18:50:05 [NORMAL] LabAssistant_labassistant3003.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Use the chat or "Scratchpad" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part1</span>. from LabAssistant
+2025-11-11,18:50:04,0,LabAssistant,1762887005555,"Use the chat or ""Scratchpad"" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style=""color:#d9534f; font-weight:bold;"">ready:part1</span>.",PART1_COLLAB
+WebsocketChatClient, updatechat received message: Use the chat or "Scratchpad" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part1</span>.
+18:50:05 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: Use the chat or "Scratchpad" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part1</span>.
+18:50:11 [NORMAL] PromptStepHandler:	ending 7.8999999999999995 second prompt delay
+18:50:11 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: PART1_COLLAB
+18:50:11 [NORMAL] PlanExecutor:	PlanExecutor.stepDone: calling progressStage(source) for source: inputCoordinator
+18:50:11 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+18:50:11 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+18:50:11 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+18:50:11 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+18:50:11 [NORMAL] Step:	Handlers for PART1_READY(ready_secret): [basilica2.agents.listeners.plan.ReadyOrSecretStepHandler@2d209079]
+18:50:11 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:50:11 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:50:11 [ERROR] PropertiesLoader:	no properties file at Gatekeeper.properties
+18:50:11 [NORMAL] Gatekeeper:	waiting for responses from [32SU834F_B]
+18:50:11 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.Gatekeeper@55add004
+
+18:50:11 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:50:11 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:50:11 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$SecretListener@5b6a24c1
+
+18:50:11 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:50:11 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+18:50:11 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$ReadyAckListener@5f55bb74
+
+18:50:11 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant3003.planstatus.txt (No such file or directory))
+WebsocketChatClient, updatechat received message: MOls H+ 2.01
+18:53:31 [NORMAL] LabAssistant_labassistant3003.client:	WebsocketChatClient, updatechat received message: MOls H+ 2.01
+2025-11-11,18:53:31,0,2VD4M3WB_A,1762887211280,MOls H+ 2.01,
+18:53:31 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.MessageEvent blister=basilica2.agents.listeners.Gatekeeper@55add004
+18:53:31 [NORMAL] Gatekeeper:	MOls H+ 2.01
+18:53:31 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.MessageEvent blister=basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$SecretListener@5b6a24c1
+18:53:31 [NORMAL] LabAssistant_labassistant3003.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.MessageEvent blister=basilica2.agents.listeners.plan.ReadyOrSecretStepHandler$ReadyAckListener@5f55bb74
