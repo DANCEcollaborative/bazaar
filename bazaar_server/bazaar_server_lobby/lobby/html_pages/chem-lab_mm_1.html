@@ -240,6 +240,7 @@ ul.tab li a:focus, .active {
         container.innerHTML = html;
 
         injectPromptFigures(container);
+        injectPromptFigures2(container);
         applyHighlightPattern(container, /(ready:part\d+)/gi, 'ready-emphasis');
         applyHighlightPattern(container, /(reaction:\s*)/gi, 'reaction-label');
         applyHighlightPattern(container, /(?:\b[A-Za-z0-9()]+\b(?:\s*\+\s*\b[A-Za-z0-9()]+\b)*)\s*(?:->|→)\s*(?:\b[A-Za-z0-9()]+\b(?:\s*\+\s*\b[A-Za-z0-9()]+\b)*)/gi, 'reaction-equation');
@@ -268,6 +269,33 @@ ul.tab li a:focus, .active {
             var img = document.createElement('img');
             img.src = 'https://i.postimg.cc/5y6rPc9g/Screenshot-2025-11-06-at-8-30-11-PM.png';
             img.alt = 'Hidden concentration example';
+            figure.appendChild(img);
+            fragment.appendChild(figure);
+            node.parentNode.replaceChild(fragment, node);
+        });
+    }
+
+    function injectPromptFigures2(root) {
+        var placeholder = /\[\[IMAGE:SCRATCHPAD_HINT\]\]/i;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var nodesToReplace = [];
+        while (walker.nextNode()) {
+            var node = walker.currentNode;
+            if (placeholder.test(node.nodeValue)) {
+                nodesToReplace.push(node);
+            }
+        }
+        nodesToReplace.forEach(function(node) {
+            var html = node.nodeValue.replace(placeholder, '').trim();
+            var fragment = document.createDocumentFragment();
+            if (html.length) {
+                fragment.appendChild(document.createTextNode(html + ' '));
+            }
+            var figure = document.createElement('div');
+            figure.className = 'prompt-figure';
+            var img = document.createElement('img');
+            img.src = 'https://munano.org/img/vlab-pilot-part1-scratchpad.jpg';
+            img.alt = 'Scratchpad collaboration example';
             figure.appendChild(img);
             fragment.appendChild(figure);
             node.parentNode.replaceChild(fragment, node);

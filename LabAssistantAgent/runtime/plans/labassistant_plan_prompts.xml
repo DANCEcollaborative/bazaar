@@ -26,6 +26,9 @@
    <prompt strategy="task" id="REACTION_FORMAT_REMINDER">
        <text>To submit an answer, start with <span style="color:#0275d8; font-weight:bold;">reaction:</span> followed by the equation (e.g., <span style="color:#0275d8; font-weight:bold;">reaction: A+B-&gt;C</span>).</text>
    </prompt>
+    <prompt strategy="task" id="REACTANT_FORMAT_REMINDER">
+        <text>To submit the reactants, start with <span style="color:#0275d8; font-weight:bold;">reactants:</span> followed by a comma-separated list (e.g., <span style="color:#0275d8; font-weight:bold;">reactants: A,B</span>).</text>
+    </prompt>
     <prompt strategy="task" id="REACTION_INVALID_SPECIES">
         <text>You entered an incorrect substance. The reactants and products are A, B, C, or D.</text>
     </prompt>
@@ -54,7 +57,7 @@
         <text>We'll reveal the Part 1 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART1_SOLUTION">
-        <text>Part 1 solution: A + B -&gt; 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-01-simple/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-01-simple/</a> to reinforce the concept before moving on to the next part.</text>
+        <text>Part 1 solution: A + B -&gt; 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-01-simple/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-01-simple/</a> to reinforce the concept before moving on to the next part. Parts 2-4 are more complex, so it may be easier to share results in the <b>"Scratchpad"</b>. For example look at the image below. When you’re both done analyzing the solution, each of you type <span style="color:#d9534f; font-weight:bold;">done</span>. [[IMAGE:SCRATCHPAD_HINT]]</text>
     </prompt>
 
     <prompt strategy="task" id="PART2_QUESTION">
@@ -65,6 +68,21 @@
     </prompt>
     <prompt strategy="task" id="PART2_COLLAB">
         <text>Use the chat or Scratchpad to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part2</span>.</text>
+    </prompt>
+    <prompt strategy="task" id="PART2_REACTANTS_PROMPT">
+        <text>Use the chat or Scratchpad to record your observations and agree on which substances are reacting. Once both of you align on the reactants, each type <span style="color:#d9534f; font-weight:bold;">ready:part2</span>.</text>
+    </prompt>
+    <prompt strategy="task" id="PART2_REACTANTS_SUBMIT">
+        <text>Send me the reactants as <span style="color:#0275d8; font-weight:bold;">reactants: A,B</span> (comma-separated). I'll confirm when they look right.</text>
+    </prompt>
+    <prompt strategy="task" id="PART2_REACTANTS_RETRY">
+        <text>Keep testing hypotheses and adjust the reactant list together.</text>
+    </prompt>
+    <prompt strategy="task" id="PART2_REACTANTS_WRONG">
+        <text>Those reactants don’t match the reaction taking place. Revisit your evidence before trying again.</text>
+    </prompt>
+    <prompt strategy="task" id="PART2_REACTANTS_CORRECT">
+        <text>Reactants confirmed! When both of you are ready to write the full reaction, type <span style="color:#d9534f; font-weight:bold;">ready:part2</span> again.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SUBMIT_PROMPT">
         <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
@@ -91,13 +109,28 @@
         <text>We'll reveal the Part 2 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART2_SOLUTION">
-        <text>Part 2 solution: B + D -&gt; A + 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-02-hidden/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-02-hidden/</a> to reinforce the concept before moving on to the next part.</text>
+        <text>Part 2 solution: B + D -&gt; A + 2C. Review the walkthrough at <a href="https://munano.org/chem-pilot-02-hidden/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-02-hidden/</a> to reinforce the concept before moving on to the next part. When you’re finished reviewing, both of you type <span style="color:#d9534f; font-weight:bold;">done</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART3_QUESTION">
         <text>Part 3: Open the Part 3 tab. You are given four substances A, B, C, and D that are known to react. Design and perform virtual lab experiments to determine the reaction between these substances, including the stoichiometric coefficients. Just as in part 2, one of the substances is hidden but your partner can see it.</text>
     </prompt>
     <prompt strategy="task" id="PART3_COLLAB">
         <text>Use the chat or Scratchpad to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style="color:#d9534f; font-weight:bold;">ready:part3</span>.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_REACTANTS_PROMPT">
+        <text>Use the chat or Scratchpad to compare your measurements and decide which substances are reacting. When you both agree on the reactants, each type <span style="color:#d9534f; font-weight:bold;">ready:part3</span>.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_REACTANTS_SUBMIT">
+        <text>Now send me the reactants as <span style="color:#0275d8; font-weight:bold;">reactants: A,B</span>. I’ll let you know when they match.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_REACTANTS_RETRY">
+        <text>Keep iterating on the reactant list and try again.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_REACTANTS_WRONG">
+        <text>That reactant list doesn’t line up with the data. Double-check your experiments.</text>
+    </prompt>
+    <prompt strategy="task" id="PART3_REACTANTS_CORRECT">
+        <text>Reactants confirmed! Type <span style="color:#d9534f; font-weight:bold;">ready:part3</span> again when you’re prepared to submit the full reaction.</text>
     </prompt>
     <prompt strategy="task" id="PART3_SUBMIT_PROMPT">
         <text>You have up to three tries. Submit your answer as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span>.</text>
@@ -130,7 +163,7 @@
         <text>Okay, I’ll reset your attempts so you can try again.</text>
     </prompt>
     <prompt strategy="task" id="PART3_SOLUTION">
-        <text>Part 3 solution: A + 2C -&gt; B + 2D. Review the walkthrough at <a href="https://munano.org/chem-pilot-03-limiting/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-03-limiting/</a> to reinforce the concept before moving on to the next part.</text>
+        <text>Part 3 solution: A + 2C -&gt; B + 2D. Review the walkthrough at <a href="https://munano.org/chem-pilot-03-limiting/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-03-limiting/</a> to reinforce the concept before moving on to the next part. When you’re done analyzing, both type <span style="color:#d9534f; font-weight:bold;">done</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART4_QUESTION">
         <text>Part 4: Open the Part 4 tab. You are given four substances A, B, C, and D that are known to react. Design and perform virtual lab experiments to determine the reaction between these substances, including the stoichiometric coefficients. All substances are visible to you but the units are <span style='font-weight:bold;'>Molarity</span> instead of moles.</text>
@@ -163,7 +196,7 @@
         <text>We'll reveal the Part 4 solution and keep moving.</text>
     </prompt>
     <prompt strategy="task" id="PART4_SOLUTION">
-        <text>Part 4 solution: 2B + C -&gt; A + 3D. Review the walkthrough at <a href="https://munano.org/chem-pilot-04-molarity/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-04-molarity/</a> to reinforce the concept.</text>
+        <text>Part 4 solution: 2B + C -&gt; A + 3D. Review the walkthrough at <a href="https://munano.org/chem-pilot-04-molarity/" target="_blank" rel="noopener noreferrer">https://munano.org/chem-pilot-04-molarity/</a> to reinforce the concept. After you finish reviewing, each of you type <span style="color:#d9534f; font-weight:bold;">done</span>.</text>
     </prompt>
     <prompt strategy="task" id="PART4_POSTTEST">
         <text>Please complete the post-test assigned to you.</text>

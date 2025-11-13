@@ -28,6 +28,26 @@ public class ReactionStepHandler implements StepHandler
     private static final String DEFAULT_PROMPT_FILE = "plans/plan_prompts.xml";
     private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\$\\{([^}|]+)(?:\\|([^}]*))?\\}");
 
+    private enum EvaluationMode
+    {
+        FULL,
+        REACTANTS_ONLY;
+
+        static EvaluationMode fromValue(String value)
+        {
+            if (value == null || value.trim().isEmpty())
+            {
+                return FULL;
+            }
+            String normalized = value.trim().toLowerCase();
+            if ("reactants_only".equals(normalized) || "reactants".equals(normalized))
+            {
+                return REACTANTS_ONLY;
+            }
+            return FULL;
+        }
+    }
+
 	public ReactionStepHandler()
 	{
 		String promptsPath = DEFAULT_PROMPT_FILE;
@@ -111,12 +131,14 @@ public class ReactionStepHandler implements StepHandler
         String invalidSpeciesPrompt = currentStep.attributes.get("invalid_species_prompt");
         String overlapSpeciesPrompt = currentStep.attributes.get("overlap_species_prompt");
         Set<String> allowedSpecies = parseAllowedSpecies(currentStep.attributes.get("allowed_species"));
+        String inputPrefix = currentStep.attributes.get("input_prefix");
+        EvaluationMode evaluationMode = EvaluationMode.fromValue(currentStep.attributes.get("evaluation_mode"));
 
         ReactionMonitor monitor = new ReactionMonitor(overmind, source, currentStep, prompter, expectedReactions,
                 secretFlag, attempts, unlimitedAttempts, successPrompt, retryPrompt, failurePrompt,
                 reactantFeedbackPrompt, productFeedbackPrompt, stoichiometryFeedbackPrompt, generalFeedbackPrompt,
                 retryChoicePrompt, retryChoiceAckPrompt, retryChoiceYesPattern, retryChoiceNoPattern,
-                invalidSpeciesPrompt, allowedSpecies, overlapSpeciesPrompt);
+                invalidSpeciesPrompt, allowedSpecies, overlapSpeciesPrompt, inputPrefix, evaluationMode);
         overmind.addHelper(monitor);
         monitor.checkForSecretSkip();
     }
@@ -280,6 +302,23 @@ public class ReactionStepHandler implements StepHandler
         return allowed;
     }
 
+    private static List<Set<String>> buildExpectedReactantSets(List<ParsedReaction> expectedReactions)
+    {
+        List<Set<String>> sets = new ArrayList<Set<String>>();
+        if (expectedReactions == null)
+        {
+            return sets;
+        }
+        for (ParsedReaction reaction : expectedReactions)
+        {
+            if (reaction != null && reaction.reactants != null)
+            {
+                sets.add(new HashSet<String>(reaction.reactants.keySet()));
+            }
+        }
+        return sets;
+    }
+
     private static class ReactionMonitor extends BasilicaAdapter
  	{
 		private final PlanExecutor overmind;
@@ -304,6 +343,10 @@ public class ReactionStepHandler implements StepHandler
         private final String invalidSpeciesPrompt;
         private final String overlapSpeciesPrompt;
         private final Set<String> allowedSpecies;
+        private final EvaluationMode evaluationMode;
+        private final String inputPrefix;
+        private final String inputPrefixLower;
+        private final List<Set<String>> expectedReactantSets;
         private final int maxAttemptsPerCycle;
         private int attemptsRemaining;
         private boolean finished = false;
@@ -315,7 +358,8 @@ public class ReactionStepHandler implements StepHandler
             String retryPrompt, String failurePrompt, String reactantFeedbackPrompt,
             String productFeedbackPrompt, String stoichiometryFeedbackPrompt, String generalFeedbackPrompt,
             String retryChoicePromptId, String retryChoiceAckPromptId, String retryYesPattern, String retryNoPattern,
-            String invalidSpeciesPrompt, Set<String> allowedSpecies, String overlapSpeciesPrompt)
+            String invalidSpeciesPrompt, Set<String> allowedSpecies, String overlapSpeciesPrompt,
+            String inputPrefix, EvaluationMode evaluationMode)
         {
             super(overmind.getAgent());
             this.overmind = overmind;
@@ -348,6 +392,11 @@ public class ReactionStepHandler implements StepHandler
                 this.allowedSpecies = new HashSet<String>();
             }
             this.overlapSpeciesPrompt = overlapSpeciesPrompt;
+            this.evaluationMode = evaluationMode == null ? EvaluationMode.FULL : evaluationMode;
+            String prefixValue = (inputPrefix == null || inputPrefix.trim().isEmpty()) ? "reaction" : inputPrefix.trim();
+            this.inputPrefix = prefixValue;
+            this.inputPrefixLower = prefixValue.toLowerCase();
+            this.expectedReactantSets = buildExpectedReactantSets(expectedReactions);
         }
 
 		void checkForSecretSkip()
@@ -406,13 +455,12 @@ public class ReactionStepHandler implements StepHandler
             }
 
             String lower = normalized.toLowerCase();
-            int prefixIndex = lower.indexOf("reaction");
-            if (prefixIndex != 0)
+            if (!lower.startsWith(inputPrefixLower))
             {
                 return "";
             }
 
-            int colonIndex = lower.indexOf(':', "reaction".length());
+            int colonIndex = lower.indexOf(':', inputPrefixLower.length());
             if (colonIndex == -1)
             {
                 return "";
@@ -424,7 +472,14 @@ public class ReactionStepHandler implements StepHandler
 
         private void sendFormatReminder(String originalText)
         {
-            if (step.attributes.containsKey("format_prompt") && isPotentialReaction(originalText))
+            if (!step.attributes.containsKey("format_prompt"))
+            {
+                return;
+            }
+            boolean looksValid = (evaluationMode == EvaluationMode.REACTANTS_ONLY)
+                    ? isPotentialReactantList(originalText)
+                    : isPotentialReaction(originalText);
+            if (looksValid)
             {
                 String promptId = step.attributes.get("format_prompt");
                 sendPrompt(promptId, null);
@@ -462,6 +517,46 @@ public class ReactionStepHandler implements StepHandler
             return isReactionSide(lhs) && isReactionSide(rhs);
         }
 
+        private boolean isPotentialReactantList(String text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+            String normalized = text.trim();
+            if (normalized.length() == 0)
+            {
+                return false;
+            }
+            String lower = normalized.toLowerCase();
+            if (lower.startsWith(inputPrefixLower))
+            {
+                normalized = normalized.substring(inputPrefixLower.length());
+            }
+            if (normalized.startsWith(":"))
+            {
+                normalized = normalized.substring(1);
+            }
+            String simplified = normalized.replaceAll("\\s+", "");
+            if (simplified.length() == 0)
+            {
+                return false;
+            }
+            String[] parts = simplified.split("[,+]");
+            if (parts.length == 0)
+            {
+                return false;
+            }
+            for (String part : parts)
+            {
+                if (part.isEmpty() || !part.matches("[A-Za-z0-9()]+"))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private boolean isReactionSide(String side)
         {
             if (side == null || side.length() == 0)
@@ -489,6 +584,11 @@ public class ReactionStepHandler implements StepHandler
 
         private void evaluateCandidate(String candidate)
         {
+            if (evaluationMode == EvaluationMode.REACTANTS_ONLY)
+            {
+                handleReactantCandidate(candidate);
+                return;
+            }
             ParsedReaction candidateReaction;
             try
             {
@@ -539,6 +639,38 @@ public class ReactionStepHandler implements StepHandler
 			handleIncorrectAttempt();
 		}
 
+        private void handleReactantCandidate(String candidate)
+        {
+            Set<String> candidateSet = parseReactantList(candidate);
+            if (candidateSet == null || candidateSet.isEmpty())
+            {
+                provideFeedback(MatchOutcome.NO_MATCH);
+                handleIncorrectAttempt();
+                return;
+            }
+            if (containsInvalidSpecies(candidateSet))
+            {
+                if (invalidSpeciesPrompt != null && invalidSpeciesPrompt.length() > 0)
+                {
+                    sendPrompt(invalidSpeciesPrompt, null);
+                }
+                else
+                {
+                    provideFeedback(MatchOutcome.NO_MATCH);
+                }
+                handleIncorrectAttempt();
+                return;
+            }
+            if (matchesExpectedReactants(candidateSet))
+            {
+                sendPrompt(successPrompt, null);
+                finishStep();
+                return;
+            }
+            provideFeedback(MatchOutcome.NO_MATCH);
+            handleIncorrectAttempt();
+        }
+
         private void provideFeedback(MatchOutcome outcome)
         {
             String promptId = null;
@@ -560,9 +692,65 @@ public class ReactionStepHandler implements StepHandler
             }
 
             if (promptId != null && promptId.length() > 0)
+        {
+            sendPrompt(promptId, null);
+        }
+    }
+
+        private Set<String> parseReactantList(String candidate)
+        {
+            if (candidate == null)
             {
-                sendPrompt(promptId, null);
+                return null;
             }
+            String simplified = candidate.replaceAll("\\s+", "").toUpperCase();
+            if (simplified.length() == 0)
+            {
+                return null;
+            }
+            String[] tokens = simplified.split("[,+]");
+            Set<String> species = new HashSet<String>();
+            for (String token : tokens)
+            {
+                if (token == null || token.length() == 0 || !token.matches("[A-Z0-9()]+"))
+                {
+                    return null;
+                }
+                species.add(token);
+            }
+            return species;
+        }
+
+        private boolean containsInvalidSpecies(Set<String> species)
+        {
+            if (species == null || allowedSpecies.isEmpty())
+            {
+                return false;
+            }
+            for (String sp : species)
+            {
+                if (!allowedSpecies.contains(sp))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private boolean matchesExpectedReactants(Set<String> candidateSet)
+        {
+            if (expectedReactantSets == null || expectedReactantSets.isEmpty())
+            {
+                return true;
+            }
+            for (Set<String> expectedSet : expectedReactantSets)
+            {
+                if (expectedSet.equals(candidateSet))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private MatchOutcome evaluateMatch(List<ParsedReaction> expectedList, ParsedReaction candidate)
