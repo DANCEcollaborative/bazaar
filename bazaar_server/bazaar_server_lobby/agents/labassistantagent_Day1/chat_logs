@@ -1,0 +1,22 @@
+timestamp,username,type,intention,content
+2025-11-10 19:55:53,LabAssistant,presence,,join
+2025-11-11 10:27:41,abc_A,presence,,join
+2025-11-11 10:27:43,LabAssistant,text,,Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.
+2025-11-11 10:27:49,LabAssistant,text,,"Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs."
+2025-11-11 10:28:18,def_B,presence,,join
+2025-11-11 10:28:19,LabAssistant,text,,"Please navigate to the 'Scratchpad' tab and make sure you are logged in with your Google account in the document. Also review the 'VirtualLab Tutorial' tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style='color:#d9534f; font-weight:bold;'>ready</span> to begin the experiment."
+2025-11-11 10:28:22,abc_A,text,,ready
+2025-11-11 10:28:24,def_B,text,,ready
+2025-11-11 10:28:29,abc_A,text,,ready
+2025-11-11 10:28:34,def_B,text,,ready
+2025-11-11 10:28:35,LabAssistant,text,,Thanks! I've logged your ready signal—waiting on your teammate.
+2025-11-11 10:28:37,LabAssistant,private,,Thanks! I'm still waiting for your teammate.
+2025-11-11 10:28:37,abc_A,text,,ready
+2025-11-11 10:28:39,LabAssistant,sendcommandeventwithroom,,show:#tab-virtualLab1-li
+2025-11-11 10:28:41,LabAssistant,text,,"Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style='font-weight:bold;'>VirtualLab Tutorial</span> tab."
+2025-11-11 10:28:43,LabAssistant,ready,,global unready
+2025-11-11 10:29:01,LabAssistant,text,,"Use the chat or 'Scratchpad' tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style='color:#d9534f; font-weight:bold;'>ready:part1</span>."
+2025-11-11 10:29:01,abc_A,text,,hello
+2025-11-11 10:31:00,abc_A,presence,,leave
+2025-11-11 10:31:01,LabAssistant,sendcommandeventwithroom,,show:#tab-virtualLab1-li
+2025-11-11 10:31:01,def_B,presence,,leave
