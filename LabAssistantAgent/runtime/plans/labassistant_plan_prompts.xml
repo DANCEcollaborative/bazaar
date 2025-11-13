@@ -24,7 +24,13 @@
        <text>Send me your reaction as <span style="color:#0275d8; font-weight:bold;">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style="color:#0275d8; font-weight:bold;">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.</text>
    </prompt>
    <prompt strategy="task" id="REACTION_FORMAT_REMINDER">
-        <text>To submit an answer, start with <span style="color:#0275d8; font-weight:bold;">reaction:</span> followed by the equation (e.g., <span style="color:#0275d8; font-weight:bold;">reaction: A+B-&gt;C</span>).</text>
+       <text>To submit an answer, start with <span style="color:#0275d8; font-weight:bold;">reaction:</span> followed by the equation (e.g., <span style="color:#0275d8; font-weight:bold;">reaction: A+B-&gt;C</span>).</text>
+   </prompt>
+    <prompt strategy="task" id="REACTION_INVALID_SPECIES">
+        <text>You entered an incorrect substance. The reactants and products are A, B, C, or D.</text>
+    </prompt>
+    <prompt strategy="task" id="REACTION_OVERLAP_SPECIES">
+        <text>Each substance can only be a reactant or product, not both.</text>
     </prompt>
     <prompt strategy="task" id="PART1_REACTANT_FEEDBACK">
         <text>Your reactants are correct. Revisit the products to reach the correct equation.</text>
@@ -33,7 +39,7 @@
         <text>Your products are correct. Check which reactants should combine to produce these products.</text>
     </prompt>
     <prompt strategy="task" id="PART1_STOICHIOMETRY_FEEDBACK">
-        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
+        <text>Your reactants and products are correct, but coefficients need adjusting. Consider performing additional experiments to determine the reaction's stoichiometry.</text>
     </prompt>
     <prompt strategy="task" id="PART1_GENERAL_FEEDBACK">
         <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>
@@ -70,7 +76,7 @@
         <text>Your products are correct. Check which reactants should combine to produce these products.</text>
     </prompt>
     <prompt strategy="task" id="PART2_STOICHIOMETRY_FEEDBACK">
-        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
+        <text>Your reactants and products are correct, but coefficients need adjusting. Consider performing additional experiments to determine the reaction's stoichiometry.</text>
     </prompt>
     <prompt strategy="task" id="PART2_GENERAL_FEEDBACK">
         <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>
@@ -103,7 +109,7 @@
         <text>Your products are correct. Check which reactants should combine to produce these products.</text>
     </prompt>
     <prompt strategy="task" id="PART3_STOICHIOMETRY_FEEDBACK">
-        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
+        <text>Your reactants and products are correct, but coefficients need adjusting. Consider performing additional experiments to determine the reaction's stoichiometry.</text>
     </prompt>
     <prompt strategy="task" id="PART3_GENERAL_FEEDBACK">
         <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>
@@ -142,7 +148,7 @@
         <text>Your products are correct. Check which reactants should combine to produce these products.</text>
     </prompt>
     <prompt strategy="task" id="PART4_STOICHIOMETRY_FEEDBACK">
-        <text>Your reactants and products are correct, but the stoichiometric ratios need adjusting.</text>
+        <text>Your reactants and products are correct, but coefficients need adjusting. Consider performing additional experiments to determine the reaction's stoichiometry.</text>
     </prompt>
     <prompt strategy="task" id="PART4_GENERAL_FEEDBACK">
         <text>This reaction is incorrect. Re-examine both the reactants and the products before trying again.</text>

@@ -2,9 +2,11 @@ package basilica2.agents.listeners.plan;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,11 +108,15 @@ public class ReactionStepHandler implements StepHandler
         String retryChoiceAckPrompt = currentStep.attributes.get("retry_choice_ack_prompt");
         String retryChoiceYesPattern = currentStep.attributes.get("retry_choice_yes_pattern");
         String retryChoiceNoPattern = currentStep.attributes.get("retry_choice_no_pattern");
+        String invalidSpeciesPrompt = currentStep.attributes.get("invalid_species_prompt");
+        String overlapSpeciesPrompt = currentStep.attributes.get("overlap_species_prompt");
+        Set<String> allowedSpecies = parseAllowedSpecies(currentStep.attributes.get("allowed_species"));
 
         ReactionMonitor monitor = new ReactionMonitor(overmind, source, currentStep, prompter, expectedReactions,
                 secretFlag, attempts, unlimitedAttempts, successPrompt, retryPrompt, failurePrompt,
                 reactantFeedbackPrompt, productFeedbackPrompt, stoichiometryFeedbackPrompt, generalFeedbackPrompt,
-                retryChoicePrompt, retryChoiceAckPrompt, retryChoiceYesPattern, retryChoiceNoPattern);
+                retryChoicePrompt, retryChoiceAckPrompt, retryChoiceYesPattern, retryChoiceNoPattern,
+                invalidSpeciesPrompt, allowedSpecies, overlapSpeciesPrompt);
         overmind.addHelper(monitor);
         monitor.checkForSecretSkip();
     }
@@ -251,6 +257,29 @@ public class ReactionStepHandler implements StepHandler
         return items;
     }
 
+    private static Set<String> parseAllowedSpecies(String value)
+    {
+        Set<String> allowed = new HashSet<String>();
+        if (value == null)
+        {
+            return allowed;
+        }
+        String[] parts = value.split("[,;\\s]+");
+        for (String part : parts)
+        {
+            if (part == null)
+            {
+                continue;
+            }
+            String token = part.trim().toUpperCase();
+            if (!token.isEmpty())
+            {
+                allowed.add(token);
+            }
+        }
+        return allowed;
+    }
+
     private static class ReactionMonitor extends BasilicaAdapter
  	{
 		private final PlanExecutor overmind;
@@ -272,6 +301,9 @@ public class ReactionStepHandler implements StepHandler
         private final String retryChoiceAckPromptId;
         private final Pattern retryYesPattern;
         private final Pattern retryNoPattern;
+        private final String invalidSpeciesPrompt;
+        private final String overlapSpeciesPrompt;
+        private final Set<String> allowedSpecies;
         private final int maxAttemptsPerCycle;
         private int attemptsRemaining;
         private boolean finished = false;
@@ -282,7 +314,8 @@ public class ReactionStepHandler implements StepHandler
             List<ParsedReaction> expectedReactions, String secretFlagKey, int maxAttempts, boolean unlimitedAttempts, String successPrompt,
             String retryPrompt, String failurePrompt, String reactantFeedbackPrompt,
             String productFeedbackPrompt, String stoichiometryFeedbackPrompt, String generalFeedbackPrompt,
-            String retryChoicePromptId, String retryChoiceAckPromptId, String retryYesPattern, String retryNoPattern)
+            String retryChoicePromptId, String retryChoiceAckPromptId, String retryYesPattern, String retryNoPattern,
+            String invalidSpeciesPrompt, Set<String> allowedSpecies, String overlapSpeciesPrompt)
         {
             super(overmind.getAgent());
             this.overmind = overmind;
@@ -305,6 +338,16 @@ public class ReactionStepHandler implements StepHandler
             this.retryChoiceAckPromptId = retryChoiceAckPromptId;
             this.retryYesPattern = (retryYesPattern != null && retryYesPattern.length() > 0) ? Pattern.compile(retryYesPattern, Pattern.CASE_INSENSITIVE) : null;
             this.retryNoPattern = (retryNoPattern != null && retryNoPattern.length() > 0) ? Pattern.compile(retryNoPattern, Pattern.CASE_INSENSITIVE) : null;
+            this.invalidSpeciesPrompt = invalidSpeciesPrompt;
+            if (allowedSpecies != null)
+            {
+                this.allowedSpecies = new HashSet<String>(allowedSpecies);
+            }
+            else
+            {
+                this.allowedSpecies = new HashSet<String>();
+            }
+            this.overlapSpeciesPrompt = overlapSpeciesPrompt;
         }
 
 		void checkForSecretSkip()
@@ -444,8 +487,8 @@ public class ReactionStepHandler implements StepHandler
             return true;
         }
 
-		private void evaluateCandidate(String candidate)
-		{
+        private void evaluateCandidate(String candidate)
+        {
             ParsedReaction candidateReaction;
             try
             {
@@ -454,6 +497,32 @@ public class ReactionStepHandler implements StepHandler
             catch (Exception e)
             {
                 provideFeedback(MatchOutcome.NO_MATCH);
+                handleIncorrectAttempt();
+                return;
+            }
+            if (hasInvalidSpecies(candidateReaction))
+            {
+                if (invalidSpeciesPrompt != null && invalidSpeciesPrompt.length() > 0)
+                {
+                    sendPrompt(invalidSpeciesPrompt, null);
+                }
+                else
+                {
+                    provideFeedback(MatchOutcome.NO_MATCH);
+                }
+                handleIncorrectAttempt();
+                return;
+            }
+            if (hasOverlappingSpecies(candidateReaction))
+            {
+                if (overlapSpeciesPrompt != null && overlapSpeciesPrompt.length() > 0)
+                {
+                    sendPrompt(overlapSpeciesPrompt, null);
+                }
+                else
+                {
+                    provideFeedback(MatchOutcome.NO_MATCH);
+                }
                 handleIncorrectAttempt();
                 return;
             }
@@ -530,6 +599,41 @@ public class ReactionStepHandler implements StepHandler
                 }
             }
             return best;
+        }
+
+        private boolean hasInvalidSpecies(ParsedReaction reaction)
+        {
+            if (allowedSpecies.isEmpty())
+            {
+                return false;
+            }
+            for (String species : reaction.reactants.keySet())
+            {
+                if (!allowedSpecies.contains(species))
+                {
+                    return true;
+                }
+            }
+            for (String species : reaction.products.keySet())
+            {
+                if (!allowedSpecies.contains(species))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private boolean hasOverlappingSpecies(ParsedReaction reaction)
+        {
+            for (String species : reaction.reactants.keySet())
+            {
+                if (reaction.products.containsKey(species))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private MatchOutcome upgradeOutcome(MatchOutcome current, MatchOutcome candidate)

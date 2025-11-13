@@ -5,7 +5,8 @@ import io.socket.IOCallback;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
  */
-import io.socket.client.*;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import java.net.URI; 
