@@ -1,0 +1,54 @@
+setting basilica2.agents.condition to 'none'
+17:16:01 [NORMAL] BaseAgentOperation:	setting basilica2.agents.condition to 'none'
+launching...
+17:16:01 [NORMAL] BaseAgentOperation:	launching hands-free!
+17:16:01 [NORMAL] BaseAgentOperation:	setting basilica2.agents.room_name to labassistant1055
+17:16:01 [NORMAL] BaseAgentOperation:	<launching room=labassistant1055/>
+17:16:01 [NORMAL] AgentFactory:	Making Agent from agent.xml
+17:16:01 [NORMAL] AgentFactory:	File Read
+17:16:01 [NORMAL] AgentFactory:	Agent Tag Read
+17:16:01 [NORMAL] AgentFactory:	Components Tag Read
+17:16:01 [NORMAL] AgentFactory:	Components read. N=5
+17:16:01 [NORMAL] FactoryBuiltAgent:	CONFIGURING AGENT LabAssistant_labassistant1055
+17:16:01 [NORMAL] LabAssistant_labassistant1055.AGENT:	<created>LabAssistant_labassistant1055</created>
+17:16:01 [NORMAL] AgentFactory:	Agent build. LabAssistant_labassistant1055
+17:16:01 [NORMAL] BaseAgentOperation:	Adding agent LabAssistant_labassistant1055
+17:16:01 [NORMAL] LabAssistant_labassistant1055.stateMemory:	<created>stateMemory</created>
+17:16:01 [NORMAL] LabAssistant_labassistant1055.client:	<created>client</created>
+17:16:01 [NORMAL] LabAssistant_labassistant1055.client:	Property read: socket_url =	http://bree.lti.cs.cmu.edu:8300
+17:16:01 [NORMAL] LabAssistant_labassistant1055.client:	Property read: socket_suburl =	/bazsocket/socket.io
+17:16:01 [NORMAL] LabAssistant_labassistant1055.ccActor:	<created>ccActor</created>
+17:16:01 [NORMAL] LabAssistant_labassistant1055.ccActor:	Property read: typingScale =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.inputCoordinator:	<created>inputCoordinator</created>
+17:16:01 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	<created>outputCoordinator</created>
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: output_multimodal =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: output_to_PSI =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: separate_output_to_PSI =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: multimodal_format_to_PSI =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: dont_listen_while_speaking =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: multimodal_words_per_minute =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: multimodal_words_constant_delay =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: between_phrase_delay =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: Bazaar_to_PSI_Topic =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: output_bot_message =	null
+17:16:01 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	Property read: use_listener_name =	null
+17:16:02 [NORMAL] LabAssistant_labassistant1055.AGENT:	<initialized>LabAssistant_labassistant1055</initialized>
+17:16:02 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+17:16:02 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+17:16:02 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+17:16:02 [NORMAL] PlanExecutor:	<configuration planfile="plans/labassistant_plan_steps.xml">
+17:16:02 [ERROR] PlanExecutor:	PlanExecutor: Can't do that...java.io.IOException: No such file or directory
+17:16:02 [ERROR] PlanExecutor:	Error while reading Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant1055.planstatus.txt (No such file or directory))
+17:16:02 [NORMAL] PromptStepHandler:	default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps
+17:16:02 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+17:16:02 [NORMAL] LabAssistant_labassistant1055.AGENT:	<starting>Initializing each component</starting>
+17:16:02 [NORMAL] LabAssistant_labassistant1055.stateMemory:	<initialized>stateMemory</initialized>
+17:16:02 [NORMAL] LabAssistant_labassistant1055.inputCoordinator:	<initialized>inputCoordinator</initialized>
+17:16:02 [NORMAL] LabAssistant_labassistant1055.client:	<initialized>client</initialized>
+17:16:02 [NORMAL] LabAssistant_labassistant1055.outputCoordinator:	<initialized>outputCoordinator</initialized>
+17:16:02 [NORMAL] LabAssistant_labassistant1055.ccActor:	<initialized>ccActor</initialized>
+17:16:02 [NORMAL] LabAssistant_labassistant1055.AGENT:	<starting>All components initialized</starting>
+17:16:02 [NORMAL] BaseAgentOperation:	Agent added LabAssistant_labassistant1055
+17:16:02 [NORMAL] LabAssistant_labassistant1055.client:	WebsocketChatClient, EVENT_CONNECT
+17:16:02 [NORMAL] LabAssistant_labassistant1055.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@25ec9208
