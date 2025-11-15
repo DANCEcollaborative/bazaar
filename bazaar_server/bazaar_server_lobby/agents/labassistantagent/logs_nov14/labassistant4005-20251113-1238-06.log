@@ -1,0 +1,145 @@
+setting basilica2.agents.condition to 'none'
+12:38:06 [NORMAL] BaseAgentOperation:	setting basilica2.agents.condition to 'none'
+launching...
+12:38:06 [NORMAL] BaseAgentOperation:	launching hands-free!
+12:38:06 [NORMAL] BaseAgentOperation:	setting basilica2.agents.room_name to labassistant4005
+12:38:06 [NORMAL] BaseAgentOperation:	<launching room=labassistant4005/>
+12:38:06 [NORMAL] AgentFactory:	Making Agent from agent.xml
+12:38:06 [NORMAL] AgentFactory:	File Read
+12:38:06 [NORMAL] AgentFactory:	Agent Tag Read
+12:38:06 [NORMAL] AgentFactory:	Components Tag Read
+12:38:06 [NORMAL] AgentFactory:	Components read. N=5
+12:38:06 [NORMAL] FactoryBuiltAgent:	CONFIGURING AGENT LabAssistant_labassistant4005
+12:38:06 [NORMAL] LabAssistant_labassistant4005.AGENT:	<created>LabAssistant_labassistant4005</created>
+12:38:06 [NORMAL] AgentFactory:	Agent build. LabAssistant_labassistant4005
+12:38:06 [NORMAL] BaseAgentOperation:	Adding agent LabAssistant_labassistant4005
+12:38:06 [NORMAL] LabAssistant_labassistant4005.stateMemory:	<created>stateMemory</created>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.client:	<created>client</created>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.client:	Property read: socket_url =	http://bree.lti.cs.cmu.edu:8300
+12:38:06 [NORMAL] LabAssistant_labassistant4005.client:	Property read: socket_suburl =	/bazsocket/socket.io
+12:38:06 [NORMAL] LabAssistant_labassistant4005.ccActor:	<created>ccActor</created>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.ccActor:	Property read: typingScale =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	<created>inputCoordinator</created>
+12:38:06 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	<created>outputCoordinator</created>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: output_multimodal =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: output_to_PSI =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: separate_output_to_PSI =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: multimodal_format_to_PSI =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: dont_listen_while_speaking =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: multimodal_words_per_minute =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: multimodal_words_constant_delay =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: between_phrase_delay =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: Bazaar_to_PSI_Topic =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: output_bot_message =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Property read: use_listener_name =	null
+12:38:06 [NORMAL] LabAssistant_labassistant4005.AGENT:	<initialized>LabAssistant_labassistant4005</initialized>
+12:38:06 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+12:38:06 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+12:38:06 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+12:38:06 [NORMAL] PlanExecutor:	<configuration planfile="plans/labassistant_plan_steps.xml">
+12:38:06 [ERROR] PlanExecutor:	PlanExecutor: Can't do that...java.io.IOException: No such file or directory
+12:38:06 [ERROR] PlanExecutor:	Error while reading Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant4005.planstatus.txt (No such file or directory))
+12:38:06 [NORMAL] PromptStepHandler:	default priority=0.75, wait 0.1 seconds after prompts, +3.3333333333333335 wps
+12:38:06 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+12:38:06 [NORMAL] LabAssistant_labassistant4005.AGENT:	<starting>Initializing each component</starting>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.stateMemory:	<initialized>stateMemory</initialized>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	<initialized>inputCoordinator</initialized>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.client:	<initialized>client</initialized>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	<initialized>outputCoordinator</initialized>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.ccActor:	<initialized>ccActor</initialized>
+12:38:06 [NORMAL] LabAssistant_labassistant4005.AGENT:	<starting>All components initialized</starting>
+12:38:06 [NORMAL] BaseAgentOperation:	Agent added LabAssistant_labassistant4005
+12:38:07 [NORMAL] LabAssistant_labassistant4005.client:	WebsocketChatClient, EVENT_CONNECT
+12:38:07 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@4f523d4e
+16:14:41 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.LaunchEvent blister=basilica2.agents.listeners.plan.PlanExecutor@2f7dc201
+16:14:41 [NORMAL] PlanExecutor:	Plan: <stage name="StageInitialization" timeout="0">set</stage>
+16:14:41 [NORMAL] PlanExecutor:	Plan: <stage name="EndStage" timeout="20000">set</stage>
+16:14:41 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #2 - about to clearHelpers and activate stage StageInitialization
+16:14:41 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@4f523d4e
+16:14:41 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #2 -  activating next stage: StageInitialization
+16:14:41 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: Firing Stage 'StageInitialization'
+16:14:41 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: {next stage}: StageInitialization
+16:14:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+16:14:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+16:14:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+16:14:41 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+16:14:41 [NORMAL] Step:	Handlers for WELCOME_WAIT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+16:14:41 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+16:14:41 [NORMAL] PromptStepHandler:	starting 3.6999999999999997 second prompt delay
+16:14:41 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant4005.planstatus.txt (No such file or directory))
+16:14:41 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@4f523d4e
+16:14:41 [NORMAL] :	accepted. Message from LabAssistant: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion. WELCOME_WAIT.
+Starting blockout countdown... 
+16:14:41 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion. from LabAssistant
+2025-11-13,16:14:41,0,LabAssistant,1763050481463,Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.,WELCOME_WAIT
+WebsocketChatClient, updatechat received message: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.
+16:14:41 [NORMAL] LabAssistant_labassistant4005.client:	WebsocketChatClient, updatechat received message: Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.
+16:14:44 [NORMAL] PromptStepHandler:	ending 3.6999999999999997 second prompt delay
+16:14:44 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: WELCOME_WAIT
+16:14:44 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - starting 3 second delay timer for currentStep: WELCOME_WAIT
+16:14:48 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #1 - about to clearHelpers for WELCOME_WAIT
+16:14:48 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+16:14:48 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+16:14:48 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+16:14:48 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+16:14:48 [NORMAL] Step:	Handlers for WELCOME_CONTEXT(prompt): [basilica2.agents.listeners.plan.PromptStepHandler@c818063]
+16:14:48 [ERROR] PropertiesLoader:	no properties file at BlacklistSource.properties
+16:14:48 [NORMAL] PromptStepHandler:	starting 9.399999999999999 second prompt delay
+16:14:48 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant4005.planstatus.txt (No such file or directory))
+16:14:49 [NORMAL] :	accepted. Message from LabAssistant: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs. WELCOME_CONTEXT.
+Starting blockout countdown... 
+16:14:49 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	OutputCoordinator.publishMessage - Enter - message: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs. from LabAssistant
+2025-11-13,16:14:48,0,LabAssistant,1763050489483,"Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.",WELCOME_CONTEXT
+WebsocketChatClient, updatechat received message: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.
+16:14:49 [NORMAL] LabAssistant_labassistant4005.client:	WebsocketChatClient, updatechat received message: Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.
+16:14:57 [NORMAL] PromptStepHandler:	ending 9.399999999999999 second prompt delay
+16:14:57 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: WELCOME_CONTEXT
+16:14:57 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - starting 2 second delay timer for currentStep: WELCOME_CONTEXT
+16:14:59 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #1 - about to clearHelpers for WELCOME_CONTEXT
+16:14:59 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+16:14:59 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+16:14:59 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+16:14:59 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+16:14:59 [NORMAL] Step:	Handlers for WAIT_FOR_STUDENTS(presence_gate): [basilica2.agents.listeners.plan.PresenceGateStepHandler@1cd072a9]
+16:14:59 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+16:14:59 [ERROR] PropertiesLoader:	no properties file at PrioritySource.properties
+16:14:59 [NORMAL] PlanExecutor:	PlanExecutor addHelper: basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@23cca1b1
+
+16:14:59 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant4005.planstatus.txt (No such file or directory))
+16:15:22 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.CurrentPartBroadcastListener@4f523d4e
+16:15:22 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	processOneEvent: keyClass=class basilica2.agents.events.PresenceEvent blister=basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@23cca1b1
+21:48:03 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #2 - about to clearHelpers and activate stage EndStage
+21:48:03 [NORMAL] PlanExecutor:	PlanExecutor clearHelpers - helper: basilica2.agents.listeners.plan.PresenceGateStepHandler$PresenceWatcher@23cca1b1
+
+21:48:03 [NORMAL] PresenceWatcher:	BasilicaAdpater stopListening
+21:48:03 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #2 -  activating next stage: EndStage
+21:48:03 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: Firing Stage 'EndStage'
+21:48:03 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: stopping current stage: StageInitialization
+21:48:03 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant4005.planstatus.txt (No such file or directory))
+21:48:03 [NORMAL] PlanExecutor:	PlanExecutor.activateStage: {next stage}: EndStage
+21:48:03 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+21:48:03 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+21:48:03 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+21:48:03 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+21:48:03 [NORMAL] Step:	Handlers for CHAT_LOG(chatlog): [basilica2.agents.listeners.plan.ChatLogHandler@3b6eb2ec]
+21:48:04 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - currentStep: CHAT_LOG
+21:48:04 [NORMAL] PlanExecutor:	PlanExecutor.stepDone() - starting 2 second delay timer for currentStep: CHAT_LOG
+21:48:04 [ERROR] PlanExecutor:	Error while updating Status File (java.io.FileNotFoundException: planstatus/LabAssistant_labassistant4005.planstatus.txt (No such file or directory))
+21:48:06 [NORMAL] PlanExecutor:	PlanExecutor.timedOut #1 - about to clearHelpers for CHAT_LOG
+21:48:06 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: about to clearHelpers
+21:48:06 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: !isDone
+21:48:06 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: isRunning
+21:48:06 [NORMAL] basilica2.agents.listeners.plan.Stage:	Stage.java progressStage: currentStep removed and to be executed: " + currentStep.toString()
+21:48:06 [NORMAL] Step:	Handlers for LOGOUT(logout): [basilica2.agents.listeners.plan.LogoutStepHandler@7f63425a]
+21:48:06 [NORMAL] LogoutStepHandler:	step Plan Step LOGOUT: stopping agent
+21:48:06 [NORMAL] LabAssistant_labassistant4005.stateMemory:	Stop signalled
+21:48:06 [NORMAL] LabAssistant_labassistant4005.stateMemory:	<disposed>stateMemory</disposed>
+21:48:06 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	Stop signalled
+21:48:06 [NORMAL] LabAssistant_labassistant4005.inputCoordinator:	<disposed>inputCoordinator</disposed>
+21:48:06 [NORMAL] LabAssistant_labassistant4005.client:	Stop signalled
+21:48:06 [NORMAL] LabAssistant_labassistant4005.client:	<disposed>client</disposed>
+21:48:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	Stop signalled
+21:48:06 [NORMAL] LabAssistant_labassistant4005.outputCoordinator:	<disposed>outputCoordinator</disposed>
+21:48:06 [NORMAL] LabAssistant_labassistant4005.ccActor:	Stop signalled
+21:48:06 [NORMAL] LabAssistant_labassistant4005.ccActor:	<disposed>ccActor</disposed>

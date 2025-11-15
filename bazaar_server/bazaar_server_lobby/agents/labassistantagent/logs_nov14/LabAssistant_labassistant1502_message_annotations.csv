@@ -1,0 +1,31 @@
+2025-11-13,07:08:36,0,LabAssistant,1763017718247,Hi! I'm LabAssistant. Let’s wait until both teammates have joined the discussion.,WELCOME_WAIT
+2025-11-13,07:08:43,0,LabAssistant,1763017724266,"Once everyone is ready, we'll tackle four different parts of our experiment in the Virtual Lab. For each part, the goal is to determine the stoichiometry of the reaction that occurs.",WELCOME_CONTEXT
+2025-11-13,07:09:01,0,LabAssistant,1763017742297,"Please navigate to the ""Scratchpad"" tab and make sure you are logged in with your Google account in the document. Also review the ""VirtualLab Tutorial"" tab. Reach out to your Professor in case of any questions. After you are ready, each of you type <span style=""color:#d9534f; font-weight:bold;"">ready</span> to begin the experiment.",WELCOME_READY_PROMPT
+2025-11-13,07:09:06,0,stud_A,1763017747036,ready,AFFIRMATIVE
+2025-11-13,07:09:10,0,stud_B,1763017750544,ready,AFFIRMATIVE
+2025-11-13,07:09:13,0,stud_A,1763017753551,ready,AFFIRMATIVE
+2025-11-13,07:09:18,0,stud_A,1763017758060,readty,
+2025-11-13,07:09:19,0,stud_A,1763017759865,readyt,AFFIRMATIVE
+2025-11-13,07:09:21,0,stud_A,1763017761770,ready,AFFIRMATIVE
+2025-11-13,07:09:21,0,LabAssistant,1763017762310,Thanks! I've logged your ready signal—waiting on your teammate.,READY_ACK
+2025-11-13,07:09:24,0,stud_B,1763017764179,ready,AFFIRMATIVE
+2025-11-13,07:09:24,0,LabAssistant,1763017766315,"Part 1: A and B are known to react but the stoichiometry and products are unknown. Mix A and B and use the information viewer on the left to determine the reaction, including the stoichiometric coefficients. You will find 1.00 M solutions of A and B in the stockroom. If you need help, click the <span style=""font-weight:bold;"">VirtualLab Tutorial</span> tab.",PART1_QUESTION
+2025-11-13,07:09:46,0,LabAssistant,1763017788329,"Use the chat or ""Scratchpad"" tab to record your observations and discuss. What evidence confirms your reaction? Once both of you agree, type <span style=""color:#d9534f; font-weight:bold;"">ready:part1</span>.",PART1_COLLAB
+2025-11-13,07:10:22,0,stud_A,1763017822196,ready:part1,AFFIRMATIVE
+2025-11-13,07:10:22,0,LabAssistant,1763017822346,Thanks! I've logged your ready signal—waiting on your teammate.,READY_ACK
+2025-11-13,07:10:22,0,LabAssistant_labassistant1502,1763017824349,Thanks! I'm still waiting for your teammate.,to:stud_A+ACKNOWLEDGE+PRIVATE_MESSAGE
+2025-11-13,07:10:24,0,stud_B,1763017824403,ready:part1,AFFIRMATIVE
+2025-11-13,07:10:24,0,LabAssistant,1763017826352,"Send me your reaction as <span style=""color:#0275d8; font-weight:bold;"">reaction: REACTANTS-&gt;PRODUCTS</span> (e.g. <span style=""color:#0275d8; font-weight:bold;"">reaction: X+Y-&gt;Z</span>). You have up to three tries, so double-check before you submit.",PART1_SUBMIT_PROMPT
+2025-11-13,07:10:29,0,stud_A,1763017829419,reaction:a+b=2c,
+2025-11-13,07:10:32,0,stud_A,1763017832728,"reaction:a+b=2c
+",
+2025-11-13,07:10:32,0,LabAssistant,1763017834358,Great! Your Part 1 reaction is correct!.,PART1_CORRECT
+2025-11-13,07:10:32,0,LabAssistant,1763017836361,"Part 1 solution: A + B -> 2C. Review the walkthrough at <a href=""https://munano.org/chem-pilot-01-simple/"" rel=""noopener noreferrer"" target=""_blank"">https://munano.org/chem-pilot-01-simple/</a> to reinforce the concept before moving on to the next part. Parts 2-4 are more complex, so it may be easier to share results in the <b>""Scratchpad""</b>. For example look at the image below. When you’re both done analyzing the solution, each of you type <span style=""color:#d9534f; font-weight:bold;"">done</span>. [[IMAGE:SCRATCHPAD_HINT]]",PART1_SOLUTION
+2025-11-13,07:10:50,0,stud_A,1763017850570,done,
+2025-11-13,07:10:53,0,stud_B,1763017853979,done,
+2025-11-13,07:10:53,0,LabAssistant,1763017854374,Thanks! I've logged your ready signal—waiting on your teammate.,READY_ACK
+2025-11-13,07:10:56,0,stud_A,1763017856287,done,
+2025-11-13,07:10:56,0,LabAssistant,1763017856376,"Great, both signals received. Let's move on.",ALL_READY
+2025-11-13,07:10:56,0,LabAssistant,1763017860380,"Part 2: Open the Part 2 tab. Given four substances A, B, C, and D that are known to react in some weird and mysterious way, design and perform virtual lab experiments to determine the reaction between these substances, including the stoichiometric coefficients. You will find 1.00 M solutions of each of these chemical reagents in the stockroom.",PART2_QUESTION
+2025-11-13,07:11:18,0,LabAssistant,1763017880391,"The moles of one substance will not be visible to you in the species viewer. For example, [[IMAGE:PARTNER_COOP_HINT]] the image below shows the amount of D is not visible. The species hidden from you can be observed by your partner and vice versa. Coordinate your experiments to get to the answer!",PART2_CONCENTRATION_REMINDER
+2025-11-13,07:11:34,0,LabAssistant,1763017894399,"Use the chat or Scratchpad to record your observations and agree on which substances are reacting. Once both of you align on the reactants, each type <span style=""color:#d9534f; font-weight:bold;"">ready:part2</span>.",PART2_REACTANTS_PROMPT
