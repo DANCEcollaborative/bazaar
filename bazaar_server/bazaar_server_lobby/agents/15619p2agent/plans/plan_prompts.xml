@@ -32,6 +32,10 @@
 
 
 	<!-- HINTS & DISCUSSION FOR INITIALIZATION -->
+	
+	<prompt strategy="task" id="PROMPT_GREETING" intention="cut_off_PROMPT_GREETING">
+     	<text>We're starting! I'm OPE_Bot.</text>
+    </prompt> 
 
 	<prompt strategy="task" id="PROMPT_SESSION_TIME">
      	<text>Beginning now, you will have approximately 100 minutes to complete the OPE tasks and submit to receive your grades.</text>
@@ -68,11 +72,7 @@
     </prompt>
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_1">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 1. But first take turns responding to the following question.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_1">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 1.</text>
+     	<text>IT'S TIME TO MOVE ON FROM TASK 1. But first take turns responding to the following questions.</text>
     </prompt> 
     
     <prompt strategy="task" id="PROMPT_STEP_LO1_REFLECTION_1">
@@ -107,10 +107,6 @@
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_2">
      	<text>IT'S TIME TO MOVE ON FROM TASK 2. But first take turns responding to the following question.</text>
     </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_2">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 2.</text>
-    </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO2_REFLECTION_1">
      	<text>Exactly how can creating an index improve query speed?</text>
@@ -142,11 +138,7 @@
     </prompt> 
 	
 	<prompt strategy="task" id="PROMPT_DISCUSSION_START_3">
-     	<text>IT'S TIME TO MOVE ON FROM THE LAST TASK. But first take turns responding to the following question.</text>
-    </prompt> 
-	
-	<prompt strategy="task" id="PROMPT_MOVE_ON_3">
-     	<text>IT'S TIME TO MOVE ON FROM TASK 3.</text>
+     	<text>IT'S TIME TO MOVE ON FROM THE LAST TASK. But first take turns responding to the following questions.</text>
     </prompt> 
      
     <prompt strategy="task" id="PROMPT_STEP_LO3_REFLECTION_1">
