@@ -16,49 +16,29 @@ import threading
 from collections import deque
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room135', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room136', userID=1, bazaarAgent='OPEBot'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
             sio, endpoint, agentName, clientID, environmentID, userID, bazaarAgent)
         # register_namespace expects an instance of ClientNamespace with a namespace string
         # sio.register_namespace(self.socket)
-        self.ready_for_messages = False
-        self.buffer = deque()
-        self._start_readiness_monitor()
 
     def connect_chat(self):
         self.socket.connect_chat()
 
     def sendChatMessage(self, user, message):
         self.socket.sendChatMessage(user, message)
+        
     def sendImage(self, user, imageUrl):
         self.socket.sendImage(user, imageUrl)
 
     def disconnect_chat(self):
         self.socket.disconnect_chat()
 
-    def _start_readiness_monitor(self):
-        def poll():
-            while True:
-                try:
-                    ready = self.driver.execute_script(
-                        "return !!(window.app && window.app.collab && window.app.collab.send)"
-                    )
-                    if ready and not self.ready_for_messages:
-                        print(">>> Frontend is now READY. Flushing buffer...")
-                        self.ready_for_messages = True
-                        self._flush_buffer()
-                except Exception:
-                    pass
-
-                time.sleep(0.5)
-
-        threading.Thread(target=poll, daemon=True).start()
-
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room135', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room136', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.endpoint = endpoint
@@ -140,8 +120,7 @@ class BazaarSocket(socketio.ClientNamespace):
             return
 
         # Use buffering mechanism — thread-safe
-        if self.ready_for_messages:
-            self._enqueue_or_send(data)
+        self._enqueue_or_send(data)
 
     def disconnect_chat(self):
         self.sio.disconnect()
@@ -161,8 +140,7 @@ class BazaarSocket(socketio.ClientNamespace):
     def sendChatMessage(self, user, message):
         print('>>> socket.io - sendchat  --  ', user, ': ', message)
         # formatted_message = self.formatMultiModalMessage(user, message)
-        if self.ready_for_messages:
-            self.sio.emit('sendchat', message)
+        self.sio.emit('sendchat', message)
 
     def sendImage(self, user, imageUrl):
         print('>>> socket.io - sendimage  --  ', user, ': ', imageUrl)
@@ -311,7 +289,7 @@ class BazaarSocket(socketio.ClientNamespace):
         print(">>> flush_buffer: all buffered messages delivered successfully.")
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room135'):
+    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room136'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -377,6 +355,6 @@ if __name__ == '__main__':
     config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu',
                 'agentName': 'jeopardybigwgu',
                 'clientID': 'ClientServer',
-                'environmentID': '135'}
-    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu135/20/Watcher/undefined/?html=sharing_space_chat_mm
+                'environmentID': '136'}
+    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu136/20/Watcher/undefined/?html=sharing_space_chat_mm
     log_replayer = LogReplayer(logpath=logpath, **config)
