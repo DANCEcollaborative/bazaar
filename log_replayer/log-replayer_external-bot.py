@@ -3,7 +3,6 @@ import pandas as pd
 import csv
 from datetime import datetime
 import time
-# from socket_io_client import BazaarSocketWrapper
 import socketio
 import selenium
 from selenium import webdriver
@@ -16,13 +15,16 @@ import threading
 from collections import deque
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room136', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room137', userID=1, bazaarAgent='Sage the Owl'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
             sio, endpoint, agentName, clientID, environmentID, userID, bazaarAgent)
         # register_namespace expects an instance of ClientNamespace with a namespace string
         # sio.register_namespace(self.socket)
+
+    def login(self):
+        self.socket.login()
 
     def connect_chat(self):
         self.socket.connect_chat()
@@ -38,7 +40,7 @@ class BazaarSocketWrapper():
 
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room136', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room137', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.endpoint = endpoint
@@ -85,6 +87,30 @@ class BazaarSocket(socketio.ClientNamespace):
         # Start readiness watcher thread (daemon)
         self.readiness_thread = threading.Thread(target=self._readiness_watcher, name=f"ReadinessWatcher-{self.bazaarAgent}", daemon=True)
         self.readiness_thread.start()
+
+    def login(self):
+        """
+        Navigate to the Bazaar login page with the appropriate parameters.
+        This should be called before sending any messages.
+        """
+        # Extract room number from environmentID (e.g., 'Room137' -> '137')
+        room_id = self.environmentID.replace('Room', '') if 'Room' in self.environmentID else self.environmentID
+        
+        login_url = (f"{self.endpoint}/bazaar/login?"
+                    f"roomName={self.agentName}&"
+                    f"roomId={room_id}&"
+                    f"id=20&"
+                    f"username={self.bazaarAgent}&"
+                    f"html=sharing_space_chat_mm")
+        
+        print(f">>> Logging in {self.bazaarAgent} via Selenium: {login_url}")
+        try:
+            self.driver.get(login_url)
+            # Give the page some time to load
+            time.sleep(2)
+            print(f">>> Login page loaded for {self.bazaarAgent}")
+        except Exception as e:
+            print(f">>> Login failed for {self.bazaarAgent}: {e}")
 
     def connect_chat(self):
         auth = {'token': self.token,
@@ -289,7 +315,7 @@ class BazaarSocket(socketio.ClientNamespace):
         print(">>> flush_buffer: all buffered messages delivered successfully.")
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room136'):
+    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room137'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -302,6 +328,18 @@ class LogReplayer():
             # create a socket wrapper for each user; each wrapper creates its own driver and watcher
             self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, environmentID, userID=i+1, bazaarAgent=usr)
         print(">>> Sockets Initialization Done")
+        
+        # Login all users before replay
+        # print(">>> Logging in all users ...")
+        # for usr in self.users:
+        #     self.sockets[usr].login()
+        # print(">>> All users logged in")
+
+        # Login bot before replay
+        print(">>> Logging in bot ...")
+        self.sockets[usr].login()
+        print(">>> Bot logged in")
+        
         self.replay()
 
     def decompose_log(self, logpath):
@@ -355,6 +393,6 @@ if __name__ == '__main__':
     config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu',
                 'agentName': 'jeopardybigwgu',
                 'clientID': 'ClientServer',
-                'environmentID': '136'}
-    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu136/20/Watcher/undefined/?html=sharing_space_chat_mm
+                'environmentID': '137'}
+    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu137/20/Sage%20the%20Owl/undefined/?html=sharing_space_chat_mm
     log_replayer = LogReplayer(logpath=logpath, **config)
