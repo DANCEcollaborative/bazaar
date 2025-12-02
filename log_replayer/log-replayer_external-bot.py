@@ -166,7 +166,7 @@ class LogReplayer():
 				print(datetime.now() - replay_start_time)
 				wait_time = (print_time - self.log_start_time) - (datetime.now() - replay_start_time)
 				time.sleep(wait_time.total_seconds())
-			user_socket = self.sockets[entry['username']]\
+			user_socket = self.sockets[entry['username']]
 			if entry['type'] == 'text':
 				user_socket.sendChatMessage(user=entry['username'], message=entry['content'])
 			elif entry['type'] == 'presence':
