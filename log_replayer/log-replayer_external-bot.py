@@ -15,7 +15,7 @@ import threading
 from collections import deque
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room137', userID=1, bazaarAgent='Sage the Owl'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room148', userID=1, bazaarAgent='Sage the Owl'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
@@ -40,7 +40,7 @@ class BazaarSocketWrapper():
 
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room137', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room148', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.endpoint = endpoint
@@ -93,7 +93,7 @@ class BazaarSocket(socketio.ClientNamespace):
         Navigate to the Bazaar login page with the appropriate parameters.
         This should be called before sending any messages.
         """
-        # Extract room number from environmentID (e.g., 'Room137' -> '137')
+        # Extract room number from environmentID (e.g., 'Room148' -> '148')
         room_id = self.environmentID.replace('Room', '') if 'Room' in self.environmentID else self.environmentID
         
         login_url = (f"{self.endpoint}/bazaar/login?"
@@ -315,7 +315,7 @@ class BazaarSocket(socketio.ClientNamespace):
         print(">>> flush_buffer: all buffered messages delivered successfully.")
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room137'):
+    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room148'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -393,6 +393,6 @@ if __name__ == '__main__':
     config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu',
                 'agentName': 'jeopardybigwgu',
                 'clientID': 'ClientServer',
-                'environmentID': '137'}
-    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu137/20/Sage%20the%20Owl/undefined/?html=sharing_space_chat_mm
+                'environmentID': '148'}
+    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu148/50/Watcher/undefined/?html=sharing_space_chat_mm
     log_replayer = LogReplayer(logpath=logpath, **config)
