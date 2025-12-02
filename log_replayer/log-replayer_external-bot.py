@@ -16,7 +16,7 @@ import threading
 from collections import deque
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room132', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room133', userID=1, bazaarAgent='OPEBot'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
@@ -34,7 +34,7 @@ class BazaarSocketWrapper():
     def disconnect_chat(self):
         self.socket.disconnect_chat()
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room132', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room133', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.endpoint = endpoint
@@ -116,7 +116,7 @@ class BazaarSocket(socketio.ClientNamespace):
         self.sio.emit('sendimage', imageUrl)
 
 class LogReplayer():
-	def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room132'):
+	def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='Room133'):
 		self.endpoint = endpoint
 		self.agentName = agentName
 		self.clientID = clientID
@@ -182,6 +182,6 @@ if __name__ == '__main__':
 	config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu', 
 				'agentName': 'jeopardybigwgu',
 				'clientID': 'ClientServer', 
-				'environmentID': '132'}
-	# watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu132/20/Watcher/undefined/?html=sharing_space_chat_mm
+				'environmentID': '133'}
+	# watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu133/20/Watcher/undefined/?html=sharing_space_chat_mm
 	log_replayer = LogReplayer(logpath=logpath, **config)
