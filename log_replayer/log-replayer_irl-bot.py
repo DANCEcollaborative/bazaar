@@ -96,7 +96,7 @@ class BazaarSocket(socketio.ClientNamespace):
         
         login_url = (f"{self.endpoint}/bazaar/login?"
                     f"roomName={self.agentName}&"
-                    f"roomId={room_id}&"
+                    f"roomId={self.environmentID}&"
                     f"id=20&"
                     f"username={self.bazaarAgent}&"
                     f"html=sharing_space_chat_mm")
@@ -391,6 +391,6 @@ if __name__ == '__main__':
     config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu',
                 'agentName': 'jeopardybigwgu',
                 'clientID': 'ClientServer',
-                'environmentID': '150'}
+                'environmentID': '151'}
     # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu150/50/Watcher/undefined/?html=sharing_space_chat_mm
     log_replayer = LogReplayer(logpath=logpath, **config)
