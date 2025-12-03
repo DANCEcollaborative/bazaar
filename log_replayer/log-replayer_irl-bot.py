@@ -151,6 +151,7 @@ class BazaarSocket(socketio.ClientNamespace):
         print('>>> socket.io - on_updatechat - ', user, ': ', data)
         if user == self.bazaarAgent:
             # don't forward our own agent's messages into the page
+            print('>>> socket.io - on_updatechat  --  ', user, ': ', message)  
             return
 
         # Use buffering mechanism — thread-safe
@@ -340,13 +341,10 @@ class LogReplayer():
             self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr)
         print(">>> Sockets Initialization Done")
         
-        # Login bot before replay
-        print(">>> Logging in bot ...")
+        # Login first user to start agent
+        print(">>> Logging in first user to start agent ...")
         self.sockets[usr].login()
-        print(">>> Bot logged in")
-        
-        self.replay()
-
+        print(">>> First user logged in")
 
     def decompose_log(self, logpath):
         with open(logpath, 'r') as csv_file:
@@ -447,7 +445,7 @@ def main(args):
             
         for t in replay_threads:
             t.join()
-    print("* Finish! *")
+    print("************* DONE! *************")
 
 
 
