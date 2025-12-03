@@ -15,11 +15,11 @@ import threading
 from collections import deque
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='150', userID=1, bazaarAgent='Sage the Owl'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', roomID='150', userID=1, bazaarAgent='Sage the Owl'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
-            sio, endpoint, agentName, clientID, environmentID, userID, bazaarAgent)
+            sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent)
         # register_namespace expects an instance of ClientNamespace with a namespace string
         # sio.register_namespace(self.socket)
 
@@ -40,13 +40,13 @@ class BazaarSocketWrapper():
 
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='150', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', roomID='150', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
-        self.environmentID = environmentID
+        self.roomID = roomID
         self.userID = userID
         self.bazaarAgent = bazaarAgent
 
@@ -96,7 +96,7 @@ class BazaarSocket(socketio.ClientNamespace):
         
         login_url = (f"{self.endpoint}/bazaar/login?"
                     f"roomName={self.agentName}&"
-                    f"roomId={self.environmentID}&"
+                    f"roomId={self.roomID}&"
                     f"id=20&"
                     f"username={self.bazaarAgent}&"
                     f"html=sharing_space_chat_mm")
@@ -113,7 +113,7 @@ class BazaarSocket(socketio.ClientNamespace):
     def connect_chat(self):
         auth = {'token': self.token,
                 'agent': {'name': self.agentName, 'configuration': {'clientID': self.clientID}},
-                'chat': {'id': self.environmentID},
+                'chat': {'id': self.roomID},
                 'user': {'id': self.userID, 'name': self.bazaarAgent}}
         print("connect_chat/auth: \n", auth)
 
@@ -313,18 +313,18 @@ class BazaarSocket(socketio.ClientNamespace):
         print(">>> flush_buffer: all buffered messages delivered successfully.")
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', environmentID='150'):
+    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', roomID='150'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
-        self.environmentID = environmentID
+        self.roomID = roomID
         self.logpath = logpath
         self.entries, self.users, self.log_start_time = self.decompose_log(self.logpath)
         self.sockets = {}
         print(">>> Sockets Initialization ...")
         for i, usr in enumerate(self.users):
             # create a socket wrapper for each user; each wrapper creates its own driver and watcher
-            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, environmentID, userID=i+1, bazaarAgent=usr)
+            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr)
         print(">>> Sockets Initialization Done")
         
         # Login all users before replay
@@ -391,6 +391,6 @@ if __name__ == '__main__':
     config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu',
                 'agentName': 'jeopardybigwgu',
                 'clientID': 'ClientServer',
-                'environmentID': '151'}
+                'roomID': '151'}
     # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu150/50/Watcher/undefined/?html=sharing_space_chat_mm
     log_replayer = LogReplayer(logpath=logpath, **config)
