@@ -117,8 +117,19 @@ class BazaarSocket(socketio.ClientNamespace):
             # Give the page some time to load
             time.sleep(2)
             print(f">>> Login page loaded for {self.bazaarAgent}")
+            watcher_url = (f"{self.endpoint}/bazaar/chat/"
+                           f"{self.agentName}"
+                           f"{self.roomID}/"
+                           f"50/"
+                           f"Watcher/"
+                           f"undefined/?"
+                           f"html=sharing_space_chat_mm")
+            print(f"\n\n>>>>> Watcher URL: {watcher_url}\n\n")
+
         except Exception as e:
             print(f">>> Login failed for {self.bazaarAgent}: {e}")
+
+
 
     def connect_chat(self):
         auth = {'token': self.token,
