@@ -50,7 +50,7 @@ class BazaarSocketWrapper():
 
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', roomID='150', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.endpoint = endpoint
@@ -326,14 +326,12 @@ class BazaarSocket(socketio.ClientNamespace):
 
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='OPEBot', newBot=True):
+    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='OPEBot'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
         self.roomID = roomID
         self.botName = botName
-        self.newBot = newBot
-        print(">>> LogReplayer argument newBot = ", self.newBot)
         self.logpath = logpath
         self.entries, self.users, self.log_start_time = self.decompose_log(self.logpath)
         self.sockets = {}
@@ -343,11 +341,10 @@ class LogReplayer():
             self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr)
         print(">>> Sockets Initialization Done")
         
-        if self.newBot:
-            # Login first user to start agent
-            print(">>> Logging in first user to start agent ...")
-            self.sockets[usr].login()
-            print(">>> First user logged in")
+        # Login first user to start agent
+        print(">>> Logging in first user to start agent ...")
+        self.sockets[usr].login()
+        print(">>> First user logged in")
 
     def decompose_log(self, logpath):
         with open(logpath, 'r') as csv_file:
@@ -374,7 +371,7 @@ class LogReplayer():
         replay_start_time = datetime.now()
         print(">>> Start replaying at ", replay_start_time)
         for i, entry in enumerate(self.entries):
-            if self.newBot and entry['username']==self.botName:
+            if entry['username']==self.botName:
                 continue
             if i!=0 and entry['timestamp']==self.entries[i-1]['timestamp']:
                 time.sleep(0.1)
@@ -394,32 +391,18 @@ class LogReplayer():
                     user_socket.disconnect_chat()
             elif entry['type'] == 'image':
                 user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
-
-def str2bool(v):
-    if isinstance(v, bool):
-        return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
-
+                
 def get_args_parser():
     parser = argparse.ArgumentParser('Set log_replayer arguments', add_help=False)
-    parser.add_argument('--new_bot', type=str2bool, default=True, help="True = start new bot; False = replay old bot.")
     parser.add_argument('--replay_path', type=str, default='', help="A folder or a single log file to replay.")
     parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
     parser.add_argument('--bot_name', type=str, default='', help="The name of the online tutor. e.g. 'Sage the Owl'")
     return parser
 
 def main(args):
-    new_bot = args.new_bot
     replay_path = args.replay_path
     agent_name = args.agent_name
     bot_name = args.bot_name
-
-    print(">>> Incoming argument new_bot = ", new_bot)
     
     if os.path.isdir(replay_path):
         replay_single_file = False
@@ -434,8 +417,7 @@ def main(args):
                 'agentName': agent_name,
                 'clientID': 'LogReplayer', 
                 'roomID': 'Replay', 
-                'botName': bot_name,
-                'newBot': new_bot}
+                'botName': bot_name}
     
     if replay_single_file:
         config['roomID'] = 'ReplayAt' + datetime.now().strftime("%Y%m%d%H%M%S")
@@ -463,7 +445,6 @@ def main(args):
         for t in replay_threads:
             t.join()
     print("************* DONE! *************")
-
 
 
 if __name__ == '__main__':
