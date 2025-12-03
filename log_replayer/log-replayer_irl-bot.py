@@ -373,7 +373,7 @@ class LogReplayer():
         replay_start_time = datetime.now()
         print(">>> Start replaying at ", replay_start_time)
         for i, entry in enumerate(self.entries):
-            if entry['username']=='Sage the Owl':
+            if entry['username']==self.botName:
                 continue
             if i!=0 and entry['timestamp']==self.entries[i-1]['timestamp']:
                 time.sleep(0.1)
