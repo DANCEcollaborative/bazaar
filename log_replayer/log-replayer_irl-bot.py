@@ -1,8 +1,10 @@
 import os
+import argparse
 import pandas as pd
 import csv
 from datetime import datetime
 import time
+import sys
 import socketio
 import selenium
 from selenium import webdriver
@@ -14,8 +16,16 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 import threading
 from collections import deque
 
+def replay_csv_file_writer(replay_csv_file, log_entries):
+    with open(replay_csv_file, mode='w') as csv_file:
+        fieldnames = ['timestamp', 'username', 'type', 'content']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        for e in log_entries:
+            writer.writerow({'timestamp':e[0].strftime("%Y-%m-%d %H:%M:%S"), 'username':e[1], 'type':e[2], 'content':e[3]})
+
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', roomID='150', userID=1, bazaarAgent='Sage the Owl'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, bazaarAgent='Sage the Owl'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
@@ -31,7 +41,7 @@ class BazaarSocketWrapper():
 
     def sendChatMessage(self, user, message):
         self.socket.sendChatMessage(user, message)
-        
+
     def sendImage(self, user, imageUrl):
         self.socket.sendImage(user, imageUrl)
 
@@ -311,13 +321,16 @@ class BazaarSocket(socketio.ClientNamespace):
                 return
 
         print(">>> flush_buffer: all buffered messages delivered successfully.")
+        
+
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='ClientServer', roomID='150'):
+    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='OPEBot'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
         self.roomID = roomID
+        self.botName = botName
         self.logpath = logpath
         self.entries, self.users, self.log_start_time = self.decompose_log(self.logpath)
         self.sockets = {}
@@ -327,18 +340,13 @@ class LogReplayer():
             self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr)
         print(">>> Sockets Initialization Done")
         
-        # Login all users before replay
-        # print(">>> Logging in all users ...")
-        # for usr in self.users:
-        #     self.sockets[usr].login()
-        # print(">>> All users logged in")
-
         # Login bot before replay
         print(">>> Logging in bot ...")
         self.sockets[usr].login()
         print(">>> Bot logged in")
         
         self.replay()
+
 
     def decompose_log(self, logpath):
         with open(logpath, 'r') as csv_file:
@@ -360,7 +368,7 @@ class LogReplayer():
                 users.append(entry['username'])
             users = list(set(users))
             return entries, users, start_time
-
+    
     def replay(self):
         replay_start_time = datetime.now()
         print(">>> Start replaying at ", replay_start_time)
@@ -386,11 +394,67 @@ class LogReplayer():
             elif entry['type'] == 'image':
                 user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
 
+def get_args_parser():
+    parser = argparse.ArgumentParser('Set log_replayer arguments', add_help=False)
+    parser.add_argument('--replay_path', type=str, default='', help="A folder or a single log file to replay.")
+    parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
+    parser.add_argument('--bot_name', type=str, default='', help="The name of the online tutor. e.g. 'Sage the Owl'")
+    return parser
+
+def main(args):
+    replay_path = args.replay_path
+    agent_name = args.agent_name
+    bot_name = args.bot_name
+    
+    if os.path.isdir(replay_path):
+        replay_single_file = False
+        print("* Replaying the logs in "+replay_path +" *")
+    elif os.path.isfile(replay_path):
+        replay_single_file = True
+        print("* Replaying a single log at "+replay_path+" *")
+    else:
+        sys.exit("* Please choose either a folder or a single log file to replay. *")
+
+    
+    config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu', 
+                'agentName': agent_name,
+                'clientID': 'LogReplayer', 
+                'roomID': 'Replay', 
+                'botName': bot_name}
+    
+    if replay_single_file:
+        config['roomID'] = 'ReplayAt' + datetime.now().strftime("%Y%m%d%H%M%S")
+        single_log_replayer = LogReplayer(replay_path, **config)
+        single_log_replayer.replay()
+    else:
+        chatId = 1
+        log_replayers = []
+        replay_threads = []
+        for logpath in os.listdir(replay_path):
+            logpath = os.path.join(replay_path, logpath)
+            if not os.path.exists(logpath) or not logpath.endswith('csv'):
+                print("* Invalid log file: "+logpath+" *")
+                continue
+            config['roomID'] = 'Replay' + str(chatId) + 'At' + datetime.now().strftime("%Y%m%d%H%M%S")
+            single_log_replayer = LogReplayer(logpath, **config)
+            t = threading.Thread(target=single_log_replayer.replay)
+            log_replayers.append(single_log_replayer)
+            replay_threads.append(t)
+            chatId+=1
+
+        for t in replay_threads:
+            t.start()
+            
+        for t in replay_threads:
+            t.join()
+    print("* Finish! *")
+
+
+
 if __name__ == '__main__':
-    logpath = 'jeopardybigwgu2123_Hannah_DanielWolkwitz.csv'
-    config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu',
-                'agentName': 'jeopardybigwgu',
-                'clientID': 'ClientServer',
-                'roomID': '151'}
-    # watch the replay at https://bazaar.lti.cs.cmu.edu/bazaar/chat/jeopardybigwgu150/50/Watcher/undefined/?html=sharing_space_chat_mm
-    log_replayer = LogReplayer(logpath=logpath, **config)
+    
+    parser = get_args_parser()
+    args = parser.parse_args()
+    main(args)
+
+    
