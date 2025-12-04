@@ -20,7 +20,7 @@ def replay_csv_file_writer(replay_csv_file, log_entries):
             writer.writerow({'timestamp':e[0].strftime("%Y-%m-%d %H:%M:%S"), 'username':e[1], 'type':e[2], 'content':e[3]})
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', roomID='Room126', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
@@ -48,7 +48,7 @@ class BazaarSocket(socketio.ClientNamespace):
     _lock = threading.Lock()
     _MAX_LOGGED_MESSAGES = 10
 
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', roomID='Room126', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
         self.sio = sio
         self.namespace = '/'
         self.replay_log_entries = []
@@ -96,7 +96,7 @@ class BazaarSocket(socketio.ClientNamespace):
             print(f"\n\n>>>>> Observer URL: {observer_url}\n\n")
 
         except Exception as e:
-            print(f">>> Login failed for {self.botName}: {e}")
+            print(f">>> Login failed for Observer {e}")
 
     def connect_chat(self):
         auth = {'token': self.token,
@@ -177,7 +177,7 @@ class BazaarSocket(socketio.ClientNamespace):
     
 
 class LogReplayer():
-    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', roomID='Replayer', botName='OPEBot'):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
