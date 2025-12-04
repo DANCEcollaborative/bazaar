@@ -77,23 +77,23 @@ class BazaarSocket(socketio.ClientNamespace):
                      f"roomName={self.agentName}&"
                      f"roomId={self.roomID}&"
                      f"id=20&"
-                     f"username=Watcher&"
+                     f"username=Observer&"
                      f"html=sharing_space_chat_mm")
 
-        print(f">>> Logging in Watcher: {login_url}")
+        # print(f">>> Logging in Observer: {login_url}")
         try:
             self.driver.get(login_url)
             # Give the page some time to load
             time.sleep(2)
-            print(f">>> Login page loaded for {self.botName}")
-            watcher_url = (f"{self.endpoint}/bazaar/chat/"
+            # print(f">>> Login page loaded for Observer")
+            observer_url = (f"{self.endpoint}/bazaar/chat/"
                            f"{self.agentName}"
                            f"{self.roomID}/"
                            f"50/"
-                           f"Watcher/"
+                           f"Observer/"
                            f"undefined/?"
                            f"html=sharing_space_chat_mm")
-            print(f"\n\n>>>>> Watcher URL: {watcher_url}\n\n")
+            print(f"\n\n>>>>> Observer URL: {observer_url}\n\n")
 
         except Exception as e:
             print(f">>> Login failed for {self.botName}: {e}")
@@ -103,10 +103,10 @@ class BazaarSocket(socketio.ClientNamespace):
                 'agent': {'name': self.agentName, 'configuration': {'clientID': self.clientID}},
                 'chat': {'id': self.roomID},
                 'user': {'id': self.userID, 'name': self.bazaarAgent}}
-        print("    connect_chat/auth: ", auth)
+        # print("    connect_chat/auth: ", auth)
         
         # connect to Bazaar
-        print("    >>> socket.io - self.sio.connect started")
+        # print("    >>> socket.io - self.sio.connect started")
         try:
             self.sio.connect(self.endpoint, auth=auth,
                              transports=self.transports, socketio_path=self.path)
@@ -116,13 +116,13 @@ class BazaarSocket(socketio.ClientNamespace):
             self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'join'])
 
     def on_connect(self):
-        print("    >>> socket.io - connected!")
+        # print("    >>> socket.io - connected!")
 
     def on_connect_error(self, error):
         print("    >>> socket.io - connection failed!")
 
     def on_message(self, data):
-        print('    >>> socket.io - Message - ', data)
+        # print('    >>> socket.io - Message - ', data)
 
     def on_updatechat(self, user, data):
         message_key = (user, data)
@@ -131,35 +131,19 @@ class BazaarSocket(socketio.ClientNamespace):
             if message_key not in BazaarSocket._logged_messages:
                 # Log the message (as only one instance of the message is logged)
                 if (user != self.bazaarAgent):
-                    print("     >>> on_updatechat, From ", user, ", content: ", data)
+                    print(user, ": ", data,"\n")
                     if user == self.botName:
                         self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
                     if user == self.botName and self.bot_init_response == None:
                         self.bot_init_response = datetime.now()
-                        print("     >>> bot_init_response: ", self.bot_init_response)
+                        # print("     >>> bot_init_response: ", self.bot_init_response)
 
                     # Add the key to the logged list and manage its size
                     BazaarSocket._logged_messages.append(message_key)
                     if len(BazaarSocket._logged_messages) > BazaarSocket._MAX_LOGGED_MESSAGES:
                         BazaarSocket._logged_messages.pop(0)  # Remove the oldest entry
-            # else:
-                # This is a duplicate broadcast, so just print a notice (optional)
-                # You can remove this 'else' block if you don't want the print statement
-                # print("     >>> on_updatechat, Duplicate ignored, From: ", user, " To: ", self.bazaarAgent,
-                #       " content: ", data)
 
 
-
-
-
-        # if (user != self.bazaarAgent):
-        #     print("    >>> on_updatechat, From: ", user, " To: ", self.bazaarAgent, " content: ", data)
-        #     if user == self.botName:
-        #         self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
-        #     if user == self.botName and self.bot_init_response==None:
-        #         self.bot_init_response = datetime.now()
-        #         print("    >>> bot_init_response: ", self.bot_init_response)
-        
     def disconnect_chat(self):
         try:
             self.sio.disconnect()
@@ -206,16 +190,16 @@ class LogReplayer():
         self.replay_csv_file = self.logpath.replace('.csv', '_'+self.roomID+'.csv')
         print(">>> replay_csv_file: ", self.replay_csv_file)
         
-        print(">>> Sockets Initialization ...\n")
+        # print(">>> Sockets Initialization ...\n")
         for i, usr in enumerate(self.users):
             self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr, botName=botName)
             print("roomID: ", roomID, "userID: ", i+1, " userName: ", usr)
-        print("\n>>> Sockets Initialization Done")
+        # print("\n>>> Sockets Initialization Done")
 
         # Login first user to start agent
-        print(">>> Logging in first user to start agent ...")
+        # print(">>> Logging in first user to start agent ...")
         self.sockets[usr].login()
-        print(">>> First user logged in")
+        # print(">>> First user logged in")
 
 
     def decompose_log(self, logpath):
@@ -255,28 +239,28 @@ class LogReplayer():
             if i!=0 and entry['timestamp']==self.entries[i-1]['timestamp']:
                 time.sleep(0.1)
 
-            print_time = entry['timestamp']
+            # print_time = entry['timestamp']
             user_socket = self.sockets[entry['username']]
             if self.log_bot_init_response==None and print_time - self.log_start_time > datetime.now() - replay_start_time:
                 wait_time = (print_time - self.log_start_time) - (datetime.now() - replay_start_time)
                 time.sleep(wait_time.total_seconds())
             if self.log_bot_init_response!=None:
                 if self.replay_bot_init_response == None:
-                    print(">>> waiting for bazaar agent's initial message ... ")
+                    # print(">>> waiting for bazaar agent's initial message ... ")
                 while self.replay_bot_init_response==None:
                     for usr, so in self.sockets.items():
                         if so.socket.bot_init_response!=None:
-                            print(usr, " receive the bot's initial response at ", so.socket.bot_init_response)
+                            # print(usr, " receive the bot's initial response at ", so.socket.bot_init_response)
                             self.replay_bot_init_response = so.socket.bot_init_response
                             break
                 if print_time - self.log_bot_init_response > datetime.now() - self.replay_bot_init_response:
                     wait_time = (print_time - self.log_bot_init_response) - (datetime.now() - self.replay_bot_init_response)
-                    print("Wait    ", wait_time)
+                    # print("Wait    ", wait_time)
                     time.sleep(wait_time.total_seconds())
             
             if entry['type'] == 'text':
                 user_socket.sendChatMessage(user=entry['username'], message=entry['content'])
-                print(">>> "+entry['username']+" : "+entry['content'])
+                # print(">>> "+entry['username']+" : "+entry['content'])
             elif entry['type'] == 'presence':
                 if entry['content'] == 'join':
                     user_socket.connect_chat()
