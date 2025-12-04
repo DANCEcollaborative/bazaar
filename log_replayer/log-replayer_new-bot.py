@@ -31,7 +31,7 @@ class BazaarSocketWrapper():
         self.socket = BazaarSocket(
             sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent)
         # register_namespace expects an instance of ClientNamespace with a namespace string
-        # sio.register_namespace(self.socket)
+        sio.register_namespace(self.socket)
 
     def login(self):
         self.socket.login()
