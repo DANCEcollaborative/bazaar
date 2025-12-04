@@ -167,10 +167,11 @@ class BazaarSocket(socketio.ClientNamespace):
         except Exception as e:
             print("\n* Error: socketio "+ self.bazaarAgent +" -- disconnection failed: ", e,"\n")
             self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'leave'])
-    
+
 
     def sendChatMessage(self, user, message):
-        print('    >>> socket.io - sendchat  --  ', user, ': ', message)
+        # Don't print in console the broadcast message being sent; it will be printed in on_updatechat()
+        # print('    >>> socket.io - sendchat  --  ', user, ': ', message)
         try:
             self.sio.emit('sendchat', message)
             self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'text', message])
