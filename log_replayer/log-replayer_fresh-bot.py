@@ -7,6 +7,8 @@ import time
 import sys
 import socketio
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import threading
 
 def replay_csv_file_writer(replay_csv_file, log_entries):
@@ -53,7 +55,8 @@ class BazaarSocket(socketio.ClientNamespace):
         self.bazaarAgent = bazaarAgent
         self.botName = botName
         self.bot_init_response = None
-        self.driver = webdriver.Firefox()
+        # self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.transports = ['websocket', 'polling']
         self.token = ''
         self.path = "/bazsocket/"
@@ -69,10 +72,10 @@ class BazaarSocket(socketio.ClientNamespace):
                      f"roomName={self.agentName}&"
                      f"roomId={self.roomID}&"
                      f"id=20&"
-                     f"username={self.botName}&"
+                     f"username=Watcher&"
                      f"html=sharing_space_chat_mm")
 
-        print(f">>> Logging in {self.botName}: {login_url}")
+        print(f">>> Logging in Watcher: {login_url}")
         try:
             self.driver.get(login_url)
             # Give the page some time to load
@@ -251,11 +254,11 @@ class LogReplayer():
             elif entry['type'] == 'image':
                 user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
         
-        if self.entries[-1]['timestamp'] - self.log_start_time > datetime.now() - replay_start_time:
-            wait_time = (self.entries[-1]['timestamp'] - self.log_start_time) - (datetime.now() - replay_start_time)
-            print(">>> Waiting for bazaar agent to end the session. Wait    ", wait_time)
-            time.sleep(wait_time.total_seconds())
-        time.sleep(60)
+        # if self.entries[-1]['timestamp'] - self.log_start_time > datetime.now() - replay_start_time:
+        #     wait_time = (self.entries[-1]['timestamp'] - self.log_start_time) - (datetime.now() - replay_start_time)
+        #     print(">>> Waiting for bazaar agent to end the session. Wait    ", wait_time)
+        #     time.sleep(wait_time.total_seconds())
+        time.sleep(20)
         print(">>> Writing replay log to ", self.replay_csv_file)
         log_entries = []
         for usr, so in self.sockets.items():
@@ -323,7 +326,7 @@ def main(args):
             
         for t in replay_threads:
             t.join()
-    print("* Finish! *")
+    print("****** DONE! ******")
 
 
 
