@@ -25,11 +25,11 @@ def replay_csv_file_writer(replay_csv_file, log_entries):
             writer.writerow({'timestamp':e[0].strftime("%Y-%m-%d %H:%M:%S"), 'username':e[1], 'type':e[2], 'content':e[3]})
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, bazaarAgent='Sage the Owl'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, botName='Sage the Owl'):
         sio = socketio.Client()
-        self.bazaarAgent = bazaarAgent
+        self.botName = botName
         self.socket = BazaarSocket(
-            sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent)
+            sio, endpoint, agentName, clientID, roomID, userID, botName)
         # register_namespace expects an instance of ClientNamespace with a namespace string
         sio.register_namespace(self.socket)
 
@@ -50,7 +50,7 @@ class BazaarSocketWrapper():
 
 
 class BazaarSocket(socketio.ClientNamespace):
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, bazaarAgent='OPEBot'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, botName='OPEBot'):
         self.sio = sio
         self.namespace = '/'
         self.replay_log_entries = []
@@ -59,7 +59,7 @@ class BazaarSocket(socketio.ClientNamespace):
         self.clientID = clientID
         self.roomID = roomID
         self.userID = userID
-        self.bazaarAgent = bazaarAgent
+        self.botName = botName
 
         # Selenium / headless browser setup
         self.options = Options()
@@ -96,7 +96,7 @@ class BazaarSocket(socketio.ClientNamespace):
         super().__init__('/')
 
         # Start readiness watcher thread (daemon)
-        self.readiness_thread = threading.Thread(target=self._readiness_watcher, name=f"ReadinessWatcher-{self.bazaarAgent}", daemon=True)
+        self.readiness_thread = threading.Thread(target=self._readiness_watcher, name=f"ReadinessWatcher-{self.botName}", daemon=True)
         self.readiness_thread.start()
 
     def login(self):
@@ -109,15 +109,15 @@ class BazaarSocket(socketio.ClientNamespace):
                     f"roomName={self.agentName}&"
                     f"roomId={self.roomID}&"
                     f"id=20&"
-                    f"username={self.bazaarAgent}&"
+                    f"username={self.botName}&"
                     f"html=sharing_space_chat_mm")
         
-        print(f">>> Logging in {self.bazaarAgent} via Selenium: {login_url}")
+        print(f">>> Logging in {self.botName} via Selenium: {login_url}")
         try:
             self.driver.get(login_url)
             # Give the page some time to load
             time.sleep(2)
-            print(f">>> Login page loaded for {self.bazaarAgent}")
+            print(f">>> Login page loaded for {self.botName}")
             watcher_url = (f"{self.endpoint}/bazaar/chat/"
                            f"{self.agentName}"
                            f"{self.roomID}/"
@@ -128,7 +128,7 @@ class BazaarSocket(socketio.ClientNamespace):
             print(f"\n\n>>>>> Watcher URL: {watcher_url}\n\n")
 
         except Exception as e:
-            print(f">>> Login failed for {self.bazaarAgent}: {e}")
+            print(f">>> Login failed for {self.botName}: {e}")
 
 
 
@@ -136,7 +136,7 @@ class BazaarSocket(socketio.ClientNamespace):
         auth = {'token': self.token,
                 'agent': {'name': self.agentName, 'configuration': {'clientID': self.clientID}},
                 'chat': {'id': self.roomID},
-                'user': {'id': self.userID, 'name': self.bazaarAgent}}
+                'user': {'id': self.userID, 'name': self.botName}}
         print("connect_chat/auth: \n", auth)
 
         # connect to Bazaar
@@ -144,12 +144,12 @@ class BazaarSocket(socketio.ClientNamespace):
         try:
             self.sio.connect(self.endpoint, auth=auth,
                              transports=self.transports, socketio_path=self.path)
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presence', 'join'])
+            self.replay_log_entries.append([datetime.now(), self.botName, 'presence', 'join'])
             print(">>> socket.io - self.sio.connect completed")
         except Exception as e:
 #             print(">>> socket.io - connect exception:", e)
-            print("\n* Error: socketio "+ self.bazaarAgent +" -- connection failed: ", e,"\n")
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'join'])
+            print("\n* Error: socketio "+ self.botName +" -- connection failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.botName, 'presenceERROR', 'join'])
 
 
     def on_connect(self):
@@ -163,10 +163,10 @@ class BazaarSocket(socketio.ClientNamespace):
 
     # -- buffering-aware handler for incoming chat forwarded to the Selenium page --
     def on_updatechat(self, user, data):
-        # Only forward messages from others (not from the configured bazaarAgent itself)
+        # Only forward messages from others (not from the configured botName itself)
         print('>>> socket.io - on_updatechat - ', user, ': ', data)
-        if user == self.bazaarAgent:
-            print('>>> socket.io - on_updatechat  --  ', user, ': ', message)  
+        if user == self.botName:
+#             print('>>> socket.io - on_updatechat  --  ', user, ': ', data)  
             if user == self.BotName:
                 self.replay_log_entries.append([datetime.now(), self.BotName, 'text', data])
             if user == self.BotName and self.bot_init_response==None:
@@ -176,33 +176,16 @@ class BazaarSocket(socketio.ClientNamespace):
 
         # Use buffering mechanism — thread-safe
         self._enqueue_or_send(data)
-
-    # -- buffering-aware handler for incoming chat forwarded to the Selenium page --
-    def on_sendchatwithroom(self, user, data):
-        # Only forward messages from others (not from the configured bazaarAgent itself)
-        print('>>> socket.io - on_sendchatwithroom - ', user, ': ', data)
-        if user == self.bazaarAgent:
-            print('>>> socket.io - on_sendchatwithroom  --  ', user, ': ', message)  
-            if user == self.BotName:
-                self.replay_log_entries.append([datetime.now(), self.BotName, 'text', data])
-            if user == self.BotName and self.bot_init_response==None:
-                self.bot_init_response = datetime.now()
-                print("    >>> bot_init_response: ", self.bot_init_response)
-            return
-
-        # Use buffering mechanism — thread-safe
-        self._enqueue_or_send(data)
-
 
     def disconnect_chat(self):
         try:
             self.sio.disconnect()
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presence', 'leave'])
+            self.replay_log_entries.append([datetime.now(), self.botName, 'presence', 'leave'])
             # stop watcher thread
             self._stop_watcher.set()
         except Exception as e:
-            print("\n* Error: socketio "+ self.bazaarAgent +" -- disconnection failed: ", e,"\n")
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'leave'])
+            print("\n* Error: socketio "+ self.botName +" -- disconnection failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.botName, 'presenceERROR', 'leave'])
         try:
             if self.driver:
                 self.driver.quit()
@@ -219,19 +202,19 @@ class BazaarSocket(socketio.ClientNamespace):
         try:
             self.sio.emit('sendchat', message)
             # formatted_message = self.formatMultiModalMessage(user, message)
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'text', message])
+            self.replay_log_entries.append([datetime.now(), self.botName, 'text', message])
         except Exception as e:
-            print("\n* Error: socketio "+ self.bazaarAgent +" -- sending message failed: ", e,"\n")
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'textERROR', message])
+            print("\n* Error: socketio "+ self.botName +" -- sending message failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.botName, 'textERROR', message])
 
     def sendImage(self, user, imageUrl):
         print('>>> socket.io - sendimage  --  ', user, ': ', imageUrl)    
         try:
             self.sio.emit('sendimage', imageUrl)
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'image', imageUrl])
+            self.replay_log_entries.append([datetime.now(), self.botName, 'image', imageUrl])
         except Exception as e:
-            print("\n* Error: socketio "+ self.bazaarAgent +" -- sending image failed: ", e,"\n")
-            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'imageERROR', imageUrl])
+            print("\n* Error: socketio "+ self.botName +" -- sending image failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.botName, 'imageERROR', imageUrl])
       
 
     # -------------------------
@@ -271,14 +254,14 @@ class BazaarSocket(socketio.ClientNamespace):
                     consecutive_ready = 0
 
                 if consecutive_ready >= required_consecutive and not self.server_ready:
-                    print(f">>> Frontend appears ready for agent {self.bazaarAgent}. Flushing buffer.")
+                    print(f">>> Frontend appears ready for agent {self.botName}. Flushing buffer.")
                     self.server_ready = True
                     # flush buffer in separate thread to avoid blocking watcher for long time
-                    t = threading.Thread(target=self.flush_buffer, name=f"BufferFlusher-{self.bazaarAgent}", daemon=True)
+                    t = threading.Thread(target=self.flush_buffer, name=f"BufferFlusher-{self.botName}", daemon=True)
                     t.start()
                 elif not ready and self.server_ready:
                     # frontend lost readiness (page reload or navigation)
-                    print(f">>> Frontend no longer ready for agent {self.bazaarAgent}; buffering messages.")
+                    print(f">>> Frontend no longer ready for agent {self.botName}; buffering messages.")
                     self.server_ready = False
 
             except Exception as e:
@@ -390,7 +373,7 @@ class LogReplayer():
         print(">>> Sockets Initialization ...")
         for i, usr in enumerate(self.users):
             # create a socket wrapper for each user; each wrapper creates its own driver and watcher
-            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr)
+            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, botName=usr)
         print(">>> Sockets Initialization Done")
         
         self.replay_csv_file = self.logpath.replace('.csv', '_'+self.roomID+'.csv')
