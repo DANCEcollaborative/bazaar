@@ -116,12 +116,15 @@ class BazaarSocket(socketio.ClientNamespace):
             self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'join'])
 
     def on_connect(self):
+        pass
         # print("    >>> socket.io - connected!")
 
     def on_connect_error(self, error):
-        print("    >>> socket.io - connection failed!")
+        pass
+        # print("    >>> socket.io - connection failed!")
 
     def on_message(self, data):
+        pass
         # print('    >>> socket.io - Message - ', data)
 
     def on_updatechat(self, user, data):
@@ -228,7 +231,7 @@ class LogReplayer():
         replay_start_time = datetime.now()
         print("==================================")
         print(">>> ", self.roomID, " start replaying at ", replay_start_time)
-        print("==================================")
+        print("==================================\n")
         for i, entry in enumerate(self.entries):
             if entry['username']==self.botName:
                 continue
@@ -239,13 +242,14 @@ class LogReplayer():
             if i!=0 and entry['timestamp']==self.entries[i-1]['timestamp']:
                 time.sleep(0.1)
 
-            # print_time = entry['timestamp']
+            print_time = entry['timestamp']
             user_socket = self.sockets[entry['username']]
             if self.log_bot_init_response==None and print_time - self.log_start_time > datetime.now() - replay_start_time:
                 wait_time = (print_time - self.log_start_time) - (datetime.now() - replay_start_time)
                 time.sleep(wait_time.total_seconds())
             if self.log_bot_init_response!=None:
                 if self.replay_bot_init_response == None:
+                    pass
                     # print(">>> waiting for bazaar agent's initial message ... ")
                 while self.replay_bot_init_response==None:
                     for usr, so in self.sockets.items():
@@ -264,10 +268,10 @@ class LogReplayer():
             elif entry['type'] == 'presence':
                 if entry['content'] == 'join':
                     user_socket.connect_chat()
-                    print(">>> "+entry['username']+" has connected")
+                    print(">>> "+entry['username']+" has connected\n")
                 elif entry['content'] == 'leave':
                     user_socket.disconnect_chat()
-                    print(">>> "+entry['username']+" has disconnected")
+                    print(">>> "+entry['username']+" has disconnected\n")
             elif entry['type'] == 'image':
                 user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
         
@@ -343,7 +347,7 @@ def main(args):
             
         for t in replay_threads:
             t.join()
-    print("****** DONE! ******")
+    print("\n\n****** DONE! ******")
 
 
 
