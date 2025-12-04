@@ -6,6 +6,7 @@ from datetime import datetime
 import time
 import sys
 import socketio
+from selenium import webdriver
 import threading
 
 def replay_csv_file_writer(replay_csv_file, log_entries):
@@ -52,7 +53,7 @@ class BazaarSocket(socketio.ClientNamespace):
         self.bazaarAgent = bazaarAgent
         self.botName = botName
         self.bot_init_response = None
-        
+        self.driver = webdriver.Firefox()
         self.transports = ['websocket', 'polling']
         self.token = ''
         self.path = "/bazsocket/"
