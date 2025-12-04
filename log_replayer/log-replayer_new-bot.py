@@ -53,6 +53,7 @@ class BazaarSocket(socketio.ClientNamespace):
     def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='150', userID=1, bazaarAgent='OPEBot'):
         self.sio = sio
         self.namespace = '/'
+        self.replay_log_entries = []
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -143,9 +144,13 @@ class BazaarSocket(socketio.ClientNamespace):
         try:
             self.sio.connect(self.endpoint, auth=auth,
                              transports=self.transports, socketio_path=self.path)
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presence', 'join'])
             print(">>> socket.io - self.sio.connect completed")
         except Exception as e:
-            print(">>> socket.io - connect exception:", e)
+#             print(">>> socket.io - connect exception:", e)
+            print("\n* Error: socketio "+ self.bazaarAgent +" -- connection failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'join'])
+
 
     def on_connect(self):
         print(">>> socket.io - connected!")
@@ -161,17 +166,43 @@ class BazaarSocket(socketio.ClientNamespace):
         # Only forward messages from others (not from the configured bazaarAgent itself)
         print('>>> socket.io - on_updatechat - ', user, ': ', data)
         if user == self.bazaarAgent:
-            # don't forward our own agent's messages into the page
             print('>>> socket.io - on_updatechat  --  ', user, ': ', message)  
+            if user == self.BotName:
+                self.replay_log_entries.append([datetime.now(), self.BotName, 'text', data])
+            if user == self.BotName and self.bot_init_response==None:
+                self.bot_init_response = datetime.now()
+                print("    >>> bot_init_response: ", self.bot_init_response)
             return
 
         # Use buffering mechanism — thread-safe
         self._enqueue_or_send(data)
 
+    # -- buffering-aware handler for incoming chat forwarded to the Selenium page --
+    def on_sendchatwithroom(self, user, data):
+        # Only forward messages from others (not from the configured bazaarAgent itself)
+        print('>>> socket.io - on_sendchatwithroom - ', user, ': ', data)
+        if user == self.bazaarAgent:
+            print('>>> socket.io - on_sendchatwithroom  --  ', user, ': ', message)  
+            if user == self.BotName:
+                self.replay_log_entries.append([datetime.now(), self.BotName, 'text', data])
+            if user == self.BotName and self.bot_init_response==None:
+                self.bot_init_response = datetime.now()
+                print("    >>> bot_init_response: ", self.bot_init_response)
+            return
+
+        # Use buffering mechanism — thread-safe
+        self._enqueue_or_send(data)
+
+
     def disconnect_chat(self):
-        self.sio.disconnect()
-        # stop watcher thread
-        self._stop_watcher.set()
+        try:
+            self.sio.disconnect()
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presence', 'leave'])
+            # stop watcher thread
+            self._stop_watcher.set()
+        except Exception as e:
+            print("\n* Error: socketio "+ self.bazaarAgent +" -- disconnection failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'presenceERROR', 'leave'])
         try:
             if self.driver:
                 self.driver.quit()
@@ -184,14 +215,24 @@ class BazaarSocket(socketio.ClientNamespace):
         return multiModalMessage
 
     def sendChatMessage(self, user, message):
-        print('>>> socket.io - sendchat  --  ', user, ': ', message)
-        # formatted_message = self.formatMultiModalMessage(user, message)
-        self.sio.emit('sendchat', message)
+        print('>>> socket.io - sendchat  --  ', user, ': ', message)      
+        try:
+            self.sio.emit('sendchat', message)
+            # formatted_message = self.formatMultiModalMessage(user, message)
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'text', message])
+        except Exception as e:
+            print("\n* Error: socketio "+ self.bazaarAgent +" -- sending message failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'textERROR', message])
 
     def sendImage(self, user, imageUrl):
-        print('>>> socket.io - sendimage  --  ', user, ': ', imageUrl)
-        # formatted_message = self.formatMultiModalMessage(user, message)
-        self.sio.emit('sendimage', imageUrl)
+        print('>>> socket.io - sendimage  --  ', user, ': ', imageUrl)    
+        try:
+            self.sio.emit('sendimage', imageUrl)
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'image', imageUrl])
+        except Exception as e:
+            print("\n* Error: socketio "+ self.bazaarAgent +" -- sending image failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'imageERROR', imageUrl])
+      
 
     # -------------------------
     # Buffering / readiness helpers
@@ -337,7 +378,7 @@ class BazaarSocket(socketio.ClientNamespace):
 
 
 class LogReplayer():
-    def __init__(self, logpath, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='OPEBot'):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='OPEBot'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -351,6 +392,9 @@ class LogReplayer():
             # create a socket wrapper for each user; each wrapper creates its own driver and watcher
             self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr)
         print(">>> Sockets Initialization Done")
+        
+        self.replay_csv_file = self.logpath.replace('.csv', '_'+self.roomID+'.csv')
+        print(">>> replay_csv_file: ", self.replay_csv_file)
         
         # Login first user to start agent
         print(">>> Logging in first user to start agent ...")
@@ -380,7 +424,9 @@ class LogReplayer():
     
     def replay(self):
         replay_start_time = datetime.now()
+        print("==================================")
         print(">>> Start replaying at ", replay_start_time)
+        print("==================================")
         for i, entry in enumerate(self.entries):
             if entry['username']==self.botName:
                 continue
@@ -398,10 +444,31 @@ class LogReplayer():
             elif entry['type'] == 'presence':
                 if entry['content'] == 'join':
                     user_socket.connect_chat()
+                    print(">>> "+entry['username']+" has connected")
                 elif entry['content'] == 'leave':
                     user_socket.disconnect_chat()
+                    print(">>> "+entry['username']+" has disconnected")
             elif entry['type'] == 'image':
                 user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
+        
+        if self.entries[-1]['timestamp'] - self.log_start_time > datetime.now() - replay_start_time:
+            wait_time = (self.entries[-1]['timestamp'] - self.log_start_time) - (datetime.now() - replay_start_time)
+            print(">>> Waiting for bazaar agent to end the session. Wait ", wait_time)
+            time.sleep(wait_time.total_seconds())
+        time.sleep(60)
+        print(">>> Writing replay log to ", self.replay_csv_file)
+        log_entries = []
+        for usr, so in self.sockets.items():
+            log_entries.extend(so.socket.replay_log_entries)
+        log_entries = sorted(log_entries, key=lambda x: x[0])
+        cleaned_log_entries = []
+        for i,e in enumerate(log_entries):
+            if i>0 and log_entries[i][1]==log_entries[i-1][1] and log_entries[i][2]==log_entries[i-1][2] and log_entries[i][3]==log_entries[i-1][3]:
+                continue
+            cleaned_log_entries.append(e)
+        replay_csv_file_writer(self.replay_csv_file, cleaned_log_entries)
+        
+        return
                 
 def get_args_parser():
     parser = argparse.ArgumentParser('Set log_replayer arguments', add_help=False)
