@@ -43,6 +43,11 @@ class BazaarSocketWrapper():
         self.socket.disconnect_chat()
 
 class BazaarSocket(socketio.ClientNamespace):
+
+    _logged_messages = []
+    _lock = threading.Lock()
+    _MAX_LOGGED_MESSAGES = 10
+
     def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='cloudtest', clientID='LogReplayer', roomID='Room126', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
         self.sio = sio
         self.namespace = '/'
@@ -120,13 +125,40 @@ class BazaarSocket(socketio.ClientNamespace):
         print('    >>> socket.io - Message - ', data)
 
     def on_updatechat(self, user, data):
-        if (user != self.bazaarAgent):
-            print("    >>> on_updatechat, From: ", user, " To: ", self.bazaarAgent, " content: ", data)
-            if user == self.botName:
-                self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
-            if user == self.botName and self.bot_init_response==None:
-                self.bot_init_response = datetime.now()
-                print("    >>> bot_init_response: ", self.bot_init_response)
+        message_key = (user, data)
+
+        with BazaarSocket._lock:
+            if message_key not in BazaarSocket._logged_messages:
+                # Log the message (as only one instance of the message is logged)
+                if (user != self.bazaarAgent):
+                    print("     >>> on_updatechat, From ", user, ", content: ", data)
+                    if user == self.botName:
+                        self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
+                    if user == self.botName and self.bot_init_response == None:
+                        self.bot_init_response = datetime.now()
+                        print("     >>> bot_init_response: ", self.bot_init_response)
+
+                    # Add the key to the logged list and manage its size
+                    BazaarSocket._logged_messages.append(message_key)
+                    if len(BazaarSocket._logged_messages) > BazaarSocket._MAX_LOGGED_MESSAGES:
+                        BazaarSocket._logged_messages.pop(0)  # Remove the oldest entry
+            # else:
+                # This is a duplicate broadcast, so just print a notice (optional)
+                # You can remove this 'else' block if you don't want the print statement
+                # print("     >>> on_updatechat, Duplicate ignored, From: ", user, " To: ", self.bazaarAgent,
+                #       " content: ", data)
+
+
+
+
+
+        # if (user != self.bazaarAgent):
+        #     print("    >>> on_updatechat, From: ", user, " To: ", self.bazaarAgent, " content: ", data)
+        #     if user == self.botName:
+        #         self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
+        #     if user == self.botName and self.bot_init_response==None:
+        #         self.bot_init_response = datetime.now()
+        #         print("    >>> bot_init_response: ", self.bot_init_response)
         
     def disconnect_chat(self):
         try:
