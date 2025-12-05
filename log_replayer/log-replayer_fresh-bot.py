@@ -21,11 +21,11 @@ def replay_csv_file_writer(replay_csv_file, log_entries):
             writer.writerow({'timestamp':e[0].strftime("%Y-%m-%d %H:%M:%S"), 'username':e[1], 'type':e[2], 'content':e[3]})
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl', headless=False):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl', headless=False, htmlPage='sharing_space_chat_mm'):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
-            sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent, botName, headless)
+            sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent, botName, headless, htmlPage)
         sio.register_namespace(self.socket)
 
     def login(self):
@@ -49,7 +49,7 @@ class BazaarSocket(socketio.ClientNamespace):
     _lock = threading.Lock()
     _MAX_LOGGED_MESSAGES = 10
 
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl', headless=False):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl', headless=False, htmlPage='sharing_space_chat_mm'):
         self.sio = sio
         self.namespace = '/'
         self.replay_log_entries = []
@@ -62,6 +62,7 @@ class BazaarSocket(socketio.ClientNamespace):
         self.botName = botName
         self.bot_init_response = None
         self.headless = headless
+        self.htmlPage = htmlPage
         self.driver = None
         self.transports = ['websocket', 'polling']
         self.token = ''
@@ -92,7 +93,7 @@ class BazaarSocket(socketio.ClientNamespace):
                      f"roomId={self.roomID}&"
                      f"id=20&"
                      f"username=Observer&"
-                     f"html=sharing_space_chat_mm")
+                     f"html={self.htmlPage}")
 
         # print(f">>> Logging in Observer: {login_url}")
         try:
@@ -106,7 +107,7 @@ class BazaarSocket(socketio.ClientNamespace):
                            f"50/"
                            f"Observer/"
                            f"undefined/?"
-                           f"html=sharing_space_chat_mm")
+                           f"html={self.htmlPage}")
             print(f"\n\n>>>>> Observer URL: {observer_url}\n\n")
 
         except Exception as e:
@@ -191,7 +192,7 @@ class BazaarSocket(socketio.ClientNamespace):
     
 
 class LogReplayer():
-    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False, initDelay=15):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False, initDelay=15, htmlPage='sharing_space_chat_mm'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -200,9 +201,9 @@ class LogReplayer():
         self.logpath = logpath
         self.headless = headless
         self.initDelay = initDelay
+        self.htmlPage = htmlPage
         self.log_bot_init_response = None
         self.replay_bot_init_response = None
-        self.replay_init_delay = 15
         self.entries, self.users, self.log_start_time = self.decompose_log(self.logpath)
         self.sockets = {}
         print(">>> ", roomID, " replaying log at ", logpath)
@@ -212,7 +213,7 @@ class LogReplayer():
         
         # print(">>> Sockets Initialization ...\n")
         for i, usr in enumerate(self.users):
-            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr, botName=botName, headless=headless)
+            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr, botName=botName, headless=headless, htmlPage=htmlPage)
             print("roomID: ", roomID, "userID: ", i+1, " userName: ", usr)
         # print("\n>>> Sockets Initialization Done")
 
@@ -309,9 +310,10 @@ def get_args_parser():
     parser = argparse.ArgumentParser('Set log_replayer arguments', add_help=False)
     parser.add_argument('--replay_path', type=str, default='', help="A folder or a single log file to replay.")
     parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
-    parser.add_argument('--bot_name', type=str, default='', help="The name of the online tutor. e.g. 'Sage the Owl'")
+    parser.add_argument('--bot_name', type=str, default='Sage the Owl', help="The name of the online tutor. e.g. 'Sage the Owl'")
     parser.add_argument('--headless', action='store_true', help="Run Chrome in headless mode (no browser window)")
     parser.add_argument('--init_delay', type=int, help="Initial delay after login to start replay")
+    parser.add_argument('--html_page', type=str, default='sharing_space_chat_mm', help="The name of the HTML page to display when not in headless mode")
     return parser
 
 def main(args):
@@ -320,6 +322,7 @@ def main(args):
     bot_name = args.bot_name
     headless = args.headless
     init_delay = args.init_delay
+    html_page = args.html_page
     
     if os.path.isdir(replay_path):
         replay_single_file = False
@@ -337,7 +340,8 @@ def main(args):
                 'roomID': 'Replay', 
                 'botName': bot_name,
                 'headless': headless,
-                'initDelay': init_delay}
+                'initDelay': init_delay,
+                'htmlPage': html_page}
     
     if replay_single_file:
         config['roomID'] = 'ReplayAt' + datetime.now().strftime("%Y%m%d%H%M%S")
