@@ -42,6 +42,10 @@ class BazaarSocketWrapper():
 
     def disconnect_chat(self):
         self.socket.disconnect_chat()
+    
+    def cleanup(self):
+        """Clean up resources including WebDriver"""
+        self.socket.cleanup()
 
 class BazaarSocket(socketio.ClientNamespace):
 
@@ -190,6 +194,20 @@ class BazaarSocket(socketio.ClientNamespace):
             print("\n* Error: socketio "+ self.bazaarAgent +" -- sending image failed: ", e,"\n")
             self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'imageERROR', imageUrl])
     
+    def cleanup(self):
+        """Clean up WebDriver and socket resources"""
+        try:
+            if self.sio.connected:
+                self.sio.disconnect()
+        except Exception as e:
+            print(f"Error disconnecting socket for {self.bazaarAgent}: {e}")
+        
+        try:
+            if self.driver is not None:
+                self.driver.quit()
+                self.driver = None
+        except Exception as e:
+            print(f"Error closing WebDriver for {self.bazaarAgent}: {e}")
 
 class LogReplayer():
     def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False, initDelay=15, endDelay=30, htmlPage='sharing_space_chat_mm'):
@@ -301,6 +319,11 @@ class LogReplayer():
                 continue
             cleaned_log_entries.append(e)
         replay_csv_file_writer(self.replay_csv_file, cleaned_log_entries)
+        
+        # Clean up all resources
+        print(f">>> Cleaning up resources for {self.roomID}")
+        for usr, socket_wrapper in self.sockets.items():
+            socket_wrapper.cleanup()
         
         return
 
