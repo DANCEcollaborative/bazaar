@@ -8,6 +8,7 @@ import sys
 import socketio
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import threading
 
@@ -20,11 +21,11 @@ def replay_csv_file_writer(replay_csv_file, log_entries):
             writer.writerow({'timestamp':e[0].strftime("%Y-%m-%d %H:%M:%S"), 'username':e[1], 'type':e[2], 'content':e[3]})
 
 class BazaarSocketWrapper():
-    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
+    def __init__(self, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl', headless=False):
         sio = socketio.Client()
         self.bazaarAgent = bazaarAgent
         self.socket = BazaarSocket(
-            sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent, botName)
+            sio, endpoint, agentName, clientID, roomID, userID, bazaarAgent, botName, headless)
         sio.register_namespace(self.socket)
 
     def login(self):
@@ -48,7 +49,7 @@ class BazaarSocket(socketio.ClientNamespace):
     _lock = threading.Lock()
     _MAX_LOGGED_MESSAGES = 10
 
-    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl'):
+    def __init__(self, sio=socketio.Client(), endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', userID=1, bazaarAgent='User1', botName='Sage the Owl', headless=False):
         self.sio = sio
         self.namespace = '/'
         self.replay_log_entries = []
@@ -60,8 +61,8 @@ class BazaarSocket(socketio.ClientNamespace):
         self.bazaarAgent = bazaarAgent
         self.botName = botName
         self.bot_init_response = None
-        # self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.headless = headless
+        self.driver = None
         self.transports = ['websocket', 'polling']
         self.token = ''
         self.path = "/bazsocket/"
@@ -72,6 +73,19 @@ class BazaarSocket(socketio.ClientNamespace):
         Navigate to the Bazaar login page with the appropriate parameters.
         This should be called before sending any messages.
         """
+        # Create driver only when login is called
+        if self.driver is None:
+            chrome_options = Options()
+            if self.headless:
+                chrome_options.add_argument('--headless')
+                chrome_options.add_argument('--disable-gpu')
+                chrome_options.add_argument('--no-sandbox')
+                chrome_options.add_argument('--disable-dev-shm-usage')
+            
+            self.driver = webdriver.Chrome(
+                service=Service(ChromeDriverManager().install()),
+                options=chrome_options
+            )
 
         login_url = (f"{self.endpoint}/bazaar/login?"
                      f"roomName={self.agentName}&"
@@ -177,13 +191,14 @@ class BazaarSocket(socketio.ClientNamespace):
     
 
 class LogReplayer():
-    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl'):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
         self.roomID = roomID
         self.botName = botName
         self.logpath = logpath
+        self.headless = headless
         self.log_bot_init_response = None
         self.replay_bot_init_response = None
         self.replay_init_delay = 15
@@ -196,7 +211,7 @@ class LogReplayer():
         
         # print(">>> Sockets Initialization ...\n")
         for i, usr in enumerate(self.users):
-            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr, botName=botName)
+            self.sockets[usr] = BazaarSocketWrapper(endpoint, agentName, clientID, roomID, userID=i+1, bazaarAgent=usr, botName=botName, headless=headless)
             print("roomID: ", roomID, "userID: ", i+1, " userName: ", usr)
         # print("\n>>> Sockets Initialization Done")
 
@@ -294,12 +309,14 @@ def get_args_parser():
     parser.add_argument('--replay_path', type=str, default='', help="A folder or a single log file to replay.")
     parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
     parser.add_argument('--bot_name', type=str, default='', help="The name of the online tutor. e.g. 'Sage the Owl'")
+    parser.add_argument('--headless', action='store_true', help="Run Chrome in headless mode (no browser window)")
     return parser
 
 def main(args):
     replay_path = args.replay_path
     agent_name = args.agent_name
     bot_name = args.bot_name
+    headless = args.headless
     
     if os.path.isdir(replay_path):
         replay_single_file = False
@@ -315,7 +332,8 @@ def main(args):
                 'agentName': agent_name,
                 'clientID': 'LogReplayer', 
                 'roomID': 'Replay', 
-                'botName': bot_name}
+                'botName': bot_name,
+                'headless': headless}
     
     if replay_single_file:
         config['roomID'] = 'ReplayAt' + datetime.now().strftime("%Y%m%d%H%M%S")
@@ -351,5 +369,3 @@ if __name__ == '__main__':
     parser = get_args_parser()
     args = parser.parse_args()
     main(args)
-
-    
