@@ -215,10 +215,10 @@ class LogReplayer():
             print("roomID: ", roomID, "userID: ", i+1, " userName: ", usr)
         # print("\n>>> Sockets Initialization Done")
 
-        # Login first user to start agent
-        # print(">>> Logging in first user to start agent ...")
+        # Login "Observer" to start agent
+        # print(">>> Logging in Observer to start agent ...")
         self.sockets[usr].login()
-        # print(">>> First user logged in")
+        # print(">>> Observer logged in")
 
 
     def decompose_log(self, logpath):
