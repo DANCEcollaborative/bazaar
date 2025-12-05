@@ -191,7 +191,7 @@ class BazaarSocket(socketio.ClientNamespace):
     
 
 class LogReplayer():
-    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False, initDelay=15):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -199,6 +199,7 @@ class LogReplayer():
         self.botName = botName
         self.logpath = logpath
         self.headless = headless
+        self.initDelay = initDelay
         self.log_bot_init_response = None
         self.replay_bot_init_response = None
         self.replay_init_delay = 15
@@ -244,8 +245,8 @@ class LogReplayer():
             return entries, users, start_time
     
     def replay(self):
-        print("sleeping for replay_init_delay: ", self.replay_init_delay)
-        time.sleep(self.replay_init_delay)
+        print("sleeping for initial delay after login: ", self.initDelay)
+        time.sleep(self.initDelay)
         print("Done sleeping\n")
         current_time = datetime.now()
         print("==================================")
@@ -310,6 +311,7 @@ def get_args_parser():
     parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
     parser.add_argument('--bot_name', type=str, default='', help="The name of the online tutor. e.g. 'Sage the Owl'")
     parser.add_argument('--headless', action='store_true', help="Run Chrome in headless mode (no browser window)")
+    parser.add_argument('--init_delay', type=int, help="Initial delay after login to start replay")
     return parser
 
 def main(args):
@@ -317,6 +319,7 @@ def main(args):
     agent_name = args.agent_name
     bot_name = args.bot_name
     headless = args.headless
+    init_delay = args.init_delay
     
     if os.path.isdir(replay_path):
         replay_single_file = False
@@ -333,7 +336,8 @@ def main(args):
                 'clientID': 'LogReplayer', 
                 'roomID': 'Replay', 
                 'botName': bot_name,
-                'headless': headless}
+                'headless': headless,
+                'initDelay': init_delay}
     
     if replay_single_file:
         config['roomID'] = 'ReplayAt' + datetime.now().strftime("%Y%m%d%H%M%S")
