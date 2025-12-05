@@ -314,6 +314,7 @@ def get_args_parser():
     parser.add_argument('--headless', action='store_true', help="Run Chrome in headless mode (no browser window)")
     parser.add_argument('--init_delay', type=int, help="Initial delay after login to start replay")
     parser.add_argument('--html_page', type=str, default='sharing_space_chat_mm', help="The name of the HTML page to display when not in headless mode")
+    parser.add_argument('--server', type=str, default='https://bazaar.lti.cs.cmu.edu', help="The server for the bot")
     return parser
 
 def main(args):
@@ -323,6 +324,7 @@ def main(args):
     headless = args.headless
     init_delay = args.init_delay
     html_page = args.html_page
+    server = args.server
     
     if os.path.isdir(replay_path):
         replay_single_file = False
@@ -334,7 +336,7 @@ def main(args):
         sys.exit("* Please choose either a folder or a single log file to replay. *")
 
     
-    config = {'endpoint': 'https://bazaar.lti.cs.cmu.edu', 
+    config = {'endpoint': server,
                 'agentName': agent_name,
                 'clientID': 'LogReplayer', 
                 'roomID': 'Replay', 
