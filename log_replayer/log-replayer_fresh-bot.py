@@ -186,6 +186,7 @@ class LogReplayer():
         self.logpath = logpath
         self.log_bot_init_response = None
         self.replay_bot_init_response = None
+        self.replay_init_delay = 45
         self.entries, self.users, self.log_start_time = self.decompose_log(self.logpath)
         self.sockets = {}
         print(">>> ", roomID, " replaying log at ", logpath)
@@ -228,52 +229,46 @@ class LogReplayer():
             return entries, users, start_time
     
     def replay(self):
-        replay_start_time = datetime.now()
+        print("sleeping for replay_init_delay: ", self.replay_init_delay, "\n")
+        time.sleep(self.replay_init_delay)
+        print("Done sleeping\n")
+        current_time = datetime.now()
         print("==================================")
-        print(">>> ", self.roomID, " start replaying at ", replay_start_time)
+        print(">>> ", self.roomID, " start replaying at ", current_time)
         print("==================================\n")
+        first_entry = self.entries[0]
+        log_entry_time = first_entry['timestamp']
+        replay_time_offset = current_time - log_entry_time
+        print("*** replay_time_offset ***: ", replay_time_offset)
+        # next_replay_time = log_entry_time + replay_time_offset
         for i, entry in enumerate(self.entries):
-            if entry['username']==self.botName:
-                continue
-            # if entry['username']==self.botName:
-            #     if self.log_bot_init_response == None and entry['type']=='text':
-            #         self.log_bot_init_response = entry['timestamp']
-            #     continue
-            if i!=0 and entry['timestamp']==self.entries[i-1]['timestamp']:
-                time.sleep(0.1)
-
-            print_time = entry['timestamp']
-            user_socket = self.sockets[entry['username']]
-            if self.log_bot_init_response==None and print_time - self.log_start_time > datetime.now() - replay_start_time:
-                wait_time = (print_time - self.log_start_time) - (datetime.now() - replay_start_time)
-                time.sleep(wait_time.total_seconds())
-            if self.log_bot_init_response!=None:
-                if self.replay_bot_init_response == None:
-                    pass
-                    # print(">>> waiting for bazaar agent's initial message ... ")
-                while self.replay_bot_init_response==None:
-                    for usr, so in self.sockets.items():
-                        if so.socket.bot_init_response!=None:
-                            # print(usr, " receive the bot's initial response at ", so.socket.bot_init_response)
-                            self.replay_bot_init_response = so.socket.bot_init_response
-                            break
-                if print_time - self.log_bot_init_response > datetime.now() - self.replay_bot_init_response:
-                    wait_time = (print_time - self.log_bot_init_response) - (datetime.now() - self.replay_bot_init_response)
-                    # print("Wait    ", wait_time)
-                    time.sleep(wait_time.total_seconds())
-            
-            if entry['type'] == 'text':
-                user_socket.sendChatMessage(user=entry['username'], message=entry['content'])
-                # print(">>> "+entry['username']+" : "+entry['content'])
-            elif entry['type'] == 'presence':
-                if entry['content'] == 'join':
-                    user_socket.connect_chat()
-                    print(">>> "+entry['username']+" has connected\n")
-                elif entry['content'] == 'leave':
-                    user_socket.disconnect_chat()
-                    print(">>> "+entry['username']+" has disconnected\n")
-            elif entry['type'] == 'image':
-                user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
+            print("Entry num: ", i)
+            print("username", entry['username'])
+            log_entry_time = entry['timestamp']
+            print(">>> log_entry_time: ", log_entry_time)
+            current_time = datetime.now()
+            print("current_time: ", current_time)
+            next_replay_time = log_entry_time + replay_time_offset
+            print(">>> next_replay_time: ", next_replay_time)
+            if next_replay_time > current_time:
+                replay_sleep_time = next_replay_time - current_time
+                print("replay_sleep_time: ", replay_sleep_time)
+                time.sleep(replay_sleep_time.total_seconds())
+            if entry['username']!=self.botName:
+                user_socket = self.sockets[entry['username']]
+                if entry['type'] == 'text':
+                    user_socket.sendChatMessage(user=entry['username'], message=entry['content'])
+                    print(">>> "+entry['username']+" : "+entry['content'])
+                elif entry['type'] == 'presence':
+                    if entry['content'] == 'join':
+                        user_socket.connect_chat()
+                        print(">>> "+entry['username']+" has connected\n")
+                    elif entry['content'] == 'leave':
+                        user_socket.disconnect_chat()
+                        print(">>> "+entry['username']+" has disconnected\n")
+                elif entry['type'] == 'image':
+                    user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
+                    print(">>> "+entry['username']+" has sent an image\n")
         
         # if self.entries[-1]['timestamp'] - self.log_start_time > datetime.now() - replay_start_time:
         #     wait_time = (self.entries[-1]['timestamp'] - self.log_start_time) - (datetime.now() - replay_start_time)
