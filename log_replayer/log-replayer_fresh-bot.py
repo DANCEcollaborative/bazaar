@@ -192,7 +192,7 @@ class BazaarSocket(socketio.ClientNamespace):
     
 
 class LogReplayer():
-    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False, initDelay=15, htmlPage='sharing_space_chat_mm'):
+    def __init__(self, logpath=None, endpoint='https://bazaar.lti.cs.cmu.edu', agentName='jeopardybigwgu', clientID='LogReplayer', roomID='Replayer', botName='Sage the Owl', headless=False, initDelay=15, endDelay=30, htmlPage='sharing_space_chat_mm'):
         self.endpoint = endpoint
         self.agentName = agentName
         self.clientID = clientID
@@ -201,6 +201,7 @@ class LogReplayer():
         self.logpath = logpath
         self.headless = headless
         self.initDelay = initDelay
+        self.endDelay = endDelay
         self.htmlPage = htmlPage
         self.log_bot_init_response = None
         self.replay_bot_init_response = None
@@ -217,7 +218,6 @@ class LogReplayer():
             print("roomID: ", roomID, "userID: ", i+1, " userName: ", usr)
         # print("\n>>> Sockets Initialization Done")
 
-        # Login "Observer" to start agent
         # print(">>> Logging in Observer to start agent ...")
         self.sockets[usr].login()
         # print(">>> Observer logged in")
@@ -286,12 +286,10 @@ class LogReplayer():
                 elif entry['type'] == 'image':
                     user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
                     # print(">>> "+entry['username']+" has sent an image\n")
-        
-        # if self.entries[-1]['timestamp'] - self.log_start_time > datetime.now() - replay_start_time:
-        #     wait_time = (self.entries[-1]['timestamp'] - self.log_start_time) - (datetime.now() - replay_start_time)
-        #     print(">>> Waiting for bazaar agent to end the session. Wait    ", wait_time)
+
         #     time.sleep(wait_time.total_seconds())
-        time.sleep(20)
+        print(">>> Waiting for ", self.endDelay, "seconds after last log message played\n")
+        time.sleep(self.endDelay)
         print(">>> Writing replay log to ", self.replay_csv_file)
         log_entries = []
         for usr, so in self.sockets.items():
@@ -312,7 +310,8 @@ def get_args_parser():
     parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
     parser.add_argument('--bot_name', type=str, default='Sage the Owl', help="The name of the online tutor. e.g. 'Sage the Owl'")
     parser.add_argument('--headless', action='store_true', help="Run Chrome in headless mode (no browser window)")
-    parser.add_argument('--init_delay', type=int, help="Initial delay after login to start replay")
+    parser.add_argument('--init_delay', type=int, default=15, help="Initial delay after login to start replay")
+    parser.add_argument('--end_delay', type=int, default=30, help="Final delay after last log message played")
     parser.add_argument('--html_page', type=str, default='sharing_space_chat_mm', help="The name of the HTML page to display when not in headless mode")
     parser.add_argument('--server', type=str, default='https://bazaar.lti.cs.cmu.edu', help="The server for the bot")
     return parser
@@ -323,6 +322,7 @@ def main(args):
     bot_name = args.bot_name
     headless = args.headless
     init_delay = args.init_delay
+    end_delay = args.end_delay
     html_page = args.html_page
     server = args.server
     
@@ -343,6 +343,7 @@ def main(args):
                 'botName': bot_name,
                 'headless': headless,
                 'initDelay': init_delay,
+                'endDelay': end_delay,
                 'htmlPage': html_page}
     
     if replay_single_file:
