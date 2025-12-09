@@ -359,9 +359,9 @@ class LogReplayer():
 
 def get_args_parser():
     parser = argparse.ArgumentParser('Set log_replayer arguments', add_help=False)
-    parser.add_argument('--replay_path', type=str, default='', help="A folder or a single log file to replay.")
+    parser.add_argument('--replay_path', type=str, default='.', help="A folder or a single log file to replay.")
     parser.add_argument('--agent_name', type=str, default='', help="Your agent’s name without the ‘agent’ at the end. e.g. 'jeopardybigwgu'")
-    parser.add_argument('--bot_name', type=str, default='Sage the Owl', help="The name of the online tutor. e.g. 'Sage the Owl'")
+    parser.add_argument('--bot_name', type=str, default='OPEBot', help="The name of the online tutor. e.g. 'Sage the Owl'")
     parser.add_argument('--headless', action='store_true', help="Run Chrome in headless mode (no browser window)")
     parser.add_argument('--init_delay', type=int, default=15, help="Initial delay after login to start replay")
     parser.add_argument('--end_delay', type=int, default=30, help="Final delay after last log message played")
@@ -369,7 +369,7 @@ def get_args_parser():
     parser.add_argument('--server', type=str, default='https://bazaar.lti.cs.cmu.edu', help="The server for the bot")
     return parser
 
-def main(args):
+def main(args):```
     replay_path = args.replay_path
     agent_name = args.agent_name
     bot_name = args.bot_name
