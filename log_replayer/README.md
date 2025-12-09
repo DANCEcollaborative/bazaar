@@ -1,6 +1,13 @@
+# Two versions
+
+1. ```log_replayer.py```: Replays a chat log, including the recorded (previous) contributions of the bot.
+2. ```log-replayer_fresh-bot.py```: Replays the non-bot portion of a chat log, interfacing with an online bot for fresh bot contributions. 
+
+For both versions, a chat log of the replay is created. 
+
 # Environment Setup
 
-- Python version: 3.x
+- Python version: 3.10
 
 - To create a python3 virtual environment:
 ```
@@ -10,7 +17,19 @@ source <name_of_virtualenv>/bin/activate
 - Install packages:
 `pip install -r log_replayer_requirements.txt`
 
-# Instructions
+# Sample Chat Log 
+Logs must be in .csv format. An abbreviated sample log follows. 
+```
+timestamp,username,type,content
+2025-12-04 15:37:13,Joe Cool,presence,join
+2025-12-04 15:37:20,Jane Cooler,presence,join
+2025-12-04 15:37:29,Sage the Owl,text,Hello! I'm Sage. Take a minute to introduce yourselves. Go ahead and chat a little more if you have extra time. :-)
+2025-12-04 15:38:04,Jane Cooler,text,I'm Jane.
+```
+
+
+
+# 1. ```log_replayer.py```: Replays previous bot messages
 ```
 Arguments:
 
@@ -60,3 +79,119 @@ environmentID:  Replay2at20211117194818 userID:  2  userName:  RachelMyron
 
 - There may be errors in the original chat logs. For example, a user shown disconnected can still talk in the chat and create entries in the log, but in the replayer, this will raise errors because the socket is aleady disconnected. The errors are printed in the console and replayed log files. 
 
+
+
+# 2. ```log-replayer_fresh-bot.py```: Plays fresh bot messages
+Much of this replayer's functionality is the same as```log_replayer.py```. Differences and additions are listed below.
+
+The replayed and fresh bot messages will be displayed in both the system console and in the saved replay log. 
+
+The chat log may *optionally* include recorded (previous) contributions from the bot, but only fresh bot contributions will be played.
+
+**Generally-required Arguments:**
+
+- **--replay_path PATH**: A folder or a single log file to replay. Default is ```.```. 
+- **--agent_name NAME**: The bot agent’s name in lower case without the ‘agent’ at the end. Default is  ```jeopardybigwgu```.
+- **--bot_name NAME**: The name of the fresh online bot. Default is ```Sage the Owl```. 
+
+
+
+**Optional Arguments:**
+
+- **--headless**: Run without displaying the replay in a browser window. Default is to replay in a browser window.
+- **--init_delay SECONDS**: Time to delay replay after connecting with the fresh bot. Useful to avoid issues with bot startup delay. Default is ```15``` seconds.
+- **--end-delay SECONDS**: Time to extend replay after the chat log ends to collect any additional messages from the fresh bot. Default is ```30``` seconds.
+- **--html_page PAGE**: Any HTML page listed in the bot's ```html_pages``` directory in which to display the chat within a browser. Don't include the ```.html``` suffix in the PAGE value. Default is ```sharing_space_chat```.
+- **--server SERVER**: The server that will run the fresh bot. Default is  ```'https://bazaar.lti.cs.cmu.edu'```. 
+
+## Sample Invocations
+
+1. Play a single log with bot agent JeopardyBigWGUAgent and an initial delay of 10 seconds using HTML page ```share_chat.html```: 
+    - ```python log-replayer_fresh-bot.py --agent_name=jeopardybigwgu --bot_name='Sage the Owl' --replay_path='test_log.csv' --init_delay=10 --html_page=share_chat``` 
+2. Play the set of logs in directory ```logs``` with bot agent FcdsP3Agent and an ending delay of 1 minute on server 'https://bree.lti.cs.cmu.edu':
+  
+    - ```python log-replayer_fresh-bot.py --agent_name=fcdsp3 --bot_name='OPEBot' --replay_path='logs' --end_delay=60 --server='https://bree.lti.cs.cmu.edu'```
+
+3. Same as (2) but headless:
+
+    - ```python log-replayer_fresh-bot.py --agent_name=fcdsp3 --bot_name='OPEBot' --replay_path='logs' --headless --end_delay=60 --server='https://bree.lti.cs.cmu.edu'```
+
+
+## Sample system console output
+
+The replay log will be very similar to the input chat log except that the bot contributions will be from the fresh bot. 
+
+Sample system console (i.e. terminal) output follows. In the terminal, the lines will wrap.
+```
+$ python log-replayer_fresh-bot.py --agent_name=fcdsp3 --bot_name='OPEBot' --replay_path='fcdsp3ope-log1.csv' --init_delay=10 --end_delay=15
+* Replaying a single log at fcdsp3ope-log1.csv *
+>>>  ReplayAt20251209130018  replaying log at  fcdsp3ope-log1-shortened-task1.csv
+>>> replay_csv_file:  fcdsp3ope-log1-shortened-task1_ReplayAt20251209130018.csv
+roomID:  ReplayAt20251209130018 userID:  1  userName:  Billy Bob
+roomID:  ReplayAt20251209130018 userID:  2  userName:  Mary Ann
+roomID:  ReplayAt20251209130018 userID:  3  userName:  Jane Cooler
+roomID:  ReplayAt20251209130018 userID:  4  userName:  Joe Cool
+
+
+>>>>> Observer URL: https://bazaar.lti.cs.cmu.edu/bazaar/chat/fcdsp3ReplayAt20251209130018/50/Observer/undefined/?html=sharing_space_chat_mm
+
+
+sleeping for initial delay after login:  10
+Done sleeping
+
+==================================
+>>>  ReplayAt20251209130018  start replaying at  2025-12-09 13:00:33.672291
+==================================
+
+>>> Jane Cooler has connected
+
+
+* Error: socketio Jane Cooler -- connection failed:  Already connected 
+
+>>> Jane Cooler has connected
+
+OPEBot :  Welcome! Before starting please make sure you have attempted the pre-quiz. You'll get credit just for submitting it. 
+
+OPEBot :  We're starting! I'm OPE_Bot. 
+
+OPEBot :  Beginning now, you will have approximately 80 minutes to complete the OPE tasks and submit to receive your grades. 
+
+>>> Mary Ann has connected
+
+OPEBot :  Okay! Let's assign your initial roles and then you can get started. We will rotate roles for each task. 
+
+OPEBot :  Your initial roles are -
+Driver - Mary Ann. 
+Navigator - Jane Cooler. 
+Researcher - Billy Bob. 
+Recall that the researcher refers to resources like the primer as necessary. The project manager role is unassigned because this OPE is designed for teams of three. 
+
+OPEBot :  You can begin the exercise. The Jupyter Notebook includes everything you need, including the submission code. Please read the instructions carefully. 
+
+>>> Joe Cool has connected
+
+Jane Cooler :  Give me a sec to read 
+
+Mary Ann :  Okay 
+
+Mary Ann :  Let me know when you're ready to proceed. 
+
+Jane Cooler :  Ight let's do this 
+
+Joe Cool :  Woot! 
+
+Jane Cooler :  I think PLOT_TYPE should be 'bar' 
+
+    >>> socket.io - sendfile  --   Jane Cooler :  testcase-complete_1
+OPEBot :  You've passed the testcase! 
+
+OPEBot :  Which genres have the highest production rates? Name a few. 
+
+OPEBot :  Ok, we are switching roles now. Let's move on to the second analysis. 
+
+OPEBot :  The new roles are -
+Driver - Jane Cooler. 
+Navigator - Mary Ann. 
+Researcher - Joe Cool. 
+Whoever doesn't have an assignment is a researcher for this round. Recall that the researcher refers to resources like the primer as necessary. 
+```
