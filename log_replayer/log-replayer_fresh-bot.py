@@ -369,7 +369,7 @@ def get_args_parser():
     parser.add_argument('--server', type=str, default='https://bazaar.lti.cs.cmu.edu', help="The server for the bot")
     return parser
 
-def main(args):```
+def main(args):
     replay_path = args.replay_path
     agent_name = args.agent_name
     bot_name = args.bot_name
