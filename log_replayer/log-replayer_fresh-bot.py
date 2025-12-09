@@ -37,6 +37,9 @@ class BazaarSocketWrapper():
     def sendChatMessage(self, user, message):
         self.socket.sendChatMessage(user, message)
 
+    def sendSendFile(self, user, file):
+        self.socket.sendSendFile(user, file)
+
     def sendImage(self, user, imageUrl):
         self.socket.sendImage(user, imageUrl)
 
@@ -146,16 +149,30 @@ class BazaarSocket(socketio.ClientNamespace):
         pass
         # print('    >>> socket.io - Message - ', data)
 
+    def get_multimodal_value(self, field, data):
+        if not data:
+            return ""
+        records = data.split(";%;")
+        for record in records:
+            parts = record.split(":::", 1)
+            if parts[0] == field:
+                return parts[1] if len(parts) > 1 else ""
+        return ""
+
     def on_updatechat(self, user, data):
         message_key = (user, data)
-
         with BazaarSocket._lock:
             if message_key not in BazaarSocket._logged_messages:
                 # Log the message (as only one instance of the message is logged)
                 if (user != self.bazaarAgent):
-                    print(user, ": ", data,"\n")
-                    if user == self.botName:
-                        self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
+                    if user != self.botName:
+                        print(user, ": ", data,"\n")
+                    else:       # user is the bot
+                        if "multimodal" in data:      # For multimodal messages, print just the "speech" part
+                            speechData = self.get_multimodal_value("speech", data)
+                            if speechData != "":
+                                print(user, ": ", speechData,"\n")
+                    self.replay_log_entries.append([datetime.now(), self.botName, 'text', data])
                     if user == self.botName and self.bot_init_response == None:
                         self.bot_init_response = datetime.now()
                         # print("     >>> bot_init_response: ", self.bot_init_response)
@@ -184,6 +201,17 @@ class BazaarSocket(socketio.ClientNamespace):
         except Exception as e:
             print("\n* Error: socketio "+ self.bazaarAgent +" -- sending message failed: ", e,"\n")
             self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'textERROR', message])
+
+
+    def sendSendFile(self, user, file):
+        print('    >>> socket.io - sendfile  --  ', user, ': ', file)
+        try:
+            self.sio.emit('sendfile', file)
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'sendfile', file])
+        except Exception as e:
+            print("\n* Error: socketio "+ self.bazaarAgent +" -- sending file failed: ", e,"\n")
+            self.replay_log_entries.append([datetime.now(), self.bazaarAgent, 'send ERROR', file])
+
 
     def sendImage(self, user, imageUrl):
         print('    >>> socket.io - sendimage  --  ', user, ': ', imageUrl)
@@ -297,15 +325,17 @@ class LogReplayer():
                 elif entry['type'] == 'presence':
                     if entry['content'] == 'join':
                         user_socket.connect_chat()
-                        # print(">>> "+entry['username']+" has connected\n")
+                        print(">>> "+entry['username']+" has connected\n")
                     elif entry['content'] == 'leave':
                         user_socket.disconnect_chat()
-                        # print(">>> "+entry['username']+" has disconnected\n")
+                        print(">>> "+entry['username']+" has disconnected\n")
+                elif entry['type'] == 'sendfile':
+                    user_socket.sendSendFile(user=entry['username'], file=entry['content'])
+                    # print(">>> "+entry['username']+" has sent a sendfile message: +entry['content']",\n")
                 elif entry['type'] == 'image':
                     user_socket.sendImage(user=entry['username'], imageUrl=entry['content'])
                     # print(">>> "+entry['username']+" has sent an image\n")
 
-        #     time.sleep(wait_time.total_seconds())
         print(">>> Waiting for ", self.endDelay, "seconds after last log message played\n")
         time.sleep(self.endDelay)
         print(">>> Writing replay log to ", self.replay_csv_file)
