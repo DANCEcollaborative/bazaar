@@ -1,11 +1,17 @@
-# Two versions
+# Log Replayer
+
+The Log Replayer plays transcripts of timed user/student messages along with Bazaar agent ("bot") responses that are either pre-recorded within the transcript or real-time (i.e., "fresh") responses from a bot running on a server. Bazaar agents optionally support creating such transcripts, called *chat logs*, that can be used without modification as input to the Log Replayer. Alternatively, transcripts of user/student messages can be created and replayed to see how a real-time bot would respond to the sequence of messages.
+
+## Two versions of the Log Replayer
+
+There are two versions of the Log Replayer: 
 
 1. ```log_replayer.py```: Replays a chat log, including the recorded (previous) contributions of the bot.
 2. ```log-replayer_fresh-bot.py```: Replays the non-bot portion of a chat log, interfacing with an online bot for fresh bot contributions. 
 
 For both versions, a chat log of the replay is created. 
 
-# Environment Setup
+## Environment Setup
 
 - Python version: 3.10
 
@@ -17,8 +23,8 @@ source <name_of_virtualenv>/bin/activate
 - Install packages:
 `pip install -r log_replayer_requirements.txt`
 
-# Sample Chat Log 
-Logs must be in .csv format. An abbreviated sample log follows. 
+## Sample Chat Log 
+Logs must be in the following .csv format (this is an abbreviated sample log). In this log, the bot's name is "Sage the Owl." For replay using a fresh bot, bot responses may or may not be included in the chat log. If they are included in a chat log, the Log Replayer will skip over them and instead play any responses that will be received from the fresh bot. 
 ```
 timestamp,username,type,content
 2025-12-04 15:37:13,Joe Cool,presence,join
@@ -29,7 +35,7 @@ timestamp,username,type,content
 
 
 
-# 1. ```log_replayer.py```: Replays previous bot messages
+## 1. ```log_replayer.py```: Replays previous bot messages
 ```
 Arguments:
 
@@ -73,7 +79,7 @@ environmentID:  Replay2at20211117194818 userID:  2  userName:  RachelMyron
 ==================================
 ```
 
-# Difference between the replay and the original chat log
+### Difference between the replay and the original chat log
 
 - The order of the bazaar agent's presence may be different because the log replayer's bazaar agent is started together with the first user's presence, so bazaar agent will not be the first one to appear. In this way, it is guaranteed that the user socket can always catch the first message from the bazaar agent. The time of emitting user messages in the following entries is aligned with the time of bazaar agent's first message. 
 
@@ -81,10 +87,10 @@ environmentID:  Replay2at20211117194818 userID:  2  userName:  RachelMyron
 
 
 
-# 2. ```log-replayer_fresh-bot.py```: Plays fresh bot messages
+## 2. ```log-replayer_fresh-bot.py```: Plays fresh bot messages
 Much of this replayer's functionality is the same as```log_replayer.py```. Differences and additions are listed below.
 
-The replayed and fresh bot messages will be displayed in both the system console and in the saved replay log. 
+The replayed user/student messages and fresh bot messages will be displayed in both the system console and in the saved replay log. 
 
 The chat log may *optionally* include recorded (previous) contributions from the bot, but only fresh bot contributions will be played.
 
@@ -103,6 +109,19 @@ The chat log may *optionally* include recorded (previous) contributions from the
 - **--end-delay SECONDS**: Time to extend replay after the chat log ends to collect any additional messages from the fresh bot. Default is ```30``` seconds.
 - **--html_page PAGE**: Any HTML page listed in the bot's ```html_pages``` directory in which to display the chat within a browser. Don't include the ```.html``` suffix in the PAGE value. Default is ```sharing_space_chat```.
 - **--server SERVER**: The server that will run the fresh bot. Default is  ```'https://bazaar.lti.cs.cmu.edu'```. 
+
+## Add optional "Observer" to the corresponding Bazaar agent
+
+To support viewing the replay in a browser in real time without affecting the playback by making the bot think that another student/user is in the session, an "Observer" participant can be defined as a 'non_user_client_name' in the Bazaar agent's PresenceWatcher.properties file *on the server*. 
+
+Sample PresenceWatcher.properties file:
+```
+#this listener triggers a "launch event" to trigger the macro-script
+#after either the expected number of students or the timeout (in seconds) has been reached.
+expected_number_of_students=3
+launch_timeout=120
+non_user_client_name=Observer
+```
 
 ## Sample Invocations
 
