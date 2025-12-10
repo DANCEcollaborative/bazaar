@@ -96,7 +96,7 @@ The chat log may *optionally* include recorded (previous) contributions from the
 
 **Generally-required Arguments:**
 
-- **--replay_path PATH**: A folder or a single log file to replay. Default is ```.```. 
+- **--replay_path PATH**: The path to a folder or a single log file to replay. Default is ```.```. 
 - **--agent_name NAME**: The bot agent’s name in lower case without the ‘agent’ at the end. Default is  ```jeopardybigwgu```.
 - **--bot_name NAME**: The name of the fresh online bot. Default is ```Sage the Owl```. 
 
