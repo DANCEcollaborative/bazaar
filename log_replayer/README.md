@@ -107,7 +107,7 @@ The chat log may *optionally* include recorded (previous) contributions from the
 - **--headless**: Run without displaying the replay in a browser window. Default is to replay in a browser window.
 - **--init_delay SECONDS**: Time to delay replay after connecting with the fresh bot. Useful to avoid issues with bot startup delay. Default is ```15``` seconds.
 - **--end-delay SECONDS**: Time to extend replay after the chat log ends to collect any additional messages from the fresh bot. Default is ```30``` seconds.
-- **--html_page PAGE**: Any HTML page listed in the bot's ```html_pages``` directory in which to display the chat within a browser. Don't include the ```.html``` suffix in the PAGE value. Default is ```sharing_space_chat```.
+- **--html_page PAGE**: Any HTML page listed in Bazaar's ```html_pages``` directory on the server. This HTML page will be used when displaying the chat within a browser. Don't include the ```.html``` suffix in the PAGE value. Default is ```sharing_space_chat```.
 - **--server SERVER**: The server that will run the fresh bot. Default is  ```'https://bazaar.lti.cs.cmu.edu'```. 
 
 ## Add optional "Observer" to the corresponding Bazaar agent
