@@ -54,11 +54,12 @@ ul.tab li a:focus, .active {
 
 <link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
-<script type="text/javascript" src="https://rawgit.com/marinawang/bazaar/master/client.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" ></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
-<script type="text/javascript" src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/client.js"></script>
+<script type="text/javascript" src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js""></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/lobby/colors.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 
 <script>
     var windowHasFocus = true;
@@ -76,8 +77,8 @@ ul.tab li a:focus, .active {
         "'": "&#39;",
         "/": "&#x2F;",
       };
-
-      function escapeHTML(string) {
+      
+    function escapeHTML(string) {
         return String(string).replace(/[&<>"'\/]/g, function (s) {
           return entityMap[s];
         });
@@ -478,7 +479,7 @@ ul.tab li a:focus, .active {
     }
 
 	// on load of page
-	$(function(){
+	$(document).ready(function(){
 		// when the client clicks SEND
 		$('#datasend').click( function() 
 		{
