@@ -8,10 +8,12 @@
 
 <link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
 <link property='stylesheet' href='https://rawgit.com/marinawang/bazaar/master/discussionnew.css' rel='stylesheet' id='filecss' type='text/css' />
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://rawgit.com/gtomar/stylesheets/master/colors.js"></script>
-<script src="https://rawgit.com/gtomar/stylesheets/master/jquery.sortable.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/client.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/lobby/colors.js"></script>
+<script type="text/javascript" src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js""></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 
 <script>
     var chatserver_url = 'http://brandy.lti.cs.cmu.edu:81/'
@@ -330,7 +332,7 @@
     }
 
 	// on load of page
-	$(function(){
+	$(document).ready(function(){
 		// when the client clicks SEND
 		$('#datasend').click( function() 
 		{
