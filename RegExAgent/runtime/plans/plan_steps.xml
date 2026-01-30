@@ -7,70 +7,19 @@
 	<!-- "timeout" for a step is an upper-bound duraton for the step, after which next step starts.  -->
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0">  
-    	<step type="prompt" delay="60" prompt="WAITING_TO_START">WAITING_TO_START</step>   <!-- 60  -->
      	<step type="greet" timeout="35" delay="5">GREETINGS</step> 
     </stage>  =
     
     <stage name="Stage_Introduction" type="other" delay="0">  
     	<step type="prompt" delay="10" prompt="PROMPT_OVERVIEW">PROMPT_OVERVIEW</step> 
-    	<step type="prompt" delay="30" prompt="BEFORE_STARTING">BEFORE_STARTING</step>
     </stage>  
     
     <stage name="Stage1" type="other" delay="0">
     	<step type="send_command" command="COMMAND_1" delay="5">COMMAND_1</step>  
-    	<step type="prompt" delay="30" prompt="TASK_1_READ">TASK_1_READ</step> 
-        <step type="match" delay="15" prompt="PROMPT_STEP_MATCH" >Prompt_Step_Task1_Match</step>  
-        <step type="file_gated" timeout="900" delay="5" file="testcase-complete_1" delayed_prompt_time="300,600" delayed_prompt="P1a,P1b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>    	<!--  300,600  -->
-    </stage>  
-    
-    <stage name="Stage2" type="other" delay="0">
-    	<step type="send_command" command="COMMAND_2" delay="5">COMMAND_2</step>    
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK2">instr5</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_FANCY" >Prompt_Step_LO2A_Rotate</step>    
-        <step type="file_gated" timeout="600" delay="5" file="testcase-complete_2" delayed_prompt_time="300,480" delayed_prompt="P2a,P2b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task2</step>   	  	<!--  300,480 -->     
-    </stage>  
-    
-    <stage name="Stage3" type="other" delay="0">  
-    	<step type="send_command" command="COMMAND_3" delay="5">COMMAND_3</step>    
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK3">instr5</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO3A_Rotate</step>    
-        <step type="file_gated" timeout="600" delay="5" file="testcase-complete_3" delayed_prompt_time="210,420" delayed_prompt="P3a,P3b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task3</step>   	  	<!-- 210,420  -->     
-    </stage>  
-    
-    <stage name="Stage4" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_4" delay="5">COMMAND_4</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK4">instr5</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="300" delay="5" file="testcase-complete_4" delayed_prompt_time="210" delayed_prompt="P4a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task4</step>    	<!-- 210  -->
+    	<step type="prompt" delay="10" prompt="TASK_1_READ">TASK_1_READ</step> 
+        <step type="match" delay="5" prompt="PROMPT_STEP_MATCH" >Prompt_Step_Task1_Match</step>  
+        <step type="file_gated" timeout="45" delay="5" file="testcase-complete_1" delayed_prompt_time="300,600" delayed_prompt="P1a,P1b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task1</step>    	<!--  300,600  -->
     </stage> 
-    
-    <stage name="Stage5" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_5" delay="5">COMMAND_5</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK5">instr5</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="300" delay="5" file="testcase-complete_5" delayed_prompt_time="210" delayed_prompt="P5a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task5</step>    	<!-- 210  -->
-    </stage>  
-    
-    <stage name="Stage6" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_6" delay="5">COMMAND_6</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK6">PROMPT_ROLE_SWITCH_TASK6</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="720" delay="5" file="testcase-complete_6" delayed_prompt_time="480" delayed_prompt="P6a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task6</step>    	<!-- 480  -->
-    </stage>  
-    
-    <stage name="Stage7" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_7" delay="5">COMMAND_7</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK7">instr5</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="360" delay="5" file="testcase-complete_7" delayed_prompt_time="210" delayed_prompt="P7a" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task7</step>    	<!-- 210  -->
-    </stage>  
-    
-    <stage name="Stage8" type="other" delay="0">   
-    	<step type="send_command" command="COMMAND_8" delay="5">COMMAND_8</step> 
-    	<step type="prompt" delay="5" prompt="PROMPT_ROLE_SWITCH_TASK8">instr5</step> 
-        <step type="rotate" delay="5" prompt="PROMPT_STEP_ROTATE_PLAIN" >Prompt_Step_LO4A_Rotate</step> 
-        <step type="file_gated" timeout="660" delay="5" file="testcase-complete_8" delayed_prompt_time="300,480" delayed_prompt="P8a,P8b" checkin_prompt="NONE" warning_prompt="NONE">Wait_Step_Task8</step>    	<!-- 300,480  -->
-    </stage>  
     
     <stage name="WrapUP" type="other" delay="0">   
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
@@ -78,7 +27,7 @@
     	<step type="send_end" delay="2">send_end</step>  
     </stage> 
   
-    <stage name="EndStage" type="other" delay="0" timeout="5040">  
+    <stage name="EndStage" type="other" delay="0" timeout="300">  
     	<step type="send_command" command="COMMAND_SUBMIT" delay="5">COMMAND_SUBMIT</step>  
         <step type="prompt" delay="5" prompt="PROMPT_STEP_FINAL" >Prompt_Step_Final</step>
         <step type="chatlog" delay="2" >CHAT_LOGS</step> 
