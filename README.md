@@ -68,11 +68,14 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
     - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
       - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_lobby
     - Enter:
-      - If running on a Mac with an Intel chip or on a PC:
+      - If running on a Mac with an Intel chip:
         - docker compose -f docker-compose-dev.yml up --build -d
       - If running on a Mac with an M1 chip:
         - docker compose -f docker-compose-dev-apple-m1.yml up --build -d
-      - This command will take longer the first time it is executed as it downloads several things.
+      - If running on a PC:
+        - dos2unix runBazaarLocal lobby/runScriptBazaarLocal
+        - docker compose -f docker-compose-dev.yml up --build -d
+      - These commands will take longer the first time they are executed as they download several things.
     - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
   - Within the IDE, run a Bazaar agent such as ClimateChangeAgent.
     - A chat room startup window will be displayed.
