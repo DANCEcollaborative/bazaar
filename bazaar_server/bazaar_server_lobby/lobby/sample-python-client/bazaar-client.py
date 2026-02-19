@@ -17,7 +17,7 @@ import socketio
 # ──────────────────────────────────────────────
 # CONSTANTS 
 # ──────────────────────────────────────────────
-SERVER_URL   = "https://bree.lti.cs.cmu.edu"   # May vary. E.g. "https://bree.lti.cs.cmu.edu" 
+SERVER_URL   = "https://bree.lti.cs.cmu.edu"   # May vary. E.g. "https://bazaar.lti.cs.cmu.edu" 
 SOCKET_PATH  = "/bazsocket"        
 CLIENT_ID    = "ClientServer"        
 
@@ -74,7 +74,7 @@ def send_chat_message(user_name: str, message: str):
     sio.emit("sendchat", {"value": message})
 
 def send_chat_messages():
-    time.sleep(70)
+    time.sleep(60)
     send_chat_message("Sonny", "I'm Sonny. Cher, introduce yourself.")
     time.sleep(3)
     send_chat_message("Cher", "And I'm Cher. Let's rock!")
