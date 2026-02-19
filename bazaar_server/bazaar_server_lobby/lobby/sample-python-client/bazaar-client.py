@@ -4,10 +4,10 @@ Bazaar Socket.IO Client
 Connects to the Bazaar NodeJS server and initiates a socket.io session.
 
 Usage:
-    python3 bazaar-client.py [--agent AGENT_NAME] [--chat-id CHAT_ID] [--user-name USER_NAME] [--user-id USER_ID]
+    python3 bazaar-client.py [--agent AGENT_NAME] [--room-id CHAT_ID] [--user-name USER_NAME] [--user-id USER_ID]
 
 Example:
-    python3 bazaar-client.py --agent jeopardybigwgu --chat-id 250101000 --user-name "Bot" --user-id 100
+    python3 bazaar-client.py --agent jeopardybigwgu --room-id 250101000 --user-name "Bot" --user-id 100
 """
 
 import argparse
@@ -17,8 +17,8 @@ import socketio
 # ──────────────────────────────────────────────
 # CONSTANTS 
 # ──────────────────────────────────────────────
-SERVER_URL   = "https://bazaar.lti.cs.cmu.edu"
-SOCKET_PATH  = "/bazsocket"          # socket.io endpoint
+SERVER_URL   = "https://bree.lti.cs.cmu.edu"   # May vary. E.g. "https://bree.lti.cs.cmu.edu" 
+SOCKET_PATH  = "/bazsocket"        
 CLIENT_ID    = "ClientServer"        
 
 
@@ -66,9 +66,25 @@ def catch_all(event, data):
 
 
 # ──────────────────────────────────────────────
+# Sending messages
+# ──────────────────────────────────────────────
+    
+def send_chat_message(user_name: str, message: str):
+    message = f"multimodal:::true;%;from:::{user_name};%;speech:::{message}"
+    sio.emit("sendchat", {"value": message})
+
+def send_chat_messages():
+    time.sleep(70)
+    send_chat_message("Sonny", "I'm Sonny. Cher, introduce yourself.")
+    time.sleep(3)
+    send_chat_message("Cher", "And I'm Cher. Let's rock!")
+    
+
+
+# ──────────────────────────────────────────────
 # Main
 # ──────────────────────────────────────────────
-def main(agent_name: str, chat_id: str, user_id: str, user_name: str):
+def main(agent_name: str, room_id: str, user_id: str, user_name: str):
     """Connect to the Bazaar server and join the specified room."""
 
     auth_payload = {
@@ -80,7 +96,7 @@ def main(agent_name: str, chat_id: str, user_id: str, user_name: str):
             }
         },
         "chat": {
-            "id": chat_id
+            "id": room_id
         },
         "user": {
             "id": user_id,                     
@@ -89,7 +105,7 @@ def main(agent_name: str, chat_id: str, user_id: str, user_name: str):
     }
 
     print(f"[*] Connecting to {SERVER_URL}  (path={SOCKET_PATH})")
-    print(f"    agent={agent_name!r}  chat={chat_id!r}  user={user_name!r}")
+    print(f"    agent={agent_name!r}  room={room_id!r}  user={user_name!r}")
 
     sio.connect(
         SERVER_URL,
@@ -98,6 +114,8 @@ def main(agent_name: str, chat_id: str, user_id: str, user_name: str):
         transports=["websocket"],  
         wait_timeout=10
     )
+
+    send_chat_messages() 
 
     try:
         # Keep the connection alive; press Ctrl-C to exit.
@@ -117,13 +135,13 @@ if __name__ == "__main__":
         help="Bazaar server's agent name without its 'agent' suffix"
     )
     parser.add_argument(
-        "--chat-id",
+        "--room-id",
         default="20250101000",  # This MUST be different than previous sessions. Suggestion: YYYYMMDD###, with ### incremented each day
-        help="Chat / room ID"
+        help="Room ID"
     )
     parser.add_argument(
         "--user-name",
-        default="WhisperBot",
+        default="Bot",
         help='Display name for this client. Can be constant '
     )
     parser.add_argument(
@@ -135,7 +153,7 @@ if __name__ == "__main__":
 
     main(
         agent_name=args.agent,
-        chat_id=args.chat_id,
+        room_id=args.room_id,
         user_name=args.user_name,
         user_id=args.user_id
     )
