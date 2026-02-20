@@ -4,7 +4,7 @@ Bazaar Socket.IO Client
 Connects to the Bazaar NodeJS server and initiates a socket.io session.
 
 Usage:
-    python3 bazaar-client.py [--agent AGENT_NAME] [--room-id CHAT_ID] [--user-name USER_NAME] [--user-id USER_ID]
+    python3 bazaar-client.py [--agent AGENT_NAME] [--room-id ROOM_ID] [--user-name USER_NAME] [--user-id USER_ID]
 
 Example:
     python3 bazaar-client.py --agent jeopardybigwgu --room-id 250101000 --user-name "Bot" --user-id 100
@@ -15,11 +15,11 @@ import time
 import socketio
 
 # ──────────────────────────────────────────────
-# CONSTANTS 
+# CONSTANTS
 # ──────────────────────────────────────────────
-SERVER_URL   = "https://bree.lti.cs.cmu.edu"   # May vary. E.g. "https://bazaar.lti.cs.cmu.edu" 
-SOCKET_PATH  = "/bazsocket"        
-CLIENT_ID    = "ClientServer"        
+SERVER_URL   = "https://bree.lti.cs.cmu.edu"   # Change as needed, e.g. "https://bazaar.lti.cs.cmu.edu"
+SOCKET_PATH  = "/bazsocket"
+CLIENT_ID    = "ClientServer"
 
 
 # ──────────────────────────────────────────────
@@ -68,17 +68,17 @@ def catch_all(event, data):
 # ──────────────────────────────────────────────
 # Sending messages
 # ──────────────────────────────────────────────
-    
+
 def send_chat_message(user_name: str, message: str):
-    message = f"multimodal:::true;%;from:::{user_name};%;speech:::{message}"
-    sio.emit("sendchat", {"value": message})
+    payload = f"multimodal:::true;%;from:::{user_name};%;speech:::{message}"
+    sio.emit("sendchat", payload)   
+
 
 def send_chat_messages():
-    time.sleep(60)
+    time.sleep(40)
     send_chat_message("Sonny", "I'm Sonny. Cher, introduce yourself.")
     time.sleep(3)
     send_chat_message("Cher", "And I'm Cher. Let's rock!")
-    
 
 
 # ──────────────────────────────────────────────
@@ -99,7 +99,7 @@ def main(agent_name: str, room_id: str, user_id: str, user_name: str):
             "id": room_id
         },
         "user": {
-            "id": user_id,                     
+            "id": user_id,
             "name": user_name
         }
     }
@@ -111,11 +111,11 @@ def main(agent_name: str, room_id: str, user_id: str, user_name: str):
         SERVER_URL,
         socketio_path=SOCKET_PATH,
         auth=auth_payload,
-        transports=["websocket"],  
+        transports=["websocket"],
         wait_timeout=10
     )
 
-    send_chat_messages() 
+    send_chat_messages()
 
     try:
         # Keep the connection alive; press Ctrl-C to exit.
