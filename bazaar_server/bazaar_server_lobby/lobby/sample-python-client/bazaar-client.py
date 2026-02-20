@@ -4,10 +4,10 @@ Bazaar Socket.IO Client
 Connects to the Bazaar NodeJS server and initiates a socket.io session.
 
 Usage:
-    python3 bazaar-client.py [--agent AGENT_NAME] [--room-id ROOM_ID] [--user-name USER_NAME] [--user-id USER_ID]
+    python3 bazaar-client.py [--agent AGENT_NAME] [--room-id ROOM_ID] [--user-name USER_NAME] [--user-id USER_ID] --server SERVER_PREFIX]
 
 Example:
-    python3 bazaar-client.py --agent jeopardybigwgu --room-id 250101000 --user-name "Bot" --user-id 100
+    python3 bazaar-client.py --agent jeopardybigwgu --room-id 250101000 --user-name "Bot" --user-id 100 --server bree
 """
 
 import argparse
@@ -17,7 +17,6 @@ import socketio
 # ──────────────────────────────────────────────
 # CONSTANTS
 # ──────────────────────────────────────────────
-SERVER_URL   = "https://bree.lti.cs.cmu.edu"   # Change as needed, e.g. "https://bazaar.lti.cs.cmu.edu"
 SOCKET_PATH  = "/bazsocket"
 CLIENT_ID    = "ClientServer"
 
@@ -76,7 +75,7 @@ def send_chat_message(user_name: str, message: str):
 
 def send_chat_messages():
     time.sleep(40)
-    send_chat_message("Sonny", "I'm Sonny. Cher, introduce yourself.")
+    send_chat_message("Sonny", "I'm Sonny.")
     time.sleep(3)
     send_chat_message("Cher", "And I'm Cher. Let's rock!")
 
@@ -84,7 +83,7 @@ def send_chat_messages():
 # ──────────────────────────────────────────────
 # Main
 # ──────────────────────────────────────────────
-def main(agent_name: str, room_id: str, user_id: str, user_name: str):
+def main(server: str, agent_name: str, room_id: str, user_id: str, user_name: str):
     """Connect to the Bazaar server and join the specified room."""
 
     auth_payload = {
@@ -104,6 +103,7 @@ def main(agent_name: str, room_id: str, user_id: str, user_name: str):
         }
     }
 
+    SERVER_URL = f"https://{server}.lti.cs.cmu.edu"     # Hardcoded to be the 'server' prefix followed by ".lti.cs.cmu.edu"
     print(f"[*] Connecting to {SERVER_URL}  (path={SOCKET_PATH})")
     print(f"    agent={agent_name!r}  room={room_id!r}  user={user_name!r}")
 
@@ -130,6 +130,11 @@ def main(agent_name: str, room_id: str, user_id: str, user_name: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bazaar Socket.IO client")
     parser.add_argument(
+        "--server",
+        default="bree",
+        help="The prefix to use for the server URL. The full URL will be https://{server}.lti.cs.cmu.edu. Default is 'bree'."
+    )
+    parser.add_argument(
         "--agent",
         default="jeopardybigwgu",
         help="Bazaar server's agent name without its 'agent' suffix"
@@ -155,5 +160,6 @@ if __name__ == "__main__":
         agent_name=args.agent,
         room_id=args.room_id,
         user_name=args.user_name,
-        user_id=args.user_id
+        user_id=args.user_id,
+        server=args.server
     )
