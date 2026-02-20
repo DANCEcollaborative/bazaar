@@ -60,8 +60,8 @@ def on_updatepresence(*args):
 
 
 @sio.on("*")
-def catch_all(event, data):
-    print(f"[event:{event}] {data}")
+def catch_all(event, *args):
+    print(f"[event:{event}] {args}")
 
 
 # ──────────────────────────────────────────────
