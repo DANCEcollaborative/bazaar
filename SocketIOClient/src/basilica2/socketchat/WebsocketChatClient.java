@@ -432,7 +432,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.err.println("Connection established");
+					System.err.println("WebsocketChatClient: Connection established");
 					log(Logger.LOG_NORMAL, "WebsocketChatClient, EVENT_CONNECT");
 				}
 			}).on("updateusers", new Emitter.Listener() { 
