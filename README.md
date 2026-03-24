@@ -131,7 +131,7 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
   - Install [Docker for Linux](https://docs.docker.com/engine/install/).
   - Start Docker: `sudo systemctl start docker`
 ## Install agent files in the server subdirectory on the server. 
-  - The ***server subdirectory*** is `bazaar/bazaar_server/bazaar_server_lobby/`
+  - Again, the ***server subdirectory*** is `bazaar/bazaar_server/bazaar_server_lobby/`
   - Server subdirectory structure:
     - `Dockerfile`
     - `Dockerfile.mysql`
