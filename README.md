@@ -163,9 +163,9 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
     - You’ll get some warnings that you can ignore, so just press “OK.”
       - “This operation repacks referenced libraries. …”
       - "JAR export finished with warnings. …”
-- Start the Docker containers:
-  - cd bazaar_server_lobby
-  - sudo docker compose up --build -d
+## Start the Docker containers:
+- `cd <your base directory>/bazaar/bazaar_server/bazaar_server_lobby`
+- `sudo docker compose up --build -d`
 
 # Using a browser, start a Bazaar agent on a Linux server
 
