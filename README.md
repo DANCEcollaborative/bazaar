@@ -180,8 +180,8 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
 
 # Adding LightSide Machine-Learning Annotations
 
-- Create a LightSide model. Download from [http://ankara.lti.cs.cmu.edu/side/](http://ankara.lti.cs.cmu.edu/side/). Select the "Cutting Edge" version. A LightSide manual and installation instructions are included in the download. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
-- Configure Bazaar. A worked example is provided as agent 'MTurkLightSideAgent' - file names below are specified relative to that agent.
+- Create a LightSide model. Download from [https://github.com/LightSideWorkbench/LightSide/tree/main](https://github.com/LightSideWorkbench/LightSide/tree/main). A LightSide manual, installation instructions, and tips for Mac and PC are included in the download. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
+- Configure Bazaar. A worked example is included as agent 'DCSSLightSideAgent' - file names below are specified relative to that agent.
   - Agent classpath: Add
     - LightSideMessageAnnotator
     - lightside

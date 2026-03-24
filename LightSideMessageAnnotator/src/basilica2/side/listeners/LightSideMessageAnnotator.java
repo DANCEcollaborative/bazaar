@@ -37,6 +37,7 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
 		Process process;
 		File lightSideLocation = new File(pathToLightSide);
+		System.err.println("LightSide absolute path: " + lightSideLocation.getAbsolutePath());
 		
 		classificationString = getProperties().getProperty("classifications", classificationString);
 		String[] classificationList = classificationString.split(","); 
