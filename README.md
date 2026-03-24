@@ -23,17 +23,19 @@ Java 8 (aka 1.8) is recommended for running Bazaar. Older and newer versions may
 
 # Install this repository
 
-- Commands:
-  - git clone [https://github.com/DANCEcollaborative/bazaar.git](https://github.com/DANCEcollaborative/bazaar.git)
-  - cd bazaar/LightSide
+  `git clone [https://github.com/DANCEcollaborative/bazaar.git](https://github.com/DANCEcollaborative/bazaar.git)`
+ 
+
+# Optional initialization of the LightSide code within Bazaar. 
+ - `cd bazaar/LightSide`
   - Make sure you are using Java 1.8 (aka Java 8) Temurin for the 'ant build' steps below:
-    - java -version
-  - ant build
+    - `java -version`
+  - `ant build`
     - This should finish with "BUILD SUCCESSFUL." If it does not
       - Try the following two steps (*ant build* for Genesis-Plugins), then come back to this step.
       - If it still does not work you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
-  - cd ../Genesis-Plugins
-  - ant build
+  - `cd ../Genesis-Plugins`
+  - `ant build`
     - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
 
 # Detailed Instructions for Installing in Eclipse
@@ -66,15 +68,15 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
 - Running
   - In a terminal window
     - cd to the following subdirectory where DANCEcollaborative/bazaar is installed
-      - E.g., cd ~/git/bazaar/bazaar_server/bazaar_server_lobby
+      - E.g., `cd ~/git/DANCEcollaborative/bazaar/bazaar_server/bazaar_server_lobby`
     - Enter:
       - If running on a Mac with an Intel chip:
-        - docker compose -f docker-compose-dev.yml up --build -d
+        - `docker compose -f docker-compose-dev.yml up --build -d`
       - If running on a Mac with an M1 chip:
-        - docker compose -f docker-compose-dev-apple-m1.yml up --build -d
+        - `docker compose -f docker-compose-dev-apple-m1.yml up --build -d`
       - If running on a PC:
-        - dos2unix runBazaarLocal lobby/runScriptBazaarLocal
-        - docker compose -f docker-compose-dev.yml up --build -d
+        - `dos2unix runBazaarLocal lobby/runScriptBazaarLocal`
+        - `docker compose -f docker-compose-dev.yml up --build -d`
       - These commands will take longer the first time they are executed as they download several things.
     - The '-d' causes the Docker agent to run in the background after startup. Omit the '-d' to see more Docker output.
   - Within the IDE, run a Bazaar agent such as ClimateChangeAgent.
@@ -82,23 +84,23 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
     - Select the agent’s behavior conditions.
     - Set a “Room Name”.
     - Press ’Start Agent’
-  - Join a chat room:  In a web browser, customize the following URL with the ROOM name you selected and a STUDENT name. For multiple students, use a URL with the same customized room name but different student names.
-    - [http://localhost/chat/ROOM/1/STUDENT/1/?html=climate_change](http://localhost/chat/ROOM/1/STUDENT/1/?html=climate_change)
+  - Join a chat room:  In a web browser, customize the following URL with the ROOM_NAME you selected and a *numeric* STUDENT* ID and STUDENT NAME. For multiple students in the same Bazaar agent collaborative session, use a URL with the same customized room name but different student IDs and names.
+    - [http://localhost/chat/ROOM_NAME>/STUDENT_ID/STUDENT_NAME>/1/?html=climate_change](http://localhost/chat/ROOM_NAME>/STUDENT_ID/STUDENT_NAME>/1/?html=climate_change))
     - Use the ROOM you selected in the chat room window.
-    - Use your choice for STUDENT. For multiple students:
-      - Use a unique STUDENT name for each.
-      - Set the numbers in the URL before and after STUDENT:  .../#/STUDENT/#/...
-        - The first number is the student ID, and must be unique.
+    - Use your choice for STUDENT_NAME. For multiple students:
+      - Use a unique student name for each.
+      - Set the numbers in the URL before and after STUDENT_NAME:  .../#/STUDENT_NAME/#/...
+        - The first number is the STUDENT_ID, and must be unique.
         - The second number is the student perspective, which is used for some agents -- e.g., for MTurk agents.
-        - E.g., for multiple students, :
+        - E.g., for multiple students:
           - .../1/STUDENTA/1/…
           - .../2/STUDENTB/2/...
           - .../3/STUDENTC/3/…
 
-# Install a Bazaar agent on a Linux server
+# Install Bazaar agent(s) on a Linux server
 
-- Install the Bazaar server
-  - Server files are in directory [**'bazaar_server/bazaar_server_lobby'**](https://github.com/DANCEcollaborative/bazaar/tree/master/bazaar_server/bazaar_server_lobby).
+## Install the Bazaar server
+  - Server files are in directory [**'bazaar/bazaar_server/bazaar_server_lobby'**](https://github.com/DANCEcollaborative/bazaar/tree/master/bazaar_server/bazaar_server_lobby).
   - Set up your web server code to route URLs that include
     - '/bazaar' for HTTP protocol or '/bazsocket' for websockets to a port such as '8300'.
     - '/lobby' to a port such as '8400'.
@@ -110,7 +112,6 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
     Require all granted  
     </Directory>
 
-    ````
     - Install the file from subdirectory 'apache2/sites-available/' into directory '/etc/apache2/sites-available'.
     - Execute the appropriate command(s) below for your http and/or https version:
       - sudo a2ensite bazaar-docker-lobby.conf
@@ -124,50 +125,49 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
     - For the https version, you may also need to execute the following:
       - sudo a2enmod ssl
     - Execute: sudo systemctl restart apache2
-    ````
 
-  - Install and start Docker.
-    - Install [Docker for Linux](https://docs.docker.com/engine/install/).
-    - Start Docker: sudo systemctl start docker
-  - Install and run the files from subdirectory 'bazaar_server_lobby' on the server.
-    - Structure:
-      - YOUR_BASE_DIRECTORY
-        - Dockerfile
-        - Dockerfile.mysql
-        - docker-compose.yml
-        - runLobby
-        - bazaar
-          - All files within subdirectory 'bazaar'.
-        - lobby
-          - All files within subdirectory 'lobby'.
-        - agents
-          - Directory(ies) for Bazaar agent(s) created above -- e.g., climatechangeagent/
-    - In file 'bazaar/server_lobby_https.js', within the 'Content-Security-Policy' specification, change every instance of 'bazaar.lti.cs.cmu.edu' to your server name.
-    - In file 'Dockerfile', replace MYSQL_ROOT_PASSWORD, MYSQL_USER, and MYSQL_PASSWORD with values for your MySQL.
-    - In file docker-compose.yml, customize ports '8300' and '8400' to the port you used when setting up your web server above.
-- Install a Bazaar agent
-  - The agent’s name needs to end in “Agent” or “agent” — e.g., "ClimateChangeAgent”.
-  - Customize the agent's 'AGENT_NAME/runtime/properties/WebsocketChatClient.properties file. A sample version is provided for ClimateChangeAgent in [this location](https://github.com/DANCEcollaborative/bazaar/tree/master/ClimateChangeAgent/runtime/properties).
+ ## Install and start Docker.
+  - Install [Docker for Linux](https://docs.docker.com/engine/install/).
+  - Start Docker: `sudo systemctl start docker`
+## Install and run the files in the server subdirectory on the server. 
+  - *Note:* Even though the server files are necessary only for running on a server, including them in a git repo makes it easy to install them on the server with just a `git clone` or `git update`. We keep all the files in the Bazaar repo except for the agents' .jar files, which we leave out to save space.
+  - The ***server subdirectory*** is `bazaar/bazaar_server/bazaar_server_lobby/`
+  - Server subdirectory structure:
+    - `Dockerfile`
+    - `Dockerfile.mysql`
+    - `docker-compose.yml`
+    - `server_lobby_https.js`
+    - `bazaar`
+      - All files within subdirectory 'bazaar'.
+    - `lobby`
+      - All files within subdirectory 'lobby'.
+    - `agents/`
+      - Directory(ies) for the server version(s) of the Bazaar agents that you created above. These contents are described in more detail below. 
+  - In file `bazaar/bazaar_server/bazaar_server_lobby/server_lobby_https.js`, within the `Content-Security-Policy` specification, change every instance of `bazaar.lti.cs.cmu.edu` to your server name.
+  - In file `Dockerfile`, replace `MYSQL_ROOT_PASSWORD`, `MYSQL_USER`, and `MYSQL_PASSWORD` with values for your MySQL.
+  - In file `docker-compose.yml`, customize ports `8300` and `8400` to the port you used when setting up your web server above.
+### Install a Bazaar agent in the server subdirectory
+  - Create a subdirectory of the `agents/` directory with your agent's name in lowercase. For instance, "ClimateChangeAgent” in the top-level (development) directory should be `climatechangeagent` in the server directory.
+  - Copy all of the files within the `runtime` subdirectory of the top-level (development) version of your agent — but not the ‘runtime/‘ directory itself — to your agent's server subdirectory.
+  - Within the copied `runtime` subdirectory, customize the agent's `properties/WebsocketChatClient.properties` file. A sample version is provided for ClimateChangeAgent in [this location](https://github.com/DANCEcollaborative/bazaar/tree/master/ClimateChangeAgent/runtime/properties).
     - Comment out line 'socket_url=[http://127.0.0.1](http://127.0.0.1)' if necessary by inserting '#' at the beginning of the line.
-    - Make sure the line 'socket_url=[http://bazaar.lti.cs.cmu.edu:8300](http://bazaar.lti.cs.cmu.edu:8300)' is not commented out. Customize 'bazaar.lti.cs.cmu.edu:8300' with your server name and  port number for Bazaar.
-  - Create a runnable .jar file and place it in the agent’s runtime/ directory. E.g., using Eclipse:
-    - In Eclipse in the Package Explorer view, right click on the agent’s package name (e.g. ‘ClimateChangeAgent’) and select “Export.”
+    - Make sure the line `socket_url=[http://bazaar.lti.cs.cmu.edu:8300](http://bazaar.lti.cs.cmu.edu:8300)` is not commented out. **Customize `bazaar.lti.cs.cmu.edu:8300` with your server name and  port number for Bazaar.**
+  - If you'll want chat logs, make sure there is a `chat_logs` directory within your agent's server subdirectory. (Automatic chat logs can be set up using a step in your agent's `plan_steps.xml` file like the step `<step type="chatlog" delay="2" >CHAT_LOGS</step>)` in ClimateChangeAgent's `plan_steps.xml file`.)
+  - Create a runnable .jar file and place it in the agent’s `runtime/` directory. For instance, using Eclipse:
+    - In Package Explorer view, right click on the agent’s package name (e.g. ‘ClimateChangeAgent’) and select “Export.”
     - Select an export wizard: Under Java, select “Runnable JAR file,” then select “Next.”
     - Runnable JAR File Specification
-      - Launch configuration: Select one from the dropdown. If you’ve created the agent l- ike most agents, there will probably be an option for “NewAgentOperation - <your agent’s name>.”
+      - Launch configuration: Select one from the dropdown. If you’ve created the agent like most agents, there will probably be an option for `NewAgentOperation - <your agent’s name>`.
       - Export destination: Browse to select '<your agent directory name>/runtime/<your agent name>.jar’.
       - Select “Finish.”
     - You’ll get some warnings that you can ignore, so just press “OK.”
       - “This operation repacks referenced libraries. …”
       - "JAR export finished with warnings. …”
-  - On the Linux server.
-    - Create a subdirectory for the agent within directory 'bazaar_server/bazaar_server_lobby/agents/'— e.g., ‘climatechangeagent’.
-    - Copy all of the files within your agent’s runtime directory — but not the ‘runtime/‘ directory itself — to the agent subdirectory.
 - Start the Docker containers:
   - cd bazaar_server_lobby
   - sudo docker compose up --build -d
 
-# Run a Bazaar agent on a Linux server.
+# Using a browser, start a Bazaar agent on a Linux server
 
 - Install a Bazaar agent on a server as described above.
 - In a browser, start the agent using the following URL format: [http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME](http://SERVER/bazaar/login?roomName=ROOM_NAME&roomId=ROOM_NUM&id=ID_NUM&username=USER_NAME)
