@@ -100,6 +100,7 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
 # Install Bazaar agent(s) on a Linux server
 
 ## Install the Bazaar server
+  - *Note:* Even though the server files are necessary only for running on a server, including them in a git repo makes it easy to install them on the server with just a `git clone` or `git update`. We keep all the files in the Bazaar repo except for the agents' .jar files, which we leave out to save space.
   - Server files are in directory [**'bazaar/bazaar_server/bazaar_server_lobby'**](https://github.com/DANCEcollaborative/bazaar/tree/master/bazaar_server/bazaar_server_lobby).
   - Set up your web server code to route URLs that include
     - '/bazaar' for HTTP protocol or '/bazsocket' for websockets to a port such as '8300'.
@@ -129,8 +130,7 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
  ## Install and start Docker.
   - Install [Docker for Linux](https://docs.docker.com/engine/install/).
   - Start Docker: `sudo systemctl start docker`
-## Install and run the files in the server subdirectory on the server. 
-  - *Note:* Even though the server files are necessary only for running on a server, including them in a git repo makes it easy to install them on the server with just a `git clone` or `git update`. We keep all the files in the Bazaar repo except for the agents' .jar files, which we leave out to save space.
+## Install agent files in the server subdirectory on the server. 
   - The ***server subdirectory*** is `bazaar/bazaar_server/bazaar_server_lobby/`
   - Server subdirectory structure:
     - `Dockerfile`
