@@ -23,20 +23,10 @@ Java 8 (aka 1.8) is recommended for running Bazaar. Older and newer versions may
 
 # Install this repository
 
-  `git clone [https://github.com/DANCEcollaborative/bazaar.git](https://github.com/DANCEcollaborative/bazaar.git)`
+There are two options for getting the Bazaar code from https://github.com/DANCEcollaborative/bazaar. 
+1. Git clone (preferred for ongoing updates): `git clone https://github.com/DANCEcollaborative/bazaar.git`.
+2. Download a zip file. 
  
-
-# Optional initialization of the LightSide code within Bazaar. 
- - `cd bazaar/LightSide`
-  - Make sure you are using Java 1.8 (aka Java 8) Temurin for the 'ant build' steps below:
-    - `java -version`
-  - `ant build`
-    - This should finish with "BUILD SUCCESSFUL." If it does not
-      - Try the following two steps (*ant build* for Genesis-Plugins), then come back to this step.
-      - If it still does not work you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
-  - `cd ../Genesis-Plugins`
-  - `ant build`
-    - This should finish with "BUILD SUCCESSFUL." If it does not, you will not be able to run LightSide machine-learned classifiers within Bazaar until it succeeds. But you can continue with installation and run Bazaar agents without LightSide classifiers.
 
 # Detailed Instructions for Installing in Eclipse
 
@@ -180,7 +170,7 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
 
 # Adding LightSide Machine-Learning Annotations
 
-- Create a LightSide model. Either clone the git repository or download and install a zip file from the LightSide repo [https://github.com/LightSideWorkbench/LightSide/tree/main](https://github.com/LightSideWorkbench/LightSide/tree/main). A LightSide manual, installation instructions, and tips for Mac and PC are included in the repo. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
+- Create a LightSide model. Either clone the git repository or download and install a zip file from the ***external*** LightSide repo [https://github.com/LightSideWorkbench/LightSide/tree/main](https://github.com/LightSideWorkbench/LightSide/tree/main). A LightSide manual, installation instructions, and tips for Mac and PC are included in the repo. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
 - Configure Bazaar. A worked example is included as agent `DCSSLightSideAgent`. **File names below are specified relative to that agent.**
   - Agent classpath: Add LightSideMessageAnnotator
   - File `runtime/properties/operation.properties`: Include the following line among the list of `operation.preprocessors`: `basilica2.side.listeners.LightSideMessageAnnotator,\`. 
