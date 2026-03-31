@@ -333,8 +333,8 @@ function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger)
     const roomNameAndNumber = roomName + teamNumber;
     let perspective = null;							// hardcoded for now
     let forum = "undefined";						// hardcoded for now
-	if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
-	// if (!(roomNameAndNumber in numUsers))
+	// if ( (!(roomNameAndNumber in numUsers)) || (clientID == 'ClientServer') )
+	if (!(roomNameAndNumber in numUsers))
 	{
 		numUsers[roomNameAndNumber] = 0;
 		console.log("setTeam_fromSocket: agentLaunch(" + roomName + "," + teamNumber + ")");
@@ -1416,7 +1416,16 @@ function logMessage(socket, content, type) {
 // io.set('log level', 1);
 // DEBUG=io*
 
+// DIAGNOSTIC: track how many times each socket ID has triggered 'connection'
+const _connectionCounts = {};
+
 io.sockets.on('connection', async (socket) => {
+	// DIAGNOSTIC: log repeated connections and listener counts to diagnose duplicate message delivery
+	_connectionCounts[socket.id] = (_connectionCounts[socket.id] || 0) + 1;
+	console.log(`[DIAG][CONNECT] socket.id=${socket.id} connection#=${_connectionCounts[socket.id]} room=${socket.room || '(none yet)'}`);
+	if (_connectionCounts[socket.id] > 1) {
+		console.warn(`[DIAG][CONNECT] *** REPEATED CONNECTION for socket.id=${socket.id} — this will stack listeners ***`);
+	}
 
 		// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 		// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
@@ -1498,6 +1507,8 @@ io.sockets.on('connection', async (socket) => {
 	    addUser(socket, room, username, temporary, id, perspective);
 	  //console.log("info", "Exit socket.on_adduser");
 	});
+	// DIAGNOSTIC: listener counts — should always be 1; higher values mean stacked listeners from repeated connections
+	console.log(`[DIAG][LISTENERS] socket.id=${socket.id} adduser=${socket.listenerCount('adduser')} sendchat=${socket.listenerCount('sendchat')} disconnect=${socket.listenerCount('disconnect')}`);
 
 
 	// when the client emits 'sendchat', this listens and executes
@@ -1695,7 +1706,10 @@ io.sockets.on('connection', async (socket) => {
 	});
 
 	// when the user disconnects... perform this
-	socket.on('disconnect', async () => {
+	socket.on('disconnect', async (reason) => {
+	// DIAGNOSTIC: log disconnect reason — transport-level reasons (e.g. 'transport close', 'ping timeout') 
+	// indicate the OS/Docker TCP stack is dropping connections and triggering reconnects that stack listeners
+	console.log(`[DIAG][DISCONNECT] socket.id=${socket.id} reason=${reason} room=${socket.room} username=${socket.username}`);
     try {
     	console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
     } catch (e) {
