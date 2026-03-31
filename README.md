@@ -189,9 +189,10 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
     - `port`: The port on which this LightSideMessageAnnotator will query a particular LightSide model. Bazaar tells LightSide which port to use when it starts LightSide.
       - More than one LightSideMessageAnnotator can be configured (with different names), querying different LightSide models which are listening on different ports.
       - Also, multiple Bazaar agents can automatically and simultaneously use a single LightSide model that is listening on a particular port.  
-  - There is more than one way to use LightSide annotations within the agent.
-    - Use the annotations just like annotations that are created from dictionaries. A toy example is provided for the first dialog entry in `runtime/dialogues/dialogues-example.xml`, in which responses are provided for both (1) LightSide classifications `DETECTED` and `NOTDETECTED` for a toy student attitude positivity detector, and (2) for dictionary-based classifications `AFFIRMATIVE` and `NEGATIVE`.
-    - Use the annotations in a Java-based listener. Example:
-      - File `src/basilica2/myagent/listeners/Register.java` is listed as a listener in file runtime/properties/operation.properties.
-        - This file references a table of LightSide prompts, which is provided in `runtime/dialogues/lightside-prompts.xml`. The table can list more than one prompt alternative for each possible classification. If more than one alternative is provided, the prompt will be selected at random from among the alternatives.
-        - The file checks for the existence of the LightSide classifications that it is listening for (in this case, `DETECTED` or `NOTDETECTED`), and if it finds such a classification, it proposes one of the associated prompts to return to the student.
+- Notes:   
+  - LightSide annotations can be used simultaneously with dictionary-based annotations.
+  - An agent may include multiple LightSide annotators.
+    - LightSide annotators running different models must run on different machines and/or ports.
+  - LightSide models do not retain state from invocation to invocation.
+  - Multiple agents may use a single LightSide model simultaneously.
+ 
