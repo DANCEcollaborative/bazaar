@@ -193,6 +193,7 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
   - LightSide annotations can be used simultaneously with dictionary-based annotations.
   - An agent may include multiple LightSide annotators. An example of this within **DCSSLightSideAgent** is `DCSSLightSideAgent/src/basilica2/myagent/listeners/AnotherAnnotator.java`. This example is essentially a duplicate of `LightSideMesssageAnnotator` with its own properties file (to specify a different LightSide model and port), although additional updates are possible. 
     - LightSide annotators running different models must run on different machines and/or ports.
+    - Make sure to configure the build properties of the additional LightSide annotator(s) the same as the original LightSideMessageAnnotator. In particular, make sure to include projects `LightSideMessageAnnotator` and `Genesis-Plugins` in the build path. 
   - LightSide models do not retain state from invocation to invocation.
   - Multiple agents may use a single LightSide model simultaneously.
  
