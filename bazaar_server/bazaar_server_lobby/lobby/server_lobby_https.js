@@ -97,6 +97,7 @@ const generateRequest = function(Url,lis_result_sourcedid,curScore){
 
 // app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require('express').json());
 
 // Adding content security policy
 app.use(function(req, res, next) {
@@ -235,6 +236,116 @@ app.post('/forward_oais_msg', async (req, res) => {
     io.sockets.in(req.query.room).emit('updatechat', req.query.username, parsedMsg);
  
     res.status(200).send("OAIS Message received");
+});
+
+
+// ---------------------------------------------------------------------------
+// CAMERA API ROUTES
+// iPhone camera.html POSTs frames here; they are relayed into the Socket.IO
+// room as multimodal updatechat messages so WebsocketChatClient receives them.
+// ---------------------------------------------------------------------------
+
+// How often the iPhone should capture and POST a frame (ms).
+const CAMERA_UPLOAD_INTERVAL_MS = 2000;
+
+// Per-room frame counter so Bazaar can detect dropped frames.
+const cameraFrameCounts = {};   // { [roomName]: number }
+
+// ---------------------------------------------------------------------------
+// GET /bazaar/api/camera/health
+// camera.js calls this once on startup to learn the upload interval.
+// ---------------------------------------------------------------------------
+app.get('/bazaar/api/camera/health', (req, res) => {
+    console.log('[CAMERA] GET /bazaar/api/camera/health');
+    res.json({ cameraUploadIntervalMs: CAMERA_UPLOAD_INTERVAL_MS });
+});
+
+
+// ---------------------------------------------------------------------------
+// POST /bazaar/api/camera/session
+// camera.js calls this when the user presses "Start camera".
+// Body: { sessionId: string }  — sessionId is the Socket.IO room name.
+// ---------------------------------------------------------------------------
+app.post('/bazaar/api/camera/session', (req, res) => {
+    const { sessionId } = req.body || {};
+
+    if (!sessionId || typeof sessionId !== 'string' || !sessionId.trim()) {
+        return res.status(400).json({ error: 'sessionId is required.' });
+    }
+
+    const room = sessionId.trim();
+
+    if (!(room in cameraFrameCounts)) {
+        cameraFrameCounts[room] = 0;
+    }
+
+    console.log(`[CAMERA] Session paired: room="${room}"`);
+    res.status(200).json({ ok: true, sessionId: room });
+});
+
+
+// ---------------------------------------------------------------------------
+// POST /bazaar/api/camera/frame
+// camera.js posts one JPEG frame here every CAMERA_UPLOAD_INTERVAL_MS ms.
+//
+// Body:
+//   {
+//     sessionId:   string,            // Socket.IO room name
+//     imageBase64: string,            // JPEG as base64 (no data: prefix)
+//     mimeType:    string,            // "image/jpeg"
+//     width:       number,
+//     height:      number,
+//     problemId:   string | undefined // optional hint for the agent
+//   }
+//
+// The frame is relayed into the room as a multimodal updatechat message.
+// WebsocketChatClient's existing .on("updatechat") listener receives it.
+// ---------------------------------------------------------------------------
+app.post('/bazaar/api/camera/frame', (req, res) => {
+    const { sessionId, problemId, imageBase64, mimeType, width, height } = req.body || {};
+
+    if (!sessionId || typeof sessionId !== 'string' || !sessionId.trim()) {
+        return res.status(400).json({ error: 'sessionId is required.' });
+    }
+    if (!imageBase64 || typeof imageBase64 !== 'string') {
+        return res.status(400).json({ error: 'imageBase64 is required.' });
+    }
+
+    const room = sessionId.trim();
+
+    if (!(room in cameraFrameCounts)) {
+        cameraFrameCounts[room] = 0;
+    }
+    cameraFrameCounts[room] += 1;
+    const frameCount = cameraFrameCounts[room];
+
+    // Multimodal message delimiters
+    const MM_SEP = ';%;';
+    const KV_SEP = ':::';
+
+    const parts = [
+        `multimodal${KV_SEP}true`,
+        `from${KV_SEP}CameraPhone`,
+        `to${KV_SEP}group`,
+        `frameCount${KV_SEP}${frameCount}`,
+        `width${KV_SEP}${width || 0}`,
+        `height${KV_SEP}${height || 0}`,
+        `mimeType${KV_SEP}${mimeType || 'image/jpeg'}`,
+        `cameraframe${KV_SEP}${imageBase64}`,
+    ];
+
+    if (problemId && String(problemId).trim()) {
+        parts.push(`problemId${KV_SEP}${String(problemId).trim()}`);
+    }
+
+    const multimodalMsg = parts.join(MM_SEP);
+
+    // Emit into the room. Bazaar's WebsocketChatClient receives this via
+    // its .on("updatechat") listener and will detect the cameraframe::: tag.
+    io.sockets.in(room).emit('updatechat', 'CameraPhone', multimodalMsg);
+
+    console.log(`[CAMERA] Frame ${frameCount} relayed to room "${room}" (${width}x${height})`);
+    res.status(200).json({ ok: true, frameCount });
 });
 
 
