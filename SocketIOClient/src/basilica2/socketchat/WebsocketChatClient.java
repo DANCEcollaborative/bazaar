@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import basilica2.agents.components.ChatClient;
+import basilica2.agents.events.ImageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
@@ -57,6 +58,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 //	private String multiModalDelim = ";%;";
 //	private String withinModeDelim = ":::";	
 	private String sendFilePrefix = "sendfile-";
+	private static final String CAMERA_FRAME_TAG = "cameraframe";   // NEW
 
 
 	boolean connected = false;
@@ -479,19 +481,79 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
+					String senderUsername = (String)args[0];
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
 					System.out.println("WebsocketChatClient, updatechat received message: " + message);
 			        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);	
-			        
-			        if (message.startsWith(sendFilePrefix)) {
+
+			        // -------------------------------------------------------
+			        // Detect camera frame messages before other checks.
+			        // A camera frame message is multimodal and contains the
+			        // cameraframe::: tag.  We parse all fields and broadcast
+			        // an ImageEvent so vision/OCR listeners can handle it.
+			        // -------------------------------------------------------
+			        if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
+
+			        	System.err.println("\n*** WebsocketChatClient, updatechat: cameraframe received in multimodal message ***\n");
+			        	String[] segments = message.split(
+			        		java.util.regex.Pattern.quote(MultiModalFilter.multiModalDelim));
+
+			        	String imageBase64 = "";
+			        	String mimeType    = "image/jpeg";
+			        	String problemId   = "";
+			        	String fromUser    = senderUsername;
+			        	int    width       = 0;
+			        	int    height      = 0;
+			        	int    frameCount  = 0;
+
+			        	for (String segment : segments) {
+			        		// Split on ::: but limit to 2 parts so base64 content
+			        		// (which may contain colons) is never split further.
+			        		String[] kv = segment.split(
+			        			java.util.regex.Pattern.quote(MultiModalFilter.withinModeDelim), 2);
+			        		if (kv.length < 2) continue;
+			        		String key   = kv[0].trim();
+			        		String value = kv[1];          // preserve base64 exactly
+
+			        		switch (key) {
+			        			case "from":        fromUser    = value;                   break;
+			        			case "mimeType":    mimeType    = value;                   break;
+			        			case "problemId":   problemId   = value;                   break;
+			        			case "cameraframe": imageBase64 = value;                   break;
+			        			case "width":
+			        				try { width  = Integer.parseInt(value.trim()); } catch (NumberFormatException ignored) {}
+			        				break;
+			        			case "height":
+			        				try { height = Integer.parseInt(value.trim()); } catch (NumberFormatException ignored) {}
+			        				break;
+			        			case "frameCount":
+			        				try { frameCount = Integer.parseInt(value.trim()); } catch (NumberFormatException ignored) {}
+			        				break;
+			        			default: break;
+			        		}
+			        	}
+
+			        	System.err.println("*** WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
+			        		+ " size=" + width + "x" + height + " from=" + fromUser);
+			        	log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
+			        		+ " size=" + width + "x" + height + " from=" + fromUser);
+
+			        	ImageEvent ie = new ImageEvent(WebsocketChatClient.this,
+			        		fromUser, imageBase64, mimeType, width, height, problemId, frameCount);
+			        	WebsocketChatClient.this.broadcast(ie);
+
+			        // -------------------------------------------------------
+			        // Existing path: sendfile prefix check, then normal chat.
+			        // -------------------------------------------------------
+			        } else if (message.startsWith(sendFilePrefix)) {
 			        	String filename = message.replace(sendFilePrefix,"");
 						System.out.println("WebsocketChatClient, updatechat with sendfile received: " + filename); 
 						log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat with sendfile received - filename = " + filename);					
 						FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 						FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
 						WebsocketChatClient.this.broadcast(fe);
-			        	
+
 			        } else {			        
 						MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
 						WebsocketChatClient.this.broadcast(me);
