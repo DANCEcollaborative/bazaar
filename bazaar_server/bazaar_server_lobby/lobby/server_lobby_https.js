@@ -97,7 +97,7 @@ const generateRequest = function(Url,lis_result_sourcedid,curScore){
 
 // app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(require('express').json());
+app.use(require('express').json({ limit: '10mb' }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
