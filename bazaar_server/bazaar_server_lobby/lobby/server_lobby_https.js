@@ -246,7 +246,7 @@ app.post('/forward_oais_msg', async (req, res) => {
 // ---------------------------------------------------------------------------
 
 // How often the iPhone should capture and POST a frame (ms).
-const CAMERA_UPLOAD_INTERVAL_MS = 2000;
+const CAMERA_UPLOAD_INTERVAL_MS = 15000;
 
 // Per-room frame counter so Bazaar can detect dropped frames.
 const cameraFrameCounts = {};   // { [roomName]: number }
@@ -301,6 +301,47 @@ app.post('/bazaar/api/camera/session', (req, res) => {
 // The frame is relayed into the room as a multimodal updatechat message.
 // WebsocketChatClient's existing .on("updatechat") listener receives it.
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Username the Java tutoring agent (WebsocketChatClient) connects to the
+// room as. CONFIRM THIS against your actual deployment — candidates already
+// special-cased elsewhere in this file include 'BazaarAgent', 'VirtualErland',
+// and 'MLAgent'. If unsure, watch the [CAMERA] diagnostic log below on a real
+// session: it lists every username currently in the room so you can see
+// which one is actually the agent.
+const CAMERA_FRAME_RECIPIENT_USERNAME = 'HomeworkHelper';
+
+// Emit a message to only the socket(s) in `room` whose username matches
+// CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
+// Falls back to logging a warning (and sending nothing) if no matching
+// socket is found, rather than silently blasting the image to everyone.
+function emitToAgentOnly(room, event, ...args) {
+    const socketIds = io.sockets.adapter.rooms.get(room);
+    if (!socketIds || socketIds.size === 0) {
+        console.warn(`[CAMERA] No sockets in room "${room}"; nothing to send to.`);
+        return;
+    }
+
+    const namesSeen = [];
+    let delivered = 0;
+    for (const socketId of socketIds) {
+        const s = io.sockets.sockets.get(socketId);
+        if (!s) continue;
+        namesSeen.push(s.username || '(no username)');
+        if (s.username === CAMERA_FRAME_RECIPIENT_USERNAME) {
+            s.emit(event, ...args);
+            delivered += 1;
+        }
+    }
+
+    if (delivered === 0) {
+        console.warn(
+            `[CAMERA] No socket in room "${room}" matched username ` +
+            `"${CAMERA_FRAME_RECIPIENT_USERNAME}". Usernames present: [${namesSeen.join(', ')}]`
+        );
+    }
+}
+// ---------------------------------------------------------------------------
+
 app.post('/bazaar/api/camera/frame', (req, res) => {
     const { sessionId, problemId, imageBase64, mimeType, width, height } = req.body || {};
 
@@ -340,9 +381,11 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
 
     const multimodalMsg = parts.join(MM_SEP);
 
-    // Emit into the room. Bazaar's WebsocketChatClient receives this via
-    // its .on("updatechat") listener and will detect the cameraframe::: tag.
-    io.sockets.in(room).emit('updatechat', 'CameraPhone', multimodalMsg);
+    // Emit only to the tutoring agent's socket. WebsocketChatClient's existing
+    // .on("updatechat") listener receives it and detects the cameraframe:::
+    // tag — but other room participants (human clients) no longer get the
+    // full base64 payload pushed to their browsers on every frame.
+    emitToAgentOnly(room, 'updatechat', 'CameraPhone', multimodalMsg);
 
     console.log(`[CAMERA] Frame ${frameCount} relayed to room "${room}" (${width}x${height})`);
     res.status(200).json({ ok: true, frameCount });
@@ -1474,7 +1517,8 @@ function loadHistory(socket, secret)
     }
     else if(!secret)
     {
-	io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
+      id = socket.id; 
+	    io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
     }
 //console.log("Exit loadHistory");
 }
