@@ -134,7 +134,7 @@ async function pairSession(sessionId) {
 async function loadCameraSettings() {
   const response = await fetch(`${API_BASE}/health`);
   const health = await response.json();
-  cameraUploadIntervalMs = Number(health.cameraUploadIntervalMs || 2000);
+  cameraUploadIntervalMs = Number(health.cameraUploadIntervalMs || 15000);
 }
 
 function connectSocket(sessionId) {
