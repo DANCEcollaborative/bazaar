@@ -30,7 +30,7 @@ let stream;
 let socket;
 let uploadTimer;
 let isUploading = false;
-let cameraUploadIntervalMs = 2000;
+let cameraUploadIntervalMs = 15000;
 
 if (sessionFromUrl) {
   sessionInput.value = sessionFromUrl;
