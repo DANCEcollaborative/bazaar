@@ -40,9 +40,20 @@ if (problemFromUrl) {
   problemInput.value = problemFromUrl;
 }
 
+// Start stays disabled until the user has actually entered a session id —
+// nothing in this file should attempt to pair a session or join a socket
+// room before that happens.
+startButton.disabled = true;
+updateStartButtonState();
+
+sessionInput.addEventListener("input", updateStartButtonState);
 startButton.addEventListener("click", startCamera);
 stopButton.addEventListener("click", stopCamera);
 window.addEventListener("pagehide", stopCamera);
+
+function updateStartButtonState() {
+  startButton.disabled = sessionInput.value.trim().length === 0;
+}
 
 async function startCamera() {
   const sessionId = sessionInput.value.trim();
@@ -142,7 +153,7 @@ function connectSocket(sessionId) {
     // meaningful for a phone-only client, so they're left null/empty.
     // If your other clients pass something different for id/perspective,
     // update this call to match exactly.
-    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, false, "", null);
+    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, "", null);
     addSystemFeedItem("Connected", `Joined room "${sessionId}" as ${CAMERA_USERNAME}.`);
   });
 
