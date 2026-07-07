@@ -484,8 +484,13 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String senderUsername = (String)args[0];
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
-					System.out.println("WebsocketChatClient, updatechat received message: " + message);
-			        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);	
+					if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
+						System.out.println("WebsocketChatClient, updatechat received camera pic in message");
+					}
+					else {
+						System.out.println("WebsocketChatClient, updatechat received message: " + message);
+				        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);
+					}	
 
 			        // -------------------------------------------------------
 			        // Detect camera frame messages before other checks.

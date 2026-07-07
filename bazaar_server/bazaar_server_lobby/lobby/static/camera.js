@@ -153,7 +153,7 @@ function connectSocket(sessionId) {
     // meaningful for a phone-only client, so they're left null/empty.
     // If your other clients pass something different for id/perspective,
     // update this call to match exactly.
-    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, "", null);
+    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, "1001", null);
     addSystemFeedItem("Connected", `Joined room "${sessionId}" as ${CAMERA_USERNAME}.`);
   });
 
