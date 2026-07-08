@@ -110,6 +110,7 @@ public class State
 		news.multimodalDontListenWhileSpeaking = s.multimodalDontListenWhileSpeaking;
 		news.multimodalDontListenEnd = s.multimodalDontListenEnd;
 		news.globalActiveListener = s.globalActiveListener;
+		news.currentImage = s.currentImage;
 
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
@@ -646,13 +647,19 @@ public class State
 	public String getGlobalActiveListener() {
 		return globalActiveListener;
 	}
-	
+
 	public void setCurrentImage (String image) {
-		currentImage = image;
+//		if (image == "") {
+//			System.err.println("State.java, setCurrentImage: Incoming image is null");
+//		}
+		this.currentImage = image;
 	}
 	
 	public String getCurrentImage() {
-		return currentImage; 
+//		if (this.currentImage == "") {
+//			System.err.println("State.java, getCurrentImage: this.currentImage is null");
+//		}
+		return this.currentImage; 
 	}
 	
 
