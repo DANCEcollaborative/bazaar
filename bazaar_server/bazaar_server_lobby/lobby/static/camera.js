@@ -30,7 +30,7 @@ let stream;
 let socket;
 let uploadTimer;
 let isUploading = false;
-let cameraUploadIntervalMs = 15000;
+let cameraUploadIntervalMs = 10000;
 
 if (sessionFromUrl) {
   sessionInput.value = sessionFromUrl;
@@ -134,7 +134,7 @@ async function pairSession(sessionId) {
 async function loadCameraSettings() {
   const response = await fetch(`${API_BASE}/health`);
   const health = await response.json();
-  cameraUploadIntervalMs = Number(health.cameraUploadIntervalMs || 15000);
+  cameraUploadIntervalMs = Number(health.cameraUploadIntervalMs || 10000);
 }
 
 function connectSocket(sessionId) {

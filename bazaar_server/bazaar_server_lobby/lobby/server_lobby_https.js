@@ -246,7 +246,7 @@ app.post('/forward_oais_msg', async (req, res) => {
 // ---------------------------------------------------------------------------
 
 // How often the iPhone should capture and POST a frame (ms).
-const CAMERA_UPLOAD_INTERVAL_MS = 15000;
+const CAMERA_UPLOAD_INTERVAL_MS = 10000;
 
 // Per-room frame counter so Bazaar can detect dropped frames.
 const cameraFrameCounts = {};   // { [roomName]: number }

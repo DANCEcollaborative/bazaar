@@ -88,6 +88,7 @@ public class State
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
 	public String globalActiveListener = "";
+	public String currentImage = "";
 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
@@ -644,6 +645,14 @@ public class State
 	
 	public String getGlobalActiveListener() {
 		return globalActiveListener;
+	}
+	
+	public void setCurrentImage (String image) {
+		currentImage = image;
+	}
+	
+	public String getCurrentImage() {
+		return currentImage; 
 	}
 	
 
