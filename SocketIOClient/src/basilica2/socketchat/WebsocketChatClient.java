@@ -484,7 +484,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String senderUsername = (String)args[0];
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
-					if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
+//					if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
+					if (message.contains(CAMERA_FRAME_TAG)) {
 						System.out.println("WebsocketChatClient, updatechat received camera pic in message");
 					}
 					else {
@@ -498,7 +499,8 @@ public class WebsocketChatClient extends Component implements ChatClient
 			        // cameraframe::: tag.  We parse all fields and broadcast
 			        // an ImageEvent so vision/OCR listeners can handle it.
 			        // -------------------------------------------------------
-			        if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
+//			        if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
+				    if (message.contains(CAMERA_FRAME_TAG)) {
 
 			        	System.err.println("\n*** WebsocketChatClient, updatechat: cameraframe received in multimodal message ***\n");
 			        	String[] segments = message.split(

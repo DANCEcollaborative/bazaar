@@ -1518,6 +1518,7 @@ function loadHistory(socket, secret)
     else if(!secret)
     {
       id = socket.id; 
+      let perspective = null;
 	    io.sockets.in(socket.room).emit('updatepresence', socket.username, 'join', id, perspective);
     }
 //console.log("Exit loadHistory");
