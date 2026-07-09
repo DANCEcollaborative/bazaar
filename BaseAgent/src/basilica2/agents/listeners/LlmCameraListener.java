@@ -508,6 +508,7 @@ public class LlmCameraListener extends BasilicaAdapter
 		    
 //		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
 		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
+		System.err.println("constructPayloadMultiParty returning payload: " + payload.toString()); 
 	    return payload.toString();
 	}
 
