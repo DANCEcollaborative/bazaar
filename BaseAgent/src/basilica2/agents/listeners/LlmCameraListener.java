@@ -123,15 +123,20 @@ public class LlmCameraListener extends BasilicaAdapter
 		}
 		else if (e instanceof ImageEvent)
 		{
+		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
 		    ImageEvent ie = (ImageEvent) e;
-		    System.err.println("LlmCameraListener preProcessEvent for " + ie);
 		    String b64 = ie.getImageBase64();
 		    if (b64 != null && !b64.isEmpty()) {
 		        latestImageBase64 = b64;
 		        latestImageMimeType = ie.getMimeType();
-		        System.err.println("LlmCameraListener: cached frame #" + ie.getFrameCount()
-		            + " (" + ie.getWidth() + "x" + ie.getHeight() + " " + latestImageMimeType + ")");
 		    }
+	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
+			try {
+				handleImageEvent(source, ie);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -172,21 +177,30 @@ public class LlmCameraListener extends BasilicaAdapter
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
+        System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-	    
-	    // Sending the message to OpenAI and receiving the response
-        System.err.println("LlmCameraListener handleMessageEvent -- sending to LLM");
+	    openAIrequestAndResponse(source,jsonPayload,false);
+	}
+	
+	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
+        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+	    String prompt = "none"; 
+	    String sender = ie.getSenderUsername(); 
+	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+	    openAIrequestAndResponse(source,jsonPayload,false);
+	}
+	
+	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem)  {
+        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        System.err.println("LlmCameraListener handleMessageEvent -- OpenAI response: " + response);
+        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
 	    if (! response.isEmpty()) {
 	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 	        source.pushEventProposal(newMe);
-	    }
-        
-
-	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, execute -- response from OpenAI: " + response); 
+	    }	
+	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, execute -- response from OpenAI: " + response); 	
 	}
 
 
@@ -255,30 +269,6 @@ public class LlmCameraListener extends BasilicaAdapter
 				            StateMemory.commitSharedState(s, agent);
 				            return responseText;
 				        }
-//			        } else if (this.model.equals("llama2")) {
-//			        	// Extract output array
-//			            JSONArray outputArray = jsonResponse.getJSONArray("output");
-//			            // Format output as a string
-//			            StringBuilder formattedOutput = new StringBuilder();
-//			            for (int i = 0; i < outputArray.length(); i++) {
-//			                formattedOutput.append(outputArray.getString(i));
-//			                if (i < outputArray.length() - 1) {
-//			                    formattedOutput.append(" ");
-//			                }
-//			            }
-//
-//			            String[] parseResponse = formattedOutput.toString().split(": ");
-//			            responseText = parseResponse[parseResponse.length - 1];
-//			            System.out.println("Extracted Response Text: " + responseText);
-//			            
-//			            State s = State.copy(StateMemory.getSharedState(agent));
-//		            	if  (responseText.contains("?")) {
-//			    	        s.setGlobalActiveListener(this.myName);
-//			    	    } else {
-//			            	s.setGlobalActiveListener("");
-//			            }
-//			            StateMemory.commitSharedState(s, agent);
-//			            return responseText;
 			        }
 			        return "";
 		        } 
@@ -399,22 +389,9 @@ public class LlmCameraListener extends BasilicaAdapter
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "";
-	    }
-	    
-	    
+	    }	    
 	}
 	
-	public void sendActivePromptToOpenAI(InputCoordinator source) {
-	    // Prepare the prompt based on the received message
-	    String jsonPayload = constructPayloadMultiParty(source, null, null);
-	    
-	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(source, jsonPayload, true);
-	    if (! response.isEmpty() ) {
-	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-	        source.pushEventProposal(newMe);
-	    }
-	}
 	
 	public String getAllMessages(InputCoordinator source, String prompt, String promptSender) {
 		String allMessages = "Conversation in the chatroom:\n\n";

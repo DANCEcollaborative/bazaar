@@ -89,6 +89,7 @@ public class State
 	private LocalDateTime multimodalDontListenEnd = null; 
 	public String globalActiveListener = "";
 	public String currentImage = "";
+	public String currentImageMimeType = "";
 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
@@ -649,20 +650,22 @@ public class State
 	}
 
 	public void setCurrentImage (String image) {
-//		if (image == "") {
-//			System.err.println("State.java, setCurrentImage: Incoming image is null");
-//		}
 		this.currentImage = image;
 	}
 	
 	public String getCurrentImage() {
-//		if (this.currentImage == "") {
-//			System.err.println("State.java, getCurrentImage: this.currentImage is null");
-//		}
 		return this.currentImage; 
 	}
-	
 
+	public void setCurrentImageMimeType (String imageMimeType) {
+		this.currentImageMimeType = imageMimeType;
+	}
+	
+	public String getCurrentImageMimeType() {
+		return this.currentImageMimeType; 
+	}
+	
+	
 
 	@Override
 	public String toString()

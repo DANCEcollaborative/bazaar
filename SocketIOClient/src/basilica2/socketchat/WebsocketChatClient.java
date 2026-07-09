@@ -604,6 +604,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 			    		State s = State.copy(StateMemory.getSharedState(agent));
 			    		String previousImage = s.getCurrentImage(); 
 			    		s.setCurrentImage(imageBase64);
+			    		s.setCurrentImageMimeType(mimeType);
 			    		StateMemory.commitSharedState(s, agent);
 			    		try {
 							boolean similar = almostIdentical(imageBase64,previousImage,0.1);
