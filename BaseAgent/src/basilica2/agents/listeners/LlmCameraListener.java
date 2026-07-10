@@ -196,10 +196,12 @@ public class LlmCameraListener extends BasilicaAdapter
         System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
         System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
-	    if (! response.isEmpty()) {
+        if (!"No response".equals(response)) {
 	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 	        source.pushEventProposal(newMe);
-	    }	
+	    } else {
+	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
+	    }
 	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, execute -- response from OpenAI: " + response); 	
 	}
 
@@ -246,31 +248,25 @@ public class LlmCameraListener extends BasilicaAdapter
 			        System.err.println("@@@@@@@@@raw response: " + response.toString());
 			        // Parse the raw response into a JSONObject
 			        JSONObject jsonResponse = new JSONObject(response.toString());
-			        String responseText;
-			        if (this.model.equals("openai")) {
-			        	//Extract the choices array from the response
-				        JSONArray choices = jsonResponse.getJSONArray("choices");
-				        System.out.println(response.toString());
-				        // Check if there are choices available
-				        if (choices.length() > 0) {
-				            // Extract the text from the first choice
-				            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
-				            responseText = responseMessage.getString("content");
-				            String[] parseResponse = responseText.split(": ");
-				            responseText = parseResponse[parseResponse.length - 1];
-				            System.out.println("Extracted Response Text: " + responseText);
-				            
-				            State s = State.copy(StateMemory.getSharedState(agent));
-			            	if  (responseText.contains("?")) {
-				    	        s.setGlobalActiveListener(this.myName);
-				    	    } else {
-				            	s.setGlobalActiveListener("");
-				            }
-				            StateMemory.commitSharedState(s, agent);
-				            return responseText;
-				        }
+			        
+			        JSONArray choices = jsonResponse.getJSONArray("choices");
+			        JSONObject firstChoice = choices.getJSONObject(0);
+			        JSONObject message = firstChoice.getJSONObject("message");
+			        String contentString = message.getString("content");
+
+			        // Step 3: the "content" field is itself a JSON string -> parse again
+			        JSONObject content = new JSONObject(contentString);
+
+			        // Step 4: pull out the two fields
+			        String responseType = content.getString("response_type");
+			        String reply = content.getString("reply");			        
+			        
+			        if ("No response".equals(responseType)) {
+			        	return responseType;
+			        } else {
+			        	return reply; 
 			        }
-			        return "";
+//			        return reply; 
 		        } 
 		        else if (responseCode == HttpURLConnection.HTTP_CREATED) {
 		            // Read input stream
@@ -506,9 +502,8 @@ public class LlmCameraListener extends BasilicaAdapter
 			}
 		}
 		    
-//		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
+//		System.err.println("constructPayloadMultiParty returning payload: " + payload.toString()); 
 		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
-		System.err.println("constructPayloadMultiParty returning payload: " + payload.toString()); 
 	    return payload.toString();
 	}
 
