@@ -88,6 +88,8 @@ public class State
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
 	public String globalActiveListener = "";
+	public String currentImage = "";
+	public String currentImageMimeType = "";
 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
@@ -109,6 +111,7 @@ public class State
 		news.multimodalDontListenWhileSpeaking = s.multimodalDontListenWhileSpeaking;
 		news.multimodalDontListenEnd = s.multimodalDontListenEnd;
 		news.globalActiveListener = s.globalActiveListener;
+		news.currentImage = s.currentImage;
 
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
@@ -645,8 +648,24 @@ public class State
 	public String getGlobalActiveListener() {
 		return globalActiveListener;
 	}
-	
 
+	public void setCurrentImage (String image) {
+		this.currentImage = image;
+	}
+	
+	public String getCurrentImage() {
+		return this.currentImage; 
+	}
+
+	public void setCurrentImageMimeType (String imageMimeType) {
+		this.currentImageMimeType = imageMimeType;
+	}
+	
+	public String getCurrentImageMimeType() {
+		return this.currentImageMimeType; 
+	}
+	
+	
 
 	@Override
 	public String toString()

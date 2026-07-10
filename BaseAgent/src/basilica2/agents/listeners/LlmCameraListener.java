@@ -14,6 +14,7 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.ImageEvent;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -34,7 +35,7 @@ import org.json.JSONException;
 import java.time.Instant;
 import java.time.Duration;
 
-public class LlmChatListener extends BasilicaAdapter
+public class LlmCameraListener extends BasilicaAdapter
 {
 	public String host;
 	public String port; 
@@ -54,8 +55,10 @@ public class LlmChatListener extends BasilicaAdapter
     public List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
+    private volatile String latestImageBase64 = null; // most recent camera frame (already base64-encoded)
+    private volatile String latestImageMimeType = "image/jpeg"; // MIME type of the latest frame
 
-	public LlmChatListener(Agent a)
+	public LlmCameraListener(Agent a)
 	{
 		super(a);
 		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
@@ -101,13 +104,13 @@ public class LlmChatListener extends BasilicaAdapter
 	{
 		if (e instanceof MessageEvent)
 		{
-	        System.err.println("LlmChatListener preProcessEvent for MessageEvent");
+	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
 				if (proceed) {
-			        System.err.println("LlmChatListener preProcessEvent: calling handleMessageEvent");
+			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -118,26 +121,43 @@ public class LlmChatListener extends BasilicaAdapter
 				start = finish;
 			}
 		}
+		else if (e instanceof ImageEvent)
+		{
+		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+		    ImageEvent ie = (ImageEvent) e;
+		    String b64 = ie.getImageBase64();
+		    if (b64 != null && !b64.isEmpty()) {
+		        latestImageBase64 = b64;
+		        latestImageMimeType = ie.getMimeType();
+		    }
+	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
+			try {
+				handleImageEvent(source, ie);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	public boolean messageFilter(MessageEvent e) {
 		String messageText = e.getText();
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
-        System.err.println("LlmChatListener messageFilter -- this.myName: " + this.myName);
-        System.err.println("LlmChatListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
+        System.err.println("LlmCameraListener messageFilter -- this.myName: " + this.myName);
+        System.err.println("LlmCameraListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
 		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
-	        System.err.println("LlmChatListener messageFilter -- name match!");
+	        System.err.println("LlmCameraListener messageFilter -- name match!");
 			return true;
 		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
-	        System.err.println("LlmChatListener messageFilter -- name match!");
+	        System.err.println("LlmCameraListener messageFilter -- name match!");
 			return true;
 		}
 		List<String> topicWords = getTopicWords(messageText);
 		if (!topicWords.isEmpty()) {
-			System.err.println("LlmChatListener messageFilter -- topic match!");
+			System.err.println("LlmCameraListener messageFilter -- topic match!");
 			return true;
 		} else {
-			System.err.println("LlmChatListenerr messageFilter -- NO topic match");
+			System.err.println("LlmCameraListenerr messageFilter -- NO topic match");
 			return false;
 		}
 	}
@@ -157,21 +177,32 @@ public class LlmChatListener extends BasilicaAdapter
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
+        System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-        System.err.println("LlmChatListener handleMessageEvent -- jsonPayload: " + jsonPayload);
-	    
-	    // Sending the message to OpenAI and receiving the response
+	    openAIrequestAndResponse(source,jsonPayload,false);
+	}
+	
+	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
+        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+	    String prompt = "none"; 
+	    String sender = ie.getSenderUsername(); 
+	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+	    openAIrequestAndResponse(source,jsonPayload,false);
+	}
+	
+	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem)  {
+        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        System.err.println("LlmChatListener handleMessageEvent -- OpenAI response: " + response);
-	    if (! response.isEmpty()) {
+        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
+        if (!"No response".equals(response)) {
 	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 	        source.pushEventProposal(newMe);
+	    } else {
+	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
 	    }
-        
-
-	    Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response); 
+	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, execute -- response from OpenAI: " + response); 	
 	}
 
 
@@ -217,55 +248,25 @@ public class LlmChatListener extends BasilicaAdapter
 			        System.err.println("@@@@@@@@@raw response: " + response.toString());
 			        // Parse the raw response into a JSONObject
 			        JSONObject jsonResponse = new JSONObject(response.toString());
-			        String responseText;
-			        if (this.model.equals("openai")) {
-			        	//Extract the choices array from the response
-				        JSONArray choices = jsonResponse.getJSONArray("choices");
-				        System.out.println(response.toString());
-				        // Check if there are choices available
-				        if (choices.length() > 0) {
-				            // Extract the text from the first choice
-				            JSONObject responseMessage = choices.getJSONObject(0).getJSONObject("message");
-				            responseText = responseMessage.getString("content");
-				            String[] parseResponse = responseText.split(": ");
-				            responseText = parseResponse[parseResponse.length - 1];
-				            System.out.println("Extracted Response Text: " + responseText);
-				            
-				            State s = State.copy(StateMemory.getSharedState(agent));
-			            	if  (responseText.contains("?")) {
-				    	        s.setGlobalActiveListener(this.myName);
-				    	    } else {
-				            	s.setGlobalActiveListener("");
-				            }
-				            StateMemory.commitSharedState(s, agent);
-				            return responseText;
-				        }
-//			        } else if (this.model.equals("llama2")) {
-//			        	// Extract output array
-//			            JSONArray outputArray = jsonResponse.getJSONArray("output");
-//			            // Format output as a string
-//			            StringBuilder formattedOutput = new StringBuilder();
-//			            for (int i = 0; i < outputArray.length(); i++) {
-//			                formattedOutput.append(outputArray.getString(i));
-//			                if (i < outputArray.length() - 1) {
-//			                    formattedOutput.append(" ");
-//			                }
-//			            }
-//
-//			            String[] parseResponse = formattedOutput.toString().split(": ");
-//			            responseText = parseResponse[parseResponse.length - 1];
-//			            System.out.println("Extracted Response Text: " + responseText);
-//			            
-//			            State s = State.copy(StateMemory.getSharedState(agent));
-//		            	if  (responseText.contains("?")) {
-//			    	        s.setGlobalActiveListener(this.myName);
-//			    	    } else {
-//			            	s.setGlobalActiveListener("");
-//			            }
-//			            StateMemory.commitSharedState(s, agent);
-//			            return responseText;
+			        
+			        JSONArray choices = jsonResponse.getJSONArray("choices");
+			        JSONObject firstChoice = choices.getJSONObject(0);
+			        JSONObject message = firstChoice.getJSONObject("message");
+			        String contentString = message.getString("content");
+
+			        // Step 3: the "content" field is itself a JSON string -> parse again
+			        JSONObject content = new JSONObject(contentString);
+
+			        // Step 4: pull out the two fields
+			        String responseType = content.getString("response_type");
+			        String reply = content.getString("reply");			        
+			        
+			        if ("No response".equals(responseType)) {
+			        	return responseType;
+			        } else {
+			        	return reply; 
 			        }
-			        return "";
+//			        return reply; 
 		        } 
 		        else if (responseCode == HttpURLConnection.HTTP_CREATED) {
 		            // Read input stream
@@ -384,22 +385,9 @@ public class LlmChatListener extends BasilicaAdapter
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "";
-	    }
-	    
-	    
+	    }	    
 	}
 	
-	public void sendActivePromptToOpenAI(InputCoordinator source) {
-	    // Prepare the prompt based on the received message
-	    String jsonPayload = constructPayloadMultiParty(source, null, null);
-	    
-	    // Sending the message to OpenAI and receiving the response
-	    String response = sendToOpenAI(source, jsonPayload, true);
-	    if (! response.isEmpty() ) {
-	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-	        source.pushEventProposal(newMe);
-	    }
-	}
 	
 	public String getAllMessages(InputCoordinator source, String prompt, String promptSender) {
 		String allMessages = "Conversation in the chatroom:\n\n";
@@ -458,7 +446,31 @@ public class LlmChatListener extends BasilicaAdapter
 		    
 		    try {
 				allPromptMessage.put("role", "user");
-				allPromptMessage.put("content", allMessages);
+
+				String currentImage = latestImageBase64; // snapshot – may be null
+				if (currentImage != null) {
+				    // Vision payload: content is an array of image + text parts
+				    JSONArray contentParts = new JSONArray();
+
+				    JSONObject imagePart = new JSONObject();
+				    imagePart.put("type", "image_url");
+				    JSONObject imageUrl = new JSONObject();
+				    imageUrl.put("url", "data:" + latestImageMimeType + ";base64," + currentImage);
+				    imagePart.put("image_url", imageUrl);
+				    contentParts.put(imagePart);
+
+				    JSONObject textPart = new JSONObject();
+				    textPart.put("type", "text");
+				    textPart.put("text", allMessages);
+				    contentParts.put(textPart);
+
+				    allPromptMessage.put("content", contentParts);
+				    System.err.println("LlmCameraListener: sending message with image frame attached");
+				} else {
+				    // No image yet – plain text as before
+				    allPromptMessage.put("content", allMessages);
+				}
+
 				messages.put(allPromptMessage);
 				payload.put("messages", messages);
 			} catch (JSONException e) {
@@ -490,7 +502,8 @@ public class LlmChatListener extends BasilicaAdapter
 			}
 		}
 		    
-		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
+//		System.err.println("constructPayloadMultiParty returning payload: " + payload.toString()); 
+		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
 	    return payload.toString();
 	}
 
@@ -500,7 +513,6 @@ public class LlmChatListener extends BasilicaAdapter
 	@Override
 	public void processEvent(InputCoordinator source, Event e) {
 		// TODO Auto-generated method stub
-
 	}	
 	
 	/**
@@ -509,7 +521,7 @@ public class LlmChatListener extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[]{MessageEvent.class};
+		return new Class[] {MessageEvent.class, ImageEvent.class};
 	}
 
 

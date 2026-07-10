@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bazaar Camera</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="camera-body">
+    <main class="camera-shell">
+      <section class="camera-stage">
+        <video id="cameraPreview" autoplay playsinline muted></video>
+        <canvas id="frameCanvas" hidden></canvas>
+        <div id="cameraFallback" class="camera-fallback" hidden>
+          <h1>Camera unavailable</h1>
+          <p>Open this page in Safari over HTTPS, then allow camera access.</p>
+        </div>
+      </section>
+
+      <section class="camera-controls">
+        <div>
+          <p class="eyebrow">Bazaar camera</p>
+          <h1>Paper view</h1>
+        </div>
+
+        <label for="sessionInput">Session id</label>
+        <input id="sessionInput" autocomplete="off" placeholder="Shown on website" />
+
+        <label for="problemInput">Problem id optional</label>
+        <input id="problemInput" autocomplete="off" placeholder="Leave blank for next unsolved" />
+
+        <div class="camera-actions">
+          <button id="startButton" type="button">Start camera</button>
+          <button id="stopButton" type="button" class="secondary-action" disabled>Stop</button>
+        </div>
+
+        <p id="cameraStatus" class="camera-status">Enter the session id from the website.</p>
+
+        <div id="mobileFeed" class="feed" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <!--
+      Socket.IO client, auto-served by the Bazaar Node server itself at
+      /bazsocket/socket.io.js (io mounted with {path: '/bazsocket'} in
+      server_lobby_https.js). No LearnVia/port 3500 involvement.
+    -->
+    <script src="/bazsocket/socket.io.js"></script>
+    <script src="camera.js"></script>
+  </body>
+</html>
