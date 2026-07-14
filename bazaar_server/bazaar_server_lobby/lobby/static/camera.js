@@ -150,7 +150,7 @@ function connectSocket(sessionId) {
     // Same join call every regular Bazaar web client makes. `temporary`
     // matches the non-snoop default (false, i.e. this join gets logged
     // like any other room participant).
-    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, "1001", null);
+    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, problemInput.value.trim(), null);
     addSystemFeedItem("Connected", `Joined room "${sessionId}" as ${CAMERA_USERNAME}.`);
   });
 
