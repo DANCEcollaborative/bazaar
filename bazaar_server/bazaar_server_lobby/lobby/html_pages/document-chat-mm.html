@@ -266,7 +266,17 @@ ul.tab li a:focus, .active {
         // call the server-side function 'adduser' and send one parameter (value of prompt)
 	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
 
-        live_chat = groups[1] == "chat";
+        // Reached via e.g. /bazaar/login?roomName=...&html=document-chat-mm,
+        // location.pathname is "/bazaar/login" -- it never contains
+        // "/chat", "/observe", or "/code", so `groups` is null here and
+        // `groups[1]` used to throw, aborting this whole handler (chat's
+        // adduser/snoop AND the Shared Document tab below it never ran).
+        // Guard it so chat degrades to the pre-existing 'Here'/'You'/'NA'
+        // defaults instead of crashing. Per design, chat's room/user/id
+        // still come ONLY from the path when a path match exists -- this
+        // does not borrow roomName/roomId/username/id from the query
+        // string (those are for the Etherpad tab only, further below).
+        live_chat = groups ? groups[1] == "chat" : false;
 
         if(live_chat)
         {
