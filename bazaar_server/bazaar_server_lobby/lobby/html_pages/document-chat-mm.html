@@ -64,9 +64,6 @@ ul.tab li a:focus, .active {
     var windowHasFocus = true;
     var unreadMessages = 0;
     var lastDate = null;
-    var spreadsheet = /spreadsheet=([a-zA-Z0-9_\\-]+)/g.exec(location.search);
-    //if (!spreadsheet) alert("Spreadsheet is not loaded properly: "+location.search);
-    //else spreadsheet = spreadsheet[1];
 
     var entityMap = {
         "&": "&amp;",
@@ -334,8 +331,6 @@ ul.tab li a:focus, .active {
         document.getElementById('jointResponse').src =
             "https://bree.lti.cs.cmu.edu/pad/p/" + encodeURIComponent(epPadId) +
             "?showChat=false&noColors=false&userName=" + encodeURIComponent(epAuthorName);
-
-        document.getElementById('mayoralLetter').src =  "https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/lobby/static/mayoralLetter.pdf";
         });
 
 
@@ -617,42 +612,18 @@ ul.tab li a:focus, .active {
 <div id="everything">
 
     <div id="image_column">
-<!-- Edits by @sreechas for multiple tabs -->
+<!-- Single remaining tab: Shared Document (Etherpad). Shown open by
+     default -- no click needed -- since it's now the only tab. The
+     tablinks/tabcontent/openTab scaffolding is kept minimal in case more
+     tabs get added back later; delete openTab and the <ul class="tab">
+     wrapper too if that's not needed. -->
     <ul class="tab">
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Temperature Change')">Temperature Change Data</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Carbon Dioxide')">Carbon Dioxide Data</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Fossil Fuels')">Fossil Fuels Data</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Mayoral Letter')">Mayoral Letter</a></li>
-    <li><a href="#" class="tablinks" onclick="openTab(event, 'Shared Document')">Shared Document</a></li>
+    <li><a href="#" class="tablinks active" onclick="openTab(event, 'Shared Document')">Shared Document</a></li>
     </ul>
 
-   <div id="Temperature Change" class="tabcontent">
+   <div id="Shared Document" class="tabcontent" style="display:block">
       <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQrvkUC8Gf4tvRQWRt6GFH1NuOK9kT67C-i8FtbS0NIFxvq2B_X1H4bilDnAP_kqjOtRY1tQCeGdLKZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-   <div id="Carbon Dioxide" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable">: <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSWD_LpZKbl_gyNIvqL1TVDlJwKg2yHLSU1ZmyePYFjrs8EH9nwYHB09_S5OVbfXuoxeHBr6zFd3XCZ/pubhtml?gid=1384093822&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-   <div id="Fossil Fuels" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRj42F52Ti9D6pynGzVDFN-QBTrk_ewDgDkyaPelxa2kx9zdB5SqU3fqiEreEIDSnecXskE4pTZu2n/pubhtml?gid=1983851117&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%"></iframe></div>
-      </div>
-    </div>
-
-   <div id="Mayoral Letter" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><embed id= "mayoralLetter" width="100%" height="100%"></embed></div>
-      </div>
-    </div>
-
-   <div id="Shared Document" class="tabcontent">
-      <div id="image_container" class="container">
-        <div id="images" class="scrollable"><iframe id= "jointResponse" width="100%" height="100%"></iframe></div>
+        <div id="sharedDocumentContainer" class="scrollable"><iframe id= "jointResponse" width="100%" height="100%"></iframe></div>
       </div>
     </div>
 
@@ -669,10 +640,17 @@ ul.tab li a:focus, .active {
     }
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
-    if (cityName=="Spreadsheet") document.getElementById("spreadsheet").src = "https://docs.google.com/spreadsheets/d/"+spreadsheet;
     }
     </script>
 <!-- End of tab edits -->
+
+    <!-- Chat's image/HTML-sharing feature (appendImage/appendHTML, fed by
+         the updateimage/updatehtml/dump_history socket events) targets
+         #images. It used to silently reuse whichever removed tab's #images
+         div came first in the DOM; kept as its own hidden container now
+         that the Etherpad pane above uses a differently-named id, so
+         sharing still works even though there's no tab exposing it. -->
+    <div id="images" style="display:none"></div>
 
     </div>
 
