@@ -295,36 +295,19 @@ ul.tab li a:focus, .active {
         $('#roomname').text(room);
 
         // ---- Shared Document (Etherpad) tab -----------------------------
-        // Identifiers for the shared pad come from THIS PAGE'S OWN query
-        // string -- e.g. when reached via
-        //   https://bree.lti.cs.cmu.edu/bazaar/login?roomName=climatechange&roomId=75001&id=2&username=Robbie&html=document-chat-mm
-        // that's roomName=climatechange, roomId=75001, username=Robbie, id=2.
-        // These are DELIBERATELY separate from the room/user/id variables
-        // just above (those come from the URL *path* and only drive the
-        // live-chat socket's 'adduser'/'snoop' calls).
-        //
-        //   (1) etherpad pad ("session") id  = roomName + roomId
-        //       -> everyone opening this room's link lands on the same pad.
-        //   (2) etherpad per-user identity   = username + id
-        //       -> passed as the `userName` embed param so each participant
-        //          is labelled distinctly inside the pad's author list/cursor.
-        //
-        // Falls back to the old "j" + room / user scheme if roomName/roomId
-        // aren't present, so existing links without them keep working.
-        // var epRoomName = urlParams.get('roomName');
-        // var epRoomId   = urlParams.get('roomId');
-        // var epUsername = urlParams.get('username');
-        // var epUserId   = urlParams.get('id');
-
-        // var epPadId = (epRoomName || epRoomId)
-        //     ? (epRoomName || '') + (epRoomId || '')
-        //     : ("j" + room);
-        // var epAuthorName = (epUsername || epUserId)
-        //     ? (epUsername || '') + (epUserId || '')
-        //     : user;
-
-        var epPadId = room; 
-        var epAuthorName = user + id; 
+        // Pad id = room, author label = user + id -- the SAME room/user/id
+        // already resolved above from the URL path and used for the live-chat
+        // socket's 'adduser'/'snoop' calls. This is a plain (non-group,
+        // non-session) Etherpad pad: it auto-creates on first write and needs
+        // no cookie, so keying it off `room` directly is enough for every
+        // visitor to land on the same document -- no separate identifier
+        // scheme needed. LlmDocumentListener.java (the bot side) targets
+        // this exact same padID (= Agent.getRoomName(), which is this same
+        // "room" value) for the same reason: one canonical identifier,
+        // shared by the chat socket, the pad, and the bot, instead of two
+        // schemes that can drift out of sync.
+        var epPadId = room;
+        var epAuthorName = user + id;
 
         // Routed through the Apache /pad/ reverse proxy (bazaar_server_lobby.conf),
         // which already terminates TLS on 443 and forwards to Etherpad's

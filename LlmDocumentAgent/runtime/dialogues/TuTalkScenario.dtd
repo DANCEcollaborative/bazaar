@@ -1,0 +1,243 @@
+<!ELEMENT scenario (configuration,transitions,concepts,script)>
+<!ATTLIST scenario
+  scenario-name NMTOKEN #REQUIRED
+  default-language NMTOKEN #REQUIRED>
+
+<!-- MODULE CONFIGURATION -->
+<!ELEMENT configuration (module*, dialogue-history?,dialogue-manager?,input?,
+                         logger?,nlg?,nlu?,normalizer?,output?,
+                         session-manager?,student-model?,
+                         other-module*)>
+<!ELEMENT dialogue-history EMPTY>
+<!ATTLIST dialogue-history
+  file NMTOKEN "DialogueHistory.py">
+
+
+ <!ELEMENT module (param*)>
+<!ATTLIST module
+  name NMTOKEN #REQUIRED
+  kind NMTOKEN #REQUIRED
+  classname NMTOKENS #IMPLIED>
+  
+
+<!-- accept-initiative = no means the system does not accept any
+     student initiative, yes means it does accept student initiative -->
+<!-- remind = should allow something to be repeated to bring it back
+     into focus -->
+<!ELEMENT dialogue-manager EMPTY>
+<!ATTLIST dialogue-manager
+  file NMTOKEN "DialogueManager.py"
+  accept-initiative (yes|no) "no"
+  remind (yes|no) "yes">
+
+
+<!ELEMENT input EMPTY>
+<!ATTLIST input
+  file NMTOKEN "Input.py">
+
+<!ELEMENT logger EMPTY>
+<!ATTLIST logger
+  file NMTOKEN "Logger.py">
+
+<!-- acknowledgement = indicates level at which acknowledgements 
+     should be made.
+       agree = only acknowledge utterances that the system can assess whether
+               it agrees or disagrees with.
+       understand = acknowledge that system understood (but not 
+              whether agree/disagree with that content)
+       hear = acknowledge whenever system believes it got a clear auditory input.
+       none = disable acknowledgements
+     topic-transition = indicates whether system should provide
+     unscripted topic transitions or not.  Could be that the dialogue
+     author wants to do his own.
+-->
+<!ELEMENT nlg EMPTY>
+<!ATTLIST nlg
+  file NMTOKEN "NLG.py"
+  acknowledgement (agree|understand|hear|none) "agree"
+  topic-transition (yes|no) "yes">
+  
+<!ELEMENT nlu EMPTY>
+<!ATTLIST nlu
+  file NMTOKEN "NLU.py"
+  match-threshold NMTOKEN "0.8">
+
+<!ELEMENT normalizer EMPTY>
+<!ATTLIST normalizer
+  file NMTOKEN "Normalizer.py">
+
+<!ELEMENT output EMPTY>
+<!ATTLIST output
+  file NMTOKEN "Output.py">
+
+<!ELEMENT session-manager EMPTY>
+<!ATTLIST session-manager
+  file NMTOKEN "SessionManager.py">
+
+<!-- selection-policy applies if there are multiple choices for a goal.
+       first =  pick first branch in list.
+       least-difficult = pick least difficult branch first.
+       most-difficult = pick most difficult branch first -->
+<!-- phrase-difficulty-rankings = a list of numbers or symbols from least to
+       most difficult, e.g. ynq whq whyq howq, for different ways to express
+       a concept (typically a tutor question) -->
+<!-- phrase-difficulty-neutral = sa number or symbol to use after coverage
+       achieved e.g. inform -->
+<!-- recipe-difficulty-rankings = a list of numbers or symbols from least to
+       most difficult, e.g. 1 2 3 4 5 -->
+<!-- recipe-difficulty-neutral = number or symbol to use after coverage
+       achieved e.g. 0 -->
+<!-- coverage-threshold applies only for selection-policy of least and
+       most-difficult to guide when to move up or down the scale of difficulty.
+       Coverage means how much of a goal the student was right about.
+       coverage-threshold helps guide selection-policy -->
+<!-- recency-threshold = how many seconds should elapse before assume
+       something is no longer in focus/memory of hearer -->
+<!-- topic-depth-threshold = how many topics can push to before may cause 
+       to forget a topic-->
+<!-- optional-step-policy is the policy for deciding when to skip a
+       step that is marked as optional. All = consider recency and 
+       coverage, recency = consider just recency, once = skip if it 
+       ever is in the dialogue history, coverage = consider coverage
+       only, and none = never skip an optional step -->
+<!-- repeat-policy applies to retries on goals the student has
+       already been exposed to.
+       once = if branch has been done, then it should
+              never be selected again for the given user.
+       always = disregard previous usage in decision making
+       covered = allow to repeat a branch if all other branches
+	               have been tried at least once -->
+<!ELEMENT student-model EMPTY>
+<!ATTLIST student-model
+  file NMTOKEN "StudentModel.py"
+  selection-policy (first|least-difficult|most-difficult) "first"
+  phrase-difficulty-rankings NMTOKENS "ynq whq whyq howq"
+  phrase-difficulty-neutral NMTOKEN "inform"
+  recipe-difficulty-rankings NMTOKENS "1 2 3 4 5"
+  recipe-difficulty-neutral NMTOKEN "0"
+  coverage-threshold NMTOKEN "0.8"
+  recency-threshold NMTOKEN "20"
+  topic-depth-threshold NMTOKEN "4"
+  optional-step-policy (all|recency|once|coverage|none) "all"
+  repeat-policy (always|once|covered) "once">
+
+<!ELEMENT other-module EMPTY>
+<!ATTLIST other-module
+  name NMTOKEN #REQUIRED
+  file NMTOKEN #REQUIRED
+  settings NMTOKENS #IMPLIED>
+  
+
+
+<!-- TRANSITION PHRASES FOR ACKNOWLEDGEMENTS IN GENERATION MODULE -->
+<!ELEMENT transitions (transition+)>
+<!ELEMENT transition (tphrase+)>
+<!ATTLIST transition 
+   ack-type (agree|understand|hear|none) "none"
+   ack-polarity (pos|neg) "pos"
+   topic-status (new|interrupt|repeat|refresh|resume|finish|continue) "continue"
+   floor-status (concede|grab|neutral) "grab"
+   scope (immediate|nonimmediate|any) "any">
+<!ELEMENT tphrase (#PCDATA)>
+<!ATTLIST tphrase
+   lang NMTOKEN #IMPLIED>
+ 
+<!-- CONCEPT LIST -->
+<!ELEMENT concepts (concept+)>
+<!ELEMENT concept (phrase*)>
+<!-- transition indicates whether a concept is a turn transition.  If 
+     it is then signals to the NLG module that should override any 
+     automatic transitions that it might issue -->
+<!ATTLIST concept label NMTOKEN #REQUIRED
+                  transition (yes|no) "no"
+                  model NMTOKEN #IMPLIED
+                  type NMTOKEN #IMPLIED>
+<!ELEMENT phrase (#PCDATA)>
+<!-- difficulty is a label or number that indicates the level
+     of difficulty in how the concept is expressed relative to the student -->
+<!-- lang is the natural language used in the concept (e.g. English) -->
+<!-- flag settings are the special NLU services that need to be
+     applied to interpret the concept (e.g. emoticon interpreter vs just
+     straight NLU interpreter) -->
+<!-- minimal indicates whether the phrase is a full phrase that can be
+     used to say something to the student (no) or is a minimal phrase
+     that captures a lot of different phrases (yes) and should not be
+     used to say something to the student -->
+<!ATTLIST phrase
+  difficulty NMTOKEN #IMPLIED
+  lang NMTOKEN #IMPLIED
+  flag NMTOKEN #IMPLIED
+  minimal (yes|no) "no">
+
+<!-- difficulty is a label or number that indicates the difficulty level 
+     of a goal -->
+<!-- retry-until-cover is the conditions upon which to terminate a 
+     retry of the goal.  The goal will be retried until all the 
+     conditions indicated are met.  The only applicable attribute values 
+     are the sem labels used in the script.  Warning: there is no
+     validation of the conditions relative to the script so if a label
+     does not appear in the script then a infinite loop may result.
+     If no retry-until-cover condition is provided then the goal will
+     not be retried -->
+<!-- DIALOGUE SCRIPT -->
+<!ELEMENT script (goal+)>
+<!ELEMENT goal (step+)>
+<!ATTLIST goal
+  name NMTOKEN #REQUIRED
+  difficulty NMTOKEN #IMPLIED
+  sem NMTOKEN #IMPLIED
+  retry-until-cover NMTOKENS #IMPLIED>
+     
+<!-- presence of answer element indicates that this initiation
+     expects a multi-part response.  Signals to do additional
+     processing -->
+<!ELEMENT step ((initiation,response*) | subgoal)>
+<!-- The attribute value of "said-once" for optional means that if
+     the sem tag associated with the initiation was ever said then
+     don't repeat it.  The attribute value of "yes" considers
+     recency (see recency-threshold attribute in dialogue manager)
+     while "no" means the the step will always be visited -->
+<!ATTLIST step optional (said-once|yes|no) "no">
+
+<!-- answer indicates that the initiation requires a multi-part response -->
+<!-- see response element spec for comments on other attributes -->
+<!ELEMENT initiation (#PCDATA)>
+<!ATTLIST initiation
+  necessary-and-sufficient-answer NMTOKENS #IMPLIED
+  push NMTOKENS #IMPLIED
+  push-nomatch NMTOKENS #IMPLIED
+  sem NMTOKEN #IMPLIED
+  say NMTOKENS #IMPLIED
+  say-nomatch NMTOKENS #IMPLIED
+  truth-val (yes|no|partial|unknown) "unknown">
+
+<!-- the nomatch attributes below help implement multiple answer parts and 
+     should only be used when multi-answer-expected has been set in 
+     the initiation-->
+<!-- push is what goal to push to if there is a match of the response 
+     concept -->
+<!-- push-nomatch is what to do if there is not a match -->
+<!-- sem is a simple semantic label to mark content of the same 
+     semantic meaning.  Keep separate from concept because the concept 
+     in a different context may have different semantics -->
+<!-- say is what to say before pushing if there is a match of a concept -->
+<!-- say-nomatch is what to say before pushing for a nomatch of a concept -->
+<!-- truth-val is whether the concept in this context is true or not
+     or vague/partial or the truth value is irrelevant or simply
+     unknown (unknown) -->
+<!ELEMENT response (#PCDATA)>
+<!ATTLIST response
+  push NMTOKENS #IMPLIED
+  push-nomatch NMTOKENS #IMPLIED
+  sem NMTOKEN #IMPLIED
+  say NMTOKENS #IMPLIED
+  say-nomatch NMTOKENS #IMPLIED
+  truth-val (yes|no|partial|unknown) "unknown">
+
+<!-- allows a step in a goal to simply embed another goal -->
+<!ELEMENT subgoal (#PCDATA)>
+<!ATTLIST subgoal
+  sem NMTOKEN #IMPLIED>
+
+
+
