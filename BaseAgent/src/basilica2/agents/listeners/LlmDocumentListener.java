@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
@@ -77,6 +80,16 @@ public class LlmDocumentListener extends BasilicaAdapter
     private String etherpadApiVersionCache;
     private String etherpadPadId;
 
+    // Fixed message, written repeatedly rather than once: a single
+    // attach-then-write at construction time had no retry if that one
+    // attempt failed (e.g. Etherpad not up yet), which is what silently
+    // dropped the write before. Writing on a timer means a still-down
+    // Etherpad just gets retried on the next tick instead of failing
+    // forever silently.
+    private static final String ETHERPAD_MESSAGE = "Hi. I'm a bossy bot";
+    private int etherpadWriteIntervalSeconds = 30;
+    private ScheduledExecutorService etherpadScheduler;
+
     private static class EtherpadApiException extends RuntimeException {
         final int code;
         EtherpadApiException(int code, String message) {
@@ -124,16 +137,17 @@ public class LlmDocumentListener extends BasilicaAdapter
 
 			etherpadBaseUrl = llm_prop.getProperty("etherpad.base.url", "https://bree.lti.cs.cmu.edu/pad");
 			etherpadApiKey = api_key_prop.getProperty("etherpad.api.key");
+			etherpadWriteIntervalSeconds = Integer.parseInt(
+					llm_prop.getProperty("etherpad.write.interval.seconds", "30"));
 
 		}
 		catch (Exception e){}
 
-		// Separate try/catch from the LLM-config parsing above: an Etherpad
-		// attach failure (bad key, server down, etc.) shouldn't be silently
+		// Separate from the LLM-config parsing above: an Etherpad attach
+		// failure (bad key, server down, etc.) shouldn't be silently
 		// swallowed by that unrelated catch block, and shouldn't prevent
 		// this constructor from finishing either.
-		attachToEtherpad();
-		typeIntoDocument("Hi, I'm a bossy bot!");
+		startEtherpadWriter();
 	}
 
 
@@ -587,6 +601,53 @@ public class LlmDocumentListener extends BasilicaAdapter
 		} catch (Exception ex) {
 			System.err.println("LlmDocumentListener typeIntoDocument -- failed to append text: " + ex);
 			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Starts a background task that writes ETHERPAD_MESSAGE to the room's
+	 * pad every etherpadWriteIntervalSeconds (default 30; override via
+	 * "etherpad.write.interval.seconds" in LlmDocumentListener.properties).
+	 * Each tick calls attachToEtherpad() first if a prior attempt hasn't
+	 * succeeded yet (etherpadPadId == null), so a slow-starting or
+	 * transiently-unreachable Etherpad server gets retried on the next
+	 * tick instead of only being tried once, at construction time, with no
+	 * retry if that single attempt lost the race against Etherpad coming
+	 * up.
+	 *
+	 * NOTE: this appends the same line on every tick, so the pad grows by
+	 * one "Hi. I'm a bossy bot" line every N seconds for as long as the
+	 * agent runs -- fine for confirming the write path is alive, but you
+	 * likely want this to stop or change behavior (e.g. write once
+	 * attached, or replace rather than append) once you've confirmed
+	 * writes are landing.
+	 */
+	private void startEtherpadWriter() {
+		etherpadScheduler = Executors.newSingleThreadScheduledExecutor();
+		etherpadScheduler.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (etherpadPadId == null) {
+						attachToEtherpad();
+					}
+					typeIntoDocument(ETHERPAD_MESSAGE);
+				} catch (Exception ex) {
+					// scheduleAtFixedRate silently cancels all future runs if
+					// the task ever throws -- attachToEtherpad/typeIntoDocument
+					// already catch their own errors, but this is a backstop
+					// so one unexpected exception can't kill the periodic write.
+					System.err.println("LlmDocumentListener startEtherpadWriter -- unexpected error: " + ex);
+					ex.printStackTrace();
+				}
+			}
+		}, 0, etherpadWriteIntervalSeconds, TimeUnit.SECONDS);
+	}
+
+	/** Stops the periodic write started by startEtherpadWriter(). */
+	public void stopEtherpadWriter() {
+		if (etherpadScheduler != null) {
+			etherpadScheduler.shutdownNow();
 		}
 	}
 
