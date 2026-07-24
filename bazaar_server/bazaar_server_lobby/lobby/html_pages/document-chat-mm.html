@@ -311,17 +311,20 @@ ul.tab li a:focus, .active {
         //
         // Falls back to the old "j" + room / user scheme if roomName/roomId
         // aren't present, so existing links without them keep working.
-        var epRoomName = urlParams.get('roomName');
-        var epRoomId   = urlParams.get('roomId');
-        var epUsername = urlParams.get('username');
-        var epUserId   = urlParams.get('id');
+        // var epRoomName = urlParams.get('roomName');
+        // var epRoomId   = urlParams.get('roomId');
+        // var epUsername = urlParams.get('username');
+        // var epUserId   = urlParams.get('id');
 
-        var epPadId = (epRoomName || epRoomId)
-            ? (epRoomName || '') + (epRoomId || '')
-            : ("j" + room);
-        var epAuthorName = (epUsername || epUserId)
-            ? (epUsername || '') + (epUserId || '')
-            : user;
+        // var epPadId = (epRoomName || epRoomId)
+        //     ? (epRoomName || '') + (epRoomId || '')
+        //     : ("j" + room);
+        // var epAuthorName = (epUsername || epUserId)
+        //     ? (epUsername || '') + (epUserId || '')
+        //     : user;
+
+        var ePadId = room; 
+        var epAuthorName = user + id; 
 
         // Routed through the Apache /pad/ reverse proxy (bazaar_server_lobby.conf),
         // which already terminates TLS on 443 and forwards to Etherpad's
