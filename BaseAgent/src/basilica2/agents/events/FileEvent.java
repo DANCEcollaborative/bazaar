@@ -43,6 +43,7 @@ public class FileEvent extends Event {
 
     public static String GENERIC_NAME = "FILE_EVENT";
     private String fileName = null;
+    private String fileText = null;
 	public enum fileEventType  
 	{
 		created, changed, deleted;
@@ -53,9 +54,24 @@ public class FileEvent extends Event {
         super(s);
         fileName = n;
         eventType = t; 
-//        System.err.println("FileEvent created: file: " + n + " -- event type:" + t);
+//        System.err.println("FileEvent created: file: " + n + " -- event tye:" + t);
 //        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileEvent created - file: " + n + "   -- event type: " + t);
     }
+
+    public FileEvent(Component s, String name, String eType, String text) {
+        super(s);
+        fileName = name;
+		eventType = FileEvent.fileEventType.valueOf(eType); 
+		if (text != null) {
+		    fileText = text;
+		} else {
+		    fileText = "(null)";
+		}    
+//        System.err.println("FileEvent created: file: " + n + " -- event type: " + eventType + " -- text: " + text);
+        System.out.println("FileEvent created: file: " + fileName + " -- event type: " + eType + " -- text: " + fileText);
+        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"FileEvent created - file: " + fileName + "   -- event type: " + eType + "   -- text: " + fileText);
+    }
+
 
     public String getFileName() {
         return fileName;
@@ -65,6 +81,14 @@ public class FileEvent extends Event {
         return eventType;
     }
 
+    public void setText(String text) {
+        fileText = text;
+    }
+
+    public String getText() {
+        return fileText;
+    }
+
     @Override
     public String getName() {
         return GENERIC_NAME;
@@ -72,6 +96,7 @@ public class FileEvent extends Event {
 
     @Override
     public String toString() {
-        return "<file event -- file=\"" + fileName + "\"   - eventType=" + eventType.name() + "/>";
+//        return "<file event -- file=\"" + fileName + "\"   - eventType=" + eventType.name() + "/>";
+        return "<file event -- file=" + fileName + "  eventType=" + eventType.name() + "/>";
     }
 }

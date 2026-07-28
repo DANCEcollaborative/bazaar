@@ -19,6 +19,8 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.FileEvent;
+import basilica2.agents.listeners.EtherpadListener;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -81,7 +83,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 	        }
 			topics = Arrays.asList(topicList);
 			model = llm_prop.getProperty("model");
-//			System.err.println(myName + " model: "+model);
+//			System.out.println(myName + " model: "+model);
 			requestURL = llm_prop.getProperty(model+".request.url");
 			apiKey = llm_prop.getProperty(model+".api.key");
 			context = llm_prop.getProperty(model+".prompt.context");
@@ -98,7 +100,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 
 			} else if (model.equals("llama2")) {
 //				requestURL = requestURL + "/v1/";
-//				System.err.println("URLLLLL: "+requestURL);
+//				System.out.println("URLLLLL: "+requestURL);
 			}
 		}
 		catch (Exception e){}
@@ -108,15 +110,16 @@ public class LlmDocumentListener extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
+		System.out.println("LlmDocumentListener, preProcessEvent: Received event");
 		if (e instanceof MessageEvent)
 		{
-	        System.err.println("LlmDocumentListener preProcessEvent for MessageEvent");
+	        System.out.println("LlmDocumentListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
 				if (proceed) {
-			        System.err.println("LlmDocumentListener preProcessEvent: calling handleMessageEvent");
+			        System.out.println("LlmDocumentListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -126,27 +129,36 @@ public class LlmDocumentListener extends BasilicaAdapter
 				}
 				start = finish;
 			}
+		} else if (e instanceof FileEvent)
+		{
+	        System.out.println("LlmDocumentListener preProcessEvent for FileEvent");
+			try {
+				handleFileEvent(source, (FileEvent) e);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
 	public boolean messageFilter(MessageEvent e) {
 		String messageText = e.getText();
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
-        System.err.println("LlmDocumentListener messageFilter -- this.myName: " + this.myName);
-        System.err.println("LlmDocumentListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
+        System.out.println("LlmDocumentListener messageFilter -- this.myName: " + this.myName);
+        System.out.println("LlmDocumentListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
 		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
-	        System.err.println("LlmDocumentListener messageFilter -- name match!");
+	        System.out.println("LlmDocumentListener messageFilter -- name match!");
 			return true;
 		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
-	        System.err.println("LlmDocumentListener messageFilter -- name match!");
+	        System.out.println("LlmDocumentListener messageFilter -- name match!");
 			return true;
 		}
 		List<String> topicWords = getTopicWords(messageText);
 		if (!topicWords.isEmpty()) {
-			System.err.println("LlmDocumentListener messageFilter -- topic match!");
+			System.out.println("LlmDocumentListener messageFilter -- topic match!");
 			return true;
 		} else {
-			System.err.println("LlmDocumentListenerr messageFilter -- NO topic match");
+			System.out.println("LlmDocumentListenerr messageFilter -- NO topic match");
 			return false;
 		}
 	}
@@ -155,12 +167,12 @@ public class LlmDocumentListener extends BasilicaAdapter
         List<String> foundWords = topics.stream()
                 .filter(messageText::contains)
                 .collect(Collectors.toList());
-        System.err.println("getTopicWords - messageText: " + messageText);
-        System.err.println("getTopicWords - found words: ");
+        System.out.println("getTopicWords - messageText: " + messageText);
+        System.out.println("getTopicWords - found words: ");
         for (String word : foundWords) {
-        	System.err.println("   " + word);
+        	System.out.println("   " + word);
         }
-        foundWords.forEach(System.err::println);
+        foundWords.forEach(System.out::println);
         return foundWords;
 	}
 
@@ -169,18 +181,37 @@ public class LlmDocumentListener extends BasilicaAdapter
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-        System.err.println("LlmDocumentListener handleMessageEvent -- jsonPayload: " + jsonPayload);
+        System.out.println("LlmDocumentListener handleMessageEvent -- jsonPayload: " + jsonPayload);
 
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        System.err.println("LlmDocumentListener handleMessageEvent -- OpenAI response: " + response);
+        System.out.println("LlmDocumentListener handleMessageEvent -- OpenAI response: " + response);
 	    if (! response.isEmpty()) {
 	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 	        source.pushEventProposal(newMe);
 	    }
-
-
 	    Logger.commonLog("LlmDocumentListener", Logger.LOG_NORMAL, "LlmDocumentListener, execute -- response from OpenAI: " + response);
+	}
+
+	
+	public void handleFileEvent(InputCoordinator source, FileEvent fe) throws JSONException {
+		// TODO: Check fileEventType
+	    String fileText = fe.getText(); 
+		if (fileText == null) {
+		    fileText = "(null)";
+		}    
+	    System.out.println("LlmDocumentListener handleFileEvent -- text: " + fileText);		
+	    BasilicaPreProcessor bPreProcessor = source.getPreProcessor("EtherpadListener");		 
+		if (bPreProcessor == null) {
+			System.out.println("LlmDocumentListener handleFileEvent -- bPreProcessor is NULL");
+		}    		
+		EtherpadListener epListener = (EtherpadListener) bPreProcessor; 		 
+		if (epListener == null) {
+			System.out.println("LlmDocumentListener handleFileEvent -- epListener is NULL");
+		}    
+//	    System.out.println("LlmDocumentListener handleFileEvent -- about to write to etherpad");
+		epListener.writeDocumentText("appendText", "\n\n\n *** File Update ***: \n" + fileText);	
+	    System.out.println("LlmDocumentListener handleFileEvent -- wrote to etherpad");    
 	}
 
 
@@ -195,7 +226,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 	        sslContext.init(null, null, null);
 	        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 	    	// update ^^^ //
-	        System.err.println("requestURL: " + requestURL);
+	        System.out.println("requestURL: " + requestURL);
 	        URL url = new URL(requestURL);
 //	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -212,7 +243,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 		        }
 
 		        int responseCode = conn.getResponseCode();
-		        System.err.println("CONNECTION: " + responseCode);
+		        System.out.println("CONNECTION: " + responseCode);
 		        if (responseCode == HttpURLConnection.HTTP_OK) {
 		            // Read input stream
 		        	StringBuilder response = new StringBuilder();
@@ -223,7 +254,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 			                response.append(line.trim());
 			            }
 			        }
-			        System.err.println("@@@@@@@@@raw response: " + response.toString());
+			        System.out.println("@@@@@@@@@raw response: " + response.toString());
 			        // Parse the raw response into a JSONObject
 			        JSONObject jsonResponse = new JSONObject(response.toString());
 			        String responseText;
@@ -363,7 +394,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 		            } catch (IOException e) {
 		                e.printStackTrace();
 		            }
-					System.err.println("111111@@@@@@@@ llama response: " + responseText);
+					System.out.println("111111@@@@@@@@ llama response: " + responseText);
 
 		            // Parse the response, if needed
 		            // Depending on the API, you might need to extract data from the response body
@@ -383,7 +414,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 		            }
 		            errorReader.close();
 		            // Log or print the error response
-		            System.err.println("Error response: " + response.toString());
+		            System.out.println("Error response: " + response.toString());
 		            return "";
 		        }
 	        } finally {
@@ -498,7 +529,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 			}
 		}
 
-		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
+		System.out.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@"+payload.toString());
 	    return payload.toString();
 	}
 
@@ -523,7 +554,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[]{MessageEvent.class};
+		return new Class[] { MessageEvent.class, FileEvent.class };
 	}
 
 

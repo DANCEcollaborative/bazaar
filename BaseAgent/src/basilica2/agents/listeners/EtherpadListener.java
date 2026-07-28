@@ -18,7 +18,12 @@ import java.util.concurrent.TimeUnit;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
+import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PresenceEvent;
+import basilica2.agents.events.ReadyEvent;
+import basilica2.agents.events.TypingEvent;
+import basilica2.agents.events.WhiteboardEvent;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -43,7 +48,8 @@ import java.time.Instant;
 import java.time.Duration;
 
 public class EtherpadListener extends BasilicaAdapter
-{
+{ 
+	private InputCoordinator source;
 	public String host;
 	public String port;
 	public String path;
@@ -63,7 +69,7 @@ public class EtherpadListener extends BasilicaAdapter
     private Instant start = Instant.now();
     private Instant finish;
     private String roomName;
-    public static final String botName = "Bot1";
+    private String previousText = null; 
 
     // ---- Etherpad attachment ---------------------------------------------------
     // This bot writes into the Etherpad server set up on (currently) {bree,bazaar}
@@ -101,6 +107,7 @@ public class EtherpadListener extends BasilicaAdapter
 	public EtherpadListener(Agent a)
 	{
 		super(a);
+		source = (InputCoordinator)a.getComponent("inputCoordinator"); 
 		roomName = a.getRoomName();
 
 		Properties ep_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
@@ -117,32 +124,7 @@ public class EtherpadListener extends BasilicaAdapter
 		// failure (bad key, server down, etc.) shouldn't be silently
 		// swallowed by that unrelated catch block, and shouldn't prevent
 		// this constructor from finishing either.
-		startEtherpadWriter();
-	}
-
-
-	@Override
-	public void preProcessEvent(InputCoordinator source, Event e)
-	{
-		if (e instanceof MessageEvent)
-		{
-	        System.err.println("EtherpadListener preProcessEvent for MessageEvent");
-//			finish = Instant.now();
-//			long timeElapsed = Duration.between(start, finish).toMillis();
-//			if (timeElapsed > 1500) {
-//				boolean proceed = messageFilter((MessageEvent) e);
-//				if (proceed) {
-//			        System.err.println("EtherpadListener preProcessEvent: calling handleMessageEvent");
-//					try {
-//						handleMessageEvent(source, (MessageEvent) e);
-//					} catch (JSONException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//				}
-//				start = finish;
-//			}
-		}
+		etherpadMonitor();
 	}
 	
 	
@@ -153,7 +135,7 @@ public class EtherpadListener extends BasilicaAdapter
 	 * auto-create on first write, so this doesn't strictly need to call the
 	 * API at all -- it does anyway (createPad) purely to fail fast and log
 	 * clearly if the API key or Etherpad server are misconfigured, rather
-	 * than discovering that silently on the first typeIntoDocument() call.
+	 * than discovering that silently on the first writeDocumentText() call.
 	 * Safe to call once from the constructor -- failures are logged, not
 	 * thrown, so a down/misconfigured Etherpad doesn't prevent the rest of
 	 * the agent from starting up.
@@ -171,7 +153,7 @@ public class EtherpadListener extends BasilicaAdapter
 						+ " already exists, reusing it");
 			} else {
 				System.err.println("EtherpadListener attachToEtherpad -- Etherpad rejected createPad: " + ex.getMessage());
-				etherpadPadId = null; // don't let typeIntoDocument write against an unverified pad/key
+				etherpadPadId = null; // don't let writeDocumentText write against an unverified pad/key
 			}
 		} catch (Exception ex) {
 			System.err.println("EtherpadListener attachToEtherpad -- failed to reach Etherpad: " + ex);
@@ -181,20 +163,40 @@ public class EtherpadListener extends BasilicaAdapter
 	}
 
 	/**
-	 * Appends a line of text to the attached pad (does not overwrite
-	 * existing content). No-ops with a log line if attachToEtherpad()
-	 * hasn't succeeded yet.
+	 * Gets the current text in the attached pad.
+	 * No-ops with a log line if attachToEtherpad() hasn't succeeded yet.
 	 */
-	public void typeIntoDocument(String text) {
+	 public String getDocumentText() {
+	    if (etherpadPadId == null) {
+	        System.err.println("EtherpadListener getDocumentText -- not attached to a pad, skipping");
+	        return null;
+	    }
+	    try {
+	        JSONObject data = etherpadApiCall("getText", mapOf("padID", etherpadPadId));
+	        String currentText = (data != null) ? data.getString("text") : null;
+	        System.err.println("EtherpadListener getDocumentText -- current text in " + etherpadPadId + ": " + currentText);
+	        return currentText;
+	    } catch (Exception ex) {
+	        System.err.println("EtherpadListener getDocumentText -- failed to fetch text: " + ex);
+	        ex.printStackTrace();
+	        return null;
+	    }
+	}
+	
+
+	/**
+	 * No-op with a log line if attachToEtherpad() hasn't succeeded yet.
+	 */
+	public void writeDocumentText(String apiFunction, String text) {
 		if (etherpadPadId == null) {
-			System.err.println("EtherpadListener typeIntoDocument -- not attached to a pad, skipping: " + text);
+			System.err.println("EtherpadListener writeDocumentText -- not attached to a pad, skipping: " + text);
 			return;
 		}
 		try {
-			etherpadApiCall("appendText", mapOf("padID", etherpadPadId, "text", "\n" + text));
-			System.err.println("EtherpadListener typeIntoDocument -- appended to " + etherpadPadId + ": " + text);
+			etherpadApiCall(apiFunction, mapOf("padID", etherpadPadId, "text", "\n" + text));
+			System.err.println("EtherpadListener writeDocumentText -- " + apiFunction + " -- " + etherpadPadId + ": " + text);
 		} catch (Exception ex) {
-			System.err.println("EtherpadListener typeIntoDocument -- failed to append text: " + ex);
+			System.err.println("EtherpadListener writeDocumentText -- failed to append text: " + ex);
 			ex.printStackTrace();
 		}
 	}
@@ -210,7 +212,7 @@ public class EtherpadListener extends BasilicaAdapter
 	 * retry if that single attempt lost the race against Etherpad coming
 	 * up.
 	 */
-	private void startEtherpadWriter() {
+	private void etherpadMonitor() {
 		etherpadScheduler = Executors.newSingleThreadScheduledExecutor();
 		etherpadScheduler.scheduleAtFixedRate(new Runnable() {
 			@Override
@@ -219,21 +221,32 @@ public class EtherpadListener extends BasilicaAdapter
 					if (etherpadPadId == null) {
 						attachToEtherpad();
 					}
-					typeIntoDocument(ETHERPAD_MESSAGE);
+					String currentText = getDocumentText();
+					if (!currentText.equals(previousText)) {
+						createFileEvent("changed",currentText); 
+					}
+//					writeDocumentText("appendText","\n\n" + currentText + "\n" + ETHERPAD_MESSAGE);
 				} catch (Exception ex) {
 					// scheduleAtFixedRate silently cancels all future runs if
-					// the task ever throws -- attachToEtherpad/typeIntoDocument
+					// the task ever throws -- attachToEtherpad/writeDocumentText
 					// already catch their own errors, but this is a backstop
 					// so one unexpected exception can't kill the periodic write.
-					System.err.println("EtherpadListener startEtherpadWriter -- unexpected error: " + ex);
+					System.err.println("EtherpadListener etherpadMonitor -- unexpected error: " + ex);
 					ex.printStackTrace();
 				}
 			}
 		}, 0, etherpadWriteIntervalSeconds, TimeUnit.SECONDS);
 	}
 
-	/** Stops the periodic write started by startEtherpadWriter(). */
-	public void stopEtherpadWriter() {
+	/** . */
+	public void createFileEvent(String eventType, String fileText) {
+		FileEvent fEvent = new FileEvent(source,roomName,"changed",fileText);
+//		System.err.println("FileEvent: " + fEvent);
+		source.queueNewEvent(fEvent);
+	}
+
+	/** Stops etherpadMonitor(). */
+	public void stopEtherpadMonitor() {
 		if (etherpadScheduler != null) {
 			etherpadScheduler.shutdownNow();
 		}
@@ -351,6 +364,11 @@ public class EtherpadListener extends BasilicaAdapter
 
 
 
+	@Override
+	public void preProcessEvent(InputCoordinator source, Event e) {
+		// TODO Auto-generated method stub
+	}
+
 
 	@Override
 	public void processEvent(InputCoordinator source, Event e) {
@@ -362,9 +380,10 @@ public class EtherpadListener extends BasilicaAdapter
 	 * @return the classes of events that this Preprocessor cares about
 	 */
 	@Override
-	public Class[] getPreprocessorEventClasses()
-	{
-		return new Class[]{MessageEvent.class};
+	public Class[] getPreprocessorEventClasses() {
+		// TODO Auto-generated method stub
+		return new Class[]{FileEvent.class};
+//		return new Class[]{FileEvent.class, MessageEvent.class, PresenceEvent.class};
 	}
 
 
@@ -372,5 +391,11 @@ public class EtherpadListener extends BasilicaAdapter
 	public Class[] getListenerEventClasses() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "EtherpadListener";
 	}
 }
