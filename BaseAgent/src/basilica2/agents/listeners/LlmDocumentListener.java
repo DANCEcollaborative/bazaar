@@ -59,6 +59,9 @@ public class LlmDocumentListener extends BasilicaAdapter
 	private String model;
 	private String modelName;
 	private String context;
+	private String context2;
+	private String context2Corrected;
+	private String context2NotCorrected;
 	private double temperature;
     private boolean contextFlag;
     private int contextLen;
@@ -67,7 +70,8 @@ public class LlmDocumentListener extends BasilicaAdapter
     private Instant start = Instant.now();
     private Instant finish;
     private String roomName;
-    private static final String ETHERPAD_MESSAGE = "                    SHARED DOCUMENT";
+    private String fixCommand; 
+    private static final String ETHERPAD_TITLE = "\n                    SHARED DOCUMENT\n\n";
 
 	public LlmDocumentListener(Agent a)
 	{
@@ -90,6 +94,9 @@ public class LlmDocumentListener extends BasilicaAdapter
 			requestURL = llm_prop.getProperty(model+".request.url");
 			apiKey = llm_prop.getProperty(model+".api.key");
 			context = llm_prop.getProperty(model+".prompt.context");
+			context2 = llm_prop.getProperty(model+".prompt.context2");
+			context2Corrected = llm_prop.getProperty(model+".prompt.context2.corrected").replace("\"", "");;
+			context2NotCorrected = llm_prop.getProperty(model+".prompt.context2.not-corrected").replace("\"", "");;
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
 			if (contextFlag) {
@@ -103,6 +110,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 //				requestURL = requestURL + "/v1/";
 //				System.out.println("URLLLLL: "+requestURL);
 			}	
+			this.fixCommand = this.myName + "fix"; 
 			
 			BasilicaPreProcessor bPreProcessor = source.getPreProcessor("EtherpadListener");		 
 			if (bPreProcessor == null) {
@@ -113,7 +121,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 				System.out.println("LlmDocumentListener constructor -- epListener is NULL");
 			}    
 			
-			epListener.writeDocumentText("appendText","\n" + ETHERPAD_MESSAGE + "\n\n");
+			epListener.writeDocumentText("appendText",ETHERPAD_TITLE);
 			epListener.setPreviousText();
 			epListener.etherpadMonitor();		
 		}
@@ -193,18 +201,63 @@ public class LlmDocumentListener extends BasilicaAdapter
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
 	    String prompt = me.getText(); // student chat message
+	    System.out.println("LlmDocumentListener, handleMessageEvent - message received: " + prompt);
+	    String msgContext, msgText; 
+	    if (checkForCommand(prompt,this.fixCommand)) {
+	    	System.out.println("LlmDocumentListener, handleMessageEvent: Fix command received");
+	    	msgContext = this.context2; 
+			msgText = this.epListener.getDocumentText();
+	    } else {
+	    	System.out.println("LlmDocumentListener, handleMessageEvent: msg other than fix command received");
+	    	msgContext = this.context; 
+			msgText = prompt; 
+	    }
 	    String sender = me.getFrom();
-	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+	    String jsonPayload = constructPayloadMultiParty(source, msgText, sender, msgContext);
         System.out.println("LlmDocumentListener handleMessageEvent -- jsonPayload: " + jsonPayload);
 
-	    // Sending the message to OpenAI and receiving the response
+	    // Send the message to OpenAI and process the response
 	    String response = sendToOpenAI(source, jsonPayload, false);
         System.out.println("LlmDocumentListener handleMessageEvent -- OpenAI response: " + response);
-	    if (! response.isEmpty()) {
-	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	    Logger.commonLog("LlmDocumentListener", Logger.LOG_NORMAL, "LlmDocumentListener handleMessageEvent -- OpenAI response: " + response);
+
+	    String responseStripped = response.replaceAll("\\s+", "");
+	    String etherpadTitleStripped = this.ETHERPAD_TITLE.replaceAll("\\s+", "");
+	    System.out.println("LlmDocumentListener handleMessageEvent -- etherpadTitleStripped: " + etherpadTitleStripped);
+	    System.out.println("LlmDocumentListener handleMessageEvent -- responseStripped: " + responseStripped);
+	    
+		if (responseStripped.startsWith(etherpadTitleStripped)) {
+			System.out.println("LlmDocumentListener handleMessageEvent -- response starts with ETHERPAD_TITLE");
+			// String correctedText = response.substring(this.context2Corrected.length());
+			epListener.writeDocumentText("setText", response);
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, this.context2Corrected);
 	        source.pushEventProposal(newMe);
+		} else if (response.startsWith(this.context2NotCorrected)) {
+			System.out.println("LlmDocumentListener handleMessageEvent -- response starts with context2NotCorrected");
+	    	MessageEvent newMe = new MessageEvent(source, this.myName, this.context2NotCorrected);
+	        source.pushEventProposal(newMe);
+	    } else {
+			System.out.println("LlmDocumentListener handleMessageEvent -- default - send misc message to chat: " + response);
+			MessageEvent newMe = new MessageEvent(source, this.myName, response);
+	        source.pushEventProposal(newMe);
+		}
+	}
+	
+	
+	private boolean checkForCommand(String prompt, String command) {
+		System.out.println("LlmDocumentListener checkForCommand -- command: " + command + "  -- prompt: " + prompt);
+		String strippedPrompt = "";
+		String commandlc = command.toLowerCase(); 
+    	System.out.println("LlmDocumentListener checkForCommand -- commandlc: " + commandlc);
+	    if (prompt != null) {
+	    	strippedPrompt = prompt.toLowerCase().replaceAll("[^a-zA-Z\\s]", "").replaceAll(" ", "");
+	    	System.out.println("LlmDocumentListener checkForCommand -- strippedPrompt: " + strippedPrompt);
+	    } 
+	    if (strippedPrompt.startsWith(commandlc)) {
+	    	return true; 
+	    } else {
+	    	return false; 
 	    }
-	    Logger.commonLog("LlmDocumentListener", Logger.LOG_NORMAL, "LlmDocumentListener, execute -- response from OpenAI: " + response);
 	}
 
 	
@@ -235,7 +288,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 	    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	    
         String sender = "DocBot"; 
-        String jsonPayload = constructPayloadMultiParty(source, fileText, sender);
+        String jsonPayload = constructPayloadMultiParty(source, fileText, sender, this.context);
 
         System.out.println("LlmDocumentListener handleFileEvent -- sending to LLM");
         String response = sendToOpenAI(source, jsonPayload, false);
@@ -469,7 +522,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 
 	public void sendActivePromptToOpenAI(InputCoordinator source) {
 	    // Prepare the prompt based on the received message
-	    String jsonPayload = constructPayloadMultiParty(source, null, null);
+	    String jsonPayload = constructPayloadMultiParty(source, null, null, this.context);
 
 	    // Sending the message to OpenAI and receiving the response
 	    String response = sendToOpenAI(source, jsonPayload, true);
@@ -505,7 +558,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 	}
 	
 
-	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
+	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender, String msgContext) {
 		JSONObject payload = new JSONObject();
 		if (model.equals("openai")) {
 
@@ -518,11 +571,11 @@ public class LlmDocumentListener extends BasilicaAdapter
 			}
 		    JSONArray messages = new JSONArray();
 
-		    // Add the fixed context as the first message
+		    // Add the fixed msgContext as the first message
 		    JSONObject fixedContextMessage = new JSONObject();
 		    try {
 				fixedContextMessage.put("role", "system");
-				fixedContextMessage.put("content", this.context);
+				fixedContextMessage.put("content", msgContext);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -556,7 +609,7 @@ public class LlmDocumentListener extends BasilicaAdapter
 				input.put("top_k", 0);
 				input.put("temperature", 0.7);
 				input.put("prompt", allMessages);
-				input.put("system_prompt", this.context);
+				input.put("system_prompt", msgContext);
 				input.put("prompt_template", "<s>[INST] <<SYS>>\\n{system_prompt}\\n<</SYS>>\\n\\n{prompt} [/INST]");
 				input.put("max_new_tokens", 256);
 				input.put("min_new_tokens", 1);
