@@ -168,6 +168,15 @@ These instructions were created using Eclipse IDE for Java Developers, version 2
   - USER_NAME: a particular user’s name.
   - To assign multiple users to a single agent chat room, use the same ROOM_NAME and ROOM_NUM for all, varying the ID_NUM and the USER_NAME.
 
+# Creating an LLM agent
+
+There is a growing list of Bazaar LLM agents to use as examples. Current LLM agent names in this repo generally start with "Llm" but that is by no means a requirement. A recent example is LlmDocumentAgent. 
+- The main differences for most LLM agents are the additions of (1) some variation of Llm\*Listener.java (e.g. LlmDocumentListener.java) and (2)ChatHistoryListener.java, in the agent's runtime/properties/operation.properties file (e.g., [here](https://github.com/DANCEcollaborative/bazaar/blob/main/LlmDocumentAgent/runtime/properties/operation.properties)). Doing that, and customizing the Llm\*Listener properties file (more on that below) will get you a long way.
+- You will also surely want to customize the Llm\*LIstener.java file to decide when to query the LLM. A good example for that is the [LlmChatListener.java](https://github.com/DANCEcollaborative/bazaar/blob/main/BaseAgent/src/basilica2/agents/listeners/LlmChatListener.java) code used by a few LLM agents.
+- So far, we have used mainly OpenAI models and I think a Llama model may have been used successfully in the past. If you want to use a different family of models, you may need to customize the Llm\*Listener.java file's functions to send and receive messages with the LLM. 
+- The [ChatHistoryListener](https://github.com/DANCEcollaborative/bazaar/blob/main/BaseAgent/src/basilica2/agents/listeners/ChatHistoryListener.java) is used to provide context from previous chat messages in LLM queries. 
+- The agent's Llm\*Listener properties file (e.g., [[here](https://github.com/DANCEcollaborative/bazaar/blob/main/LlmDocumentAgent/runtime/properties/LlmDocumentListener.properties)] specifies the API key(s), LLM model, LLM temperature, chat history context length, etc., and importantly, the LLM agent's context, such as its personality and goals.
+
 # Adding LightSide Machine-Learning Annotations
 
 - Create a LightSide model. Either clone the git repository or download and install a zip file from the ***external*** LightSide repo [https://github.com/LightSideWorkbench/LightSide/tree/main](https://github.com/LightSideWorkbench/LightSide/tree/main). A LightSide manual, installation instructions, and tips for Mac and PC are included in the repo. Once the model has been created and Bazaar has been configured to reference the model, Bazaar will start up LightSide and obtain annotations from it on a designated port.
