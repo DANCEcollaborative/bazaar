@@ -46,6 +46,8 @@ import java.time.Duration;
 
 public class LlmDocumentListener extends BasilicaAdapter
 {
+	private InputCoordinator source;
+	EtherpadListener epListener;
 	public String host;
 	public String port;
 	public String path;
@@ -65,12 +67,13 @@ public class LlmDocumentListener extends BasilicaAdapter
     private Instant start = Instant.now();
     private Instant finish;
     private String roomName;
+    private static final String ETHERPAD_MESSAGE = "                    SHARED DOCUMENT";
 
 	public LlmDocumentListener(Agent a)
 	{
 		super(a);
 		roomName = a.getRoomName();
-//		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
+		source = (InputCoordinator)a.getComponent("inputCoordinator"); 
 
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
@@ -92,16 +95,27 @@ public class LlmDocumentListener extends BasilicaAdapter
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
 			}
+			
 			if (model.equals("openai")) {
 
 				modelName = llm_prop.getProperty(model+".model.name");
-
-
-
 			} else if (model.equals("llama2")) {
 //				requestURL = requestURL + "/v1/";
 //				System.out.println("URLLLLL: "+requestURL);
-			}
+			}	
+			
+			BasilicaPreProcessor bPreProcessor = source.getPreProcessor("EtherpadListener");		 
+			if (bPreProcessor == null) {
+				System.out.println("LlmDocumentListener handleFileEvent -- bPreProcessor is NULL");
+			}    		
+			epListener = (EtherpadListener) bPreProcessor; 		 
+			if (epListener == null) {
+				System.out.println("LlmDocumentListener constructor -- epListener is NULL");
+			}    
+			
+			epListener.writeDocumentText("appendText","\n" + ETHERPAD_MESSAGE + "\n\n");
+			epListener.setPreviousText();
+			epListener.etherpadMonitor();		
 		}
 		catch (Exception e){}
 	}
@@ -201,17 +215,43 @@ public class LlmDocumentListener extends BasilicaAdapter
 		    fileText = "(null)";
 		}    
 	    System.out.println("LlmDocumentListener handleFileEvent -- text: " + fileText);		
-	    BasilicaPreProcessor bPreProcessor = source.getPreProcessor("EtherpadListener");		 
-		if (bPreProcessor == null) {
-			System.out.println("LlmDocumentListener handleFileEvent -- bPreProcessor is NULL");
-		}    		
-		EtherpadListener epListener = (EtherpadListener) bPreProcessor; 		 
-		if (epListener == null) {
-			System.out.println("LlmDocumentListener handleFileEvent -- epListener is NULL");
-		}    
+//	    BasilicaPreProcessor bPreProcessor = source.getPreProcessor("EtherpadListener");		 
+//		if (bPreProcessor == null) {
+//			System.out.println("LlmDocumentListener handleFileEvent -- bPreProcessor is NULL");
+//		}    		
+//		EtherpadListener epListener = (EtherpadListener) bPreProcessor; 		 
+//		if (epListener == null) {
+//			System.out.println("LlmDocumentListener handleFileEvent -- epListener is NULL");
+//		}    
 //	    System.out.println("LlmDocumentListener handleFileEvent -- about to write to etherpad");
-		epListener.writeDocumentText("appendText", "\n\n\n *** File Update ***: \n" + fileText);	
-	    System.out.println("LlmDocumentListener handleFileEvent -- wrote to etherpad");    
+//		epListener.writeDocumentText("appendText", "\n\n\n *** File Update ***: \n" + fileText);	
+//	    System.out.println("LlmDocumentListener handleFileEvent -- wrote to etherpad"); 
+	    
+//	    MessageEvent newMe = new MessageEvent(source, "DocBot", "File updated");
+//		source.pushEventProposal(newMe);
+		
+	    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	    // >>>> TO DO: Check for existence of one of {. ? !} before sending to LLM
+	    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	    
+        String sender = "DocBot"; 
+        String jsonPayload = constructPayloadMultiParty(source, fileText, sender);
+
+        System.out.println("LlmDocumentListener handleFileEvent -- sending to LLM");
+        String response = sendToOpenAI(source, jsonPayload, false);
+        if (!response.isEmpty()) {
+        	if (!response.equals("No grammar errors found.")) {
+                MessageEvent newMe = new MessageEvent(source, this.myName, response);
+                source.pushEventProposal(newMe);        		
+        	} else {
+        		System.out.println("LlmDocumentListener handleFileEvent -- LLM found no errors.");
+        	}
+        } else {
+        	System.out.println("LlmDocumentListener handleFileEvent -- LLM response is empty.");
+        }
+
+        Logger.commonLog("LlmChatListener", Logger.LOG_NORMAL, "LlmChatListener, execute -- response from OpenAI: " + response);
+		
 	}
 
 

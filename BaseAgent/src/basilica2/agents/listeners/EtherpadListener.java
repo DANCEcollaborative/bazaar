@@ -92,8 +92,7 @@ public class EtherpadListener extends BasilicaAdapter
     // dropped the write before. Writing on a timer means a still-down
     // Etherpad just gets retried on the next tick instead of failing
     // forever silently.
-    private static final String ETHERPAD_MESSAGE = "Hi. I'm a bossy bot";
-    private int etherpadWriteIntervalSeconds = 120;
+    private int etherpadMonitorIntervalSeconds = 120;
     private ScheduledExecutorService etherpadScheduler;
 
     private static class EtherpadApiException extends RuntimeException {
@@ -114,8 +113,8 @@ public class EtherpadListener extends BasilicaAdapter
 		try {
 			etherpadBaseUrl = ep_prop.getProperty("etherpad.base.url", "https://bree.lti.cs.cmu.edu/pad");
 			etherpadApiKey = ep_prop.getProperty("etherpad.api.key");
-			etherpadWriteIntervalSeconds = Integer.parseInt(
-					ep_prop.getProperty("etherpad.write.interval.seconds", "120"));
+			etherpadMonitorIntervalSeconds = Integer.parseInt(
+					ep_prop.getProperty("etherpad.monitor.interval.seconds", "120"));
 
 		}
 		catch (Exception e){}
@@ -124,7 +123,7 @@ public class EtherpadListener extends BasilicaAdapter
 		// failure (bad key, server down, etc.) shouldn't be silently
 		// swallowed by that unrelated catch block, and shouldn't prevent
 		// this constructor from finishing either.
-		etherpadMonitor();
+		attachToEtherpad();
 	}
 	
 	
@@ -153,7 +152,7 @@ public class EtherpadListener extends BasilicaAdapter
 						+ " already exists, reusing it");
 			} else {
 				System.err.println("EtherpadListener attachToEtherpad -- Etherpad rejected createPad: " + ex.getMessage());
-				etherpadPadId = null; // don't let writeDocumentText write against an unverified pad/key
+				etherpadPadId = null; // don't use an unverified pad/key
 			}
 		} catch (Exception ex) {
 			System.err.println("EtherpadListener attachToEtherpad -- failed to reach Etherpad: " + ex);
@@ -164,46 +163,63 @@ public class EtherpadListener extends BasilicaAdapter
 
 	/**
 	 * Gets the current text in the attached pad.
-	 * No-ops with a log line if attachToEtherpad() hasn't succeeded yet.
 	 */
 	 public String getDocumentText() {
-	    if (etherpadPadId == null) {
-	        System.err.println("EtherpadListener getDocumentText -- not attached to a pad, skipping");
+		try {
+			if (etherpadPadId == null) {
+				attachToEtherpad();
+			}
+		    try {
+		        JSONObject data = etherpadApiCall("getText", mapOf("padID", etherpadPadId));
+		        String currentText = (data != null) ? data.getString("text") : null;
+		        System.err.println("EtherpadListener getDocumentText -- current text in " + etherpadPadId + ": " + currentText);
+		        return currentText;
+		    } catch (Exception ex2) {
+		        System.err.println("EtherpadListener getDocumentText -- failed to fetch text: " + ex2);
+		        ex2.printStackTrace();
+		        return null;
+		    }
+		} catch (Exception ex1) {
+			// scheduleAtFixedRate silently cancels all future runs if
+			// the task ever throws -- attachToEtherpad/writeDocumentText
+			// already catch their own errors, but this is a backstop
+			// so one unexpected exception can't kill the periodic write.
+			System.err.println("EtherpadListener etherpadMonitor -- unexpected error: " + ex1);
+			ex1.printStackTrace();
 	        return null;
-	    }
-	    try {
-	        JSONObject data = etherpadApiCall("getText", mapOf("padID", etherpadPadId));
-	        String currentText = (data != null) ? data.getString("text") : null;
-	        System.err.println("EtherpadListener getDocumentText -- current text in " + etherpadPadId + ": " + currentText);
-	        return currentText;
-	    } catch (Exception ex) {
-	        System.err.println("EtherpadListener getDocumentText -- failed to fetch text: " + ex);
-	        ex.printStackTrace();
-	        return null;
-	    }
+		}
 	}
 	
 
 	/**
-	 * No-op with a log line if attachToEtherpad() hasn't succeeded yet.
+	 * 
 	 */
 	public void writeDocumentText(String apiFunction, String text) {
-		if (etherpadPadId == null) {
-			System.err.println("EtherpadListener writeDocumentText -- not attached to a pad, skipping: " + text);
-			return;
-		}
 		try {
-			etherpadApiCall(apiFunction, mapOf("padID", etherpadPadId, "text", "\n" + text));
-			System.err.println("EtherpadListener writeDocumentText -- " + apiFunction + " -- " + etherpadPadId + ": " + text);
-		} catch (Exception ex) {
-			System.err.println("EtherpadListener writeDocumentText -- failed to append text: " + ex);
-			ex.printStackTrace();
+			if (etherpadPadId == null) {
+				attachToEtherpad();
+			}
+			try {
+				etherpadApiCall(apiFunction, mapOf("padID", etherpadPadId, "text", "\n" + text));
+				System.err.println("EtherpadListener writeDocumentText -- " + apiFunction + " -- " + etherpadPadId + ": " + text);
+			} catch (Exception ex2) {
+				System.err.println("EtherpadListener writeDocumentText -- failed to write text: " + ex2);
+				ex2.printStackTrace();
+			}
+
+		} catch (Exception ex1) {
+			// scheduleAtFixedRate silently cancels all future runs if
+			// the task ever throws -- attachToEtherpad/writeDocumentText
+			// already catch their own errors, but this is a backstop
+			// so one unexpected exception can't kill the periodic write.
+			System.err.println("EtherpadListener etherpadMonitor -- unexpected error: " + ex1);
+			ex1.printStackTrace();
 		}
 	}
 
 	/**
-	 * Starts a background task that writes ETHERPAD_MESSAGE to the room's
-	 * pad every etherpadWriteIntervalSeconds (default 120; override via
+	 * Starts a background task that monitors the room's
+	 * pad every etherpadMonitorIntervalSeconds (default 120; override via
 	 * "etherpad.write.interval.seconds" in EtherpadListener.properties).
 	 * Each tick calls attachToEtherpad() first if a prior attempt hasn't
 	 * succeeded yet (etherpadPadId == null), so a slow-starting or
@@ -212,7 +228,7 @@ public class EtherpadListener extends BasilicaAdapter
 	 * retry if that single attempt lost the race against Etherpad coming
 	 * up.
 	 */
-	private void etherpadMonitor() {
+	public void etherpadMonitor() {
 		etherpadScheduler = Executors.newSingleThreadScheduledExecutor();
 		etherpadScheduler.scheduleAtFixedRate(new Runnable() {
 			@Override
@@ -225,23 +241,30 @@ public class EtherpadListener extends BasilicaAdapter
 					if (!currentText.equals(previousText)) {
 						createFileEvent("changed",currentText); 
 					}
+					previousText = currentText; 
 //					writeDocumentText("appendText","\n\n" + currentText + "\n" + ETHERPAD_MESSAGE);
 				} catch (Exception ex) {
 					// scheduleAtFixedRate silently cancels all future runs if
 					// the task ever throws -- attachToEtherpad/writeDocumentText
 					// already catch their own errors, but this is a backstop
-					// so one unexpected exception can't kill the periodic write.
+					// so one unexpected exception can't kill the periodic monitoring.
 					System.err.println("EtherpadListener etherpadMonitor -- unexpected error: " + ex);
 					ex.printStackTrace();
 				}
 			}
-		}, 0, etherpadWriteIntervalSeconds, TimeUnit.SECONDS);
+		}, 0, etherpadMonitorIntervalSeconds, TimeUnit.SECONDS);
 	}
+	
+
+	/** . */
+	public void setPreviousText() {
+		previousText = getDocumentText();
+	}
+	
 
 	/** . */
 	public void createFileEvent(String eventType, String fileText) {
 		FileEvent fEvent = new FileEvent(source,roomName,"changed",fileText);
-//		System.err.println("FileEvent: " + fEvent);
 		source.queueNewEvent(fEvent);
 	}
 

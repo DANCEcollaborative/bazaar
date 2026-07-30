@@ -417,9 +417,16 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 		if (outputBotMessage) {
 //			BotMessageEvent newBM = new BotMessageEvent(this, me.getFrom(), me.getText());
 			InputCoordinator IC = (InputCoordinator)me.getSender();
+//			InputCoordinator IC = (InputCoordinator)agent.getComponent("inputCoordinator"); 
+			if (IC == null) {
+				System.out.println("InputCoordinator IC is null!");
+			}
 			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
 //			IC.pushEvent(newBM);
 			BasilicaListener CHL = IC.getListenerByName("ChatHistoryListener");
+			if (CHL == null) {
+				System.out.println("BasilicaListener CHL is null!");
+			}
 			try {
 				((ChatHistoryListener) CHL).handleMessageEvent(IC, me);
 			} catch (JSONException e) {
