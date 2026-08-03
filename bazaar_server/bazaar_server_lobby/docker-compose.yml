@@ -40,6 +40,7 @@ services:
      - ./agents:/usr/bazaar/agents
      - ../../../../LightSideWorkbench/LightSide:/usr/LightSide
      - ./lobby/html_pages:/usr/bazaar/lobby/html_pages
+     - ./lobby/html_pages:/usr/bazaar/lobby/static
      - ./bazaar:/usr/bazaar/bazaar
     networks:
     - bazaar-net

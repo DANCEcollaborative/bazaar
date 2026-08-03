@@ -16,11 +16,18 @@ const problemFromUrl = urlParams.get("problemId");
 // (port 8300, reached through Apache's generic /bazaar ProxyPass rule).
 const API_BASE = "/bazaar/api/camera";
 
-// The username camera frames are broadcast under. Must match the literal
-// "CameraPhone" string server_lobby_https.js's /bazaar/api/camera/frame
-// handler uses, both so WebsocketChatClient recognizes it and so this
-// client can filter its own broadcasts back out of the feedback feed.
-const CAMERA_USERNAME = "CameraPhone";
+// This client's own join identity: "Camera" followed by whatever is
+// entered in the User ID field (see getCameraUsername() below). Sent to
+// the server on every frame upload too, so the server can broadcast and
+// tag frames under the right identity instead of guessing — this matters
+// once more than one camera can be active in the same room at once.
+const CAMERA_USERNAME_PREFIX = "Camera";
+
+// Snapshotted once per connection (in connectSocket()) so every frame this
+// session uploads reports the same identity it joined the socket room
+// under, even if the input fields are edited afterward.
+let cameraUsername;
+let cameraUserId;
 
 // Same join event/signature every other Bazaar client uses:
 // socket.on('adduser', async (room, username, temporary, id, perspective) => ...)
@@ -68,6 +75,11 @@ function getSessionId() {
 // plus whatever the user entered in the User ID field.
 function getUserId() {
   return `${USER_ID_PREFIX}${problemInput.value.trim()}`;
+}
+
+// Builds this client's socket join identity from the User ID field.
+function getCameraUsername() {
+  return `${CAMERA_USERNAME_PREFIX}${problemInput.value.trim()}`;
 }
 
 function updateStartButtonState() {
@@ -163,6 +175,8 @@ async function loadCameraSettings() {
 
 function connectSocket(sessionId) {
   socket?.disconnect();
+  cameraUsername = getCameraUsername();
+  cameraUserId = getUserId();
 
   // Bazaar's Socket.IO server is mounted at path '/bazsocket' (see
   // server_lobby_https.js: require('socket.io')(server, {path: '/bazsocket', ...})).
@@ -174,8 +188,8 @@ function connectSocket(sessionId) {
     // Same join call every regular Bazaar web client makes. `temporary`
     // matches the non-snoop default (false, i.e. this join gets logged
     // like any other room participant).
-    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, getUserId(), null);
-    addSystemFeedItem("Connected", `Joined room "${sessionId}" as ${CAMERA_USERNAME}.`);
+    socket.emit(JOIN_EVENT, sessionId, cameraUsername, true, getUserId(), null);
+    addSystemFeedItem("Connected", `Joined room "${sessionId}" as ${cameraUsername}.`);
   });
 
   socket.on("disconnect", () => {
@@ -187,10 +201,11 @@ function connectSocket(sessionId) {
   });
 
   // Agent feedback rides the same 'updatechat' event camera frames use.
-  // Skip our own frame broadcasts (from === CAMERA_USERNAME) so the feed
-  // only shows what the agent actually says back.
+  // Skip our own frame broadcasts (from === cameraUsername — the server
+  // tags every frame from this camera under its own join identity, sent
+  // below in uploadFrame()) so the feed only shows what the agent says back.
   socket.on("updatechat", (from, data) => {
-    if (from === CAMERA_USERNAME) return;
+    if (from === cameraUsername) return;
     addFeedItem(from, extractDisplayText(data), "ai-recommendation");
   });
 }
@@ -235,7 +250,9 @@ async function uploadFrame() {
       },
       body: JSON.stringify({
         sessionId: getSessionId(),
-        problemId: getUserId(),
+        username: cameraUsername,
+        userId: cameraUserId,
+        problemId: cameraUserId,
         imageBase64,
         mimeType: "image/jpeg",
         width: canvas.width,
