@@ -90,6 +90,7 @@ public class PresenceEvent extends Event
         super(s);
 //		System.err.println("PresenceEvent constructor 4 - username:" + a + "  userID:" + id); 
 //		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 4 - username:" + a + "  userID:" + id);
+        System.err.println("PresenceEvent  --  a: " + a +  "  --  t: " + t  + "  --  id: " + id); 
         agentname = a;
         type = t;
         agentid = id;
