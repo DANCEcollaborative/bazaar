@@ -26,6 +26,12 @@ const CAMERA_USERNAME = "CameraPhone";
 // socket.on('adduser', async (room, username, temporary, id, perspective) => ...)
 const JOIN_EVENT = "adduser";
 
+// Prefixes applied to the values entered in the Session ID / User ID fields
+// before they're sent to the server. The fields only hold the suffix the
+// bot shows the user; these prefixes are added here.
+const SESSION_ID_PREFIX = "llmcamera";
+const USER_ID_PREFIX = "camera";
+
 let stream;
 let socket;
 let uploadTimer;
@@ -40,28 +46,46 @@ if (problemFromUrl) {
   problemInput.value = problemFromUrl;
 }
 
-// Start stays disabled until the user has actually entered a session id —
-// nothing in this file should attempt to pair a session or join a socket
-// room before that happens.
+// Start stays disabled until the user has entered both a session id and a
+// user id — nothing in this file should attempt to pair a session or join
+// a socket room before that happens.
 startButton.disabled = true;
 updateStartButtonState();
 
 sessionInput.addEventListener("input", updateStartButtonState);
+problemInput.addEventListener("input", updateStartButtonState);
 startButton.addEventListener("click", startCamera);
 stopButton.addEventListener("click", stopCamera);
 window.addEventListener("pagehide", stopCamera);
 
+// Builds the session id actually sent to the server: the configured
+// prefix plus whatever the user entered in the Session ID field.
+function getSessionId() {
+  return `${SESSION_ID_PREFIX}${sessionInput.value.trim()}`;
+}
+
+// Builds the user id actually sent to the server: the configured prefix
+// plus whatever the user entered in the User ID field.
+function getUserId() {
+  return `${USER_ID_PREFIX}${problemInput.value.trim()}`;
+}
+
 function updateStartButtonState() {
-  startButton.disabled = sessionInput.value.trim().length === 0;
+  startButton.disabled =
+    sessionInput.value.trim().length === 0 ||
+    problemInput.value.trim().length === 0;
 }
 
 async function startCamera() {
-  const sessionId = sessionInput.value.trim();
+  const sessionValue = sessionInput.value.trim();
+  const userValue = problemInput.value.trim();
 
-  if (!sessionId) {
-    setStatus("Session id is required.");
+  if (!sessionValue || !userValue) {
+    setStatus("Session ID and User ID are both required.");
     return;
   }
+
+  const sessionId = getSessionId();
 
   if (!navigator.mediaDevices?.getUserMedia) {
     fallback.hidden = false;
@@ -150,7 +174,7 @@ function connectSocket(sessionId) {
     // Same join call every regular Bazaar web client makes. `temporary`
     // matches the non-snoop default (false, i.e. this join gets logged
     // like any other room participant).
-    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, problemInput.value.trim(), null);
+    socket.emit(JOIN_EVENT, sessionId, CAMERA_USERNAME, true, getUserId(), null);
     addSystemFeedItem("Connected", `Joined room "${sessionId}" as ${CAMERA_USERNAME}.`);
   });
 
@@ -210,8 +234,8 @@ async function uploadFrame() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        sessionId: sessionInput.value.trim(),
-        problemId: problemInput.value.trim() || undefined,
+        sessionId: getSessionId(),
+        problemId: getUserId(),
         imageBase64,
         mimeType: "image/jpeg",
         width: canvas.width,
