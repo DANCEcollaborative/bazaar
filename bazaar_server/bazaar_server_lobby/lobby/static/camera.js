@@ -37,7 +37,7 @@ const JOIN_EVENT = "adduser";
 // before they're sent to the server. The fields only hold the suffix the
 // bot shows the user; these prefixes are added here.
 const SESSION_ID_PREFIX = "llmcamera";
-const USER_ID_PREFIX = "camera";
+const USER_ID_PREFIX = "camera_";
 
 let stream;
 let socket;
