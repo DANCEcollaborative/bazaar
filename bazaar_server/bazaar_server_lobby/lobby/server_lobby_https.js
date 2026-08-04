@@ -248,8 +248,9 @@ app.post('/forward_oais_msg', async (req, res) => {
 // How often the iPhone should capture and POST a frame (ms).
 const CAMERA_UPLOAD_INTERVAL_MS = 10000;
 
-// Per-room frame counter so Bazaar can detect dropped frames.
-const cameraFrameCounts = {};   // { [roomName]: number }
+// Per (room, cameraUsername) frame counter so Bazaar can detect dropped
+// frames separately for each camera active in a room.
+const cameraFrameCounts = {};   // { [`${roomName}::${cameraUsername}`]: number }
 
 // ---------------------------------------------------------------------------
 // GET /bazaar/api/camera/health
@@ -274,10 +275,6 @@ app.post('/bazaar/api/camera/session', (req, res) => {
     }
 
     const room = sessionId.trim();
-
-    if (!(room in cameraFrameCounts)) {
-        cameraFrameCounts[room] = 0;
-    }
 
     console.log(`[CAMERA] Session paired: room="${room}"`);
     res.status(200).json({ ok: true, sessionId: room });
@@ -309,6 +306,27 @@ app.post('/bazaar/api/camera/session', (req, res) => {
 // session: it lists every username currently in the room so you can see
 // which one is actually the agent.
 const CAMERA_FRAME_RECIPIENT_USERNAME = 'HomeworkHelper';
+
+// ---------------------------------------------------------------------------
+// Username camera.js's own Socket.IO connection joins the room as. Matches
+// the "Camera" + User ID prefix camera.js uses (see CAMERA_USERNAME_PREFIX
+// in camera.js). Frame broadcasts below look up the camera client's actual
+// joined username by this prefix rather than hardcoding one, so the sender
+// identity always matches whichever User ID was entered on camera.html.
+const CAMERA_USERNAME_PREFIX = 'Camera';
+
+// Finds the username the camera client actually joined `room` under (i.e.
+// the first username in that room starting with CAMERA_USERNAME_PREFIX).
+// Falls back to the bare prefix if the camera client hasn't joined yet
+// (e.g. a frame POST that raced ahead of the socket's 'adduser' join).
+function findCameraUsername(room) {
+    const roomUsernames = usernames[room];
+    if (roomUsernames) {
+        const match = Object.keys(roomUsernames).find(name => name.startsWith(CAMERA_USERNAME_PREFIX));
+        if (match) return match;
+    }
+    return CAMERA_USERNAME_PREFIX;
+}
 
 // Emit a message to only the socket(s) in `room` whose username matches
 // CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
@@ -343,7 +361,7 @@ function emitToAgentOnly(room, event, ...args) {
 // ---------------------------------------------------------------------------
 
 app.post('/bazaar/api/camera/frame', (req, res) => {
-    const { sessionId, problemId, imageBase64, mimeType, width, height } = req.body || {};
+    const { sessionId, problemId, imageBase64, mimeType, width, height, username, userId } = req.body || {};
 
     if (!sessionId || typeof sessionId !== 'string' || !sessionId.trim()) {
         return res.status(400).json({ error: 'sessionId is required.' });
@@ -354,11 +372,20 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
 
     const room = sessionId.trim();
 
-    if (!(room in cameraFrameCounts)) {
-        cameraFrameCounts[room] = 0;
+    // Prefer the identity the camera itself reports (sent by camera.js on
+    // every frame upload); fall back to scanning the room's joined users
+    // only for older camera.js clients that predate this field.
+    const cameraUsername = (username && String(username).trim()) || findCameraUsername(room);
+
+    // Frame counter is keyed per (room, cameraUsername) so multiple cameras
+    // active in the same room each get their own dropped-frame count
+    // instead of sharing one that jumps between interleaved uploads.
+    const frameCounterKey = `${room}::${cameraUsername}`;
+    if (!(frameCounterKey in cameraFrameCounts)) {
+        cameraFrameCounts[frameCounterKey] = 0;
     }
-    cameraFrameCounts[room] += 1;
-    const frameCount = cameraFrameCounts[room];
+    cameraFrameCounts[frameCounterKey] += 1;
+    const frameCount = cameraFrameCounts[frameCounterKey];
 
     // Multimodal message delimiters
     const MM_SEP = ';%;';
@@ -366,7 +393,7 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
 
     const parts = [
         `multimodal${KV_SEP}true`,
-        `from${KV_SEP}CameraPhone`,
+        `from${KV_SEP}${cameraUsername}`,
         `to${KV_SEP}group`,
         `frameCount${KV_SEP}${frameCount}`,
         `width${KV_SEP}${width || 0}`,
@@ -374,6 +401,10 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
         `mimeType${KV_SEP}${mimeType || 'image/jpeg'}`,
         `cameraframe${KV_SEP}${imageBase64}`,
     ];
+
+    if (userId && String(userId).trim()) {
+        parts.push(`userId${KV_SEP}${String(userId).trim()}`);
+    }
 
     if (problemId && String(problemId).trim()) {
         parts.push(`problemId${KV_SEP}${String(problemId).trim()}`);
@@ -385,7 +416,7 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // .on("updatechat") listener receives it and detects the cameraframe:::
     // tag — but other room participants (human clients) no longer get the
     // full base64 payload pushed to their browsers on every frame.
-    emitToAgentOnly(room, 'updatechat', 'CameraPhone', multimodalMsg);
+    emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
 
     console.log(`[CAMERA] Frame ${frameCount} relayed to room "${room}" (${width}x${height})`);
     res.status(200).json({ ok: true, frameCount });
