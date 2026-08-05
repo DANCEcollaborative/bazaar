@@ -328,7 +328,7 @@ const CAMERA_USERNAME_PREFIX = 'Camera_';
 // CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
 // Falls back to logging a warning (and sending nothing) if no matching
 // socket is found, rather than silently blasting the image to everyone.
-function (room, event, ...args) {
+function emitToAgentOnlyq(room, event, ...args) {
     const socketIds = io.sockets.adapter.rooms.get(room);
     if (!socketIds || socketIds.size === 0) {
         console.warn(`[CAMERA] No sockets in room "${room}"; nothing to send to.`);
@@ -1828,7 +1828,8 @@ io.sockets.on('connection', async (socket) => {
 	
 	
 
-	// when the client emits 'sendpm', this listens and executes
+	// when the client emits '
+	', this listens and executes
 	socket.on('sendpm', async (data, to_user)  => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		logMessage(socket, data, "private");
