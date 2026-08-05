@@ -292,14 +292,14 @@ ul.tab li a:focus, .active {
 	socket.on('updatechat', function (username, data) 
 	{
 		if (data.search("multimodal:::true;%;") > -1) {
-// 			console.log("updatechat - multimodal message found");
+			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("speech",data);
 		} else {
-// 			console.log("updatechat - multimodal message NOT found");
+			console.log("updatechat - multimodal message NOT found");
 		}
-// 		console.log("updatechat - username: " + username);
-// 		console.log("updatechat - data:     " + data);
+		console.log("updatechat - username: " + username);
+		console.log("updatechat - data:     " + data);
         appendMessage(new Date(), username, data);
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});

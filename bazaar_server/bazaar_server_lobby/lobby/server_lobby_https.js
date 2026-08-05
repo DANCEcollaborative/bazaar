@@ -1831,10 +1831,13 @@ io.sockets.on('connection', async (socket) => {
 	// when the client emits 'sendpm', this listens and executes
 	socket.on('sendpm', async (data, to_user)  => {
 		// we tell the client to execute 'updatechat' with 2 parameters
+		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
 		logMessage(socket, data, "private");
 		if(socket.room in user_sockets && to_user in user_sockets[socket.room])
 //     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
-    		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data.value);
+				console.log("info", "socket.on_sendpm - emitting update_private_chat: -- socket.username: " + socket.username + "  -- data: " + data);
+//     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data.value);
+    		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
 	});
 	
 	
