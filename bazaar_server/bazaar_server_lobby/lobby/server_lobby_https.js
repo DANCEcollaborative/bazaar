@@ -1828,8 +1828,7 @@ io.sockets.on('connection', async (socket) => {
 	
 	
 
-	// when the client emits '
-	', this listens and executes
+	// when the client emits 'sendpm', this listens and executes
 	socket.on('sendpm', async (data, to_user)  => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		logMessage(socket, data, "private");
