@@ -328,7 +328,7 @@ const CAMERA_USERNAME_PREFIX = 'Camera_';
 // CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
 // Falls back to logging a warning (and sending nothing) if no matching
 // socket is found, rather than silently blasting the image to everyone.
-function emitToAgentOnlyq(room, event, ...args) {
+function emitToAgentOnly(room, event, ...args) {
     const socketIds = io.sockets.adapter.rooms.get(room);
     if (!socketIds || socketIds.size === 0) {
         console.warn(`[CAMERA] No sockets in room "${room}"; nothing to send to.`);
@@ -417,7 +417,7 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // .on("updatechat") listener receives it and detects the cameraframe:::
     // tag — but other room participants (human clients) no longer get the
     // full base64 payload pushed to their browsers on every frame.
-function emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
+		emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
 
     console.log(`[CAMERA] Frame ${frameCount} relayed to room "${room}" (${width}x${height})`);
     res.status(200).json({ ok: true, frameCount });
