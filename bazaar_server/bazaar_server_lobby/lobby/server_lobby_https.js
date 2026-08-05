@@ -417,7 +417,7 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // .on("updatechat") listener receives it and detects the cameraframe:::
     // tag — but other room participants (human clients) no longer get the
     // full base64 payload pushed to their browsers on every frame.
-    emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
+function emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
 
     console.log(`[CAMERA] Frame ${frameCount} relayed to room "${room}" (${width}x${height})`);
     res.status(200).json({ ok: true, frameCount });
