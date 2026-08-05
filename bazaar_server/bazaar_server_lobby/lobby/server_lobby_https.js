@@ -373,8 +373,8 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // only for older camera.js clients that predate this field.
 //     const cameraUsername = (username && String(username).trim()) || findCameraUsername(room);
 
-//     const cameraUsername = username;
-//     const cameraUserID = userId;
+    const cameraUsername = username;
+    const cameraUserID = userId;
     console.log("info", "app.post('/bazaar/api/camera/frame:  username: " + username + "  --  userId: " + userId);
     
 
