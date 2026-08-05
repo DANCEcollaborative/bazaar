@@ -21,7 +21,7 @@ const API_BASE = "/bazaar/api/camera";
 // the server on every frame upload too, so the server can broadcast and
 // tag frames under the right identity instead of guessing — this matters
 // once more than one camera can be active in the same room at once.
-const CAMERA_USERNAME_PREFIX = "Camera";
+const CAMERA_USERNAME_PREFIX = "Camera_";
 
 // Snapshotted once per connection (in connectSocket()) so every frame this
 // session uploads reports the same identity it joined the socket room
@@ -37,7 +37,7 @@ const JOIN_EVENT = "adduser";
 // before they're sent to the server. The fields only hold the suffix the
 // bot shows the user; these prefixes are added here.
 const SESSION_ID_PREFIX = "llmcamera";
-const USER_ID_PREFIX = "camera_";
+const USER_ID_PREFIX = "Camera_";
 
 let stream;
 let socket;

@@ -299,13 +299,9 @@ app.post('/bazaar/api/camera/session', (req, res) => {
 // WebsocketChatClient's existing .on("updatechat") listener receives it.
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-// Username the Java tutoring agent (WebsocketChatClient) connects to the
-// room as. CONFIRM THIS against your actual deployment — candidates already
-// special-cased elsewhere in this file include 'BazaarAgent', 'VirtualErland',
-// and 'MLAgent'. If unsure, watch the [CAMERA] diagnostic log below on a real
-// session: it lists every username currently in the room so you can see
-// which one is actually the agent.
-const CAMERA_FRAME_RECIPIENT_USERNAME = 'HomeworkHelper';
+// Username that the Java tutoring agent (WebsocketChatClient) connects to the
+// room as. 
+const CAMERA_FRAME_RECIPIENT_USERNAME = 'EyeBot';
 
 // ---------------------------------------------------------------------------
 // Username camera.js's own Socket.IO connection joins the room as. Matches
@@ -313,26 +309,26 @@ const CAMERA_FRAME_RECIPIENT_USERNAME = 'HomeworkHelper';
 // in camera.js). Frame broadcasts below look up the camera client's actual
 // joined username by this prefix rather than hardcoding one, so the sender
 // identity always matches whichever User ID was entered on camera.html.
-const CAMERA_USERNAME_PREFIX = 'Camera';
+const CAMERA_USERNAME_PREFIX = 'Camera_';
 
 // Finds the username the camera client actually joined `room` under (i.e.
 // the first username in that room starting with CAMERA_USERNAME_PREFIX).
 // Falls back to the bare prefix if the camera client hasn't joined yet
 // (e.g. a frame POST that raced ahead of the socket's 'adduser' join).
-function findCameraUsername(room) {
-    const roomUsernames = usernames[room];
-    if (roomUsernames) {
-        const match = Object.keys(roomUsernames).find(name => name.startsWith(CAMERA_USERNAME_PREFIX));
-        if (match) return match;
-    }
-    return CAMERA_USERNAME_PREFIX;
-}
+// function findCameraUsername(room) {
+//     const roomUsernames = usernames[room];
+//     if (roomUsernames) {
+//         const match = Object.keys(roomUsernames).find(name => name.startsWith(CAMERA_USERNAME_PREFIX));
+//         if (match) return match;
+//     }
+//     return CAMERA_USERNAME_PREFIX;
+// }
 
 // Emit a message to only the socket(s) in `room` whose username matches
 // CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
 // Falls back to logging a warning (and sending nothing) if no matching
 // socket is found, rather than silently blasting the image to everyone.
-function emitToAgentOnly(room, event, ...args) {
+function (room, event, ...args) {
     const socketIds = io.sockets.adapter.rooms.get(room);
     if (!socketIds || socketIds.size === 0) {
         console.warn(`[CAMERA] No sockets in room "${room}"; nothing to send to.`);
@@ -375,7 +371,12 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // Prefer the identity the camera itself reports (sent by camera.js on
     // every frame upload); fall back to scanning the room's joined users
     // only for older camera.js clients that predate this field.
-    const cameraUsername = (username && String(username).trim()) || findCameraUsername(room);
+//     const cameraUsername = (username && String(username).trim()) || findCameraUsername(room);
+
+//     const cameraUsername = username;
+//     const cameraUserID = userId;
+    console.log("info", "app.post('/bazaar/api/camera/frame:  username: " + username + "  --  userId: " + userId);
+    
 
     // Frame counter is keyed per (room, cameraUsername) so multiple cameras
     // active in the same room each get their own dropped-frame count

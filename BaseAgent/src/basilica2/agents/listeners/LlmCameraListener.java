@@ -14,6 +14,7 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.ImageEvent;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -52,7 +53,10 @@ public class LlmCameraListener extends BasilicaAdapter
     private boolean contextFlag;
     private int contextLen;
     public String myName;
-    public List<String> topics;
+    private String cameraUsernamePrefix = "camera_";
+    private String privateUsernamePrefix = "private_";
+    private Boolean privateMessaging = true; 
+    public  List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
     private volatile String latestImageBase64 = null; // most recent camera frame (already base64-encoded)
@@ -61,10 +65,11 @@ public class LlmCameraListener extends BasilicaAdapter
 	public LlmCameraListener(Agent a)
 	{
 		super(a);
-		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
+//		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
 		
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
+			
 			myName = llm_prop.getProperty("name");
 			String[] topicList = properties.getProperty("topics", "").split("[\\s,]+");
 			int topicIndex = 0;
@@ -76,10 +81,13 @@ public class LlmCameraListener extends BasilicaAdapter
 			model = llm_prop.getProperty("model");
 //			System.err.println(myName + " model: "+model);
 			requestURL = llm_prop.getProperty(model+".request.url");
-			apiKey = api_key_prop.getProperty(model+".api.key");
+			apiKey = llm_prop.getProperty(model+".api.key");
 			context = llm_prop.getProperty(model+".prompt.context");
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
+			cameraUsernamePrefix = llm_prop.getProperty("camera-username-prefix",cameraUsernamePrefix);
+			privateUsernamePrefix = llm_prop.getProperty("private-username-prefix",privateUsernamePrefix);
+			privateMessaging = Boolean.parseBoolean(properties.getProperty("private-messaging", privateMessaging.toString()));
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
 			}
@@ -180,25 +188,37 @@ public class LlmCameraListener extends BasilicaAdapter
         System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
-	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-	    openAIrequestAndResponse(source,jsonPayload,false);
+	    String senderToLlm; 
+	    if (sender.startsWith(privateUsernamePrefix)) {
+	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
+	    } else {
+	    	senderToLlm = StateMemory.getSharedState(agent).getStudentId(sender);
+	    }
+	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
+	    openAIrequestAndResponse(source,jsonPayload,false,senderToLlm);
 	}
 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
         System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
 	    String prompt = "none"; 
-	    String sender = ie.getSenderUsername(); 
+	    String sender = ie.getSenderUsername().substring(cameraUsernamePrefix.length());
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-	    openAIrequestAndResponse(source,jsonPayload,false);
+	    openAIrequestAndResponse(source,jsonPayload,false,sender);
 	}
 	
-	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem)  {
+	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem, String sender)  {
         System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
         System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
         if (!"No response".equals(response)) {
-	    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-	        source.pushEventProposal(newMe);
+        	if (!privateMessaging) {
+		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+		        source.pushEventProposal(newMe);
+        	} else {
+        		String privateStudentName = privateUsernamePrefix + sender;
+        		PrivateMessageEvent newPMe = new PrivateMessageEvent(source,privateStudentName,this.myName,"Private"); 
+        		source.pushEventProposal(newPMe); 
+        	}
 	    } else {
 	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
 	    }
@@ -441,7 +461,14 @@ public class LlmCameraListener extends BasilicaAdapter
 		    
 		    JSONObject allPromptMessage = new JSONObject();
 		    
-		    String allMessages = getAllMessages(source, prompt, promptSender);
+		    String messageSender;
+		    if (privateMessaging) {
+		    	messageSender = privateUsernamePrefix + promptSender; 	    
+		    } else {
+		    	messageSender = StateMemory.getSharedState(agent).getStudentName(promptSender);
+		    }
+		    
+		    String allMessages = getAllMessages(source, prompt, messageSender);
 
 		    
 		    try {
