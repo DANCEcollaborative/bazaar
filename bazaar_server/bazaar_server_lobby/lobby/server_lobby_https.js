@@ -1933,6 +1933,7 @@ io.sockets.on('connection', async (socket) => {
 	console.log(`[DIAG][DISCONNECT] socket.id=${socket.id} reason=${reason} room=${socket.room} username=${socket.username}`);
     try {
     	console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    	printUserSockets("disconnect"); 
     } catch (e) {
     }
 
