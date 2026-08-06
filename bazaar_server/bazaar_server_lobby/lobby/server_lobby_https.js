@@ -576,6 +576,8 @@ function addUser(socket, room, username, temporary, id, perspective) {
 		usernames[room] = {};
 	usernames[room][username] = id;
 
+	console.log("info", "addUser -- usernames[room][username]: " + usernames[room][username]);
+
 	// set user perspective 
 	if(!user_perspectives[room])
 	  	user_perspectives[room] = {};
@@ -589,6 +591,8 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	if(!user_sockets[room])
 		user_sockets[room] = {};
 	user_sockets[room][username] = socket;
+	
+	printUserSockets("function addUser"); 
 						
 	loadHistory(socket, false);			// ??? Why is history loaded? 
 	io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
@@ -1575,6 +1579,18 @@ function logMessage(socket, content, type) {
         	}
     });
     
+    
+function printUserSockets(caller) {
+	console.log("info", "\n\n=== user_sockets dump from === " + caller);
+	for (const room in user_sockets) {
+		for (const username in user_sockets[room]) {
+			const s = user_sockets[room][username];
+			console.log("info", "  room: " + room + "  username: " + username + "  socket.id: " + (s ? s.id : "undefined/stale"));
+		}
+	}
+	console.log("info", "=== end user_sockets dump ===\n\n");
+}
+    
     endpoint = "unknown"
     if(socket.handshake)
 		endpoint = socket.handshake.address;
@@ -1837,6 +1853,7 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('sendpm', async (data, to_user)  => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
+		printUserSockets("socket.on_sendpm"); 
 		logMessage(socket, data, "private");
 // 		if(socket.room in user_sockets && to_user in user_sockets[socket.room]) {
 //     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
