@@ -329,30 +329,29 @@ const CAMERA_USERNAME_PREFIX = 'Camera_';
 // Falls back to logging a warning (and sending nothing) if no matching
 // socket is found, rather than silently blasting the image to everyone.
 function emitToAgentOnly(room, event, ...args) {
-    const socketIds = io.sockets.adapter.rooms.get(room);
-    if (!socketIds || socketIds.size === 0) {
-        console.warn(`[CAMERA] No sockets in room "${room}"; nothing to send to.`);
+    // Look the recipient up by username via user_sockets (room -> username -> socket)
+    // instead of going through io.sockets.adapter.rooms / io.sockets.sockets.get(socketId).
+    // That id-based path silently misses sockets whose socket.id was reassigned to a
+    // custom (possibly undefined) id in addUser -- e.g. socket.id = id -- which happens
+    // BEFORE socket.join(room), so the adapter ends up registering the room membership
+    // under the wrong/undefined id. user_sockets is keyed by username, not socket.id,
+    // so it finds the socket regardless of what its .id property currently holds.
+    const roomSockets = user_sockets[room];
+    if (!roomSockets) {
+        console.warn(`[CAMERA] No sockets tracked for room "${room}"; nothing to send to.`);
         return;
     }
 
-    const namesSeen = [];
-    let delivered = 0;
-    for (const socketId of socketIds) {
-        const s = io.sockets.sockets.get(socketId);
-        if (!s) continue;
-        namesSeen.push(s.username || '(no username)');
-        if (s.username === CAMERA_FRAME_RECIPIENT_USERNAME) {
-            s.emit(event, ...args);
-            delivered += 1;
-        }
-    }
-
-    if (delivered === 0) {
+    const s = roomSockets[CAMERA_FRAME_RECIPIENT_USERNAME];
+    if (!s) {
         console.warn(
             `[CAMERA] No socket in room "${room}" matched username ` +
-            `"${CAMERA_FRAME_RECIPIENT_USERNAME}". Usernames present: [${namesSeen.join(', ')}]`
+            `"${CAMERA_FRAME_RECIPIENT_USERNAME}". Usernames present: [${Object.keys(roomSockets).join(', ')}]`
         );
+        return;
     }
+
+    s.emit(event, ...args);
 }
 // ---------------------------------------------------------------------------
 
@@ -565,12 +564,12 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	socket.temporary = temporary;   // don't log anything to the db if this flag is set	
 	socket.username = username;		// store the username in the socket session for this client
 	socket.room = room;				// store the room name in the socket session for this client	
-	socket.id = id; 
+// 	socket.id = id; 
 	socket.Id = id;					// ??? Why socket.Id (title case)? 	
 	
 	
 	console.log("info", "addUser -- socket.room: " + socket.room + "  -- socket.username: " + socket.username + "  -- socket.temporary: " + socket.temporary + "  -- socket.id: " + socket.id);
-	
+
 	// add the client's username to the global list
 	if(!usernames[room])
 		usernames[room] = {};
@@ -578,7 +577,7 @@ function addUser(socket, room, username, temporary, id, perspective) {
 
 	console.log("info", "addUser -- usernames[room][username]: " + usernames[room][username]);
 
-	// set user perspective 
+	// set user perspective
 	if(!user_perspectives[room])
 	  	user_perspectives[room] = {};
 	user_perspectives[room][username] = perspective;
@@ -587,14 +586,14 @@ function addUser(socket, room, username, temporary, id, perspective) {
 //console.log("function addUser: Joining room " + room);
 	socket.join(room);
 	
-	// Add to user_sockets list  
+	// Add to user_sockets list
 	if(!user_sockets[room])
 		user_sockets[room] = {};
 	user_sockets[room][username] = socket;
-	
-	printUserSockets("function addUser"); 
-						
-	loadHistory(socket, false);			// ??? Why is history loaded? 
+
+	printUserSockets("function addUser");
+
+	loadHistory(socket, false);			// ??? Why is history loaded?
 	io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
 	//socket.emit('updaterooms', [room,], room);
 }
@@ -1853,13 +1852,13 @@ io.sockets.on('connection', async (socket) => {
 	socket.on('sendpm', async (data, to_user)  => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
-		printUserSockets("socket.on_sendpm"); 
+		printUserSockets("socket.on_sendpm");
 		logMessage(socket, data, "private");
 // 		if(socket.room in user_sockets && to_user in user_sockets[socket.room]) {
 //     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
 				console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
 				const s = user_sockets[socket.room][to_user];
-				if(s) {					
+				if(s) {
 					console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- data: " + data);
 					s.emit('update_private_chat', socket.username, data);
 				} else {
