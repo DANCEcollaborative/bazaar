@@ -1837,7 +1837,9 @@ io.sockets.on('connection', async (socket) => {
 //     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
 				console.log("info", "socket.on_sendpm - emitting update_private_chat: -- socket.username: " + socket.username + "  -- data: " + data);
 //     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data.value);
-    		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
+				const socketId = user_sockets[socket.room][to_user];
+				const s = io.sockets.sockets.get(socketId);
+    		s.emit('update_private_chat', socket.username, data);
 	});
 	
 	
