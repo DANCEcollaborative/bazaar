@@ -544,6 +544,7 @@ function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger)
 
 
 function addUser(socket, room, username, temporary, id, perspective) {
+		console.log("info", "addUser, enter: -- room: " + room + "  -- username: " + username + "  -- temporary: " + temporary + "  -- id: " + id + "  -- perspective: " + perspective);
     if (username != "VirtualErland" || username != "BazaarAgent") {		// This seems intended to exclude Bazaar agents from user count but is incomplete
         if (room in numUsers) {		
            	numUsers[room] = numUsers[room] + 1;
@@ -564,7 +565,11 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	socket.temporary = temporary;   // don't log anything to the db if this flag is set	
 	socket.username = username;		// store the username in the socket session for this client
 	socket.room = room;				// store the room name in the socket session for this client	
-	socket.Id = id;					// ??? I think socket.id is set automatically; why socket.Id (title case)? 	
+	socket.id = id; 
+	socket.Id = id;					// ??? Why socket.Id (title case)? 	
+	
+	
+	console.log("info", "addUser -- socket.room: " + socket.room + "  -- socket.username: " + socket.username + "  -- socket.temporary: " + socket.temporary + "  -- socket.id: " + socket.id);
 	
 	// add the client's username to the global list
 	if(!usernames[room])
