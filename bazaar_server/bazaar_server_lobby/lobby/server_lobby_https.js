@@ -1833,13 +1833,19 @@ io.sockets.on('connection', async (socket) => {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
 		logMessage(socket, data, "private");
-		if(socket.room in user_sockets && to_user in user_sockets[socket.room])
+		if(socket.room in user_sockets && to_user in user_sockets[socket.room]) {
 //     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
 				console.log("info", "socket.on_sendpm - emitting update_private_chat: -- socket.username: " + socket.username + "  -- data: " + data);
-//     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data.value);
-				const socketId = user_sockets[socket.room][to_user];
-				const s = io.sockets.sockets.get(socketId);
-    		s.emit('update_private_chat', socket.username, data);
+				const s = user_sockets[socket.room][to_user];
+				if(s) {
+					s.emit('update_private_chat', socket.username, data);
+				} else {
+					console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+				}
+    		}
+    else {
+			console.log("info", "socket.on_sendpm - if statement failed -- did not emit");
+			}
 	});
 	
 	
