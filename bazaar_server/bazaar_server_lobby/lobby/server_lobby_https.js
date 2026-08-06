@@ -1428,6 +1428,18 @@ function eventHubPostTest () {
 // sockets by username
 let user_sockets = {};
 
+// debug helper: print every username and socket currently tracked in user_sockets
+function printUserSockets(caller) {
+	console.log("info", "=== user_sockets dump from " + caller + " ===");
+	for (const room in user_sockets) {
+		for (const username in user_sockets[room]) {
+			const s = user_sockets[room][username];
+			console.log("info", "  room: " + room + "  username: " + username + "  socket.id: " + (s ? s.id : "undefined/stale"));
+		}
+	}
+	console.log("info", "=== end user_sockets dump ===");
+}
+
 // usernames which are currently connected to each chat room
 let usernames = {};
 
@@ -1578,18 +1590,6 @@ function logMessage(socket, content, type) {
           //console.log(err);
         	}
     });
-    
-    
-function printUserSockets(caller) {
-	console.log("info", "\n\n=== user_sockets dump from === " + caller);
-	for (const room in user_sockets) {
-		for (const username in user_sockets[room]) {
-			const s = user_sockets[room][username];
-			console.log("info", "  room: " + room + "  username: " + username + "  socket.id: " + (s ? s.id : "undefined/stale"));
-		}
-	}
-	console.log("info", "=== end user_sockets dump ===\n\n");
-}
     
     endpoint = "unknown"
     if(socket.handshake)
