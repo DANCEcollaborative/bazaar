@@ -301,7 +301,7 @@ app.post('/bazaar/api/camera/session', (req, res) => {
 // ---------------------------------------------------------------------------
 // Username that the Java tutoring agent (WebsocketChatClient) connects to the
 // room as. 
-const CAMERA_FRAME_RECIPIENT_USERNAME = 'EyeBot';
+const BOT_USERNAME = 'EyeBot';
 
 // ---------------------------------------------------------------------------
 // Username camera.js's own Socket.IO connection joins the room as. Matches
@@ -325,7 +325,7 @@ const CAMERA_USERNAME_PREFIX = 'Camera_';
 // }
 
 // Emit a message to only the socket(s) in `room` whose username matches
-// CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
+// BOT_USERNAME, instead of broadcasting to the whole room.
 // Falls back to logging a warning (and sending nothing) if no matching
 // socket is found, rather than silently blasting the image to everyone.
 function emitToAgentOnly(room, event, ...args) {
@@ -342,11 +342,11 @@ function emitToAgentOnly(room, event, ...args) {
         return;
     }
 
-    const s = roomSockets[CAMERA_FRAME_RECIPIENT_USERNAME];
+    const s = roomSockets[BOT_USERNAME];
     if (!s) {
         console.warn(
             `[CAMERA] No socket in room "${room}" matched username ` +
-            `"${CAMERA_FRAME_RECIPIENT_USERNAME}". Usernames present: [${Object.keys(roomSockets).join(', ')}]`
+            `"${BOT_USERNAME}". Usernames present: [${Object.keys(roomSockets).join(', ')}]`
         );
         return;
     }
@@ -1848,28 +1848,47 @@ io.sockets.on('connection', async (socket) => {
 	
 	
 
+// 	// when the client emits 'sendpm', this listens and executes
+// 	socket.on('sendpm', async (data, to_user)  => {
+// 		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
+// 		printUserSockets("socket.on_sendpm");
+// 		logMessage(socket, data, "private");
+// 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
+// 		if socket.username.startsWith('Private_')) {
+// 			to_user = BOT_USERNAME;
+// 		}
+// 		console.log("info", "socket.on_sendpm - before specify socket: -- room: " + socket.room + "  -- to_user: " + to_user);
+// 		const s = user_sockets[socket.room][to_user];
+// 		if(s) {
+// 			console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
+// 			s.emit('update_private_chat', socket.username, data);
+// 		} else {
+// 			console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+// 				}
+// 	});
+// 	
+// 	
+		
+
 	// when the client emits 'sendpm', this listens and executes
 	socket.on('sendpm', async (data, to_user)  => {
-		// we tell the client to execute 'updatechat' with 2 parameters
 		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
 		printUserSockets("socket.on_sendpm");
 		logMessage(socket, data, "private");
-// 		if(socket.room in user_sockets && to_user in user_sockets[socket.room]) {
-//     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
-				console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
-				const s = user_sockets[socket.room][to_user];
-				if(s) {
-// 					console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- data: " + data);
-// 					s.emit('update_private_chat', socket.username, data);
-					console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
-					s.emit('update_private_chat', socket.username, data);
-				} else {
-					console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
-				}
-//     	}
-//     else {
-// 			console.log("info", "socket.on_sendpm - if statement failed -- did not emit");
-// 			}
+		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
+		if socket.username.startsWith('Private_')) {
+			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly"); 
+			emitToAgentOnly(socket.room, 'update_chat', socket.username, data);
+		} else {
+			console.log("info", "socket.on_sendpm - not from 'Private_: -- room: " + socket.room + "  -- to_user: " + to_user);
+			const s = user_sockets[socket.room][to_user];
+			if(s) {
+				console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
+				s.emit('update_private_chat', socket.username, data);
+			} else {
+				console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+			}
+		}
 	});
 	
 	
