@@ -200,11 +200,21 @@ function connectSocket(sessionId) {
     addFeedItem("Connection error", err.message, "chat-error");
   });
 
+//   // Agent feedback rides the same 'updatechat' event camera frames use.
+//   // Skip our own frame broadcasts (from === cameraUsername — the server
+//   // tags every frame from this camera under its own join identity, sent
+//   // below in uploadFrame()) so the feed only shows what the agent says back.
+//   socket.on("updatechat", (from, data) => {
+//     if (from === cameraUsername) return;
+//     addFeedItem(from, extractDisplayText(data), "ai-recommendation");
+//   });
+// }
+
   // Agent feedback rides the same 'updatechat' event camera frames use.
   // Skip our own frame broadcasts (from === cameraUsername — the server
   // tags every frame from this camera under its own join identity, sent
   // below in uploadFrame()) so the feed only shows what the agent says back.
-  socket.on("updatechat", (from, data) => {
+  socket.on("update_private_chat", (from, data) => {
     if (from === cameraUsername) return;
     addFeedItem(from, extractDisplayText(data), "ai-recommendation");
   });

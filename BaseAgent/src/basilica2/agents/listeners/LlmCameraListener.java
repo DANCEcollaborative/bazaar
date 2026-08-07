@@ -216,10 +216,11 @@ public class LlmCameraListener extends BasilicaAdapter
 		    	source.pushEventProposal(newMe);
         	} else {
         		String privateStudentName = privateUsernamePrefix + sender;
-        		PrivateMessageEvent newPMe = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
-        		source.pushEventProposal(newPMe); 
-		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-		        source.pushEventProposal(newMe);
+        		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
+        		source.pushEventProposal(newPMe1); 
+        		String privateCameraName = cameraUsernamePrefix + sender;
+        		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
+        		source.pushEventProposal(newPMe2); 
         	}
 	    } else {
 	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
