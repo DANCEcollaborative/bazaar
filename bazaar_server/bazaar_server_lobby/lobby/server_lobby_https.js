@@ -1859,7 +1859,9 @@ io.sockets.on('connection', async (socket) => {
 				console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
 				const s = user_sockets[socket.room][to_user];
 				if(s) {
-					console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- data: " + data);
+// 					console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- data: " + data);
+// 					s.emit('update_private_chat', socket.username, data);
+					console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
 					s.emit('update_private_chat', socket.username, data);
 				} else {
 					console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");

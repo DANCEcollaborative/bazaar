@@ -195,18 +195,19 @@ public class LlmCameraListener extends BasilicaAdapter
 	    	senderToLlm = StateMemory.getSharedState(agent).getStudentId(sender);
 	    }
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
-	    openAIrequestAndResponse(source,jsonPayload,false,senderToLlm);
+	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
 	}
 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
         System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
 	    String prompt = "none"; 
-	    String sender = ie.getSenderUsername().substring(cameraUsernamePrefix.length());
+	    String sender = ie.getSenderUsername();
+	    String senderToLlm = ie.getSenderUsername().substring(cameraUsernamePrefix.length());
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-	    openAIrequestAndResponse(source,jsonPayload,false,sender);
+	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
 	}
 	
-	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem, String sender)  {
+	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem, String sender, String senderToLlm)  {
         System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
         System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
@@ -215,17 +216,22 @@ public class LlmCameraListener extends BasilicaAdapter
 		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 		    	source.pushEventProposal(newMe);
         	} else {
-        		String privateStudentName = privateUsernamePrefix + sender;
-        		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
-        		source.pushEventProposal(newPMe1); 
-        		String privateCameraName = cameraUsernamePrefix + sender;
-        		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
-        		source.pushEventProposal(newPMe2); 
+        		if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
+    		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+    		    	source.pushEventProposal(newMe);
+        		} else {
+	        		String privateStudentName = privateUsernamePrefix + senderToLlm;
+	        		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
+	        		source.pushEventProposal(newPMe1); 
+	        		String privateCameraName = cameraUsernamePrefix + senderToLlm;
+	        		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
+	        		source.pushEventProposal(newPMe2); 
+        		}
         	}
 	    } else {
 	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
 	    }
-	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, execute -- response from OpenAI: " + response); 	
+	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, openAIrequestAndResponse -- response from OpenAI: " + response); 	
 	}
 
 
