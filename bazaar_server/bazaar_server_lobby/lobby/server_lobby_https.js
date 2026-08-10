@@ -1854,7 +1854,7 @@ io.sockets.on('connection', async (socket) => {
 // 		printUserSockets("socket.on_sendpm");
 // 		logMessage(socket, data, "private");
 // 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
-// 		if socket.username.startsWith('Private_')) {
+// 		if (socket.username.startsWith('Private_')) {
 // 			to_user = BOT_USERNAME;
 // 		}
 // 		console.log("info", "socket.on_sendpm - before specify socket: -- room: " + socket.room + "  -- to_user: " + to_user);
@@ -1876,7 +1876,7 @@ io.sockets.on('connection', async (socket) => {
 		printUserSockets("socket.on_sendpm");
 		logMessage(socket, data, "private");
 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
-		if socket.username.startsWith('Private_')) {
+		if (socket.username.startsWith('Private_')) {
 			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly"); 
 			emitToAgentOnly(socket.room, 'update_chat', socket.username, data);
 		} else {
