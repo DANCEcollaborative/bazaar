@@ -336,21 +336,24 @@ function emitToAgentOnly(room, event, ...args) {
     // BEFORE socket.join(room), so the adapter ends up registering the room membership
     // under the wrong/undefined id. user_sockets is keyed by username, not socket.id,
     // so it finds the socket regardless of what its .id property currently holds.
+    console.log("emitToAgentOnly -- room=" + room + "  --  event=" + event);
     const roomSockets = user_sockets[room];
     if (!roomSockets) {
-        console.warn(`[CAMERA] No sockets tracked for room "${room}"; nothing to send to.`);
+        console.log(`[CAMERA] No sockets tracked for room "${room}"; nothing to send to.`);
         return;
     }
 
+		console.log("emitToAgentOnly -- BOT_USERNAME = " + BOT_USERNAME);
     const s = roomSockets[BOT_USERNAME];
+		console.log("emitToAgentOnly -- s = roomSockets[BOT_USERNAME] = " + s);
     if (!s) {
-        console.warn(
+        console.log(
             `[CAMERA] No socket in room "${room}" matched username ` +
             `"${BOT_USERNAME}". Usernames present: [${Object.keys(roomSockets).join(', ')}]`
         );
         return;
     }
-
+		console.log("emitToAgentOnly -- about to emit");
     s.emit(event, ...args);
 }
 // ---------------------------------------------------------------------------
