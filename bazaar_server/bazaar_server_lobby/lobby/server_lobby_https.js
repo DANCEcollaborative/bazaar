@@ -1881,7 +1881,7 @@ io.sockets.on('connection', async (socket) => {
 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
 		if (socket.username.startsWith('Private_')) {
 			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly"); 
-			emitToAgentOnly(socket.room, 'update_chat', socket.username, data);
+			emitToAgentOnly(socket.room, 'updatechat', socket.username, data);
 		} else {
 			console.log("info", "socket.on_sendpm - not from 'Private_: -- room: " + socket.room + "  -- to_user: " + to_user);
 			const s = user_sockets[socket.room][to_user];
