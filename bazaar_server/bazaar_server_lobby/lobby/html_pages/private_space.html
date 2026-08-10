@@ -446,7 +446,8 @@ ul.tab li a:focus, .active {
 			
 			if(message && message.length > 0)
 			{
-    			socket.emit('sendpm', message, );
+    			socket.emit('sendpm', message);
+    			appendMessage(new Date(), user, message);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
     }
