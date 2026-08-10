@@ -607,7 +607,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 			    		s.setCurrentImageMimeType(mimeType);
 			    		StateMemory.commitSharedState(s, agent);
 			    		try {
-							boolean similar = almostIdentical(imageBase64,previousImage,0.1);
+							boolean similar = almostIdentical(imageBase64,previousImage,0.05);
 							if (similar) {
 								System.err.println("*** WebsocketChatClient, updatechat: Image received is similar to previous image; not sending ***");
 							}

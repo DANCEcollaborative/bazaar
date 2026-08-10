@@ -299,13 +299,9 @@ app.post('/bazaar/api/camera/session', (req, res) => {
 // WebsocketChatClient's existing .on("updatechat") listener receives it.
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-// Username the Java tutoring agent (WebsocketChatClient) connects to the
-// room as. CONFIRM THIS against your actual deployment — candidates already
-// special-cased elsewhere in this file include 'BazaarAgent', 'VirtualErland',
-// and 'MLAgent'. If unsure, watch the [CAMERA] diagnostic log below on a real
-// session: it lists every username currently in the room so you can see
-// which one is actually the agent.
-const CAMERA_FRAME_RECIPIENT_USERNAME = 'HomeworkHelper';
+// Username that the Java tutoring agent (WebsocketChatClient) connects to the
+// room as. 
+const BOT_USERNAME = 'EyeBot';
 
 // ---------------------------------------------------------------------------
 // Username camera.js's own Socket.IO connection joins the room as. Matches
@@ -313,50 +309,52 @@ const CAMERA_FRAME_RECIPIENT_USERNAME = 'HomeworkHelper';
 // in camera.js). Frame broadcasts below look up the camera client's actual
 // joined username by this prefix rather than hardcoding one, so the sender
 // identity always matches whichever User ID was entered on camera.html.
-const CAMERA_USERNAME_PREFIX = 'Camera';
+const CAMERA_USERNAME_PREFIX = 'Camera_';
 
 // Finds the username the camera client actually joined `room` under (i.e.
 // the first username in that room starting with CAMERA_USERNAME_PREFIX).
 // Falls back to the bare prefix if the camera client hasn't joined yet
 // (e.g. a frame POST that raced ahead of the socket's 'adduser' join).
-function findCameraUsername(room) {
-    const roomUsernames = usernames[room];
-    if (roomUsernames) {
-        const match = Object.keys(roomUsernames).find(name => name.startsWith(CAMERA_USERNAME_PREFIX));
-        if (match) return match;
-    }
-    return CAMERA_USERNAME_PREFIX;
-}
+// function findCameraUsername(room) {
+//     const roomUsernames = usernames[room];
+//     if (roomUsernames) {
+//         const match = Object.keys(roomUsernames).find(name => name.startsWith(CAMERA_USERNAME_PREFIX));
+//         if (match) return match;
+//     }
+//     return CAMERA_USERNAME_PREFIX;
+// }
 
 // Emit a message to only the socket(s) in `room` whose username matches
-// CAMERA_FRAME_RECIPIENT_USERNAME, instead of broadcasting to the whole room.
+// BOT_USERNAME, instead of broadcasting to the whole room.
 // Falls back to logging a warning (and sending nothing) if no matching
 // socket is found, rather than silently blasting the image to everyone.
 function emitToAgentOnly(room, event, ...args) {
-    const socketIds = io.sockets.adapter.rooms.get(room);
-    if (!socketIds || socketIds.size === 0) {
-        console.warn(`[CAMERA] No sockets in room "${room}"; nothing to send to.`);
+    // Look the recipient up by username via user_sockets (room -> username -> socket)
+    // instead of going through io.sockets.adapter.rooms / io.sockets.sockets.get(socketId).
+    // That id-based path silently misses sockets whose socket.id was reassigned to a
+    // custom (possibly undefined) id in addUser -- e.g. socket.id = id -- which happens
+    // BEFORE socket.join(room), so the adapter ends up registering the room membership
+    // under the wrong/undefined id. user_sockets is keyed by username, not socket.id,
+    // so it finds the socket regardless of what its .id property currently holds.
+    console.log("emitToAgentOnly -- room=" + room + "  --  event=" + event);
+    const roomSockets = user_sockets[room];
+    if (!roomSockets) {
+        console.log(`[CAMERA] No sockets tracked for room "${room}"; nothing to send to.`);
         return;
     }
 
-    const namesSeen = [];
-    let delivered = 0;
-    for (const socketId of socketIds) {
-        const s = io.sockets.sockets.get(socketId);
-        if (!s) continue;
-        namesSeen.push(s.username || '(no username)');
-        if (s.username === CAMERA_FRAME_RECIPIENT_USERNAME) {
-            s.emit(event, ...args);
-            delivered += 1;
-        }
-    }
-
-    if (delivered === 0) {
-        console.warn(
+		console.log("emitToAgentOnly -- BOT_USERNAME = " + BOT_USERNAME);
+    const s = roomSockets[BOT_USERNAME];
+		console.log("emitToAgentOnly -- s = roomSockets[BOT_USERNAME] = " + s);
+    if (!s) {
+        console.log(
             `[CAMERA] No socket in room "${room}" matched username ` +
-            `"${CAMERA_FRAME_RECIPIENT_USERNAME}". Usernames present: [${namesSeen.join(', ')}]`
+            `"${BOT_USERNAME}". Usernames present: [${Object.keys(roomSockets).join(', ')}]`
         );
+        return;
     }
+		console.log("emitToAgentOnly -- about to emit");
+    s.emit(event, ...args);
 }
 // ---------------------------------------------------------------------------
 
@@ -375,7 +373,12 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // Prefer the identity the camera itself reports (sent by camera.js on
     // every frame upload); fall back to scanning the room's joined users
     // only for older camera.js clients that predate this field.
-    const cameraUsername = (username && String(username).trim()) || findCameraUsername(room);
+//     const cameraUsername = (username && String(username).trim()) || findCameraUsername(room);
+
+    const cameraUsername = username;
+    const cameraUserID = userId;
+    console.log("info", "app.post('/bazaar/api/camera/frame:  username: " + username + "  --  userId: " + userId);
+    
 
     // Frame counter is keyed per (room, cameraUsername) so multiple cameras
     // active in the same room each get their own dropped-frame count
@@ -416,7 +419,7 @@ app.post('/bazaar/api/camera/frame', (req, res) => {
     // .on("updatechat") listener receives it and detects the cameraframe:::
     // tag — but other room participants (human clients) no longer get the
     // full base64 payload pushed to their browsers on every frame.
-    emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
+		emitToAgentOnly(room, 'updatechat', cameraUsername, multimodalMsg);
 
     console.log(`[CAMERA] Frame ${frameCount} relayed to room "${room}" (${width}x${height})`);
     res.status(200).json({ ok: true, frameCount });
@@ -543,6 +546,7 @@ function setTeam_fromSocket(clientID,roomName,teamNumber,userID,username,logger)
 
 
 function addUser(socket, room, username, temporary, id, perspective) {
+		console.log("info", "addUser, enter: -- room: " + room + "  -- username: " + username + "  -- temporary: " + temporary + "  -- id: " + id + "  -- perspective: " + perspective);
     if (username != "VirtualErland" || username != "BazaarAgent") {		// This seems intended to exclude Bazaar agents from user count but is incomplete
         if (room in numUsers) {		
            	numUsers[room] = numUsers[room] + 1;
@@ -563,14 +567,20 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	socket.temporary = temporary;   // don't log anything to the db if this flag is set	
 	socket.username = username;		// store the username in the socket session for this client
 	socket.room = room;				// store the room name in the socket session for this client	
-	socket.Id = id;					// ??? I think socket.id is set automatically; why socket.Id (title case)? 	
+// 	socket.id = id; 
+	socket.Id = id;					// ??? Why socket.Id (title case)? 	
 	
+	
+	console.log("info", "addUser -- socket.room: " + socket.room + "  -- socket.username: " + socket.username + "  -- socket.temporary: " + socket.temporary + "  -- socket.id: " + socket.id);
+
 	// add the client's username to the global list
 	if(!usernames[room])
 		usernames[room] = {};
 	usernames[room][username] = id;
 
-	// set user perspective 
+	console.log("info", "addUser -- usernames[room][username]: " + usernames[room][username]);
+
+	// set user perspective
 	if(!user_perspectives[room])
 	  	user_perspectives[room] = {};
 	user_perspectives[room][username] = perspective;
@@ -579,12 +589,14 @@ function addUser(socket, room, username, temporary, id, perspective) {
 //console.log("function addUser: Joining room " + room);
 	socket.join(room);
 	
-	// Add to user_sockets list  
+	// Add to user_sockets list
 	if(!user_sockets[room])
 		user_sockets[room] = {};
 	user_sockets[room][username] = socket;
-						
-	loadHistory(socket, false);			// ??? Why is history loaded? 
+
+	printUserSockets("function addUser");
+
+	loadHistory(socket, false);			// ??? Why is history loaded?
 	io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
 	//socket.emit('updaterooms', [room,], room);
 }
@@ -1418,6 +1430,18 @@ function eventHubPostTest () {
 // sockets by username
 let user_sockets = {};
 
+// debug helper: print every username and socket currently tracked in user_sockets
+function printUserSockets(caller) {
+	console.log("info", "=== user_sockets dump from " + caller + " ===");
+	for (const room in user_sockets) {
+		for (const username in user_sockets[room]) {
+			const s = user_sockets[room][username];
+			console.log("info", "  room: " + room + "  username: " + username + "  socket.id: " + (s ? s.id : "undefined/stale"));
+		}
+	}
+	console.log("info", "=== end user_sockets dump ===");
+}
+
 // usernames which are currently connected to each chat room
 let usernames = {};
 
@@ -1827,13 +1851,50 @@ io.sockets.on('connection', async (socket) => {
 	
 	
 
+// 	// when the client emits 'sendpm', this listens and executes
+// 	socket.on('sendpm', async (data, to_user)  => {
+// 		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
+// 		printUserSockets("socket.on_sendpm");
+// 		logMessage(socket, data, "private");
+// 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
+// 		if (socket.username.startsWith('Private_')) {
+// 			to_user = BOT_USERNAME;
+// 		}
+// 		console.log("info", "socket.on_sendpm - before specify socket: -- room: " + socket.room + "  -- to_user: " + to_user);
+// 		const s = user_sockets[socket.room][to_user];
+// 		if(s) {
+// 			console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
+// 			s.emit('update_private_chat', socket.username, data);
+// 		} else {
+// 			console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+// 				}
+// 	});
+// 	
+// 	
+		
+
 	// when the client emits 'sendpm', this listens and executes
 	socket.on('sendpm', async (data, to_user)  => {
-		// we tell the client to execute 'updatechat' with 2 parameters
+		console.log("info", "socket.on_sendpm - enter: -- room: " + socket.room + "  -- to_user: " + to_user + "  -- id: " + usernames[socket.room][socket.username]);
+		printUserSockets("socket.on_sendpm");
 		logMessage(socket, data, "private");
-		if(socket.room in user_sockets && to_user in user_sockets[socket.room])
-//     		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data);
-    		user_sockets[socket.room][to_user].emit('update_private_chat', socket.username, data.value);
+		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
+		if (socket.username.startsWith('Private_')) {
+			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly"); 
+			emitToAgentOnly(socket.room, 'updatechat', socket.username, data);
+		} else {
+			if (!to_user) {
+				to_user = BOT_USERNAME;
+			}
+			console.log("info", "socket.on_sendpm - not from 'Private_: -- room: " + socket.room + "  -- to_user: " + to_user);
+			const s = user_sockets[socket.room][to_user];
+			if(s) {
+				console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
+				s.emit('update_private_chat', socket.username, data);
+			} else {
+				console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+			}
+		}
 	});
 	
 	
@@ -1899,6 +1960,7 @@ io.sockets.on('connection', async (socket) => {
 	console.log(`[DIAG][DISCONNECT] socket.id=${socket.id} reason=${reason} room=${socket.room} username=${socket.username}`);
     try {
     	console.log("info", "socket.on_disconnect: -- room: " + socket.room + "  -- username: " + socket.username + "  -- id: " + usernames[socket.room][socket.username]);
+    	printUserSockets("disconnect"); 
     } catch (e) {
     }
 

@@ -74,7 +74,7 @@ public class ImageEvent extends Event
     /** Monotonically increasing frame counter within this session. */
     private final int frameCount;
 
-    /** Socket.IO username of the sender — always "CameraPhone" for now. */
+    /** Socket.IO username of the sender — always "Camera_" for now. */
     private final String senderUsername;
 
     public ImageEvent(Component source,
@@ -87,7 +87,7 @@ public class ImageEvent extends Event
                       int frameCount)
     {
         super(source);
-        this.senderUsername  = senderUsername  != null ? senderUsername  : "CameraPhone";
+        this.senderUsername  = senderUsername  != null ? senderUsername  : "Camera_";
         this.imageBase64     = imageBase64     != null ? imageBase64     : "";
         this.mimeType        = mimeType        != null ? mimeType        : "image/jpeg";
         this.width           = width;

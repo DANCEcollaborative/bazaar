@@ -206,6 +206,20 @@ public class State
 		return sid;
 	}
 
+	public String getStudentId(String studentName)
+	{
+		for (int i = 0; i < students.size(); i++)
+		{
+			Student s = students.get(i);
+			// if (s.isPresent)				// No need to check if student is present to return name
+			if (true)
+			{
+				if (s.name.equalsIgnoreCase(studentName)) { return s.chatId; };
+			}
+		}
+		return null;
+	}
+
 	public void setName(String sid, String name)
 	{
 //		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
