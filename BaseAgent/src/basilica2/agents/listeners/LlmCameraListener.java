@@ -189,21 +189,43 @@ public class LlmCameraListener extends LlmChatListener
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 	    String senderToLlm; 
+	    
+	    // Private chat messages come from an HTML page indended for private use.
+	    // Usernames from that page have prefix 'Private_', followed by the userId 
+	    // from the corresponding non-private page. User names from the corresponding
+	    // camera HTML page have prefix 'Camera_', followed by the same userId. 
+	    // The userId value is sent to the LLM for both chat messages and camera images
+	    // so that the LLM can recognize that both the messages and the images come
+	    // from the same user.
+	    // But from collaborative HTML pages, the username will be something like an 
+	    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+	    // confuse the private and collaborative contexts. 
 	    if (sender.startsWith(privateUsernamePrefix)) {
 	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
 	    } else {
-	    	senderToLlm = StateMemory.getSharedState(agent).getStudentId(sender);
+	    	senderToLlm = sender;
 	    }
 	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
 	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
 	}
-	
+
+
+    // Images come from an HTML page that sends images from a user's private camera.
+    // Usernames from that page have prefix 'Camera_', followed by the userId 
+    // from the corresponding non-private page. User names from the corresponding
+    // private HTML page have prefix 'Private_', followed by the same userId. 
+    // The userId value is sent to the LLM for both chat messages and camera images
+    // so that the LLM can recognize that both the messages and the images come
+    // from the same user.
+    // But from collaborative HTML pages, the username will be something like an 
+    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+    // confuse the private and collaborative contexts. 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
         System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
 	    String prompt = "none"; 
 	    String sender = ie.getSenderUsername();
 	    String senderToLlm = ie.getSenderUsername().substring(cameraUsernamePrefix.length());
-	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
 	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
 	}
 	
@@ -488,6 +510,11 @@ public class LlmCameraListener extends LlmChatListener
 				    // Vision payload: content is an array of image + text parts
 				    JSONArray contentParts = new JSONArray();
 
+				    JSONObject userPart = new JSONObject();
+				    userPart.put("type", "text");
+				    userPart.put("ID", promptSender);
+				    contentParts.put(userPart);
+				    
 				    JSONObject imagePart = new JSONObject();
 				    imagePart.put("type", "image_url");
 				    JSONObject imageUrl = new JSONObject();
@@ -501,7 +528,7 @@ public class LlmCameraListener extends LlmChatListener
 				    contentParts.put(textPart);
 
 				    allPromptMessage.put("content", contentParts);
-				    System.err.println("LlmCameraListener: sending message with image frame attached");
+				    System.out.println("LlmCameraListener: sending message with image frame attached");
 				} else {
 				    // No image yet – plain text as before
 				    allPromptMessage.put("content", allMessages);
@@ -538,8 +565,8 @@ public class LlmCameraListener extends LlmChatListener
 			}
 		}
 		    
-//		System.err.println("constructPayloadMultiParty returning payload: " + payload.toString()); 
-		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
+		System.out.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
+		System.out.println("LlmCameraListener constructPayloadMultiParty returning payload: " + payload.toString()); 
 	    return payload.toString();
 	}
 

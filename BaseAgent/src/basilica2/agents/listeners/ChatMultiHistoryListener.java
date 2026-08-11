@@ -17,6 +17,7 @@ import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.BotMessageEvent;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
@@ -75,7 +76,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
         // Create the file and its directory structure if they do not exist
         createFileIfNotExists(path);
         readAndSetSessionId();
-        inactivityTimer = new Timer();
+//        inactivityTimer = new Timer();
         inactivityPeriod = Long.parseLong(properties.getProperty("timeout")) * 1000;
         inactivityTimerFlag = Boolean.parseBoolean(properties.getProperty("timeout_flag"));
         
@@ -343,7 +344,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 		if (listenerSenderCount == -1) {
 			getLlmListeners(source);
 		}
-		System.err.println("ChatHistoryMultiListener: got LlmListeners " + Integer.toString(listenerSenderCount));
+		System.out.println("ChatHistoryMultiListener, processEvent: got LlmListeners " + Integer.toString(listenerSenderCount));
 		if (e instanceof BotMessageEvent) {
 				
 	//			handleMessageEvent(source, (BotMessageEvent) e);
@@ -355,9 +356,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 				e1.printStackTrace();
 			}
 			Logger.commonLog("ChatHistoryMultiListener", Logger.LOG_NORMAL, "ChatHistoryMultiListener got BotMessageEvent " + bm.getText()); 
-			System.err.println("ChatHistoryMultiListener got BotMessageEvent " + bm.getText());
-				
-			
+			System.err.println("ChatHistoryMultiListener got BotMessageEvent " + bm.getText());			
 		}
 		
 	}	
@@ -368,7 +367,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[]{MessageEvent.class};
+		return new Class[]{MessageEvent.class, PrivateMessageEvent.class};
 	}
 
 
