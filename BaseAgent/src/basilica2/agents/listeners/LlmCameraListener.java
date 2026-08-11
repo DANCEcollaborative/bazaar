@@ -36,7 +36,7 @@ import org.json.JSONException;
 import java.time.Instant;
 import java.time.Duration;
 
-public class LlmCameraListener extends BasilicaAdapter
+public class LlmCameraListener extends LlmChatListener
 {
 	public String host;
 	public String port; 
