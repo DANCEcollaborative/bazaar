@@ -63,6 +63,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
     private String lastListenerSender = null;
     private String lastSender = null;
     private int listenerSenderCount = -1;
+    private String privateUsernamePrefix = "Private_";
 
 	
 	public ChatMultiHistoryListener(Agent a)
@@ -71,7 +72,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		System.err.println(this.getClass().getSimpleName());
 		path = properties.getProperty("path","./chat_history/ChatMultiHistory.json");
-		
+		privateUsernamePrefix = properties.getProperty("private-username-prefix",privateUsernamePrefix);
 
         // Create the file and its directory structure if they do not exist
         createFileIfNotExists(path);
@@ -211,6 +212,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	}
 
 	public JSONArray retrieveChatHistory(int numberOfMessages, String target) {
+		System.out.println("ChatMultiHistory, retrieveChatHistory -- target: " + target); 
         List<String> targetLines = new ArrayList<>();
 		JSONArray messages = new JSONArray();
 		
@@ -222,8 +224,14 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 				try {
 					JSONObject me = new JSONObject(line);
 					if (me.has("session_id") && me.getInt("session_id") == this.sessionID) {
-						if (target.equals("any")) {
-							targetLines.add(line);
+						if (target.equals("public")) {
+							if (me.has("sender") && me.getString("sender").startsWith(privateUsernamePrefix)) {
+								return;
+							} else if (me.has("receiver") && me.getString("receiver").startsWith(privateUsernamePrefix)) {
+								return;
+							} else {
+								targetLines.add(line);
+							}
 						} else if (me.has("sender") && target.equals(me.getString("sender"))) {
 							targetLines.add(line);
 						} else if (me.has("receiver") && target.equals(me.getString("receiver"))) {

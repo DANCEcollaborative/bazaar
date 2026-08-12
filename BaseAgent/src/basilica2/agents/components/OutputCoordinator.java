@@ -427,6 +427,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
 //			IC.pushEvent(newBM);
+			System.out.println("historyListenerName: " + historyListenerName);
 			BasilicaListener historyListener = IC.getListenerByName(this.historyListenerName);
 			if (historyListener == null) {
 				System.out.println("BasilicaListener historyListener is null!");
@@ -439,7 +440,12 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 				}
 			} else if (historyListenerName.equals("ChatMultiHistoryListener")) {
 				try {
-					((ChatMultiHistoryListener) historyListener).handleMessageEvent(IC, me);
+					if (me instanceof PrivateMessageEvent) {
+						PrivateMessageEvent pme = (PrivateMessageEvent) me;
+						((ChatMultiHistoryListener) historyListener).handlePrivateMessageEvent(IC, pme);
+					} else {
+						((ChatMultiHistoryListener) historyListener).handleMessageEvent(IC, me);
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

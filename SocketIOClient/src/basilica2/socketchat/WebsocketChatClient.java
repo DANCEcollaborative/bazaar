@@ -654,31 +654,30 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String message = (String)args[1];
 					user = StringEscapeUtils.unescapeHtml4(user);
 					message = StringEscapeUtils.unescapeHtml4(message);
-					System.err.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
+					System.out.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
 			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, sendpm received from user " + user + ": " + message);
 //					MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, message);
 					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private message.");
 			        MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, test_message);
 					WebsocketChatClient.this.broadcast(me);
-				}	        
+				}	 
+				
 			}).on("update_private_chat", new Emitter.Listener() { 
 
 				@Override
 				public void call(Object... args)
 				{
-					String user = (String)args[0];
-					String message = (String)args[1];
-					user = StringEscapeUtils.unescapeHtml4(user);
+					String toUser = (String)args[0];
+					toUser = StringEscapeUtils.unescapeHtml4(toUser);
+					String fromUser = (String)args[1];
+					fromUser = StringEscapeUtils.unescapeHtml4(fromUser);
+					String message = (String)args[2];
 					message = StringEscapeUtils.unescapeHtml4(message);
-					System.err.println("WebsocketChatClient, update_private_chat received from user " + user + ": " + message);
-			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, update_private_chat received from user " + user + ": " + message);
-					String test_message = "Shhhh. Bazaar received a private message from " + user + "."; 
-//					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private message."); 
-//					MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, message);
-//			        MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, test_message);
-//					WebsocketChatClient.this.broadcast(me);
-					insertMessage(test_message); 
-					
+					System.out.println("WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
+			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
+					PrivateMessageEvent pme = new PrivateMessageEvent(WebsocketChatClient.this, toUser, fromUser, message);
+					System.out.println("WebsocketChatClient: broadcasting PrivateMessageEvent"); 
+					WebsocketChatClient.this.broadcast(pme);
 				}	        
 			}).on("sendfile", new Emitter.Listener() { 
 

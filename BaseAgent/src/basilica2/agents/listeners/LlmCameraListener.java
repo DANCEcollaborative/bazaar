@@ -53,8 +53,8 @@ public class LlmCameraListener extends LlmChatListener
     private boolean contextFlag;
     private int contextLen;
     public String myName;
-    private String cameraUsernamePrefix = "camera_";
-    private String privateUsernamePrefix = "private_";
+    private String cameraUsernamePrefix = "Camera_";
+    private String privateUsernamePrefix = "Private_";
     private Boolean privateMessaging = true; 
     public  List<String> topics;
     private Instant start = Instant.now();
@@ -110,8 +110,24 @@ public class LlmCameraListener extends LlmChatListener
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
-		if (e instanceof MessageEvent)
-		{
+		if (e instanceof PrivateMessageEvent) {
+	        System.err.println("LlmCameraListener preProcessEvent for PrivateMessageEvent");
+			finish = Instant.now();
+			long timeElapsed = Duration.between(start, finish).toMillis();
+			if (timeElapsed > 1500) {
+				boolean proceed = messageFilter((PrivateMessageEvent) e);
+				if (proceed) {
+			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+					try {
+						handleMessageEvent(source, (PrivateMessageEvent) e);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				start = finish;
+			}
+		} else if (e instanceof MessageEvent) {
 	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
@@ -198,6 +214,39 @@ public class LlmCameraListener extends LlmChatListener
         System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
+//	    String senderToLlm; 
+//	    if (sender.startsWith(privateUsernamePrefix)) {
+//	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
+//	    } else {
+//	    	senderToLlm = sender;
+//	    }
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+//	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
+	    openAIrequestAndResponse(source,prompt,false,sender);
+	}
+	
+	
+	
+    // Private chat messages come from an HTML page indended for private use.
+    // Usernames from that page have prefix 'Private_', followed by the userId 
+    // from the corresponding non-private page. User names from the corresponding
+    // camera HTML page have prefix 'Camera_', followed by the same userId. 
+    // The userId value is sent to the LLM for both chat messages and camera images
+    // so that the LLM can recognize that both the messages and the images come
+    // from the same user.
+    // But from collaborative HTML pages, the username will be something like an 
+    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+    // confuse the private and collaborative contexts. 	
+	public void handlePrivateMessageEvent(InputCoordinator source, PrivateMessageEvent pme) throws JSONException {
+	    // Prepare the prompt based on the received message
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- enter");
+	    String prompt = pme.getText(); // student chat message
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- prompt: " + prompt);
+	    String receiver = pme.getDestinationUser(); 
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- toUser: " + receiver);
+	    String sender = pme.getFrom();
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- sender: " + sender);
 //	    String senderToLlm; 
 //	    if (sender.startsWith(privateUsernamePrefix)) {
 //	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
@@ -482,7 +531,7 @@ public class LlmCameraListener extends LlmChatListener
 	    if (promptSender.startsWith(privateUsernamePrefix)) {
 	    	target = promptSender; 
 	    } else {
-	    	target = "any";
+	    	target = "public";
 	    }
 	    try {
  			BasilicaListener historyListener = source.getListenerByName("ChatMultiHistoryListener");
@@ -629,7 +678,7 @@ public class LlmCameraListener extends LlmChatListener
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[] {MessageEvent.class, ImageEvent.class};
+		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
 	}
 
 
