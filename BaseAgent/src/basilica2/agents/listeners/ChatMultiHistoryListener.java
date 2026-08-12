@@ -135,13 +135,12 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 			getLlmListeners(source);
 		}
 		if (e instanceof MessageEvent) {
-
-				try {
-					handleMessageEvent(source, (MessageEvent) e);
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+			try {
+				handleMessageEvent(source, (MessageEvent) e);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
 		} else if (e instanceof PrivateMessageEvent) {
 
 			try {
@@ -219,12 +218,13 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	        // Read all lines from the file into a list
 	        List<String> lines = Files.readAllLines(Paths.get(path));
 
-
 	        lines.forEach(line -> {
 				try {
 					JSONObject me = new JSONObject(line);
 					if (me.has("session_id") && me.getInt("session_id") == this.sessionID) {
-						if (me.has("sender") && target.equals(me.getString("sender"))) {
+						if (target.equals("any")) {
+							targetLines.add(line);
+						} else if (me.has("sender") && target.equals(me.getString("sender"))) {
 							targetLines.add(line);
 						} else if (me.has("receiver") && target.equals(me.getString("receiver"))) {
 							targetLines.add(line);

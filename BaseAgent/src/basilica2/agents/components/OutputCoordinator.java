@@ -18,6 +18,7 @@ import basilica2.agents.events.priority.AbstractPrioritySource;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.listeners.BasilicaListener;
 import basilica2.agents.listeners.ChatHistoryListener;
+import basilica2.agents.listeners.ChatMultiHistoryListener;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.util.MessageEventLogger;
@@ -59,6 +60,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 	private Boolean multimodalFormatToPSI = true; 
 	private Boolean outputBotMessage = false;
 	private Boolean useListenerName = false;
+	private String historyListenerName = "LlmChatListener";
 	CommunicationManager psiCommunicationManager; 
 // 	ZeroMQClient psiCommunicationManager; 
 //  private ZMQ.Socket publisher;
@@ -105,6 +107,8 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			catch(Exception e) {e.printStackTrace();}
 			try{useListenerName = Boolean.parseBoolean(myProperties.getProperty("use_listener_name", "false"));}
 			catch(Exception e) {e.printStackTrace();}
+ 			try{this.historyListenerName = myProperties.getProperty("history_listener_name", this.historyListenerName);}
+ 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiHost = myProperties.getProperty("PSI_Host", psiHost);}
 // 			catch(Exception e) {e.printStackTrace();}
 // 			try{psiPort = myProperties.getProperty("PSI_Port", psiPort);}
@@ -423,15 +427,23 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 			System.err.println("OutputCoordinator: pushing bot message... " + me.getText());
 //			IC.pushEvent(newBM);
-			BasilicaListener CHL = IC.getListenerByName("ChatHistoryListener");
-			if (CHL == null) {
-				System.out.println("BasilicaListener CHL is null!");
-			}
-			try {
-				((ChatHistoryListener) CHL).handleMessageEvent(IC, me);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			BasilicaListener historyListener = IC.getListenerByName(this.historyListenerName);
+			if (historyListener == null) {
+				System.out.println("BasilicaListener historyListener is null!");
+			} else if (historyListenerName.equals("ChatHistoryListener")) {
+				try {
+					((ChatHistoryListener) historyListener).handleMessageEvent(IC, me);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (historyListenerName.equals("ChatMultiHistoryListener")) {
+				try {
+					((ChatMultiHistoryListener) historyListener).handleMessageEvent(IC, me);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 //		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
 				
