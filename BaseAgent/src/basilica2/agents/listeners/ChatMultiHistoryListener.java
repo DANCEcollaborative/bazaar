@@ -64,6 +64,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
     private String lastSender = null;
     private int listenerSenderCount = -1;
     private String privateUsernamePrefix = "Private_";
+    private String cameraUsernamePrefix = "Camera_";
 
 	
 	public ChatMultiHistoryListener(Agent a)
@@ -73,6 +74,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 		System.err.println(this.getClass().getSimpleName());
 		path = properties.getProperty("path","./chat_history/ChatMultiHistory.json");
 		privateUsernamePrefix = properties.getProperty("private-username-prefix",privateUsernamePrefix);
+		cameraUsernamePrefix = properties.getProperty("camera-username-prefix",cameraUsernamePrefix);
 
         // Create the file and its directory structure if they do not exist
         createFileIfNotExists(path);
@@ -228,6 +230,10 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 							if (me.has("sender") && me.getString("sender").startsWith(privateUsernamePrefix)) {
 								return;
 							} else if (me.has("receiver") && me.getString("receiver").startsWith(privateUsernamePrefix)) {
+								return;
+							} else if (me.has("sender") && me.getString("sender").startsWith(cameraUsernamePrefix)) {
+								return;
+							} else if (me.has("receiver") && me.getString("receiver").startsWith(cameraUsernamePrefix)) {
 								return;
 							} else {
 								targetLines.add(line);
