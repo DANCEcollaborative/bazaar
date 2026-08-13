@@ -117,9 +117,9 @@ public class LlmCameraListener extends LlmChatListener
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((PrivateMessageEvent) e);
 				if (proceed) {
-			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+			        System.err.println("LlmCameraListener preProcessEvent: calling handlePrivateMessageEvent");
 					try {
-						handleMessageEvent(source, (PrivateMessageEvent) e);
+						handlePrivateMessageEvent(source, (PrivateMessageEvent) e);
 					} catch (JSONException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

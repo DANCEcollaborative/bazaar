@@ -354,7 +354,7 @@ function emitToAgentOnly(room, event, ...args) {
         return;
     }
     if (event == "updatechat") {
-    	console.log("emitToAgentOnly -- about to emit updatechat -- sender=" + socket.username + " plus data");
+    	console.log("emitToAgentOnly -- about to emit updatechat -- sender=" + args[0] + " -- plus data");
     	s.emit('updatechat', ...args)
     } else if (event == "update_private_chat") {
     	console.log("emitToAgentOnly -- about to emit update_private_chat -- to=" + BOT_USERNAME + " -- from=" + args[0] + "  --  data: " + args[1]);
