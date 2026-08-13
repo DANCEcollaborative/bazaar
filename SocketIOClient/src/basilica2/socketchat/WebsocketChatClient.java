@@ -669,11 +669,14 @@ public class WebsocketChatClient extends Component implements ChatClient
 				{
 					String toUser = (String)args[0];
 					toUser = StringEscapeUtils.unescapeHtml4(toUser);
+					System.out.println("WebsocketChatClient, update_private_chat -- toUser=" + toUser);
 					String fromUser = (String)args[1];
 					fromUser = StringEscapeUtils.unescapeHtml4(fromUser);
+					System.out.println("WebsocketChatClient, update_private_chat -- fromUser=" + fromUser);
 					String message = (String)args[2];
 					message = StringEscapeUtils.unescapeHtml4(message);
-					System.out.println("WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
+					System.out.println("WebsocketChatClient, update_private_chat -- message: " + message);
+//					System.out.println("WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
 			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
 					PrivateMessageEvent pme = new PrivateMessageEvent(WebsocketChatClient.this, toUser, fromUser, message);
 					System.out.println("WebsocketChatClient: broadcasting PrivateMessageEvent"); 
