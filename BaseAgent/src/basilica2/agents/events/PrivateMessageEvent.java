@@ -27,7 +27,7 @@ public class PrivateMessageEvent extends MessageEvent
 	}
 	
 	@Override 
-	public MessageEvent cloneMessage(String newText)
+	public PrivateMessageEvent cloneMessage(String newText)
 	{
 		PrivateMessageEvent pm = new PrivateMessageEvent(getSender(), toUser, from, newText);
 		pm.annotations = this.annotations;
