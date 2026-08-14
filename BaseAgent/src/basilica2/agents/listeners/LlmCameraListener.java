@@ -555,6 +555,18 @@ public class LlmCameraListener extends LlmChatListener
 	
 	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
 		JSONObject payload = new JSONObject();
+		Boolean sendImage = true;
+		
+		// Send image only for Private_ and Camera_ users
+		if (promptSender.startsWith(privateUsernamePrefix)) {
+			sendImage = true; 			
+		} else if (promptSender.startsWith(cameraUsernamePrefix)) {
+			sendImage = true; 			
+		} else {
+			sendImage = false; 
+		}
+		
+		
 		if (model.equals("openai")) {
 			
 		    try {
@@ -581,11 +593,6 @@ public class LlmCameraListener extends LlmChatListener
 		    JSONObject allPromptMessage = new JSONObject();
 		    
 		    String target;
-//		    if (privateMessaging) {
-//		    	messageSender = privateUsernamePrefix + promptSender; 	    
-//		    } else {
-//		    	messageSender = "any"; 
-//		    }	    
 		    if (promptSender.startsWith(privateUsernamePrefix)) {
 		    	target = promptSender; 
 		    } else if (promptSender.startsWith(cameraUsernamePrefix)) {
@@ -599,22 +606,17 @@ public class LlmCameraListener extends LlmChatListener
 		    try {
 				allPromptMessage.put("role", "user");
 
-				String currentImage = latestImageBase64; // snapshot – may be null
-				if (currentImage != null) {
-				    // Vision payload: content is an array of image + text parts
-				    JSONArray contentParts = new JSONArray();
+			    // Vision payload: content is an array of image + text parts
+			    JSONArray contentParts = new JSONArray();
 
-//				    JSONObject userPart = new JSONObject();
-//				    userPart.put("type", "text");
-//				    userPart.put("ID", promptSender);
-//				    contentParts.put(userPart);
-				    
+				String currentImage = latestImageBase64; // snapshot – may be null			    
+				if ((currentImage != null) && (sendImage == true)) {
 				    JSONObject imagePart = new JSONObject();
 				    imagePart.put("type", "image_url");
 				    JSONObject imageUrl = new JSONObject();
 				    imageUrl.put("url", "data:" + latestImageMimeType + ";base64," + currentImage);
 				    imagePart.put("image_url", imageUrl);
-				    contentParts.put(imagePart);
+				    contentParts.put(imagePart);	    
 
 				    JSONObject textPart = new JSONObject();
 				    textPart.put("type", "text");
@@ -657,8 +659,7 @@ public class LlmCameraListener extends LlmChatListener
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		    
+		}		    
 		System.out.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
 		System.out.println("LlmCameraListener constructPayloadMultiParty returning payload: " + payload.toString()); 
 	    return payload.toString();

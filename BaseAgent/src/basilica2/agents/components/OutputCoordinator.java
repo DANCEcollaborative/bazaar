@@ -453,7 +453,7 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 			}
 //		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
 				
-			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
+//			log(Logger.LOG_NORMAL, "OutputCoordinator.sendBotMessage -  send message to ChatHistoryListener: " + me.getText());
 		} 
 		String withinPromptDelimiter = "|||"; 
 		String messageText; 
