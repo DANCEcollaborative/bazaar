@@ -72,6 +72,8 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 		super(source);
 		this.from = from;
 		text = message;
+//		printMessageEvent(from,message); 
+		System.out.println("\nNew MessageEvent -- from:" + from + "  -- message: " + message + "\n"); 
 	}
 
 	public MessageEvent(Component source, String from, String message, String... annotations)
@@ -85,8 +87,9 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 			{
 				this.addAnnotation(note, wholeMessage);
 			}
-		}
-		
+		}	
+//		printMessageEvent(from,message); 
+		System.out.println("\nNew MessageEvent w. annotations -- from:" + from + "  -- message: " + message + "\n"); 	
 	}
 
 	public void setFrom(String newFrom)
@@ -285,6 +288,10 @@ public class MessageEvent extends Event implements Serializable, Cloneable
 	public void setText(String t)
 	{
 		text = t;
+	}
+	
+	public void printMessageEvent(String from, String message) {
+		System.out.println("\nNew MessageEvent -- from:" + from + "  -- message: " + message + "\n"); 
 	}
 
 }

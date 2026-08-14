@@ -294,6 +294,7 @@ public class LlmCameraListener extends LlmChatListener
         if (!"No response".equals(response)) {
         	
 			if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
+				System.out.println("openAIrequestAndResponse - create MessageEvent -- sender=" + sender + " -- this.myName=" + this.myName + " -- response: " + response);
 		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 		    	source.pushEventProposal(newMe);
 			} else {

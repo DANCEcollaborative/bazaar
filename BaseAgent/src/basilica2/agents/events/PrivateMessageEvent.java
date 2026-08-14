@@ -13,6 +13,7 @@ public class PrivateMessageEvent extends MessageEvent
 		super(source, from, message, annotations);
 		toUser = to;
 		this.addAnnotations("PRIVATE_MESSAGE", "to:"+toUser);
+		printPrivateMessageEvent(to,from,message); 
 	}
 
 	public String getDestinationUser()
@@ -31,6 +32,10 @@ public class PrivateMessageEvent extends MessageEvent
 		PrivateMessageEvent pm = new PrivateMessageEvent(getSender(), toUser, from, newText);
 		pm.annotations = this.annotations;
 		return pm;
+	}
+	
+	public void printPrivateMessageEvent(String to, String from, String message) {
+		System.out.println("\nNew PrivateMessageEvent -- to:" + to + " -- from:" + from + "  -- message: " + message + "\n"); 
 	}
 	
 	
