@@ -25,16 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.imageio.ImageIO;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Base64;
-
 import basilica2.agents.components.ChatClient;
-import basilica2.agents.components.StateMemory;
-import basilica2.agents.data.State;
 import basilica2.agents.events.ImageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
@@ -383,56 +374,6 @@ public class WebsocketChatClient extends Component implements ChatClient
 		else
 			socket.emit("ready", ready?"ready":"unready");
 	}
-	
-
-    public static boolean almostIdentical(String base64Jpeg1, String base64Jpeg2, double threshold) throws IOException {
-//    	if (base64Jpeg1 == "") {
-//    		System.err.println("New image is null");
-//    	}
-//    	if (base64Jpeg2 == "") {
-//    		System.err.println("Previous image is null");
-//    	}
-    	if (base64Jpeg1 == "" || base64Jpeg2 == "") {
-    		return false; 
-    	}
-        long hash1 = averageHash(decode(base64Jpeg1));
-        long hash2 = averageHash(decode(base64Jpeg2));
-        int hammingDistance = Long.bitCount(hash1 ^ hash2);
-        double dissimilarity = hammingDistance / 64.0;
-        System.err.println("WebsocketChatClient, dissiimilarity: " + String.valueOf(dissimilarity));
-        return dissimilarity <= threshold; // e.g. threshold = 0.1
-    }
-
-    private static BufferedImage decode(String base64) throws IOException {
-        byte[] bytes = Base64.getDecoder().decode(base64);
-        return ImageIO.read(new ByteArrayInputStream(bytes));
-    }
-
-    private static long averageHash(BufferedImage src) {
-        Image scaled = src.getScaledInstance(8, 8, Image.SCALE_SMOOTH);
-        BufferedImage small = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
-        small.getGraphics().drawImage(scaled, 0, 0, null);
-
-        int[] lum = new int[64];
-        long sum = 0;
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                int rgb = small.getRGB(x, y);
-                int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
-                int val = (r + g + b) / 3;
-                lum[y * 8 + x] = val;
-                sum += val;
-            }
-        }
-        int avg = (int) (sum / 64);
-
-        long hash = 0L;
-        for (int i = 0; i < 64; i++) {
-            if (lum[i] >= avg) hash |= (1L << i);
-        }
-        return hash;
-    }
-	
 
 	public void setCallbacks() {
 		socket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener() {
@@ -600,32 +541,15 @@ public class WebsocketChatClient extends Component implements ChatClient
 			        			default: break;
 			        		}
 			        	}
-			        				    		
-			    		State s = State.copy(StateMemory.getSharedState(agent));
-			    		String previousImage = s.getCurrentImage(); 
-			    		s.setCurrentImage(imageBase64);
-			    		s.setCurrentImageMimeType(mimeType);
-			    		StateMemory.commitSharedState(s, agent);
-			    		try {
-							boolean similar = almostIdentical(imageBase64,previousImage,0.05);
-							if (similar) {
-								System.err.println("*** WebsocketChatClient, updatechat: Image received is similar to previous image; not sending ***");
-							}
-							else {
-								System.err.println("*** WebsocketChatClient, updatechat: Updated image received");
-					        	System.err.println("*** WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
-					        		+ " size=" + width + "x" + height + " from=" + fromUser);
-					        	log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
-					        		+ " size=" + width + "x" + height + " from=" + fromUser);
-					        	ImageEvent ie = new ImageEvent(WebsocketChatClient.this,
-					        		fromUser, imageBase64, mimeType, width, height, problemId, frameCount);
-					        	WebsocketChatClient.this.broadcast(ie);
-							}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-			    			
+			        				 
+			        	System.err.println("*** WebsocketChatClient, updatechat: Image received");
+			        	System.err.println("*** WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
+			        		+ " size=" + width + "x" + height + " from=" + fromUser);
+			        	log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
+			        		+ " size=" + width + "x" + height + " from=" + fromUser);
+			        	ImageEvent ie = new ImageEvent(WebsocketChatClient.this,
+			        		fromUser, imageBase64, mimeType, width, height, problemId, frameCount);
+			        	WebsocketChatClient.this.broadcast(ie);
 
 			        // -------------------------------------------------------
 			        // Existing path: sendfile prefix check, then normal chat.

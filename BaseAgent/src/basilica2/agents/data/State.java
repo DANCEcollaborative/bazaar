@@ -90,6 +90,8 @@ public class State
 	public String globalActiveListener = "";
 	public String currentImage = "";
 	public String currentImageMimeType = "";
+	private Map<String, String> currentImageByUser = new HashMap<String, String>();
+	private Map<String, String> currentImageMimeTypeByUser = new HashMap<String, String>();
 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
@@ -112,6 +114,12 @@ public class State
 		news.multimodalDontListenEnd = s.multimodalDontListenEnd;
 		news.globalActiveListener = s.globalActiveListener;
 		news.currentImage = s.currentImage;
+		news.currentImageMimeType = s.currentImageMimeType;
+
+		for (Map.Entry<String, String> entry : s.currentImageByUser.entrySet())
+			news.currentImageByUser.put(entry.getKey(), entry.getValue());
+		for (Map.Entry<String, String> entry : s.currentImageMimeTypeByUser.entrySet())
+			news.currentImageMimeTypeByUser.put(entry.getKey(), entry.getValue());
 
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
@@ -674,12 +682,38 @@ public class State
 	public void setCurrentImageMimeType (String imageMimeType) {
 		this.currentImageMimeType = imageMimeType;
 	}
-	
+
 	public String getCurrentImageMimeType() {
-		return this.currentImageMimeType; 
+		return this.currentImageMimeType;
 	}
-	
-	
+
+	// Per-userId latest image tracking.
+
+	public void setCurrentImage(String userId, String image) {
+		this.currentImageByUser.put(userId, image);
+	}
+
+	/**
+	 * @return the latest image received for userId, or null if no image has
+	 *         been received yet for that userId.
+	 */
+	public String getCurrentImage(String userId) {
+		return this.currentImageByUser.get(userId);
+	}
+
+	public void setCurrentImageMimeType(String userId, String imageMimeType) {
+		this.currentImageMimeTypeByUser.put(userId, imageMimeType);
+	}
+
+	/**
+	 * @return the MIME type of the latest image received for userId, or null
+	 *         if no image has been received yet for that userId.
+	 */
+	public String getCurrentImageMimeType(String userId) {
+		return this.currentImageMimeTypeByUser.get(userId);
+	}
+
+
 
 	@Override
 	public String toString()
