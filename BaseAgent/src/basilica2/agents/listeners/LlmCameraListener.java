@@ -36,6 +36,12 @@ import org.json.JSONException;
 import java.time.Instant;
 import java.time.Duration;
 
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.util.Base64;
+
 public class LlmCameraListener extends LlmChatListener
 {
 	public String host;
@@ -59,8 +65,7 @@ public class LlmCameraListener extends LlmChatListener
     public  List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
-    private volatile String latestImageBase64 = null; // most recent camera frame (already base64-encoded)
-    private volatile String latestImageMimeType = "image/jpeg"; // MIME type of the latest frame
+    private volatile double threshold = 0.05;
 
 	public LlmCameraListener(Agent a)
 	{
@@ -87,6 +92,7 @@ public class LlmCameraListener extends LlmChatListener
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
 			cameraUsernamePrefix = llm_prop.getProperty("camera-username-prefix",cameraUsernamePrefix);
 			privateUsernamePrefix = llm_prop.getProperty("private-username-prefix",privateUsernamePrefix);
+			threshold = Double.parseDouble(llm_prop.getProperty("threshold", "0.05"));
 			privateMessaging = Boolean.parseBoolean(properties.getProperty("private-messaging", privateMessaging.toString()));
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
@@ -149,11 +155,6 @@ public class LlmCameraListener extends LlmChatListener
 		{
 		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
 		    ImageEvent ie = (ImageEvent) e;
-		    String b64 = ie.getImageBase64();
-		    if (b64 != null && !b64.isEmpty()) {
-		        latestImageBase64 = b64;
-		        latestImageMimeType = ie.getMimeType();
-		    }
 	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
 			try {
 				handleImageEvent(source, ie);
@@ -272,19 +273,86 @@ public class LlmCameraListener extends LlmChatListener
     // confuse the private and collaborative contexts. 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
         System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
-	    String prompt = "none"; 
+	    String prompt = "none";
 	    String sender = ie.getSenderUsername();
-//	    String senderToLlm; 
-//	    if (sender.startsWith(privateUsernamePrefix)) {
-//	    	senderToLlm = sender.substring(cameraUsernamePrefix.length()); 
-//	    } else {
-//	    	senderToLlm = sender;
-//	    }
-//	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
-//	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-//	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
-	    openAIrequestAndResponse(source,prompt,false,sender);
+	    String userId = sender.substring(cameraUsernamePrefix.length());
+	    String imageBase64 = ie.getImageBase64();
+	    String mimeType = ie.getMimeType();
+
+	    // Track (create or update) the latest image received for this userId.
+	    State s = State.copy(StateMemory.getSharedState(agent));
+	    String previousImage = s.getCurrentImage(userId); // null if no prior image for this userId
+	    s.setCurrentImage(userId, imageBase64);
+	    s.setCurrentImageMimeType(userId, mimeType);
+	    StateMemory.commitSharedState(s, agent);
+
+	    // Only forward to the LLM if this userId's image changed significantly
+	    // from the previous one we saw for that same userId.
+	    boolean significantChange = true;
+	    if (previousImage != null) {
+	        try {
+	            significantChange = !almostIdentical(imageBase64, previousImage);
+	        } catch (IOException ex) {
+	            System.err.println("LlmCameraListener handleImageEvent -- error comparing images for userId=" + userId);
+	            ex.printStackTrace();
+	        }
+	    }
+
+	    if (significantChange) {
+	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " changed significantly; sending to LLM");
+	        openAIrequestAndResponse(source,prompt,false,sender);
+	    } else {
+	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
+	    }
 	}
+
+	/**
+	 * Compares two base64-encoded JPEG images using a perceptual average-hash and
+	 * reports whether they are "almost identical" -- i.e. their dissimilarity is at
+	 * or below this listener's configured threshold (properties/LlmCameraListener.properties,
+	 * key "threshold", default 0.05).
+	 */
+	public boolean almostIdentical(String base64Jpeg1, String base64Jpeg2) throws IOException {
+    	if (base64Jpeg1 == null || base64Jpeg2 == null || base64Jpeg1.isEmpty() || base64Jpeg2.isEmpty()) {
+    		return false;
+    	}
+        long hash1 = averageHash(decode(base64Jpeg1));
+        long hash2 = averageHash(decode(base64Jpeg2));
+        int hammingDistance = Long.bitCount(hash1 ^ hash2);
+        double dissimilarity = hammingDistance / 64.0;
+        System.err.println("LlmCameraListener, dissimilarity: " + String.valueOf(dissimilarity));
+        return dissimilarity <= threshold;
+    }
+
+    private static BufferedImage decode(String base64) throws IOException {
+        byte[] bytes = Base64.getDecoder().decode(base64);
+        return ImageIO.read(new ByteArrayInputStream(bytes));
+    }
+
+    private static long averageHash(BufferedImage src) {
+        Image scaled = src.getScaledInstance(8, 8, Image.SCALE_SMOOTH);
+        BufferedImage small = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
+        small.getGraphics().drawImage(scaled, 0, 0, null);
+
+        int[] lum = new int[64];
+        long sum = 0;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                int rgb = small.getRGB(x, y);
+                int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+                int val = (r + g + b) / 3;
+                lum[y * 8 + x] = val;
+                sum += val;
+            }
+        }
+        int avg = (int) (sum / 64);
+
+        long hash = 0L;
+        for (int i = 0; i < 64; i++) {
+            if (lum[i] >= avg) hash |= (1L << i);
+        }
+        return hash;
+    }
 	
 	public void openAIrequestAndResponse(InputCoordinator source, String prompt, Boolean fromSystem, String sender)  {
 		String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
@@ -310,31 +378,6 @@ public class LlmCameraListener extends LlmChatListener
 	    		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
 	    		source.pushEventProposal(newPMe2); 
 			}
-//			} else {
-//	    		String privateStudentName = privateUsernamePrefix + senderToLlm;
-//	    		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
-//	    		source.pushEventProposal(newPMe1); 
-//	    		String privateCameraName = cameraUsernamePrefix + senderToLlm;
-//	    		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
-//	    		source.pushEventProposal(newPMe2); 
-//			}
-//        	
-//        	if (!privateMessaging) {
-//		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-//		    	source.pushEventProposal(newMe);
-//        	} else {
-//        		if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
-//    		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-//    		    	source.pushEventProposal(newMe);
-//        		} else {
-//	        		String privateStudentName = privateUsernamePrefix + senderToLlm;
-//	        		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
-//	        		source.pushEventProposal(newPMe1); 
-//	        		String privateCameraName = cameraUsernamePrefix + senderToLlm;
-//	        		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
-//	        		source.pushEventProposal(newPMe2); 
-//        		}
-//        	}
 	    } else {
 	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
 	    }
@@ -556,17 +599,24 @@ public class LlmCameraListener extends LlmChatListener
 	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
 		JSONObject payload = new JSONObject();
 		Boolean sendImage = true;
-		
+
 		// Send image only for Private_ and Camera_ users
 		if (promptSender.startsWith(privateUsernamePrefix)) {
-			sendImage = true; 			
+			sendImage = true;
 		} else if (promptSender.startsWith(cameraUsernamePrefix)) {
-			sendImage = true; 			
+			sendImage = true;
 		} else {
-			sendImage = false; 
+			sendImage = false;
 		}
-		
-		
+
+		String userId = null;
+		if (promptSender.startsWith(privateUsernamePrefix)) {
+			userId = promptSender.substring(privateUsernamePrefix.length());
+		} else if (promptSender.startsWith(cameraUsernamePrefix)) {
+			userId = promptSender.substring(cameraUsernamePrefix.length());
+		}
+
+
 		if (model.equals("openai")) {
 			
 		    try {
@@ -609,12 +659,20 @@ public class LlmCameraListener extends LlmChatListener
 			    // Vision payload: content is an array of image + text parts
 			    JSONArray contentParts = new JSONArray();
 
-				String currentImage = latestImageBase64; // snapshot – may be null			    
+				// Look up the latest image (if any) received for this particular userId,
+				// rather than a single shared "most recent image across all users".
+				String currentImage = null;
+				String currentImageMimeType = null;
+				if (userId != null) {
+				    State s = StateMemory.getSharedState(agent);
+				    currentImage = s.getCurrentImage(userId);
+				    currentImageMimeType = s.getCurrentImageMimeType(userId);
+				}
 				if ((currentImage != null) && (sendImage == true)) {
 				    JSONObject imagePart = new JSONObject();
 				    imagePart.put("type", "image_url");
 				    JSONObject imageUrl = new JSONObject();
-				    imageUrl.put("url", "data:" + latestImageMimeType + ";base64," + currentImage);
+				    imageUrl.put("url", "data:" + currentImageMimeType + ";base64," + currentImage);
 				    imagePart.put("image_url", imageUrl);
 				    contentParts.put(imagePart);	    
 
