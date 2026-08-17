@@ -220,7 +220,17 @@ ul.tab li a:focus, .active {
 		return anchor;
     }
        
-    function getMultimodalValue(field, data) 
+    // Updates (in place) the camera image shown in the Private Space column with a
+    // newly received frame for this user. mimeType/imageBase64 come from a private
+    // message tagged with "cameraImageUpdate:::true" -- see update_private_chat below.
+    function updateCameraImage(mimeType, imageBase64)
+    {
+        var img = document.getElementById('camera_image');
+        img.src = 'data:' + mimeType + ';base64,' + imageBase64;
+        document.getElementById('camera_image_div').style.display = 'block';
+    }
+
+    function getMultimodalValue(field, data)
     {
     	var fields = data.split(";%;");
     	var numFields = fields.length; 	
@@ -404,8 +414,18 @@ ul.tab li a:focus, .active {
 	// });
 	
 	// listener, whenever the server emits 'update_private_chat', this updates the chat body
-	socket.on('update_private_chat', function (touser, fromuser, data) 
-	{		
+	socket.on('update_private_chat', function (touser, fromuser, data)
+	{
+		// A camera-image update for this user, sent privately by LlmCameraListener.
+		// Render it into the Private Space image area instead of the Discussion log.
+		if (data.search("cameraImageUpdate:::true") > -1) {
+			var camMimeType = getMultimodalValue("mimeType", data);
+			var camImageBase64 = getMultimodalValue("image", data);
+			console.log("update_private_chat - camera image update received, mimeType=" + camMimeType);
+			updateCameraImage(camMimeType, camImageBase64);
+			return;
+		}
+
 		if (data.search("multimodal:::true;%;") > -1) {
 			console.log("update_private_chat - multimodal message found");
 			fromuser = getMultimodalValue("from",data);
@@ -588,7 +608,14 @@ ul.tab li a:focus, .active {
     
     <div id="image_column">
         <h2 id="image_header"  class="header">Private Space</h2>
-        
+
+        <!-- Latest camera image for this user, pushed privately by LlmCameraListener
+             whenever a significantly changed frame is received (see updateCameraImage()
+             and the "cameraImageUpdate:::true" tag handled in update_private_chat). -->
+        <div id="camera_image_div" style="display:none; padding:6px 12px;">
+            <img id="camera_image" style="max-width:100%; display:block;" />
+        </div>
+
         <div id="image_container" class="container">
             <div id="images" class="scrollable"></div>
         </div>
