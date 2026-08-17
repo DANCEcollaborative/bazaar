@@ -227,8 +227,6 @@ public class LlmCameraListener extends LlmChatListener
 	    openAIrequestAndResponse(source,prompt,false,sender);
 	}
 	
-	
-	
     // Private chat messages come from an HTML page indended for private use.
     // Usernames from that page have prefix 'Private_', followed by the userId 
     // from the corresponding non-private page. User names from the corresponding
@@ -301,9 +299,32 @@ public class LlmCameraListener extends LlmChatListener
 	    if (significantChange) {
 	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " changed significantly; sending to LLM");
 	        openAIrequestAndResponse(source,prompt,false,sender);
+	        displayImageOnPrivatePage(source, userId, imageBase64, mimeType);
 	    } else {
 	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
 	    }
+	}
+
+	/**
+	 * Pushes the latest camera image for userId to that user's own private_space.html
+	 * page (username Private_<userId>) so it can be displayed there. Reuses the
+	 * existing private-message delivery channel (PrivateMessageEvent), tagging the
+	 * message body with the same multimodal delimiter scheme
+	 * (MultiModalFilter.withinModeDelim / multiModalDelim) already used elsewhere in
+	 * this codebase for encoding structured, multi-field payloads inside chat messages.
+	 * private_space.html recognizes the "cameraImageUpdate:::true" tag and renders the
+	 * image instead of appending it as a chat message.
+	 */
+	public void displayImageOnPrivatePage(InputCoordinator source, String userId, String imageBase64, String mimeType) {
+	    String privateTarget = privateUsernamePrefix + userId;
+	    String taggedMessage =
+	        "cameraImageUpdate" + MultiModalFilter.withinModeDelim + "true"
+	        + MultiModalFilter.multiModalDelim
+	        + "mimeType" + MultiModalFilter.withinModeDelim + mimeType
+	        + MultiModalFilter.multiModalDelim
+	        + "image" + MultiModalFilter.withinModeDelim + imageBase64;
+	    PrivateMessageEvent imagePme = new PrivateMessageEvent(source, privateTarget, this.myName, taggedMessage);
+	    source.pushEventProposal(imagePme);
 	}
 
 	/**
