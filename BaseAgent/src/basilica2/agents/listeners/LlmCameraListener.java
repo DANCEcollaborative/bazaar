@@ -36,7 +36,7 @@ import org.json.JSONException;
 import java.time.Instant;
 import java.time.Duration;
 
-public class LlmCameraListener extends BasilicaAdapter
+public class LlmCameraListener extends LlmChatListener
 {
 	public String host;
 	public String port; 
@@ -53,8 +53,8 @@ public class LlmCameraListener extends BasilicaAdapter
     private boolean contextFlag;
     private int contextLen;
     public String myName;
-    private String cameraUsernamePrefix = "camera_";
-    private String privateUsernamePrefix = "private_";
+    private String cameraUsernamePrefix = "Camera_";
+    private String privateUsernamePrefix = "Private_";
     private Boolean privateMessaging = true; 
     public  List<String> topics;
     private Instant start = Instant.now();
@@ -110,8 +110,24 @@ public class LlmCameraListener extends BasilicaAdapter
 	@Override
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
-		if (e instanceof MessageEvent)
-		{
+		if (e instanceof PrivateMessageEvent) {
+	        System.err.println("LlmCameraListener preProcessEvent for PrivateMessageEvent");
+			finish = Instant.now();
+			long timeElapsed = Duration.between(start, finish).toMillis();
+			if (timeElapsed > 1500) {
+				boolean proceed = messageFilter((PrivateMessageEvent) e);
+				if (proceed) {
+			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+					try {
+						handleMessageEvent(source, (PrivateMessageEvent) e);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				start = finish;
+			}
+		} else if (e instanceof MessageEvent) {
 	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
@@ -182,52 +198,143 @@ public class LlmCameraListener extends BasilicaAdapter
         foundWords.forEach(System.err::println);
         return foundWords;				
 	}
-	
+    
+    // Private chat messages come from an HTML page indended for private use.
+    // Usernames from that page have prefix 'Private_', followed by the userId 
+    // from the corresponding non-private page. User names from the corresponding
+    // camera HTML page have prefix 'Camera_', followed by the same userId. 
+    // The userId value is sent to the LLM for both chat messages and camera images
+    // so that the LLM can recognize that both the messages and the images come
+    // from the same user.
+    // But from collaborative HTML pages, the username will be something like an 
+    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+    // confuse the private and collaborative contexts. 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
         System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
-	    String senderToLlm; 
-	    if (sender.startsWith(privateUsernamePrefix)) {
-	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
-	    } else {
-	    	senderToLlm = StateMemory.getSharedState(agent).getStudentId(sender);
-	    }
-	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
-	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
+//	    String senderToLlm; 
+//	    if (sender.startsWith(privateUsernamePrefix)) {
+//	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
+//	    } else {
+//	    	senderToLlm = sender;
+//	    }
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+//	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
+	    openAIrequestAndResponse(source,prompt,false,sender);
 	}
 	
+	
+	
+    // Private chat messages come from an HTML page indended for private use.
+    // Usernames from that page have prefix 'Private_', followed by the userId 
+    // from the corresponding non-private page. User names from the corresponding
+    // camera HTML page have prefix 'Camera_', followed by the same userId. 
+    // The userId value is sent to the LLM for both chat messages and camera images
+    // so that the LLM can recognize that both the messages and the images come
+    // from the same user.
+    // But from collaborative HTML pages, the username will be something like an 
+    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+    // confuse the private and collaborative contexts. 	
+	public void handlePrivateMessageEvent(InputCoordinator source, PrivateMessageEvent pme) throws JSONException {
+	    // Prepare the prompt based on the received message
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- enter");
+	    String prompt = pme.getText(); // student chat message
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- prompt: " + prompt);
+	    String receiver = pme.getDestinationUser(); 
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- toUser: " + receiver);
+	    String sender = pme.getFrom();
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- sender: " + sender);
+//	    String senderToLlm; 
+//	    if (sender.startsWith(privateUsernamePrefix)) {
+//	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
+//	    } else {
+//	    	senderToLlm = sender;
+//	    }
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+//	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
+	    openAIrequestAndResponse(source,prompt,false,sender);
+	}
+
+
+    // Images come from an HTML page that sends images from a user's private camera.
+    // Usernames from that page have prefix 'Camera_', followed by the userId 
+    // from the corresponding non-private page. User names from the corresponding
+    // private HTML page have prefix 'Private_', followed by the same userId. 
+    // The userId value is sent to the LLM for both chat messages and camera images
+    // so that the LLM can recognize that both the messages and the images come
+    // from the same user.
+    // But from collaborative HTML pages, the username will be something like an 
+    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+    // confuse the private and collaborative contexts. 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
         System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
 	    String prompt = "none"; 
 	    String sender = ie.getSenderUsername();
-	    String senderToLlm = ie.getSenderUsername().substring(cameraUsernamePrefix.length());
-	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
+//	    String senderToLlm; 
+//	    if (sender.startsWith(privateUsernamePrefix)) {
+//	    	senderToLlm = sender.substring(cameraUsernamePrefix.length()); 
+//	    } else {
+//	    	senderToLlm = sender;
+//	    }
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, senderToLlm);
+//	    String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
+//	    openAIrequestAndResponse(source,jsonPayload,false,sender,senderToLlm);
+	    openAIrequestAndResponse(source,prompt,false,sender);
 	}
 	
-	public void openAIrequestAndResponse(InputCoordinator source, String jsonPayload, Boolean fromSystem, String sender, String senderToLlm)  {
+	public void openAIrequestAndResponse(InputCoordinator source, String prompt, Boolean fromSystem, String sender)  {
+		String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
         System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
         System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
         if (!"No response".equals(response)) {
-        	if (!privateMessaging) {
+        	
+			if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
 		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 		    	source.pushEventProposal(newMe);
-        	} else {
-        		if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
-    		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
-    		    	source.pushEventProposal(newMe);
-        		} else {
-	        		String privateStudentName = privateUsernamePrefix + senderToLlm;
-	        		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
-	        		source.pushEventProposal(newPMe1); 
-	        		String privateCameraName = cameraUsernamePrefix + senderToLlm;
-	        		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
-	        		source.pushEventProposal(newPMe2); 
-        		}
-        	}
+			} else {
+			    String senderSuffix = "";
+				if (sender.startsWith(privateUsernamePrefix)) {
+			    	senderSuffix = sender.substring(privateUsernamePrefix.length()); 
+			    } else if (sender.startsWith(cameraUsernamePrefix)) {
+			    	senderSuffix = sender.substring(cameraUsernamePrefix.length()); 
+			    }
+				String privateStudentName = privateUsernamePrefix + senderSuffix;
+	    		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
+	    		source.pushEventProposal(newPMe1); 
+	    		String privateCameraName = cameraUsernamePrefix + senderSuffix;
+	    		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
+	    		source.pushEventProposal(newPMe2); 
+			}
+//			} else {
+//	    		String privateStudentName = privateUsernamePrefix + senderToLlm;
+//	    		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
+//	    		source.pushEventProposal(newPMe1); 
+//	    		String privateCameraName = cameraUsernamePrefix + senderToLlm;
+//	    		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
+//	    		source.pushEventProposal(newPMe2); 
+//			}
+//        	
+//        	if (!privateMessaging) {
+//		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+//		    	source.pushEventProposal(newMe);
+//        	} else {
+//        		if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
+//    		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
+//    		    	source.pushEventProposal(newMe);
+//        		} else {
+//	        		String privateStudentName = privateUsernamePrefix + senderToLlm;
+//	        		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
+//	        		source.pushEventProposal(newPMe1); 
+//	        		String privateCameraName = cameraUsernamePrefix + senderToLlm;
+//	        		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
+//	        		source.pushEventProposal(newPMe2); 
+//        		}
+//        	}
 	    } else {
 	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
 	    }
@@ -420,24 +527,27 @@ public class LlmCameraListener extends BasilicaAdapter
 	
 	public String getAllMessages(InputCoordinator source, String prompt, String promptSender) {
 		String allMessages = "Conversation in the chatroom:\n\n";
+		String target; 
+	    if (promptSender.startsWith(privateUsernamePrefix)) {
+	    	target = promptSender; 
+	    } else {
+	    	target = "public";
+	    }
 	    try {
- 			BasilicaListener CHL = source.getListenerByName("ChatHistoryListener");
-		    JSONArray chatHistory = ((ChatHistoryListener) CHL).retrieveChatHistory(this.contextLen);
+ 			BasilicaListener historyListener = source.getListenerByName("ChatMultiHistoryListener");
+		    JSONArray chatHistory = ((ChatMultiHistoryListener) historyListener).retrieveChatHistory(this.contextLen,target);
 		    for (int i = 0; i < chatHistory.length(); i++) {
 	            JSONObject originalMessage = chatHistory.getJSONObject(i);
-//		            JSONObject reformattedMessage = new JSONObject();
-
-	            // Determine the role based on the "sender" field
-	             // Default role
-	            String content = originalMessage.getString("content");
 	            String sender = originalMessage.getString("sender");
-	            String currentMessage = sender + ": " + content + "\n";
+	            String receiver = originalMessage.getString("receiver");
+	            String content = originalMessage.getString("content");
+	            String currentMessage = "sender:" + sender + "  receiver:" + receiver + "  content: " + content + "\n";
 	            allMessages += currentMessage;
 	        }
 
 	    } catch(Exception e) {};
 	    
-	    if (prompt != null && promptSender != null) {
+	    if (prompt != null && target != null) {
 	    	allMessages += promptSender + ": " + prompt + "\n";
 	    }
 	    return allMessages;
@@ -445,6 +555,18 @@ public class LlmCameraListener extends BasilicaAdapter
 	
 	public String constructPayloadMultiParty(InputCoordinator source, String prompt, String promptSender) {
 		JSONObject payload = new JSONObject();
+		Boolean sendImage = true;
+		
+		// Send image only for Private_ and Camera_ users
+		if (promptSender.startsWith(privateUsernamePrefix)) {
+			sendImage = true; 			
+		} else if (promptSender.startsWith(cameraUsernamePrefix)) {
+			sendImage = true; 			
+		} else {
+			sendImage = false; 
+		}
+		
+		
 		if (model.equals("openai")) {
 			
 		    try {
@@ -470,30 +592,31 @@ public class LlmCameraListener extends BasilicaAdapter
 		    
 		    JSONObject allPromptMessage = new JSONObject();
 		    
-		    String messageSender;
-		    if (privateMessaging) {
-		    	messageSender = privateUsernamePrefix + promptSender; 	    
+		    String target;
+		    if (promptSender.startsWith(privateUsernamePrefix)) {
+		    	target = promptSender; 
+		    } else if (promptSender.startsWith(cameraUsernamePrefix)) {
+		    	target = privateUsernamePrefix + promptSender.substring(cameraUsernamePrefix.length()); 
 		    } else {
-		    	messageSender = StateMemory.getSharedState(agent).getStudentName(promptSender);
+		    	target = promptSender; 
 		    }
 		    
-		    String allMessages = getAllMessages(source, prompt, messageSender);
-
-		    
+		    String allMessages = getAllMessages(source, prompt, target);
+	    
 		    try {
 				allPromptMessage.put("role", "user");
 
-				String currentImage = latestImageBase64; // snapshot – may be null
-				if (currentImage != null) {
-				    // Vision payload: content is an array of image + text parts
-				    JSONArray contentParts = new JSONArray();
+			    // Vision payload: content is an array of image + text parts
+			    JSONArray contentParts = new JSONArray();
 
+				String currentImage = latestImageBase64; // snapshot – may be null			    
+				if ((currentImage != null) && (sendImage == true)) {
 				    JSONObject imagePart = new JSONObject();
 				    imagePart.put("type", "image_url");
 				    JSONObject imageUrl = new JSONObject();
 				    imageUrl.put("url", "data:" + latestImageMimeType + ";base64," + currentImage);
 				    imagePart.put("image_url", imageUrl);
-				    contentParts.put(imagePart);
+				    contentParts.put(imagePart);	    
 
 				    JSONObject textPart = new JSONObject();
 				    textPart.put("type", "text");
@@ -501,7 +624,7 @@ public class LlmCameraListener extends BasilicaAdapter
 				    contentParts.put(textPart);
 
 				    allPromptMessage.put("content", contentParts);
-				    System.err.println("LlmCameraListener: sending message with image frame attached");
+				    System.out.println("LlmCameraListener: sending message with image frame attached");
 				} else {
 				    // No image yet – plain text as before
 				    allPromptMessage.put("content", allMessages);
@@ -536,10 +659,9 @@ public class LlmCameraListener extends BasilicaAdapter
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		    
-//		System.err.println("constructPayloadMultiParty returning payload: " + payload.toString()); 
-		System.err.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
+		}		    
+		System.out.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
+		System.out.println("LlmCameraListener constructPayloadMultiParty returning payload: " + payload.toString()); 
 	    return payload.toString();
 	}
 
@@ -557,7 +679,7 @@ public class LlmCameraListener extends BasilicaAdapter
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-		return new Class[] {MessageEvent.class, ImageEvent.class};
+		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
 	}
 
 

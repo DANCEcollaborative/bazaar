@@ -214,9 +214,9 @@ function connectSocket(sessionId) {
   // Skip our own frame broadcasts (from === cameraUsername — the server
   // tags every frame from this camera under its own join identity, sent
   // below in uploadFrame()) so the feed only shows what the agent says back.
-  socket.on("update_private_chat", (from, data) => {
-    if (from === cameraUsername) return;
-    addFeedItem(from, extractDisplayText(data), "ai-recommendation");
+  socket.on("update_private_chat", (toUser, fromUser, data) => {
+    if (fromUser === cameraUsername) return;
+    addFeedItem(fromUser, extractDisplayText(data), "ai-recommendation");
   });
 }
 
