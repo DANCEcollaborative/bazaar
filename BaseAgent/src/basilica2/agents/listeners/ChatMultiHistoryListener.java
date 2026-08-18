@@ -211,13 +211,14 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    System.out.println("\n\n*** ChatMultiHistory, saveMessageToHistory, SAVING: ***" + messageJson.toString() + "\n\n");
 	    
 	    try {
 	        // Save the JSON object to a file, each message on a new line
 	        Files.write(Paths.get(path), (messageJson.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 	    } catch (IOException e) {
 	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error writing to chat history file: " + e.getMessage());
-	    }
+	    }; 
 	}
 	
 	private String replaceTagValueInMultimodalContent(String content, String tag, String replacement) {
