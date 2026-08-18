@@ -349,10 +349,6 @@ public class MultiModalFilter extends BasilicaAdapter
 		else return null;		
 	}
 	
-//	public String getMultiModalDelim () {
-//		return multiModalDelim;		
-//	}
-	
 	private Double[] locationStringToDoubles(String locationString) {
 		Double[] locationCoordinates = new Double[3]; 
 		String[] locationStrings = new String[3];

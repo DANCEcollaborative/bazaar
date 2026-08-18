@@ -21,6 +21,7 @@ import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.priority.PriorityEvent;
 import basilica2.agents.events.priority.PriorityEvent.Callback;
+import basilica2.agents.listeners.MultiModalFilter;
 import basilica2.util.HttpUtility;
 import basilica2.util.PropertiesLoader;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -65,6 +66,8 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
     private int listenerSenderCount = -1;
     private String privateUsernamePrefix = "Private_";
     private String cameraUsernamePrefix = "Camera_";
+    private Boolean includeImages = false;
+ 
 
 	
 	public ChatMultiHistoryListener(Agent a)
@@ -82,9 +85,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 //        inactivityTimer = new Timer();
         inactivityPeriod = Long.parseLong(properties.getProperty("timeout")) * 1000;
         inactivityTimerFlag = Boolean.parseBoolean(properties.getProperty("timeout_flag"));
-        
-        
-        
+        includeImages = Boolean.parseBoolean(properties.getProperty("include_images"));            
     }
 	
 	private void readAndSetSessionId() {
@@ -158,10 +159,13 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 		String sender = me.getFrom();
-		String receiver = "group";
+		String receiver; 
+		if (sender.startsWith(privateUsernamePrefix)) {
+			receiver = agent.getName();
+		} else {
+			receiver = "group";
+		}
 		String content = me.getText();
-//		resetInactivityTimer(source);
-//		updateLastSenders(sender);
 		saveMessageToHistory(sender, "group", content);
 	    System.out.println("ChatHistoryMultiListener handleMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + me.getText()); 
 	}
@@ -189,6 +193,9 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	}
 
 	public synchronized void saveMessageToHistory(String sender, String receiver, String content) {
+	    if (!includeImages) {
+	    	replaceTagValueInMultimodalContent(content,"image","<redacted>");
+	    }
 	    JSONObject messageJson = new JSONObject();
 	    try {
 	    	messageJson.put("session_id", this.sessionID);
@@ -211,6 +218,28 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	    } catch (IOException e) {
 	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error writing to chat history file: " + e.getMessage());
 	    }
+	}
+	
+	private String replaceTagValueInMultimodalContent(String content, String tag, String replacement) {
+		StringBuilder sb = new StringBuilder(content);
+		
+//		*** Responses from LLM have multimodal format but may not have "multimodal:::true".  		
+//		int testMM = sb.indexOf("multimodal:::true");
+//		if (testMM < 0) {
+//			return content; 
+//		}
+		String searchString = tag + MultiModalFilter.withinModeDelim;  
+        int tagStart = sb.indexOf(searchString);
+		if (tagStart < 0) {
+			return content; 
+		}
+        tagStart = tagStart + searchString.length(); 
+        int tagEnd = sb.indexOf(MultiModalFilter.multiModalDelim,tagStart); 
+        if (tagEnd < 1) {
+        	tagEnd = sb.length();
+        }
+        sb = sb.replace(tagStart, tagEnd, replacement); 
+        return sb.toString(); 
 	}
 
 	public JSONArray retrieveChatHistory(int numberOfMessages, String target) {
