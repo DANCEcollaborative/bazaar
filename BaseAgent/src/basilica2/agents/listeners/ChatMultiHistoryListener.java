@@ -166,7 +166,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 			receiver = "group";
 		}
 		String content = me.getText();
-		saveMessageToHistory(sender, "group", content);
+		saveMessageToHistory(sender, receiver, content);
 	    System.out.println("ChatHistoryMultiListener handleMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + me.getText()); 
 	}
 	
@@ -239,6 +239,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
         	tagEnd = sb.length();
         }
         sb = sb.replace(tagStart, tagEnd, replacement); 
+        System.out.println("\n\n*** replaceTagValueInMultimodalContent returning***:\n" + sb.toString() + "\n\n");
         return sb.toString(); 
 	}
 
