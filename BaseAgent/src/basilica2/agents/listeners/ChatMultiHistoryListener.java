@@ -74,7 +74,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	{
 		super(a);
 		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
-		System.err.println(this.getClass().getSimpleName());
+//		System.err.println(this.getClass().getSimpleName());
 		path = properties.getProperty("path","./chat_history/ChatMultiHistory.json");
 		privateUsernamePrefix = properties.getProperty("private-username-prefix",privateUsernamePrefix);
 		cameraUsernamePrefix = properties.getProperty("camera-username-prefix",cameraUsernamePrefix);
@@ -124,7 +124,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
             // Create the file if it doesn't exist
             if (Files.notExists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("Created chat history file at: " + filePath.toAbsolutePath());
+//                System.out.println("Created chat history file at: " + filePath.toAbsolutePath());
             }
         } catch (IOException e) {
             System.err.println("An error occurred while creating the chat history file: " + e.getMessage());
@@ -167,7 +167,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 		}
 		String content = me.getText();
 		saveMessageToHistory(sender, receiver, content);
-	    System.out.println("ChatMultiHistoryListener handleMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + me.getText()); 
+//	    System.out.println("ChatMultiHistoryListener handleMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + me.getText()); 
 	}
 	
 	
@@ -178,7 +178,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 //		resetInactivityTimer(source);
 //		updateLastSenders(sender);
 		saveMessageToHistory(sender, receiver, content);
-	    System.out.println("ChatMultiHistoryListener handlePrivateMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + pme.getText()); 
+//	    System.out.println("ChatMultiHistoryListener handlePrivateMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + pme.getText()); 
 	}
 	
 	
@@ -189,7 +189,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 //		resetInactivityTimer(source);
 //		updateLastSenders(sender);
 		saveMessageToHistory(sender, receiver, content);
-	    System.out.println("ChatMultiHistoryListener handleBotMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + bme.getText()); 
+//	    System.out.println("ChatMultiHistoryListener handleBotMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + bme.getText()); 
 	}
 
 	public synchronized void saveMessageToHistory(String sender, String receiver, String content) {
@@ -211,7 +211,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    System.out.println("\n\n*** ChatMultiHistory, saveMessageToHistory, SAVING: ***" + messageJson.toString() + "\n\n");
+//	    System.out.println("\n\n*** ChatMultiHistory, saveMessageToHistory, SAVING: ***" + messageJson.toString() + "\n\n");
 	    
 	    try {
 	        // Save the JSON object to a file, each message on a new line
@@ -240,12 +240,12 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
         	tagEnd = sb.length();
         }
         sb = sb.replace(tagStart, tagEnd, replacement); 
-        System.out.println("\n\n*** replaceTagValueInMultimodalContent returning***:\n" + sb.toString() + "\n\n");
+//        System.out.println("\n\n*** replaceTagValueInMultimodalContent returning***:\n" + sb.toString() + "\n\n");
         return sb.toString(); 
 	}
 
 	public JSONArray retrieveChatHistory(int numberOfMessages, String target) {
-		System.out.println("ChatMultiHistory, retrieveChatHistory -- target: " + target); 
+//		System.out.println("ChatMultiHistory, retrieveChatHistory -- target: " + target); 
         List<String> targetLines = new ArrayList<>();
 		JSONArray messages = new JSONArray();
 		
@@ -299,7 +299,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	    } catch (IOException e) {
 	        Logger.commonLog(getClass().getSimpleName(), Logger.LOG_ERROR, "Error reading from chat history file: " + e.getMessage());
 	    }
-	    System.out.println("ChatMultiHistoryListener retrieved chat history: " + messages.toString());
+//	    System.out.println("ChatMultiHistoryListener retrieved chat history: " + messages.toString());
 	    return messages;
 	}
 
@@ -317,13 +317,13 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
     if (!inactivityTimerFlag) {
 		return;
 	}
-    System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
+//    System.err.println(this.getClass().getSimpleName() + " RESETTIING TIMER...");
     // Schedule a new task
     inactivityTimer.schedule(new TimerTask() {
         @Override
         public void run() {
             sendActiveRequest(source);
-            System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
+//            System.err.println(this.getClass().getSimpleName() + " TIMER TRIGGERED!!!");
         }
     }, inactivityPeriod);
 }
@@ -350,7 +350,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
         }
         
         for (Map.Entry<String, String> entry : listenerToPreprocessorMap.entrySet()) {
-            System.err.println("ListenerName:: " + entry.getKey() + "PreProcessor::  " + entry.getValue());
+//            System.err.println("ListenerName:: " + entry.getKey() + "PreProcessor::  " + entry.getValue());
         }
     }
     
@@ -385,11 +385,11 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 
 	@Override
 	public void processEvent(InputCoordinator source, Event e) {
-		System.err.println("ChatMultiHistoryListener: enter processEvent ");
+//		System.err.println("ChatMultiHistoryListener: enter processEvent ");
 		if (listenerSenderCount == -1) {
 			getLlmListeners(source);
 		}
-		System.out.println("ChatMultiHistoryListener, processEvent: got LlmListeners " + Integer.toString(listenerSenderCount));
+//		System.out.println("ChatMultiHistoryListener, processEvent: got LlmListeners " + Integer.toString(listenerSenderCount));
 		if (e instanceof BotMessageEvent) {
 				
 	//			handleMessageEvent(source, (BotMessageEvent) e);
@@ -401,7 +401,7 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 				e1.printStackTrace();
 			}
 			Logger.commonLog("ChatMultiHistoryListener", Logger.LOG_NORMAL, "ChatMultiHistoryListener got BotMessageEvent " + bm.getText()); 
-			System.err.println("ChatMultiHistoryListener got BotMessageEvent " + bm.getText());			
+//			System.err.println("ChatMultiHistoryListener got BotMessageEvent " + bm.getText());			
 		}
 		
 	}	

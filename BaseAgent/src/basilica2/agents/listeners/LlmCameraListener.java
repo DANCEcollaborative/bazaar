@@ -117,13 +117,13 @@ public class LlmCameraListener extends LlmChatListener
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
 		if (e instanceof PrivateMessageEvent) {
-	        System.err.println("LlmCameraListener preProcessEvent for PrivateMessageEvent");
+//	        System.err.println("LlmCameraListener preProcessEvent for PrivateMessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((PrivateMessageEvent) e);
 				if (proceed) {
-			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+//			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (PrivateMessageEvent) e);
 					} catch (JSONException e1) {
@@ -134,13 +134,13 @@ public class LlmCameraListener extends LlmChatListener
 				start = finish;
 			}
 		} else if (e instanceof MessageEvent) {
-	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
+//	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
 				if (proceed) {
-			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+//			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -153,9 +153,9 @@ public class LlmCameraListener extends LlmChatListener
 		}
 		else if (e instanceof ImageEvent)
 		{
-		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+//		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
 		    ImageEvent ie = (ImageEvent) e;
-	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
+//	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
 			try {
 				handleImageEvent(source, ie);
 			} catch (JSONException e1) {
@@ -168,21 +168,21 @@ public class LlmCameraListener extends LlmChatListener
 	public boolean messageFilter(MessageEvent e) {
 		String messageText = e.getText();
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
-        System.err.println("LlmCameraListener messageFilter -- this.myName: " + this.myName);
-        System.err.println("LlmCameraListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
+//        System.err.println("LlmCameraListener messageFilter -- this.myName: " + this.myName);
+//        System.err.println("LlmCameraListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
 		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
-	        System.err.println("LlmCameraListener messageFilter -- name match!");
+//	        System.err.println("LlmCameraListener messageFilter -- name match!");
 			return true;
 		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
-	        System.err.println("LlmCameraListener messageFilter -- name match!");
+//	        System.err.println("LlmCameraListener messageFilter -- name match!");
 			return true;
 		}
 		List<String> topicWords = getTopicWords(messageText);
 		if (!topicWords.isEmpty()) {
-			System.err.println("LlmCameraListener messageFilter -- topic match!");
+//			System.err.println("LlmCameraListener messageFilter -- topic match!");
 			return true;
 		} else {
-			System.err.println("LlmCameraListenerr messageFilter -- NO topic match");
+//			System.err.println("LlmCameraListenerr messageFilter -- NO topic match");
 			return false;
 		}
 	}
@@ -191,12 +191,12 @@ public class LlmCameraListener extends LlmChatListener
         List<String> foundWords = topics.stream()
                 .filter(messageText::contains)
                 .collect(Collectors.toList());
-        System.err.println("getTopicWords - messageText: " + messageText);
-        System.err.println("getTopicWords - found words: ");
-        for (String word : foundWords) {
-        	System.err.println("   " + word);
-        }
-        foundWords.forEach(System.err::println);
+//        System.err.println("getTopicWords - messageText: " + messageText);
+//        System.err.println("getTopicWords - found words: ");
+//        for (String word : foundWords) {
+//        	System.err.println("   " + word);
+//        }
+//        foundWords.forEach(System.err::println);
         return foundWords;				
 	}
     
@@ -212,7 +212,7 @@ public class LlmCameraListener extends LlmChatListener
     // confuse the private and collaborative contexts. 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
-        System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
+//        System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 //	    String senderToLlm; 
@@ -239,13 +239,13 @@ public class LlmCameraListener extends LlmChatListener
     // confuse the private and collaborative contexts. 	
 	public void handlePrivateMessageEvent(InputCoordinator source, PrivateMessageEvent pme) throws JSONException {
 	    // Prepare the prompt based on the received message
-        System.out.println("LlmCameraListener handlePrivateMessageEvent -- enter");
+//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- enter");
 	    String prompt = pme.getText(); // student chat message
-        System.out.println("LlmCameraListener handlePrivateMessageEvent -- prompt: " + prompt);
+//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- prompt: " + prompt);
 	    String receiver = pme.getDestinationUser(); 
-        System.out.println("LlmCameraListener handlePrivateMessageEvent -- toUser: " + receiver);
+//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- toUser: " + receiver);
 	    String sender = pme.getFrom();
-        System.out.println("LlmCameraListener handlePrivateMessageEvent -- sender: " + sender);
+//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- sender: " + sender);
 //	    String senderToLlm; 
 //	    if (sender.startsWith(privateUsernamePrefix)) {
 //	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
@@ -270,7 +270,7 @@ public class LlmCameraListener extends LlmChatListener
     // actual name. For those pages, we use the actual name so that the LLM doesn't 
     // confuse the private and collaborative contexts. 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
-        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+//        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
 	    String prompt = "none";
 	    String sender = ie.getSenderUsername();
 	    String userId = sender.substring(cameraUsernamePrefix.length());
@@ -297,11 +297,11 @@ public class LlmCameraListener extends LlmChatListener
 	    }
 
 	    if (significantChange) {
-	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " changed significantly; sending to LLM");
+//	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " changed significantly; sending to LLM");
 	        openAIrequestAndResponse(source,prompt,false,sender);
 	        displayImageOnPrivatePage(source, userId, imageBase64, mimeType);
 	    } else {
-	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
+//	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
 	    }
 	}
 
@@ -341,7 +341,7 @@ public class LlmCameraListener extends LlmChatListener
         long hash2 = averageHash(decode(base64Jpeg2));
         int hammingDistance = Long.bitCount(hash1 ^ hash2);
         double dissimilarity = hammingDistance / 64.0;
-        System.err.println("LlmCameraListener, dissimilarity: " + String.valueOf(dissimilarity));
+//        System.err.println("LlmCameraListener - latest image dissimilarity: " + String.valueOf(dissimilarity));
         return dissimilarity <= threshold;
     }
 
@@ -377,9 +377,9 @@ public class LlmCameraListener extends LlmChatListener
 	
 	public void openAIrequestAndResponse(InputCoordinator source, String prompt, Boolean fromSystem, String sender)  {
 		String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
+//        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
+//        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
         if (!"No response".equals(response)) {
         	
 			if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
@@ -402,7 +402,7 @@ public class LlmCameraListener extends LlmChatListener
 	    } else {
 	    	System.err.println("LlmCameraListener openAIrequestAndResponse: LLM returned 'No response'");
 	    }
-	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, openAIrequestAndResponse -- response from OpenAI: " + response); 	
+//	    Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "LlmCameraListener, openAIrequestAndResponse -- response from OpenAI: " + response); 	
 	}
 
 
@@ -417,7 +417,7 @@ public class LlmCameraListener extends LlmChatListener
 	        sslContext.init(null, null, null);
 	        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 	    	// update ^^^ // 
-	        System.err.println("requestURL: " + requestURL);
+//	        System.err.println("requestURL: " + requestURL);
 	        URL url = new URL(requestURL);
 //	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -434,7 +434,7 @@ public class LlmCameraListener extends LlmChatListener
 		        }
 		        
 		        int responseCode = conn.getResponseCode();
-		        System.err.println("CONNECTION: " + responseCode);
+//		        System.err.println("CONNECTION: " + responseCode);
 		        if (responseCode == HttpURLConnection.HTTP_OK) {
 		            // Read input stream
 		        	StringBuilder response = new StringBuilder();
@@ -445,7 +445,7 @@ public class LlmCameraListener extends LlmChatListener
 			                response.append(line.trim());
 			            }
 			        }
-			        System.err.println("@@@@@@@@@raw response: " + response.toString());
+//			        System.err.println("@@@@@@@@@raw response: " + response.toString());
 			        // Parse the raw response into a JSONObject
 			        JSONObject jsonResponse = new JSONObject(response.toString());
 			        
@@ -541,7 +541,7 @@ public class LlmCameraListener extends LlmChatListener
 			                } 
 	
 			                // Print the prediction result
-			                System.out.println("Prediction Result: " + prediction.toString());
+//			                System.out.println("Prediction Result: " + prediction.toString());
 
 			                // Close the connection
 			                predictionConn.disconnect();
@@ -555,7 +555,7 @@ public class LlmCameraListener extends LlmChatListener
 		            } catch (IOException e) {
 		                e.printStackTrace();
 		            }
-					System.err.println("111111@@@@@@@@ llama response: " + responseText);
+//					System.err.println("111111@@@@@@@@ llama response: " + responseText);
 		            
 		            // Parse the response, if needed
 		            // Depending on the API, you might need to extract data from the response body
@@ -703,7 +703,7 @@ public class LlmCameraListener extends LlmChatListener
 				    contentParts.put(textPart);
 
 				    allPromptMessage.put("content", contentParts);
-				    System.out.println("LlmCameraListener: sending message with image frame attached");
+//				    System.out.println("LlmCameraListener: sending message with image frame attached");
 				} else {
 				    // No image yet – plain text as before
 				    allPromptMessage.put("content", allMessages);
@@ -739,8 +739,8 @@ public class LlmCameraListener extends LlmChatListener
 				e.printStackTrace();
 			}
 		}		    
-		System.out.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
-		System.out.println("LlmCameraListener constructPayloadMultiParty returning payload: " + payload.toString()); 
+//		System.out.println(this.getClass().getSimpleName()+"GENERATED PAYLOAD@@@@");
+//		System.out.println("LlmCameraListener constructPayloadMultiParty returning payload: " + payload.toString()); 
 	    return payload.toString();
 	}
 
