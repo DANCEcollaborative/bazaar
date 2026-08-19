@@ -14,6 +14,7 @@ import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.data.State;
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.ImageEvent;
 import basilica2.util.PropertiesLoader;
@@ -163,6 +164,18 @@ public class LlmCameraListener extends LlmChatListener
 				e1.printStackTrace();
 			}
 		}
+//		else if (e instanceof PresenceEvent)
+//		{
+////		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+//			PresenceEvent pe = (PresenceEvent) e;
+////	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
+//			try {
+//				handlePresenceEvent(source, pe);
+//			} catch (JSONException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		}
 	}
 	
 	public boolean messageFilter(MessageEvent e) {
@@ -303,6 +316,23 @@ public class LlmCameraListener extends LlmChatListener
 	    } else {
 //	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
 	    }
+	}
+
+    // Images come from an HTML page that sends images from a user's private camera.
+    // Usernames from that page have prefix 'Camera_', followed by the userId 
+    // from the corresponding non-private page. User names from the corresponding
+    // private HTML page have prefix 'Private_', followed by the same userId. 
+    // The userId value is sent to the LLM for both chat messages and camera images
+    // so that the LLM can recognize that both the messages and the images come
+    // from the same user.
+    // But from collaborative HTML pages, the username will be something like an 
+    // actual name. For those pages, we use the actual name so that the LLM doesn't 
+    // confuse the private and collaborative contexts. 	
+	public void handlePresenceEvent(InputCoordinator source, PresenceEvent pe) throws JSONException {
+//        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+//	    String prompt = "none";
+//	    String sender = pe.getSenderUsername();
+//	    String userId = sender.substring(cameraUsernamePrefix.length());
 	}
 
 	/**
@@ -758,6 +788,7 @@ public class LlmCameraListener extends LlmChatListener
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
+//		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class, PresenceEvent.class};
 		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
 	}
 
