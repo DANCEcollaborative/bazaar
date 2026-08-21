@@ -164,18 +164,18 @@ public class LlmCameraListener extends LlmChatListener
 				e1.printStackTrace();
 			}
 		}
-//		else if (e instanceof PresenceEvent)
-//		{
-////		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
-//			PresenceEvent pe = (PresenceEvent) e;
-////	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
-//			try {
-//				handlePresenceEvent(source, pe);
-//			} catch (JSONException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		}
+		else if (e instanceof PresenceEvent)
+		{
+//		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+			PresenceEvent pe = (PresenceEvent) e;
+//	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
+			try {
+				handlePresenceEvent(source, pe);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	public boolean messageFilter(MessageEvent e) {
@@ -329,7 +329,7 @@ public class LlmCameraListener extends LlmChatListener
     // actual name. For those pages, we use the actual name so that the LLM doesn't 
     // confuse the private and collaborative contexts. 	
 	public void handlePresenceEvent(InputCoordinator source, PresenceEvent pe) throws JSONException {
-//        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+//      System.out.println("LlmCameraListener handlePresenceEvent -- received PresenceEvent");
 //	    String prompt = "none";
 //	    String sender = pe.getSenderUsername();
 //	    String userId = sender.substring(cameraUsernamePrefix.length());
@@ -788,8 +788,8 @@ public class LlmCameraListener extends LlmChatListener
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-//		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class, PresenceEvent.class};
-		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
+		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class, PresenceEvent.class};
+//		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
 	}
 
 
