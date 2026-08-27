@@ -41,8 +41,10 @@ import java.time.Duration;
 
 import javax.imageio.ImageIO;
 import java.awt.Image;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 
 public class LlmCameraListener extends LlmChatListener
@@ -69,6 +71,7 @@ public class LlmCameraListener extends LlmChatListener
     private String urlPrefix = "/bazaar/chat/";
     private String htmlPage = "private_space";
     private String cameraUrl = "https://tinyurl.com/bazaarcam1"; 
+    private int shrinkImagePercent = 50; 
     public  List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
@@ -171,6 +174,7 @@ public class LlmCameraListener extends LlmChatListener
 			urlPrefix = llm_prop.getProperty("url-prefix",urlPrefix);
 			cameraUrl = llm_prop.getProperty("camera-url",cameraUrl);
 			htmlPage = llm_prop.getProperty("html-page",htmlPage);
+			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
 			
 			threshold = Double.parseDouble(llm_prop.getProperty("threshold", "0.05"));
 			privateMessaging = Boolean.parseBoolean(properties.getProperty("private-messaging", privateMessaging.toString()));
@@ -510,14 +514,68 @@ public class LlmCameraListener extends LlmChatListener
 	 */
 	public void displayImageOnPrivatePage(InputCoordinator source, String userId, String imageBase64, String mimeType) {
 	    String privateTarget = privateUsernamePrefix + userId;
+
+	    // Shrink the image by shrinkImagePercent before displaying it, falling back
+	    // to the original (full-size) image if shrinking fails for any reason.
+	    String displayImageBase64 = imageBase64;
+	    try {
+	        displayImageBase64 = shrinkImage(imageBase64, mimeType, shrinkImagePercent);
+	    } catch (IOException ex) {
+	        System.err.println("LlmCameraListener displayImageOnPrivatePage -- error shrinking image for userId=" + userId + "; displaying original image");
+	        ex.printStackTrace();
+	    }
+
 	    String taggedMessage =
 	        "cameraImageUpdate" + MultiModalFilter.withinModeDelim + "true"
 	        + MultiModalFilter.multiModalDelim
 	        + "mimeType" + MultiModalFilter.withinModeDelim + mimeType
 	        + MultiModalFilter.multiModalDelim
-	        + "image" + MultiModalFilter.withinModeDelim + imageBase64;
+	        + "image" + MultiModalFilter.withinModeDelim + displayImageBase64;
 	    PrivateMessageEvent imagePme = new PrivateMessageEvent(source, privateTarget, this.myName, taggedMessage);
 	    source.pushEventProposal(imagePme);
+	}
+
+	/**
+	 * Decodes a base64-encoded image, scales it down so its resulting width/height
+	 * are percent% of the original (e.g. percent=25 shrinks it to 1/4 its original
+	 * width and height), re-encodes it in a format matching mimeType, and returns
+	 * the result as a base64 string. percent is clamped to [0, 100]; a percent of
+	 * 100 returns the image unshrunk (aside from a re-encode), and a percent of 0
+	 * collapses it to a minimum 1x1 image.
+	 */
+	private static String shrinkImage(String base64, String mimeType, int percent) throws IOException {
+	    byte[] bytes = Base64.getDecoder().decode(base64);
+	    BufferedImage original = ImageIO.read(new ByteArrayInputStream(bytes));
+	    if (original == null) {
+	        throw new IOException("Unable to decode image for shrinking");
+	    }
+
+	    double scale = Math.max(0, Math.min(100, percent)) / 100.0;
+	    int newWidth = Math.max(1, (int) Math.round(original.getWidth() * scale));
+	    int newHeight = Math.max(1, (int) Math.round(original.getHeight() * scale));
+
+	    Image scaledInstance = original.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+	    BufferedImage resized = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+	    Graphics2D g2d = resized.createGraphics();
+	    g2d.drawImage(scaledInstance, 0, 0, null);
+	    g2d.dispose();
+
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    ImageIO.write(resized, formatNameFromMimeType(mimeType), baos);
+	    return Base64.getEncoder().encodeToString(baos.toByteArray());
+	}
+
+	/** Maps a MIME type like "image/jpeg" or "image/png" to an ImageIO format name. */
+	private static String formatNameFromMimeType(String mimeType) {
+	    if (mimeType == null) {
+	        return "jpg";
+	    }
+	    int slashIndex = mimeType.indexOf('/');
+	    String subtype = (slashIndex >= 0) ? mimeType.substring(slashIndex + 1) : mimeType;
+	    if (subtype.equalsIgnoreCase("jpeg")) {
+	        return "jpg";
+	    }
+	    return subtype;
 	}
 
 	/**
