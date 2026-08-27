@@ -70,7 +70,11 @@ public class LlmCameraListener extends LlmChatListener
     private String privateServer = "https://bazaar.lti.cs.cmu.edu"; 
     private String urlPrefix = "/bazaar/chat/";
     private String htmlPage = "private_space";
-    private String cameraUrl = "https://tinyurl.com/bazaarcam1"; 
+    // Username under which tab-share-chat.html itself is loaded (its own
+    // id/user URL path segments, e.g. ".../group/group/..."), so we know who
+    // to send tab-relabeling updates to. See sendTabShareUserUpdate.
+    private String tabShareUsername = "group";
+    private String cameraUrl = "https://tinyurl.com/bazaarcam1";
     private int shrinkImagePercent = 50; 
     public  List<String> topics;
     private Instant start = Instant.now();
@@ -174,6 +178,7 @@ public class LlmCameraListener extends LlmChatListener
 			urlPrefix = llm_prop.getProperty("url-prefix",urlPrefix);
 			cameraUrl = llm_prop.getProperty("camera-url",cameraUrl);
 			htmlPage = llm_prop.getProperty("html-page",htmlPage);
+			tabShareUsername = llm_prop.getProperty("tab-share-username",tabShareUsername);
 			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
 			
 			threshold = Double.parseDouble(llm_prop.getProperty("threshold", "0.05"));
@@ -418,7 +423,7 @@ public class LlmCameraListener extends LlmChatListener
 //	    String userId = sender.substring(cameraUsernamePrefix.length());
 		String agentName = agent.getName();
 		String userName = pe.getUsername();
-		System.out.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
+		System.err.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
 
 		// Ignore presence events for this agent itself.
 		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix))) {
@@ -429,14 +434,22 @@ public class LlmCameraListener extends LlmChatListener
 		// Automaticically look up/create this user's bookkeeping and, if
 		// sendMessage is currently true, claim it (flip to false) so that a
 		// concurrent PresenceEvent for the same userName can't also see
-		// sendMessage==true and send a second, duplicate message.
-		boolean shouldSend = consumeSendMessageFlag(userName);
+		// sendMessage==true and send a second, duplicate message. Also reports
+		// whether this call is the one that just assigned userName its
+		// userNum, so we can notify tab-share-chat.html exactly once, right
+		// when that assignment happens.
+		PresenceLookupResult lookup = consumeSendMessageFlagAndCheckNew(userName);
 
-		if (shouldSend) {
-			String agentNamePrefix = this.myName + "_"; 
-			String sessionId = agentName.substring(agentNamePrefix.length()); 
+		if (lookup.isNewlyAssigned) {
+			System.err.println("handlePresenceEvent, isNewlyAssigned -- lookup.userNum=" + lookup.userNum + "  -- user name=" + userName);
+			sendTabShareUserUpdate(source, lookup.userNum, userName);
+		}
+
+		if (lookup.shouldSendWelcome) {
+			String agentNamePrefix = this.myName + "_";
+			String sessionId = agentName.substring(agentNamePrefix.length());
 			String sessionIdLast3 = sessionId.substring(Math.max(0, sessionId.length() - 3));
-			String userNum = getUserNum(userName).toString();
+			String userNum = String.valueOf(lookup.userNum);
 			String privateName = privateUsernamePrefix + userNum;
 			String url = privateServer + urlPrefix + sessionId + "/" + privateName + "/" + privateName + "/?" + "html=" + htmlPage; 
 			String privateMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
@@ -471,6 +484,72 @@ public class LlmCameraListener extends LlmChatListener
 			}
 			return info.consumeSendMessage();
 		}
+	}
+
+	/**
+	 * Combined result of looking up (and, on first sighting, creating) a
+	 * userName's presence bookkeeping in one atomic step: its userNum,
+	 * whether this particular call is the one that just assigned that
+	 * userNum (i.e. userName had never been seen before), and whether the
+	 * one-time welcome message should be sent now. See
+	 * consumeSendMessageFlagAndCheckNew, which is the only place this is
+	 * constructed.
+	 */
+	private static class PresenceLookupResult {
+		private final int userNum;
+		private final boolean isNewlyAssigned;
+		private final boolean shouldSendWelcome;
+
+		private PresenceLookupResult(int userNum, boolean isNewlyAssigned, boolean shouldSendWelcome) {
+			this.userNum = userNum;
+			this.isNewlyAssigned = isNewlyAssigned;
+			this.shouldSendWelcome = shouldSendWelcome;
+		}
+	}
+
+	/**
+	 * Thread-safe: looks up (or creates, on first sighting) the
+	 * UserPresenceInfo for userName, and atomically reports its userNum,
+	 * whether this call is the one that just assigned that userNum, and
+	 * whether the one-time welcome message should now be sent (same
+	 * consume-and-flip semantics as consumeSendMessageFlag). Delegates to
+	 * consumeSendMessageFlag and getUserNum -- both of which independently
+	 * acquire presenceLock -- from within one more synchronized(presenceLock)
+	 * block; Java's intrinsic locks are reentrant, so a single thread
+	 * re-entering the same lock here is safe, and it's what keeps the
+	 * "is this new" check atomic with the flag flip.
+	 */
+	private PresenceLookupResult consumeSendMessageFlagAndCheckNew(String userName) {
+		synchronized (presenceLock) {
+			boolean isNewlyAssigned = !userPresenceMap.containsKey(userName);
+			boolean shouldSendWelcome = consumeSendMessageFlag(userName);
+			int userNum = getUserNum(userName).intValue();
+			return new PresenceLookupResult(userNum, isNewlyAssigned, shouldSendWelcome);
+		}
+	}
+
+	/**
+	 * Notifies the tab-share-chat.html page -- loaded as the
+	 * tabShareUsername user (its own id/user URL path segments, e.g.
+	 * ".../group/group/..."; see the "tab-share-username" property, default
+	 * "group") -- that userNum has just been assigned to userName, so it can
+	 * relabel the corresponding "Private_&lt;userNum&gt;" tab in place. Uses
+	 * the same tagged, multimodal-delimited message scheme as
+	 * displayImageOnPrivatePage / private_space.html's "cameraImageUpdate"
+	 * tag: tab-share-chat.html recognizes the "tabUserUpdate:::true" tag on
+	 * an incoming private message and updates its tab label instead of
+	 * appending the message as a chat line.
+	 */
+	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName) {
+		String taggedMessage =
+			"tabUserUpdate" + MultiModalFilter.withinModeDelim + "true"
+			+ MultiModalFilter.multiModalDelim
+			+ "userNum" + MultiModalFilter.withinModeDelim + userNum
+			+ MultiModalFilter.multiModalDelim
+			+ "userName" + MultiModalFilter.withinModeDelim + userName;
+		System.err.println("sendTabShareUserUpdate - sending message: " + taggedMessage);
+		PrivateMessageEvent tabUpdatePme = new PrivateMessageEvent(source, tabShareUsername, this.myName, taggedMessage);
+		source.pushEventProposal(tabUpdatePme);
 	}
 
 	/**

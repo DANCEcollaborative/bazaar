@@ -282,32 +282,63 @@ ul.tab li a:focus, .active {
         var live_chat = false;
         var temp = false;
 
+        // Portion of location.pathname before the "/chat/.../.../.../" segment
+        // (e.g. "/bazaar"), so the Private_N tab URLs are built against
+        // whatever prefix this page itself was actually served under.
+        // Computed once the "chat"/"observe"/"code" regex match is available
+        // (see the 'connect' handler below).
+        var pathPrefix = '';
+
         var NUM_OTHER_FRAMES = 5;
 
-        // Pulls a flat, de-duplicated list of other participants' usernames
-        // out of whatever shape the server sends for the user roster
-        // (an array of names, or an object keyed by socket id).
-        function getOtherUserNames(usersObj) {
-            var names = [];
-            if (Array.isArray(usersObj)) {
-                names = usersObj.slice();
-            } else if (usersObj && typeof usersObj === 'object') {
-                names = Object.keys(usersObj).map(function(key) { return usersObj[key]; });
-            }
-            names = names.map(function(u) {
-                if (typeof u === 'string') return u;
-                if (u && typeof u === 'object') return u.username || u.name || u.user || String(u);
-                return String(u);
-            }).filter(function(n) { return n && n !== user; });
-            return names.filter(function(n, idx) { return names.indexOf(n) === idx; });
+        // The individual pages embedded in the tabs are always
+        // private_space.html, regardless of what html= this coordinator page
+        // itself was loaded with -- matching LlmCameraListener's default
+        // "html-page" property ("private_space"), which is what it points
+        // each user's own welcome-message URL at.
+        var PRIVATE_TAB_HTML_PAGE = 'private_space';
+
+        // Builds the fixed URL for the Nth (1-based) private tab: same
+        // server/path-prefix/room/perspective this coordinator page itself
+        // was loaded with, but with both the id and user path segments set to
+        // "Private_<n>" -- the exact scheme LlmCameraListener.handlePresenceEvent
+        // uses to build each student's own welcome-message URL.
+        function buildPrivateTabUrl(n) {
+            var privateName = 'Private_' + n;
+            var path = pathPrefix + '/chat/' + encodeURIComponent(room) + '/' + privateName + '/' + privateName +
+                '/' + encodeURIComponent(perspective) + '/';
+            return location.origin + path + '?html=' + PRIVATE_TAB_HTML_PAGE;
         }
 
-        // Builds the "observe" URL for another connected user's page, reusing
-        // the room/id/perspective this client already parsed from its own URL.
-        function buildOtherUserFrameUrl(username) {
-            var path = '/observe/' + encodeURIComponent(room) + '/' + encodeURIComponent(id) +
-                '/' + encodeURIComponent(username) + (perspective ? '/' + encodeURIComponent(perspective) : '');
-            return location.origin + path + location.search;
+        // Points all 5 tabs at their Private_1..Private_5 URLs as soon as this
+        // page knows its own room/perspective (see the 'connect' handler).
+        // Tab labels start as "Private_<n>" and get relabeled with the real
+        // userName once LlmCameraListener reports the userNum->userName
+        // assignment (see setPrivateTabUserName / the 'tabUserUpdate' tag
+        // handled in the update_private_chat listener below).
+        function initPrivateTabs() {
+            for (var n = 1; n <= NUM_OTHER_FRAMES; n++) {
+                var slotIndex = n - 1;
+                var frame = document.getElementById('other_frame_' + slotIndex);
+                var link = document.getElementById('other_frame_tab_' + slotIndex);
+                if (!frame || !link) continue;
+                var src = buildPrivateTabUrl(n);
+                frame.setAttribute('data-src', src);
+                frame.src = src;
+                link.textContent = 'Private_' + n;
+            }
+        }
+
+        // Relabels the tab for userNum (1-based, as a string or number) with
+        // userName, once LlmCameraListener assigns that userNum to a real
+        // user. No-op if userNum is out of range.
+        function setPrivateTabUserName(userNum, userName) {
+            var n = parseInt(userNum, 10);
+            if (isNaN(n) || n < 1 || n > NUM_OTHER_FRAMES) return;
+            var link = document.getElementById('other_frame_tab_' + (n - 1));
+            if (!link) return;
+            link.textContent = userName;
+            link.classList.remove('tab_empty');
         }
 
         // Switches tabs: hides every tab's content, un-marks every tab link,
@@ -330,42 +361,12 @@ ul.tab li a:focus, .active {
             if (link) link.classList.add('active');
         }
 
-        // Fills the up-to-5 tabs with the current roster, labeling each tab
-        // with that participant's (dynamically determined) username. If the
-        // currently-open tab's participant leaves, its content is hidden.
-        function updateOtherUserFrames() {
-            var names = getOtherUserNames(users).slice(0, NUM_OTHER_FRAMES);
-            for (var i = 0; i < NUM_OTHER_FRAMES; i++) {
-                var link = document.getElementById('other_frame_tab_' + i);
-                var content = document.getElementById('other_frame_slot_' + i);
-                var frame = document.getElementById('other_frame_' + i);
-                if (!link || !content || !frame) continue;
-                if (i < names.length) {
-                    var uname = names[i];
-                    var newSrc = buildOtherUserFrameUrl(uname);
-                    link.textContent = uname;
-                    link.classList.remove('tab_empty');
-                    if (frame.getAttribute('data-src') !== newSrc) {
-                        frame.setAttribute('data-src', newSrc);
-                        frame.src = newSrc;
-                    }
-                } else {
-                    link.textContent = 'Waiting for participant…';
-                    link.classList.add('tab_empty');
-                    frame.removeAttribute('src');
-                    frame.setAttribute('data-src', '');
-                    if (link.classList.contains('active')) {
-                        openOtherPageTab(null, null);
-                    }
-                }
-            }
-        }
-
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
         // call the server-side function 'adduser' and send one parameter (value of prompt)
 	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
-		
+        pathPrefix = location.pathname.substring(0, groups.index);
+
         live_chat = groups[1] == "chat";
 		  
         if(live_chat)
@@ -375,6 +376,7 @@ ul.tab li a:focus, .active {
             user = groups[5];
             id = groups[4];
             perspective = groups[6];
+            initPrivateTabs();
             if(!user)
                 user = prompt("Hi! please enter your name (first name and last initial) to continue..", "");
             //prompt(room + " " + user + " " + temp + " " + id);
@@ -468,7 +470,6 @@ ul.tab li a:focus, .active {
 	{
 	   users = my_users;
 	   console.log(users);
-	   updateOtherUserFrames();
 	});
 	
 
@@ -506,8 +507,18 @@ ul.tab li a:focus, .active {
 	});
 	
 	// listener, whenever the server emits 'update_private_chat', this updates the chat body
-	socket.on('update_private_chat', function (username, data) 
-	{		
+	socket.on('update_private_chat', function (username, data)
+	{
+		// LlmCameraListener sends this tag (see sendTabShareUserUpdate) the
+		// moment it assigns a userNum to a real userName, targeted at this
+		// page's own username. Intercept it here and relabel the matching
+		// tab instead of appending it as a chat line.
+		if (data.search("tabUserUpdate:::true;%;") > -1) {
+			var updateUserNum = getMultimodalValue("userNum", data);
+			var updateUserName = getMultimodalValue("userName", data);
+			setPrivateTabUserName(updateUserNum, updateUserName);
+			return;
+		}
 		if (data.search("multimodal:::true;%;") > -1) {
 			console.log("update_private_chat - multimodal message found");
 			username = getMultimodalValue("from",data);
@@ -646,11 +657,11 @@ ul.tab li a:focus, .active {
 
         <div id="image_container" class="container">
             <ul class="tab" id="other_pages_tabs">
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_0" onclick="openOtherPageTab(event, 0)">Waiting for participant&hellip;</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_1" onclick="openOtherPageTab(event, 1)">Waiting for participant&hellip;</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_2" onclick="openOtherPageTab(event, 2)">Waiting for participant&hellip;</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_3" onclick="openOtherPageTab(event, 3)">Waiting for participant&hellip;</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_4" onclick="openOtherPageTab(event, 4)">Waiting for participant&hellip;</a></li>
+                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_0" onclick="openOtherPageTab(event, 0)">Private_1</a></li>
+                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_1" onclick="openOtherPageTab(event, 1)">Private_2</a></li>
+                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_2" onclick="openOtherPageTab(event, 2)">Private_3</a></li>
+                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_3" onclick="openOtherPageTab(event, 3)">Private_4</a></li>
+                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_4" onclick="openOtherPageTab(event, 4)">Private_5</a></li>
             </ul>
 
             <div id="other_pages" class="scrollable">
