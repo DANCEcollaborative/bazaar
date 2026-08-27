@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
@@ -63,10 +65,82 @@ public class LlmCameraListener extends LlmChatListener
     private String cameraUsernamePrefix = "Camera_";
     private String privateUsernamePrefix = "Private_";
     private Boolean privateMessaging = true; 
+    private String privateServer = "https://bazaar.lti.cs.cmu.edu"; 
+    private String urlPrefix = "/bazaar/chat/";
+    private String htmlPage = "private_space";
+    private String cameraUrl = "https://tinyurl.com/bazaarcam1"; 
     public  List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
     private volatile double threshold = 0.05;
+
+    // Tracks presence-related bookkeeping per userName, in the order each
+    // userName was first seen (LinkedHashMap preserves insertion order).
+    // Keyed by userName so lookups by userName (see getUserNum below) are
+    // O(1). All reads and writes of this map, of nextUserNum, and of any
+    // individual UserPresenceInfo's sendMessage flag MUST go through a
+    // synchronized(presenceLock) block -- see presenceLock below -- so do
+    // not touch these fields directly from new code; go through
+    // consumeSendMessageFlag / getUserNum / setSendMessage instead.
+    private final Map<String, UserPresenceInfo> userPresenceMap = new LinkedHashMap<String, UserPresenceInfo>();
+
+    // Counter used to assign sequential userNum values, starting at 1, in
+    // the order the first PresenceEvent for each userName is processed.
+    // Only ever mutated while holding presenceLock.
+    private int nextUserNum = 1;
+
+    // Guards userPresenceMap, nextUserNum, and every UserPresenceInfo's
+    // sendMessage flag. PresenceEvents (and any future code that inspects
+    // or toggles sendMessage) may run concurrently on different threads;
+    // without a shared lock, two threads could both see sendMessage==true
+    // for the same brand-new userName and both send a welcome message, or
+    // both assign the same nextUserNum to two different users.
+    private final Object presenceLock = new Object();
+
+    // Holder for the per-user presence bookkeeping described in
+    // requirement 2. Every field is private -- nothing outside this class
+    // (not even other methods of the enclosing LlmCameraListener) can read
+    // or write userName/userNum/sendMessage directly; they must go through
+    // getUserNum() / consumeSendMessage() / setSendMessage(boolean) below.
+    // That removes the possibility of some future line of code doing
+    // `info.sendMessage = ...` unsynchronized by accident -- it simply
+    // won't compile. These instance methods do NOT synchronize themselves:
+    // callers (LlmCameraListener.consumeSendMessageFlag/getUserNum/
+    // setSendMessage) must call them only from within a
+    // synchronized(presenceLock) block.
+    private static class UserPresenceInfo {
+        private final String userName;
+        private final int userNum;
+        private boolean sendMessage;
+
+        private UserPresenceInfo(String userName, int userNum, boolean sendMessage) {
+            this.userName = userName;
+            this.userNum = userNum;
+            this.sendMessage = sendMessage;
+        }
+
+        private int getUserNum() {
+            return userNum;
+        }
+
+        /**
+         * If sendMessage is currently true, flips it to false and returns
+         * true (caller should send the message). Otherwise returns false.
+         * Caller must hold presenceLock.
+         */
+        private boolean consumeSendMessage() {
+            if (sendMessage) {
+                sendMessage = false;
+                return true;
+            }
+            return false;
+        }
+
+        /** Caller must hold presenceLock. */
+        private void setSendMessage(boolean sendMessage) {
+            this.sendMessage = sendMessage;
+        }
+    }
 
 	public LlmCameraListener(Agent a)
 	{
@@ -93,6 +167,11 @@ public class LlmCameraListener extends LlmChatListener
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
 			cameraUsernamePrefix = llm_prop.getProperty("camera-username-prefix",cameraUsernamePrefix);
 			privateUsernamePrefix = llm_prop.getProperty("private-username-prefix",privateUsernamePrefix);
+			privateServer = llm_prop.getProperty("private-server",privateServer);
+			urlPrefix = llm_prop.getProperty("url-prefix",urlPrefix);
+			cameraUrl = llm_prop.getProperty("camera-url",cameraUrl);
+			htmlPage = llm_prop.getProperty("html-page",htmlPage);
+			
 			threshold = Double.parseDouble(llm_prop.getProperty("threshold", "0.05"));
 			privateMessaging = Boolean.parseBoolean(properties.getProperty("private-messaging", privateMessaging.toString()));
 			if (contextFlag) {
@@ -164,18 +243,18 @@ public class LlmCameraListener extends LlmChatListener
 				e1.printStackTrace();
 			}
 		}
-//		else if (e instanceof PresenceEvent)
-//		{
-////		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
-//			PresenceEvent pe = (PresenceEvent) e;
-////	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
-//			try {
-//				handlePresenceEvent(source, pe);
-//			} catch (JSONException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		}
+		else if (e instanceof PresenceEvent)
+		{
+//		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+			PresenceEvent pe = (PresenceEvent) e;
+//	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
+			try {
+				handlePresenceEvent(source, pe);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	public boolean messageFilter(MessageEvent e) {
@@ -329,10 +408,94 @@ public class LlmCameraListener extends LlmChatListener
     // actual name. For those pages, we use the actual name so that the LLM doesn't 
     // confuse the private and collaborative contexts. 	
 	public void handlePresenceEvent(InputCoordinator source, PresenceEvent pe) throws JSONException {
-//        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+//      System.out.println("LlmCameraListener handlePresenceEvent -- received PresenceEvent");
 //	    String prompt = "none";
 //	    String sender = pe.getSenderUsername();
 //	    String userId = sender.substring(cameraUsernamePrefix.length());
+		String agentName = agent.getName();
+		String userName = pe.getUsername();
+		System.out.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
+
+		// Ignore presence events for this agent itself.
+		if ((userName.equals(this.myName)) || (userName.startsWith(cameraUsernamePrefix))) {
+			return;
+		}
+		
+
+		// Automaticically look up/create this user's bookkeeping and, if
+		// sendMessage is currently true, claim it (flip to false) so that a
+		// concurrent PresenceEvent for the same userName can't also see
+		// sendMessage==true and send a second, duplicate message.
+		boolean shouldSend = consumeSendMessageFlag(userName);
+
+		if (shouldSend) {
+			String agentNamePrefix = this.myName + "_"; 
+			String sessionId = agentName.substring(agentNamePrefix.length()); 
+			String sessionIdLast3 = sessionId.substring(Math.max(0, sessionId.length() - 3));
+			String userNum = getUserNum(userName).toString();
+			String privateName = privateUsernamePrefix + userNum;
+			String url = privateServer + urlPrefix + sessionId + "/" + privateName + "/" + privateName + "/?" + "html=" + htmlPage; 
+			String privateMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
+//			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,privateMessage);
+			MessageEvent newPMe1 = new MessageEvent(source, this.myName, privateMessage);
+			source.pushEventProposal(newPMe1);
+			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\n and enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
+			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
+			source.addEventProposal(newPMe2);
+		}
+	}
+
+	/**
+	 * Thread-safe: looks up (or creates, on first sighting) the
+	 * UserPresenceInfo for userName, and if its sendMessage flag is
+	 * currently true, flips it to false and returns true (meaning the
+	 * caller should send the welcome message). Returns false otherwise.
+	 * The lookup/create/check/flip all happen under presenceLock as a
+	 * single atomic step, which is what prevents two threads from both
+	 * observing sendMessage==true for the same userName and both sending
+	 * a message, and from assigning the same nextUserNum to two users.
+	 */
+	private boolean consumeSendMessageFlag(String userName) {
+		synchronized (presenceLock) {
+			UserPresenceInfo info = userPresenceMap.get(userName);
+			if (info == null) {
+				// First PresenceEvent seen for this userName: assign the next
+				// sequential userNum and default sendMessage to true.
+				info = new UserPresenceInfo(userName, nextUserNum, true);
+				nextUserNum++;
+				userPresenceMap.put(userName, info);
+			}
+			return info.consumeSendMessage();
+		}
+	}
+
+	/**
+	 * Thread-safe lookup of the sequential userNum assigned to userName.
+	 * Returns null if no PresenceEvent has been recorded yet for that
+	 * userName (or if userName is this.myName, which is never tracked).
+	 * Always go through this method (rather than caching/reading a
+	 * UserPresenceInfo's fields directly) so reads are properly
+	 * synchronized with concurrent PresenceEvents.
+	 */
+	public Integer getUserNum(String userName) {
+		synchronized (presenceLock) {
+			UserPresenceInfo info = userPresenceMap.get(userName);
+			return (info != null) ? Integer.valueOf(info.getUserNum()) : null;
+		}
+	}
+
+	/**
+	 * Thread-safe setter for a tracked user's sendMessage flag, for future
+	 * iterations that need to toggle it. Does nothing if userName hasn't
+	 * been seen yet.
+	 */
+	public void setSendMessage(String userName, boolean sendMessage) {
+		synchronized (presenceLock) {
+			UserPresenceInfo info = userPresenceMap.get(userName);
+			if (info != null) {
+				info.setSendMessage(sendMessage);
+			}
+		}
 	}
 
 	/**
@@ -788,8 +951,8 @@ public class LlmCameraListener extends LlmChatListener
 	@Override
 	public Class[] getPreprocessorEventClasses()
 	{
-//		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class, PresenceEvent.class};
-		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
+		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class, PresenceEvent.class};
+//		return new Class[] {MessageEvent.class, PrivateMessageEvent.class, ImageEvent.class};
 	}
 
 

@@ -301,7 +301,7 @@ app.post('/bazaar/api/camera/session', (req, res) => {
 // ---------------------------------------------------------------------------
 // Username that the Java tutoring agent (WebsocketChatClient) connects to the
 // room as. 
-const BOT_USERNAME = 'EyeBot';
+const BOT_USERNAME = 'OPEBot';
 
 // ---------------------------------------------------------------------------
 // Username camera.js's own Socket.IO connection joins the room as. Matches
