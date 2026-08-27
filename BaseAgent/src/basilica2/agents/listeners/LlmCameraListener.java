@@ -417,7 +417,7 @@ public class LlmCameraListener extends LlmChatListener
 		System.out.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
 
 		// Ignore presence events for this agent itself.
-		if ((userName.equals(this.myName)) || (userName.startsWith(cameraUsernamePrefix))) {
+		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix))) {
 			return;
 		}
 		
@@ -439,7 +439,7 @@ public class LlmCameraListener extends LlmChatListener
 //			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,privateMessage);
 			MessageEvent newPMe1 = new MessageEvent(source, this.myName, privateMessage);
 			source.pushEventProposal(newPMe1);
-			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\n and enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
+			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
 			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
 			source.addEventProposal(newPMe2);
 		}
