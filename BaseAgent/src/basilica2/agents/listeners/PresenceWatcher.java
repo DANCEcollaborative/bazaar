@@ -76,10 +76,11 @@ public class PresenceWatcher extends BasilicaAdapter
 	private boolean initiated = false;
 	private String agent_name = "Tutor";
 	private String non_user_client_name = ""; 
-	private Boolean includeUnderscoreInAgentName = false; 
-	private Boolean sendRemoteUserList = false; 
-	
-	
+	private Boolean includeUnderscoreInAgentName = false;
+	private Boolean sendRemoteUserList = false;
+	private String[] ignorePrefixes = new String[0];
+
+
 	private boolean use_catch_up = false; //whether to use the catch_up_message function
 	private PromptTable catch_up_prompter;
 	private String[] catch_up_stages;
@@ -98,7 +99,17 @@ public class PresenceWatcher extends BasilicaAdapter
 			non_user_client_name = properties.getProperty("non_user_client_name", non_user_client_name);
 			includeUnderscoreInAgentName = Boolean.parseBoolean(properties.getProperty("include_underscore_in_agent_name", "false"));
 			sendRemoteUserList = Boolean.parseBoolean(properties.getProperty("send_remote_user_list", "false"));
-			
+
+			String ignorePrefixesProperty = properties.getProperty("ignore_prefixes", "").trim();
+			if (ignorePrefixesProperty.isEmpty())
+			{
+				ignorePrefixes = new String[0];
+			}
+			else
+			{
+				ignorePrefixes = ignorePrefixesProperty.split("\\s*,\\s*");
+			}
+
 			use_catch_up = Boolean.parseBoolean(properties.getProperty("use_catch_up", "false"));
 			if (use_catch_up) {
 				catch_up_stages = properties.getProperty("catch_up_stages", "").split("[\\s,]+");
@@ -120,10 +131,10 @@ public class PresenceWatcher extends BasilicaAdapter
 
 	private void handlePresenceEvent(final InputCoordinator source, PresenceEvent pe)
 	{
-		String userName = pe.getUsername(); 
-//		System.err.println("PresenceEvent.java, handlePresenceEvent - username: " + userName); 
-		if (!userName.contains(agent_name) && !source.isAgentName(userName) && !userName.equals(non_user_client_name)) 
-		{	
+		String userName = pe.getUsername();
+//		System.err.println("PresenceEvent.java, handlePresenceEvent - username: " + userName);
+		if (!userName.contains(agent_name) && !source.isAgentName(userName) && !userName.equals(non_user_client_name) && !hasIgnoredPrefix(userName))
+		{
 //			System.err.println("PresenceEvent.java, handlePresenceEvent - student present: " + userName); 
 			State olds = StateMemory.getSharedState(agent);
 			State news;
@@ -195,6 +206,22 @@ public class PresenceWatcher extends BasilicaAdapter
 		}
 	}
 	
+	/**
+	 * Checks whether userName begins with any of the prefixes configured
+	 * via the 'ignore_prefixes' property (see ignorePrefixes).
+	 */
+	private boolean hasIgnoredPrefix(String userName)
+	{
+		for (String prefix : ignorePrefixes)
+		{
+			if (!prefix.isEmpty() && userName.startsWith(prefix))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void sendUserListToRemote(final InputCoordinator source, State state) {
 //		String[] usersList = state.getStudentIdsPresentOrNot();
 		String[] usersList = state.getStudentIds();
