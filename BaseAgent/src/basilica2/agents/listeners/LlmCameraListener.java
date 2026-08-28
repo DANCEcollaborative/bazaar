@@ -70,7 +70,11 @@ public class LlmCameraListener extends LlmChatListener
     private String privateServer = "https://bazaar.lti.cs.cmu.edu"; 
     private String urlPrefix = "/bazaar/chat/";
     private String htmlPage = "private_space";
-    private String cameraUrl = "https://tinyurl.com/bazaarcam1"; 
+    // Username under which tab-share-chat.html itself is loaded (its own
+    // id/user URL path segments, e.g. ".../group/group/..."), so we know who
+    // to send tab-relabeling updates to. See sendTabShareUserUpdate.
+    private String tabShareUsername = "tab_group";
+    private String cameraUrl = "https://tinyurl.com/bazaarcam1";
     private int shrinkImagePercent = 50; 
     public  List<String> topics;
     private Instant start = Instant.now();
@@ -174,6 +178,7 @@ public class LlmCameraListener extends LlmChatListener
 			urlPrefix = llm_prop.getProperty("url-prefix",urlPrefix);
 			cameraUrl = llm_prop.getProperty("camera-url",cameraUrl);
 			htmlPage = llm_prop.getProperty("html-page",htmlPage);
+			tabShareUsername = llm_prop.getProperty("tab-share-username",tabShareUsername);
 			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
 			
 			threshold = Double.parseDouble(llm_prop.getProperty("threshold", "0.05"));
@@ -201,13 +206,13 @@ public class LlmCameraListener extends LlmChatListener
 	public void preProcessEvent(InputCoordinator source, Event e)
 	{
 		if (e instanceof PrivateMessageEvent) {
-//	        System.err.println("LlmCameraListener preProcessEvent for PrivateMessageEvent");
+	        System.err.println("LlmCameraListener preProcessEvent for PrivateMessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((PrivateMessageEvent) e);
 				if (proceed) {
-//			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (PrivateMessageEvent) e);
 					} catch (JSONException e1) {
@@ -218,13 +223,13 @@ public class LlmCameraListener extends LlmChatListener
 				start = finish;
 			}
 		} else if (e instanceof MessageEvent) {
-//	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
+ 	        System.err.println("LlmCameraListener preProcessEvent for MessageEvent");
 			finish = Instant.now();
 			long timeElapsed = Duration.between(start, finish).toMillis();
 			if (timeElapsed > 1500) {
 				boolean proceed = messageFilter((MessageEvent) e);
 				if (proceed) {
-//			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
+			        System.err.println("LlmCameraListener preProcessEvent: calling handleMessageEvent");
 					try {
 						handleMessageEvent(source, (MessageEvent) e);
 					} catch (JSONException e1) {
@@ -237,9 +242,9 @@ public class LlmCameraListener extends LlmChatListener
 		}
 		else if (e instanceof ImageEvent)
 		{
-//		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
 		    ImageEvent ie = (ImageEvent) e;
-//	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
+	        System.err.println("LlmCameraListener preProcessEvent: calling handleImageEvent");
 			try {
 				handleImageEvent(source, ie);
 			} catch (JSONException e1) {
@@ -249,9 +254,9 @@ public class LlmCameraListener extends LlmChatListener
 		}
 		else if (e instanceof PresenceEvent)
 		{
-//		    System.err.println("LlmCameraListener preProcessEvent for ImageEvent");
+		    System.err.println("LlmCameraListener preProcessEvent for PresenceEvent");
 			PresenceEvent pe = (PresenceEvent) e;
-//	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
+	        System.err.println("LlmCameraListener preProcessEvent: calling handlePresenceEvent");
 			try {
 				handlePresenceEvent(source, pe);
 			} catch (JSONException e1) {
@@ -264,13 +269,13 @@ public class LlmCameraListener extends LlmChatListener
 	public boolean messageFilter(MessageEvent e) {
 		String messageText = e.getText();
 		String globalActiveListenerName = StateMemory.getSharedState(agent).getGlobalActiveListener();
-//        System.err.println("LlmCameraListener messageFilter -- this.myName: " + this.myName);
-//        System.err.println("LlmCameraListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
+        System.err.println("LlmCameraListener messageFilter -- this.myName: " + this.myName);
+        System.err.println("LlmCameraListener messageFilter -- globalActiveListenerName: " + globalActiveListenerName);
 		if (globalActiveListenerName.equalsIgnoreCase(this.myName)) {
-//	        System.err.println("LlmCameraListener messageFilter -- name match!");
+	        System.err.println("LlmCameraListener messageFilter -- name match!");
 			return true;
 		} else if (globalActiveListenerName.equals("") && messageText.contains(this.myName)) {
-//	        System.err.println("LlmCameraListener messageFilter -- name match!");
+	        System.err.println("LlmCameraListener messageFilter -- name match!");
 			return true;
 		}
 		List<String> topicWords = getTopicWords(messageText);
@@ -308,7 +313,7 @@ public class LlmCameraListener extends LlmChatListener
     // confuse the private and collaborative contexts. 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 	    // Prepare the prompt based on the received message
-//        System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
+        System.err.println("LlmCameraListener handleMessageEvent -- received MessageEvent");
 	    String prompt = me.getText(); // student chat message
 	    String sender = me.getFrom();
 //	    String senderToLlm; 
@@ -335,13 +340,13 @@ public class LlmCameraListener extends LlmChatListener
     // confuse the private and collaborative contexts. 	
 	public void handlePrivateMessageEvent(InputCoordinator source, PrivateMessageEvent pme) throws JSONException {
 	    // Prepare the prompt based on the received message
-//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- enter");
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- enter");
 	    String prompt = pme.getText(); // student chat message
-//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- prompt: " + prompt);
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- prompt: " + prompt);
 	    String receiver = pme.getDestinationUser(); 
-//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- toUser: " + receiver);
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- toUser: " + receiver);
 	    String sender = pme.getFrom();
-//        System.out.println("LlmCameraListener handlePrivateMessageEvent -- sender: " + sender);
+        System.out.println("LlmCameraListener handlePrivateMessageEvent -- sender: " + sender);
 //	    String senderToLlm; 
 //	    if (sender.startsWith(privateUsernamePrefix)) {
 //	    	senderToLlm = sender.substring(privateUsernamePrefix.length()); 
@@ -366,7 +371,7 @@ public class LlmCameraListener extends LlmChatListener
     // actual name. For those pages, we use the actual name so that the LLM doesn't 
     // confuse the private and collaborative contexts. 	
 	public void handleImageEvent(InputCoordinator source, ImageEvent ie) throws JSONException {
-//        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
+        System.err.println("LlmCameraListener handleImageEvent -- received ImageEvent");
 	    String prompt = "none";
 	    String sender = ie.getSenderUsername();
 	    String userId = sender.substring(cameraUsernamePrefix.length());
@@ -393,11 +398,11 @@ public class LlmCameraListener extends LlmChatListener
 	    }
 
 	    if (significantChange) {
-//	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " changed significantly; sending to LLM");
-	        openAIrequestAndResponse(source,prompt,false,sender);
-	        displayImageOnPrivatePage(source, userId, imageBase64, mimeType);
+			System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " changed significantly; sending to LLM");
+			openAIrequestAndResponse(source,prompt,false,sender);
+			displayImageOnPrivatePage(source, userId, imageBase64, mimeType);
 	    } else {
-//	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
+	        System.err.println("LlmCameraListener handleImageEvent -- image for userId=" + userId + " is similar to previous image; not sending");
 	    }
 	}
 
@@ -412,38 +417,71 @@ public class LlmCameraListener extends LlmChatListener
     // actual name. For those pages, we use the actual name so that the LLM doesn't 
     // confuse the private and collaborative contexts. 	
 	public void handlePresenceEvent(InputCoordinator source, PresenceEvent pe) throws JSONException {
-//      System.out.println("LlmCameraListener handlePresenceEvent -- received PresenceEvent");
+		System.out.println("LlmCameraListener handlePresenceEvent -- received PresenceEvent");
 //	    String prompt = "none";
 //	    String sender = pe.getSenderUsername();
 //	    String userId = sender.substring(cameraUsernamePrefix.length());
 		String agentName = agent.getName();
 		String userName = pe.getUsername();
-		System.out.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
+		System.err.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
+
+		// tab-share-chat.html itself connects/reconnects under
+		// tabShareUsername. Rather than running it through the normal
+		// per-student onboarding flow below (userNum assignment, welcome
+		// message -- it isn't a student), treat a PRESENT event for it as a
+		// cue to (re-)send every userNum -> userName mapping assigned so
+		// far, so its tabs end up correctly labeled even if it just
+		// loaded/reloaded and missed the individual tabUserUpdate messages
+		// sent while it was away.
+		if (userName.equals(tabShareUsername)) {
+			System.err.println("handlePresenceEvent  -- userName =" + tabShareUsername);
+			if (PresenceEvent.PRESENT.equals(pe.getType())) {
+				Map<String, Integer> assignedUserNums = snapshotUserNums();
+				for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
+					System.err.println("handlePresenceEvent - calling sendTabShareUserUpdate: user#=" + entry.getValue().intValue() + " -- name=" + entry.getKey());
+					sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey());
+				}
+			}
+			return;
+		}
 
 		// Ignore presence events for this agent itself.
 		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix))) {
+			System.err.println("handlePresenceEvent - ignoring PE for - " + this.myName + " or " + userName);
 			return;
 		}
-		
+
 
 		// Automaticically look up/create this user's bookkeeping and, if
 		// sendMessage is currently true, claim it (flip to false) so that a
 		// concurrent PresenceEvent for the same userName can't also see
-		// sendMessage==true and send a second, duplicate message.
-		boolean shouldSend = consumeSendMessageFlag(userName);
+		// sendMessage==true and send a second, duplicate message. Also reports
+		// whether this call is the one that just assigned userName its
+		// userNum, so we can notify tab-share-chat.html exactly once, right
+		// when that assignment happens.
+		PresenceLookupResult lookup = consumeSendMessageFlagAndCheckNew(userName);
 
-		if (shouldSend) {
-			String agentNamePrefix = this.myName + "_"; 
-			String sessionId = agentName.substring(agentNamePrefix.length()); 
+		if (lookup.isNewlyAssigned) {
+			System.err.println("handlePresenceEvent, isNewlyAssigned - callingsendTabShareUserUpdate for lookup.userNum=" + lookup.userNum + "  -- user name=" + userName);
+			sendTabShareUserUpdate(source, lookup.userNum, userName);
+		}
+
+		if (lookup.shouldSendWelcome) {
+			String agentNamePrefix = this.myName + "_";
+			String sessionId = agentName.substring(agentNamePrefix.length());
 			String sessionIdLast3 = sessionId.substring(Math.max(0, sessionId.length() - 3));
-			String userNum = getUserNum(userName).toString();
+			String userNum = String.valueOf(lookup.userNum);
 			String privateName = privateUsernamePrefix + userNum;
-			String url = privateServer + urlPrefix + sessionId + "/" + privateName + "/" + privateName + "/?" + "html=" + htmlPage; 
+			String url = privateServer + urlPrefix + sessionId + "/" + privateName + "/" + privateName + "/?" + "html=" + htmlPage;
+			System.err.println("handlePresenceEvent, shouldSendWelcome - " + this.myName + " or " + userName); 
 			String privateMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
+
+			System.err.println("handlePresenceEvent, shouldSendWelcome - message to user: " + privateMessage); 
 //			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,privateMessage);
 			MessageEvent newPMe1 = new MessageEvent(source, this.myName, privateMessage);
 			source.pushEventProposal(newPMe1);
 			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
+			System.err.println("handlePresenceEvent, shouldSendWelcome - message to camera: " + cameraMessage); 
 			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
 			source.addEventProposal(newPMe2);
 		}
@@ -471,6 +509,109 @@ public class LlmCameraListener extends LlmChatListener
 			}
 			return info.consumeSendMessage();
 		}
+	}
+
+	/**
+	 * Combined result of looking up (and, on first sighting, creating) a
+	 * userName's presence bookkeeping in one atomic step: its userNum,
+	 * whether this particular call is the one that just assigned that
+	 * userNum (i.e. userName had never been seen before), and whether the
+	 * one-time welcome message should be sent now. See
+	 * consumeSendMessageFlagAndCheckNew, which is the only place this is
+	 * constructed.
+	 */
+	private static class PresenceLookupResult {
+		private final int userNum;
+		private final boolean isNewlyAssigned;
+		private final boolean shouldSendWelcome;
+
+		private PresenceLookupResult(int userNum, boolean isNewlyAssigned, boolean shouldSendWelcome) {
+			this.userNum = userNum;
+			this.isNewlyAssigned = isNewlyAssigned;
+			this.shouldSendWelcome = shouldSendWelcome;
+		}
+	}
+
+	/**
+	 * Thread-safe: looks up (or creates, on first sighting) the
+	 * UserPresenceInfo for userName, and atomically reports its userNum,
+	 * whether this call is the one that just assigned that userNum, and
+	 * whether the one-time welcome message should now be sent (same
+	 * consume-and-flip semantics as consumeSendMessageFlag). Delegates to
+	 * consumeSendMessageFlag and getUserNum -- both of which independently
+	 * acquire presenceLock -- from within one more synchronized(presenceLock)
+	 * block; Java's intrinsic locks are reentrant, so a single thread
+	 * re-entering the same lock here is safe, and it's what keeps the
+	 * "is this new" check atomic with the flag flip.
+	 */
+	private PresenceLookupResult consumeSendMessageFlagAndCheckNew(String userName) {
+		synchronized (presenceLock) {
+			boolean isNewlyAssigned = !userPresenceMap.containsKey(userName);
+			boolean shouldSendWelcome = consumeSendMessageFlag(userName);
+			int userNum = getUserNum(userName).intValue();
+			return new PresenceLookupResult(userNum, isNewlyAssigned, shouldSendWelcome);
+		}
+	}
+
+	/**
+	 * Thread-safe snapshot of every userName -> userNum assignment made so
+	 * far (i.e. every userName that has had a UserPresenceInfo instantiated,
+	 * in the order each was first seen). Returned as a fresh LinkedHashMap so
+	 * callers -- see the tabShareUsername branch in handlePresenceEvent --
+	 * can iterate and send events outside presenceLock rather than holding
+	 * it for the duration of a loop of event dispatches.
+	 */
+	private Map<String, Integer> snapshotUserNums() {
+		synchronized (presenceLock) {
+			Map<String, Integer> snapshot = new LinkedHashMap<String, Integer>();
+			for (Map.Entry<String, UserPresenceInfo> entry : userPresenceMap.entrySet()) {
+				snapshot.put(entry.getKey(), Integer.valueOf(entry.getValue().getUserNum()));
+			}
+			return snapshot;
+		}
+	}
+
+	/**
+	 * Notifies the tab-share-chat.html page -- loaded as the
+	 * tabShareUsername user (its own id/user URL path segments, e.g.
+	 * ".../group/group/..."; see the "tab-share-username" property, default
+	 * "group") -- that userNum has just been assigned to userName, so it can
+	 * relabel the corresponding "Private_&lt;userNum&gt;" tab in place.
+	 * <p>
+	 * Whatever wraps an outgoing PrivateMessageEvent's raw text into the
+	 * delivered multimodal envelope does so unconditionally --
+	 * "multimodal:::true;%;from:::...;%;to:::...;%;speech:::" + rawText --
+	 * even when rawText is itself already a fully-formed multimodal string
+	 * (confirmed: pre-building the envelope here just produced it nested a
+	 * second time inside "speech"). There's no lever from this class to
+	 * suppress that wrapping. But the encoding is flat -- one list of
+	 * ";%;"-delimited "tag:::value" pairs, not a true nested structure -- so
+	 * leading rawText with an *empty* field (a bare multiModalDelim) makes
+	 * "speech" end up with an empty value ("speech:::;%;...") while
+	 * tabUserUpdate/userNum/userName still land as clean, independent
+	 * top-level fields rather than glued onto "speech"'s value:
+	 * "multimodal:::true;%;from:::OPEBot;%;to:::tab_group;%;speech:::;%;
+	 * tabUserUpdate:::true;%;userNum:::1;%;userName:::Chas Murray". That
+	 * empty "speech" is intentional -- tab-share-chat.html's generic
+	 * multimodal fallback (in its updatechat/update_private_chat listeners)
+	 * skips displaying an empty speech value as a chat line, so this never
+	 * shows a stray bubble even if the "tabUserUpdate" interception ahead of
+	 * it were ever bypassed. tab-share-chat.html recognizes the
+	 * "tabUserUpdate:::true" tag on an incoming private message and updates
+	 * its tab label instead of appending the message as a chat line.
+	 */
+	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName) {
+		String taggedMessage =
+			MultiModalFilter.multiModalDelim
+			+ "tabUserUpdate" + MultiModalFilter.withinModeDelim + "true"
+			+ MultiModalFilter.multiModalDelim
+			+ "userNum" + MultiModalFilter.withinModeDelim + userNum
+			+ MultiModalFilter.multiModalDelim
+			+ "userName" + MultiModalFilter.withinModeDelim + userName;
+		System.err.println("sendTabShareUserUpdate - sending message: " + taggedMessage);
+		PrivateMessageEvent tabUpdatePme = new PrivateMessageEvent(source, tabShareUsername, this.myName, taggedMessage);
+//		MessageEvent tabUpdatePme = new MessageEvent(source, this.myName, taggedMessage);
+		source.pushEventProposal(tabUpdatePme);
 	}
 
 	/**
@@ -628,12 +769,13 @@ public class LlmCameraListener extends LlmChatListener
 	
 	public void openAIrequestAndResponse(InputCoordinator source, String prompt, Boolean fromSystem, String sender)  {
 		String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-//        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
+        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
-//        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
+        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
         if (!"No response".equals(response)) {
         	
 			if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
+				System.err.println("LlmCameraListener openAIrequestAndResponse -- message to real user: " + response);
 		    	MessageEvent newMe = new MessageEvent(source, this.myName, response);
 		    	source.pushEventProposal(newMe);
 			} else {
@@ -645,9 +787,11 @@ public class LlmCameraListener extends LlmChatListener
 			    }
 				String privateStudentName = privateUsernamePrefix + senderSuffix;
 	    		PrivateMessageEvent newPMe1 = new PrivateMessageEvent(source,privateStudentName,this.myName,response); 
+				System.err.println("LlmCameraListener openAIrequestAndResponse -- sending message to private user: " + response);
 	    		source.pushEventProposal(newPMe1); 
 	    		String privateCameraName = cameraUsernamePrefix + senderSuffix;
 	    		PrivateMessageEvent newPMe2 = new PrivateMessageEvent(source,privateCameraName,this.myName,response); 
+				System.err.println("LlmCameraListener openAIrequestAndResponse -- sending message to camera user: " + response);
 	    		source.pushEventProposal(newPMe2); 
 			}
 	    } else {
