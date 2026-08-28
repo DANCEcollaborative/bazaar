@@ -73,7 +73,7 @@ public class LlmCameraListener extends LlmChatListener
     // Username under which tab-share-chat.html itself is loaded (its own
     // id/user URL path segments, e.g. ".../group/group/..."), so we know who
     // to send tab-relabeling updates to. See sendTabShareUserUpdate.
-    private String tabShareUsername = "group";
+    private String tabShareUsername = "tab_group";
     private String cameraUrl = "https://tinyurl.com/bazaarcam1";
     private int shrinkImagePercent = 50; 
     public  List<String> topics;
@@ -425,11 +425,29 @@ public class LlmCameraListener extends LlmChatListener
 		String userName = pe.getUsername();
 		System.err.println("handlePresenceEvent  -- agent name=" + agentName + "  -- user name=" + userName);
 
+		// tab-share-chat.html itself connects/reconnects under
+		// tabShareUsername. Rather than running it through the normal
+		// per-student onboarding flow below (userNum assignment, welcome
+		// message -- it isn't a student), treat a PRESENT event for it as a
+		// cue to (re-)send every userNum -> userName mapping assigned so
+		// far, so its tabs end up correctly labeled even if it just
+		// loaded/reloaded and missed the individual tabUserUpdate messages
+		// sent while it was away.
+		if (userName.equals(tabShareUsername)) {
+			if (PresenceEvent.PRESENT.equals(pe.getType())) {
+				Map<String, Integer> assignedUserNums = snapshotUserNums();
+				for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
+					sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey());
+				}
+			}
+			return;
+		}
+
 		// Ignore presence events for this agent itself.
 		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix))) {
 			return;
 		}
-		
+
 
 		// Automaticically look up/create this user's bookkeeping and, if
 		// sendMessage is currently true, claim it (flip to false) so that a
@@ -529,26 +547,63 @@ public class LlmCameraListener extends LlmChatListener
 	}
 
 	/**
+	 * Thread-safe snapshot of every userName -> userNum assignment made so
+	 * far (i.e. every userName that has had a UserPresenceInfo instantiated,
+	 * in the order each was first seen). Returned as a fresh LinkedHashMap so
+	 * callers -- see the tabShareUsername branch in handlePresenceEvent --
+	 * can iterate and send events outside presenceLock rather than holding
+	 * it for the duration of a loop of event dispatches.
+	 */
+	private Map<String, Integer> snapshotUserNums() {
+		synchronized (presenceLock) {
+			Map<String, Integer> snapshot = new LinkedHashMap<String, Integer>();
+			for (Map.Entry<String, UserPresenceInfo> entry : userPresenceMap.entrySet()) {
+				snapshot.put(entry.getKey(), Integer.valueOf(entry.getValue().getUserNum()));
+			}
+			return snapshot;
+		}
+	}
+
+	/**
 	 * Notifies the tab-share-chat.html page -- loaded as the
 	 * tabShareUsername user (its own id/user URL path segments, e.g.
 	 * ".../group/group/..."; see the "tab-share-username" property, default
 	 * "group") -- that userNum has just been assigned to userName, so it can
-	 * relabel the corresponding "Private_&lt;userNum&gt;" tab in place. Uses
-	 * the same tagged, multimodal-delimited message scheme as
-	 * displayImageOnPrivatePage / private_space.html's "cameraImageUpdate"
-	 * tag: tab-share-chat.html recognizes the "tabUserUpdate:::true" tag on
-	 * an incoming private message and updates its tab label instead of
-	 * appending the message as a chat line.
+	 * relabel the corresponding "Private_&lt;userNum&gt;" tab in place.
+	 * <p>
+	 * Whatever wraps an outgoing PrivateMessageEvent's raw text into the
+	 * delivered multimodal envelope does so unconditionally --
+	 * "multimodal:::true;%;from:::...;%;to:::...;%;speech:::" + rawText --
+	 * even when rawText is itself already a fully-formed multimodal string
+	 * (confirmed: pre-building the envelope here just produced it nested a
+	 * second time inside "speech"). There's no lever from this class to
+	 * suppress that wrapping. But the encoding is flat -- one list of
+	 * ";%;"-delimited "tag:::value" pairs, not a true nested structure -- so
+	 * leading rawText with an *empty* field (a bare multiModalDelim) makes
+	 * "speech" end up with an empty value ("speech:::;%;...") while
+	 * tabUserUpdate/userNum/userName still land as clean, independent
+	 * top-level fields rather than glued onto "speech"'s value:
+	 * "multimodal:::true;%;from:::OPEBot;%;to:::tab_group;%;speech:::;%;
+	 * tabUserUpdate:::true;%;userNum:::1;%;userName:::Chas Murray". That
+	 * empty "speech" is intentional -- tab-share-chat.html's generic
+	 * multimodal fallback (in its updatechat/update_private_chat listeners)
+	 * skips displaying an empty speech value as a chat line, so this never
+	 * shows a stray bubble even if the "tabUserUpdate" interception ahead of
+	 * it were ever bypassed. tab-share-chat.html recognizes the
+	 * "tabUserUpdate:::true" tag on an incoming private message and updates
+	 * its tab label instead of appending the message as a chat line.
 	 */
 	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName) {
 		String taggedMessage =
-			"tabUserUpdate" + MultiModalFilter.withinModeDelim + "true"
+			MultiModalFilter.multiModalDelim
+			+ "tabUserUpdate" + MultiModalFilter.withinModeDelim + "true"
 			+ MultiModalFilter.multiModalDelim
 			+ "userNum" + MultiModalFilter.withinModeDelim + userNum
 			+ MultiModalFilter.multiModalDelim
 			+ "userName" + MultiModalFilter.withinModeDelim + userName;
 		System.err.println("sendTabShareUserUpdate - sending message: " + taggedMessage);
 		PrivateMessageEvent tabUpdatePme = new PrivateMessageEvent(source, tabShareUsername, this.myName, taggedMessage);
+//		MessageEvent tabUpdatePme = new MessageEvent(source, this.myName, taggedMessage);
 		source.pushEventProposal(tabUpdatePme);
 	}
 

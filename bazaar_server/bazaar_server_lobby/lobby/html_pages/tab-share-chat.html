@@ -392,12 +392,16 @@ ul.tab li a:focus, .active {
 	
 
 	// listener, whenever the server emits 'updatechat', this updates the chat body
-	socket.on('updatechat', function (username, data) 
+	socket.on('updatechat', function (username, data)
 	{
 		if (data.search("multimodal:::true;%;") > -1) {
 // 			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("speech",data);
+			// An empty "speech" value means this multimodal message carries
+			// no chat text of its own (e.g. it's purely a tagged payload for
+			// some other field, like tabUserUpdate) -- nothing to display.
+			if (!data) return;
 		} else {
 // 			console.log("updatechat - multimodal message NOT found");
 		}
@@ -523,6 +527,12 @@ ul.tab li a:focus, .active {
 			console.log("update_private_chat - multimodal message found");
 			username = getMultimodalValue("from",data);
 			data = getMultimodalValue("speech",data);
+			// An empty "speech" value means this multimodal message carries
+			// no chat text of its own (e.g. it's purely a tagged payload for
+			// some other field) -- nothing to display. (The tabUserUpdate
+			// case above already returns before reaching here; this is a
+			// defensive fallback for any other empty-speech message.)
+			if (!data) return;
 		} else {
 			console.log("update_private_chat - multimodal message NOT found");
 		}
