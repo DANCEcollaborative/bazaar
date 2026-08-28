@@ -333,12 +333,16 @@ ul.tab li a:focus, .active {
         // userName, once LlmCameraListener assigns that userNum to a real
         // user. No-op if userNum is out of range.
         function setPrivateTabUserName(userNum, userName) {
+        		console.log("*** setPrivateTabUserName - enter -- userNum=" + userNum + "  -- userName=" + userName );
             var n = parseInt(userNum, 10);
             if (isNaN(n) || n < 1 || n > NUM_OTHER_FRAMES) return;
+        		console.log("setPrivateTabUserName - found good userNum");
             var link = document.getElementById('other_frame_tab_' + (n - 1));
             if (!link) return;
+        		console.log("setPrivateTabUserName - found other_frame_tab_n-1");
             link.textContent = userName;
             link.classList.remove('tab_empty');
+        		console.log("setPrivateTabUserName - end");
         }
 
         // Switches tabs: hides every tab's content, un-marks every tab link,
@@ -517,9 +521,12 @@ ul.tab li a:focus, .active {
 		// moment it assigns a userNum to a real userName, targeted at this
 		// page's own username. Intercept it here and relabel the matching
 		// tab instead of appending it as a chat line.
+		console.log("*** update_private_chat -- enter");
 		if (data.search("tabUserUpdate:::true;%;") > -1) {
+			console.log("update_private_chat -- found tabUserUpdate");
 			var updateUserNum = getMultimodalValue("userNum", data);
 			var updateUserName = getMultimodalValue("userName", data);
+			console.log("update_private_chat, calling setPrivateTabUserName -- updateUserNum=" + updateUserNum + "  -- updateUserName=" + updateUserName);
 			setPrivateTabUserName(updateUserNum, updateUserName);
 			return;
 		}
