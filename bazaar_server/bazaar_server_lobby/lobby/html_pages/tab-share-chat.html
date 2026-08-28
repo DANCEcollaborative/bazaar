@@ -515,7 +515,10 @@ ul.tab li a:focus, .active {
 	});
 	
 	// listener, whenever the server emits 'update_private_chat', this updates the chat body
-	socket.on('update_private_chat', function (username, data)
+	// NOTE: the server (server_lobby_https.js, socket.on('sendpm')) emits this event
+	// with 3 args: (to_user, from_user, data) -- matching private_space.html's
+	// established handler signature. Keep this handler's arity in sync with that.
+	socket.on('update_private_chat', function (touser, fromuser, data)
 	{
 		// LlmCameraListener sends this tag (see sendTabShareUserUpdate) the
 		// moment it assigns a userNum to a real userName, targeted at this
@@ -532,7 +535,8 @@ ul.tab li a:focus, .active {
 		}
 		if (data.search("multimodal:::true;%;") > -1) {
 			console.log("update_private_chat - multimodal message found");
-			username = getMultimodalValue("from",data);
+			fromuser = getMultimodalValue("from",data);
+			touser = getMultimodalValue("to",data);
 			data = getMultimodalValue("speech",data);
 			// An empty "speech" value means this multimodal message carries
 			// no chat text of its own (e.g. it's purely a tagged payload for
@@ -543,12 +547,13 @@ ul.tab li a:focus, .active {
 		} else {
 			console.log("update_private_chat - multimodal message NOT found");
 		}
-		console.log("update_private_chat - username: " + username);
+		console.log("update_private_chat - touser: " + touser);
+		console.log("update_private_chat - fromuser: " + fromuser);
 		console.log("update_private_chat - data:     " + data);
-		
-//         appendMessage(new Date(), username+' (Private Message)', data, getUserColor(username));
-        appendMessage(new Date(), username, data);
-        
+
+//         appendMessage(new Date(), fromuser+' (Private Message)', data, getUserColor(fromuser));
+        appendMessage(new Date(), fromuser, data);
+
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
 	
