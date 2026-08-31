@@ -181,9 +181,12 @@ ul.tab li a:focus, .active {
     }
 
     /* Neutralize the legacy negative-margin "fill the gap" hack and
-       switch each panel body to a normal flexible flex child. */
+       switch each panel body to a normal flexible flex child. The
+       external stylesheet also pads .container 40px on top and
+       150px on the bottom */
     .container {
         margin: 0 !important;
+        padding: 0;
         height: auto !important;
         flex: 1 1 auto;
         min-height: 0;
@@ -261,6 +264,29 @@ ul.tab li a:focus, .active {
         overflow: hidden !important;
         position: relative;
         background: #EDEDEC;
+    }
+
+    /* The "copy conversation log" modal is only meant to be visible when
+       showConvText() explicitly opens it. It's supposed to stay hidden
+       (and, when open, float via position:fixed) via the external
+       stylesheet -- restated here so that if that stylesheet is ever
+       slow/unavailable, this in-flow block element doesn't silently
+       render at the bottom of the page and show up as a large empty
+       white gap below the tabbed interface. */
+    #conversation_text_div {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 400px;
+        height: 400px;
+        margin-top: -200px;
+        margin-left: -200px;
+        padding: 10px;
+        background: #fff;
+        border: 2px solid #000;
+        box-sizing: border-box;
+        z-index: 100;
     }
 </style>
 

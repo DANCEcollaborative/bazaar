@@ -135,9 +135,15 @@ ul.tab li a:focus, .active {
     }
 
     /* Neutralize the legacy negative-margin "fill the gap" hack and
-       switch each panel body to a normal flexible flex child. */
+       switch each panel body to a normal flexible flex child. The
+       external stylesheet also pads .container 40px on top and
+       150px on the bottom (part of that same old fixed-height hack)
+       -- left un-overridden, that 190px shows up as dead space
+       inside the panel instead of being usable by the picture/chat
+       area. Zero it out here so each panel truly fills its flex box. */
     .container {
         margin: 0 !important;
+        padding: 0;
         height: auto !important;
         flex: 1 1 auto;
         min-height: 0;
@@ -148,7 +154,27 @@ ul.tab li a:focus, .active {
     }
 
     #conversation_container { background: #fff; }
-    #image_container { background: #EDEDEC; }
+
+    /* The shared-image feed (#images, inside #image_container) and the
+       live camera picture (#camera_image_div) are sibling flex children
+       of #image_column. By default (no camera picture yet) the feed
+       gets the whole column. Once a camera picture arrives,
+       updateCameraImage() adds "has_camera" to #image_column so the
+       picture takes priority: it gets nearly all the vertical space,
+       and the feed collapses to a capped strip below it (still fully
+       usable via its own scrollbar) instead of splitting the column
+       50/50 with the picture, which was wasting about half the
+       picture area on empty space. */
+    #image_container {
+        background: #EDEDEC;
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+    #image_column.has_camera #image_container {
+        flex: 0 1 auto;
+        max-height: 22%;
+        min-height: 44px;
+    }
 
     .scrollable {
         width: 100%;
@@ -236,7 +262,14 @@ ul.tab li a:focus, .active {
     #zoom_level { font-size: 13px; min-width: 44px; text-align: center; }
 
     /* ---- The picture itself: centered, scrollable in both
-       directions, and resizable via the zoom toolbar above. ---- */
+       directions, and resizable via the zoom toolbar above.
+       Sizing is computed in JS (sizeCameraImage()): at 100% zoom the
+       picture is scaled to exactly fill #camera_image_div (whichever
+       of width/height is the tighter fit), so it displays as large
+       as the available space allows by default with no need to zoom
+       out just to see the whole thing; zooming past 100% scales
+       further from that fit size and this panel scrolls to reveal
+       the overflow. ---- */
     #camera_image_div {
         display: none; /* toggled to 'flex' by updateCameraImage() */
         flex: 1 1 auto;
@@ -249,8 +282,12 @@ ul.tab li a:focus, .active {
                                scrolling to every edge, unlike
                                align-items/justify-content centering */
         display: block;
-        width: var(--picture-zoom-pct, 100%);
         max-width: none !important;
+        max-height: none !important;
+        /* width/height are set as explicit pixel values by
+           sizeCameraImage(); these are just a sane fallback for the
+           brief window before the image has loaded / been sized. */
+        width: auto;
         height: auto;
     }
 
@@ -269,6 +306,29 @@ ul.tab li a:focus, .active {
         max-width: none !important;
         height: auto !important;
         display: inline-block;
+    }
+
+    /* The "copy conversation log" modal is only meant to be visible when
+       showConvText() explicitly opens it. It's supposed to stay hidden
+       (and, when open, float via position:fixed) via the external
+       stylesheet -- restated here so that if that stylesheet is ever
+       slow/unavailable, this in-flow block element doesn't silently
+       render at the bottom of the page and show up as a large empty
+       white gap below the tab's content. */
+    #conversation_text_div {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 400px;
+        height: 400px;
+        margin-top: -200px;
+        margin-left: -200px;
+        padding: 10px;
+        background: #fff;
+        border: 2px solid #000;
+        box-sizing: border-box;
+        z-index: 100;
     }
 </style>
 
@@ -442,12 +502,54 @@ ul.tab li a:focus, .active {
     // newly received frame for this user. mimeType/imageBase64 come from a private
     // message tagged with "cameraImageUpdate:::true" -- see update_private_chat below.
     // Shown as 'flex' (not 'block') so the CSS `margin:auto` centering on #camera_image
-    // takes effect as soon as a picture arrives.
+    // takes effect as soon as a picture arrives. Also marks #image_column as
+    // "has_camera" so the CSS gives the picture priority over the (usually empty)
+    // shared-image feed below it -- see the #image_column.has_camera rule above.
     function updateCameraImage(mimeType, imageBase64)
     {
         var img = document.getElementById('camera_image');
         img.src = 'data:' + mimeType + ';base64,' + imageBase64;
         document.getElementById('camera_image_div').style.display = 'flex';
+        var col = document.getElementById('image_column');
+        if (col) col.classList.add('has_camera');
+        // sizeCameraImage() also runs from the image's own 'load' listener
+        // (set up once in $(document).ready below), but right after the
+        // "has_camera" class flips #image_container's max-height, the flex
+        // layout can take an extra animation frame to fully settle (a known
+        // quirk when a flex sibling's size changes the same tick a class is
+        // toggled) -- resize across two consecutive frames so the final
+        // call always measures the box's true, settled size.
+        resizeCameraImageSoon();
+    }
+
+    function resizeCameraImageSoon()
+    {
+        requestAnimationFrame(function () {
+            sizeCameraImage();
+            requestAnimationFrame(sizeCameraImage);
+        });
+    }
+
+    // ---- Fit the camera image to #camera_image_div, then apply the zoom
+    // multiplier on top of that fit size (see PICTURE_ZOOM_STEPS below).
+    // Explicit pixel width/height (rather than a CSS percentage) are used
+    // so the element's scrollable box actually grows/shrinks with the
+    // zoom level, letting #camera_image_div's overflow:auto scroll to
+    // every part of the picture once zoomed past the fit size. ----
+    function sizeCameraImage()
+    {
+        var img = document.getElementById('camera_image');
+        var box = document.getElementById('camera_image_div');
+        if (!img || !box || !img.naturalWidth || !img.naturalHeight) return;
+        if (box.style.display === 'none') return;
+        var boxW = box.clientWidth;
+        var boxH = box.clientHeight;
+        if (!boxW || !boxH) return;
+        var fitScale = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
+        if (!isFinite(fitScale) || fitScale <= 0) fitScale = 1;
+        var scale = fitScale * (pictureZoomPct / 100);
+        img.style.width = Math.round(img.naturalWidth * scale) + 'px';
+        img.style.height = Math.round(img.naturalHeight * scale) + 'px';
     }
 
     function getMultimodalValue(field, data)
@@ -704,6 +806,7 @@ ul.tab li a:focus, .active {
         if (col) col.style.setProperty('--picture-zoom-pct', pictureZoomPct + '%');
         var lvl = document.getElementById('zoom_level');
         if (lvl) lvl.textContent = pictureZoomPct + '%';
+        sizeCameraImage();
     }
 
     function stepPictureZoom(direction)
@@ -754,6 +857,21 @@ ul.tab li a:focus, .active {
 		$('#zoom_out').click(function() { stepPictureZoom(-1); });
 		$('#zoom_reset').click(function() { resetPictureZoom(); });
 		applyPictureZoom();
+
+		// Re-fit/re-size the camera picture whenever a new image finishes
+		// loading (naturalWidth/naturalHeight aren't available until then)
+		// and whenever the surrounding box changes size -- e.g. the user
+		// dragging the column resizer on the tab-share-chat.html page this
+		// is embedded in, which resizes this iframe and fires 'resize'
+		// inside it.
+		var cameraImgEl = document.getElementById('camera_image');
+		if (cameraImgEl) cameraImgEl.addEventListener('load', resizeCameraImageSoon);
+
+		var resizeTimer = null;
+		$(window).on('resize', function() {
+			if (resizeTimer) clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(sizeCameraImage, 100);
+		});
 	});
 
     $(window).focus(function()
