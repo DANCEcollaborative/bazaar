@@ -1887,16 +1887,22 @@ io.sockets.on('connection', async (socket) => {
 				to_user = BOT_USERNAME;
 			}
 			console.log("info", "socket.on_sendpm - not from 'Private_: -- room: " + socket.room + "  -- to_user: " + to_user);
-			const s = user_sockets[socket.room][to_user];
-			if(s) {
-				console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
-				// NOTE: 3 args (to_user, socket.username, data). private_space.html's
-				// handler is function(touser, fromuser, data) and depends on this
-				// exact arity; tab-share-chat.html's handler matches it as well
-				// (function(touser, fromuser, data)) -- do not drop an argument here.
-				s.emit('update_private_chat', to_user, socket.username, data);
+			// Emit to every connected socket that shares this room and username --
+			// not just the single (and possibly stale/overwritten) socket cached in
+			// user_sockets. A user can have more than one live connection for the
+			// same room/username (e.g. multiple tabs or a reconnect race), and all
+			// of them should receive the private chat update.
+			const allSockets = (typeof io.sockets.sockets.values === 'function')
+				? Array.from(io.sockets.sockets.values())
+				: Object.values(io.sockets.sockets);
+			const matchingSockets = allSockets.filter(
+				(s) => s.room === socket.room && s.username === to_user
+			);
+			if (matchingSockets.length > 0) {
+				console.log("info", "socket.on_sendpm, emitting update_private_chat to " + matchingSockets.length + " socket(s) -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
+				matchingSockets.forEach((s) => s.emit('update_private_chat', to_user, socket.username, data));
 			} else {
-				console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+				console.log("info", "socket.on_sendpm - no connected socket for user " + to_user + " in room " + socket.room + " -- did not emit");
 			}
 		}
 	});
