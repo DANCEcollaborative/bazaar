@@ -1880,8 +1880,30 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "private");
 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
 		if (socket.username.startsWith('Private_')) {
-			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly"); 
+			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly");
 			emitToAgentOnly(socket.room, 'updatechat', socket.username, data);
+
+			// Echo this message to any OTHER sockets in the same room that are
+			// logged in under this exact same 'Private_*' username (e.g. a second
+			// browser tab/window signed in as the same "Private_1" user), so every
+			// live connection for that pseudo-user sees what was sent, with the
+			// message still appearing to come from that same username.
+			// The sender's own socket is deliberately excluded: private_space.html
+			// already appends the message locally the instant it's sent (see
+			// sendMessage()), so echoing it back to the sender too would show it
+			// twice.
+			const privateRoomSockets = (typeof io.sockets.sockets.values === 'function')
+				? Array.from(io.sockets.sockets.values())
+				: Object.values(io.sockets.sockets);
+			const siblingPrivateSockets = privateRoomSockets.filter(
+				(s) => s !== socket && s.room === socket.room && s.username === socket.username
+			);
+			if (siblingPrivateSockets.length > 0) {
+				console.log("info", "socket.on_sendpm, echoing Private_ message to " + siblingPrivateSockets.length + " sibling socket(s) sharing username " + socket.username + " in room " + socket.room);
+				siblingPrivateSockets.forEach((s) => s.emit('update_private_chat', socket.username, socket.username, data));
+			} else {
+				console.log("info", "socket.on_sendpm - no other sockets found sharing username " + socket.username + " in room " + socket.room + " -- nothing to echo");
+			}
 		} else {
 			if (!to_user) {
 				to_user = BOT_USERNAME;
