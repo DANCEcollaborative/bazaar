@@ -247,7 +247,14 @@ ul.tab li a:focus, .active {
        height; the iframe stretches to 100% instead of a fixed
        480px, and each tab's own page (private_space.html) handles
        its own internal scrolling. */
-    #other_pages_tabs { flex: 0 0 auto; }
+    /* A large ?tabs= count wraps onto extra rows (floated <li>s do this
+       natively); cap how much height the tab bar can claim so a big
+       count still leaves real room for the iframe below. */
+    #other_pages_tabs {
+        flex: 0 0 auto;
+        max-height: 40%;
+        overflow-y: auto;
+    }
     #other_pages {
         flex: 1 1 auto;
         min-height: 0;
@@ -473,7 +480,19 @@ ul.tab li a:focus, .active {
         // (see the 'connect' handler below).
         var pathPrefix = '';
 
-        var NUM_OTHER_FRAMES = 5;
+        // Number of private tabs to create, taken from the ?tabs= URL
+        // parameter (e.g. "...?html=tab-share-chat&tabs=8"). Falls back to
+        // 5 when the parameter is missing or not a usable number, and is
+        // clamped to a sane range so a malformed/huge value in the URL
+        // can't wedge the page.
+        var DEFAULT_NUM_OTHER_FRAMES = 3;
+        var MAX_NUM_OTHER_FRAMES = 10;
+        var NUM_OTHER_FRAMES = parseInt(urlParams.get('tabs'), 10);
+        if (!Number.isFinite(NUM_OTHER_FRAMES) || NUM_OTHER_FRAMES < 1) {
+            NUM_OTHER_FRAMES = DEFAULT_NUM_OTHER_FRAMES;
+        } else if (NUM_OTHER_FRAMES > MAX_NUM_OTHER_FRAMES) {
+            NUM_OTHER_FRAMES = MAX_NUM_OTHER_FRAMES;
+        }
 
         // The individual pages embedded in the tabs are always
         // private_space.html, regardless of what html= this coordinator page
@@ -494,7 +513,51 @@ ul.tab li a:focus, .active {
             return location.origin + path + '?html=' + PRIVATE_TAB_HTML_PAGE;
         }
 
-        // Points all 5 tabs at their Private_1..Private_5 URLs as soon as this
+        // Builds the tab bar and the matching iframe slots for however many
+        // private tabs this page was asked for (NUM_OTHER_FRAMES, from the
+        // ?tabs= URL parameter). Replaces any previous contents, so it's
+        // safe to call again if NUM_OTHER_FRAMES is ever recomputed. Uses
+        // the exact same ids/classes/structure the old static markup used
+        // (other_frame_tab_N, other_frame_slot_N, other_frame_N) so
+        // openOtherPageTab / setPrivateTabUserName / initPrivateTabs all
+        // keep working unmodified.
+        function buildPrivateTabsUI(n) {
+            var tabsList = document.getElementById('other_pages_tabs');
+            var pagesContainer = document.getElementById('other_pages');
+            if (!tabsList || !pagesContainer) return;
+
+            tabsList.innerHTML = '';
+            pagesContainer.innerHTML = '';
+
+            for (var i = 0; i < n; i++) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = 'javascript:void(0)';
+                a.className = 'tablinks tab_empty';
+                a.id = 'other_frame_tab_' + i;
+                a.textContent = 'Private_' + (i + 1);
+                a.addEventListener('click', (function (slotIndex) {
+                    return function (evt) { openOtherPageTab(evt, slotIndex); };
+                })(i));
+                li.appendChild(a);
+                tabsList.appendChild(li);
+
+                var slot = document.createElement('div');
+                slot.className = 'tabcontent';
+                slot.id = 'other_frame_slot_' + i;
+
+                var frame = document.createElement('iframe');
+                frame.className = 'other_frame';
+                frame.id = 'other_frame_' + i;
+                frame.setAttribute('data-src', '');
+                frame.title = 'Participant page ' + (i + 1);
+
+                slot.appendChild(frame);
+                pagesContainer.appendChild(slot);
+            }
+        }
+
+        // Points all tabs at their Private_1..Private_N URLs as soon as this
         // page knows its own room/perspective (see the 'connect' handler).
         // Tab labels start as "Private_<n>" and get relabeled with the real
         // userName once LlmCameraListener reports the userNum->userName
@@ -564,6 +627,7 @@ ul.tab li a:focus, .active {
             user = groups[5];
             id = groups[4];
             perspective = groups[6];
+            buildPrivateTabsUI(NUM_OTHER_FRAMES);
             initPrivateTabs();
             if(!user)
                 user = prompt("Hi! please enter your name (first name and last initial) to continue..", "");
@@ -913,31 +977,13 @@ ul.tab li a:focus, .active {
 <div id="everything">
     <div id="image_column">
         <div id="image_container" class="container">
-            <ul class="tab" id="other_pages_tabs">
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_0" onclick="openOtherPageTab(event, 0)">Private_1</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_1" onclick="openOtherPageTab(event, 1)">Private_2</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_2" onclick="openOtherPageTab(event, 2)">Private_3</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_3" onclick="openOtherPageTab(event, 3)">Private_4</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_4" onclick="openOtherPageTab(event, 4)">Private_5</a></li>
-            </ul>
+            <!-- Populated by buildPrivateTabsUI(NUM_OTHER_FRAMES) once the
+                 ?tabs= URL parameter has been read (see the 'connect'
+                 handler) -- the number of <li>/tabcontent/iframe sets
+                 built here matches whatever that parameter asked for. -->
+            <ul class="tab" id="other_pages_tabs"></ul>
 
-            <div id="other_pages" class="scrollable">
-                <div class="tabcontent" id="other_frame_slot_0">
-                    <iframe class="other_frame" id="other_frame_0" data-src="" title="Participant page 1"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_1">
-                    <iframe class="other_frame" id="other_frame_1" data-src="" title="Participant page 2"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_2">
-                    <iframe class="other_frame" id="other_frame_2" data-src="" title="Participant page 3"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_3">
-                    <iframe class="other_frame" id="other_frame_3" data-src="" title="Participant page 4"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_4">
-                    <iframe class="other_frame" id="other_frame_4" data-src="" title="Participant page 5"></iframe>
-                </div>
-            </div>
+            <div id="other_pages" class="scrollable"></div>
         </div>
     </div>
 
