@@ -280,8 +280,8 @@ public class State
 
 	public void setName(String sid, String name)
 	{
-//		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
-		if (!sid.equals(identityAllUsers)) {
+		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
+		if ((!sid.equals(identityAllUsers)) && (!hasIgnoredPrefix(sid)) && (!hasIgnoredPrefix(name))) {
 			for (int i = 0; i < students.size(); i++)
 			{
 				if (sid.startsWith(students.get(i).chatId))
