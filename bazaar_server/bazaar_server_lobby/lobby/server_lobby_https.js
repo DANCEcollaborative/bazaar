@@ -311,12 +311,6 @@ const BOT_USERNAME = 'OPEBot';
 // identity always matches whichever User ID was entered on camera.html.
 const CAMERA_USERNAME_PREFIX = 'Camera_';
 
-// ---------------------------------------------------------------------------
-// Username prefixes that should not receive an echoed 'updatechat' when
-// 'tab_group' sends a 'sendchat' message. Any socket in the room whose
-// username starts with one of these strings is skipped.
-const noEchoClients = ['tab_group', 'Private_', 'Camera_'];
-
 // Finds the username the camera client actually joined `room` under (i.e.
 // the first username in that room starting with CAMERA_USERNAME_PREFIX).
 // Falls back to the bare prefix if the camera client hasn't joined yet
@@ -1743,22 +1737,11 @@ io.sockets.on('connection', async (socket) => {
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
 // 		else if (socket.username == "MLAgent") 
-		if (socket.username == "MLAgent")
-			io.sockets.in(socket.room).emit('interjection', { message: data });
-		else if (socket.username == "tab_group") {
-			// Only relay to sockets in the room whose usernames don't start
-			// with any of the noEchoClients prefixes (e.g. don't echo back
-			// to other tab_group, Private_, or Camera_ sockets).
-			const roomSockets = user_sockets[socket.room] || {};
-			for (const uname in roomSockets) {
-				if (!noEchoClients.some(prefix => uname.startsWith(prefix))) {
-					roomSockets[uname].emit('updatechat', socket.username, data);
-				}
-			}
-			}
+		if (socket.username == "MLAgent") 
+			io.sockets.in(socket.room).emit('interjection', { message: data }); 
 		else {
-			io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-			}
+			io.sockets.in(socket.room).emit('updatechat', socket.username, data);	
+			}		
 	});
 
 
