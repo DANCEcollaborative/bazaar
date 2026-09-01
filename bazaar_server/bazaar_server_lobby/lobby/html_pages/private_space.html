@@ -54,6 +54,284 @@ ul.tab li a:focus, .active {
 
 <link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
+
+<!-- ============================================================
+     Appearance overrides (CMU brand palette + fill-height layout).
+     Placed after the external stylesheet <link> above so these
+     rules win the cascade without needing !important everywhere;
+     a handful of !important flags are still used to defeat a few
+     specific legacy rules (float widths, negative container
+     margins, forced max-width on images) that would otherwise
+     fight the new flex layout / zoom feature.
+     CMU brand colors: Carnegie Red #C41230, Iron Gray #6D6E71,
+     Steel Gray #E0E0E0, Black #000000, White #FFFFFF.
+     ============================================================ -->
+<style id="cmu_theme_overrides">
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #F4F3F1;
+        font-family: 'Oxygen', Arial, sans-serif;
+    }
+
+    /* Fill the whole tab from edge to edge, top to bottom. */
+    #everything {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        background: #F4F3F1;
+        box-sizing: border-box;
+    }
+
+    /* Picture space on the left, chat space on the right. */
+    #image_column {
+        order: 1;
+        flex: 0 0 75%;
+        min-width: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        border-right: 3px solid #C41230;
+        box-sizing: border-box;
+        --picture-zoom-pct: 100%;
+    }
+
+    #conversation_column {
+        order: 2;
+        flex: 1 1 40%;
+        min-width: 220px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    /* Column header bars (e.g. "Discussion"). */
+    .header {
+        height: auto !important;
+        min-height: 0;
+        margin: 0;
+        padding: 10px 14px;
+        background: #C41230;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Neutralize the legacy negative-margin "fill the gap" hack and
+       switch each panel body to a normal flexible flex child. The
+       external stylesheet also pads .container 40px on top and
+       150px on the bottom (part of that same old fixed-height hack)
+       -- left un-overridden, that 190px shows up as dead space
+       inside the panel instead of being usable by the picture/chat
+       area. Zero it out here so each panel truly fills its flex box. */
+    .container {
+        margin: 0 !important;
+        padding: 0;
+        height: auto !important;
+        flex: 1 1 auto;
+        min-height: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #conversation_container { background: #fff; }
+
+    /* The shared-image feed (#images, inside #image_container) and the
+       live camera picture (#camera_image_div) are sibling flex children
+       of #image_column. By default (no camera picture yet) the feed
+       gets the whole column. Once a camera picture arrives,
+       updateCameraImage() adds "has_camera" to #image_column so the
+       picture takes priority: it gets nearly all the vertical space,
+       and the feed collapses to a capped strip below it (still fully
+       usable via its own scrollbar) instead of splitting the column
+       50/50 with the picture, which was wasting about half the
+       picture area on empty space. */
+    #image_container {
+        background: #EDEDEC;
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+    #image_column.has_camera #image_container {
+        flex: 0 1 auto;
+        max-height: 22%;
+        min-height: 44px;
+    }
+
+    .scrollable {
+        width: 100%;
+        flex: 1 1 auto;
+        min-height: 0;
+        box-sizing: border-box;
+        overflow-y: auto !important;
+        overflow-x: hidden;
+    }
+
+    #conversation { padding: 10px; }
+    .user { color: #C41230; }
+    .date { color: #6D6E71; }
+
+    .control {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: auto !important;
+        min-height: 0;
+        flex: 0 0 auto;
+        background: #EDEDEC;
+        padding: 8px 10px;
+        box-sizing: border-box;
+        border-top: 2px solid #E0E0E0;
+    }
+
+    #data {
+        width: 100%;
+        min-height: 60px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px;
+        font-family: inherit;
+        font-size: 14px;
+        resize: vertical;
+    }
+
+    .button {
+        background: #C41230 !important;
+        border-radius: 4px !important;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    .button:hover { background: #a10f28 !important; }
+
+    /* ---- Picture-space toolbar (replaces the old "Private Space"
+       heading and the manual image-URL box/button) ---- */
+    .zoom-toolbar {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: #6D6E71;
+        color: #fff;
+        box-sizing: border-box;
+    }
+    .zoom-toolbar .zoom-label {
+        font-size: 13px;
+        font-weight: 600;
+        margin-right: auto;
+        opacity: .9;
+    }
+    .zoom-btn {
+        background: #C41230;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        width: 30px;
+        height: 26px;
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    .zoom-btn:hover { background: #a10f28; }
+    .zoom-btn:active { background: #8a0d22; }
+    #zoom_reset { width: auto; padding: 0 10px; font-size: 12px; }
+    #zoom_level { font-size: 13px; min-width: 44px; text-align: center; }
+
+    /* ---- The picture itself: centered, scrollable in both
+       directions, and resizable via the zoom toolbar above.
+       Sizing is computed in JS (sizeCameraImage()): at 100% zoom the
+       picture is scaled to exactly fill #camera_image_div (whichever
+       of width/height is the tighter fit), so it displays as large
+       as the available space allows by default with no need to zoom
+       out just to see the whole thing; zooming past 100% scales
+       further from that fit size and this panel scrolls to reveal
+       the overflow. ---- */
+    #camera_image_div {
+        display: none; /* toggled to 'flex' by updateCameraImage() */
+        flex: 1 1 auto;
+        min-height: 120px;
+        overflow: auto;
+        background: #fff;
+    }
+    #camera_image {
+        margin: auto;      /* centers the picture; safe with overflow:auto
+                               scrolling to every edge, unlike
+                               align-items/justify-content centering */
+        display: block;
+        max-width: none !important;
+        max-height: none !important;
+        /* width/height are set as explicit pixel values by
+           sizeCameraImage(); these are just a sane fallback for the
+           brief window before the image has loaded / been sized. */
+        width: auto;
+        height: auto;
+    }
+
+    #images {
+        flex: 1 1 auto;
+        min-height: 80px;
+        overflow-y: auto !important;
+        overflow-x: auto !important;
+        border-top: 2px solid #E0E0E0;
+        padding: 6px;
+        box-sizing: border-box;
+    }
+    .image_line { text-align: center; }
+    img.shared_image {
+        width: var(--picture-zoom-pct, 100%) !important;
+        max-width: none !important;
+        height: auto !important;
+        display: inline-block;
+    }
+
+    /* The "copy conversation log" modal is only meant to be visible when
+       showConvText() explicitly opens it. It's supposed to stay hidden
+       (and, when open, float via position:fixed) via the external
+       stylesheet -- restated here so that if that stylesheet is ever
+       slow/unavailable, this in-flow block element doesn't silently
+       render at the bottom of the page and show up as a large empty
+       white gap below the tab's content. */
+    #conversation_text_div {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 400px;
+        height: 400px;
+        margin-top: -200px;
+        margin-left: -200px;
+        padding: 10px;
+        background: #fff;
+        border: 2px solid #000;
+        box-sizing: border-box;
+        z-index: 100;
+    }
+</style>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/client.js"></script>
 <script type="text/javascript" src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js"></script>
@@ -68,7 +346,7 @@ ul.tab li a:focus, .active {
     var spreadsheet = /spreadsheet=([a-zA-Z0-9_\\-]+)/g.exec(location.search);
     //if (!spreadsheet) alert("Spreadsheet is not loaded properly: "+location.search);
     //else spreadsheet = spreadsheet[1];
-    
+
     var entityMap = {
         "&": "&amp;",
         "<": "&lt;",
@@ -77,13 +355,13 @@ ul.tab li a:focus, .active {
         "'": "&#39;",
         "/": "&#x2F;",
       };
-      
+
     function escapeHTML(string) {
         return String(string).replace(/[&<>"'\/]/g, function (s) {
           return entityMap[s];
         });
       }
-	
+
     function showConvText()
     {
         res = "";
@@ -106,7 +384,7 @@ ul.tab li a:focus, .active {
             range.moveToElementText(document.getElementById("conversation_text"));
             range.select();
         } else if (window.getSelection) {
-            selection = window.getSelection();        
+            selection = window.getSelection();
             range = document.createRange();
             range.selectNodeContents(document.getElementById("conversation_text"));
             selection.removeAllRanges();
@@ -120,15 +398,15 @@ ul.tab li a:focus, .active {
     {
         document.getElementById("conversation_text_div").style.display = "none";
     }
-		
-    function appendMessage(timestamp, username, text, color) 
+
+    function appendMessage(timestamp, username, text, color)
     {
-        
+
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
-    	
+
 		$('#conversation').append(
 		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
 		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
@@ -143,15 +421,15 @@ ul.tab li a:focus, .active {
       if(lastDate > timestamp)
         lastDate = timestamp;
     }
-    
-    function appendNote(timestamp, username, text, color) 
+
+    function appendNote(timestamp, username, text, color)
     {
-        
+
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
-    
+
 		$('#conversation').append(
 		 '<div class="message_line">'
 		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
@@ -164,16 +442,16 @@ ul.tab li a:focus, .active {
       if(lastDate > timestamp)
         lastDate = timestamp;
     }
-    
+
     var anchorID = 0;
-    function appendImage(timestamp, username, image_url, color) 
+    function appendImage(timestamp, username, image_url, color)
 	{
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
 	    anchor = 'sharedItem'+(anchorID++)
-	    
+
 		$('#images').append(
 		 '<a id='+anchor+'/>'
 		+'<div class="image_line">'
@@ -186,19 +464,19 @@ ul.tab li a:focus, .active {
       noticeNewMessage()
       if(lastDate > timestamp)
         lastDate = timestamp;
-		
+
 		return anchor;
 
     }
-    
-    function appendHTML(timestamp, username, html, color) 
+
+    function appendHTML(timestamp, username, html, color)
 	{
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
 	    anchor = 'sharedItem'+(anchorID++)
-	    
+
 		$('#images').append(
 		 '<a id='+anchor+'/>'
 		+'<div class="image_line">'
@@ -208,9 +486,9 @@ ul.tab li a:focus, .active {
 		+'</div>'
 		+html
 		+'</div><br/>');
-		
-		
-        $('.sortable').sortable();			
+
+
+        $('.sortable').sortable();
         $('.exclude').sortable({
 				items: ':not(.disabled)'
 			});
@@ -219,39 +497,83 @@ ul.tab li a:focus, .active {
         lastDate = timestamp;
 		return anchor;
     }
-       
+
     // Updates (in place) the camera image shown in the Private Space column with a
     // newly received frame for this user. mimeType/imageBase64 come from a private
     // message tagged with "cameraImageUpdate:::true" -- see update_private_chat below.
+    // Shown as 'flex' (not 'block') so the CSS `margin:auto` centering on #camera_image
+    // takes effect as soon as a picture arrives. Also marks #image_column as
+    // "has_camera" so the CSS gives the picture priority over the (usually empty)
+    // shared-image feed below it -- see the #image_column.has_camera rule above.
     function updateCameraImage(mimeType, imageBase64)
     {
         var img = document.getElementById('camera_image');
         img.src = 'data:' + mimeType + ';base64,' + imageBase64;
-        document.getElementById('camera_image_div').style.display = 'block';
+        document.getElementById('camera_image_div').style.display = 'flex';
+        var col = document.getElementById('image_column');
+        if (col) col.classList.add('has_camera');
+        // sizeCameraImage() also runs from the image's own 'load' listener
+        // (set up once in $(document).ready below), but right after the
+        // "has_camera" class flips #image_container's max-height, the flex
+        // layout can take an extra animation frame to fully settle (a known
+        // quirk when a flex sibling's size changes the same tick a class is
+        // toggled) -- resize across two consecutive frames so the final
+        // call always measures the box's true, settled size.
+        resizeCameraImageSoon();
+    }
+
+    function resizeCameraImageSoon()
+    {
+        requestAnimationFrame(function () {
+            sizeCameraImage();
+            requestAnimationFrame(sizeCameraImage);
+        });
+    }
+
+    // ---- Fit the camera image to #camera_image_div, then apply the zoom
+    // multiplier on top of that fit size (see PICTURE_ZOOM_STEPS below).
+    // Explicit pixel width/height (rather than a CSS percentage) are used
+    // so the element's scrollable box actually grows/shrinks with the
+    // zoom level, letting #camera_image_div's overflow:auto scroll to
+    // every part of the picture once zoomed past the fit size. ----
+    function sizeCameraImage()
+    {
+        var img = document.getElementById('camera_image');
+        var box = document.getElementById('camera_image_div');
+        if (!img || !box || !img.naturalWidth || !img.naturalHeight) return;
+        if (box.style.display === 'none') return;
+        var boxW = box.clientWidth;
+        var boxH = box.clientHeight;
+        if (!boxW || !boxH) return;
+        var fitScale = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
+        if (!isFinite(fitScale) || fitScale <= 0) fitScale = 1;
+        var scale = fitScale * (pictureZoomPct / 100);
+        img.style.width = Math.round(img.naturalWidth * scale) + 'px';
+        img.style.height = Math.round(img.naturalHeight * scale) + 'px';
     }
 
     function getMultimodalValue(field, data)
     {
     	var fields = data.split(";%;");
-    	var numFields = fields.length; 	
-		console.log("getMultimodalValue - search field: " + field);   		
-		console.log("getMultimodalValue - data: " + data);   	
+    	var numFields = fields.length;
+		console.log("getMultimodalValue - search field: " + field);
+		console.log("getMultimodalValue - data: " + data);
 		console.log("getMultimodalValue - numFields: " + numFields.toString());
-    	var i = 0; 
-    	var value = ""; 
+    	var i = 0;
+    	var value = "";
     	while (i < numFields) {
-    		var fieldWithValue = fields[i].split(":::");   
-			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);   
-    		i =	i + 1; 	
+    		var fieldWithValue = fields[i].split(":::");
+			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);
+    		i =	i + 1;
     		if (fieldWithValue[0] == field) {
-    			console.log("getMultimodalValue - field found");  
+    			console.log("getMultimodalValue - field found");
     			value = fieldWithValue[1];
-    			console.log("getMultimodalValue - value: " + value);  
+    			console.log("getMultimodalValue - value: " + value);
     			i = numFields;
     		}
     	}
-    	return value;    
-    } 
+    	return value;
+    }
 
 	// var socket = io.connect(chatserver_url, {
     //     path: '/bazaar'
@@ -274,9 +596,9 @@ ul.tab li a:focus, .active {
 	socket.on('connect', function(){
         // call the server-side function 'adduser' and send one parameter (value of prompt)
 	groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
-		
+
         live_chat = groups[1] == "chat";
-		  
+
         if(live_chat)
         {
             temp = groups[2] && groups[2].length > 0;
@@ -294,12 +616,12 @@ ul.tab li a:focus, .active {
             socket.emit('snoop', room, id);
             $('input,textarea').prop('disabled', true);
 	}
-        $('#roomname').text(room); 
+        $('#roomname').text(room);
         });
-	
+
 
 	// listener, whenever the server emits 'updatechat', this updates the chat body
-	// socket.on('updatechat', function (username, data) 
+	// socket.on('updatechat', function (username, data)
 	// {
 	// 	if (data.search("multimodal:::true;%;") > -1) {
 	// 		console.log("updatechat - multimodal message found");
@@ -313,25 +635,25 @@ ul.tab li a:focus, .active {
     //     appendMessage(new Date(), username, data);
 	// 	$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	// });
-	
+
     // listener, whenever the server emits 'updateimage', this updates the image list
-	socket.on('updatehtml', function (username, html) 
+	socket.on('updatehtml', function (username, html)
 	{
         anchor = appendHTML(new Date(), username, html);
         appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">item.</a>');
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 	});
-	
-	
+
+
     // listener, whenever the server emits 'updateimage', this updates the image list
-	socket.on('updateimage', function (username, image_url) 
+	socket.on('updateimage', function (username, image_url)
 	{
         anchor = appendImage(new Date(), username, image_url);
         appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">image/URL.</a>');
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 	});
-	
-	socket.on('dump_history', function (backlog) 
+
+	socket.on('dump_history', function (backlog)
 	{
 	    for(i = 0; i < backlog.length; i++)
 	    {
@@ -341,23 +663,24 @@ ul.tab li a:focus, .active {
 			  continue;
 	       if(entry["type"] == "image")
 	       {
-                anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
+                anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);
                 appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">image/URL.</a>');
             }
 	       else if(entry["type"] == "html")
 	       {
-                anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
+                anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);
                 appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">item.</a>');
             }
             else if(entry.type == "presence")
-                appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));	 
+//                 appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));
+										;
             else if(entry.type == "ready")
                     ;
                     //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
             else if(entry.type == "private")
-                appendMessage(new Date(entry["timestamp"]), entry.username+" (Private Message)", entry["content"], getUserColor(entry.username));	 	 
+                appendMessage(new Date(entry["timestamp"]), entry.username+" (Private Message)", entry["content"], getUserColor(entry.username));
             else
-                appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);	 
+                appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);
         }
 
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
@@ -365,24 +688,24 @@ ul.tab li a:focus, .active {
 
 			   lastDate = new Date();
 	});
-	
+
 	    // listener, whenever the server emits 'updaterooms', this updates the room list
-	socket.on('updaterooms', function (rooms, my_room) 
+	socket.on('updaterooms', function (rooms, my_room)
 	{
 		$('#roomname').text(my_room);
 	});
-	
+
 		    // listener, whenever the server emits 'updateimage', this updates the user list
-	socket.on('updateusers', function (my_users) 
+	socket.on('updateusers', function (my_users)
 	{
 	   users = my_users;
 	   console.log(users);
 	});
-	
+
 
 
 	    // listener, whenever the server emits 'updatepresence', this updates the image list
-// 	socket.on('updatepresence', function (username, data) 
+// 	socket.on('updatepresence', function (username, data)
 // 	{
 // 		if (data.search("multimodal:::true;%;") > -1) {
 // // 			console.log("// updatepresence - multimodal message found - username: " + username + "   data: " + data);
@@ -393,26 +716,26 @@ ul.tab li a:focus, .active {
 // 		}
 // // 		console.log("updatepresence, username after processing: " + username);
 // // 		console.log("updatepresence: data after processing:     " + data);
-// 		appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	
+// 		appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));
 // 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 // 	});
-	
+
     // listen for other user's ready events. We'll leave this off for now.
-	/*socket.on('updateready', function (username, ready_state) 
+	/*socket.on('updateready', function (username, ready_state)
 	{
         appendNote(new Date(), username, (ready_state == "ready")?"thinks the team is ready.":"isn't ready yet.");
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 	});*/
-	
+
     // listener, whenever the server emits 'update_global_ready', this updates the ready button
-	// socket.on('update_global_ready', function (ready_state) 
+	// socket.on('update_global_ready', function (ready_state)
 	// {
 	//    if(ready_state == 'unready')
 	//    {
     //         $('#ready_button').removeClass("toggled");
     //        }
 	// });
-	
+
 	// listener, whenever the server emits 'update_private_chat', this updates the chat body
 	socket.on('update_private_chat', function (touser, fromuser, data)
 	{
@@ -437,14 +760,14 @@ ul.tab li a:focus, .active {
 		console.log("update_private_chat - touser: " + touser);
 		console.log("update_private_chat - fromuser: " + fromuser);
 		console.log("update_private_chat - data:     " + data);
-		
+
         appendMessage(new Date(), fromuser+' (Private Message)', data, getUserColor(fromuser));
         // appendMessage(new Date(), fromuser, data);
-        
+
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
-	
-	
+
+
 	function switchRoom(room)
 	{
 		socket.emit('switchRoom', room);
@@ -452,109 +775,116 @@ ul.tab li a:focus, .active {
 
     function sendReady(is_ready)
     {
-        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'         
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
     }
-    
+
     // Send only private messages to the server, which will then send them to the intended recipient.
     function sendMessage()
     {
             var message = $('#data').val();
 			//$('#data').val('');
 			// tell server to execute 'sendchat' and send along one parameter
-			
+
 			$('#data').val('');
-			
+
 			message = escapeHTML(message)
-			
+
 			if(message && message.length > 0)
 			{
     			socket.emit('sendpm', message);
-    			appendMessage(new Date(), user, message);
+    			appendMessage(new Date(), user+" (Private Message)", message);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
     }
 
-    function shareImage()
-    {
-         var imageurl = $('#image_url_input').val();
-         
-         $('#image_url_input').val('');
-         
-         if(imageurl && imageurl.length > 0)
-         {
-         	if (imageurl.search("google.com") >= 0)
-         		imageurl = transformGoogleImageLink(imageurl);
-            match = /http(s)?:\/\//.exec(imageurl)
-            console.log(match)
-            if(match == null || match.index != 0)
-            {
-                imageurl = "http://"+imageurl;
-            }
-            socket.emit('sendimage', imageurl);  
+    // ---- Picture zoom tool (shrink / expand pictures in the picture space) ----
+    var pictureZoomPct = 100;
+    var PICTURE_ZOOM_STEPS = [25, 50, 75, 100, 125, 150, 200, 300, 400];
 
-            $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
-            $('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
-         }
+    function applyPictureZoom()
+    {
+        var col = document.getElementById('image_column');
+        if (col) col.style.setProperty('--picture-zoom-pct', pictureZoomPct + '%');
+        var lvl = document.getElementById('zoom_level');
+        if (lvl) lvl.textContent = pictureZoomPct + '%';
+        sizeCameraImage();
     }
-    
-    function transformGoogleImageLink(imageurl)
-    {	
-    	return "https://drive.google.com/uc?export=view&id=" + imageurl.match(/[-\w]{25,}/);
+
+    function stepPictureZoom(direction)
+    {
+        var idx = PICTURE_ZOOM_STEPS.indexOf(pictureZoomPct);
+        if (idx === -1) {
+            idx = 3; // fall back to the 100% step
+        }
+        idx = Math.min(PICTURE_ZOOM_STEPS.length - 1, Math.max(0, idx + direction));
+        pictureZoomPct = PICTURE_ZOOM_STEPS[idx];
+        applyPictureZoom();
+    }
+
+    function resetPictureZoom()
+    {
+        pictureZoomPct = 100;
+        applyPictureZoom();
     }
 
 	// on load of page
 	$(document).ready(function(){
 		// when the client clicks SEND
-		$('#datasend').click( function() 
+		$('#datasend').click( function()
 		{
             sendMessage();
 		});
-		
-		
+
+
 		// when the client clicks READY
-		$('#ready_button').click( function() 
+		$('#ready_button').click( function()
 		{
             $('#ready_button').toggleClass("toggled");
             sendReady($('#ready_button').hasClass("toggled"));
-            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
+            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user));
 		});
 
 		// when the client hits ENTER on their keyboard
 		$('#data').keypress(function(e) {
-			if(e.which == 13 && !(e.altKey || e.shiftKey)) 
+			if(e.which == 13 && !(e.altKey || e.shiftKey))
 			{
 				e.preventDefault();
 				sendMessage();
 			}
 		});
-		
-		// when the client hits ENTER on their keyboard
-		$('#image_url_input').keypress(function(e) {
-			if(e.which == 13) 
-			{
-				e.preventDefault();
-				shareImage();			
-			}
-		});
-		
-		
-		// when the client clicks SEND IMAGE
-		$('#imagesend').click( function() 
-		{
-				shareImage();
+
+		// picture zoom tool
+		$('#zoom_in').click(function() { stepPictureZoom(1); });
+		$('#zoom_out').click(function() { stepPictureZoom(-1); });
+		$('#zoom_reset').click(function() { resetPictureZoom(); });
+		applyPictureZoom();
+
+		// Re-fit/re-size the camera picture whenever a new image finishes
+		// loading (naturalWidth/naturalHeight aren't available until then)
+		// and whenever the surrounding box changes size -- e.g. the user
+		// dragging the column resizer on the tab-share-chat.html page this
+		// is embedded in, which resizes this iframe and fires 'resize'
+		// inside it.
+		var cameraImgEl = document.getElementById('camera_image');
+		if (cameraImgEl) cameraImgEl.addEventListener('load', resizeCameraImageSoon);
+
+		var resizeTimer = null;
+		$(window).on('resize', function() {
+			if (resizeTimer) clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(sizeCameraImage, 100);
 		});
 	});
-	
-    $(window).focus(function() 
+
+    $(window).focus(function()
     {
 
         windowHasFocus = true;
         unreadMessages = 0;
         updateTitle();
     });
-  
+
     //listen for browser events so we know to update the document title
-    $(window).blur(function() 
+    $(window).blur(function()
     {
 
         windowHasFocus = false;
@@ -564,16 +894,16 @@ ul.tab li a:focus, .active {
     //we want to show a count of unread messages when the window does not have focus
     function updateTitle()
     {
-      if (unreadMessages) 
+      if (unreadMessages)
       {
         document.title = "(" + unreadMessages.toString() + ") Discussion Room "+room;
       }
-      else 
+      else
       {
         document.title = "Discussion Room "+room;
       }
     }
-    
+
     function noticeNewMessage()
     {
 
@@ -581,7 +911,7 @@ ul.tab li a:focus, .active {
 	if(!windowHasFocus)
         {
             unreadMessages++;
-	    
+
             updateTitle();
         }
     }
@@ -597,37 +927,36 @@ ul.tab li a:focus, .active {
 
 <div id="everything">
     <div id="conversation_column">
-        <h2 id="conversation_header" class="header">Discussion</h2>
+        <h2 id="conversation_header" class="header">Individual Discussion</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>
         <div id="controls" class="control">
-            <div id="message_div"> <textarea id="data" /></textarea></div>
+            <div id="message_div"><textarea id="data"></textarea></div>
     	</div>
     </div>
-    
+
     <div id="image_column">
-        <h2 id="image_header"  class="header">Private Space</h2>
+        <div class="zoom-toolbar">
+            <span class="zoom-label">Picture</span>
+            <button type="button" class="zoom-btn" id="zoom_out" title="Shrink picture">&minus;</button>
+            <span id="zoom_level">100%</span>
+            <button type="button" class="zoom-btn" id="zoom_in" title="Expand picture">+</button>
+            <button type="button" class="zoom-btn" id="zoom_reset" title="Reset picture size">Reset</button>
+        </div>
 
         <!-- Latest camera image for this user, pushed privately by LlmCameraListener
              whenever a significantly changed frame is received (see updateCameraImage()
-             and the "cameraImageUpdate:::true" tag handled in update_private_chat). -->
-        <div id="camera_image_div" style="display:none; padding:6px 12px;">
-            <img id="camera_image" style="max-width:100%; display:block;" />
+             and the "cameraImageUpdate:::true" tag handled in update_private_chat).
+             Centered, and scrollable in both directions once zoomed in. -->
+        <div id="camera_image_div">
+            <img id="camera_image" />
         </div>
 
         <div id="image_container" class="container">
             <div id="images" class="scrollable"></div>
         </div>
-        
-        <div id="image_controls" class="control">
-            <div id="image_url_input_div">
-                <input id="image_url_input" value=""  placeholder="Want to share an image? Paste its URL here!"/>
-            </div>
-            <div id="image_url_input_button_div"><input class="button" type="button" id="imagesend" value="Share Image URL" /></div>
-        </div>
     </div>
-    <h2 id="roomname">Room</h2>
 </div>
 
 <div id="conversation_text_div">

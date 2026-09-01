@@ -1880,23 +1880,51 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "private");
 		console.log("info", "socket.on_sendpm: socket.username: " + socket.username + "  -- data: " + data);
 		if (socket.username.startsWith('Private_')) {
-			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly"); 
+			console.log("info", "socket.on_sendpm from Private_... sending to emitToAgentOnly");
 			emitToAgentOnly(socket.room, 'updatechat', socket.username, data);
+
+			// Echo this message to any OTHER sockets in the same room that are
+			// logged in under this exact same 'Private_*' username (e.g. a second
+			// browser tab/window signed in as the same "Private_1" user), so every
+			// live connection for that pseudo-user sees what was sent, with the
+			// message still appearing to come from that same username.
+			// The sender's own socket is deliberately excluded: private_space.html
+			// already appends the message locally the instant it's sent (see
+			// sendMessage()), so echoing it back to the sender too would show it
+			// twice.
+			const privateRoomSockets = (typeof io.sockets.sockets.values === 'function')
+				? Array.from(io.sockets.sockets.values())
+				: Object.values(io.sockets.sockets);
+			const siblingPrivateSockets = privateRoomSockets.filter(
+				(s) => s !== socket && s.room === socket.room && s.username === socket.username
+			);
+			if (siblingPrivateSockets.length > 0) {
+				console.log("info", "socket.on_sendpm, echoing Private_ message to " + siblingPrivateSockets.length + " sibling socket(s) sharing username " + socket.username + " in room " + socket.room);
+				siblingPrivateSockets.forEach((s) => s.emit('update_private_chat', socket.username, socket.username, data));
+			} else {
+				console.log("info", "socket.on_sendpm - no other sockets found sharing username " + socket.username + " in room " + socket.room + " -- nothing to echo");
+			}
 		} else {
 			if (!to_user) {
 				to_user = BOT_USERNAME;
 			}
 			console.log("info", "socket.on_sendpm - not from 'Private_: -- room: " + socket.room + "  -- to_user: " + to_user);
-			const s = user_sockets[socket.room][to_user];
-			if(s) {
-				console.log("info", "socket.on_sendpm, emitting update_private_chat -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
-				// NOTE: 3 args (to_user, socket.username, data). private_space.html's
-				// handler is function(touser, fromuser, data) and depends on this
-				// exact arity; tab-share-chat.html's handler matches it as well
-				// (function(touser, fromuser, data)) -- do not drop an argument here.
-				s.emit('update_private_chat', to_user, socket.username, data);
+			// Emit to every connected socket that shares this room and username --
+			// not just the single (and possibly stale/overwritten) socket cached in
+			// user_sockets. A user can have more than one live connection for the
+			// same room/username (e.g. multiple tabs or a reconnect race), and all
+			// of them should receive the private chat update.
+			const allSockets = (typeof io.sockets.sockets.values === 'function')
+				? Array.from(io.sockets.sockets.values())
+				: Object.values(io.sockets.sockets);
+			const matchingSockets = allSockets.filter(
+				(s) => s.room === socket.room && s.username === to_user
+			);
+			if (matchingSockets.length > 0) {
+				console.log("info", "socket.on_sendpm, emitting update_private_chat to " + matchingSockets.length + " socket(s) -- socket.username: " + socket.username + "  -- to_user: " + to_user + "  -- data: " + data);
+				matchingSockets.forEach((s) => s.emit('update_private_chat', to_user, socket.username, data));
 			} else {
-				console.log("info", "socket.on_sendpm - target socket for user " + to_user + " is stale/disconnected -- did not emit");
+				console.log("info", "socket.on_sendpm - no connected socket for user " + to_user + " in room " + socket.room + " -- did not emit");
 			}
 		}
 	});

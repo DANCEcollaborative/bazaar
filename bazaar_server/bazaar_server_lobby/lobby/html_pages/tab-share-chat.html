@@ -7,8 +7,8 @@ ul.tab {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    border: none;
+    background-color: #6D6E71;
 }
 
 /* Float the list items side by side */
@@ -17,37 +17,39 @@ ul.tab li {float: left;}
 /* Style the links inside the list items */
 ul.tab li a {
     display: inline-block;
-    color: black;
+    color: #fff;
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px 16px;
     text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
+    transition: 0.2s;
+    font-size: 14px;
 }
 
 /* Change background color of links on hover */
 ul.tab li a:hover {
-    background-color: #ddd;
+    background-color: #8a8b8e;
 }
 
 /* Create an active/current tablink class */
 ul.tab li a:focus, .active {
-    background-color: #ccc;
+    background-color: #C41230;
+    color: #fff;
+    font-weight: 600;
 }
 
 /* Style the tab content */
 .tabcontent {
     display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
+    padding: 0;
+    border: none;
 }
 
 /* Other-participants iframe panel (replaces the old shared-image list).
    Reuses the ul.tab / .tabcontent rules above: tabs run along the top,
    and only the selected tab's iframe is shown, giving each page more room. */
 .tablinks.tab_empty {
-    opacity: 0.5;
+    opacity: 0.55;
+    font-style: italic;
     cursor: default;
 }
 
@@ -58,7 +60,7 @@ ul.tab li a:focus, .active {
 .other_frame {
     display: block;
     width: 100%;
-    height: 480px;
+    height: 100%;
     border: none;
 }
 </style>
@@ -73,6 +75,221 @@ ul.tab li a:focus, .active {
 
 <link property='stylesheet' href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' id='oxygen' type='text/css' />
 <link property='stylesheet' href='https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/bazaar/discussionnew2.css' rel='stylesheet' id='filecss' type='text/css' />
+
+<!-- ============================================================
+     Appearance overrides (CMU brand palette + fill-height layout +
+     resizable split). Placed after the external stylesheet <link>
+     above so these rules win the cascade without needing
+     !important everywhere; a few !important flags still defeat
+     specific legacy rules (float widths, negative container
+     margins) that would otherwise fight the new flex layout.
+     CMU brand colors: Carnegie Red #C41230, Iron Gray #6D6E71,
+     Steel Gray #E0E0E0, Black #000000, White #FFFFFF.
+     ============================================================ -->
+<style id="cmu_theme_overrides">
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #F4F3F1;
+        font-family: 'Oxygen', Arial, sans-serif;
+    }
+
+    /* Fill the whole browser window, edge to edge, top to bottom. */
+    #everything {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        background: #F4F3F1;
+        box-sizing: border-box;
+    }
+
+    /* Tabbed section gets the lion's share of the width by default;
+       #col_resizer lets the user drag the split at will. */
+    #image_column {
+        order: 1;
+        flex: 0 0 78%;
+        min-width: 280px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    #col_resizer {
+        order: 2;
+        flex: 0 0 6px;
+        height: 100%;
+        cursor: col-resize;
+        background: #6D6E71;
+        position: relative;
+        box-sizing: border-box;
+        touch-action: none;
+    }
+    #col_resizer:hover,
+    #col_resizer.dragging {
+        background: #C41230;
+    }
+    #col_resizer::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 36px;
+        background: rgba(255,255,255,.65);
+        border-radius: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    #conversation_column {
+        order: 3;
+        flex: 1 1 22%;
+        min-width: 240px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        box-sizing: border-box;
+        border-left: 3px solid #C41230;
+    }
+
+    /* Column header bar (e.g. "Discussion"). */
+    .header {
+        height: auto !important;
+        min-height: 0;
+        margin: 0;
+        padding: 10px 14px;
+        background: #C41230;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Neutralize the legacy negative-margin "fill the gap" hack and
+       switch each panel body to a normal flexible flex child. The
+       external stylesheet also pads .container 40px on top and
+       150px on the bottom */
+    .container {
+        margin: 0 !important;
+        padding: 0;
+        height: auto !important;
+        flex: 1 1 auto;
+        min-height: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #conversation_container { background: #fff; }
+    #image_container { background: #fff; }
+
+    .scrollable {
+        width: 100%;
+        flex: 1 1 auto;
+        min-height: 0;
+        box-sizing: border-box;
+        overflow-y: auto !important;
+        overflow-x: hidden;
+    }
+
+    #conversation { padding: 10px; }
+    .user { color: #C41230; }
+    .date { color: #6D6E71; }
+
+    .control {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: auto !important;
+        min-height: 0;
+        flex: 0 0 auto;
+        background: #EDEDEC;
+        padding: 8px 10px;
+        box-sizing: border-box;
+        border-top: 2px solid #E0E0E0;
+    }
+
+    #data {
+        width: 100%;
+        min-height: 60px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px;
+        font-family: inherit;
+        font-size: 14px;
+        resize: vertical;
+    }
+
+    .button {
+        background: #C41230 !important;
+        border-radius: 4px !important;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    .button:hover { background: #a10f28 !important; }
+
+    /* Tabs + the selected participant's page fill all remaining
+       height; the iframe stretches to 100% instead of a fixed
+       480px, and each tab's own page (private_space.html) handles
+       its own internal scrolling. */
+    /* A large ?tabs= count wraps onto extra rows (floated <li>s do this
+       natively); cap how much height the tab bar can claim so a big
+       count still leaves real room for the iframe below. */
+    #other_pages_tabs {
+        flex: 0 0 auto;
+        max-height: 40%;
+        overflow-y: auto;
+    }
+    #other_pages {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden !important;
+        position: relative;
+        background: #EDEDEC;
+    }
+
+    /* The "copy conversation log" modal is only meant to be visible when
+       showConvText() explicitly opens it. It's supposed to stay hidden
+       (and, when open, float via position:fixed) via the external
+       stylesheet -- restated here so that if that stylesheet is ever
+       slow/unavailable, this in-flow block element doesn't silently
+       render at the bottom of the page and show up as a large empty
+       white gap below the tabbed interface. */
+    #conversation_text_div {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 400px;
+        height: 400px;
+        margin-top: -200px;
+        margin-left: -200px;
+        padding: 10px;
+        background: #fff;
+        border: 2px solid #000;
+        box-sizing: border-box;
+        z-index: 100;
+    }
+</style>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/client.js"></script>
 <script type="text/javascript" src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.min.js@3.5.1/jquery.min.js"></script>
@@ -87,7 +304,7 @@ ul.tab li a:focus, .active {
     var spreadsheet = /spreadsheet=([a-zA-Z0-9_\\-]+)/g.exec(location.search);
     //if (!spreadsheet) alert("Spreadsheet is not loaded properly: "+location.search);
     //else spreadsheet = spreadsheet[1];
-    
+
     var entityMap = {
         "&": "&amp;",
         "<": "&lt;",
@@ -96,13 +313,13 @@ ul.tab li a:focus, .active {
         "'": "&#39;",
         "/": "&#x2F;",
       };
-      
+
     function escapeHTML(string) {
         return String(string).replace(/[&<>"'\/]/g, function (s) {
           return entityMap[s];
         });
       }
-	
+
     function showConvText()
     {
         res = "";
@@ -125,7 +342,7 @@ ul.tab li a:focus, .active {
             range.moveToElementText(document.getElementById("conversation_text"));
             range.select();
         } else if (window.getSelection) {
-            selection = window.getSelection();        
+            selection = window.getSelection();
             range = document.createRange();
             range.selectNodeContents(document.getElementById("conversation_text"));
             selection.removeAllRanges();
@@ -139,15 +356,15 @@ ul.tab li a:focus, .active {
     {
         document.getElementById("conversation_text_div").style.display = "none";
     }
-		
-    function appendMessage(timestamp, username, text, color) 
+
+    function appendMessage(timestamp, username, text, color)
     {
-        
+
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
-    	
+
 		$('#conversation').append(
 		 '<div class="message_line'+(username=='VirtualProfessor' ? ' message_agent' : '')+'">'
 		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
@@ -162,15 +379,15 @@ ul.tab li a:focus, .active {
       if(lastDate > timestamp)
         lastDate = timestamp;
     }
-    
-    function appendNote(timestamp, username, text, color) 
+
+    function appendNote(timestamp, username, text, color)
     {
-        
+
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
-    
+
 		$('#conversation').append(
 		 '<div class="message_line">'
 		+'<div class="info" '+(color?'style="background-color:'+color+'"':'')+'>'
@@ -183,16 +400,16 @@ ul.tab li a:focus, .active {
       if(lastDate > timestamp)
         lastDate = timestamp;
     }
-    
+
     var anchorID = 0;
-    function appendImage(timestamp, username, image_url, color) 
+    function appendImage(timestamp, username, image_url, color)
 	{
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
 	    anchor = 'sharedItem'+(anchorID++)
-	    
+
 		$('#images').append(
 		 '<a id='+anchor+'/>'
 		+'<div class="image_line">'
@@ -205,19 +422,19 @@ ul.tab li a:focus, .active {
       noticeNewMessage()
       if(lastDate > timestamp)
         lastDate = timestamp;
-		
+
 		return anchor;
 
     }
-    
-    function appendHTML(timestamp, username, html, color) 
+
+    function appendHTML(timestamp, username, html, color)
 	{
 	   if(!color)
 	   {
 	      color = getUserColor(username);
 	   }
 	    anchor = 'sharedItem'+(anchorID++)
-	    
+
 		$('#images').append(
 		 '<a id='+anchor+'/>'
 		+'<div class="image_line">'
@@ -227,9 +444,9 @@ ul.tab li a:focus, .active {
 		+'</div>'
 		+html
 		+'</div><br/>');
-		
-		
-        $('.sortable').sortable();			
+
+
+        $('.sortable').sortable();
         $('.exclude').sortable({
 				items: ':not(.disabled)'
 			});
@@ -238,29 +455,29 @@ ul.tab li a:focus, .active {
         lastDate = timestamp;
 		return anchor;
     }
-       
-    function getMultimodalValue(field, data) 
+
+    function getMultimodalValue(field, data)
     {
     	var fields = data.split(";%;");
-    	var numFields = fields.length; 	
-		console.log("getMultimodalValue - search field: " + field);   		
-		console.log("getMultimodalValue - data: " + data);   	
+    	var numFields = fields.length;
+		console.log("getMultimodalValue - search field: " + field);
+		console.log("getMultimodalValue - data: " + data);
 		console.log("getMultimodalValue - numFields: " + numFields.toString());
-    	var i = 0; 
-    	var value = ""; 
+    	var i = 0;
+    	var value = "";
     	while (i < numFields) {
-    		var fieldWithValue = fields[i].split(":::");   
-			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);   
-    		i =	i + 1; 	
+    		var fieldWithValue = fields[i].split(":::");
+			console.log("getMultimodalValue - fieldWithValue: " + fieldWithValue);
+    		i =	i + 1;
     		if (fieldWithValue[0] == field) {
-    			console.log("getMultimodalValue - field found");  
+    			console.log("getMultimodalValue - field found");
     			value = fieldWithValue[1];
-    			console.log("getMultimodalValue - value: " + value);  
+    			console.log("getMultimodalValue - value: " + value);
     			i = numFields;
     		}
     	}
-    	return value;    
-    } 
+    	return value;
+    }
 
 	// var socket = io.connect(chatserver_url, {
     //     path: '/bazaar'
@@ -289,7 +506,19 @@ ul.tab li a:focus, .active {
         // (see the 'connect' handler below).
         var pathPrefix = '';
 
-        var NUM_OTHER_FRAMES = 5;
+        // Number of private tabs to create, taken from the ?tabs= URL
+        // parameter (e.g. "...?html=tab-share-chat&tabs=8"). Falls back to
+        // 5 when the parameter is missing or not a usable number, and is
+        // clamped to a sane range so a malformed/huge value in the URL
+        // can't wedge the page.
+        var DEFAULT_NUM_OTHER_FRAMES = 3;
+        var MAX_NUM_OTHER_FRAMES = 10;
+        var NUM_OTHER_FRAMES = parseInt(urlParams.get('tabs'), 10);
+        if (!Number.isFinite(NUM_OTHER_FRAMES) || NUM_OTHER_FRAMES < 1) {
+            NUM_OTHER_FRAMES = DEFAULT_NUM_OTHER_FRAMES;
+        } else if (NUM_OTHER_FRAMES > MAX_NUM_OTHER_FRAMES) {
+            NUM_OTHER_FRAMES = MAX_NUM_OTHER_FRAMES;
+        }
 
         // The individual pages embedded in the tabs are always
         // private_space.html, regardless of what html= this coordinator page
@@ -310,7 +539,51 @@ ul.tab li a:focus, .active {
             return location.origin + path + '?html=' + PRIVATE_TAB_HTML_PAGE;
         }
 
-        // Points all 5 tabs at their Private_1..Private_5 URLs as soon as this
+        // Builds the tab bar and the matching iframe slots for however many
+        // private tabs this page was asked for (NUM_OTHER_FRAMES, from the
+        // ?tabs= URL parameter). Replaces any previous contents, so it's
+        // safe to call again if NUM_OTHER_FRAMES is ever recomputed. Uses
+        // the exact same ids/classes/structure the old static markup used
+        // (other_frame_tab_N, other_frame_slot_N, other_frame_N) so
+        // openOtherPageTab / setPrivateTabUserName / initPrivateTabs all
+        // keep working unmodified.
+        function buildPrivateTabsUI(n) {
+            var tabsList = document.getElementById('other_pages_tabs');
+            var pagesContainer = document.getElementById('other_pages');
+            if (!tabsList || !pagesContainer) return;
+
+            tabsList.innerHTML = '';
+            pagesContainer.innerHTML = '';
+
+            for (var i = 0; i < n; i++) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = 'javascript:void(0)';
+                a.className = 'tablinks tab_empty';
+                a.id = 'other_frame_tab_' + i;
+                a.textContent = 'Private_' + (i + 1);
+                a.addEventListener('click', (function (slotIndex) {
+                    return function (evt) { openOtherPageTab(evt, slotIndex); };
+                })(i));
+                li.appendChild(a);
+                tabsList.appendChild(li);
+
+                var slot = document.createElement('div');
+                slot.className = 'tabcontent';
+                slot.id = 'other_frame_slot_' + i;
+
+                var frame = document.createElement('iframe');
+                frame.className = 'other_frame';
+                frame.id = 'other_frame_' + i;
+                frame.setAttribute('data-src', '');
+                frame.title = 'Participant page ' + (i + 1);
+
+                slot.appendChild(frame);
+                pagesContainer.appendChild(slot);
+            }
+        }
+
+        // Points all tabs at their Private_1..Private_N URLs as soon as this
         // page knows its own room/perspective (see the 'connect' handler).
         // Tab labels start as "Private_<n>" and get relabeled with the real
         // userName once LlmCameraListener reports the userNum->userName
@@ -372,7 +645,7 @@ ul.tab li a:focus, .active {
         pathPrefix = location.pathname.substring(0, groups.index);
 
         live_chat = groups[1] == "chat";
-		  
+
         if(live_chat)
         {
             temp = groups[2] && groups[2].length > 0;
@@ -380,6 +653,7 @@ ul.tab li a:focus, .active {
             user = groups[5];
             id = groups[4];
             perspective = groups[6];
+            buildPrivateTabsUI(NUM_OTHER_FRAMES);
             initPrivateTabs();
             if(!user)
                 user = prompt("Hi! please enter your name (first name and last initial) to continue..", "");
@@ -391,9 +665,9 @@ ul.tab li a:focus, .active {
             socket.emit('snoop', room, id);
             $('input,textarea').prop('disabled', true);
 	}
-        $('#roomname').text(room); 
+        $('#roomname').text(room);
         });
-	
+
 
 	// listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('updatechat', function (username, data)
@@ -414,25 +688,25 @@ ul.tab li a:focus, .active {
         appendMessage(new Date(), username, data);
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
-	
+
     // listener, whenever the server emits 'updateimage', this updates the image list
-	socket.on('updatehtml', function (username, html) 
+	socket.on('updatehtml', function (username, html)
 	{
         anchor = appendHTML(new Date(), username, html);
         appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">item.</a>');
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 	});
-	
-	
+
+
     // listener, whenever the server emits 'updateimage', this updates the image list
-	socket.on('updateimage', function (username, image_url) 
+	socket.on('updateimage', function (username, image_url)
 	{
         anchor = appendImage(new Date(), username, image_url);
         appendNote(new Date(), username, 'has shared an <a href="#'+anchor+'">image/URL.</a>');
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 	});
-	
-	socket.on('dump_history', function (backlog) 
+
+	socket.on('dump_history', function (backlog)
 	{
 	    for(i = 0; i < backlog.length; i++)
 	    {
@@ -442,23 +716,25 @@ ul.tab li a:focus, .active {
 			  continue;
 	       if(entry["type"] == "image")
 	       {
-                anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
+                anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);
                 appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">image/URL.</a>');
             }
 	       else if(entry["type"] == "html")
 	       {
-                anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);	
+                anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);
                 appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">item.</a>');
             }
             else if(entry.type == "presence")
-                appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));	 
+//                 appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));
+										;
+
             else if(entry.type == "ready")
                     ;
                     //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
             else if(entry.type == "private")
-                appendMessage(new Date(entry["timestamp"]), entry.username+" (Private Message)", entry["content"], getUserColor(entry.username));	 	 
+                appendMessage(new Date(entry["timestamp"]), entry.username+" (Private Message)", entry["content"], getUserColor(entry.username));
             else
-                appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);	 
+                appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);
         }
 
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
@@ -466,24 +742,24 @@ ul.tab li a:focus, .active {
 
 			   lastDate = new Date();
 	});
-	
+
 	    // listener, whenever the server emits 'updaterooms', this updates the room list
-	socket.on('updaterooms', function (rooms, my_room) 
+	socket.on('updaterooms', function (rooms, my_room)
 	{
 		$('#roomname').text(my_room);
 	});
-	
+
 		    // listener, whenever the server emits 'updateimage', this updates the user list
 	socket.on('updateusers', function (my_users)
 	{
 	   users = my_users;
 	   console.log(users);
 	});
-	
 
 
-	    // listener, whenever the server emits 'updatepresence', this updates the image list
-	socket.on('updatepresence', function (username, data) 
+
+	    // listener, whenever the server emits 'updatepresence'
+/*	socket.on('updatepresence', function (username, data)
 	{
 		if (data.search("multimodal:::true;%;") > -1) {
 // 			console.log("// updatepresence - multimodal message found - username: " + username + "   data: " + data);
@@ -494,26 +770,26 @@ ul.tab li a:focus, .active {
 		}
 // 		console.log("updatepresence, username after processing: " + username);
 // 		console.log("updatepresence: data after processing:     " + data);
-		appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));	
+		appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
-	});
-	
+	});*/
+
     // listen for other user's ready events. We'll leave this off for now.
-	/*socket.on('updateready', function (username, ready_state) 
+	/*socket.on('updateready', function (username, ready_state)
 	{
         appendNote(new Date(), username, (ready_state == "ready")?"thinks the team is ready.":"isn't ready yet.");
-		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);	
+		$('#images').stop().animate({ scrollTop: $("#images")[0].scrollHeight}, 500);
 	});*/
-	
+
     // listener, whenever the server emits 'updatechat', this updates the chat body
-	socket.on('update_global_ready', function (ready_state) 
+	socket.on('update_global_ready', function (ready_state)
 	{
 	   if(ready_state == 'unready')
 	   {
             $('#ready_button').removeClass("toggled");
            }
 	});
-	
+
 	// listener, whenever the server emits 'update_private_chat', this updates the chat body
 	// NOTE: the server (server_lobby_https.js, socket.on('sendpm')) emits this event
 	// with 3 args: (to_user, from_user, data) -- matching private_space.html's
@@ -556,8 +832,8 @@ ul.tab li a:focus, .active {
 
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 	});
-	
-	
+
+
 	function switchRoom(room)
 	{
 		socket.emit('switchRoom', room);
@@ -565,19 +841,19 @@ ul.tab li a:focus, .active {
 
     function sendReady(is_ready)
     {
-        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'         
+        socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
     }
-    
+
     function sendMessage()
     {
             var message = $('#data').val();
 			//$('#data').val('');
 			// tell server to execute 'sendchat' and send along one parameter
-			
+
 			$('#data').val('');
-			
+
 			message = escapeHTML(message)
-			
+
 			if(message && message.length > 0)
 			{
     			socket.emit('sendchat', message);
@@ -585,44 +861,107 @@ ul.tab li a:focus, .active {
 		}
     }
 
+    // ---- Resizable split between the tabbed section (left) and the
+    // Discussion column (right). Drags #image_column's flex-basis as
+    // a percentage of #everything's width; #conversation_column
+    // (flex: 1 1 ...) simply absorbs whatever width is left over. ----
+    function initColumnResizer()
+    {
+        var resizer = document.getElementById('col_resizer');
+        var leftCol = document.getElementById('image_column');
+        var container = document.getElementById('everything');
+        if (!resizer || !leftCol || !container) return;
+
+        var dragging = false;
+
+        function setWidthPct(pct)
+        {
+            pct = Math.max(30, Math.min(88, pct));
+            leftCol.style.flex = '0 0 ' + pct + '%';
+        }
+
+        function onMove(clientX)
+        {
+            var rect = container.getBoundingClientRect();
+            var pct = ((clientX - rect.left) / rect.width) * 100;
+            setWidthPct(pct);
+        }
+
+        resizer.addEventListener('mousedown', function(e) {
+            dragging = true;
+            resizer.classList.add('dragging');
+            document.body.style.userSelect = 'none';
+            e.preventDefault();
+        });
+        window.addEventListener('mousemove', function(e) {
+            if (!dragging) return;
+            onMove(e.clientX);
+        });
+        window.addEventListener('mouseup', function() {
+            dragging = false;
+            resizer.classList.remove('dragging');
+            document.body.style.userSelect = '';
+        });
+
+        // Touch support.
+        resizer.addEventListener('touchstart', function() {
+            dragging = true;
+            resizer.classList.add('dragging');
+        }, {passive: true});
+        window.addEventListener('touchmove', function(e) {
+            if (!dragging || !e.touches || !e.touches[0]) return;
+            onMove(e.touches[0].clientX);
+        }, {passive: true});
+        window.addEventListener('touchend', function() {
+            dragging = false;
+            resizer.classList.remove('dragging');
+        });
+
+        // Double-click (or double-tap) the handle to snap back to the default split.
+        resizer.addEventListener('dblclick', function() {
+            leftCol.style.flex = '0 0 78%';
+        });
+    }
+
 	// on load of page
 	$(document).ready(function(){
 		// when the client clicks SEND
-		$('#datasend').click( function() 
+		$('#datasend').click( function()
 		{
             sendMessage();
 		});
-		
-		
+
+
 		// when the client clicks READY
-		$('#ready_button').click( function() 
+		$('#ready_button').click( function()
 		{
             $('#ready_button').toggleClass("toggled");
             sendReady($('#ready_button').hasClass("toggled"));
-            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user)); 
+            //appendNote(new Date(), "You", "think we're ready.", getUserColor(user));
 		});
 
 		// when the client hits ENTER on their keyboard
 		$('#data').keypress(function(e) {
-			if(e.which == 13 && !(e.altKey || e.shiftKey)) 
+			if(e.which == 13 && !(e.altKey || e.shiftKey))
 			{
 				e.preventDefault();
 				sendMessage();
 			}
 		});
-		
+
+		initColumnResizer();
 	});
-	
-    $(window).focus(function() 
+
+    $(window).focus(function()
     {
 
         windowHasFocus = true;
         unreadMessages = 0;
         updateTitle();
     });
-  
+
     //listen for browser events so we know to update the document title
-    $(window).blur(function() 
+    $(window).blur(function()
     {
 
         windowHasFocus = false;
@@ -632,16 +971,16 @@ ul.tab li a:focus, .active {
     //we want to show a count of unread messages when the window does not have focus
     function updateTitle()
     {
-      if (unreadMessages) 
+      if (unreadMessages)
       {
         document.title = "(" + unreadMessages.toString() + ") Discussion Room "+room;
       }
-      else 
+      else
       {
         document.title = "Discussion Room "+room;
       }
     }
-    
+
     function noticeNewMessage()
     {
 
@@ -649,7 +988,7 @@ ul.tab li a:focus, .active {
 	if(!windowHasFocus)
         {
             unreadMessages++;
-	    
+
             updateTitle();
         }
     }
@@ -664,48 +1003,29 @@ ul.tab li a:focus, .active {
 
 
 <div id="everything">
+    <div id="image_column">
+        <div id="image_container" class="container">
+            <!-- Populated by buildPrivateTabsUI(NUM_OTHER_FRAMES) once the
+                 ?tabs= URL parameter has been read (see the 'connect'
+                 handler) -- the number of <li>/tabcontent/iframe sets
+                 built here matches whatever that parameter asked for. -->
+            <ul class="tab" id="other_pages_tabs"></ul>
+
+            <div id="other_pages" class="scrollable"></div>
+        </div>
+    </div>
+
+    <div id="col_resizer" title="Drag to resize; double-click to reset"></div>
+
     <div id="conversation_column">
-        <h2 id="conversation_header" class="header">Discussion</h2>
+        <h2 id="conversation_header" class="header">Group Discussion</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>
         <div id="controls" class="control">
-            <div id="message_div"> <textarea id="data" /></textarea></div>
+            <div id="message_div"><textarea id="data"></textarea></div>
     	</div>
     </div>
-    
-    <div id="image_column">
-        <h2 id="image_header"  class="header">Individual Pages</h2>
-
-        <div id="image_container" class="container">
-            <ul class="tab" id="other_pages_tabs">
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_0" onclick="openOtherPageTab(event, 0)">Private_1</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_1" onclick="openOtherPageTab(event, 1)">Private_2</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_2" onclick="openOtherPageTab(event, 2)">Private_3</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_3" onclick="openOtherPageTab(event, 3)">Private_4</a></li>
-                <li><a href="javascript:void(0)" class="tablinks tab_empty" id="other_frame_tab_4" onclick="openOtherPageTab(event, 4)">Private_5</a></li>
-            </ul>
-
-            <div id="other_pages" class="scrollable">
-                <div class="tabcontent" id="other_frame_slot_0">
-                    <iframe class="other_frame" id="other_frame_0" data-src="" title="Participant page 1"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_1">
-                    <iframe class="other_frame" id="other_frame_1" data-src="" title="Participant page 2"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_2">
-                    <iframe class="other_frame" id="other_frame_2" data-src="" title="Participant page 3"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_3">
-                    <iframe class="other_frame" id="other_frame_3" data-src="" title="Participant page 4"></iframe>
-                </div>
-                <div class="tabcontent" id="other_frame_slot_4">
-                    <iframe class="other_frame" id="other_frame_4" data-src="" title="Participant page 5"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h2 id="roomname">Room</h2>
 </div>
 
 <div id="conversation_text_div">

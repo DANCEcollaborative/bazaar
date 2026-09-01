@@ -67,9 +67,10 @@ public class LlmCameraListener extends LlmChatListener
     private String cameraUsernamePrefix = "Camera_";
     private String privateUsernamePrefix = "Private_";
     private Boolean privateMessaging = true; 
-    private String privateServer = "https://bazaar.lti.cs.cmu.edu"; 
+    private String botServer = "https://bazaar.lti.cs.cmu.edu"; 
     private String urlPrefix = "/bazaar/chat/";
-    private String htmlPage = "private_space";
+    private String htmlPagePrivate = "private_space";
+    private String htmlPageGroup = "tab-share-chat";
     // Username under which tab-share-chat.html itself is loaded (its own
     // id/user URL path segments, e.g. ".../group/group/..."), so we know who
     // to send tab-relabeling updates to. See sendTabShareUserUpdate.
@@ -174,10 +175,11 @@ public class LlmCameraListener extends LlmChatListener
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
 			cameraUsernamePrefix = llm_prop.getProperty("camera-username-prefix",cameraUsernamePrefix);
 			privateUsernamePrefix = llm_prop.getProperty("private-username-prefix",privateUsernamePrefix);
-			privateServer = llm_prop.getProperty("private-server",privateServer);
+			botServer = llm_prop.getProperty("bot-server",botServer);
 			urlPrefix = llm_prop.getProperty("url-prefix",urlPrefix);
 			cameraUrl = llm_prop.getProperty("camera-url",cameraUrl);
-			htmlPage = llm_prop.getProperty("html-page",htmlPage);
+			htmlPagePrivate = llm_prop.getProperty("html-page-private",htmlPagePrivate);
+			htmlPageGroup = llm_prop.getProperty("html-page-group",htmlPageGroup);
 			tabShareUsername = llm_prop.getProperty("tab-share-username",tabShareUsername);
 			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
 			
@@ -471,14 +473,19 @@ public class LlmCameraListener extends LlmChatListener
 			String sessionId = agentName.substring(agentNamePrefix.length());
 			String sessionIdLast3 = sessionId.substring(Math.max(0, sessionId.length() - 3));
 			String userNum = String.valueOf(lookup.userNum);
-			String privateName = privateUsernamePrefix + userNum;
-			String url = privateServer + urlPrefix + sessionId + "/" + privateName + "/" + privateName + "/?" + "html=" + htmlPage;
-			System.err.println("handlePresenceEvent, shouldSendWelcome - " + this.myName + " or " + userName); 
-			String privateMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
+			
+//			String privateName = privateUsernamePrefix + userNum;
+//			String url = botServer + urlPrefix + sessionId + "/" + privateName + "/" + privateName + "/?" + "html=" + htmlPagePrivate;	
+//			System.err.println("handlePresenceEvent, shouldSendWelcome - " + this.myName + " or " + userName); 
+//			String redirectMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
 
-			System.err.println("handlePresenceEvent, shouldSendWelcome - message to user: " + privateMessage); 
-//			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,privateMessage);
-			MessageEvent newPMe1 = new MessageEvent(source, this.myName, privateMessage);
+			String url = botServer + urlPrefix + sessionId + "/" + tabShareUsername + "/" + tabShareUsername + "/?" + "html=" + htmlPageGroup;	
+			System.err.println("handlePresenceEvent, shouldSendWelcome - " + this.myName + " or " + userName); 
+			String redirectMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
+
+			System.err.println("handlePresenceEvent, shouldSendWelcome - message to user: " + redirectMessage); 
+//			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,redirectMessage);
+			MessageEvent newPMe1 = new MessageEvent(source, this.myName, redirectMessage);
 			source.pushEventProposal(newPMe1);
 			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
 			System.err.println("handlePresenceEvent, shouldSendWelcome - message to camera: " + cameraMessage); 
