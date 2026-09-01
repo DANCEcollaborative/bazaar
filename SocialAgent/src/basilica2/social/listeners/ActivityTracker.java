@@ -77,37 +77,6 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 	{
 		super(a);
 		messageCounts = new Hashtable<String, Integer>();
-		
-		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
-		String ignorePrefixesProperty = properties.getProperty("ignore_prefixes", "").trim();
-		if (ignorePrefixesProperty.isEmpty())
-		{
-			ignorePrefixes = new String[0];
-		}
-		else
-		{
-			ignorePrefixes = ignorePrefixesProperty.split("\\s*,\\s*");
-		}
-
-	}
-	
-	/**
-	 * Checks whether userName begins with any of the prefixes configured
-	 * via the 'ignore_prefixes' property (see ignorePrefixes).
-	 */
-	private boolean hasIgnoredPrefix(String userName)
-	{
-		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName);
-		for (String prefix : ignorePrefixes)
-		{
-			if (!prefix.isEmpty() && userName.startsWith(prefix)) 
-			{
-				System.out.println("\n\n *** ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'true' ***\n\n");		
-				return true;
-			}
-		}
-		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'false' ***\n\n");	
-		return false;
 	}
 
 	public void setTrackMode(boolean m)
@@ -149,43 +118,41 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 //	}
 	private void handleMessageEvent(MessageEvent me)
 	{
-//		startTrackingofWholeChat();// track the time of the whole chat
+//		startTrackingofWholeChat();// track the time of the whole chat	
+		if (!isTracking && shouldTrack) startTracking();
+
 		String from = me.getFrom();	
-		if (!hasIgnoredPrefix(from)) {
-		
-			if (!isTracking && shouldTrack) startTracking();
-			
-			Integer count = messageCounts.get(from);
-			if (count == null)
+		Integer count = messageCounts.get(from);
+		if (count == null)
+		{
+			Map<String, Integer> newMCs = new Hashtable<String, Integer>();
+			State s = StateMemory.getSharedState(agent);
+			String[] sids = s.getStudentIds();
+			s.addStudent(from);
+			StateMemory.commitSharedState(s, getAgent());
+			for (int i = 0; i < sids.length; i++)
 			{
-				Map<String, Integer> newMCs = new Hashtable<String, Integer>();
-				State s = StateMemory.getSharedState(agent);
-				String[] sids = s.getStudentIds();
-				s.addStudent(from);
-				StateMemory.commitSharedState(s, getAgent());
-				for (int i = 0; i < sids.length; i++)
+				Integer mc = messageCounts.get(sids[i]);
+				if (mc == null)
 				{
-					Integer mc = messageCounts.get(sids[i]);
-					if (mc == null)
-					{
-						mc = 0;
-					}
-					newMCs.put(sids[i], mc);
+					mc = 0;
 				}
-				messageCounts = newMCs;
+				newMCs.put(sids[i], mc);
 			}
-			count = messageCounts.get(from);
-			if (count == null)
-			{
-				messageCounts.put(from, 1);
-			}
-			else
-			{
-				count++;
-				messageCounts.put(from, count);
-			}
-			totalMessages++;
+			messageCounts = newMCs;
 		}
+		count = messageCounts.get(from);
+		if (count == null)
+		{
+			messageCounts.put(from, 1);
+		}
+		else
+		{
+			count++;
+			messageCounts.put(from, count);
+		}
+		totalMessages++;
+			
 	}
 
 	public void timedOut(String id)
