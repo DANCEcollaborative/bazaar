@@ -725,7 +725,9 @@ ul.tab li a:focus, .active {
                 appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">item.</a>');
             }
             else if(entry.type == "presence")
-                appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));
+//                 appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));
+										;
+
             else if(entry.type == "ready")
                     ;
                     //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
@@ -756,8 +758,8 @@ ul.tab li a:focus, .active {
 
 
 
-	    // listener, whenever the server emits 'updatepresence', this updates the image list
-	socket.on('updatepresence', function (username, data)
+	    // listener, whenever the server emits 'updatepresence'
+/*	socket.on('updatepresence', function (username, data)
 	{
 		if (data.search("multimodal:::true;%;") > -1) {
 // 			console.log("// updatepresence - multimodal message found - username: " + username + "   data: " + data);
@@ -770,7 +772,7 @@ ul.tab li a:focus, .active {
 // 		console.log("updatepresence: data after processing:     " + data);
 		appendNote(new Date(), username,  (data == "leave"? " has disconnected." : " has joined the discussion."));
 		$('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
-	});
+	});*/
 
     // listen for other user's ready events. We'll leave this off for now.
 	/*socket.on('updateready', function (username, ready_state)
@@ -1016,7 +1018,7 @@ ul.tab li a:focus, .active {
     <div id="col_resizer" title="Drag to resize; double-click to reset"></div>
 
     <div id="conversation_column">
-        <h2 id="conversation_header" class="header">Discussion</h2>
+        <h2 id="conversation_header" class="header">Group Discussion</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>

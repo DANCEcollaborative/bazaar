@@ -94,7 +94,7 @@ ul.tab li a:focus, .active {
     /* Picture space on the left, chat space on the right. */
     #image_column {
         order: 1;
-        flex: 0 0 60%;
+        flex: 0 0 75%;
         min-width: 0;
         height: 100%;
         display: flex;
@@ -672,7 +672,8 @@ ul.tab li a:focus, .active {
                 appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#'+anchor+'">item.</a>');
             }
             else if(entry.type == "presence")
-                appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));
+//                 appendNote(new Date(entry.timestamp), entry.username,  (entry.content == "leave"? " has disconnected." : " has joined the discussion."));
+										;
             else if(entry.type == "ready")
                     ;
                     //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
@@ -791,7 +792,7 @@ ul.tab li a:focus, .active {
 			if(message && message.length > 0)
 			{
     			socket.emit('sendpm', message);
-    			appendMessage(new Date(), user, message);
+    			appendMessage(new Date(), user+" (Private Message)", message);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
     }
@@ -926,7 +927,7 @@ ul.tab li a:focus, .active {
 
 <div id="everything">
     <div id="conversation_column">
-        <h2 id="conversation_header" class="header">Discussion</h2>
+        <h2 id="conversation_header" class="header">Individual Discussion</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>
