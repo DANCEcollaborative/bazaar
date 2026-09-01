@@ -135,7 +135,7 @@ public class PresenceWatcher extends BasilicaAdapter
 //		System.err.println("PresenceEvent.java, handlePresenceEvent - username: " + userName);
 		if (!userName.contains(agent_name) && !source.isAgentName(userName) && !userName.equals(non_user_client_name) && !hasIgnoredPrefix(userName))
 		{
-//			System.err.println("PresenceEvent.java, handlePresenceEvent - student present: " + userName); 
+			System.out.println("\n\n *** PresenceEvent.java, handlePresenceEvent - student present: " + userName + " ***\n\n"); 
 			State olds = StateMemory.getSharedState(agent);
 			State news;
 			if (pe.getType().equals(PresenceEvent.PRESENT))
@@ -212,16 +212,20 @@ public class PresenceWatcher extends BasilicaAdapter
 	 */
 	private boolean hasIgnoredPrefix(String userName)
 	{
+		System.out.println("PresenceWatcher, hasIgnoredPrefix - enter - userName=" + userName);
 		for (String prefix : ignorePrefixes)
 		{
-			if (!prefix.isEmpty() && userName.startsWith(prefix))
+			if (!prefix.isEmpty() && userName.startsWith(prefix)) 
 			{
+				System.out.println("\n\n *** PresenceWatcher, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'true' ***\n\n");		
 				return true;
 			}
 		}
+		System.out.println("PresenceWatcher, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'false' ***\n\n");	
 		return false;
 	}
 
+	
 	private void sendUserListToRemote(final InputCoordinator source, State state) {
 //		String[] usersList = state.getStudentIdsPresentOrNot();
 		String[] usersList = state.getStudentIds();
