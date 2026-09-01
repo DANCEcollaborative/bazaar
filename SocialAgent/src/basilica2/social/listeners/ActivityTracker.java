@@ -45,9 +45,11 @@ import basilica2.social.events.DormantStudentEvent;
 import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
+import basilica2.util.PropertiesLoader;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 
@@ -55,7 +57,7 @@ import java.util.Map;
  */
 public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 {
-
+	
 	public static String GENERIC_NAME = "ActivityTracker";
 	public static String GENERIC_TYPE = "Filter";
 	private double activity_prompt_pulse = 3;
@@ -69,11 +71,43 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 	private InputCoordinator source;
 	private String status = "";
 	private boolean isTracking;
+	private String[] ignorePrefixes = new String[0];
 
 	public ActivityTracker(Agent a)
 	{
 		super(a);
 		messageCounts = new Hashtable<String, Integer>();
+		
+		Properties properties = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
+		String ignorePrefixesProperty = properties.getProperty("ignore_prefixes", "").trim();
+		if (ignorePrefixesProperty.isEmpty())
+		{
+			ignorePrefixes = new String[0];
+		}
+		else
+		{
+			ignorePrefixes = ignorePrefixesProperty.split("\\s*,\\s*");
+		}
+
+	}
+	
+	/**
+	 * Checks whether userName begins with any of the prefixes configured
+	 * via the 'ignore_prefixes' property (see ignorePrefixes).
+	 */
+	private boolean hasIgnoredPrefix(String userName)
+	{
+		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName);
+		for (String prefix : ignorePrefixes)
+		{
+			if (!prefix.isEmpty() && userName.startsWith(prefix)) 
+			{
+				System.out.println("\n\n *** ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'true' ***\n\n");		
+				return true;
+			}
+		}
+		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'false' ***\n\n");	
+		return false;
 	}
 
 	public void setTrackMode(boolean m)
@@ -116,39 +150,42 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 	private void handleMessageEvent(MessageEvent me)
 	{
 //		startTrackingofWholeChat();// track the time of the whole chat
+		String from = me.getFrom();	
+		if (!hasIgnoredPrefix(from)) {
 		
-		if (!isTracking && shouldTrack) startTracking();
-		String from = me.getFrom();
-		Integer count = messageCounts.get(from);
-		if (count == null)
-		{
-			Map<String, Integer> newMCs = new Hashtable<String, Integer>();
-			State s = StateMemory.getSharedState(agent);
-			String[] sids = s.getStudentIds();
-			s.addStudent(from);
-			StateMemory.commitSharedState(s, getAgent());
-			for (int i = 0; i < sids.length; i++)
+			if (!isTracking && shouldTrack) startTracking();
+			
+			Integer count = messageCounts.get(from);
+			if (count == null)
 			{
-				Integer mc = messageCounts.get(sids[i]);
-				if (mc == null)
+				Map<String, Integer> newMCs = new Hashtable<String, Integer>();
+				State s = StateMemory.getSharedState(agent);
+				String[] sids = s.getStudentIds();
+				s.addStudent(from);
+				StateMemory.commitSharedState(s, getAgent());
+				for (int i = 0; i < sids.length; i++)
 				{
-					mc = 0;
+					Integer mc = messageCounts.get(sids[i]);
+					if (mc == null)
+					{
+						mc = 0;
+					}
+					newMCs.put(sids[i], mc);
 				}
-				newMCs.put(sids[i], mc);
+				messageCounts = newMCs;
 			}
-			messageCounts = newMCs;
+			count = messageCounts.get(from);
+			if (count == null)
+			{
+				messageCounts.put(from, 1);
+			}
+			else
+			{
+				count++;
+				messageCounts.put(from, count);
+			}
+			totalMessages++;
 		}
-		count = messageCounts.get(from);
-		if (count == null)
-		{
-			messageCounts.put(from, 1);
-		}
-		else
-		{
-			count++;
-			messageCounts.put(from, count);
-		}
-		totalMessages++;
 	}
 
 	public void timedOut(String id)
