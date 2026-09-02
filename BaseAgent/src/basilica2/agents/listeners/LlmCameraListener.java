@@ -518,7 +518,7 @@ public class LlmCameraListener extends LlmChatListener
 		}
 
 		// Ignore presence events for users Private_#, Camera_#, tab_group, and the bot agent
-		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix)) || (userName.equals(tabShareUsername))) {
+		if (isIgnoredUserName(userName)) {
 			System.err.println("handlePresenceEvent - ignoring PE for - " + this.myName + " or " + userName);
 			return;
 		}
@@ -582,6 +582,18 @@ public class LlmCameraListener extends LlmChatListener
 			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
 			source.addEventProposal(newPMe2);
 		}
+	}
+
+	/**
+	 * True for the userNames that are never tracked in userPresenceMap or
+	 * counted toward userNum assignment: this listener's own agent name, the
+	 * Private_/Camera_-prefixed per-user identities, and tabShareUsername
+	 * itself. Shared by handlePresenceEvent's normal per-PresenceEvent path
+	 * and addMissingUsersFromState's State-backfill path so the two can't
+	 * drift apart on which userNames count as "real" tracked users.
+	 */
+	private boolean isIgnoredUserName(String userName) {
+		return (userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix)) || (userName.equals(tabShareUsername));
 	}
 
 	/**
@@ -669,6 +681,67 @@ public class LlmCameraListener extends LlmChatListener
 	}
 
 	/**
+	 * Thread-safe: cross-checks userPresenceMap against
+	 * State.getStudentIdsPresentOrNot() (every student chatId State knows
+	 * about, whether currently present or not) and creates a UserPresenceInfo
+	 * -- i.e. assigns a userNum -- for any of those chatIds that don't
+	 * already have one. Missing users are added in whatever order
+	 * getStudentIdsPresentOrNot() returns them in; nothing here depends on
+	 * that order.
+	 * <p>
+	 * This exists because userPresenceMap is otherwise only ever populated
+	 * one userName at a time, as this listener happens to observe that
+	 * userName's own PresenceEvent (see consumeSendMessageFlag). A student
+	 * State already knows about -- added by e.g. PresenceWatcher, or from a
+	 * State this agent inherited/restored -- but whose PresenceEvent this
+	 * particular listener instance never separately saw would otherwise never
+	 * get a userNum and so would never be reflected in tab-share-chat.html's
+	 * labels. Called from checkMaxUserNumChanged, right before it computes
+	 * the current maximum userNum, so that check always sees an up-to-date
+	 * picture of every known user.
+	 * <p>
+	 * Entries created here get sendMessage=false: unlike the normal
+	 * PresenceEvent-driven path (consumeSendMessageFlag /
+	 * consumeSendMessageFlagAndCheckNew), this is a background reconciliation
+	 * pass, not a live per-user onboarding event, so it must never trigger
+	 * the one-time welcome-message flow that a genuine PresenceEvent would.
+	 * <p>
+	 * Note: if more than one user is missing in the same 10-second tick, only
+	 * the highest of the newly assigned userNums is guaranteed an immediate
+	 * sendTabShareUserUpdate this cycle -- checkMaxUserNumChanged only acts
+	 * on the overall maximum (see its own comment). Any lower ones added here
+	 * in the same pass still get a userNum now, and still reach
+	 * tab-share-chat.html eventually -- on a later tick if the max grows
+	 * again, or immediately if/when tab-share-chat.html itself
+	 * (re)connects (see the tabShareUsername branch in handlePresenceEvent,
+	 * which resends every mapping via snapshotUserNums()).
+	 */
+	private void addMissingUsersFromState() {
+		State state = StateMemory.getSharedState(agent);
+		if (state == null) {
+			return;
+		}
+		String[] studentIds = state.getStudentIdsPresentOrNot();
+		if (studentIds == null) {
+			return;
+		}
+
+		synchronized (presenceLock) {
+			for (String studentId : studentIds) {
+				if (studentId == null || isIgnoredUserName(studentId)) {
+					continue;
+				}
+				if (!userPresenceMap.containsKey(studentId)) {
+					System.err.println("LlmCameraListener addMissingUsersFromState -- adding userName missing from userPresenceMap: " + studentId + " -- assigning userNum=" + nextUserNum);
+					UserPresenceInfo info = new UserPresenceInfo(studentId, nextUserNum, false);
+					nextUserNum++;
+					userPresenceMap.put(studentId, info);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Thread-safe: finds the userName currently holding the highest userNum
 	 * in userPresenceMap (i.e. the most recently assigned one, since userNum
 	 * assignment via consumeSendMessageFlag is strictly increasing and
@@ -718,6 +791,13 @@ public class LlmCameraListener extends LlmChatListener
 				// practice, userPresenceMap will also still be empty).
 				return;
 			}
+
+			// Backfill userPresenceMap with any student State already knows
+			// about but that this listener never separately saw a
+			// PresenceEvent for, before computing the max -- otherwise such a
+			// user's userNum would never exist and so could never be picked
+			// up as a change below.
+			addMissingUsersFromState();
 
 			Map.Entry<String, Integer> maxEntry = getMaxUserNumEntry();
 			if (maxEntry == null) {
