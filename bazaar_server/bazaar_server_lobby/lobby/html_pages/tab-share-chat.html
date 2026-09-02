@@ -25,6 +25,22 @@ ul.tab li a {
     font-size: 14px;
 }
 
+/* Tab label content: the "User ID #" heading stays in place once a real
+   user name is assigned (see setPrivateTabUserName / renderTabLabel) --
+   the name is added as a second line beneath it, not a replacement. */
+ul.tab li a .tab-userid {
+    display: block;
+    font-weight: 600;
+}
+ul.tab li a .tab-username {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    font-style: normal;
+    opacity: .85;
+    margin-top: 2px;
+}
+
 /* Change background color of links on hover */
 ul.tab li a:hover {
     background-color: #8a8b8e;
@@ -162,6 +178,33 @@ ul.tab li a:focus, .active {
         background: #fff;
         box-sizing: border-box;
         border-left: 3px solid #C41230;
+    }
+
+    /* Info bar across the top of the tabbed portion (left side): the
+       Smartphone URL (left-justified) and Session ID (right-justified to
+       the 75% mark -- see the HTML comment above #tabbar_info). */
+    .tabbar-info {
+        position: relative;
+        flex: 0 0 auto;
+        height: 34px;
+        background: #6D6E71;
+        color: #fff;
+        font-size: 13px;
+        box-sizing: border-box;
+        border-bottom: 2px solid #C41230;
+    }
+    .tabbar-info-left,
+    .tabbar-info-right {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+    }
+    .tabbar-info-left {
+        left: 12px;
+    }
+    .tabbar-info-right {
+        right: 25%;
     }
 
     /* Column header bar (e.g. "Discussion"). */
@@ -527,6 +570,35 @@ ul.tab li a:focus, .active {
         // each user's own welcome-message URL at.
         var PRIVATE_TAB_HTML_PAGE = 'private_space';
 
+        // Renders a tab link's label as a "User ID <n>" heading, with the
+        // real user name (once known) added as a second line beneath it --
+        // the heading itself is never replaced, only appended to. userName
+        // is escaped since it arrives as untrusted data over the socket.
+        function renderTabLabel(link, userIdNum, userName) {
+            var html = '<span class="tab-userid">User ID ' + userIdNum + '</span>';
+            if (userName) {
+                html += '<span class="tab-username">' + escapeHTML(userName) + '</span>';
+            }
+            link.innerHTML = html;
+        }
+
+        // Extracts the Session ID shown in the tabbar-info bar: the last
+        // three digits of the portion of this page's own URL that falls
+        // between "chat/" and "/tab_group" (the room/session segment of
+        // the path built by LlmCameraListener -- see the 'connect' handler
+        // below, where that same segment is captured as `room`).
+        function computeSessionId() {
+            var match = /chat\/([\s\S]*?)\/tab_group/.exec(location.href);
+            var segment = match ? match[1] : '';
+            var digits = segment.replace(/[^0-9]/g, '');
+            return digits.length > 3 ? digits.slice(-3) : digits;
+        }
+
+        function updateSessionIdDisplay() {
+            var el = document.getElementById('session_id_value');
+            if (el) el.textContent = computeSessionId();
+        }
+
         // Builds the fixed URL for the Nth (1-based) private tab: same
         // server/path-prefix/room/perspective this coordinator page itself
         // was loaded with, but with both the id and user path segments set to
@@ -561,7 +633,7 @@ ul.tab li a:focus, .active {
                 a.href = 'javascript:void(0)';
                 a.className = 'tablinks tab_empty';
                 a.id = 'other_frame_tab_' + i;
-                a.textContent = 'Private_' + (i + 1);
+                renderTabLabel(a, i + 1, null);
                 a.addEventListener('click', (function (slotIndex) {
                     return function (evt) { openOtherPageTab(evt, slotIndex); };
                 })(i));
@@ -598,7 +670,7 @@ ul.tab li a:focus, .active {
                 var src = buildPrivateTabUrl(n);
                 frame.setAttribute('data-src', src);
                 frame.src = src;
-                link.textContent = 'Private_' + n;
+                renderTabLabel(link, n, null);
             }
         }
 
@@ -613,7 +685,7 @@ ul.tab li a:focus, .active {
             var link = document.getElementById('other_frame_tab_' + (n - 1));
             if (!link) return;
         		console.log("setPrivateTabUserName - found other_frame_tab_n-1");
-            link.textContent = userName;
+            renderTabLabel(link, n, userName);
             link.classList.remove('tab_empty');
         		console.log("setPrivateTabUserName - end");
         }
@@ -950,6 +1022,7 @@ ul.tab li a:focus, .active {
 		});
 
 		initColumnResizer();
+		updateSessionIdDisplay();
 	});
 
     $(window).focus(function()
@@ -1004,6 +1077,18 @@ ul.tab li a:focus, .active {
 
 <div id="everything">
     <div id="image_column">
+        <!-- Info bar across the top of the tabbed portion. The left item is
+             static; the right item ("Session ID: ###") is positioned with
+             right:25% (not right:0) so it right-justifies to the 75% mark
+             of this column's width -- lining it up with where the
+             "Individual Discussion" column begins inside the embedded
+             private_space.html pages (whose picture column is flex 0 0 75%
+             of the same iframe width). See updateSessionIdDisplay(). -->
+        <div id="tabbar_info" class="tabbar-info">
+            <span class="tabbar-info-left">Smartphone URL: https://tinyurl.com/bazaarcam1</span>
+            <span class="tabbar-info-right">Session ID: <span id="session_id_value"></span></span>
+        </div>
+
         <div id="image_container" class="container">
             <!-- Populated by buildPrivateTabsUI(NUM_OTHER_FRAMES) once the
                  ?tabs= URL parameter has been read (see the 'connect'
