@@ -437,18 +437,23 @@ public class LlmCameraListener extends LlmChatListener
 		// sent while it was away.
 		if (userName.equals(tabShareUsername)) {
 			System.err.println("handlePresenceEvent  -- userName =" + tabShareUsername);
-			if (PresenceEvent.PRESENT.equals(pe.getType())) {
-				Map<String, Integer> assignedUserNums = snapshotUserNums();
-				for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
-					System.err.println("handlePresenceEvent - calling sendTabShareUserUpdate: user#=" + entry.getValue().intValue() + " -- name=" + entry.getKey());
-					sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey());
-				}
+//			if (PresenceEvent.PRESENT.equals(pe.getType())) {
+//				Map<String, Integer> assignedUserNums = snapshotUserNums();
+//				for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
+//					System.err.println("handlePresenceEvent - calling sendTabShareUserUpdate: user#=" + entry.getValue().intValue() + " -- name=" + entry.getKey());
+//					sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey());
+//				}
+//			}
+			Map<String, Integer> assignedUserNums = snapshotUserNums();
+			for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
+				System.err.println("handlePresenceEvent - calling sendTabShareUserUpdate: user#=" + entry.getValue().intValue() + " -- name=" + entry.getKey());
+				sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey());
 			}
 			return;
 		}
 
-		// Ignore presence events for this agent itself.
-		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix))) {
+		// Ignore presence events for users Private_#, Camera_#, tab_group, and the bot agent
+		if ((userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix)) || (userName.equals(tabShareUsername))) {
 			System.err.println("handlePresenceEvent - ignoring PE for - " + this.myName + " or " + userName);
 			return;
 		}
@@ -468,7 +473,8 @@ public class LlmCameraListener extends LlmChatListener
 			sendTabShareUserUpdate(source, lookup.userNum, userName);
 		}
 
-		if (lookup.shouldSendWelcome) {
+//		if (lookup.shouldSendWelcome) {
+		if (pe.getType().equals(PresenceEvent.PRESENT)) {
 			String agentNamePrefix = this.myName + "_";
 			String sessionId = agentName.substring(agentNamePrefix.length());
 			String sessionIdLast3 = sessionId.substring(Math.max(0, sessionId.length() - 3));
@@ -480,15 +486,25 @@ public class LlmCameraListener extends LlmChatListener
 //			String redirectMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
 
 			String url = botServer + urlPrefix + sessionId + "/" + tabShareUsername + "/" + tabShareUsername + "/?" + "html=" + htmlPageGroup;	
-			System.err.println("handlePresenceEvent, shouldSendWelcome - " + this.myName + " or " + userName); 
-			String redirectMessage = "Welcome, " + userName + "!" + "  \n\nOpen the following URL in a separate tab or window: " + url;
+			System.err.println("handlePresenceEvent, shouldSendWelcome - userName=" + userName); 
+			String redirectMessage = "Welcome, " + userName + "! " + "Open the following URL in a separate tab or window:\n\n " + url + "\n\n";
+			if (!lookup.shouldSendWelcome) {
+				redirectMessage = "As a reminder, everybody should open the following URL in a separate tab or window:\n\n " + url + "\n\n";
+			}
 
-			System.err.println("handlePresenceEvent, shouldSendWelcome - message to user: " + redirectMessage); 
+			System.err.println("handlePresenceEvent, PresenceEvent.PRESENT - message: " + redirectMessage); 
 //			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,redirectMessage);
 			MessageEvent newPMe1 = new MessageEvent(source, this.myName, redirectMessage);
 			source.pushEventProposal(newPMe1);
-			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
-			System.err.println("handlePresenceEvent, shouldSendWelcome - message to camera: " + cameraMessage); 
+			
+			String cameraMessage = "With your smartphone, open URL \n" + cameraUrl + "\nIn the smartphone web page, enter:\nSession ID: " + sessionIdLast3;
+			cameraMessage = cameraMessage + "\n\nImportant: Each person must enter their unique User ID: "; 	
+			Map<String, Integer> assignedUserNums = snapshotUserNums();
+			for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
+				cameraMessage = cameraMessage + "\n" + entry.getKey() + ": " + entry.getValue().intValue();
+			}
+//			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
+			System.err.println("handlePresenceEvent, PresenceEvent.PRESENT - cameraMessage: " + cameraMessage); 
 			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
 			source.addEventProposal(newPMe2);
 		}
@@ -580,32 +596,9 @@ public class LlmCameraListener extends LlmChatListener
 
 	/**
 	 * Notifies the tab-share-chat.html page -- loaded as the
-	 * tabShareUsername user (its own id/user URL path segments, e.g.
-	 * ".../group/group/..."; see the "tab-share-username" property, default
-	 * "group") -- that userNum has just been assigned to userName, so it can
+	 * tabShareUsername user (default "tab_group")
+	 *  -- that userNum has just been assigned to userName, so it can
 	 * relabel the corresponding "Private_&lt;userNum&gt;" tab in place.
-	 * <p>
-	 * Whatever wraps an outgoing PrivateMessageEvent's raw text into the
-	 * delivered multimodal envelope does so unconditionally --
-	 * "multimodal:::true;%;from:::...;%;to:::...;%;speech:::" + rawText --
-	 * even when rawText is itself already a fully-formed multimodal string
-	 * (confirmed: pre-building the envelope here just produced it nested a
-	 * second time inside "speech"). There's no lever from this class to
-	 * suppress that wrapping. But the encoding is flat -- one list of
-	 * ";%;"-delimited "tag:::value" pairs, not a true nested structure -- so
-	 * leading rawText with an *empty* field (a bare multiModalDelim) makes
-	 * "speech" end up with an empty value ("speech:::;%;...") while
-	 * tabUserUpdate/userNum/userName still land as clean, independent
-	 * top-level fields rather than glued onto "speech"'s value:
-	 * "multimodal:::true;%;from:::OPEBot;%;to:::tab_group;%;speech:::;%;
-	 * tabUserUpdate:::true;%;userNum:::1;%;userName:::Chas Murray". That
-	 * empty "speech" is intentional -- tab-share-chat.html's generic
-	 * multimodal fallback (in its updatechat/update_private_chat listeners)
-	 * skips displaying an empty speech value as a chat line, so this never
-	 * shows a stray bubble even if the "tabUserUpdate" interception ahead of
-	 * it were ever bypassed. tab-share-chat.html recognizes the
-	 * "tabUserUpdate:::true" tag on an incoming private message and updates
-	 * its tab label instead of appending the message as a chat line.
 	 */
 	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName) {
 		String taggedMessage =
