@@ -27,14 +27,17 @@ ul.tab li a {
 
 /* Tab label content: the "User ID #" heading stays in place once a real
    user name is assigned (see setPrivateTabUserName / renderTabLabel) --
-   the name is added as a second line beneath it, not a replacement. */
+   the name is added as a second line beneath it, not a replacement.
+   The username is the more useful label once known, so it's sized larger
+   than the "User ID #" heading above it. */
 ul.tab li a .tab-userid {
     display: block;
     font-weight: 600;
+    font-size: 11px;
 }
 ul.tab li a .tab-username {
     display: block;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 400;
     font-style: normal;
     opacity: .85;
@@ -180,11 +183,10 @@ ul.tab li a:focus, .active {
         border-left: 3px solid #C41230;
     }
 
-    /* Info bar across the top of the tabbed portion (left side): the
-       Smartphone URL (left-justified) and Session ID (right-justified to
-       the 75% mark -- see the HTML comment above #tabbar_info). */
+    /* Info bar across the top of the tabbed portion (left side): a single
+       left-justified line -- Smartphone URL, then Session ID, then User ID,
+       each separated by 8 spaces (see the HTML comment above #tabbar_info). */
     .tabbar-info {
-        position: relative;
         flex: 0 0 auto;
         height: 34px;
         background: #6D6E71;
@@ -192,19 +194,11 @@ ul.tab li a:focus, .active {
         font-size: 13px;
         box-sizing: border-box;
         border-bottom: 2px solid #C41230;
-    }
-    .tabbar-info-left,
-    .tabbar-info-right {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
         white-space: nowrap;
-    }
-    .tabbar-info-left {
-        left: 12px;
-    }
-    .tabbar-info-right {
-        right: 25%;
+        overflow: hidden;
     }
 
     /* Column header bar (e.g. "Discussion"). */
@@ -1077,16 +1071,12 @@ ul.tab li a:focus, .active {
 
 <div id="everything">
     <div id="image_column">
-        <!-- Info bar across the top of the tabbed portion. The left item is
-             static; the right item ("Session ID: ###") is positioned with
-             right:25% (not right:0) so it right-justifies to the 75% mark
-             of this column's width -- lining it up with where the
-             "Individual Discussion" column begins inside the embedded
-             private_space.html pages (whose picture column is flex 0 0 75%
-             of the same iframe width). See updateSessionIdDisplay(). -->
+        <!-- Info bar across the top of the tabbed portion: Smartphone URL,
+             then Session ID (see updateSessionIdDisplay()), then a note
+             pointing to the per-tab User ID labels -- each separated from
+             the previous by 8 spaces, all left-justified in reading order. -->
         <div id="tabbar_info" class="tabbar-info">
-            <span class="tabbar-info-left">Smartphone URL: https://tinyurl.com/bazaarcam1</span>
-            <span class="tabbar-info-right">Session ID: <span id="session_id_value"></span></span>
+            <span class="tabbar-info-text">Smartphone URL: https://tinyurl.com/bazaarcam1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Session ID: <span id="session_id_value"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User ID: (see below)</span>
         </div>
 
         <div id="image_container" class="container">
