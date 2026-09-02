@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plan name="FCDS P2 OPE">
+<plan name="LlmCameraAgent with FCDS P2 OPE JupyterLab">
 	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
 	(from the script's beginning) before that stage starts.  -->
 	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
@@ -10,7 +10,7 @@
     <!-- "delay" for a step is the delay *after* the step completes on its own.-->
     <stage name="StageInitialization" type="other" delay="0" timeout="30">  
     	<step type="prompt" delay="30" prompt="WAITING_TO_START">WAITING_TO_START</step>
-     	<step type="greet" timeout="30" delay="0">GREETINGS</step> 
+     	<!-- <step type="greet" timeout="30" delay="0">GREETINGS</step>  -->
     </stage>  
     
     <stage name="StageLO1" type="other" delay="0">
