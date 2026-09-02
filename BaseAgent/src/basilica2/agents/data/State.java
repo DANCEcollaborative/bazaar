@@ -41,8 +41,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.time.LocalDateTime;
+import java.util.Properties;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
+import basilica2.util.PropertiesLoader;
 import java.util.Collections;
 /**
  * 
@@ -97,6 +99,33 @@ public class State
 	// public String conceptExecutionStatus;
 
 	private Map<String, Object> stateMap = new HashMap<String, Object>();
+
+	private static String[] ignorePrefixes = new String[0];
+
+	static
+	{
+		// Loaded once per JVM (not per-instance) since State objects are
+		// created/copied very frequently.
+		Properties properties = PropertiesLoader.loadProperties(State.class.getSimpleName() + ".properties");
+
+		if (properties != null)
+		{
+			String ignorePrefixesProperty = properties.getProperty("ignore_prefixes", "").trim();
+			if (ignorePrefixesProperty.isEmpty())
+			{
+				ignorePrefixes = new String[0];
+			}
+			else
+			{
+				ignorePrefixes = ignorePrefixesProperty.split("\\s*,\\s*");
+			}
+		}
+	}
+
+	public static String[] getIgnorePrefixes()
+	{
+		return ignorePrefixes;
+	}
 
 	public static State copy(State s)
 	{
@@ -165,27 +194,48 @@ public class State
 
 	public void addStudent(String sid)
 	{
-//		System.err.println("===== State,addStudent - sid: " + sid); 
-		if (!sid.contentEquals(identityAllUsers)) {
-			Student s = new Student();
-			boolean found = false;
-			for (int i = 0; i < students.size(); i++)
-			{
-				if (sid.startsWith(students.get(i).chatId))
+		System.err.println("===== State,addStudent - sid: " + sid); 
+		if (!hasIgnoredPrefix(sid)) {
+			if (!sid.contentEquals(identityAllUsers)) {
+				Student s = new Student();
+				boolean found = false;
+				for (int i = 0; i < students.size(); i++)
 				{
-					found = true;
-					s = students.get(i);
+					if (sid.startsWith(students.get(i).chatId))
+					{
+						found = true;
+						s = students.get(i);
+					}
 				}
+				if (!found)
+				{
+					s.chatId = sid;
+					s.name = sid;
+					s.role = "UNASSIGNED";
+					students.add(s);
+				}
+				s.isPresent = true;			
 			}
-			if (!found)
-			{
-				s.chatId = sid;
-				s.name = sid;
-				s.role = "UNASSIGNED";
-				students.add(s);
-			}
-			s.isPresent = true;			
 		}
+	}
+	
+	/**
+	 * Checks whether userName begins with any of the prefixes configured
+	 * via the 'ignore_prefixes' property.
+	 */
+	private boolean hasIgnoredPrefix(String userName)
+	{
+		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName);
+		for (String prefix : ignorePrefixes)
+		{
+			if (!prefix.isEmpty() && userName.startsWith(prefix)) 
+			{
+				System.out.println("\n\n *** ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'true' ***\n\n");		
+				return true;
+			}
+		}
+		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'false' ***\n\n");	
+		return false;
 	}
 
 	public void removeStudent(String sid)
@@ -230,8 +280,8 @@ public class State
 
 	public void setName(String sid, String name)
 	{
-//		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
-		if (!sid.equals(identityAllUsers)) {
+		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
+		if ((!sid.equals(identityAllUsers)) && (!hasIgnoredPrefix(sid)) && (!hasIgnoredPrefix(name))) {
 			for (int i = 0; i < students.size(); i++)
 			{
 				if (sid.startsWith(students.get(i).chatId))

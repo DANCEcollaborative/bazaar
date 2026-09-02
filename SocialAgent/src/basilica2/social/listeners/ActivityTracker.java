@@ -45,9 +45,11 @@ import basilica2.social.events.DormantStudentEvent;
 import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.listeners.BasilicaAdapter;
+import basilica2.util.PropertiesLoader;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 
@@ -55,7 +57,7 @@ import java.util.Map;
  */
 public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 {
-
+	
 	public static String GENERIC_NAME = "ActivityTracker";
 	public static String GENERIC_TYPE = "Filter";
 	private double activity_prompt_pulse = 3;
@@ -69,6 +71,7 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 	private InputCoordinator source;
 	private String status = "";
 	private boolean isTracking;
+	private String[] ignorePrefixes = new String[0];
 
 	public ActivityTracker(Agent a)
 	{
@@ -115,10 +118,10 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 //	}
 	private void handleMessageEvent(MessageEvent me)
 	{
-//		startTrackingofWholeChat();// track the time of the whole chat
-		
+//		startTrackingofWholeChat();// track the time of the whole chat	
 		if (!isTracking && shouldTrack) startTracking();
-		String from = me.getFrom();
+
+		String from = me.getFrom();	
 		Integer count = messageCounts.get(from);
 		if (count == null)
 		{
@@ -149,6 +152,7 @@ public class ActivityTracker extends BasilicaAdapter implements TimeoutReceiver
 			messageCounts.put(from, count);
 		}
 		totalMessages++;
+			
 	}
 
 	public void timedOut(String id)
