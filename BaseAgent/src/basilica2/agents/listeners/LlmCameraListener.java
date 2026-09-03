@@ -51,7 +51,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class LlmCameraListener extends LlmChatListener
 {
@@ -117,33 +116,34 @@ public class LlmCameraListener extends LlmChatListener
     // the watcher thread.
     private volatile InputCoordinator source;
 
-    // Highest userNum that sendTabShareUserUpdate has been (or is in the
-    // process of being) called for, whether that call came from the
-    // synchronous per-user PresenceEvent handling below or from
-    // checkMaxUserNumChanged's periodic poll. Used to detect when the
-    // maximum userNum in userPresenceMap changes and to avoid sending a
-    // redundant duplicate update for a userNum that was already announced.
-    // AtomicInteger (rather than a plain int guarded by presenceLock) so the
-    // watcher thread can update it with a lock-free compare-and-swap loop
-    // (getAndUpdate) that doesn't need to be taken together with
-    // presenceLock.
-    private final AtomicInteger lastNotifiedMaxUserNum = new AtomicInteger(0);
-
-    // Every 10 seconds, checks whether the maximum userNum assigned so far
-    // has grown since the last check and, if so, (re-)notifies
-    // tab-share-chat.html via sendTabShareUserUpdate -- a periodic backstop
-    // alongside the synchronous notification already sent the moment a new
-    // userNum is assigned (see the isNewlyAssigned branch in
-    // handlePresenceEvent), in case that earlier notification never reached
-    // tab-share-chat.html (e.g. its tab hadn't connected yet, or the message
-    // was dropped). A single-thread scheduled executor is used rather than
-    // e.g. a raw Thread + sleep loop so the 10-second cadence is handled by
-    // the JDK (drift-corrected, and safe to schedule/cancel), and rather
-    // than a plain java.util.Timer so an uncaught exception from one run
-    // (checkMaxUserNumChanged already catches its own exceptions, but this
-    // is extra insurance) can't silently kill future runs the way it can
-    // with Timer. The thread is created as a daemon so it never keeps the
-    // JVM alive on its own.
+    // Every 10 seconds, unconditionally (re-)sends every known
+    // userNum -> userName mapping to tab-share-chat.html via
+    // sendTabShareUserUpdate -- a periodic full resync alongside the
+    // synchronous notification already sent the moment a new userNum is
+    // assigned (see the isNewlyAssigned branch in handlePresenceEvent), in
+    // case that earlier notification never reached tab-share-chat.html.
+    // That can happen more easily than it sounds: sendTabShareUserUpdate's
+    // targeted PrivateMessageEvent is delivered by the chat server only to
+    // whichever socket(s) are registered as tab_group in that room AT THAT
+    // INSTANT (see server_lobby_https.js's 'sendpm' handler) -- if
+    // tab-share-chat.html's tab hasn't connected yet, is mid-reconnect, or
+    // the message is otherwise lost, the server just logs "did not emit"
+    // and drops it silently; there is no ack back to this listener, so a
+    // one-shot, only-resend-if-changed check could never tell the
+    // difference between "already delivered" and "silently dropped".
+    // Resending the full map every tick sidesteps that distinction
+    // entirely: setPrivateTabUserName/renderTabLabel on the client side are
+    // idempotent, so re-applying a mapping that already landed is harmless,
+    // and it guarantees every mapping reaches tab-share-chat.html within 10
+    // seconds of its tab actually being connected, regardless of why any
+    // earlier attempt failed. A single-thread scheduled executor is used
+    // rather than e.g. a raw Thread + sleep loop so the 10-second cadence is
+    // handled by the JDK (drift-corrected, and safe to schedule/cancel), and
+    // rather than a plain java.util.Timer so an uncaught exception from one
+    // run (resyncTabShareUserUpdates already catches its own exceptions,
+    // but this is extra insurance) can't silently kill future runs the way it
+    // can with Timer. The thread is created as a daemon so it never keeps
+    // the JVM alive on its own.
     private final ScheduledExecutorService tabShareUserNumWatcher =
         Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
             @Override
@@ -255,13 +255,13 @@ public class LlmCameraListener extends LlmChatListener
 		}
 		catch (Exception e){}
 
-		// Start the periodic (every 10 seconds) check for a change in the
-		// maximum assigned userNum. See tabShareUserNumWatcher and
-		// checkMaxUserNumChanged.
+		// Start the periodic (every 10 seconds) full resync of every
+		// assigned userNum -> userName mapping to tab-share-chat.html. See
+		// tabShareUserNumWatcher and resyncTabShareUserUpdates.
 		tabShareUserNumWatcher.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
-				checkMaxUserNumChanged();
+				resyncTabShareUserUpdates();
 			}
 		}, 10, 10, TimeUnit.SECONDS);
 	}
@@ -534,16 +534,16 @@ public class LlmCameraListener extends LlmChatListener
 		PresenceLookupResult lookup = consumeSendMessageFlagAndCheckNew(userName);
 
 		if (lookup.isNewlyAssigned) {
+			// Fires immediately, rather than waiting for the next 10-second
+			// resyncTabShareUserUpdates() tick, so the tab is (usually)
+			// already labeled by the time the user gets to
+			// tab-share-chat.html. resyncTabShareUserUpdates() now
+			// unconditionally resends every known mapping on its own
+			// schedule regardless of this call, so there's no bookkeeping to
+			// record here any more -- resending lookup.userNum again a few
+			// seconds from now is harmless.
 			System.err.println("handlePresenceEvent, isNewlyAssigned - callingsendTabShareUserUpdate for lookup.userNum=" + lookup.userNum + "  -- user name=" + userName);
 			sendTabShareUserUpdate(source, lookup.userNum, userName);
-			// Record that lookup.userNum has already been announced, so the
-			// periodic checkMaxUserNumChanged() watcher (which would
-			// otherwise also notice the max userNum grew to lookup.userNum
-			// on its next 10-second tick) doesn't send a redundant, duplicate
-			// update for the same userNum. getAndUpdate rather than a plain
-			// set: lastNotifiedMaxUserNum must never move backwards even if
-			// this runs concurrently with another thread doing the same.
-			lastNotifiedMaxUserNum.getAndUpdate(currentMax -> Math.max(currentMax, lookup.userNum));
 		}
 
 		if (lookup.shouldSendWelcome) {
@@ -696,32 +696,27 @@ public class LlmCameraListener extends LlmChatListener
 	 * State this agent inherited/restored -- but whose PresenceEvent this
 	 * particular listener instance never separately saw would otherwise never
 	 * get a userNum and so would never be reflected in tab-share-chat.html's
-	 * labels. Called from checkMaxUserNumChanged, right before it computes
-	 * the current maximum userNum, so that check always sees an up-to-date
-	 * picture of every known user.
+	 * labels. Called from resyncTabShareUserUpdates, right before it resends
+	 * every known mapping, so that resync always sees an up-to-date picture
+	 * of every known user.
 	 * <p>
 	 * Entries created here get sendMessage=false: unlike the normal
 	 * PresenceEvent-driven path (consumeSendMessageFlag /
 	 * consumeSendMessageFlagAndCheckNew), this is a background reconciliation
 	 * pass, not a live per-user onboarding event, so it must never trigger
 	 * the one-time welcome-message flow that a genuine PresenceEvent would.
-	 * <p>
-	 * Note: if more than one user is missing in the same 10-second tick, only
-	 * the highest of the newly assigned userNums is guaranteed an immediate
-	 * sendTabShareUserUpdate this cycle -- checkMaxUserNumChanged only acts
-	 * on the overall maximum (see its own comment). Any lower ones added here
-	 * in the same pass still get a userNum now, and still reach
-	 * tab-share-chat.html eventually -- on a later tick if the max grows
-	 * again, or immediately if/when tab-share-chat.html itself
-	 * (re)connects (see the tabShareUsername branch in handlePresenceEvent,
-	 * which resends every mapping via snapshotUserNums()).
+	 * A userNum assigned here reaches tab-share-chat.html on the very same
+	 * resyncTabShareUserUpdates pass that just created it, since that pass
+	 * resends every mapping unconditionally.
 	 */
 	private void addMissingUsersFromState() {
+		log(Logger.LOG_NORMAL, "LlmCameraListener.addMissingUsersFromState - Enter");
 		State state = StateMemory.getSharedState(agent);
 		if (state == null) {
 			return;
 		}
-		String[] studentIds = state.getStudentIdsPresentOrNot();
+	    String[] studentIds = state.getStudentIdsPresentOrNot();
+// 		String[] studentIds = state.getRandomizedStudentIdsPresentOrNot();
 		if (studentIds == null) {
 			return;
 		}
@@ -731,8 +726,11 @@ public class LlmCameraListener extends LlmChatListener
 				if (studentId == null || isIgnoredUserName(studentId)) {
 					continue;
 				}
+				log(Logger.LOG_NORMAL, "LlmCameraListener.addMissingUsersFromState - found studentId: " + studentId);
 				if (!userPresenceMap.containsKey(studentId)) {
 					System.err.println("LlmCameraListener addMissingUsersFromState -- adding userName missing from userPresenceMap: " + studentId + " -- assigning userNum=" + nextUserNum);
+					log(Logger.LOG_NORMAL, "LlmCameraListener.addMissingUsersFromState - adding studentId: " + studentId + 
+							" as userNum: " + nextUserNum);
 					UserPresenceInfo info = new UserPresenceInfo(studentId, nextUserNum, false);
 					nextUserNum++;
 					userPresenceMap.put(studentId, info);
@@ -742,47 +740,32 @@ public class LlmCameraListener extends LlmChatListener
 	}
 
 	/**
-	 * Thread-safe: finds the userName currently holding the highest userNum
-	 * in userPresenceMap (i.e. the most recently assigned one, since userNum
-	 * assignment via consumeSendMessageFlag is strictly increasing and
-	 * entries are never removed), and returns it paired with that userNum.
-	 * Returns null if no PresenceEvent has been recorded yet (userPresenceMap
-	 * is empty).
-	 */
-	private Map.Entry<String, Integer> getMaxUserNumEntry() {
-		synchronized (presenceLock) {
-			String maxUserName = null;
-			int maxUserNum = 0;
-			for (UserPresenceInfo info : userPresenceMap.values()) {
-				if (info.getUserNum() > maxUserNum) {
-					maxUserNum = info.getUserNum();
-					maxUserName = info.getUserName();
-				}
-			}
-			if (maxUserName == null) {
-				return null;
-			}
-			return new java.util.AbstractMap.SimpleImmutableEntry<String, Integer>(maxUserName, Integer.valueOf(maxUserNum));
-		}
-	}
-
-	/**
 	 * Runs every 10 seconds on tabShareUserNumWatcher's background thread
-	 * (started from the constructor). Checks whether the maximum userNum
-	 * assigned so far (across all of userPresenceMap) is higher than the
-	 * last one tab-share-chat.html was notified about and, if so, calls
-	 * sendTabShareUserUpdate() to (re-)send that userNum -> userName mapping
-	 * so its tab labels stay current.
+	 * (started from the constructor). Unconditionally (re-)sends every
+	 * userNum -> userName mapping assigned so far to tab-share-chat.html via
+	 * sendTabShareUserUpdate, so its tab labels stay current.
 	 * <p>
 	 * This is a backstop, not the primary notification path: the primary
 	 * path is the synchronous sendTabShareUserUpdate call in
 	 * handlePresenceEvent's isNewlyAssigned branch, fired the instant a new
-	 * userNum is assigned. This periodic check exists in case that
-	 * synchronous notification didn't reach tab-share-chat.html -- e.g. its
-	 * page/tab hadn't connected/reconnected yet at that moment -- so the
-	 * label eventually catches up within 10 seconds regardless.
+	 * userNum is assigned. This periodic pass exists in case that
+	 * synchronous notification didn't reach tab-share-chat.html -- its
+	 * tab hadn't connected/reconnected yet at that moment, or the message
+	 * was silently dropped by the chat server (see sendTabShareUserUpdate's
+	 * own comment) -- so every label eventually catches up within 10
+	 * seconds regardless of what happened to any earlier attempt.
+	 * <p>
+	 * Deliberately unconditional (no "did the max userNum change" check):
+	 * there is no delivery acknowledgement from tab-share-chat.html, so this
+	 * listener can never actually tell whether a given mapping already got
+	 * through -- only whether it was already attempted. Resending everything
+	 * every tick sidesteps that distinction. setPrivateTabUserName /
+	 * renderTabLabel on the client side are idempotent, so re-applying a
+	 * mapping that already landed is harmless, and a handful of short
+	 * private messages every 10 seconds is cheap (userPresenceMap is capped
+	 * by MAX_NUM_OTHER_FRAMES, currently 10 entries).
 	 */
-	private void checkMaxUserNumChanged() {
+	private void resyncTabShareUserUpdates() {
 		try {
 			InputCoordinator currentSource = this.source;
 			if (currentSource == null) {
@@ -794,33 +777,20 @@ public class LlmCameraListener extends LlmChatListener
 
 			// Backfill userPresenceMap with any student State already knows
 			// about but that this listener never separately saw a
-			// PresenceEvent for, before computing the max -- otherwise such a
-			// user's userNum would never exist and so could never be picked
-			// up as a change below.
+			// PresenceEvent for, before resending -- otherwise such a
+			// user's userNum would never exist and so could never be sent.
 			addMissingUsersFromState();
 
-			Map.Entry<String, Integer> maxEntry = getMaxUserNumEntry();
-			if (maxEntry == null) {
-				return; // no users tracked yet
-			}
-			String maxUserName = maxEntry.getKey();
-			int maxUserNum = maxEntry.getValue().intValue();
-
-			// Atomically compare-and-set: only proceed (and only report having
-			// changed it) if maxUserNum is actually higher than what's
-			// currently recorded. getAndUpdate always overwrites with
-			// Math.max(...), which is a no-op when maxUserNum hasn't grown,
-			// but its return value (the value from just before this update)
-			// lets us tell whether maxUserNum was new.
-			int previousMax = lastNotifiedMaxUserNum.getAndUpdate(currentMax -> Math.max(currentMax, maxUserNum));
-			if (maxUserNum > previousMax) {
-				System.err.println("LlmCameraListener checkMaxUserNumChanged -- max userNum changed from " + previousMax + " to " + maxUserNum + " (userName=" + maxUserName + "); notifying " + tabShareUsername);
-				sendTabShareUserUpdate(currentSource, maxUserNum, maxUserName);
+			Map<String, Integer> assignedUserNums = snapshotUserNums();
+			for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
+				log(Logger.LOG_NORMAL, "LlmCameraListener.resyncTabShareUserUpdates - calling sendTabShareUserUpdate for userNum: " +
+						entry.getValue().intValue() + " and name: " + entry.getKey());
+				sendTabShareUserUpdate(currentSource, entry.getValue().intValue(), entry.getKey());
 			}
 		} catch (Exception ex) {
 			// Never let an uncaught exception here kill future scheduled
 			// runs of this check.
-			System.err.println("LlmCameraListener checkMaxUserNumChanged -- error checking max userNum");
+			System.err.println("LlmCameraListener resyncTabShareUserUpdates -- error resending userNum mappings");
 			ex.printStackTrace();
 		}
 	}
@@ -831,27 +801,31 @@ public class LlmCameraListener extends LlmChatListener
 	 *  -- that userNum has just been assigned to userName, so it can
 	 * relabel the corresponding "Private_&lt;userNum&gt;" tab in place.
 	 * <p>
-	 * tab-share-chat.html can be open under the tabShareUsername identity in
-	 * more than one browser tab/window at once (e.g. it reconnected/reloaded
-	 * while an older tab was still open, or more than one person has the
-	 * group view open), but the chat server only remembers a single socket
-	 * per username at a time -- each new connection under that username
-	 * replaces the previous one as the target of a private message. So a
-	 * PrivateMessageEvent addressed to tabShareUsername only ever reaches
-	 * whichever one of those sockets happened to connect most recently;
-	 * any others silently miss the update. It's still sent below, since
-	 * it's a harmless duplicate for whichever socket does receive it and
-	 * costs nothing to keep. But to guarantee every socket currently
-	 * registered as tabShareUsername gets the update -- not just the most
-	 * recently connected one -- this also sends a MessageEvent with the same
-	 * tagged text, which the server broadcasts to every connected socket in
-	 * the room (a superset that necessarily includes all of them). The
-	 * message text leads with an empty field (the bare
-	 * MultiModalFilter.multiModalDelim prefix below) so any recipient that
-	 * doesn't specifically recognize the "tabUserUpdate" tag -- i.e.
-	 * everyone other than tab-share-chat.html -- parses the broadcast as an
-	 * empty/blank chat line rather than displaying this tagged payload as
-	 * visible text.
+	 * This sends the mapping two ways. First, a PrivateMessageEvent
+	 * addressed to tabShareUsername: the chat server (see
+	 * server_lobby_https.js's 'sendpm' handler) delivers this to every
+	 * socket currently connected in that room under the tabShareUsername
+	 * identity -- there can be more than one at once (e.g. a stale tab left
+	 * open alongside a reload, or more than one person with the group view
+	 * open) -- but only to sockets connected AT THAT INSTANT; if
+	 * tab-share-chat.html's tab hasn't connected/reconnected yet, or the
+	 * message is otherwise lost, the server just logs it and drops it
+	 * silently, with no error/ack back to this listener. Second, as a
+	 * backstop, a MessageEvent with the same tagged text, which the server
+	 * broadcasts to every connected socket in the room regardless of
+	 * username -- reaching tab-share-chat.html even in the scenarios where
+	 * the targeted send above was dropped. tab-share-chat.html's own
+	 * 'updatechat' listener specifically recognizes the "tabUserUpdate" tag
+	 * and relabels the tab instead of displaying this payload as a chat
+	 * line; any other listener that only recognizes the older "multimodal"
+	 * tag will NOT match this tag and will fall through to displaying the
+	 * raw tagged text, so this broadcast should only be relied on for
+	 * recipients that have been specifically taught to recognize it.
+	 * <p>
+	 * Because delivery here is never confirmed, callers should not assume a
+	 * single call is enough -- see resyncTabShareUserUpdates, which calls
+	 * this for every known mapping on an unconditional periodic schedule so
+	 * a dropped update is retried without needing to know it was dropped.
 	 */
 	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName) {
 		String taggedMessage =

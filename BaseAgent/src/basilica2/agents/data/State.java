@@ -45,6 +45,8 @@ import java.util.Properties;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
 import basilica2.util.PropertiesLoader;
+import edu.cmu.cs.lti.project911.utils.log.Logger;
+
 import java.util.Collections;
 /**
  * 
@@ -449,6 +451,7 @@ public class State
 			// if (students.get(i).isPresent)
 			if (true)
 			{
+				System.err.println("State.getStudentIdsPresentOrNot - inlcluding chatId: " + students.get(i).chatId);
 				ids.add(students.get(i).chatId);
 			}
 		}
