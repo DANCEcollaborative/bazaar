@@ -49,6 +49,7 @@ import java.util.Base64;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +86,17 @@ public class LlmCameraListener extends LlmChatListener
     public  List<String> topics;
     private Instant start = Instant.now();
     private Instant finish;
-    private volatile double threshold = 0.05;
+    private volatile double imageDiffThreshold = 0.05;
+    private int userPollRate = 10;
+    // How many seconds after startup the periodic resyncTabShareUserUpdates()
+    // polling (see tabShareUserNumWatcher below) is allowed to keep running
+    // before it stops itself. Measured against userPollWatcherStart.
+    private int userPollTimeout = 660;
+    // Timestamp the resyncTabShareUserUpdates() polling is timed against;
+    // captured here (at field-initialization time, i.e. object construction)
+    // rather than inside the constructor body so it reflects when this
+    // listener actually came into existence.
+    private final Instant userPollWatcherStart = Instant.now();
 
     // Tracks presence-related bookkeeping per userName, in the order each
     // userName was first seen (LinkedHashMap preserves insertion order).
@@ -153,6 +164,13 @@ public class LlmCameraListener extends LlmChatListener
                 return t;
             }
         });
+
+    // Handle on the periodic resyncTabShareUserUpdates() task scheduled on
+    // tabShareUserNumWatcher (see the constructor), so that task can cancel
+    // its own future once userPollTimeout seconds have elapsed. Volatile
+    // because it's written from the constructor's thread and read from
+    // tabShareUserNumWatcher's background thread.
+    private volatile ScheduledFuture<?> tabShareUserNumWatcherFuture;
 
     // Holder for the per-user presence bookkeeping described in
     // requirement 2. Every field is private -- nothing outside this class
@@ -235,8 +253,10 @@ public class LlmCameraListener extends LlmChatListener
 			htmlPageGroup = llm_prop.getProperty("html-page-group",htmlPageGroup);
 			tabShareUsername = llm_prop.getProperty("tab-share-username",tabShareUsername);
 			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
+			userPollRate = Integer.parseInt(llm_prop.getProperty("user-poll-rate","10"));
+			userPollTimeout = Integer.parseInt(llm_prop.getProperty("user-poll-timeout","660"));
 			
-			threshold = Double.parseDouble(llm_prop.getProperty("threshold", "0.05"));
+			imageDiffThreshold = Double.parseDouble(llm_prop.getProperty("image-diff-threshold", "0.05"));
 			privateMessaging = Boolean.parseBoolean(properties.getProperty("private-messaging", privateMessaging.toString()));
 			if (contextFlag) {
 				contextLen = Integer.parseInt(llm_prop.getProperty(model+".context.length"));
@@ -255,15 +275,28 @@ public class LlmCameraListener extends LlmChatListener
 		}
 		catch (Exception e){}
 
-		// Start the periodic (every 10 seconds) full resync of every
-		// assigned userNum -> userName mapping to tab-share-chat.html. See
+		// Start the periodic (every userPollRate seconds) full resync of
+		// every assigned userNum -> userName mapping to tab-share-chat.html.
+		// Runs until userPollTimeout seconds have elapsed since
+		// userPollWatcherStart, at which point the task cancels its own
+		// future so resyncTabShareUserUpdates() stops being called. See
 		// tabShareUserNumWatcher and resyncTabShareUserUpdates.
-		tabShareUserNumWatcher.scheduleAtFixedRate(new Runnable() {
+		tabShareUserNumWatcherFuture = tabShareUserNumWatcher.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
+				long secondsSinceStart = Duration.between(userPollWatcherStart, Instant.now()).getSeconds();
+				if (secondsSinceStart >= userPollTimeout) {
+					log(Logger.LOG_NORMAL, "LlmCameraListener - userPollTimeout (" + userPollTimeout +
+							"s) reached; stopping resyncTabShareUserUpdates polling");
+					ScheduledFuture<?> future = tabShareUserNumWatcherFuture;
+					if (future != null) {
+						future.cancel(false);
+					}
+					return;
+				}
 				resyncTabShareUserUpdates();
 			}
-		}, 10, 10, TimeUnit.SECONDS);
+		}, userPollRate, userPollRate, TimeUnit.SECONDS);
 	}
 
 
@@ -740,10 +773,13 @@ public class LlmCameraListener extends LlmChatListener
 	}
 
 	/**
-	 * Runs every 10 seconds on tabShareUserNumWatcher's background thread
-	 * (started from the constructor). Unconditionally (re-)sends every
-	 * userNum -> userName mapping assigned so far to tab-share-chat.html via
-	 * sendTabShareUserUpdate, so its tab labels stay current.
+	 * Runs every userPollRate seconds on tabShareUserNumWatcher's background
+	 * thread (started from the constructor), until userPollTimeout seconds
+	 * have elapsed since this listener was constructed, at which point the
+	 * scheduling task in the constructor stops calling this method.
+	 * Unconditionally (re-)sends every userNum -> userName mapping assigned
+	 * so far to tab-share-chat.html via sendTabShareUserUpdate, so its tab
+	 * labels stay current.
 	 * <p>
 	 * This is a backstop, not the primary notification path: the primary
 	 * path is the synchronous sendTabShareUserUpdate call in
@@ -955,8 +991,8 @@ public class LlmCameraListener extends LlmChatListener
 	/**
 	 * Compares two base64-encoded JPEG images using a perceptual average-hash and
 	 * reports whether they are "almost identical" -- i.e. their dissimilarity is at
-	 * or below this listener's configured threshold (properties/LlmCameraListener.properties,
-	 * key "threshold", default 0.05).
+	 * or below this listener's configured imageDiffThreshold (properties/LlmCameraListener.properties,
+	 * key "imageDiffThreshold", default 0.05).
 	 */
 	public boolean almostIdentical(String base64Jpeg1, String base64Jpeg2) throws IOException {
     	if (base64Jpeg1 == null || base64Jpeg2 == null || base64Jpeg1.isEmpty() || base64Jpeg2.isEmpty()) {
@@ -967,7 +1003,7 @@ public class LlmCameraListener extends LlmChatListener
         int hammingDistance = Long.bitCount(hash1 ^ hash2);
         double dissimilarity = hammingDistance / 64.0;
 //        System.err.println("LlmCameraListener - latest image dissimilarity: " + String.valueOf(dissimilarity));
-        return dissimilarity <= threshold;
+        return dissimilarity <= imageDiffThreshold;
     }
 
     private static BufferedImage decode(String base64) throws IOException {
