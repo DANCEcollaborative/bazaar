@@ -1430,6 +1430,87 @@ function eventHubPostTest () {
 // sockets by username
 let user_sockets = {};
 
+// Timestamp (ms since epoch) of the last known activity for each socket,
+// keyed by socket.id. Updated on connect and on every event the socket
+// emits (via socket.onAny below). Used by the stale-socket reaper to
+// decide which sockets have gone quiet and should be cleaned up.
+const socketLastActivity = {};
+
+// How long a socket may sit with no activity at all before the reaper
+// force-disconnects it as abandoned.
+const SOCKET_IDLE_TIMEOUT_MS = 150 * 60 * 1000; // 150 minutes
+
+// How often the reaper sweeps for idle/disconnected sockets.
+const SOCKET_REAP_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+
+// Removes a socket's bookkeeping from usernames / user_perspectives /
+// user_sockets / numUsers. This is the single source of truth for "a user
+// left" cleanup -- both the normal 'disconnect' handler and the reaper
+// below call this so entries can't be left behind by either path.
+function removeSocketFromRoom(socket) {
+	if ((socket.username != "VirtualErland" || socket.username != "BazaarAgent") && socket.room in numUsers) {
+		numUsers[socket.room] = numUsers[socket.room] - 1;
+	}
+	if (socket.room in usernames && socket.username in usernames[socket.room]) {
+		const id = usernames[socket.room][socket.username];
+		const perspective = user_perspectives[socket.room] && user_perspectives[socket.room][socket.username];
+		delete usernames[socket.room][socket.username];
+		io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
+		io.sockets.in(socket.room).emit('updatepresence', socket.username, 'leave', id, perspective);
+		logMessage(socket, "leave", "presence");
+	}
+	if (socket.room in user_sockets && socket.username in user_sockets[socket.room]) {
+		// Only delete if this is still the socket on file for that username --
+		// otherwise a newer reconnect under the same username would have its
+		// live entry blown away by a late cleanup of the old socket.
+		if (user_sockets[socket.room][socket.username] === socket) {
+			delete user_sockets[socket.room][socket.username];
+		}
+	}
+	delete socketLastActivity[socket.id];
+}
+
+// Periodically sweep for sockets that are no longer any use to us and
+// scrub them out of the tracking maps (this is what "lists lots of
+// sockets that are no longer connected" was pointing at -- usernames /
+// user_sockets / user_perspectives entries that outlived their socket).
+//
+//   1) Sockets that have had literally no activity (no event of any kind)
+//      for SOCKET_IDLE_TIMEOUT_MS get force-disconnected. That runs the
+//      normal 'disconnect' handler, which calls removeSocketFromRoom().
+//   2) Belt-and-suspenders: any user_sockets/usernames/user_perspectives
+//      entry whose socket is already gone or !connected (e.g. because
+//      'disconnect' never fired -- process restart, a missed edge case)
+//      gets scrubbed directly, without waiting on a socket event.
+setInterval(function () {
+	const now = Date.now();
+	const allSockets = (typeof io.sockets.sockets.values === 'function')
+		? Array.from(io.sockets.sockets.values())
+		: Object.values(io.sockets.sockets);
+	const liveIds = new Set(allSockets.map(s => s.id));
+
+	for (const s of allSockets) {
+		const last = socketLastActivity[s.id] || now;
+		if (now - last > SOCKET_IDLE_TIMEOUT_MS) {
+			winston.log('info', "Reaper: force-disconnecting idle socket " + s.id
+				+ " (username=" + s.username + ", room=" + s.room + ") -- idle " + (now - last) + "ms");
+			s.disconnect(true);
+		}
+	}
+
+	for (const room in user_sockets) {
+		for (const username in user_sockets[room]) {
+			const s = user_sockets[room][username];
+			if (!s || !s.connected || !liveIds.has(s.id)) {
+				winston.log('info', "Reaper: scrubbing stale entry -- room=" + room + " username=" + username);
+				delete user_sockets[room][username];
+				if (usernames[room]) delete usernames[room][username];
+				if (user_perspectives[room]) delete user_perspectives[room][username];
+			}
+		}
+	}
+}, SOCKET_REAP_INTERVAL_MS);
+
 // debug helper: print every username and socket currently tracked in user_sockets
 function printUserSockets(caller) {
 	console.log("info", "=== user_sockets dump from " + caller + " ===");
@@ -1637,6 +1718,12 @@ io.sockets.on('connection', async (socket) => {
 	if (_connectionCounts[socket.id] > 1) {
 		console.warn(`[DIAG][CONNECT] *** REPEATED CONNECTION for socket.id=${socket.id} — this will stack listeners ***`);
 	}
+
+	// Mark this socket alive now, and keep marking it alive on every event
+	// it emits (chat messages, adduser, etc). The reaper above uses this
+	// timestamp to decide when a socket has gone quiet for too long.
+	socketLastActivity[socket.id] = Date.now();
+	socket.onAny(() => { socketLastActivity[socket.id] = Date.now(); });
 
 		// console.log("socket.handshake.auth.token = " + socket.handshake.auth.token);
 		// console.log("socket.handshake.auth.clientID = " + socket.handshake.auth.clientID);
@@ -1998,39 +2085,20 @@ io.sockets.on('connection', async (socket) => {
 
 
 	// TEMPORARILY DISTINGUISHING BY EXISTENCE OF AUTH TOKEN
+	// NOTE: this used to *skip* the usernames/user_sockets/numUsers cleanup
+	// entirely for token-bearing (server/agent) connections, which is why
+	// stale entries for those sockets kept piling up forever. Cleanup now
+	// always runs via removeSocketFromRoom(); the token branch just adds
+	// its extra socket.leave(token) on top.
  	if ( typeof socket.handshake.auth.token !== 'undefined' && socket.handshake.auth.token ) {
 	//console.log("token is NOT 'undefined'; issuing -leave- with token");
 		socket.leave(socket.handshake.auth.token);
 	}
-		
-	else {
 
+	removeSocketFromRoom(socket);
 
-    if ((socket.username != "VirtualErland" || socket.username != "BazaarAgent") && socket.room in numUsers) {
-      numUsers[socket.room] = numUsers[socket.room] - 1;
-    }
-    if (socket.room in usernames && socket.username in usernames[socket.room]) {
-      // remove the username from global usernames list
-      const id = usernames[socket.room][socket.username];
-      const perspective = user_perspectives[socket.room][socket.username];
-      delete usernames[socket.room][socket.username];
-      if (usernames[socket.room]) {
-        // update list of users in chat, client-side
-        io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
-        // echo globally that this client has left
-
-        io.sockets.in(socket.room).emit('updatepresence', socket.username, 'leave', id, perspective);
-        logMessage(socket, "leave", "presence");
-      }
-    }
-
-    if (socket.room in user_sockets && socket.username in user_sockets[socket.room]) {
-      delete user_sockets[socket.room][socket.username];
-    }
-
-    if (socket.room)
-      socket.leave(socket.room);
-}
+	if (socket.room)
+		socket.leave(socket.room);
 
   });
 });
