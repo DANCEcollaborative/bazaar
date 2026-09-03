@@ -437,6 +437,25 @@ function decodeAndFixString(str) {
 }
 
 
+// Parses the "multimodal:::true;%;key:::value;%;..." wire format proxy.py
+// builds (new_chat_message / new_present_message) into a plain object, e.g.
+// "multimodal:::true;%;from:::Chas Murray;%;speech:::hi" ->
+// {multimodal: "true", from: "Chas Murray", speech: "hi"}.
+// Returns {} for data that isn't in this format (e.g. plain-text chat sent
+// directly by a browser client's own socket) so callers can safely fall
+// back to that socket's own identity.
+function parseMultimodalFields(data) {
+	const fields = {};
+	String(data).split(';%;').forEach(function (kv) {
+		const sepIdx = kv.indexOf(':::');
+		if (sepIdx > -1) {
+			fields[kv.slice(0, sepIdx)] = kv.slice(sepIdx + 3);
+		}
+	});
+	return fields;
+}
+
+
 function createWorker() {
   return new Worker('./agentup.js');
 }
@@ -599,6 +618,55 @@ function addUser(socket, room, username, temporary, id, perspective) {
 	loadHistory(socket, false);			// ??? Why is history loaded?
 	io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
 	//socket.emit('updaterooms', [room,], room);
+}
+
+
+// Registers a participant who is being multiplexed over an already-open
+// shared socket, instead of getting their own socket.io connection.
+//
+// Background: proxy.py opens exactly ONE Bazaar socket per session/room
+// (the "ClientServer" connection), established using whichever participant
+// happens to trigger it first -- see BazaarConnector.connect() in proxy.py.
+// That first participant's identity is registered normally, via the
+// isServerConnection branch in the 'connection' handler below, which calls
+// addUser(). Every later participant added to the same ACS thread does NOT
+// get a new socket -- proxy.py just emits 'updatepresence' on the existing
+// one (see handle_chat_participant_added in proxy.py). This function does
+// the same room-scoped bookkeeping addUser() does for that later
+// participant, WITHOUT touching the shared socket's own
+// socket.username/socket.room/socket.Id -- those must stay put, since
+// logMessage(), the 'sendchat' handler, and disconnect cleanup all key off
+// of them for this one shared socket.
+function registerPresenceUser(socket, room, username, id, perspective) {
+	console.log("info", "registerPresenceUser -- room: " + room + "  -- username: " + username + "  -- id: " + id);
+
+	if (username != "VirtualErland" || username != "BazaarAgent") {
+		if (room in numUsers) {
+			numUsers[room] = numUsers[room] + 1;
+		} else {
+			numUsers[room] = 1;
+		}
+	}
+
+	if (isBlank(room))
+		room = "Limbo";
+
+	if (!usernames[room])
+		usernames[room] = {};
+	usernames[room][username] = id;
+
+	if (!user_perspectives[room])
+		user_perspectives[room] = {};
+	user_perspectives[room][username] = perspective;
+
+	if (!user_sockets[room])
+		user_sockets[room] = {};
+	user_sockets[room][username] = socket;
+
+	printUserSockets("registerPresenceUser");
+
+	io.sockets.in(room).emit('updateusers', usernames[room], user_perspectives[room], "update");
+	io.sockets.in(room).emit('updatepresence', username, 'join', id, perspective);
 }
 
 
@@ -1660,37 +1728,48 @@ function loadHistory(socket, secret)
 //console.log("Exit loadHistory");
 }
 
-function logMessage(socket, content, type) {   
+// senderOverride/senderIdOverride let a caller attribute a logged message to
+// someone other than socket.username/socket.Id -- needed for the shared
+// "ClientServer" socket (see registerPresenceUser's comment above), which
+// relays chat from whichever ACS participant actually sent it, not just
+// whoever's identity happens to be cached on that one socket. Every
+// pre-existing call site omits these two args, so they default to the old
+// socket.username/socket.Id behavior and nothing else changes.
+function logMessage(socket, content, type, senderOverride, senderIdOverride) {
 	//console.log("logMessage, socket.room = " + socket.room);
 
     if(socket.temporary) return;
 
+    const sender = senderOverride || socket.username;
+    const senderId = (senderIdOverride !== undefined && senderIdOverride !== null && senderIdOverride !== '')
+        ? senderIdOverride : socket.Id;
+
     //const connection = mysql.createConnection(mysql_auth);
-       
+
   	pool.query('update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields) {
          if (err) {
          //console.log("Error on update nodechat.room set modified=now() where room.name=' + pool.escape(socket.room) + ';', function (err, rows, fields)")
           //console.log(err);
         	}
     });
-    
+
     endpoint = "unknown"
     if(socket.handshake)
 		endpoint = socket.handshake.address;
-		
+
 //console.log("logMessage, pool.escape(socket.room) = " + pool.escape(socket.room));
-//console.log("logMessage, pool.escape(socket.username) = " + pool.escape(socket.username));
+//console.log("logMessage, pool.escape(sender) = " + pool.escape(sender));
 //console.log("logMessage, pool.escape(endpoint.address) = " + pool.escape(endpoint.address));
 //console.log("logMessage, pool.escape(endpoint.port) = " + pool.escape(endpoint.port));
-//console.log("logMessage, pool.escape(socket.Id) = " + pool.escape(socket.Id));
+//console.log("logMessage, pool.escape(senderId) = " + pool.escape(senderId));
 //console.log("logMessage, pool.escape(socket.id) = " + pool.escape(socket.id));
 //console.log("logMessage, pool.escape(content) = " + pool.escape(content));
 //console.log("logMessage, pool.escape(type) = " + pool.escape(type));
-	
-    query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)' 
+
+    query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)'
     		+ 'values ((select id from nodechat.room where name=' + pool.escape(socket.room) + '), '
-    		+ '' + pool.escape(socket.username) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(socket.Id) + ', ' + pool.escape(content) + ', ' 
-    		+ pool.escape(type) + ', now());';                   
+    		+ '' + pool.escape(sender) + ', ' + pool.escape(endpoint.address + ':' + endpoint.port) + ', ' + pool.escape(senderId) + ', ' + pool.escape(content) + ', '
+    		+ pool.escape(type) + ', now());';
 
 	//console.log("logMessage: starting pool.query to mysql2");  
  	 pool.query(query, function (err, rows, fields) {
@@ -1810,48 +1889,72 @@ io.sockets.on('connection', async (socket) => {
 
 
 	// when the client emits 'sendchat', this listens and executes
+	//
+	// FIX: `data` may be the multimodal-encoded chat string proxy.py builds
+	// in new_chat_message() -- "multimodal:::true;%;from:::<name>;%;speech:::<msg>"
+	// -- when it's relaying a chat message an ACS participant typed, over
+	// the one shared "ClientServer" socket for the room (see
+	// registerPresenceUser's comment above for why that socket is shared).
+	// This used to broadcast and log every such message under
+	// socket.username -- whichever identity happened to be cached on that
+	// shared socket -- so a message from anyone but that one cached
+	// identity showed up attributed to the wrong sender. Now the actual
+	// sender is pulled out of `data`'s `from` field when present, and only
+	// falls back to socket.username for plain (non-multimodal) chat text,
+	// e.g. a browser client sending its own message on its own socket.
 	socket.on('sendchat', async (data)  => {
 		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		console.log("info","socket.on_sendchat: -- room: " + socket.room + "  -- username: " + socket.username + "  -- text: " + data);
-		
-		if (!socket.username) 
+
+		if (!socket.username)
 			{ socket.username = "OPEBot" }
-		
-		logMessage(socket, data, "text");
-                console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+
+		const chatFields = parseMultimodalFields(data);
+		const sender = chatFields.from || socket.username;
+		const senderId = (socket.room in usernames && sender in usernames[socket.room])
+			? usernames[socket.room][sender] : undefined;
+
+		logMessage(socket, data, "text", sender, senderId);
+                console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " sender = " + sender);
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
-// 		else if (socket.username == "MLAgent") 
-		if (socket.username == "MLAgent") 
-			io.sockets.in(socket.room).emit('interjection', { message: data }); 
+// 		else if (socket.username == "MLAgent")
+		if (sender == "MLAgent")
+			io.sockets.in(socket.room).emit('interjection', { message: data });
 		else {
-			io.sockets.in(socket.room).emit('updatechat', socket.username, data);	
-			}		
+			io.sockets.in(socket.room).emit('updatechat', sender, data);
+			}
 	});
 
 
 // ================================= VERSION WITH ROOM EXPLICITLY SPECIFIED =================================
 	// when the client emits 'sendchatwithroom', this listens and executes
+	// FIX: same sender-attribution fix as 'sendchat' above.
 	socket.on('sendchatwithroom', async (room, data)  => {
 		//console.log("socket.on('sendchat'): socket.room = " + socket.room);
 		// we tell the client to execute 'updatechat' with 2 parameters
 		console.log("info","socket.on_sendchatwithroom: -- room: " + room + "  -- username: " + socket.username + "  -- text: " + data);
-		
-		if (!socket.username) 
+
+		if (!socket.username)
 			{ socket.username = "OPEBot" }
-		
-		logMessage(socket, data, "text");
-                console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
+
+		const chatFields = parseMultimodalFields(data);
+		const sender = chatFields.from || socket.username;
+		const senderId = (room in usernames && sender in usernames[room])
+			? usernames[room][sender] : undefined;
+
+		logMessage(socket, data, "text", sender, senderId);
+                console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " sender = " + sender);
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
-// 		else if (socket.username == "MLAgent") 
-		if (socket.username == "MLAgent") 
-			io.sockets.in(room).emit('interjection', { message: data }); 
-		else	
-			io.sockets.in(room).emit('updatechat', socket.username, data);			
+// 		else if (socket.username == "MLAgent")
+		if (sender == "MLAgent")
+			io.sockets.in(room).emit('interjection', { message: data });
+		else
+			io.sockets.in(room).emit('updatechat', sender, data);
 	});
 
 
@@ -1920,10 +2023,39 @@ io.sockets.on('connection', async (socket) => {
 
 
 	// when the client emits 'updatepresence', this listens and executes
+	//
+	// `data` is the multimodal-encoded presence string proxy.py builds in
+	// new_present_message(): "multimodal:::true;%;from:::<name>;%;userID:::<id>;%;presence:::join"
+	//
+	// FIX: this used to blindly rebroadcast socket.username -- the identity
+	// of whichever participant's join first established this shared
+	// "ClientServer" socket (proxy.py opens ONE Bazaar socket per room, not
+	// per participant) -- along with the raw `data` blob as an opaque
+	// second argument that nothing here ever parsed. Every later
+	// participant sharing that same socket was therefore never registered
+	// in usernames[room]/user_sockets[room], so they never showed up as
+	// present, even though their 'updatepresence' event clearly arrived
+	// (visible in the proxy pod's logs). This parses the actual joining
+	// participant out of `data` and registers them via
+	// registerPresenceUser() instead of trusting socket.username.
 	socket.on('updatepresence', async (data)  => {
 		logMessage(socket, data, "updatepresence");
-        console.log("socket.on('updatepresence'): socket.clientID = " + socket.clientID + " socket.username = " + socket.username);
-        io.sockets.in(socket.room).emit('updatepresence', socket.username, data);		
+
+		const presenceFields = parseMultimodalFields(data);
+		const presenceUsername = presenceFields.from || socket.username;
+		const presenceUserID = presenceFields.userID;
+		const presenceAction = presenceFields.presence || 'join';
+
+		console.log("socket.on('updatepresence'): socket.clientID = " + socket.clientID +
+			" presenceUsername = " + presenceUsername + " presenceUserID = " + presenceUserID +
+			" presenceAction = " + presenceAction);
+
+		if (presenceAction === 'join' &&
+			!(socket.room in usernames && presenceUsername in usernames[socket.room])) {
+			registerPresenceUser(socket, socket.room, presenceUsername, presenceUserID, null);
+		} else {
+			io.sockets.in(socket.room).emit('updatepresence', presenceUsername, presenceAction, presenceUserID, null);
+		}
 	});
 
 
