@@ -738,6 +738,24 @@ ul.tab li a:focus, .active {
 	// listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('updatechat', function (username, data)
 	{
+		// LlmCameraListener.sendTabShareUserUpdate broadcasts this tag (in
+		// addition to sending it as a targeted private message, which is
+		// what update_private_chat's own tabUserUpdate handling covers) as
+		// a backstop that reaches every socket in the room, not just
+		// whichever one happens to be registered as "tab_group" at that
+		// instant. Intercept it here the same way update_private_chat does,
+		// and relabel the matching tab instead of appending it as a chat
+		// line -- otherwise this broadcast is silently useless (it doesn't
+		// match the "multimodal:::true;%;" check below, since its own tag
+		// is "tabUserUpdate", so it would previously fall through and get
+		// displayed as a raw, garbled chat line).
+		if (data.search("tabUserUpdate:::true;%;") > -1) {
+			var updateUserNum = getMultimodalValue("userNum", data);
+			var updateUserName = getMultimodalValue("userName", data);
+			console.log("updatechat -- found tabUserUpdate -- userNum=" + updateUserNum + "  -- userName=" + updateUserName);
+			setPrivateTabUserName(updateUserNum, updateUserName);
+			return;
+		}
 		if (data.search("multimodal:::true;%;") > -1) {
 // 			console.log("updatechat - multimodal message found");
 			username = getMultimodalValue("from",data);
