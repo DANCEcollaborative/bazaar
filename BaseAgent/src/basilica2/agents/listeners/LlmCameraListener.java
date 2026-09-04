@@ -545,7 +545,7 @@ public class LlmCameraListener extends LlmChatListener
 			Map<String, Integer> assignedUserNums = snapshotUserNums();
 			for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
 				System.err.println("handlePresenceEvent - calling sendTabShareUserUpdate: user#=" + entry.getValue().intValue() + " -- name=" + entry.getKey());
-				sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey());
+				sendTabShareUserUpdate(source, entry.getValue().intValue(), entry.getKey(),0.9,60);
 			}
 			return;
 		}
@@ -602,7 +602,7 @@ public class LlmCameraListener extends LlmChatListener
 			System.err.println("handlePresenceEvent, shouldSendWelcome - message: " + redirectMessage); 
 //			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,redirectMessage);
 			MessageEvent newPMe1 = new MessageEvent(source, this.myName, redirectMessage);
-			source.pushEventProposal(newPMe1);
+			source.pushEventProposal(newPMe1,1.0,120);
 			
 			String cameraMessage = "With your smartphone, open URL \n" + cameraUrl + "\nIn the smartphone web page, enter:\nSession ID: " + sessionIdLast3;
 			cameraMessage = cameraMessage + "\n\nImportant: Each person must enter their unique User ID: "; 	
@@ -613,7 +613,7 @@ public class LlmCameraListener extends LlmChatListener
 //			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
 			System.err.println("handlePresenceEvent, PresenceEvent.PRESENT - cameraMessage: " + cameraMessage); 
 			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
-			source.addEventProposal(newPMe2);
+			source.pushEventProposal(newPMe2,1.0,120);
 		}
 	}
 
@@ -821,7 +821,7 @@ public class LlmCameraListener extends LlmChatListener
 			for (Map.Entry<String, Integer> entry : assignedUserNums.entrySet()) {
 				log(Logger.LOG_NORMAL, "LlmCameraListener.resyncTabShareUserUpdates - calling sendTabShareUserUpdate for userNum: " +
 						entry.getValue().intValue() + " and name: " + entry.getKey());
-				sendTabShareUserUpdate(currentSource, entry.getValue().intValue(), entry.getKey());
+				sendTabShareUserUpdate(currentSource, entry.getValue().intValue(), entry.getKey(),0.25,60);
 			}
 		} catch (Exception ex) {
 			// Never let an uncaught exception here kill future scheduled
@@ -863,7 +863,7 @@ public class LlmCameraListener extends LlmChatListener
 	 * this for every known mapping on an unconditional periodic schedule so
 	 * a dropped update is retried without needing to know it was dropped.
 	 */
-	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName) {
+	public void sendTabShareUserUpdate(InputCoordinator source, int userNum, String userName, double priority, double timeout) {
 		String taggedMessage =
 			MultiModalFilter.multiModalDelim
 			+ "tabUserUpdate" + MultiModalFilter.withinModeDelim + "true"
@@ -874,13 +874,13 @@ public class LlmCameraListener extends LlmChatListener
 		System.err.println("sendTabShareUserUpdate - sending message: " + taggedMessage);
 
 		PrivateMessageEvent tabUpdatePme = new PrivateMessageEvent(source, tabShareUsername, this.myName, taggedMessage);
-		source.pushEventProposal(tabUpdatePme);
+		source.pushEventProposal(tabUpdatePme,priority,timeout);
 
 		// Broadcast too, so every socket sharing the tabShareUsername
 		// identity gets this update, not just whichever one the server
 		// currently has on file as "the" tabShareUsername socket.
 		MessageEvent tabUpdateMe = new MessageEvent(source, this.myName, taggedMessage);
-		source.pushEventProposal(tabUpdateMe);
+		source.pushEventProposal(tabUpdateMe,priority,timeout);
 	}
 
 	/**
@@ -1040,7 +1040,9 @@ public class LlmCameraListener extends LlmChatListener
 		String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
         System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
 	    String response = sendToOpenAI(source, jsonPayload, false);
-        System.err.println("LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response);
+        System.err.println("\\n\\n\\n*** LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response + " ***\n\n\n");
+        Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "\n\n\n*** LlmCameraListener, openAIrequestAndResponse -- OpenAI response: " + response +
+        		" ***\n\n\n"); 	
         if (!"No response".equals(response)) {
         	
 			if ((!sender.startsWith(privateUsernamePrefix)) && (!sender.startsWith(cameraUsernamePrefix))) {
@@ -1240,7 +1242,12 @@ public class LlmCameraListener extends LlmChatListener
 		            errorReader.close();
 		            // Log or print the error response
 		            System.err.println("Error response: " + response.toString());
-		            return "";
+		            // Use the same "No response" sentinel openAIrequestAndResponse()
+		            // checks for, not "" -- "" != "No response", so returning ""
+		            // here used to slip past that method's
+		            // `if (!"No response".equals(response))` guard and get sent
+		            // out as a genuinely empty chat message.
+		            return "No response";
 		        }
 	        } finally {
                 conn.disconnect(); // Ensure the connection is closed
@@ -1248,8 +1255,11 @@ public class LlmCameraListener extends LlmChatListener
        
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return "";
-	    }	    
+	        // Same reasoning as the error-response branch above: signal
+	        // failure with the sentinel openAIrequestAndResponse() actually
+	        // checks for, not "".
+	        return "No response";
+	    }
 	}
 	
 	
