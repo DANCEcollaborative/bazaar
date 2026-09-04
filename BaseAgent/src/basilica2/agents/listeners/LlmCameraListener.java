@@ -87,11 +87,11 @@ public class LlmCameraListener extends LlmChatListener
     private Instant start = Instant.now();
     private Instant finish;
     private volatile double imageDiffThreshold = 0.05;
-    private int userPollRate = 10;
+    private int userPollRate = 60;
     // How many seconds after startup the periodic resyncTabShareUserUpdates()
     // polling (see tabShareUserNumWatcher below) is allowed to keep running
     // before it stops itself. Measured against userPollWatcherStart.
-    private int userPollTimeout = 660;
+    private int userPollTimeout = 7800;
     // Timestamp the resyncTabShareUserUpdates() polling is timed against;
     // captured here (at field-initialization time, i.e. object construction)
     // rather than inside the constructor body so it reflects when this
@@ -253,8 +253,8 @@ public class LlmCameraListener extends LlmChatListener
 			htmlPageGroup = llm_prop.getProperty("html-page-group",htmlPageGroup);
 			tabShareUsername = llm_prop.getProperty("tab-share-username",tabShareUsername);
 			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
-			userPollRate = Integer.parseInt(llm_prop.getProperty("user-poll-rate","10"));
-			userPollTimeout = Integer.parseInt(llm_prop.getProperty("user-poll-timeout","660"));
+			userPollRate = Integer.parseInt(llm_prop.getProperty("user-poll-rate","60"));
+			userPollTimeout = Integer.parseInt(llm_prop.getProperty("user-poll-timeout","7800"));
 			
 			imageDiffThreshold = Double.parseDouble(llm_prop.getProperty("image-diff-threshold", "0.05"));
 			privateMessaging = Boolean.parseBoolean(properties.getProperty("private-messaging", privateMessaging.toString()));
@@ -576,7 +576,7 @@ public class LlmCameraListener extends LlmChatListener
 			// record here any more -- resending lookup.userNum again a few
 			// seconds from now is harmless.
 			System.err.println("handlePresenceEvent, isNewlyAssigned - callingsendTabShareUserUpdate for lookup.userNum=" + lookup.userNum + "  -- user name=" + userName);
-			sendTabShareUserUpdate(source, lookup.userNum, userName);
+			sendTabShareUserUpdate(source, lookup.userNum, userName,0.9,60);
 		}
 
 		if (lookup.shouldSendWelcome) {
@@ -599,7 +599,7 @@ public class LlmCameraListener extends LlmChatListener
 //			}
 			String redirectMessage = "Welcome, " + userName + "! " + "Everyone should open the following URL in a separate tab or window:\n\n " + url + "\n\n";
 
-			System.err.println("handlePresenceEvent, shouldSendWelcome - message: " + redirectMessage); 
+			System.err.println("handlePresenceEvent, shouldSendWelcome - sending message: " + redirectMessage); 
 //			PrivateMessageEvent newPMe = new PrivateMessageEvent(source,userName,this.myName,redirectMessage);
 			MessageEvent newPMe1 = new MessageEvent(source, this.myName, redirectMessage);
 			source.pushEventProposal(newPMe1,1.0,120);
@@ -611,7 +611,7 @@ public class LlmCameraListener extends LlmChatListener
 				cameraMessage = cameraMessage + "\n" + entry.getKey() + ": " + entry.getValue().intValue();
 			}
 //			String cameraMessage = userName + ", with your camera open URL\n" + cameraUrl + "\n\nand enter\nSession ID: " + sessionIdLast3 + "\nUser ID: " + userNum; 
-			System.err.println("handlePresenceEvent, PresenceEvent.PRESENT - cameraMessage: " + cameraMessage); 
+			System.err.println("handlePresenceEvent, PresenceEvent.PRESENT - sending cameraMessage: " + cameraMessage); 
 			MessageEvent newPMe2 = new MessageEvent(source, this.myName, cameraMessage);
 			source.pushEventProposal(newPMe2,1.0,120);
 		}
@@ -1038,7 +1038,8 @@ public class LlmCameraListener extends LlmChatListener
 	
 	public void openAIrequestAndResponse(InputCoordinator source, String prompt, Boolean fromSystem, String sender)  {
 		String jsonPayload = constructPayloadMultiParty(source, prompt, sender);
-        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
+//        System.err.println("LlmCameraListener openAIrequestAndResponse -- sending to LLM");
+        System.err.println("LlmCameraListener openAIrequestAndResponse - sending to LLM -- jsonPayload: " + jsonPayload);
 	    String response = sendToOpenAI(source, jsonPayload, false);
         System.err.println("\\n\\n\\n*** LlmCameraListener openAIrequestAndResponse -- OpenAI response: " + response + " ***\n\n\n");
         Logger.commonLog("LlmCameraListener", Logger.LOG_NORMAL, "\n\n\n*** LlmCameraListener, openAIrequestAndResponse -- OpenAI response: " + response +
