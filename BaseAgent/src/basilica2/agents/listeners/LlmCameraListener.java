@@ -273,7 +273,9 @@ public class LlmCameraListener extends LlmChatListener
 			}
 			
 		}
-		catch (Exception e){}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 
 		// Start the periodic (every userPollRate seconds) full resync of
 		// every assigned userNum -> userName mapping to tab-share-chat.html.
