@@ -7,6 +7,7 @@ import javax.net.ssl.SSLContext;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.Map;
@@ -32,6 +33,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileReader;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +65,7 @@ public class LlmCameraListener extends LlmChatListener
 	public String delimiter;
 	public String start_flag;
 	private String apiKey;
+    private List<String> apiKeys;
 	private String requestURL;
 	private String model;
 	private String modelName;
@@ -223,9 +227,7 @@ public class LlmCameraListener extends LlmChatListener
 
 	public LlmCameraListener(Agent a)
 	{
-		super(a);
-//		Properties api_key_prop = PropertiesLoader.loadProperties("apiKey.properties");
-		
+		super(a);		
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
 			
@@ -253,7 +255,7 @@ public class LlmCameraListener extends LlmChatListener
 			model = llm_prop.getProperty("model");
 //			System.err.println(myName + " model: "+model);
 			requestURL = llm_prop.getProperty(model+".request.url");
-			apiKey = llm_prop.getProperty(model+".api.key");
+//			apiKey = llm_prop.getProperty(model+".api.key");
 			context = llm_prop.getProperty(model+".prompt.context");
 			contextFlag = Boolean.parseBoolean(llm_prop.getProperty(model+".context.flag"));
 			temperature = Double.valueOf(llm_prop.getProperty(model+".temperature"));
@@ -276,15 +278,28 @@ public class LlmCameraListener extends LlmChatListener
 			}
 			if (model.equals("openai")) {
 				
-				modelName = llm_prop.getProperty(model+".model.name");
-				
-				
-				
+				modelName = llm_prop.getProperty(model+".model.name");				
 			} else if (model.equals("llama2")) {
 //				requestURL = requestURL + "/v1/";
 //				System.err.println("URLLLLL: "+requestURL);
 			}
-			
+			apiKeys = new ArrayList<>();
+	        try (BufferedReader reader = new BufferedReader(new FileReader("properties"+File.separator+"apiKeys.properties"))) {
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	            	apiKeys.add(line);
+	            }
+	            String agentName = agent.getName();
+				String agentNamePrefix = this.myName + "_";
+				String sessionId = agentName.substring(agentNamePrefix.length());
+				String sessionIdLast3 = sessionId.substring(Math.max(0, sessionId.length() - 3));
+				Integer sessionNum = Integer.valueOf(sessionIdLast3); 
+	            apiKey = apiKeys.get(sessionNum % apiKeys.size());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+//	        apiKeys.forEach(System.out::println); 
+//	        System.out.println("\n*** LlmCameraListener constructor, apiKey="+apiKey + " ***\n"); 			
 		}
 		catch (Exception e){
 			e.printStackTrace();
