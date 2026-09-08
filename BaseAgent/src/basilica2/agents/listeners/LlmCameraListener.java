@@ -69,7 +69,7 @@ public class LlmCameraListener extends LlmChatListener
 	private double temperature;
     private boolean contextFlag;
     private int contextLen;
-    public String myName;
+    public String myName = "OPEBot";
     private String cameraUsernamePrefix = "Camera_";
     private String privateUsernamePrefix = "Private_";
     private Boolean privateMessaging = true; 
@@ -229,7 +229,20 @@ public class LlmCameraListener extends LlmChatListener
 		Properties llm_prop = PropertiesLoader.loadProperties(this.getClass().getSimpleName() + ".properties");
 		try {
 			
-			myName = llm_prop.getProperty("name");
+			myName = llm_prop.getProperty("name",myName);
+			if (myName == null || myName.trim().isEmpty()) {
+				String agentName = a.getName();
+				String fallbackName = agentName;
+				int lastUnderscore = (agentName != null) ? agentName.lastIndexOf('_') : -1;
+				if (lastUnderscore > 0) {
+					fallbackName = agentName.substring(0, lastUnderscore);
+				}
+				System.err.println("LlmCameraListener CONFIGURATION ERROR: 'name' property is missing/blank in "
+						+ this.getClass().getSimpleName() + ".properties. Falling back to derived name '"
+						+ fallbackName + "' from agent name '" + agentName
+						+ "'. Fix the properties file -- outgoing messages were about to be sent with a null sender.");
+				myName = fallbackName;
+			}
 			String[] topicList = properties.getProperty("topics", "").split("[\\s,]+");
 			int topicIndex = 0;
 	        for (String topic : topicList) {

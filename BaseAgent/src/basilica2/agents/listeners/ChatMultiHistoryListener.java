@@ -159,15 +159,18 @@ public class ChatMultiHistoryListener extends BasilicaAdapter
 	
 	public void handleMessageEvent(InputCoordinator source, MessageEvent me) throws JSONException {
 		String sender = me.getFrom();
-		String receiver; 
-		if (sender.startsWith(privateUsernamePrefix)) {
+		String receiver;
+		if (sender != null && sender.startsWith(privateUsernamePrefix)) {
 			receiver = agent.getName();
 		} else {
 			receiver = "group";
+			if (sender == null) {
+				System.err.println("ChatMultiHistoryListener handleMessageEvent -- WARNING: MessageEvent arrived with a null sender (from=null); logging under 'group' instead of crashing. content=" + me.getText());
+			}
 		}
 		String content = me.getText();
 		saveMessageToHistory(sender, receiver, content);
-//	    System.out.println("ChatMultiHistoryListener handleMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + me.getText()); 
+//	    System.out.println("ChatMultiHistoryListener handleMessageEvent -- sender=" + sender + "  -- receiver=" + receiver + "  --  message: " + me.getText());
 	}
 	
 	

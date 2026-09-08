@@ -260,11 +260,27 @@ public class OutputCoordinator extends Component implements TimeoutReceiver
 					lastStepName = best.getMicroStepName();
 // 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
 // 					System.err.println("OutputCoordinator.timedout - new lastStepName = best microStepName: " + lastStepName);
-					
-					best.getCallback().accepted(best);
-					publishEvent(best.getEvent());
+
+					// IMPORTANT: this call MUST NOT be allowed to throw past this point.
+					// timedOut() runs on the Timer's own background thread (see
+					// basilica2.util.Timer.run -> OutputCoordinator.timedOut), and the
+					// *next* Timer isn't scheduled until the very end of this method
+					// (see "new Timer(delay, ...).start()" below). If accepted()/
+					// publishEvent() throws (e.g. a downstream listener chokes on a
+					// malformed proposal.
+					try
+					{
+						best.getCallback().accepted(best);
+						publishEvent(best.getEvent());
+					}
+					catch (Throwable t)
+					{
+						log(Logger.LOG_WARNING, "OutputCoordinator.timedOut - publishing proposal failed; dropping this proposal and continuing: " + best + "  error: " + t);
+						System.err.println("OutputCoordinator.timedOut - publishing proposal failed; dropping this proposal and continuing: " + best);
+						t.printStackTrace();
+					}
 // 					log(Logger.LOG_NORMAL, "OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent());
-// 					System.err.println("OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent()); 
+// 					System.err.println("OutputCoordinator.timedout - removing proposal best after publishing it: " + best.toString() + "  event: " + best.getEvent());
 					proposalQueue.remove(best);
 
 					AbstractPrioritySource source = best.getSource();
