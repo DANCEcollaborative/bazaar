@@ -928,6 +928,13 @@ ul.tab li a:focus, .active {
         socket.emit('ready', is_ready?'ready':'unready'); //'ready' or 'unready'
     }
 
+    // Sender label used when tagging Group Chat messages in multimodal
+    // format below -- distinct from `user` (this page's own parsed
+    // identity), since every Group Chat message is attributed to the
+    // shared "Group Chat" window rather than to whichever individual sent
+    // it from here.
+    var GROUP_CHAT_SENDER_LABEL = 'Group Chat';
+
     function sendMessage()
     {
             var message = $('#data').val();
@@ -940,7 +947,13 @@ ul.tab li a:focus, .active {
 
 			if(message && message.length > 0)
 			{
-    			socket.emit('sendchat', message);
+				// Send in the same multimodal envelope format used elsewhere
+				// (camera frames, OAIS relay, private/tab chat) --
+				// "multimodal:::true;%;from:::<name>;%;speech:::<text>" --
+				// rather than plain text, since some listeners (e.g. the
+				// ClientServer connection) expect messages tagged this way.
+				var payload = 'multimodal:::true;%;from:::' + GROUP_CHAT_SENDER_LABEL + ';%;speech:::' + message;
+    			socket.emit('sendchat', payload);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
     }
@@ -1111,7 +1124,7 @@ ul.tab li a:focus, .active {
     <div id="col_resizer" title="Drag to resize; double-click to reset"></div>
 
     <div id="conversation_column">
-        <h2 id="conversation_header" class="header">Group Discussion</h2>
+        <h2 id="conversation_header" class="header">Group Chat</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>

@@ -791,7 +791,13 @@ ul.tab li a:focus, .active {
 
 			if(message && message.length > 0)
 			{
-    			socket.emit('sendpm', message);
+				// Send in the same multimodal envelope format used elsewhere
+				// (camera frames, OAIS relay, tab-share-chat's Group Chat) --
+				// "multimodal:::true;%;from:::<name>;%;speech:::<text>" --
+				// rather than plain text, since some listeners (e.g. the
+				// ClientServer connection) expect messages tagged this way.
+				var payload = 'multimodal:::true;%;from:::' + user + ';%;speech:::' + message;
+    			socket.emit('sendpm', payload);
     			appendMessage(new Date(), user+" (Private Message)", message);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
@@ -927,7 +933,7 @@ ul.tab li a:focus, .active {
 
 <div id="everything">
     <div id="conversation_column">
-        <h2 id="conversation_header" class="header">Individual Discussion</h2>
+        <h2 id="conversation_header" class="header">Individual Chat</h2>
         <div id="conversation_container" class="container">
             <div id="conversation" class="scrollable"></div>
         </div>
