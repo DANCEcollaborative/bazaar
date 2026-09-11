@@ -952,7 +952,9 @@ ul.tab li a:focus, .active {
 				// "multimodal:::true;%;from:::<name>;%;speech:::<text>" --
 				// rather than plain text, since some listeners (e.g. the
 				// ClientServer connection) expect messages tagged this way.
-				var payload = 'multimodal:::true;%;from:::' + GROUP_CHAT_SENDER_LABEL + ';%;to:::group;%;speech:::' + message;
+				// TEMP BACKED off 'from:Group chat' while it is still interpreted as another user
+				// var payload = 'multimodal:::true;%;from:::' + GROUP_CHAT_SENDER_LABEL + ';%;to:::group;%;speech:::' + message;
+				var payload = 'multimodal:::true;%;to:::group;%;speech:::' + message;
     			socket.emit('sendchat', payload);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
