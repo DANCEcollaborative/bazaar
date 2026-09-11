@@ -85,6 +85,7 @@ public class LlmCameraListener extends LlmChatListener
     // id/user URL path segments, e.g. ".../group/group/..."), so we know who
     // to send tab-relabeling updates to. See sendTabShareUserUpdate.
     private String tabShareUsername = "tab_group";
+    private String groupChatUsername = "Group Chat";
     private String cameraUrl = "https://tinyurl.com/bazaarcam1";
     private int shrinkImagePercent = 50; 
     public  List<String> topics;
@@ -267,6 +268,7 @@ public class LlmCameraListener extends LlmChatListener
 			htmlPagePrivate = llm_prop.getProperty("html-page-private",htmlPagePrivate);
 			htmlPageGroup = llm_prop.getProperty("html-page-group",htmlPageGroup);
 			tabShareUsername = llm_prop.getProperty("tab-share-username",tabShareUsername);
+			groupChatUsername = llm_prop.getProperty("group-chat-username",groupChatUsername);
 			shrinkImagePercent = Integer.parseInt(llm_prop.getProperty("shrink-image-percent","50"));
 			userPollRate = Integer.parseInt(llm_prop.getProperty("user-poll-rate","60"));
 			userPollTimeout = Integer.parseInt(llm_prop.getProperty("user-poll-timeout","7800"));
@@ -656,7 +658,9 @@ public class LlmCameraListener extends LlmChatListener
 	 * drift apart on which userNames count as "real" tracked users.
 	 */
 	private boolean isIgnoredUserName(String userName) {
-		return (userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || (userName.startsWith(cameraUsernamePrefix)) || (userName.equals(tabShareUsername));
+		return (userName.equals(this.myName)) || (userName.startsWith(privateUsernamePrefix)) || 
+				(userName.startsWith(cameraUsernamePrefix)) || (userName.equals(tabShareUsername)) || 
+				(userName.equals(groupChatUsername));
 	}
 
 	/**
