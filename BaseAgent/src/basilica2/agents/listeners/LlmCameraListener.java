@@ -86,7 +86,7 @@ public class LlmCameraListener extends LlmChatListener
     // to send tab-relabeling updates to. See sendTabShareUserUpdate.
     private String tabShareUsername = "tab_group";
     private String groupChatUsername = "Group Chat";
-    private String cameraUrl = "https://tinyurl.com/bazaarcam1";
+    private String cameraUrl = "https://tinyurl.com/bazzycam";
     private int shrinkImagePercent = 50; 
     public  List<String> topics;
     private Instant start = Instant.now();
