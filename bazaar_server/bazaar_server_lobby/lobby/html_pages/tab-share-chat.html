@@ -962,6 +962,7 @@ ul.tab li a:focus, .active {
 				// relying on 'sendchat', which broadcasts to whatever socket.room
 				// got set to server-side during 'adduser'. sendchatwithroom
 				// broadcasts to this exact room string regardless of that.
+    			socket.emit('sendchatwithroom', room, payload);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
     }
