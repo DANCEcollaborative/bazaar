@@ -1948,7 +1948,7 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "text", sender, senderId);
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " sender = " + sender);
 
-		logRoomMembership(socket.room, 'sendchat');
+		// logRoomMembership(socket.room, 'sendchat');
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
@@ -1980,7 +1980,7 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "text", sender, senderId);
                 console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " sender = " + sender);
 
-		logRoomMembership(room, 'sendchatwithroom');
+		// logRoomMembership(room, 'sendchatwithroom');
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
