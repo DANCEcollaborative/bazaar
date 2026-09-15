@@ -356,6 +356,36 @@ function emitToAgentOnly(room, event, ...args) {
 		console.log("emitToAgentOnly -- about to emit");
     s.emit(event, ...args);
 }
+
+// DIAGNOSTIC: for `room`, logs (a) the socket ids Socket.IO's own room
+// adapter currently considers live members of that room, and (b) every
+// username this app's own user_sockets bookkeeping has registered for that
+// room, cross-checking each bookkeeping entry's socket.id against the
+// adapter's live set. A username that shows liveMember=false is registered
+// in our bookkeeping but NOT actually a member of the room as far as
+// io.sockets.in(room).emit(...) is concerned -- i.e. any broadcast to this
+// room will silently skip that socket, even though addUser()/user_sockets
+// think it's still connected here. This is exactly the failure mode
+// emitToAgentOnly() above was written to route around for OPEBot; this
+// helper makes it visible for every other username sharing the room
+// (e.g. the ClientServer/JupyterLab connection), which currently has no
+// such bypass.
+function logRoomMembership(room, callerTag) {
+    const liveMemberIds = Array.from(io.sockets.adapter.rooms.get(room) || []);
+    const roomSockets = user_sockets[room] || {};
+    const bookkeepingUsernames = Object.keys(roomSockets);
+    console.log(`[DIAG][ROOM] (${callerTag}) room="${room}" liveSocketIds=[${liveMemberIds.join(', ')}]`);
+    if (bookkeepingUsernames.length === 0) {
+        console.log(`[DIAG][ROOM] (${callerTag}) no usernames registered in user_sockets["${room}"]`);
+        return;
+    }
+    bookkeepingUsernames.forEach((uname) => {
+        const s = roomSockets[uname];
+        const socketId = s ? s.id : undefined;
+        const isLiveMember = !!socketId && liveMemberIds.includes(socketId);
+        console.log(`[DIAG][ROOM] (${callerTag})   username="${uname}" socket.id=${socketId} connected=${s ? s.connected : 'n/a'} liveMember=${isLiveMember}`);
+    });
+}
 // ---------------------------------------------------------------------------
 
 app.post('/bazaar/api/camera/frame', (req, res) => {
@@ -1918,6 +1948,8 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "text", sender, senderId);
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " sender = " + sender);
 
+		logRoomMembership(socket.room, 'sendchat');
+
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
 // 		else if (socket.username == "MLAgent")
@@ -1947,6 +1979,8 @@ io.sockets.on('connection', async (socket) => {
 
 		logMessage(socket, data, "text", sender, senderId);
                 console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " sender = " + sender);
+
+		logRoomMembership(room, 'sendchatwithroom');
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
