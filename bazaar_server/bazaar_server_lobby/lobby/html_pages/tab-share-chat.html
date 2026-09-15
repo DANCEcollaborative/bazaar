@@ -952,10 +952,19 @@ ul.tab li a:focus, .active {
 				// "multimodal:::true;%;from:::<name>;%;speech:::<text>" --
 				// rather than plain text, since some listeners (e.g. the
 				// ClientServer connection) expect messages tagged this way.
-				// TEMP BACKED off 'from:Group chat' while it is still interpreted as another user
-				// var payload = 'multimodal:::true;%;from:::' + GROUP_CHAT_SENDER_LABEL + ';%;to:::group;%;speech:::' + message;
-				var payload = 'multimodal:::true;%;to:::group;%;speech:::' + message;
-    			socket.emit('sendchat', payload);
+				
+				var payload = 'multimodal:::true;%;from:::' + GROUP_CHAT_SENDER_LABEL + ';%;to:::group;%;speech:::' + message;
+				
+				// var payload = 'multimodal:::true;%;to:::group;%;speech:::' + message;
+     			// socket.emit('sendchat', payload);
+				// Explicitly pass this page's own `room` (parsed from the URL in
+				// the 'connect' handler above -- e.g. "llmcamerafcds-p2-26-fall-1-room260910013"
+				// out of ".../chat/<room>/tab_group/tab_group/") instead of
+				// relying on 'sendchat', which broadcasts to whatever socket.room
+				// got set to server-side during 'adduser'. sendchatwithroom
+				// broadcasts to this exact room string regardless of that.
+				
+    			socket.emit('sendchatwithroom', room, payload);
 		        $('#conversation').stop().animate({ scrollTop: $("#conversation")[0].scrollHeight}, 500);
 		}
     }
@@ -1133,7 +1142,7 @@ ul.tab li a:focus, .active {
         <div id="controls" class="control">
             <div id="message_div"><textarea id="data"></textarea></div>
     	</div>
-    </div>
+    </div>q
 </div>
 
 <div id="conversation_text_div">
