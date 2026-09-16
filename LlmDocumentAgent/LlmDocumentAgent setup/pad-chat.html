@@ -1,0 +1,65 @@
+<!--
+  Server-rendered template for the per-user "agent instance" page: shared
+  Etherpad on the left, your agent's own chat UI on the right.
+
+  Your Java agent's web layer should render this per logged-in user, filling
+  in the {{...}} placeholders from AgentEtherpadManager.UserPadAccess:
+
+    {{PAD_ID}}         -> access.padID()
+    {{SESSION_ID}}     -> access.sessionID()
+    {{ETHERPAD_BASE}}  -> Etherpad's base URL, e.g. "https://pad.yourapp.com"
+                          (see nginx-etherpad.conf, Option A)
+    {{COOKIE_DOMAIN}}  -> the shared parent domain, e.g. ".yourapp.com" --
+                          this page (agent.yourapp.com) and Etherpad
+                          (pad.yourapp.com) must both be subdomains of it
+                          for the cookie below to be visible to Etherpad.
+                          See README "Cross-origin cookie gotcha".
+
+  This is intentionally framework-agnostic (plain HTML/JS). Swap the chat
+  panel's contents for your existing chat widget.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent session</title>
+  <style>
+    html, body { height: 100%; margin: 0; font-family: sans-serif; }
+    .layout { display: flex; height: 100vh; }
+    .pad-pane { flex: 3; border-right: 1px solid #ccc; display: flex; flex-direction: column; }
+    .chat-pane { flex: 2; display: flex; flex-direction: column; }
+    .pad-pane iframe { flex: 1; border: none; width: 100%; }
+    .pane-header { padding: 8px 12px; background: #f4f4f4; border-bottom: 1px solid #ddd; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="pad-pane">
+      <div class="pane-header">Shared document</div>
+      <iframe id="padFrame" title="Shared Etherpad document"></iframe>
+    </div>
+    <div class="chat-pane">
+      <div class="pane-header">Chat</div>
+      <!-- Replace with your existing chat widget / websocket UI. -->
+      <div id="chatRoot" style="flex:1; padding: 12px;">Chat UI goes here.</div>
+    </div>
+  </div>
+
+  <script>
+    // Etherpad's group-pad access model is cookie-based: the browser must
+    // present a "sessionID" cookie, scoped to Etherpad's own origin, before
+    // the iframe loads /p/<padID>. Setting Domain={{COOKIE_DOMAIN}} makes
+    // this cookie visible to both this page's origin and Etherpad's
+    // subdomain, since both share that parent domain.
+    document.cookie = "sessionID={{SESSION_ID}}; Domain={{COOKIE_DOMAIN}}; Path=/; SameSite=Lax; Secure";
+
+    const params = new URLSearchParams({
+      showChat: "false",        // we're using our own chat pane, not Etherpad's
+      showLineNumbers: "true",
+      useMonospaceFont: "false"
+    });
+    document.getElementById("padFrame").src =
+      "{{ETHERPAD_BASE}}/p/{{PAD_ID}}?" + params.toString();
+  </script>
+</body>
+</html>

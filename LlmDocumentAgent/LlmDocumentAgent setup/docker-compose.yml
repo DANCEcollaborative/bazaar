@@ -1,0 +1,54 @@
+services:
+  etherpad:
+    image: etherpad/etherpad:latest
+    user: "5001:0"
+    tty: true
+    stdin_open: true
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "${ETHERPAD_PORT_PUBLISHED:-9001}:9001"
+    volumes:
+      - plugins:/opt/etherpad-lite/src/plugin_packages
+      - etherpad-var:/opt/etherpad-lite/var
+      # Uncomment to persist /admin settings edits across `docker compose down && up`:
+      - ./settings.json:/opt/etherpad-lite/settings.json
+    environment:
+      NODE_ENV: production
+      ADMIN_PASSWORD: "${ETHERPAD_ADMIN_PASSWORD:?Set ETHERPAD_ADMIN_PASSWORD in .env}"
+      # This is the key your Java agent uses to call the HTTP API (createGroup, getText, etc).
+      # Etherpad also writes/reads this value from var/APIKEY.txt inside the container;
+      # setting it explicitly here keeps it stable across container recreation.
+      API_KEY: "${ETHERPAD_API_KEY:?Set ETHERPAD_API_KEY in .env}"
+      DB_TYPE: "postgres"
+      DB_HOST: postgres
+      DB_PORT: ${POSTGRES_PORT:-5432}
+      DB_NAME: ${POSTGRES_DB:-etherpad}
+      DB_USER: ${POSTGRES_USER:-admin}
+      DB_PASS: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}"
+      DB_CHARSET: utf8mb4
+      DEFAULT_PAD_TEXT: " "
+      DISABLE_IP_LOGGING: "false"
+      TRUST_PROXY: "false"
+      # Lets multiple pads live under distinct group namespaces (groupID$padName).
+      # No config needed for this — it's how the HTTP API's createGroupPad works by default.
+
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-etherpad}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Only expose if you need host access to the DB directly:
+    # ports:
+    #   - "5432:5432"
+
+volumes:
+  postgres_data:
+  plugins:
+  etherpad-var:
