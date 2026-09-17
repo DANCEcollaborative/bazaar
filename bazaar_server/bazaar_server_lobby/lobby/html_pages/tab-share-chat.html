@@ -943,7 +943,14 @@ ul.tab li a:focus, .active {
 
 			$('#data').val('');
 
-			message = escapeHTML(message)
+			// NOTE: message is sent RAW, not run through escapeHTML() here.
+			// The server already HTML-escapes chat text before storing/
+			// broadcasting it (that's why other senders' messages, e.g.
+			// OPEBot's, display correctly). Escaping again on this end
+			// double-encodes it -- "I'm" becomes "I&#39;m" here, then the
+			// server escapes that again into "I&amp;#39;m", which decodes
+			// once in the browser back to the literal text "I&#39;m"
+			// instead of an apostrophe. Let the server do it once.
 
 			if(message && message.length > 0)
 			{
