@@ -186,7 +186,7 @@ ul.tab li a:focus, .active {
     }
 
     #conversation { padding: 10px; }
-    .user { color: #C41230; }
+    .user { color: #000; }
     .date { color: #6D6E71; }
 
     .control {
@@ -787,7 +787,14 @@ ul.tab li a:focus, .active {
 
 			$('#data').val('');
 
-			message = escapeHTML(message)
+			// NOTE: message is sent RAW, not run through escapeHTML() here.
+			// The server already HTML-escapes chat text before storing/
+			// broadcasting it. Escaping again on this end double-encodes
+			// it -- "I'm" becomes "I&#39;m" here, then the server escapes
+			// that again into "I&amp;#39;m", which decodes once in the
+			// browser back to the literal text "I&#39;m" instead of an
+			// apostrophe. Let the server do it once (see the matching
+			// note in tab-share-chat.html's sendMessage()).
 
 			if(message && message.length > 0)
 			{
