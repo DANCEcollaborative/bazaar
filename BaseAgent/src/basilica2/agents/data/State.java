@@ -199,6 +199,7 @@ public class State
 		System.err.println("===== State,addStudent - sid: " + sid); 
 		if (!hasIgnoredPrefix(sid)) {
 			if ((!sid.contentEquals(identityAllUsers)) && (!sid.equals("tab_group")) && (!sid.equals("Group Chat"))) {
+//			if ((!sid.contentEquals(identityAllUsers)) && (!sid.equals("tab_group"))) {
 				Student s = new Student();
 				boolean found = false;
 				for (int i = 0; i < students.size(); i++)
@@ -283,8 +284,10 @@ public class State
 	public void setName(String sid, String name)
 	{
 		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
+//		if ((!sid.equals(identityAllUsers)) && (!hasIgnoredPrefix(sid)) && (!hasIgnoredPrefix(name)) && 
+//				(!sid.equals("tab_group")) && (!sid.equals("Group Chat"))) {
 		if ((!sid.equals(identityAllUsers)) && (!hasIgnoredPrefix(sid)) && (!hasIgnoredPrefix(name)) && 
-				(!sid.equals("tab_group")) && (!sid.equals("Group Chat"))) {
+				(!sid.equals("tab_group")) && (!sid.equals("Group Chat")) && (!name.equals("Group Chat"))) {
 			for (int i = 0; i < students.size(); i++)
 			{
 				if (sid.startsWith(students.get(i).chatId))
