@@ -1,8 +1,8 @@
 # Creates a set of chat logs with name format 'ROOM_NAME_PREFX_USER-ID1_USER-ID2_.._USER_IDn.csv'
 # -- Usage: python chat_logs.py <Bazaar_chat_log_file> <room_name_prefix> <target_start_mm/dd/yy> <target_start_hour> <target_end_mm/dd/yy> <target_end_hour>")
 #      -- E.g., python chat_logs.py chat_logs_2021-01-10.csv PhysicsModule1 01/08/21 18 01/08/21 22
-# -- All USER-ID<n> are users that are neither the agent nor any other user in 'users_to_exclude' -- these are generally testers rather than students
-# -- No chat log is created if there are no users for the room that are not in 'users_to_exclude'.
+# -- All USER-ID<n> are users that are neither the agent nor any other user in 'user_prefixes_to_exclude' -- these are generally testers rather than students
+# -- No chat log is created if there are no users for the room that are not in 'user_prefixes_to_exclude'.
 # -- No chat log is created for entries whose date-time is not between the start date-time and the end date-time.
 # -- <target_start_hour> and <target_end_hour> are in local 24-hour time. Adjust constant 'UTC_offset' as necessary for the local time zone.
 #      -- For start hour SS and end hour EE, valid times are between SS:00 and EE:59 (between the start of start hour and the end of end hour).
@@ -33,12 +33,12 @@ presence_type = "presence"
 updatepresence_type = "updatepresence"
 end_tag = ";%;"
 
-# users_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
-# users_to_exclude = ["csealfon","cprose","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML","DrStats"]
-# users_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
-# users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
-# users_to_exclude = []
-users_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk","OPE_Bot","OPEBot","OPE-Bot"]
+# user_prefixes_to_exclude: Don't include chat log for room if the room's only users are the agent itself (e.g., "Dr___") or (e.g.) users who are testers
+# user_prefixes_to_exclude = ["csealfon","cprose","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML","DrStats"]
+# user_prefixes_to_exclude = ["rcmurray","csealfon","cprose","rgachuhi","DrEvergreen","DrSpruce","DrDogwood","DrSassafras","DrPawPaw","DrYew","DrML"]
+# user_prefixes_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","rcmurray","Chas","Charles","Robert","Raeann","Rae","Allison","Iggy","Clem the Climate Policy Wonk","Meredith","Robbie"]
+# user_prefixes_to_exclude = []
+user_prefixes_to_exclude = ["WeatherAgent","DrML","JeopardyAgent","MTurkLightSideAgent","Alice the Alpaca","Clem the Climate Policy Wonk","OPE_Bot","OPEBot","OPE-Bot", "Private_", "Camera_", "Group Chat"]
 
 def create_filename (prefix, suffix):
     # suffix includes the period, if any -- e.g., '.csv
@@ -90,11 +90,12 @@ def process_room (chat_list, start_index):
     index = start_index
 
     # print('process_room, start first pass thru room')
-    # First pass thru room: get any users that aren't in users_to_exclude
+    # First pass thru room: get any users that aren't in user_prefixes_to_exclude
     while next_room_name == room_name:
         # username = chat_list[index][1]            # username
-        username = get_multimodal_entry(chat_list[index],from_tag,1)   # username
-        if username not in users_to_exclude and username not in user_list:
+        username = get_multimodal_entry(chat_list[index],from_tag,"1")   # username
+        # if username not in user_prefixes_to_exclude and username not in user_list:
+        if not username.startswith(tuple(user_prefixes_to_exclude)) and username not in user_list:
             user_list.append(username)
         index += 1
         if index < len(chat_list):
@@ -154,7 +155,8 @@ def process_room (chat_list, start_index):
                 content = get_multimodal_entry(chat_list[i],speech_tag,chat_list[i][6])
             row_list[4] = content
 
-            writer.writerow(row_list)
+            if content != " " and content != "":
+                writer.writerow(row_list)
 
         out_file.close()
 
