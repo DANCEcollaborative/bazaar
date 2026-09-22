@@ -23,7 +23,8 @@ public class RepresentationOutputCoordinator extends OutputCoordinator {
         try {
             return name + " — open your Paper tutor on this laptop:\n"
                 + "https://bree.lti.cs.cmu.edu/bazaar/chat/" + room + "/Private_" + user + "/Private_" + user
-                + "/?html=representation-student&user=" + user + "&name=" + URLEncoder.encode(name, "UTF-8")
+                + "/?html=representation-student-recorded&user=" + user + "&name=" + URLEncoder.encode(name, "UTF-8")
+                + "#capture=" + RepresentationCapture.ticket(room,user)
                 + "\nIt contains your private chat, paper preview, and a QR code to connect your phone. "
                 + "Keep workspace.ipynb open for the questions, coding, readiness commands, and submission.";
         } catch (java.io.UnsupportedEncodingException error) {
@@ -46,6 +47,12 @@ public class RepresentationOutputCoordinator extends OutputCoordinator {
                     if (user != null) message.setText(onboardingText(name, owner.getName().substring("OPEBot_".length()), user));
                 }
             }
+        }
+        if (event instanceof MessageEvent) {
+            MessageEvent message=(MessageEvent)event;
+            RepresentationCapture.record(owner,"chat.output",RepresentationCapture.data("from",message.getFrom(),
+                "to",event instanceof PrivateMessageEvent ? ((PrivateMessageEvent)event).getDestinationUser() : "public",
+                "text",RepresentationCapture.redact(message.getText())));
         }
         super.publishEvent(event);
     }

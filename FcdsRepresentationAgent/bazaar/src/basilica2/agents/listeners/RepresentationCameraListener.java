@@ -1,6 +1,10 @@
 package basilica2.agents.listeners;
 
 import java.util.Locale;
+import java.util.UUID;
+import basilica2.agents.components.RepresentationCapture;
+import basilica2.agents.events.PrivateMessageEvent;
+import edu.cmu.cs.lti.basilica2.core.Event;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
 import basilica2.agents.events.ImageEvent;
@@ -25,8 +29,39 @@ public class RepresentationCameraListener extends LlmCameraListener {
         return super.messageFilter(event);
     }
 
+    @Override public void preProcessEvent(InputCoordinator source, Event event) {
+        if(event instanceof MessageEvent) {
+            MessageEvent m=(MessageEvent)event;
+            RepresentationCapture.record(agent,"chat.input",RepresentationCapture.data("from",m.getFrom(),
+                "to",event instanceof PrivateMessageEvent ? ((PrivateMessageEvent)event).getDestinationUser() : "public",
+                "text",RepresentationCapture.redact(m.getText())));
+        }
+        super.preProcessEvent(source,event);
+    }
+
+    @Override public String sendToOpenAI(InputCoordinator source,String payload,Boolean fromSystem) {
+        String request=UUID.randomUUID().toString();long started=System.currentTimeMillis();
+        try {
+            RepresentationCapture.record(agent,"tutor.request",RepresentationCapture.data("request_id",request,"phase",stage(),"body",new JSONObject(payload)));
+            String result=super.sendToOpenAI(source,payload,fromSystem);
+            RepresentationCapture.record(agent,"tutor.response",RepresentationCapture.data("request_id",request,"duration_ms",System.currentTimeMillis()-started,"parsed_reply",result));
+            return result;
+        } catch(Exception e) {
+            RepresentationCapture.record(agent,"tutor.error",RepresentationCapture.data("request_id",request,"error_type",e.getClass().getSimpleName()));
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override public boolean almostIdentical(String first,String second) throws java.io.IOException {
+        boolean same=super.almostIdentical(first,second);
+        RepresentationCapture.record(agent,"camera.similarity",RepresentationCapture.data("first_sha256",RepresentationCapture.hashImage(first),"second_sha256",RepresentationCapture.hashImage(second),"filtered",same));
+        return same;
+    }
+
     @Override public void handleImageEvent(InputCoordinator source, ImageEvent event) throws JSONException {
+        RepresentationCapture.record(agent,"camera.agent_received",RepresentationCapture.data("sender",event.getSenderUsername(),"sha256",RepresentationCapture.hashImage(event.getImageBase64()),"relay_frame_count",event.getFrameCount(),"phase",stage()));
         if ("Paper".equals(stage()) || "Setup".equals(stage())) super.handleImageEvent(source, event);
+        else RepresentationCapture.record(agent,"camera.ignored_phase",RepresentationCapture.data("phase",stage(),"sha256",RepresentationCapture.hashImage(event.getImageBase64())));
     }
 
     @Override public String getAllMessages(InputCoordinator source, String prompt, String sender) {

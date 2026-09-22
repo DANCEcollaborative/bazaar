@@ -28,6 +28,7 @@ class BazaarTests(unittest.TestCase):
             shutil.copytree(BAZAAR / "runtime", work, dirs_exist_ok=True)
             for name in ("planstatus", "logs", "chat_history"):
                 (work / name).mkdir()
+            (work / "capture.key").write_text("offline-test-key-at-least-thirty-two-characters")
             properties = work / "properties"
             (properties / "State.properties").write_text("ignore_prefixes=Private_,Camera_,tab_group\n")
             (properties / "PromptStepHandler.properties").write_text("prompt_file=plans/plan_prompts.xml\nwords_per_minute=400\n")

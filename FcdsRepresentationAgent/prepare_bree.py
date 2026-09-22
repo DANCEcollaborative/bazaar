@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import shutil
+import secrets
 from ui.patch_camera import patch_camera
 
 BASE = Path("/usr0/DANCEcollaborative/bazaar/bazaar_server/bazaar_server_lobby")
@@ -46,7 +47,9 @@ def prepare(bundle, destination):
         'class="basilica2.agents.components.OutputCoordinator"',
         'class="basilica2.agents.components.RepresentationOutputCoordinator"'))
     shutil.copytree(bundle / "bazaar/src", runtime / "src")
-    for directory in ("logs", "chat_logs", "chat_history", "planstatus"):
+    (runtime / "capture.key").write_text(secrets.token_hex(32))
+    (runtime / "capture.key").chmod(0o600)
+    for directory in ("capture_spool", "logs", "chat_logs", "chat_history", "planstatus"):
         (runtime / directory).mkdir(exist_ok=True)
     for name in ("apiKey.properties", "apiKeys.properties"):
         path = runtime / "properties" / name
@@ -88,6 +91,9 @@ def prepare(bundle, destination):
     (pages / "tab-share-representation.html").write_text(page)
     (pages / "tab-share-representation.html.html").write_text(page)
     shutil.copyfile(bundle / "ui/representation-student.html", pages / "representation-student.html")
+    shutil.copyfile(bundle / "ui/representation-student-recorded.html", pages / "representation-student-recorded.html")
+    for name in ("camera_fcds-recorded.html", "camera_fcds-recorded.js"):
+        shutil.copyfile(bundle / "ui" / name, static / name)
     shutil.copyfile(bundle / "ui/qrcode-1.4.4.js", static / "representation-qrcode.js")
     shutil.copytree(bundle / "final_grader", destination / "grader_fcds_representation")
     info = {"agent": "fcdsrepresentation", "activity": "fcds-p2-26-fall-1a",

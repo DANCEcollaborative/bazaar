@@ -1,6 +1,7 @@
 package basilica2.agents.listeners.plan;
 
 import java.util.HashSet;
+import basilica2.agents.components.RepresentationCapture;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -40,6 +41,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
         passed.clear();
         submitted = false;
         super.activateStage(name);
+        RepresentationCapture.record(agent,"activity.phase",RepresentationCapture.data("phase",name));
     }
 
     @Override public Class[] getListenerEventClasses() {
@@ -48,6 +50,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
 
     @Override public synchronized void processEvent(InputCoordinator input, Event event) {
         source = input;
+        if(event instanceof FileEvent) RepresentationCapture.record(agent,"activity.checkpoint",RepresentationCapture.data("file",((FileEvent)event).getFileName()));
         Step step = current();
         String phase = currentPlan == null || currentPlan.currentStage == null ? ""
             : currentPlan.currentStage.name.toLowerCase(Locale.ROOT);
@@ -119,6 +122,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
     }
 
     @Override public synchronized void timedOut(String id) {
+        RepresentationCapture.record(agent,"activity.timer",RepresentationCapture.data("step",id));
         Step step = current();
         if (step != null && step.name.equals(id)) {
             completionRequested = step;

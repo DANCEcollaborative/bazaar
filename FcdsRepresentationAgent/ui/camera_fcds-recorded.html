@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Paper camera · FCDS</title>
+<style>body{max-width:700px;margin:auto;padding:20px;font:17px/1.5 system-ui;background:#f5f7fa;color:#172335}video{width:100%;background:#222;border-radius:10px}button,select{font:inherit;padding:10px;margin:5px}#status{padding:12px;background:#fff2ce;border-radius:8px}small{display:block}button:disabled{opacity:.5}</style>
+<h1>Paper camera</h1><p>Point your phone at your paper. A still image is captured about every 10 seconds while the camera runs. Images and tutor interactions are saved for this activity.</p>
+<p id="identity"></p><video id="preview" autoplay playsinline muted></video><canvas id="canvas" hidden></canvas>
+<p><label>Current paper problem <select id="problem"><option value="1">1 — matrix representation</option><option value="2">2 — eligibility and selection</option><option value="3">3 — running averages</option></select></label></p>
+<button id="start">Start camera</button><button id="stop" disabled>Stop camera</button>
+<p id="status" role="status">Connecting to your activity…</p><small>Keep this page open until all queued records are saved. Stop capture when Phase 2 begins, then continue in JupyterLab. Closing a page with unsaved records can delay or lose those records.</small>
+<h2>Tutor feedback</h2><p>Your paper preview and private chat are on the Paper tutor page on your computer.</p><div id="feed" aria-live="polite"></div>
+<script src="/bazsocket/socket.io.js"></script><script src="camera_fcds-recorded.js"></script></html>
