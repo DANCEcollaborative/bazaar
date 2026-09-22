@@ -12,6 +12,7 @@ import basilica2.agents.events.FileEvent;
 import basilica2.agents.events.LaunchEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PrivateMessageEvent;
+import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.StepDoneEvent;
 import edu.cmu.cs.lti.basilica2.core.Agent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -19,6 +20,7 @@ import edu.cmu.cs.lti.basilica2.core.Event;
 /** Activity-local gates; the installed shared PlanExecutor is unchanged. */
 public class RepresentationPlanExecutor extends PlanExecutor {
     private final Set<String> ready = new HashSet<String>();
+    private final Set<String> paperReadyDuringSetup = new HashSet<String>();
     private final Set<String> passed = new HashSet<String>();
     private Step gate;
     private Step completionRequested;
@@ -38,6 +40,11 @@ public class RepresentationPlanExecutor extends PlanExecutor {
 
     @Override synchronized void activateStage(String name) {
         ready.clear();
+        if ("Setup".equals(name)) paperReadyDuringSetup.clear();
+        if ("Paper".equals(name)) {
+            ready.addAll(paperReadyDuringSetup);
+            paperReadyDuringSetup.clear();
+        }
         passed.clear();
         submitted = false;
         super.activateStage(name);
@@ -45,7 +52,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
     }
 
     @Override public Class[] getListenerEventClasses() {
-        return new Class[] {LaunchEvent.class, StepDoneEvent.class, MessageEvent.class, FileEvent.class};
+        return new Class[] {LaunchEvent.class, StepDoneEvent.class, MessageEvent.class, FileEvent.class, PresenceEvent.class};
     }
 
     @Override public synchronized void processEvent(InputCoordinator input, Event event) {
@@ -61,6 +68,12 @@ public class RepresentationPlanExecutor extends PlanExecutor {
             String id = participant(message.getFrom());
             if (id != null && message.getText() != null) {
                 String text = message.getText().trim().toLowerCase(Locale.ROOT);
+                // Students can read the notebook immediately while the spoken
+                // setup prompt is still running. Keep their paper readiness.
+                if ("setup".equals(phase)) {
+                    if ("paper done".equals(text)) paperReadyDuringSetup.add(id);
+                    if ("paper not done".equals(text)) paperReadyDuringSetup.remove(id);
+                }
                 if ((phase + " done").equals(text)) ready.add(id);
                 if ((phase + " not done").equals(text)) ready.remove(id);
                 if ("submit".equals(phase) && "submitted".equals(text)) submitted = true;

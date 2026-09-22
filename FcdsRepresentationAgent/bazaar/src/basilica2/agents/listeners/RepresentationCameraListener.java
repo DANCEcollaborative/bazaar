@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.UUID;
 import basilica2.agents.components.RepresentationCapture;
 import basilica2.agents.events.PrivateMessageEvent;
+import basilica2.agents.events.PresenceEvent;
 import edu.cmu.cs.lti.basilica2.core.Event;
 import basilica2.agents.components.InputCoordinator;
 import basilica2.agents.components.StateMemory;
@@ -17,6 +18,12 @@ import org.json.JSONObject;
 /** Reuses camera/private-chat transport with activity and phase-specific context. */
 public class RepresentationCameraListener extends LlmCameraListener {
     public RepresentationCameraListener(Agent agent) { super(agent); }
+
+    @Override public Class[] getPreprocessorEventClasses() {
+        // PrivateMessageEvent already extends MessageEvent. Registering both makes
+        // InputCoordinator deliver each private question twice.
+        return new Class[] {MessageEvent.class, ImageEvent.class, PresenceEvent.class};
+    }
 
     private String stage() {
         String value = StateMemory.getSharedState(agent).getStageName();
@@ -35,6 +42,14 @@ public class RepresentationCameraListener extends LlmCameraListener {
             RepresentationCapture.record(agent,"chat.input",RepresentationCapture.data("from",m.getFrom(),
                 "to",event instanceof PrivateMessageEvent ? ((PrivateMessageEvent)event).getDestinationUser() : "public",
                 "text",RepresentationCapture.redact(m.getText())));
+            // The inherited preprocessor drops messages within 1.5 seconds of any
+            // student's previous message, including readiness commands. Distinct
+            // private questions must each reach the tutor, even when sent together.
+            if (m.getFrom() != null && m.getText() != null && messageFilter(m)) {
+                try { handleMessageEvent(source, m); }
+                catch (JSONException error) { throw new IllegalStateException("Could not process tutor message", error); }
+            }
+            return;
         }
         super.preProcessEvent(source,event);
     }

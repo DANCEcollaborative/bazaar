@@ -8,6 +8,25 @@ import edu.cmu.cs.lti.basilica2.core.Agent;
 import org.json.*;
 
 public class RepresentationHarness {
+    static class TestInput extends InputCoordinator {
+        TestInput(Agent a) { super(a, "inputCoordinator", ""); }
+        public boolean isAgentName(String name) { return name.startsWith("OPEBot"); }
+    }
+    static class TestPresence extends RepresentationPresenceWatcher {
+        TestPresence(Agent a) { super(a); }
+        public void initiate(InputCoordinator input, State state) {}
+    }
+    static class CountingCamera extends RepresentationCameraListener {
+        int handled;
+        java.util.List<String> senders = new java.util.ArrayList<String>();
+        CountingCamera(Agent a) { super(a); }
+        public boolean messageFilter(MessageEvent event) {
+            return !event.getText().matches("(paper|coding) (not )?done");
+        }
+        public void handleMessageEvent(InputCoordinator input, MessageEvent event) {
+            handled++; senders.add(event.getFrom());
+        }
+    }
     static class TestAgent extends Agent {
         TestAgent(String name) {
             super(name);
@@ -28,7 +47,22 @@ public class RepresentationHarness {
     static void pass(RepresentationPlanExecutor plan, InputCoordinator input, int task) {
         plan.processEvent(input, new FileEvent(input, "testcase-complete_" + task, FileEvent.fileEventType.created));
     }
+    static void presence(TestPresence watcher, RepresentationPlanExecutor plan, InputCoordinator input,
+            String name, String type) {
+        PresenceEvent event = new PresenceEvent(input, name, type);
+        watcher.preProcessEvent(input, event);
+        if (plan != null) plan.processEvent(input, event);
+    }
+    static void deliver(CountingCamera camera, InputCoordinator input, MessageEvent event) {
+        // Match InputCoordinator's assignable-class dispatch, including subclasses.
+        for (Class<?> type : camera.getPreprocessorEventClasses())
+            if (type.isInstance(event)) camera.preProcessEvent(input, event);
+    }
     static RepresentationPlanExecutor plan(TestAgent agent, final InputCoordinator input, final boolean earlyPasses) {
+        return plan(agent, input, earlyPasses, new String[0]);
+    }
+    static RepresentationPlanExecutor plan(TestAgent agent, final InputCoordinator input,
+            final boolean earlyPasses, final String[] setupReady) {
         new java.io.File("planstatus/" + agent.getName() + ".planstatus.txt").delete();
         RepresentationPlanExecutor p = new RepresentationPlanExecutor(agent);
         p.source = input;
@@ -38,6 +72,13 @@ public class RepresentationHarness {
         p.getHandlers("prompt").clear();
         p.addStepHandler("prompt", new StepHandler() {
             public void execute(Step s, PlanExecutor executor, InputCoordinator source) {
+                if ("setup_instructions".equals(s.name)) {
+                    for (String sender : setupReady) {
+                        boolean withdraw = sender.startsWith("!");
+                        say((RepresentationPlanExecutor) executor, input, withdraw ? sender.substring(1) : sender,
+                            withdraw ? "paper not done" : "paper done");
+                    }
+                }
                 if (earlyPasses && "paper_instructions".equals(s.name))
                     say((RepresentationPlanExecutor) executor, input, "Alice", "paper done");
                 if (earlyPasses && "coding_instructions".equals(s.name)) {
@@ -57,7 +98,7 @@ public class RepresentationHarness {
         return p;
     }
     static void tests() throws Exception {
-        for (int size : new int[] {1, 4}) {
+        for (int size : new int[] {1, 2, 3, 4}) {
             TestAgent sized = new TestAgent("OPEBot_size00" + size);
             InputCoordinator sizedInput = new InputCoordinator(sized, "inputCoordinator", "");
             sized.addComponent(sizedInput);
@@ -154,6 +195,63 @@ public class RepresentationHarness {
         String welcome = RepresentationOutputCoordinator.onboardingText("Alice Smith", "fcdsrepresentationfcds-p2-26-fall-1a-room260911995", 1);
         check(welcome.contains("html=representation-student-recorded&user=1&name=Alice+Smith"), "one personal laptop link with extensionless page selector");
         check(welcome.split("https://", -1).length == 2 && welcome.contains("QR code"), "welcome explains phone pairing without a second chat link");
+
+        TestAgent reconnect = new TestAgent("OPEBot_reconnect");
+        TestInput reconnectInput = new TestInput(reconnect);
+        reconnect.addComponent(reconnectInput);
+        StateMemory.commitSharedState(new State(), reconnect);
+        TestPresence watcher = new TestPresence(reconnect);
+        for (String name : new String[] {"Alex", "Alexander", "Bob"})
+            presence(watcher, null, reconnectInput, name, PresenceEvent.PRESENT);
+        State exact = StateMemory.getSharedState(reconnect);
+        check(exact.getStudentIdList().size() == 3 && exact.getStudentIdList().contains("Alexander"),
+            "prefix names remain three distinct participants");
+        RepresentationPlanExecutor reconnectPlan = plan(reconnect, reconnectInput, false);
+        say(reconnectPlan, reconnectInput, "Alex", "paper done");
+        presence(watcher, reconnectPlan, reconnectInput, "Alexander", PresenceEvent.ABSENT);
+        presence(watcher, reconnectPlan, reconnectInput, "Alexander", PresenceEvent.PRESENT);
+        check(StateMemory.getSharedState(reconnect).getStudentIdList().size() == 3,
+            "reload restores the known student to present");
+        say(reconnectPlan, reconnectInput, "Bob", "paper done");
+        check(step(reconnectPlan).equals("paper_work"), "returning Alexander still has to become ready");
+        say(reconnectPlan, reconnectInput, "Alexander", "paper done");
+        check(step(reconnectPlan).equals("coding_work"), "all three exact names advance paper");
+        pass(reconnectPlan, reconnectInput, 1); pass(reconnectPlan, reconnectInput, 2);
+        say(reconnectPlan, reconnectInput, "Alex", "coding done");
+        say(reconnectPlan, reconnectInput, "Alexander", "coding done");
+        check(step(reconnectPlan).equals("coding_work"), "unready third participant holds coding");
+        presence(watcher, reconnectPlan, reconnectInput, "Bob", PresenceEvent.ABSENT);
+        check(step(reconnectPlan).equals("submission_acknowledgement"), "a departure reevaluates readiness of remaining students");
+        presence(watcher, reconnectPlan, reconnectInput, "Bob", PresenceEvent.PRESENT);
+        check(StateMemory.getSharedState(reconnect).getStudentIdList().size() == 3,
+            "later return restores all three students");
+        presence(watcher, reconnectPlan, reconnectInput, "Private_1", PresenceEvent.PRESENT);
+        check(StateMemory.getSharedState(reconnect).getStudentIdList().size() == 3, "private pages never add a participant");
+
+        CountingCamera concurrent = new CountingCamera(reconnect);
+        deliver(concurrent, reconnectInput, new MessageEvent(reconnectInput, "Alex", "paper done"));
+        deliver(concurrent, reconnectInput, new PrivateMessageEvent(reconnectInput, "OPEBot", "Private_1", "first question"));
+        deliver(concurrent, reconnectInput, new PrivateMessageEvent(reconnectInput, "OPEBot", "Private_2", "second question"));
+        deliver(concurrent, reconnectInput, new PrivateMessageEvent(reconnectInput, "OPEBot", "Private_3", "third question"));
+        check(concurrent.handled == 3 && concurrent.senders.size() == 3,
+            "adjacent private questions are each handled once, including after a readiness command");
+        check(concurrent.senders.get(0).equals("Private_1") && concurrent.senders.get(2).equals("Private_3"),
+            "rapid private questions retain each participant's identity");
+
+        TestAgent earlyFour = new TestAgent("OPEBot_early_four");
+        TestInput earlyInput = new TestInput(earlyFour);
+        earlyFour.addComponent(earlyInput);
+        State earlyState = new State();
+        String[] fourNames = {"Test Student A", "Test Student B", "Test Student C", "Test Student D"};
+        for (String name : fourNames) earlyState.addStudent(name);
+        StateMemory.commitSharedState(earlyState, earlyFour);
+        RepresentationPlanExecutor setupReady = plan(earlyFour, earlyInput, false, fourNames);
+        check(step(setupReady).equals("coding_work"), "four paper done commands during Setup survive the phase transition");
+        RepresentationPlanExecutor setupWithdrawal = plan(earlyFour, earlyInput, false,
+            new String[] {fourNames[0], fourNames[1], fourNames[2], fourNames[3], "!" + fourNames[3]});
+        check(step(setupWithdrawal).equals("paper_work"), "paper not done during Setup withdraws early readiness");
+        say(setupWithdrawal, earlyInput, fourNames[3], "paper done");
+        check(step(setupWithdrawal).equals("coding_work"), "fourth participant can restore readiness after setup");
         System.out.println("PASS: phase gates, timeouts, duplicates, early callbacks, histories, and camera phase context");
     }
     public static void main(String[] args) {

@@ -7,6 +7,8 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 - Supports 1–4 actual participants; paper → NumPy coding → saved-notebook submission.
 - Readiness requires all present participants, plus two distinct passing task callbacks for early Coding completion. Deadlines still allow unfinished submission.
 - Ignores synthetic/private readiness, duplicate callbacks, and stale timers; retains early readiness during introductory prompts.
+- Keeps paper readiness sent during Setup, including withdrawals. Exact participant names and reconnects are tracked by an activity-local presence watcher; Alex and Alexander remain distinct.
+- Processes each private question once, including questions from different students sent together, without the inherited room-wide time filter.
 - Room-specific tutoring history; paper images omitted from Coding prompts; inherited tutor JSON response contract preserved.
 - One personal laptop tutor link per participant, with phone-camera QR pairing and private preview/chat. Extensionless HTML selector plus old-link compatibility alias.
 - Notebook opens by default through a scoped patch to Bree's existing login page.
@@ -20,9 +22,10 @@ Copy the deployed `llmcameraagent.jar` into `bazaar/vendor/llmcameraagent.jar` l
 ```sh
 python3 bazaar/build.py
 python3 -m unittest discover -s tests -v
+node --test tests/camera_queue.test.cjs
 ```
 
-The small JAR uses that unchanged dependency in its manifest. No shared base JAR is overwritten. Java tests run offline with placeholder credentials and cover participant counts, phase gates, early messages/callbacks, room isolation, and tutor payload/response format.
+The small JAR uses that unchanged dependency in its manifest. No shared base JAR is overwritten. Java tests run offline with placeholder credentials and cover all participant counts from 1–4, phase gates, Setup readiness, disconnect/reconnect, prefix-related names, rapid private questions, early callbacks, room isolation, and tutor payload/response format. The camera queue test uses mocked browser services to check offline retention, acknowledgement validation, replay after reload, and participant queue isolation; it does not replace a real-phone acceptance check.
 
 ## Deployment boundaries
 

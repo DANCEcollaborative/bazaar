@@ -9,6 +9,10 @@ import edu.cmu.cs.lti.basilica2.core.Agent;
 /** Keep each agent instance's tutoring context in its own history file. */
 public class RepresentationHistoryListener extends ChatMultiHistoryListener {
     @Override
+    public Class[] getPreprocessorEventClasses() {
+        return new Class[] {basilica2.agents.events.MessageEvent.class};
+    }
+    @Override
     public synchronized void saveMessageToHistory(String sender, String receiver, String content) {
         super.saveMessageToHistory(sender, receiver,
             basilica2.agents.components.RepresentationCapture.redact(content));
