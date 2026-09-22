@@ -10,7 +10,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 - Keeps paper readiness sent during Setup, including withdrawals. Exact participant names and reconnects are tracked by an activity-local presence watcher; Alex and Alexander remain distinct.
 - Processes each private question once, including questions from different students sent together, without the inherited room-wide time filter.
 - Room-specific tutoring history; paper images omitted from Coding prompts; inherited tutor JSON response contract preserved.
-- One personal laptop tutor link per participant, with phone-camera QR pairing and private preview/chat. Extensionless HTML selector plus old-link compatibility alias.
+- One personal laptop tutor link per participant, shown in that student's JupyterLab view rather than posted in group chat, with phone-camera QR pairing and private preview/chat. Extensionless HTML selector plus old-link compatibility alias.
 - Notebook opens by default through a scoped patch to Bree's existing login page.
 
 ## Files and build
