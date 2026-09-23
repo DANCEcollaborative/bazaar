@@ -105,14 +105,14 @@
     finally{taking=false;}
   }
   function stop(record=true) {
-    clearInterval(timer);stream?.getTracks().forEach(t=>t.stop());stream=null;$('preview').srcObject=null;socket?.disconnect();socket=null;stopped=true;
+    clearInterval(timer);stream?.getTracks().forEach(t=>t.stop());stream=null;$('preview').srcObject=null;$('preview').hidden=true;socket?.disconnect();socket=null;stopped=true;
     $('start').disabled=false;$('stop').disabled=true;if(record)void event('stopped');draw();void flush();
   }
   $('start').onclick=async()=>{
     $('start').disabled=true;
     try {
       stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
-      $('preview').srcObject=stream;await $('preview').play();stopped=false;$('stop').disabled=false;issue='';
+      $('preview').srcObject=stream;$('preview').hidden=false;await $('preview').play();stopped=false;$('stop').disabled=false;issue='';
       // Relay connectivity affects preview/tutoring, not whether images are archived.
       socket=io('/',{path:'/bazsocket'});
       socket.on('connect',()=>{socket.emit('adduser','fcdsrepresentation'+room,'Camera_'+user,true,'Camera_'+user,null);void event('relay.connected');});

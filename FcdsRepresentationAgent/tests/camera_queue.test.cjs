@@ -80,12 +80,14 @@ test('camera retains failed/unacknowledged frames, then retries the same ID afte
   assert.equal(first.rows.size, 0, 'initial page event was acknowledged');
   first.offline(true);
   await first.get('start').onclick(); await settle();
+  assert.equal(first.get('preview').hidden, false, 'live capture shows the video preview');
   const frame = [...first.rows.values()].find(row => row.kind === 'frame');
   assert.ok(frame, 'frame was durably queued before upload');
   assert.equal(frame.body.participant_id, '1');
   assert.equal(frame.body.room_id, room);
   assert.equal(frame.body.capture_mode, 'continuous');
   first.get('stop').onclick(); await settle();
+  assert.equal(first.get('preview').hidden, true, 'stopped capture hides the unused video panel');
   assert.ok(first.stoppedTracks > 0);
   assert.ok(first.rows.has(frame.id), 'stop does not discard a queued frame');
   first.offline(false); first.wrongAck(true);
