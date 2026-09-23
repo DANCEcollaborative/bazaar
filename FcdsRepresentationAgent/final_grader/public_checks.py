@@ -1,5 +1,10 @@
-"""Public checks. Test loops are PROVIDED infrastructure, not student code."""
+"""Public recovery check. Loops here are provided grading infrastructure.
 
+The exercise derives array weights explicitly. Loops, comprehensions, recursion,
+loop wrappers, generic linear solvers/inverses, and signal-filter shortcuts do not
+meet that learning objective. These source checks catch ordinary usage; they are
+not a security sandbox or a complete proof of compliance.
+"""
 import argparse
 import ast
 import importlib.util
@@ -9,127 +14,137 @@ import textwrap
 
 import numpy as np
 
-
-def _array(actual, expected, kind):
-    assert isinstance(actual, np.ndarray), "Return a NumPy array, not a list or scalar."
-    expected = np.asarray(expected)
-    assert actual.shape == expected.shape, f"Expected shape {expected.shape}; got {actual.shape}."
-    if kind == "bool":
-        assert actual.dtype == np.dtype(bool), "Eligibility must have Boolean dtype."
-    elif kind == "integer":
-        assert np.issubdtype(actual.dtype, np.integer), "Choices must have integer dtype."
-    else:
-        assert np.issubdtype(actual.dtype, np.floating), "Costs and means must be floating-point arrays."
-        assert np.isfinite(actual).all(), "Returned costs/means must be finite."
-    if kind == "float":
-        np.testing.assert_allclose(actual, expected, rtol=1e-10, atol=1e-12)
-    else:
-        np.testing.assert_array_equal(actual, expected)
+LOOP_WRAPPERS = {"map", "vectorize", "apply_along_axis", "frompyfunc"}
+SOLVERS = {"solve", "solve_triangular", "solve_banded", "solveh_banded",
+           "inv", "lstsq", "pinv", "pinvh", "tensorinv", "tensorsolve"}
+FILTERS = {"lfilter", "filtfilt", "sosfilt", "sosfiltfilt", "deconvolve"}
 
 
-def _call(function, inputs, count):
-    arrays = tuple(np.array(value, copy=True) for value in inputs)
-    snapshots = tuple(value.copy() for value in arrays)
-    result = function(*arrays)
-    for value, before in zip(arrays, snapshots):
-        np.testing.assert_array_equal(value, before, err_msg="Do not mutate input arrays.")
-    assert isinstance(result, tuple) and len(result) == count, f"Return a tuple of {count} arrays."
-    return result
+def code_violations(tree):
+    """Check syntax plus ordinary imported/assigned aliases and call cycles."""
+    messages = set()
+    aliases = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom):
+            for name in node.names:
+                aliases[name.asname or name.name] = name.name
+        elif isinstance(node, ast.Import):
+            for name in node.names:
+                aliases[name.asname or name.name] = name.name
+
+    def call_name(node):
+        if isinstance(node, ast.Attribute):
+            return node.attr
+        if isinstance(node, ast.Name):
+            name = node.id
+            seen = set()
+            while name in aliases and name not in seen:
+                seen.add(name)
+                name = aliases[name]
+            return name
+        return ""
+
+    assignments = [node for node in ast.walk(tree) if isinstance(node, ast.Assign)]
+    for _ in range(len(assignments) + 1):
+        for node in assignments:
+            name = call_name(node.value)
+            if name:
+                for target in node.targets:
+                    if isinstance(target, ast.Name):
+                        aliases[target.id] = name
+    loops = (ast.For, ast.AsyncFor, ast.While, ast.ListComp, ast.SetComp,
+             ast.DictComp, ast.GeneratorExp)
+    definitions = {node.name: node for node in ast.walk(tree)
+                   if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))}
+    graph = {name: set() for name in definitions}
+    for node in ast.walk(tree):
+        if isinstance(node, loops):
+            messages.add("Use array operations, not loops or comprehensions.")
+        if isinstance(node, ast.Call):
+            name = call_name(node.func)
+            if name in LOOP_WRAPPERS:
+                messages.add(name + " is not allowed as a loop substitute.")
+            if name in SOLVERS | FILTERS:
+                messages.add("Derive and build the recovery weights; " + name + " bypasses this exercise.")
+    for name, definition in definitions.items():
+        graph[name] = {call_name(node.func) for node in ast.walk(definition)
+                       if isinstance(node, ast.Call)} & definitions.keys()
+    def cycle(name, path):
+        if name in path:
+            return True
+        return any(cycle(child, path | {name}) for child in graph[name])
+    if any(cycle(name, set()) for name in graph):
+        messages.add("Use array operations, not recursion.")
+    return sorted(messages)
 
 
 def source_violations(function):
-    """Catch common forbidden syntax; not a complete verifier or security sandbox."""
     try:
-        tree = ast.parse(textwrap.dedent(inspect.getsource(function)))
+        return code_violations(ast.parse(textwrap.dedent(inspect.getsource(function))))
     except (OSError, TypeError):
-        return None  # Source can be unavailable in some notebook kernels.
-    messages = []
-    loop_nodes = (ast.For, ast.AsyncFor, ast.While, ast.ListComp, ast.SetComp,
-                  ast.DictComp, ast.GeneratorExp)
-    for node in ast.walk(tree):
-        if isinstance(node, loop_nodes):
-            messages.append("Use whole-array operations, not loops or comprehensions.")
-        if isinstance(node, ast.Call):
-            name = getattr(node.func, "attr", getattr(node.func, "id", ""))
-            if name in {"map", "vectorize", "apply_along_axis", "frompyfunc"}:
-                messages.append(f"{name} is not allowed as a loop substitute.")
-    return sorted(set(messages))
+        return None
 
 
-def _run(function, cases, checks, verbose):
-    failures = {label: [] for label in checks}
+def _cases():
+    # Independent oracle: start with true readings and apply the FORWARD fault.
+    # Do not duplicate the inverse matrix students are expected to discover.
+    rng = np.random.default_rng(63019)
+    signals = [
+        ("paper example", np.array([9, 6, 3, 0, 6, 3], dtype=float)),
+        ("one reading", np.array([-2.5])),
+        ("two readings", np.array([3., -4.])),
+        ("zero readings", np.zeros(11)),
+        ("signed and fractional readings", np.array([.25, -1.5, 0., 2.75, -4., .125, 3.])),
+        ("initial impulse", np.r_[6., np.zeros(18)]),
+        ("final impulse", np.r_[np.zeros(18), -3.]),
+        ("odd length", rng.normal(size=17)),
+        ("maximum length", rng.normal(size=64)),
+    ]
+    for name, truth in signals:
+        recorded = truth.copy()
+        recorded[1:] += truth[:-1] / 3.0
+        yield name, recorded, truth
+    yield "integer input", np.array([9, 9, 5, 1, 6, 5]), np.array([9., 6., 3., 0., 6., 3.])
+    # A view ensures implementations do not silently assume contiguous inputs.
+    backing = rng.normal(size=26)
+    truth = backing[::2].copy()
+    recorded = backing[::2]
+    recorded[1:] += truth[:-1] / 3.0
+    yield "noncontiguous input", recorded, truth
+
+
+def check_recovery(function, verbose=True):
+    """One pass/fail check for recover_readings(recorded), for lengths 1..64."""
+    failures = []
     syntax = source_violations(function)
     if syntax:
-        for label in failures:
-            failures[label].extend(syntax)
-    for name, inputs, expected in cases:
+        failures.extend(syntax)
+    for name, recorded, expected in _cases():
+        before = recorded.copy()
         try:
-            result = _call(function, inputs, len(expected))
+            actual = function(recorded)
+            np.testing.assert_array_equal(recorded, before, err_msg="Do not mutate the recorded input.")
+            assert isinstance(actual, np.ndarray), "Return a NumPy array."
+            assert actual.shape == expected.shape, f"Expected shape {expected.shape}; got {actual.shape}."
+            assert np.issubdtype(actual.dtype, np.floating), "Return a floating-point array."
+            assert np.isfinite(actual).all(), "Return finite readings."
+            np.testing.assert_allclose(actual, expected, rtol=1e-10, atol=1e-12,
+                                       err_msg="Recovered readings do not match the original signal.")
         except Exception as exc:
-            for label in failures:
-                failures[label].append(f"{name}: {type(exc).__name__}: {exc}")
-            continue
-        for label, columns in checks.items():
-            try:
-                for index, kind in columns:
-                    _array(result[index], expected[index], kind)
-            except Exception as exc:
-                failures[label].append(f"{name}: {exc}")
+            failures.append(f"{name}: {type(exc).__name__}: {exc}")
     if verbose:
-        for label, messages in failures.items():
-            print(f"{'FAIL' if messages else 'PASS'} - {label}")
-            for message in messages:
-                print(f"  {message}")
+        print(("FAIL" if failures else "PASS") + " - recover the original sensor readings")
+        for failure in failures:
+            print("  " + failure)
         if syntax is None:
-            print("Source unavailable here: no-loop compliance needs manual review.")
-    return not any(failures.values())
-
-
-def check_part_a(function, verbose=True):
-    cases = [
-        ("paper example", ([2, 5, 8], [0, 4, 6, 11], [0, 1, 0], [0, 0, 1, 0]),
-         ([[4, 4, 16, 81], [25, 1, 1, 36], [64, 16, 4, 9]],
-          [[True, True, False, True], [False, False, True, False], [True, True, False, True]])),
-        ("equal lengths still require all pairs", ([-1, 2], [1, 4], [42, 10], [10, 42]),
-         ([[4, 25], [1, 4]], [[False, True], [True, False]])),
-        ("one measurement and fractions", ([0.5], [-0.5, 0.5, 1.5], [7], [7, 9, 7]),
-         ([[1, 0, 1]], [[True, False, True]])),
-        ("one reusable reference", ([1, 3, 1], [1], [8, 8, 8], [8]),
-         ([[0], [4], [0]], [[True], [True], [True]])),
-    ]
-    return _run(function, cases, {
-        "A1: all-pairs costs": [(0, "float")],
-        "A2: Boolean eligibility": [(1, "bool")],
-    }, verbose)
-
-
-def check_part_b(function, verbose=True):
-    cases = [
-        ("independent example", ([[9, 1, 4], [0, 16, 25]],
-                                  [[True, False, True], [False, True, True]]),
-         ([2, 1], [4, 16], [4, 10])),
-        ("paper matrices", ([[4, 4, 16, 81], [25, 1, 1, 36], [64, 16, 4, 9]],
-                            [[True, True, False, True], [False, False, True, False], [True, True, False, True]]),
-         ([0, 2, 3], [4, 1, 9], [4, 2.5, 14 / 3])),
-        ("ties and genuine zero costs", ([[0, 0, 5], [4, 1, 1]],
-                                        [[False, True, True], [False, True, True]]),
-         ([1, 1], [0, 1], [0, 0.5])),
-        ("single row", ([[9, 4, 4]], [[True, True, True]]), ([1], [4], [4])),
-        ("single column and reuse", ([[4], [0], [9]], [[True], [True], [True]]),
-         ([0, 0, 0], [4, 0, 9], [4, 2, 13 / 3])),
-        ("single cell", ([[0]], [[True]]), ([0], [0], [0])),
-    ]
-    return _run(function, cases, {
-        "B1: eligible choices and paired costs": [(0, "integer"), (1, "float")],
-        "B2: full running-average vector": [(2, "float")],
-    }, verbose)
+            print("Source unavailable here: array-operation compliance needs manual review.")
+    return not failures
 
 
 def load_file(path):
-    path = Path(path).resolve()
-    spec = importlib.util.spec_from_file_location("submitted_functions", path)
+    spec = importlib.util.spec_from_file_location("submitted_functions", Path(path).resolve())
     if spec is None or spec.loader is None:
-        raise ValueError(f"Cannot load Python file: {path}")
+        raise ValueError("Cannot load Python file: " + str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -139,11 +154,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("file", type=Path)
     args = parser.parse_args()
-    module = load_file(args.file)
-    passed_a = check_part_a(module.build_comparisons)
-    passed_b = check_part_b(module.choose_and_summarize)
+    passed = check_recovery(load_file(args.file).recover_readings)
     print("Local feedback only; no files were submitted or uploaded.")
-    return 0 if passed_a and passed_b else 1
+    return 0 if passed else 1
 
 
 if __name__ == "__main__":

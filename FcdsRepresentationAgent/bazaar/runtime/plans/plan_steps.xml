@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plan name="FCDS representation: paper then NumPy">
+<plan name="Sensor recovery: paper then NumPy">
   <stage name="Setup" type="other" delay="0">
     <step type="prompt" delay="20" prompt="SETUP">setup_instructions</step>
   </stage>
   <stage name="Paper" type="other" delay="0">
     <step type="prompt" delay="0" prompt="PAPER">paper_instructions</step>
-    <step type="representation_gate" phase="paper" timeout="1800" delay="0">paper_work</step>
+    <step type="representation_gate" phase="paper" timeout="1200" delay="0">paper_work</step>
   </stage>
   <stage name="Coding" type="other" delay="0">
     <step type="prompt" delay="0" prompt="CODING">coding_instructions</step>
-    <step type="representation_gate" phase="coding" timeout="2400" delay="0">coding_work</step>
+    <step type="representation_gate" phase="coding" timeout="1500" delay="0">coding_work</step>
   </stage>
   <stage name="Submit" type="other" delay="0">
     <step type="prompt" delay="0" prompt="SUBMIT">submission_instructions</step>

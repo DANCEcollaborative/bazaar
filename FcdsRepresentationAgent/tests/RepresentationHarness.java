@@ -114,10 +114,10 @@ public class RepresentationHarness {
                 say(sizedPlan, sizedInput, "Student " + i, "paper done");
             }
             check(step(sizedPlan).equals("coding_work"), "paper completes for size=" + size);
-            pass(sizedPlan, sizedInput, 1);
-            for (int i = 1; i <= size; i++) say(sizedPlan, sizedInput, "s" + i, "coding done");
-            check(step(sizedPlan).equals("coding_work"), "both checks still required for size=" + size);
             pass(sizedPlan, sizedInput, 2);
+            for (int i = 1; i <= size; i++) say(sizedPlan, sizedInput, "s" + i, "coding done");
+            check(step(sizedPlan).equals("coding_work"), "unrelated task cannot satisfy the recovery check for size=" + size);
+            pass(sizedPlan, sizedInput, 1);
             check(step(sizedPlan).equals("submission_acknowledgement"), "coding completes for size=" + size);
             say(sizedPlan, sizedInput, "Student 1", "submitted");
             check(step(sizedPlan).equals("logout"), "one submitter completes size=" + size);
@@ -148,9 +148,9 @@ public class RepresentationHarness {
         check(step(p).equals("coding_work"), "stale paper timer/message ignored");
         pass(p, input, 2); pass(p, input, 2);
         say(p, input, "Alice", "coding done"); say(p, input, "Bob", "coding done");
-        check(step(p).equals("coding_work"), "both distinct tasks required");
+        check(step(p).equals("coding_work"), "unrelated duplicate task callbacks ignored");
         pass(p, input, 1);
-        check(step(p).equals("submission_acknowledgement"), "out of order passes plus readiness finish coding");
+        check(step(p).equals("submission_acknowledgement"), "one recovery pass plus readiness finishes coding");
         pass(p, input, 1); p.timedOut("coding_work");
         say(p, input, "Camera_1", "submitted");
         check(step(p).equals("submission_acknowledgement"), "duplicate pass and stale timeout cannot skip submission");
@@ -217,7 +217,7 @@ public class RepresentationHarness {
         check(step(reconnectPlan).equals("paper_work"), "returning Alexander still has to become ready");
         say(reconnectPlan, reconnectInput, "Alexander", "paper done");
         check(step(reconnectPlan).equals("coding_work"), "all three exact names advance paper");
-        pass(reconnectPlan, reconnectInput, 1); pass(reconnectPlan, reconnectInput, 2);
+        pass(reconnectPlan, reconnectInput, 1);
         say(reconnectPlan, reconnectInput, "Alex", "coding done");
         say(reconnectPlan, reconnectInput, "Alexander", "coding done");
         check(step(reconnectPlan).equals("coding_work"), "unready third participant holds coding");

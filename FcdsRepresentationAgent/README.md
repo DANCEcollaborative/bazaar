@@ -5,7 +5,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 ## Behavior
 
 - Supports 1–4 actual participants; paper → NumPy coding → saved-notebook submission.
-- Readiness requires all present participants, plus two distinct passing task callbacks for early Coding completion. Deadlines still allow unfinished submission.
+- Readiness requires all present participants, plus a passing task1 recovery callback for early Coding completion. Deadlines still allow unfinished submission.
 - Ignores synthetic/private readiness, duplicate callbacks, and stale timers; retains early readiness during introductory prompts.
 - Keeps paper readiness sent during Setup, including withdrawals. Exact participant names and reconnects are tracked by an activity-local presence watcher; Alex and Alexander remain distinct.
 - Processes each private question once, including questions from different students sent together, without the inherited room-wide time filter.
@@ -16,7 +16,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 
 ## Files and build
 
-`bazaar/src/` contains only new classes; `bazaar/runtime/` contains activity plans and overrides. `ui/` contains the personal page, MIT-licensed qrcode-generator 1.4.4, and transformations of the existing camera/login files. `final_grader/` contains the matching two-task adapters for the separate Activity Server. Student content lives in `nachiketdk/fcds-p2-representation`.
+`bazaar/src/` contains only new classes; `bazaar/runtime/` contains activity plans and overrides. `ui/` contains the personal page, MIT-licensed qrcode-generator 1.4.4, and transformations of the existing camera/login files. `final_grader/` contains the matching single-task adapter for the separate Activity Server. Student content lives in `nachiketdk/fcds-p2-representation`.
 
 Copy the deployed `llmcameraagent.jar` into `bazaar/vendor/llmcameraagent.jar` locally. It must have SHA-256 `441ecf88afaeb9645f4ae18f1d2068aa6972e86d0657101021cab6eaa32e84c0`. This pinned dependency is intentionally not committed. Use a JDK with `--release 8` support:
 
@@ -34,8 +34,10 @@ The small JAR uses that unchanged dependency in its manifest. No shared base JAR
 
 The existing Node route appends `.html`, so `html-page-group` must be `tab-share-representation`, without an extension. Serve `tab-share-representation.html.html` as a compatibility alias for links already posted in old rooms.
 
-New rooms select the agent through their OPE module. Existing rooms retain their agent/process state. Comprehensive research logging is outside this change.
+New rooms select the agent through their OPE module. Existing rooms retain their agent/process state. Recording and the manual-photo workflow use the existing Dev recorder integration.
 
-## Browser validation
+## Current activity
 
-Solo student browser flow passed through camera preview, private tutor response, readiness, failing/passing checks, submission receipt and final grade 2/2. Two-student readiness and private routing passed, but the inherited v19 Jupyter image had incompatible collaboration packages. That separate repair lives on the `ope-platform-operator` branch `codex/fcds-dev-collaboration`. A full two-browser rerun is required after its image change. Google identity/Lobby allocation were fixtures in the isolated browser test; physical phone acceptance remains separate.
+Recover the sensor readings: r[i] = s[i] + (1/3) s[i-1], s[-1] = 0. Twenty minutes on paper and twenty-five minutes coding one recover_readings function. Student source and reproducible notebook/worksheet builder live in the content repository's lesson directory. The final score is out of 1.
+
+Deployment and browser-test evidence is recorded in the project docs; historical two-task results do not certify the current exercise. Physical-phone acceptance remains separate from automated browser tests.

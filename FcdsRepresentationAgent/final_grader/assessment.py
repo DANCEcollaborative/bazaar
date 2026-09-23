@@ -5,12 +5,9 @@ import io
 import json
 from pathlib import Path
 
-from public_checks import check_part_a, check_part_b
+from public_checks import check_recovery, code_violations
 
-TASKS = {
-    "task1": ("build_comparisons", check_part_a),
-    "task2": ("choose_and_summarize", check_part_b),
-}
+TASKS = {"task1": ("recover_readings", check_recovery)}
 
 
 def extract_code(notebook, task):
@@ -32,16 +29,9 @@ def assess(task, code):
         return False, "No solution cells found. Keep the supplied task tags."
     try:
         tree = ast.parse(code)
-        loops = (ast.For, ast.AsyncFor, ast.While, ast.ListComp, ast.SetComp,
-                 ast.DictComp, ast.GeneratorExp)
-        forbidden = {"map", "vectorize", "apply_along_axis", "frompyfunc"}
-        for node in ast.walk(tree):
-            if isinstance(node, loops):
-                return False, "Use array operations, not loops or comprehensions."
-            if isinstance(node, ast.Call):
-                name = getattr(node.func, "attr", getattr(node.func, "id", ""))
-                if name in forbidden:
-                    return False, name + " is not allowed as a loop substitute."
+        violations = code_violations(tree)
+        if violations:
+            return False, "\n".join(violations)
         namespace = {}
         output = io.StringIO()
         with contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
@@ -54,7 +44,7 @@ def assess(task, code):
         # The submitted source has already been checked above, even if inspect
         # cannot recover source for a function created with exec.
         feedback = output.getvalue().replace(
-            "Source unavailable here: no-loop compliance needs manual review.\n", "")
+            "Source unavailable here: array-operation compliance needs manual review.\n", "")
         return bool(passed), feedback.strip()
     except Exception as exc:
         return False, type(exc).__name__ + ": " + str(exc)

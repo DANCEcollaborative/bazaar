@@ -83,7 +83,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
         if (event instanceof FileEvent && currentPlan != null && currentPlan.currentStage != null
                 && "Coding".equals(currentPlan.currentStage.name)) {
             String file = ((FileEvent) event).getFileName();
-            if ("testcase-complete_1".equals(file) || "testcase-complete_2".equals(file)) passed.add(file);
+            if ("testcase-complete_1".equals(file)) passed.add(file);
         }
         if (event instanceof LaunchEvent) {
             super.processEvent(input, event);
@@ -100,7 +100,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
         String phase = step.attributes.get("phase");
         if (("submit".equals(phase) && submitted)
                 || (!"submit".equals(phase) && allPresentReady()
-                    && (!"coding".equals(phase) || passed.size() == 2))) completeCurrent(true);
+                    && (!"coding".equals(phase) || passed.contains("testcase-complete_1")))) completeCurrent(true);
     }
 
     private String participant(String sender) {

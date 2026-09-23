@@ -121,7 +121,7 @@ public class RepresentationCameraListener extends LlmCameraListener {
                 + (Boolean.TRUE.equals(manualPhoto.get()) ? " This image was deliberately submitted by the student. Respond with one brief, useful observation or question about visible work; if writing is unreadable, ask for a clearer photo. Do not claim to see details you cannot read." : "")
                 + "\nCURRENT PHASE: " + phase + ". "
                 + (("Paper".equals(phase) || "Setup".equals(phase))
-                    ? "Students reason on paper. Ask about quantities, matrix shapes, axes, ties, and running averages. Do not give NumPy code or a complete solution. Use only clearly visible paper details."
+                    ? "Students reason on paper. Ask about true versus recorded values, dependency expansion, coefficient signs and powers, and matrix row/column meaning. Do not give NumPy code or a complete solution. Use only clearly visible paper details."
                     : "Students are coding or submitting. Discuss the code or question they share. Do not infer their current code from an earlier paper image. Do not claim tests passed or submission succeeded without the platform receipt."));
             if (!"Paper".equals(phase) && !"Setup".equals(phase)) {
                 for (int i = 1; i < messages.length(); i++) {
