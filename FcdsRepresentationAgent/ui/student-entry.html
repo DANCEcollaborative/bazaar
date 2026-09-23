@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recover the sensor readings</title>
+    <!-- Google Sign-In Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors pulled from the tartan reference image: deep navy,
+               forest green, berry red, and a gold thread accent. */
+            --navy: #1a2456;
+            --green: #1f7a4d;
+            --green-dark: #156740;
+            --red: #b31b34;
+            --gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--green) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: var(--navy);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        /* Adjusted Auth Section to only hold info/login button */
+        .auth-section {
+            margin-bottom: 24px;
+        }
+
+        .user-info {
+            background: #eef2ec;
+            border-left: 4px solid var(--green-dark);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .user-info h3 {
+            color: var(--navy);
+            margin-bottom: 5px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .user-info p {
+            color: #444;
+            margin: 2px 0;
+            font-size: 14px;
+        }
+
+        /* LOGOUT BUTTON - Bolder font added */
+        .logout-btn {
+            background: transparent;
+            color: #999;
+            border: none;
+            font-size: 13px;
+            font-weight: 700; /* Made bolder */
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 30px; /* Push to bottom */
+            align-self: center;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        .logout-btn:hover {
+            color: var(--red); /* Red only on hover */
+            text-decoration: underline;
+            transform: none;
+            background: transparent;
+        }
+
+        .intro { color: #444; line-height: 1.6; margin: 0 0 18px; }
+        .preparation { background: #f5f7f9; border-radius: 8px; padding: 18px; margin-bottom: 24px; color: #333; line-height: 1.55; }
+        .preparation h2 { font-size: 17px; color: var(--navy); margin-bottom: 10px; }
+        .preparation ul { padding-left: 20px; }
+        .preparation li + li { margin-top: 10px; }
+        .retry-btn { display: block; margin: 15px auto 0; padding: 10px 15px; background: white; color: var(--navy); border: 1px solid var(--navy); border-radius: 6px; cursor: pointer; }
+        @media (max-width: 540px) { .container { padding: 24px 18px; } h1 { font-size: 25px; } }
+
+        button.start-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--green-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 5px;
+        }
+
+        button.start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 36, 86, 0.4);
+        }
+
+        button.start-btn:active {
+            transform: translateY(0);
+        }
+
+        button.start-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            text-align: center;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.loading {
+            background: #e9ecf4;
+            color: var(--navy);
+        }
+
+        .status.success {
+            background: #e7f0e6;
+            color: var(--green-dark);
+        }
+
+        .status.error {
+            background: #f4e8ea;
+            color: var(--red);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Center Google Sign-In button */
+        #googleSignInDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recover the sensor readings</h1>
+        <p class="intro">Undo a sensor’s memory fault: design your solution on paper, then bring it to life with NumPy.</p>
+        <p class="intro"><strong>20 minutes on paper + 25 minutes coding</strong><br>Allow extra time for setup and submission.</p>
+        <div class="preparation">
+            <h2>Before you start</h2>
+            <ul>
+                <li>Have a laptop, paper and a pen. Use your phone for paper photos; you can take or choose individual photos if a continuous camera setup is inconvenient.</li>
+                <li>Groups of <strong>1–3</strong> form automatically. Three waiting students start together; otherwise, after about one minute, you start alone or with one partner. You cannot choose partners on this page.</li>
+                <li>Your group stays fixed once the room is created. JupyterLab can take a few more minutes to open.</li>
+            </ul>
+        </div>
+
+        <div class="auth-section">
+            <div id="loggedOut" class="hidden">
+                <!-- Google Sign-In Button Container -->
+                <p class="intro">Sign in with the Google account your instructor enrolled for this activity.</p>
+                <div id="googleSignInDiv"></div>
+                <p id="googleStatus" role="status" class="intro"></p>
+
+                <!-- Google One Tap Configuration -->
+                <div id="g_id_onload"
+                     data-client_id="683742022812-5b3ohko5co4pi8dbh5rpdsm085fjhp14.apps.googleusercontent.com"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+            </div>
+
+            <div id="loggedIn" class="hidden">
+                <div class="user-info">
+                    <h3>Account</h3>
+                    <p><strong>Name:</strong> <span id="userName"></span></p>
+                    <p><strong>Email:</strong> <span id="userEmail"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="jupyterForm" class="hidden">
+            <p id="enrollmentStatus" role="status" aria-live="polite" class="intro"></p>
+            <button class="start-btn" id="startBtn" disabled>Start activity</button>
+            <button class="retry-btn hidden" id="retryEnrollmentBtn">Recheck enrollment</button>
+            <div id="status" class="status" role="status" aria-live="polite"></div>
+        </div>
+
+        <button class="logout-btn hidden" id="logoutBtn">Sign out</button>
+    </div>
+
+    <script>
+        // ====== CONFIGURATION - UPDATE THESE VALUES ======
+        const GOOGLE_CLIENT_ID = '683742022812-5b3ohko5co4pi8dbh5rpdsm085fjhp14.apps.googleusercontent.com'; // Replace with your Google OAuth Client ID
+        const JUPYTER_SERVER = 'https://bree.lti.cs.cmu.edu';
+        const ACTIVITY_ID = 'fcds-p2-26-fall-1a';
+        // This page launches only the sensor recovery activity. Other enrollments are ignored.
+
+        // DOM elements
+        const loggedOutDiv = document.getElementById('loggedOut');
+        const loggedInDiv = document.getElementById('loggedIn');
+        const jupyterForm = document.getElementById('jupyterForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const startBtn = document.getElementById('startBtn');
+        const enrollmentStatus = document.getElementById('enrollmentStatus');
+        const retryEnrollmentBtn = document.getElementById('retryEnrollmentBtn');
+        const status = document.getElementById('status');
+        const userNameSpan = document.getElementById('userName');
+        const userEmailSpan = document.getElementById('userEmail');
+
+        let currentUser = null;
+        let enrolled = false;
+        let enrollmentRequest = 0;
+        let launching = false;
+
+        // Utility functions
+        function showStatus(message, type) {
+            status.textContent = message;
+            status.className = 'status show ' + type;
+        }
+
+        function hideStatus() {
+            status.className = 'status';
+        }
+
+        // A known account can still be unenrolled in this specific activity.
+        async function loadActivity(email) {
+            const request = ++enrollmentRequest;
+            enrolled = false;
+            startBtn.disabled = true;
+            retryEnrollmentBtn.classList.add('hidden');
+            enrollmentStatus.textContent = 'Checking your enrollment…';
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 15000);
+            try {
+                const response = await fetch(`${JUPYTER_SERVER}/api/activities/by-email/${encodeURIComponent(email)}`, {signal: controller.signal, cache: 'no-store'});
+                if (!response.ok) throw new Error('Enrollment service unavailable');
+                const activities = await response.json();
+                if (!Array.isArray(activities)) throw new Error('Invalid enrollment response');
+                if (request !== enrollmentRequest || currentUser?.email !== email) return;
+                enrolled = activities.some(activity => activity.activity_id === ACTIVITY_ID);
+                enrollmentStatus.textContent = enrolled
+                    ? 'You are enrolled. Your instruction notebook will open when the activity is ready.'
+                    : 'This account is not enrolled in this activity, or the activity is currently unavailable. Check the email shown above. Ask your instructor to enroll that email or enable the activity, then recheck here. You can also sign out to use another account.';
+                retryEnrollmentBtn.classList.toggle('hidden', enrolled);
+            } catch (error) {
+                if (request !== enrollmentRequest || currentUser?.email !== email) return;
+                enrollmentStatus.textContent = 'We could not check enrollment. Check your connection and choose Recheck enrollment.';
+                retryEnrollmentBtn.classList.remove('hidden');
+            } finally {
+                clearTimeout(timeout);
+                if (request === enrollmentRequest) startBtn.disabled = !enrolled || launching;
+            }
+        }
+        retryEnrollmentBtn.addEventListener('click', () => {
+            if (currentUser && !launching) loadActivity(currentUser.email);
+        });
+
+        function showLoggedIn(user) {
+            loggedOutDiv.classList.add('hidden');
+            loggedInDiv.classList.remove('hidden');
+            jupyterForm.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden');
+
+            userNameSpan.textContent = user.name;
+            userEmailSpan.textContent = user.email;
+
+            loadActivity(user.email);
+        }
+
+        function showLoggedOut() {
+            loggedOutDiv.classList.remove('hidden');
+            loggedInDiv.classList.add('hidden');
+            jupyterForm.classList.add('hidden');
+            logoutBtn.classList.add('hidden');
+
+            currentUser = null;
+            enrolled = false;
+            ++enrollmentRequest;
+            startBtn.disabled = true;
+        }
+
+        // Parse JWT token to extract user information
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(
+                    atob(base64)
+                        .split('')
+                        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                        .join('')
+                );
+                return JSON.parse(jsonPayload);
+            } catch (error) {
+                console.error('Error parsing JWT:', error);
+                return null;
+            }
+        }
+
+        // Handle Google Sign-In response
+        function handleCredentialResponse(response) {
+
+            // Parse the JWT token
+            const userInfo = parseJwt(response.credential);
+
+            if (userInfo && typeof userInfo.email === 'string' && userInfo.email && typeof userInfo.name === 'string' && userInfo.name) {
+                currentUser = {
+                    name: userInfo.name,
+                    email: userInfo.email,
+                    picture: userInfo.picture
+                };
+
+                showLoggedIn(currentUser);
+            } else {
+                document.getElementById('googleStatus').textContent = 'Sign-in could not be completed. Please try again.';
+            }
+        }
+
+        // Initialize Google Sign-In
+        let googleInitialized = false;
+        function initializeGoogleSignIn() {
+            if (googleInitialized || !window.google?.accounts?.id) return false;
+            googleInitialized = true;
+            document.getElementById('googleStatus').textContent = '';
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: handleCredentialResponse
+            });
+
+            // Render the sign-in button
+            google.accounts.id.renderButton(
+                document.getElementById('googleSignInDiv'),
+                {
+                    theme: 'outline',
+                    size: 'large',
+                    text: 'signin_with',
+                    shape: 'rectangular',
+                    logo_alignment: 'left',
+                    width: Math.min(400, document.getElementById("googleSignInDiv").clientWidth || 280)
+                }
+            );
+            return true;
+        }
+
+        // Check if user is already logged in (using sessionStorage)
+        function checkSession() {
+            const savedUser = sessionStorage.getItem('currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    if (!currentUser || typeof currentUser.email !== 'string' || !currentUser.email || typeof currentUser.name !== 'string' || !currentUser.name) throw new Error('Invalid stored account');
+                    showLoggedIn(currentUser);
+                } catch (error) {
+                    console.error('Error loading saved session:', error);
+                    showLoggedOut();
+                }
+            } else {
+                showLoggedOut();
+            }
+        }
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('currentUser');
+            window.google?.accounts?.id?.disableAutoSelect();
+            showLoggedOut();
+            hideStatus();
+        });
+
+        // Start JupyterLab
+        startBtn.addEventListener('click', async () => {
+            if (!currentUser) {
+                showStatus('❌ Please sign in first', 'error');
+                return;
+            }
+
+            if (!enrolled || launching) return;
+            const course = ACTIVITY_ID;
+
+            const fcdsFixedGroupWait = course === 'fcds-p2-26-fall-1a';
+            const launchHeading = fcdsFixedGroupWait ? 'Forming your group and starting JupyterLab...' : 'Starting JupyterLab...';
+            const launchExplanation = fcdsFixedGroupWait
+                ? 'We wait up to one minute to form a group of 1–3 students, then start JupyterLab. Loading can take a few more minutes. Your group stays fixed once the room is created.'
+                : 'This may take up to 5 minutes';
+
+            // Open window immediately to avoid popup blocker
+            const newWindow = window.open('about:blank', '_blank');
+
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                showStatus('❌ Popup was blocked. Please allow popups for this site.', 'error');
+                return;
+            }
+
+            // Show loading page in the new window
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Loading JupyterLab...</title>
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', sans-serif;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            margin: 0;
+                            background: linear-gradient(135deg, #1a2456 0%, #1f7a4d 100%);
+                            color: white;
+                        }
+                        .loader {
+                            text-align: center;
+                        }
+                        .spinner {
+                            border: 4px solid rgba(255,255,255,0.3);
+                            border-top: 4px solid #d4af37;
+                            border-radius: 50%;
+                            width: 50px;
+                            height: 50px;
+                            animation: spin 1s linear infinite;
+                            margin: 0 auto 20px;
+                        }
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="loader">
+                        <div class="spinner"></div>
+                        <h2>${launchHeading}</h2>
+                        <p>${launchExplanation}</p>
+                    </div>
+                </body>
+                </html>
+            `);
+
+            launching = true;
+            startBtn.disabled = true;
+            logoutBtn.disabled = true;
+            retryEnrollmentBtn.disabled = true;
+            showStatus(fcdsFixedGroupWait ? launchExplanation : '⏳ Starting JupyterLab... This may take up to 5 minutes.', 'loading');
+
+            const requestBody = {
+                name: currentUser.name,
+                email: currentUser.email,
+                password: currentUser.email,
+                entityId: course
+            };
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5 * 60 * 1000);
+            try {
+
+                const response = await fetch(`${JUPYTER_SERVER}/getJupyterlabUrl`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                let url = null;
+
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    if (data.url) {
+                        url = data.url;
+                    } else if (data.jupyterlabUrl) {
+                        url = data.jupyterlabUrl;
+                    }
+                } else {
+                    url = await response.text();
+                    url = url.trim();
+                }
+
+                if (url && url.startsWith('http')) {
+                    showStatus('Your activity is open in the new tab. Return here to reopen the same room if needed.', 'success');
+                    startBtn.textContent = 'Reopen activity';
+                    // The representation Dev opens its instructions immediately.
+                    // Preserve the token, identity and room query parameters.
+                    const launchUrl = new URL(url);
+                    if (course === 'fcds-p2-26-fall-1a' && launchUrl.hostname === 'collab.lti.cs.cmu.edu') {
+                        launchUrl.pathname = launchUrl.pathname.replace(/\/lab\/?$/, '/lab/tree/RTC:workspace.ipynb');
+                    }
+                    newWindow.location.href = launchUrl.href;
+                } else {
+                    newWindow.close();
+                    showStatus('❌ No valid URL received from server', 'error');
+                }
+
+            } catch (error) {
+                newWindow.close();
+                if (error.name === 'AbortError') {
+                    showStatus('❌ Request timed out after 5 minutes', 'error');
+                } else {
+                    showStatus('We could not open the activity. Please retry. If it still fails, contact your instructor.', 'error');
+                }
+            } finally {
+                clearTimeout(timeoutId);
+                launching = false;
+                startBtn.disabled = !enrolled;
+                logoutBtn.disabled = false;
+                retryEnrollmentBtn.disabled = false;
+            }
+        });
+
+        // Update session storage when user logs in
+        const originalShowLoggedIn = showLoggedIn;
+        showLoggedIn = function(user) {
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            originalShowLoggedIn(user);
+        };
+
+        // Make handleCredentialResponse available globally
+        window.handleCredentialResponse = handleCredentialResponse;
+        checkSession();
+        if (!initializeGoogleSignIn()) {
+            let attempts = 0;
+            document.getElementById('googleStatus').textContent = 'Loading Google sign-in…';
+            const timer = setInterval(() => {
+                if (initializeGoogleSignIn()) clearInterval(timer);
+                else if (++attempts >= 600) {
+                    clearInterval(timer);
+                    document.getElementById('googleStatus').textContent = 'Google sign-in could not load. Check your connection and refresh this page.';
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
