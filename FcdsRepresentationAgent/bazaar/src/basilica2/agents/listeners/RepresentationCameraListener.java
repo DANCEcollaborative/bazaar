@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 /** Reuses camera/private-chat transport with activity and phase-specific context. */
 public class RepresentationCameraListener extends LlmCameraListener {
+    private final ThreadLocal<Boolean> manualPhoto = new ThreadLocal<Boolean>();
     public RepresentationCameraListener(Agent agent) { super(agent); }
 
     @Override public Class[] getPreprocessorEventClasses() {
@@ -68,15 +69,20 @@ public class RepresentationCameraListener extends LlmCameraListener {
     }
 
     @Override public boolean almostIdentical(String first,String second) throws java.io.IOException {
-        boolean same=super.almostIdentical(first,second);
-        RepresentationCapture.record(agent,"camera.similarity",RepresentationCapture.data("first_sha256",RepresentationCapture.hashImage(first),"second_sha256",RepresentationCapture.hashImage(second),"filtered",same));
+        boolean manual=Boolean.TRUE.equals(manualPhoto.get());
+        boolean same=manual ? false : super.almostIdentical(first,second);
+        RepresentationCapture.record(agent,"camera.similarity",RepresentationCapture.data("first_sha256",RepresentationCapture.hashImage(first),"second_sha256",RepresentationCapture.hashImage(second),"filtered",same,"manual_photo",manual));
         return same;
     }
 
     @Override public void handleImageEvent(InputCoordinator source, ImageEvent event) throws JSONException {
-        RepresentationCapture.record(agent,"camera.agent_received",RepresentationCapture.data("sender",event.getSenderUsername(),"sha256",RepresentationCapture.hashImage(event.getImageBase64()),"relay_frame_count",event.getFrameCount(),"phase",stage()));
-        if ("Paper".equals(stage()) || "Setup".equals(stage())) super.handleImageEvent(source, event);
-        else RepresentationCapture.record(agent,"camera.ignored_phase",RepresentationCapture.data("phase",stage(),"sha256",RepresentationCapture.hashImage(event.getImageBase64())));
+        boolean manual=event.getProblemId().startsWith("manual:");
+        RepresentationCapture.record(agent,"camera.agent_received",RepresentationCapture.data("sender",event.getSenderUsername(),"sha256",RepresentationCapture.hashImage(event.getImageBase64()),"relay_frame_count",event.getFrameCount(),"phase",stage(),"manual_photo",manual));
+        if ("Paper".equals(stage()) || "Setup".equals(stage())) {
+            manualPhoto.set(manual);
+            try { super.handleImageEvent(source, event); }
+            finally { manualPhoto.remove(); }
+        } else RepresentationCapture.record(agent,"camera.ignored_phase",RepresentationCapture.data("phase",stage(),"sha256",RepresentationCapture.hashImage(event.getImageBase64())));
     }
 
     @Override public String getAllMessages(InputCoordinator source, String prompt, String sender) {
@@ -112,6 +118,7 @@ public class RepresentationCameraListener extends LlmCameraListener {
                 + "Use response_type=\"Reply\" and put your student-facing hint in reply. "
                 + "Use response_type=\"No response\" and reply=\"\" only when no helpful intervention is needed. "
                 + "Always respond to an explicit student question. Do not wrap the JSON in Markdown."
+                + (Boolean.TRUE.equals(manualPhoto.get()) ? " This image was deliberately submitted by the student. Respond with one brief, useful observation or question about visible work; if writing is unreadable, ask for a clearer photo. Do not claim to see details you cannot read." : "")
                 + "\nCURRENT PHASE: " + phase + ". "
                 + (("Paper".equals(phase) || "Setup".equals(phase))
                     ? "Students reason on paper. Ask about quantities, matrix shapes, axes, ties, and running averages. Do not give NumPy code or a complete solution. Use only clearly visible paper details."

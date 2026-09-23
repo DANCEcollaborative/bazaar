@@ -25,27 +25,31 @@ function fakeDatabase(rows) {
   } };
 }
 
-async function camera(rows = new Map()) {
+async function camera(rows = new Map(), storageFails = false) {
   const elements = {}, intervals = new Map(), calls = [];
   let failure = false, wrongAck = false, stoppedTracks = 0;
   const get = id => elements[id] ||= {
     style: {}, value: '1', videoWidth: 960, videoHeight: 720, readyState: 2,
+    naturalWidth: 1200, naturalHeight: 900, removeAttribute() {}, click() {},
     play: async () => {}, getContext: () => ({ drawImage() {} }),
-    toDataURL: () => 'data:image/jpeg;base64,c3ludGhldGlj', prepend() {}
+    toDataURL: () => 'data:image/jpeg;base64,c3ludGhldGlj', prepend() {},
+    set src(value) { this._src = value; queueMicrotask(() => this.onload?.()); },
+    get src() { return this._src; }
   };
   const db = fakeDatabase(rows);
   const windowEvents = {}, documentEvents = {};
   const context = {
-    URLSearchParams, Date, JSON, Promise, Error, String, Math, crypto: webcrypto,
+    URLSearchParams, URL: { createObjectURL: () => 'blob:synthetic', revokeObjectURL() {} }, Date, JSON, Promise, Error, String, Math, crypto: webcrypto,
     location: { search: '?room=' + room + '&user=1', hash: '#capture=' + credential },
-    document: { getElementById: get, createElement: () => ({}),
+    document: { getElementById: get, createElement: name => get(name),
       addEventListener: (name, fn) => { documentEvents[name] = fn; } },
     window: { addEventListener: (name, fn) => { windowEvents[name] = fn; } },
     navigator: { userAgent: 'synthetic test', mediaDevices: { getUserMedia: async () => ({
       getTracks: () => [{ stop() { stoppedTracks++; } }]
     }) } },
     indexedDB: { open() { const request = {}; queueMicrotask(() => {
-      request.result = db; request.onsuccess?.();
+      if (storageFails) request.onerror?.();
+      else { request.result = db; request.onsuccess?.(); }
     }); return request; } },
     io: () => ({ on() {}, disconnect() {} }),
     setInterval: (fn, delay) => { intervals.set(delay, fn); return delay; },
@@ -75,6 +79,7 @@ test('camera retains failed/unacknowledged frames, then retries the same ID afte
   assert.ok(frame, 'frame was durably queued before upload');
   assert.equal(frame.body.participant_id, '1');
   assert.equal(frame.body.room_id, room);
+  assert.equal(frame.body.capture_mode, 'continuous');
   first.get('stop').onclick(); await settle();
   assert.ok(first.stoppedTracks > 0);
   assert.ok(first.rows.has(frame.id), 'stop does not discard a queued frame');
@@ -94,4 +99,37 @@ test('camera retains failed/unacknowledged frames, then retries the same ID afte
   assert.equal(replay.body.producer_sequence, frame.body.producer_sequence);
   assert.ok(reopened.calls.every(call => call.body.participant_id === '1'));
   assert.ok(reopened.calls.every(call => call.headers.Authorization === 'Camera ' + credential));
+});
+
+test('a selected photo is reviewed, archived and retried without starting a stream', async () => {
+  const page = await camera();
+  page.offline(true);
+  page.get('chooseInput').files = [{ type: 'image/png' }];
+  await page.get('chooseInput').onchange(); await settle();
+  assert.equal(page.get('manualPreview').hidden, false);
+  assert.equal(page.get('sendPhoto').disabled, false);
+  await page.get('sendPhoto').onclick(); await settle();
+  const frame = [...page.rows.values()].find(row => row.kind === 'frame');
+  assert.ok(frame, 'manual image remains queued while offline');
+  assert.equal(frame.body.capture_mode, 'manual');
+  assert.equal(frame.body.mimeType, 'image/jpeg', 'browser canvas normalizes the chosen image');
+  assert.equal(page.get('manualPreview').hidden, true);
+  assert.equal(page.stoppedTracks, 0, 'manual submission does not need a continuous camera stream');
+  assert.match(page.get('manualStatus').textContent, /queued on this device/i);
+  page.offline(false); await page.flush();
+  assert.ok(!page.rows.has(frame.id));
+  assert.match(page.get('manualStatus').textContent, /saved on Bree/i);
+  page.get('takeInput').files = [{ type: 'image/jpeg' }];
+  await page.get('takeInput').onchange(); await settle();
+  assert.equal(page.get('sendPhoto').disabled, false, 'another photo can be sent later');
+  page.get('discardPhoto').onclick();
+  assert.equal(page.get('sendPhoto').disabled, true);
+});
+
+test('manual controls are disabled when durable browser storage is unavailable', async () => {
+  const page = await camera(new Map(), true);
+  assert.equal(page.get('start').disabled, true);
+  assert.equal(page.get('takePhoto').disabled, true);
+  assert.equal(page.get('choosePhoto').disabled, true);
+  assert.match(page.get('manualStatus').textContent, /storage is unavailable/i);
 });

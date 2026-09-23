@@ -11,6 +11,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 - Processes each private question once, including questions from different students sent together, without the inherited room-wide time filter.
 - Room-specific tutoring history; paper images omitted from Coding prompts; inherited tutor JSON response contract preserved.
 - One personal laptop tutor link per participant, shown in that student's JupyterLab view rather than posted in group chat, with phone-camera QR pairing and private preview/chat. Extensionless HTML selector plus old-link compatibility alias.
+- The Dev phone page supports continuous still capture or a student-selected single photo. Choosing a photo stops continuous capture to release the phone camera. Each selected photo is reviewed before upload and archived through the same Bree queue; the Dev tutor handles it even when it resembles the previous frame. The phone page distinguishes local queueing from Bree archival and tutor-service relay.
 - Notebook opens by default through a scoped patch to Bree's existing login page.
 
 ## Files and build
