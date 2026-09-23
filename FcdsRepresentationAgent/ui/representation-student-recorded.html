@@ -22,12 +22,12 @@
         <div id="qr" aria-label="QR code for your phone camera"></div>
         <div><h2 id="camera-title">Camera setup</h2>
           <ol><li>Scan this QR code with your phone, or open the camera link on another device. Your IDs are filled in.</li><li>For continuous paper capture, allow camera access, aim at your work, and tap <strong>Start camera</strong>. Or tap <strong>Take a photo</strong> / <strong>Choose an existing photo</strong> to send one image whenever you want, including if continuous capture fails.</li><li>Check the paper preview below. Ask the tutor a question in the private chat.</li></ol>
-          <p><strong>Stop continuous capture when the bot announces Phase 2.</strong> You can continue coding in your notebook. A photo is saved on Bree before it is passed to the tutor; keep the camera page open while records are pending.</p>
+          <p><strong>Stop continuous capture when the bot announces Phase 2.</strong> You can continue coding in your notebook.</p>
           <div class="ids"><span>Session ID: <code id="session-id"></code></span><span>Your User ID: <code id="user-id"></code></span></div>
           <div class="actions"><a id="camera-link" target="_blank" rel="noopener">Camera link — open on phone</a><button id="copy-camera" type="button">Copy camera link</button><span id="copy-status" role="status"></span></div>
         </div>
       </section>
-      <p>Camera still images and tutor interactions are saved for this activity. Keep the phone page open until it confirms all records are saved on Bree.</p><h2>Paper preview and private chat</h2>
+      <h2>Paper preview and private chat</h2>
       <p class="muted">Use <code>paper done</code>, <code>coding done</code>, and <code>submitted</code> in the <strong>JupyterLab group chat</strong>, not the private chat below.</p>
       <p id="preview-status" class="muted" role="status">No image received yet. Start the camera or send a photo. The preview and feedback may take a moment to appear.</p>
       <iframe id="private" title="Paper preview and private chat"></iframe>

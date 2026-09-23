@@ -19,9 +19,8 @@ public class RepresentationOutputCoordinator extends OutputCoordinator {
     public static String onboardingText(String name, String room, int user) {
         if (!room.matches("fcdsrepresentationfcds-p2-26-fall-1a-room[0-9]+") || user < 1 || user > 4)
             throw new IllegalArgumentException("Unexpected representation room or participant");
-        return "Welcome, " + name + ". Your own Paper tutor link appears in your JupyterLab view "
-            + "after chat connects. Open it on this laptop, then scan its QR code with your phone. "
-            + "Keep workspace.ipynb open for the questions, coding, readiness commands, and submission.";
+        return "Welcome, " + name + ". Follow Start here at the top of workspace.ipynb. "
+            + "Your private link is the Open paper tutor button above the notebook.";
     }
 
     @Override protected void publishEvent(Event event) {
@@ -39,7 +38,9 @@ public class RepresentationOutputCoordinator extends OutputCoordinator {
                     if (user != null) {
                         RepresentationCapture.record(owner,"activity.personal_tutor",RepresentationCapture.data(
                             "display_name",name,"participant_id",user));
-                        message.setText(onboardingText(name, owner.getName().substring("OPEBot_".length()), user));
+                        // The notebook and setup prompt explain the first action.
+                        // The personal link is delivered separately to this student.
+                        return;
                     } else message.setText("Welcome, " + name + ". Your personal Paper tutor link is being prepared in your JupyterLab view.");
                 }
             }

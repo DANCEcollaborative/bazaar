@@ -193,7 +193,7 @@ public class RepresentationHarness {
         check(coding.contains("CURRENT PHASE: Coding") && !coding.contains("image_url"), "coding omits stale image");
         check(!camera.messageFilter(new MessageEvent(input, "Alice", "paper done")), "control phrases are not tutoring prompts");
         String welcome = RepresentationOutputCoordinator.onboardingText("Alice Smith", "fcdsrepresentationfcds-p2-26-fall-1a-room260911995", 1);
-        check(welcome.contains("JupyterLab view") && welcome.contains("QR code"), "welcome directs students to their own Jupyter view");
+        check(welcome.contains("Start here") && welcome.contains("Open paper tutor"), "welcome directs students to their own Jupyter view");
         check(!welcome.contains("https://") && !welcome.contains("Private_") && !welcome.contains("#capture="),
             "shared welcome does not expose a student's personal link");
 

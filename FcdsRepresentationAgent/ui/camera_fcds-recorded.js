@@ -15,9 +15,8 @@
   if (!valid) { $('status').textContent = $('manualStatus').textContent = 'Open the personal camera link or scan the QR code from your Paper tutor page.'; return; }
   $('identity').textContent = 'Session ' + room.slice(-3) + ' · User ' + user;
   function draw() {
-    $('status').textContent = issue ? issue + ' · ' + queued + ' records waiting to be saved. Keep this page open.' :
-      queued ? (stopped ? 'Camera stopped. ' : 'Capturing. ') + queued + ' records waiting for Bree.' :
-      (stopped ? 'Camera stopped. ' : 'Capturing a still image every 10 seconds. ') + (lastSaved ? 'Saved on Bree at ' + lastSaved + '.' : 'Ready to start.');
+    $('status').textContent = issue ? issue + '. Keep this page open to retry.' :
+      (stopped ? 'Camera stopped. ' : 'Camera running. ') + (lastSaved ? 'Last upload: ' + lastSaved + '.' : 'Ready.');
     $('status').style.background = issue ? '#ffe3dd' : queued ? '#fff2ce' : '#e5f3e9';
   }
   db = await new Promise((resolve,reject) => {
@@ -49,9 +48,9 @@
       pendingManual=all.filter(e=>e.kind==='frame' && e.body.capture_mode==='manual').length;
       for(const e of all.slice(0,12)) {
         const response=await fetch('/fcds-recorder/v1/camera/'+(e.kind==='frame'?'frame':'events'),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Camera '+credential},body:JSON.stringify(e.body),signal:AbortSignal.timeout(15000)});
-        if(!response.ok)throw Error(response.status===403?'Camera link expired or invalid; reopen your personal link':'Archive unavailable; retrying');
+        if(!response.ok)throw Error(response.status===403?'Camera link expired or invalid; reopen your personal link':'Photo upload unavailable; retrying');
         const result=await response.json();
-        if(!result.stored || (e.kind==='frame'?result.frame_id!==e.id:!result.event_ids.includes(e.id)))throw Error('Archive did not confirm this record');
+        if(!result.stored || (e.kind==='frame'?result.frame_id!==e.id:!result.event_ids.includes(e.id)))throw Error('Upload was not confirmed');
         await change(s=>s.delete(e.id));queued--;lastSaved=new Date().toLocaleTimeString();
         if(e.kind==='frame' && e.body.capture_mode==='manual') {
           pendingManual--;
@@ -59,15 +58,15 @@
             latestManualFrameId=e.id;
             pendingRelayFrameId=result.relay_state==='accepted_by_relay' ? null : e.id;
             $('manualStatus').textContent = pendingRelayFrameId
-              ? 'Photo saved on Bree and queued for the tutor service. Check your private Paper tutor page; you can keep working while it arrives.'
-              : 'Photo saved on Bree and sent to the tutor service. Check your private Paper tutor page for the preview or a reply.';
+              ? 'Photo uploaded. Waiting for the tutor; you can keep working.'
+              : 'Photo sent to the tutor. Check your Paper tutor page for feedback.';
           }
         }
       }
       issue='';
     }catch(error){
       issue=error.message || 'Connection unavailable; retrying';
-      if(pendingManual>0)$('manualStatus').textContent='Your photo is queued on this device, but has not reached Bree. Upload will retry: '+issue+'. Keep this page open.';
+      if(pendingManual>0)$('manualStatus').textContent='Your photo has not finished uploading. Upload will retry: '+issue+'. Keep this page open.';
     }
     finally{busy=false;draw();}
   }
@@ -83,7 +82,7 @@
       const result=await response.json();
       if(result.stored && result.frame_id===frameId && result.relay_state==='accepted_by_relay' && latestManualFrameId===frameId) {
         pendingRelayFrameId=null;
-        $('manualStatus').textContent='Photo saved on Bree and sent to the tutor service. Check your private Paper tutor page for the preview or a reply.';
+        $('manualStatus').textContent='Photo sent to the tutor. Check your Paper tutor page for feedback.';
       }
     }catch(_) { /* Archive is durable; retry the status check without re-uploading. */ }
     finally{checkingRelay=false;}

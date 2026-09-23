@@ -122,12 +122,12 @@ test('a selected photo is reviewed, archived and retried without starting a stre
   assert.equal(frame.body.mimeType, 'image/jpeg', 'browser canvas normalizes the chosen image');
   assert.equal(page.get('manualPreview').hidden, true);
   assert.equal(page.stoppedTracks, 0, 'manual submission does not need a continuous camera stream');
-  assert.match(page.get('manualStatus').textContent, /queued on this device/i);
+  assert.match(page.get('manualStatus').textContent, /not finished uploading/i);
   page.offline(false); await page.flush();
   assert.ok(!page.rows.has(frame.id));
-  assert.match(page.get('manualStatus').textContent, /saved on Bree and queued for the tutor service/i);
+  assert.match(page.get('manualStatus').textContent, /Photo uploaded. Waiting for the tutor/i);
   await page.relayStatus();
-  assert.match(page.get('manualStatus').textContent, /sent to the tutor service/i);
+  assert.match(page.get('manualStatus').textContent, /sent to the tutor/i);
   assert.equal(page.calls.find(call => call.url.endsWith('/frame-status')).body.frame_id, frame.id);
   page.get('takeInput').files = [{ type: 'image/jpeg' }];
   await page.get('takeInput').onchange(); await settle();

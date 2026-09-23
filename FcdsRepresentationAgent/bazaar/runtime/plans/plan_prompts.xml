@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <prompts>
   <prompt id="SETUP">
-    <text>Read the instructions in workspace.ipynb. The Paper tutor link appears in JupyterLab after chat connects. Open it on your laptop and scan the QR code with your phone. Use continuous camera capture or send individual photos. Send paper done, coding done, and submitted in this group chat.</text>
+    <text>Start with the three steps at the top of workspace.ipynb. Open paper tutor is in the bar above the notebook.</text>
   </prompt>
   <prompt id="PAPER">
-    <text>Phase 1: paper work (20 minutes). Use the problem in the notebook to derive a representation for recovering the sensor readings. Each recorded value contains the current true value plus one third of the previous true value; the value before the sequence is zero. Use the camera and private chat for feedback. Each participant should type paper done here when ready, or paper not done to withdraw readiness. Wait for Phase 2 before coding.</text>
+    <text>Phase 1 has started (20 minutes). Work on the notebook problem on paper. Use Open paper tutor at the top for photos and private feedback. When ready, each person types paper done here. Wait for Phase 2 before coding.</text>
   </prompt>
   <prompt id="CODING">
     <text>Phase 2 starts now: coding (25 minutes). Stop camera capture and implement recover_readings(recorded) using your paper representation. In a group, take turns editing the notebook. Wait for autosave before running the check and keep the supplied cell tags. After the check passes, each participant should type coding done here when ready, or coding not done to withdraw readiness.</text>
