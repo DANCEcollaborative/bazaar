@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plan name="Sensor recovery: paper then NumPy">
   <stage name="Setup" type="other" delay="0">
-    <step type="prompt" delay="20" prompt="SETUP">setup_instructions</step>
+    <step type="prompt" delay="0" prompt="SETUP">setup_instructions</step>
+    <step type="representation_gate" phase="setup" delay="0">setup_ready</step>
   </stage>
   <stage name="Paper" type="other" delay="0">
     <step type="prompt" delay="0" prompt="PAPER">paper_instructions</step>

@@ -25,9 +25,11 @@ function fakeDatabase(rows) {
   } };
 }
 
-async function camera(rows = new Map(), storageFails = false) {
+async function camera(rows = new Map(), storageFails = false, options = {}) {
   const elements = {}, intervals = new Map(), calls = [];
-  let failure = false, wrongAck = false, stoppedTracks = 0;
+  let failure = false, uploadFailure = false, wrongAck = false, stoppedTracks = 0;
+  let phase = options.phase === undefined ? 'Paper' : options.phase;
+  let framePhase = null, relayState = options.relayState || 'accepted_by_relay', phaseDenied = !!options.phaseDenied;
   const get = id => elements[id] ||= {
     style: {}, value: '1', videoWidth: 960, videoHeight: 720, readyState: 2,
     naturalWidth: 1200, naturalHeight: 900, removeAttribute() {}, click() {},
@@ -59,17 +61,22 @@ async function camera(rows = new Map(), storageFails = false) {
     fetch: async (url, options) => {
       const body = JSON.parse(options.body); calls.push({ url, body, headers: options.headers });
       if (failure) throw Error('offline');
+      const phaseResult = {phase, camera_allowed: phase === 'Paper' || phase === 'Setup'};
+      if (url.endsWith('/phase')) return {ok: !phaseDenied, status:phaseDenied ? 403 : 200, json: async () => phaseResult};
       if (url.endsWith('/frame-status')) return { ok: true, json: async () => ({
-        stored: true, frame_id: body.frame_id, relay_state: 'accepted_by_relay'
+        stored: true, frame_id: body.frame_id, ...phaseResult, relay_state: phase === 'Coding' || phase === 'Submit' ? 'phase_closed' : relayState
       }) };
-      return { ok: true, json: async () => ({ stored: true,
+      if (uploadFailure) throw Error('upload unavailable');
+      const uploadPhase = framePhase || phase;
+      return { ok: true, json: async () => ({ stored: true, phase:uploadPhase, camera_allowed:uploadPhase === 'Paper' || uploadPhase === 'Setup', relay_state:uploadPhase === 'Coding' || uploadPhase === 'Submit' ? 'phase_closed' : 'queued',
         frame_id: wrongAck ? 'wrong-id' : body.frame_id,
         event_ids: wrongAck ? [] : (body.events || []).map(e => e.event_id) }) };
     }
   };
   await vm.runInNewContext(source, context); await settle();
   return { rows, calls, get, intervals, windowEvents, documentEvents,
-    offline(value) { failure = value; }, wrongAck(value) { wrongAck = value; },
+    offline(value) { failure = value; }, uploadFailure(value) { uploadFailure = value; }, wrongAck(value) { wrongAck = value; },
+    phase(value) { phase = value; }, phaseDenied(value) { phaseDenied = value; }, framePhase(value) { framePhase = value; }, relayState(value) { relayState = value; },
     get stoppedTracks() { return stoppedTracks; },
     async flush() { intervals.get(2000)(); await settle(); },
     async relayStatus() { intervals.get(3000)(); await settle(); } };
@@ -124,7 +131,7 @@ test('a selected photo is reviewed, archived and retried without starting a stre
   assert.equal(page.stoppedTracks, 0, 'manual submission does not need a continuous camera stream');
   assert.match(page.get('manualStatus').textContent, /not finished uploading/i);
   page.offline(false); await page.flush();
-  assert.ok(!page.rows.has(frame.id));
+  assert.equal(page.rows.get(frame.id).kind, 'relay', 'durable receipt survives archive acknowledgement');
   assert.match(page.get('manualStatus').textContent, /Photo uploaded. Waiting for the tutor/i);
   await page.relayStatus();
   assert.match(page.get('manualStatus').textContent, /sent to the tutor/i);
@@ -142,4 +149,109 @@ test('manual controls are disabled when durable browser storage is unavailable',
   assert.equal(page.get('takePhoto').disabled, true);
   assert.equal(page.get('choosePhoto').disabled, true);
   assert.match(page.get('manualStatus').textContent, /storage is unavailable/i);
+});
+
+
+test('archive acknowledgement survives reload and resumes relay polling without re-upload', async () => {
+  const first = await camera(new Map(), false, {relayState:'queued'});
+  first.get('chooseInput').files = [{type:'image/png'}];
+  await first.get('chooseInput').onchange(); await settle();
+  await first.get('sendPhoto').onclick(); await settle();
+  const receipt = [...first.rows.values()].find(row => row.kind === 'relay');
+  assert.ok(receipt, 'pending relay receipt is durable after image upload');
+  assert.equal(receipt.body.imageBase64, undefined, 'receipt no longer needs the image bytes');
+  const reopened = await camera(first.rows);
+  await reopened.relayStatus();
+  assert.ok(!reopened.rows.has(receipt.id));
+  assert.ok(reopened.calls.some(call => call.url.endsWith('/frame-status') && call.body.frame_id === receipt.id));
+  assert.ok(!reopened.calls.some(call => call.url.endsWith('/frame') && call.body.frame_id === receipt.id), 'already archived photo is not re-uploaded');
+  assert.match(reopened.get('manualStatus').textContent, /Photo sent to the tutor/);
+});
+
+test('phase change stops the live camera and blocks new photos', async () => {
+  const page = await camera();
+  await page.get('start').onclick(); await settle();
+  assert.equal(page.get('preview').hidden, false);
+  page.phase('Coding'); await page.relayStatus();
+  assert.equal(page.get('preview').hidden, true);
+  assert.ok(page.stoppedTracks > 0);
+  for (const id of ['start','takePhoto','choosePhoto','sendPhoto']) assert.equal(page.get(id).disabled, true);
+  assert.match(page.get('status').textContent, /Return to your JupyterLab notebook/);
+  assert.match(page.get('manualStatus').textContent, /New photos will not receive tutor feedback/);
+});
+
+test('photo crossing the phase boundary is acknowledged without promising tutor feedback', async () => {
+  const page = await camera();
+  page.get('chooseInput').files = [{type:'image/png'}];
+  await page.get('chooseInput').onchange(); await settle();
+  page.framePhase('Coding');
+  await page.get('sendPhoto').onclick(); await settle();
+  assert.ok(![...page.rows.values()].some(row => row.kind === 'frame' || row.kind === 'relay'));
+  assert.match(page.get('manualStatus').textContent, /paper phase has ended/);
+  assert.doesNotMatch(page.get('manualStatus').textContent, /Check your Paper tutor page for feedback/);
+  // An older Paper response must not reopen a completed phase.
+  page.phase('Paper'); await page.relayStatus();
+  assert.equal(page.get('choosePhoto').disabled, true);
+});
+
+test('unknown phase disables capture until the paper phase is confirmed', async () => {
+  const page = await camera(new Map(), false, {phase:null});
+  assert.equal(page.get('start').disabled, true);
+  assert.equal(page.get('choosePhoto').disabled, true);
+  page.phase('Setup'); await page.relayStatus();
+  assert.equal(page.get('choosePhoto').disabled, false);
+  page.phase('Paper'); await page.get('start').onclick(); await settle();
+  page.offline(true); await page.relayStatus();
+  assert.equal(page.get('start').disabled, true);
+  assert.equal(page.get('preview').hidden, true);
+});
+
+
+test('phase-ended guidance preserves pending-photo warning until durable acknowledgement', async () => {
+  const page = await camera();
+  page.offline(true);
+  page.get('chooseInput').files = [{type:'image/png'}];
+  await page.get('chooseInput').onchange(); await settle();
+  await page.get('sendPhoto').onclick(); await settle();
+  const frame = [...page.rows.values()].find(row => row.kind === 'frame');
+  assert.ok(frame);
+  // Phase requests recover, but uploads remain unavailable.
+  page.offline(false);page.uploadFailure(true);page.phase('Coding');
+  await page.relayStatus();await page.flush();
+  assert.ok(page.rows.has(frame.id));
+  assert.match(page.get('status').textContent, /paper phase has ended/);
+  assert.match(page.get('manualStatus').textContent, /Keep this page open/);
+  assert.match(page.get('manualStatus').textContent, /Upload will retry/);
+  assert.doesNotMatch(page.get('status').textContent, /Return to your JupyterLab notebook/);
+  page.uploadFailure(false);page.wrongAck(true);await page.flush();
+  assert.ok(page.rows.has(frame.id));
+  assert.match(page.get('manualStatus').textContent, /Keep this page open/);
+  page.wrongAck(false);await page.flush();
+  assert.ok(!page.rows.has(frame.id));
+  assert.match(page.get('status').textContent, /Return to your JupyterLab notebook/);
+  assert.doesNotMatch(page.get('manualStatus').textContent, /Keep this page open/);
+});
+
+
+test('expired camera link explains how to reopen it instead of waiting indefinitely', async () => {
+  const page = await camera(new Map(), false, {phaseDenied:true});
+  assert.equal(page.get('start').disabled, true);
+  assert.equal(page.get('choosePhoto').disabled, true);
+  assert.match(page.get('status').textContent, /link has expired or is invalid/);
+  assert.match(page.get('status').textContent, /Reopen Open paper tutor/);
+  assert.doesNotMatch(page.get('status').textContent, /Checking the activity phase/);
+  page.phaseDenied(false);await page.relayStatus();
+  assert.equal(page.get('choosePhoto').disabled, false);
+  assert.doesNotMatch(page.get('status').textContent, /expired/);
+});
+
+test('phase network failure explains automatic retry and recovers controls', async () => {
+  const page = await camera();
+  page.offline(true);await page.relayStatus();
+  assert.equal(page.get('start').disabled, true);
+  assert.match(page.get('status').textContent, /Cannot check the activity phase/);
+  assert.match(page.get('status').textContent, /retrying automatically/);
+  page.offline(false);await page.relayStatus();
+  assert.equal(page.get('start').disabled, false);
+  assert.doesNotMatch(page.get('status').textContent, /Cannot check/);
 });

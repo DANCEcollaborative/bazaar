@@ -1,6 +1,6 @@
 package basilica2.agents.listeners;
 
-import java.util.Locale;
+import basilica2.agents.listeners.plan.RepresentationPlanExecutor;
 import java.util.UUID;
 import basilica2.agents.components.RepresentationCapture;
 import basilica2.agents.events.PrivateMessageEvent;
@@ -32,8 +32,7 @@ public class RepresentationCameraListener extends LlmCameraListener {
     }
 
     @Override public boolean messageFilter(MessageEvent event) {
-        String text = event.getText() == null ? "" : event.getText().trim().toLowerCase(Locale.ROOT);
-        if (text.matches("(paper|coding) (not )?done") || text.equals("submitted")) return false;
+        if (RepresentationPlanExecutor.controlCommand(event.getText()) != null) return false;
         return super.messageFilter(event);
     }
 
@@ -76,13 +75,21 @@ public class RepresentationCameraListener extends LlmCameraListener {
     }
 
     @Override public void handleImageEvent(InputCoordinator source, ImageEvent event) throws JSONException {
-        boolean manual=event.getProblemId().startsWith("manual:");
+        boolean manual=event.getProblemId() != null && event.getProblemId().startsWith("manual:");
         RepresentationCapture.record(agent,"camera.agent_received",RepresentationCapture.data("sender",event.getSenderUsername(),"sha256",RepresentationCapture.hashImage(event.getImageBase64()),"relay_frame_count",event.getFrameCount(),"phase",stage(),"manual_photo",manual));
         if ("Paper".equals(stage()) || "Setup".equals(stage())) {
             manualPhoto.set(manual);
             try { super.handleImageEvent(source, event); }
             finally { manualPhoto.remove(); }
-        } else RepresentationCapture.record(agent,"camera.ignored_phase",RepresentationCapture.data("phase",stage(),"sha256",RepresentationCapture.hashImage(event.getImageBase64())));
+        } else {
+            RepresentationCapture.record(agent,"camera.ignored_phase",RepresentationCapture.data("phase",stage(),"sha256",RepresentationCapture.hashImage(event.getImageBase64())));
+            if (manual && event.getSenderUsername() != null && event.getSenderUsername().matches("Camera_[1-3]")) {
+                String suffix = event.getSenderUsername().substring("Camera_".length());
+                String notice = "This photo arrived after the paper phase. Photo feedback is now closed; continue in the notebook. You can still ask a question in this private chat.";
+                source.pushEventProposal(new PrivateMessageEvent(source, "Private_" + suffix, "OPEBot", notice));
+                source.pushEventProposal(new PrivateMessageEvent(source, "Camera_" + suffix, "OPEBot", notice));
+            }
+        }
     }
 
     @Override public String getAllMessages(InputCoordinator source, String prompt, String sender) {

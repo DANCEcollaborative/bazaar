@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <prompts>
   <prompt id="SETUP">
-    <text>Start with the three steps at the top of workspace.ipynb. Open paper tutor is in the bar above the notebook.</text>
+    <text>Set up your photos using Open paper tutor above the notebook, then each person types ready here. The 20-minute paper phase starts only when everyone is ready.</text>
   </prompt>
   <prompt id="PAPER">
     <text>Phase 1 has started (20 minutes). Work on the notebook problem on paper. Use Open paper tutor at the top for photos and private feedback. When ready, each person types paper done here. Wait for Phase 2 before coding.</text>
   </prompt>
   <prompt id="CODING">
-    <text>Phase 2 starts now: coding (25 minutes). Stop camera capture and implement recover_readings(recorded) using your paper representation. In a group, take turns editing the notebook. Wait for autosave before running the check and keep the supplied cell tags. After the check passes, each participant should type coding done here when ready, or coding not done to withdraw readiness.</text>
+    <text>Phase 2 starts now: coding (25 minutes). Stop camera capture and implement recover_readings(recorded) using your paper representation. In a group, take turns editing the notebook. Wait for autosave before running the check and keep the supplied cell tags. After the latest check passes, each person types coding done here when ready, or coding not done to withdraw readiness.</text>
   </prompt>
   <prompt id="SUBMIT">
-    <text>The coding phase has ended. Wait for the notebook to autosave, including any unfinished code. One person should run the submission cell using their sign-in email. After receiving a submission ID, type submitted here. Keep the ID as confirmation that the notebook was stored. The instructor can see the final score out of 1.</text>
+    <text>The coding phase has ended. Wait for the notebook to autosave, including any unfinished code. One person should run the submission cell using their sign-in email. After receiving a submission ID, type submitted here. The bot will verify that the submission was stored. Keep the ID as your confirmation.</text>
   </prompt>
   <prompt id="THANKS">
     <text>Keep your submission ID and paper notes. The instructor can see the stored notebook and final grade. This concludes the activity.</text>

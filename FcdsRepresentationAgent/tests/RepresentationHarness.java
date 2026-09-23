@@ -9,7 +9,9 @@ import org.json.*;
 
 public class RepresentationHarness {
     static class TestInput extends InputCoordinator {
+        java.util.List<edu.cmu.cs.lti.basilica2.core.Event> proposals = new java.util.ArrayList<edu.cmu.cs.lti.basilica2.core.Event>();
         TestInput(Agent a) { super(a, "inputCoordinator", ""); }
+        public void pushEventProposal(edu.cmu.cs.lti.basilica2.core.Event event) { proposals.add(event); }
         public boolean isAgentName(String name) { return name.startsWith("OPEBot"); }
     }
     static class TestPresence extends RepresentationPresenceWatcher {
@@ -45,6 +47,7 @@ public class RepresentationHarness {
         plan.processEvent(input, new MessageEvent(input, from, text));
     }
     static void pass(RepresentationPlanExecutor plan, InputCoordinator input, int task) {
+        if (task == 1 && plan instanceof TestPlan) ((TestPlan) plan).checkState = "passed";
         plan.processEvent(input, new FileEvent(input, "testcase-complete_" + task, FileEvent.fileEventType.created));
     }
     static void presence(TestPresence watcher, RepresentationPlanExecutor plan, InputCoordinator input,
@@ -58,13 +61,38 @@ public class RepresentationHarness {
         for (Class<?> type : camera.getPreprocessorEventClasses())
             if (type.isInstance(event)) camera.preProcessEvent(input, event);
     }
-    static RepresentationPlanExecutor plan(TestAgent agent, final InputCoordinator input, final boolean earlyPasses) {
-        return plan(agent, input, earlyPasses, new String[0]);
+    static class TestPlan extends RepresentationPlanExecutor {
+        long receipt;
+        String checkState = "failed";
+        String checkId = "check-1";
+        boolean unavailable;
+        String[] roster;
+        String responseRoom = "room260999001";
+        java.util.List<String> notices = new java.util.ArrayList<String>();
+        TestPlan(Agent agent) { super(agent); }
+        protected String roomName() { return "room260999001"; }
+        protected JSONObject fetchRoomStatus() throws Exception {
+            if (unavailable) throw new java.io.IOException("offline");
+            JSONArray participants = new JSONArray();
+            String[] names = roster == null ? StateMemory.getSharedState(agent).getStudentIdsPresentOrNot() : roster;
+            for (String id : names) {
+                String name = roster == null ? StateMemory.getSharedState(agent).getStudentName(id) : id;
+                participants.put(new JSONObject().put("name", name));
+            }
+            return new JSONObject().put("room_name", responseRoom).put("participants", participants)
+                .put("stored", receipt > 0).put("submission_id", receipt)
+                .put("latest_check", new JSONObject().put("check_id", checkId).put("state", checkState));
+        }
+        protected void announce(String destination, String text) { notices.add((destination == null ? "group" : destination) + ":" + text); }
     }
-    static RepresentationPlanExecutor plan(TestAgent agent, final InputCoordinator input,
-            final boolean earlyPasses, final String[] setupReady) {
+    static TestPlan plan(TestAgent agent, final InputCoordinator input, final boolean earlyPasses) {
+        return plan(agent, input, earlyPasses, true, null);
+    }
+    static TestPlan plan(TestAgent agent, final InputCoordinator input,
+            final boolean earlyPasses, final boolean autoReady, String[] roster) {
         new java.io.File("planstatus/" + agent.getName() + ".planstatus.txt").delete();
-        RepresentationPlanExecutor p = new RepresentationPlanExecutor(agent);
+        TestPlan p = new TestPlan(agent);
+        p.roster = roster;
         p.source = input;
         for (Stage stage : p.currentPlan.stages.values()) {
             for (Step step : stage.steps) { step.timeout = 0; step.delay = 0; }
@@ -72,12 +100,9 @@ public class RepresentationHarness {
         p.getHandlers("prompt").clear();
         p.addStepHandler("prompt", new StepHandler() {
             public void execute(Step s, PlanExecutor executor, InputCoordinator source) {
-                if ("setup_instructions".equals(s.name)) {
-                    for (String sender : setupReady) {
-                        boolean withdraw = sender.startsWith("!");
-                        say((RepresentationPlanExecutor) executor, input, withdraw ? sender.substring(1) : sender,
-                            withdraw ? "paper not done" : "paper done");
-                    }
+                if (autoReady && "setup_instructions".equals(s.name)) {
+                    for (String id : StateMemory.getSharedState(agent).getStudentIdsPresentOrNot())
+                        say((RepresentationPlanExecutor) executor, input, id, "ready");
                 }
                 if (earlyPasses && "paper_instructions".equals(s.name))
                     say((RepresentationPlanExecutor) executor, input, "Alice", "paper done");
@@ -98,7 +123,7 @@ public class RepresentationHarness {
         return p;
     }
     static void tests() throws Exception {
-        for (int size : new int[] {1, 2, 3, 4}) {
+        for (int size : new int[] {1, 2, 3}) {
             TestAgent sized = new TestAgent("OPEBot_size00" + size);
             InputCoordinator sizedInput = new InputCoordinator(sized, "inputCoordinator", "");
             sized.addComponent(sizedInput);
@@ -108,7 +133,7 @@ public class RepresentationHarness {
                 sizedState.setName("s" + i, "Student " + i);
             }
             StateMemory.commitSharedState(sizedState, sized);
-            RepresentationPlanExecutor sizedPlan = plan(sized, sizedInput, false);
+            TestPlan sizedPlan = plan(sized, sizedInput, false);
             for (int i = 1; i <= size; i++) {
                 check(step(sizedPlan).equals("paper_work"), "wait for every actual participant, size=" + size);
                 say(sizedPlan, sizedInput, "Student " + i, "paper done");
@@ -118,7 +143,11 @@ public class RepresentationHarness {
             for (int i = 1; i <= size; i++) say(sizedPlan, sizedInput, "s" + i, "coding done");
             check(step(sizedPlan).equals("coding_work"), "unrelated task cannot satisfy the recovery check for size=" + size);
             pass(sizedPlan, sizedInput, 1);
+            for (int i = 1; i <= size; i++) say(sizedPlan, sizedInput, "s" + i, "coding done");
             check(step(sizedPlan).equals("submission_acknowledgement"), "coding completes for size=" + size);
+            say(sizedPlan, sizedInput, "Student 1", "submitted");
+            check(step(sizedPlan).equals("submission_acknowledgement"), "typed submitted cannot fake a stored receipt");
+            sizedPlan.receipt = 42;
             say(sizedPlan, sizedInput, "Student 1", "submitted");
             check(step(sizedPlan).equals("logout"), "one submitter completes size=" + size);
         }
@@ -129,7 +158,7 @@ public class RepresentationHarness {
         state.addStudent("1"); state.setName("1", "Alice");
         state.addStudent("2"); state.setName("2", "Bob");
         StateMemory.commitSharedState(state, a);
-        RepresentationPlanExecutor p = plan(a, input, false);
+        TestPlan p = plan(a, input, false);
         check(step(p).equals("paper_work"), "paper starts");
         p.stepDone();
         p.processEvent(input, new StepDoneEvent(input, "paper_work"));
@@ -150,11 +179,21 @@ public class RepresentationHarness {
         say(p, input, "Alice", "coding done"); say(p, input, "Bob", "coding done");
         check(step(p).equals("coding_work"), "unrelated duplicate task callbacks ignored");
         pass(p, input, 1);
+        say(p, input, "Alice", "coding done"); say(p, input, "Bob", "coding done");
         check(step(p).equals("submission_acknowledgement"), "one recovery pass plus readiness finishes coding");
         pass(p, input, 1); p.timedOut("coding_work");
         say(p, input, "Camera_1", "submitted");
         check(step(p).equals("submission_acknowledgement"), "duplicate pass and stale timeout cannot skip submission");
+        p.receipt = 99;
+        p.responseRoom = "room260999002";
         say(p, input, "Alice", "submitted");
+        check(step(p).equals("submission_acknowledgement"), "receipt from a different room is rejected");
+        p.responseRoom = "room260999001";
+        p.unavailable = true;
+        say(p, input, "Alice", "submitted");
+        check(step(p).equals("submission_acknowledgement"), "receipt lookup fails closed");
+        p.unavailable = false;
+        say(p, input, "Alice", "Submitted!");
         check(step(p).equals("logout"), "one real submitter acknowledges");
 
         RepresentationPlanExecutor early = plan(a, input, true);
@@ -222,10 +261,12 @@ public class RepresentationHarness {
         say(reconnectPlan, reconnectInput, "Alexander", "coding done");
         check(step(reconnectPlan).equals("coding_work"), "unready third participant holds coding");
         presence(watcher, reconnectPlan, reconnectInput, "Bob", PresenceEvent.ABSENT);
-        check(step(reconnectPlan).equals("submission_acknowledgement"), "a departure reevaluates readiness of remaining students");
+        check(step(reconnectPlan).equals("coding_work"), "an unready student's departure must not advance the group");
         presence(watcher, reconnectPlan, reconnectInput, "Bob", PresenceEvent.PRESENT);
         check(StateMemory.getSharedState(reconnect).getStudentIdList().size() == 3,
             "later return restores all three students");
+        say(reconnectPlan, reconnectInput, "Bob", "coding done");
+        check(step(reconnectPlan).equals("submission_acknowledgement"), "reconnected student can explicitly advance the group");
         presence(watcher, reconnectPlan, reconnectInput, "Private_1", PresenceEvent.PRESENT);
         check(StateMemory.getSharedState(reconnect).getStudentIdList().size() == 3, "private pages never add a participant");
 
@@ -239,20 +280,95 @@ public class RepresentationHarness {
         check(concurrent.senders.get(0).equals("Private_1") && concurrent.senders.get(2).equals("Private_3"),
             "rapid private questions retain each participant's identity");
 
-        TestAgent earlyFour = new TestAgent("OPEBot_early_four");
-        TestInput earlyInput = new TestInput(earlyFour);
-        earlyFour.addComponent(earlyInput);
-        State earlyState = new State();
-        String[] fourNames = {"Test Student A", "Test Student B", "Test Student C", "Test Student D"};
-        for (String name : fourNames) earlyState.addStudent(name);
-        StateMemory.commitSharedState(earlyState, earlyFour);
-        RepresentationPlanExecutor setupReady = plan(earlyFour, earlyInput, false, fourNames);
-        check(step(setupReady).equals("coding_work"), "four paper done commands during Setup survive the phase transition");
-        RepresentationPlanExecutor setupWithdrawal = plan(earlyFour, earlyInput, false,
-            new String[] {fourNames[0], fourNames[1], fourNames[2], fourNames[3], "!" + fourNames[3]});
-        check(step(setupWithdrawal).equals("paper_work"), "paper not done during Setup withdraws early readiness");
-        say(setupWithdrawal, earlyInput, fourNames[3], "paper done");
-        check(step(setupWithdrawal).equals("coding_work"), "fourth participant can restore readiness after setup");
+        State setupState = new State();
+        setupState.addStudent("1"); setupState.setName("1", "Alice");
+        setupState.addStudent("2"); setupState.setName("2", "Bob");
+        StateMemory.commitSharedState(setupState, a);
+        TestPlan setup = plan(a, input, false, false, null);
+        check(step(setup).equals("setup_ready"), "paper clock does not start during setup");
+        setup.timedOut("setup_ready");
+        check(step(setup).equals("setup_ready"), "setup cannot time out");
+        say(setup, input, "Alice", "paper done");
+        check(step(setup).equals("setup_ready") && setup.notices.get(setup.notices.size()-1).contains("Type ready"),
+            "wrong phase command explains current action");
+        setup.processEvent(input, new PrivateMessageEvent(input, "OPEBot", "Private_1", " READY! "));
+        check(setup.notices.get(setup.notices.size()-1).startsWith("Private_1:Type ready in"),
+            "private controls get a private group-chat redirect");
+        say(setup, input, "Alice", " READY! ");
+        say(setup, input, "Alice", "ready");
+        check(setup.notices.get(setup.notices.size()-1).contains("1/2 ready"), "duplicate readiness counts once");
+        say(setup, input, "Alice", "not ready.");
+        say(setup, input, "Bob", "ready");
+        check(step(setup).equals("setup_ready"), "setup withdrawal respected");
+        say(setup, input, "Alice", "ready");
+        check(step(setup).equals("paper_work"), "all ready starts paper");
+        say(setup, input, "Alice", " Paper   done! ");
+        say(setup, input, "Bob", "paper done.");
+        pass(setup, input, 1);
+        say(setup, input, "Alice", "coding done");
+        setup.checkState = "checking";
+        setup.processEvent(input, new FileEvent(input, "testcase-checking_1", FileEvent.fileEventType.created));
+        check(setup.notices.get(setup.notices.size()-1).contains("Checking the saved notebook"), "new check reports checking, never a false failure");
+        say(setup, input, "Bob", "coding done");
+        check(step(setup).equals("coding_work"), "old passing result cannot advance while the new check is in progress");
+        setup.checkState = "failed";
+        setup.processEvent(input, new FileEvent(input, "testcase-failed_1", FileEvent.fileEventType.created));
+        say(setup, input, "Bob", "coding done");
+        say(setup, input, "Alice", "coding done");
+        check(step(setup).equals("coding_work"), "later failed check invalidates the earlier passing check");
+        setup.processEvent(input, new FileEvent(input, "testcase-complete_1", FileEvent.fileEventType.created));
+        check(step(setup).equals("coding_work"), "success callback cannot override authoritative failed check");
+        setup.checkState = "passed";
+        setup.checkId = "check-2";
+        setup.unavailable = true;
+        say(setup, input, "Alice", "coding done");
+        check(step(setup).equals("coding_work"), "check-status outage fails closed");
+        setup.unavailable = false;
+        say(setup, input, "Alice", "coding done");
+        check(step(setup).equals("coding_work"), "commands before a passing check do not count as readiness");
+        // No FileEvent at all for this new check: Alice's old readiness must not survive.
+        setup.checkState = "passed"; setup.checkId = "check-3";
+        say(setup, input, "Bob", "coding done");
+        check(step(setup).equals("coding_work"), "new authoritative check ID invalidates readiness even if checking callback was lost");
+        check(setup.notices.toString().contains("Everyone needs to confirm"), "new-check readiness reset is explained");
+        say(setup, input, "Alice", "coding done");
+        check(step(setup).equals("submission_acknowledgement"), "authoritative pass advances after all confirm even when success FileEvent was lost");
+        for (String command : new String[] {" READY! ", "Paper   done.", "coding not done?", "Submitted!"})
+            check(!camera.messageFilter(new MessageEvent(input, "Alice", command)), "normalized control never reaches tutor: " + command);
+
+        TestAgent staggered = new TestAgent("OPEBot_staggered");
+        TestInput staggeredInput = new TestInput(staggered); staggered.addComponent(staggeredInput);
+        State staggeredState = new State(); staggeredState.addStudent("Alice");
+        StateMemory.commitSharedState(staggeredState, staggered);
+        TestPlan staggeredPlan = plan(staggered, staggeredInput, false, false, new String[] {"Alice", "Bob"});
+        say(staggeredPlan, staggeredInput, "Alice", "ready");
+        check(step(staggeredPlan).equals("setup_ready"), "assigned partner must connect and ready even before first presence");
+        TestPresence staggeredWatcher = new TestPresence(staggered);
+        presence(staggeredWatcher, staggeredPlan, staggeredInput, "Bob", PresenceEvent.PRESENT);
+        say(staggeredPlan, staggeredInput, "Bob", "ready");
+        check(step(staggeredPlan).equals("paper_work"), "assigned partner can join and start the group");
+        TestPlan missingRoster = plan(staggered, staggeredInput, false, false, new String[0]);
+        say(missingRoster, staggeredInput, "Alice", "ready");
+        check(step(missingRoster).equals("setup_ready"), "missing roster never silently becomes a solo room");
+        missingRoster.roster = new String[] {"Alice", "Alice"};
+        say(missingRoster, staggeredInput, "Alice", "ready");
+        check(step(missingRoster).equals("setup_ready") && missingRoster.notices.get(missingRoster.notices.size()-1).contains("same display name"),
+            "duplicate display names get an actionable explanation rather than endless retry advice");
+        missingRoster.roster = new String[] {"Alice"};
+        say(missingRoster, staggeredInput, "Alice", "ready");
+        check(step(missingRoster).equals("paper_work"), "roster lookup can recover on the next readiness attempt");
+        State photoState = StateMemory.getSharedState(staggered);
+        photoState.setStepInfo("Coding", "other", "coding_work", "representation_gate");
+        StateMemory.commitSharedState(photoState, staggered);
+        int beforePhotos = staggeredInput.proposals.size();
+        camera.handleImageEvent(staggeredInput, new ImageEvent(staggeredInput, "Camera_1", "Zm9v", "image/jpeg", 1, 1, "manual:test", 1));
+        check(staggeredInput.proposals.size() == beforePhotos + 2, "late manual photo explicitly reports closed paper feedback");
+        for (int i = beforePhotos; i < staggeredInput.proposals.size(); i++) {
+            check(staggeredInput.proposals.get(i) instanceof PrivateMessageEvent, "late photo response stays private");
+            check(((MessageEvent) staggeredInput.proposals.get(i)).getText().contains("after the paper phase"), "late photo notice states why there is no tutor feedback");
+        }
+        camera.handleImageEvent(staggeredInput, new ImageEvent(staggeredInput, "Camera_1", "Zm9v", "image/jpeg", 1, 1, "continuous", 2));
+        check(staggeredInput.proposals.size() == beforePhotos + 2, "late continuous frames do not spam notices");
         System.out.println("PASS: phase gates, timeouts, duplicates, early callbacks, histories, and camera phase context");
     }
     public static void main(String[] args) {

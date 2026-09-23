@@ -30,6 +30,7 @@ class BazaarTests(unittest.TestCase):
                 (work / name).mkdir()
             (work / "capture.key").write_text("offline-test-key-at-least-thirty-two-characters")
             properties = work / "properties"
+            shutil.copyfile(properties / "RepresentationPlanExecutor.properties", properties / "TestPlan.properties")
             (properties / "State.properties").write_text("ignore_prefixes=Private_,Camera_,tab_group\n")
             (properties / "PromptStepHandler.properties").write_text("prompt_file=plans/plan_prompts.xml\nwords_per_minute=400\n")
             (properties / "RepresentationCameraListener.properties").write_text(
