@@ -175,7 +175,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
                 long receipt = status.optLong("submission_id", 0);
                 if (status.optBoolean("stored", false) && receipt > 0) {
                     submitted = true;
-                    announce(null, "Submission " + receipt + " is stored. The activity is complete.");
+                    // The closing plan prompt is the single completion confirmation.
                 } else announce(null, "No stored submission was found for this room yet. Run the submission cell, wait for its submission ID, then type submitted again.");
             } catch (Exception error) {
                 announce(null, "I could not verify the submission just now. Keep your submission ID and type submitted again in a moment.");
@@ -204,6 +204,7 @@ public class RepresentationPlanExecutor extends PlanExecutor {
             }
         }
         if (withdraw) ready.remove(name); else ready.add(name);
+        if (allParticipantsReady()) return; // The next phase prompt acknowledges final readiness.
         announce(null, name + (withdraw ? " is not ready. " : " is ready. ") + ready.size() + "/" + cohort.size() + " ready.");
     }
 
@@ -263,6 +264,12 @@ public class RepresentationPlanExecutor extends PlanExecutor {
         if (source == null) return;
         MessageEvent response = destination == null ? new MessageEvent(source, "OPEBot", text) :
             new PrivateMessageEvent(source, destination, "OPEBot", text);
+        response.addAnnotations("REPRESENTATION_CONTROL");
+        if (currentPlan != null && currentPlan.currentStage != null) {
+            response.addAnnotations("REPRESENTATION_PHASE_" + currentPlan.currentStage.name);
+            if ("Submit".equals(currentPlan.currentStage.name) && current() != null)
+                response.addAnnotations("REPRESENTATION_STEP_" + current().name);
+        }
         source.pushEventProposal(response);
     }
 

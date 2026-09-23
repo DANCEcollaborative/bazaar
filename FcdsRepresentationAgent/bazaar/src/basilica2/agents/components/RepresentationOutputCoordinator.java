@@ -1,6 +1,7 @@
 package basilica2.agents.components;
 
 import basilica2.agents.events.MessageEvent;
+import basilica2.agents.data.State;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.listeners.RepresentationCameraListener;
 import edu.cmu.cs.lti.basilica2.core.Agent;
@@ -23,7 +24,20 @@ public class RepresentationOutputCoordinator extends OutputCoordinator {
             + "Your private link is the Open paper tutor button above the notebook.";
     }
 
+    /** Output arbitration may hold a control reply until a newer phase starts. */
+    public static boolean currentControlMessage(MessageEvent message, State state) {
+        if (!message.hasAnnotations("REPRESENTATION_CONTROL")) return true;
+        for (String annotation : message.getAllAnnotations()) {
+            if (annotation.startsWith("REPRESENTATION_PHASE_") &&
+                    !annotation.equals("REPRESENTATION_PHASE_" + state.getStageName())) return false;
+            if (annotation.startsWith("REPRESENTATION_STEP_") &&
+                    !annotation.equals("REPRESENTATION_STEP_" + state.getStepName())) return false;
+        }
+        return true;
+    }
+
     @Override protected void publishEvent(Event event) {
+        if (event instanceof MessageEvent && !currentControlMessage((MessageEvent) event, StateMemory.getSharedState(owner))) return;
         if (event instanceof MessageEvent && !(event instanceof PrivateMessageEvent)) {
             MessageEvent message = (MessageEvent) event;
             String text = message.getText();

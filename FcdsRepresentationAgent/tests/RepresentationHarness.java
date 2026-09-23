@@ -150,6 +150,8 @@ public class RepresentationHarness {
             sizedPlan.receipt = 42;
             say(sizedPlan, sizedInput, "Student 1", "submitted");
             check(step(sizedPlan).equals("logout"), "one submitter completes size=" + size);
+            check(!sizedPlan.notices.toString().contains(size + "/" + size + " ready"), "final readiness uses next phase prompt, not a delayed duplicate acknowledgment");
+            check(!sizedPlan.notices.toString().contains("Submission 42 is stored"), "only closing prompt confirms completion");
         }
         TestAgent a = new TestAgent("OPEBot_test001");
         InputCoordinator input = new InputCoordinator(a, "inputCoordinator", "");
@@ -369,6 +371,18 @@ public class RepresentationHarness {
         }
         camera.handleImageEvent(staggeredInput, new ImageEvent(staggeredInput, "Camera_1", "Zm9v", "image/jpeg", 1, 1, "continuous", 2));
         check(staggeredInput.proposals.size() == beforePhotos + 2, "late continuous frames do not spam notices");
+        State outputState = new State();
+        outputState.setStepInfo("Paper", "other", "paper_work", "representation_gate");
+        MessageEvent partialAck = new MessageEvent(input, "OPEBot", "Alice is ready. 1/2 ready.", "REPRESENTATION_CONTROL", "REPRESENTATION_PHASE_Paper");
+        check(RepresentationOutputCoordinator.currentControlMessage(partialAck, outputState), "partial readiness is visible while phase is current");
+        outputState.setStepInfo("Coding", "other", "coding_work", "representation_gate");
+        check(!RepresentationOutputCoordinator.currentControlMessage(partialAck, outputState), "queued paper acknowledgment cannot appear after coding begins");
+        MessageEvent noReceipt = new MessageEvent(input, "OPEBot", "No stored submission found", "REPRESENTATION_CONTROL", "REPRESENTATION_PHASE_Submit", "REPRESENTATION_STEP_submission_acknowledgement");
+        outputState.setStepInfo("Submit", "other", "submission_acknowledgement", "representation_gate");
+        check(RepresentationOutputCoordinator.currentControlMessage(noReceipt, outputState), "missing receipt guidance shown while waiting");
+        outputState.setStepInfo("Submit", "other", "closing_message", "prompt");
+        check(!RepresentationOutputCoordinator.currentControlMessage(noReceipt, outputState), "queued missing-receipt warning cannot appear after verified completion");
+        check(RepresentationOutputCoordinator.currentControlMessage(new MessageEvent(input, "OPEBot", "Phase 2 starts now"), outputState), "ordinary plan prompts remain unaffected");
         System.out.println("PASS: phase gates, timeouts, duplicates, early callbacks, histories, and camera phase context");
     }
     public static void main(String[] args) {
