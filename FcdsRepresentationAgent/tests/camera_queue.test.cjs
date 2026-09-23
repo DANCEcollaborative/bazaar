@@ -27,6 +27,7 @@ function fakeDatabase(rows) {
 
 async function camera(rows = new Map(), storageFails = false, options = {}) {
   const elements = {}, intervals = new Map(), calls = [];
+  let cameraError = options.cameraError || null;
   let failure = false, uploadFailure = false, wrongAck = false, stoppedTracks = 0;
   let phase = options.phase === undefined ? 'Paper' : options.phase;
   let framePhase = null, relayState = options.relayState || 'accepted_by_relay', phaseDenied = !!options.phaseDenied;
@@ -47,9 +48,10 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
     document: { getElementById: get, createElement: name => get(name),
       addEventListener: (name, fn) => { documentEvents[name] = fn; } },
     window: { addEventListener: (name, fn) => { windowEvents[name] = fn; } },
-    navigator: { userAgent: 'synthetic test', mediaDevices: { getUserMedia: async () => ({
-      getTracks: () => [{ stop() { stoppedTracks++; } }]
-    }) } },
+    navigator: { userAgent: 'synthetic test', mediaDevices: { getUserMedia: async () => {
+      if(cameraError) { const error=Error('camera denied');error.name=cameraError;throw error; }
+      return {getTracks: () => [{ stop() { stoppedTracks++; } }]};
+    } } },
     indexedDB: { open() { const request = {}; queueMicrotask(() => {
       if (storageFails) request.onerror?.();
       else { request.result = db; request.onsuccess?.(); }
@@ -75,7 +77,7 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
   };
   await vm.runInNewContext(source, context); await settle();
   return { rows, calls, get, intervals, windowEvents, documentEvents,
-    offline(value) { failure = value; }, uploadFailure(value) { uploadFailure = value; }, wrongAck(value) { wrongAck = value; },
+    cameraError(value) { cameraError = value; }, offline(value) { failure = value; }, uploadFailure(value) { uploadFailure = value; }, wrongAck(value) { wrongAck = value; },
     phase(value) { phase = value; }, phaseDenied(value) { phaseDenied = value; }, framePhase(value) { framePhase = value; }, relayState(value) { relayState = value; },
     get stoppedTracks() { return stoppedTracks; },
     async flush() { intervals.get(2000)(); await settle(); },
@@ -254,4 +256,22 @@ test('phase network failure explains automatic retry and recovers controls', asy
   page.offline(false);await page.relayStatus();
   assert.equal(page.get('start').disabled, false);
   assert.doesNotMatch(page.get('status').textContent, /Cannot check/);
+});
+
+
+test('camera permission denial survives successful uploads and explains photo fallback', async () => {
+  const page = await camera(new Map(), false, {cameraError:'NotAllowedError'});
+  await page.get('start').onclick();await settle();
+  await page.flush();await page.relayStatus();
+  assert.match(page.get('status').textContent, /Camera access was denied/);
+  assert.match(page.get('status').textContent, /Take a photo or Choose an existing photo/);
+  assert.equal(page.get('takePhoto').disabled, false);
+  assert.equal(page.get('choosePhoto').disabled, false);
+  assert.equal(page.rows.size, 0, 'permission-error event was acknowledged without hiding the camera failure');
+  await page.flush();
+  assert.match(page.get('status').textContent, /Camera access was denied/);
+  page.cameraError(null);await page.get('start').onclick();await settle();
+  assert.equal(page.get('preview').hidden, false);
+  assert.match(page.get('status').textContent, /Camera running/);
+  assert.doesNotMatch(page.get('status').textContent, /denied/);
 });

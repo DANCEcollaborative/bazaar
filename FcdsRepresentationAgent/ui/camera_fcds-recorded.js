@@ -6,7 +6,7 @@
   const credential = new URLSearchParams(location.hash.slice(1)).get('capture');
   const producer = 'camera:' + crypto.randomUUID();
   let sequence = 0, db, stream, timer, socket, busy = false, taking = false;
-  let issue = '', queued = 0, pendingPhotos = 0, lastSaved = '', stopped = true;
+  let issue = '', captureIssue = '', queued = 0, pendingPhotos = 0, lastSaved = '', stopped = true;
   let selectedPhotoFile = null, manualBusy = false;
   let latestManualFrameId = null, checkingRelay = false;
   let phase = null, phaseIssue = '', paperEnded = false, checkingPhase = false;
@@ -31,10 +31,11 @@
       $('status').textContent = phaseIssue || 'Checking the activity phase… Photo controls will be available during the paper phase.';
       if(pendingPhotos>0)$('manualStatus').textContent='Your photo upload is not finished. Keep this page open until the pending photos have uploaded.' + (issue ? ' Upload will retry: ' + issue + '.' : '');
     } else {
-      $('status').textContent = issue ? issue + '. Keep this page open to retry.' :
+      const uploadStatus = issue ? issue + '. Keep this page open to retry.' :
         (stopped ? 'Camera stopped. ' : 'Camera running. ') + (lastSaved ? 'Last upload: ' + lastSaved + '.' : 'Ready.');
+      $('status').textContent = captureIssue ? captureIssue + (issue ? ' ' + uploadStatus : '') : uploadStatus;
     }
-    $('status').style.background = issue || phaseIssue ? '#ffe3dd' : queued ? '#fff2ce' : '#e5f3e9';
+    $('status').style.background = issue || captureIssue || phaseIssue ? '#ffe3dd' : queued ? '#fff2ce' : '#e5f3e9';
   }
   function applyPhase(result) {
     if (result.phase === 'Coding' || result.phase === 'Submit') paperEnded = true;
@@ -168,11 +169,11 @@
   }
   $('start').onclick=async()=>{
     if(!cameraAllowed())return;
-    $('start').disabled=true;
+    captureIssue='';$('start').disabled=true;
     try {
       stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
       if(!cameraAllowed()){stop(false);return;}
-      $('preview').srcObject=stream;$('preview').hidden=false;await $('preview').play();stopped=false;$('stop').disabled=false;issue='';
+      $('preview').srcObject=stream;$('preview').hidden=false;await $('preview').play();stopped=false;$('stop').disabled=false;captureIssue='';
       // Relay connectivity affects preview/tutoring, not whether images are archived.
       socket=io('/',{path:'/bazsocket'});
       socket.on('connect',()=>{socket.emit('adduser','fcdsrepresentation'+room,'Camera_'+user,true,'Camera_'+user,null);void event('relay.connected');});
@@ -180,7 +181,13 @@
       socket.on('connect_error',()=>void event('relay.error'));
       socket.on('update_private_chat',(_to,from,text)=>{if(from==='Camera_'+user)return;const p=document.createElement('p');p.textContent=String(from)+': '+String(text);$('feed').prepend(p);});
       await event('started',{interval_ms:10000,audio:false});await capture();timer=setInterval(()=>void capture(),10000);draw();
-    }catch(error){stop(false);issue='Camera access failed: '+error.name;void event('permission_or_start_error',{error_type:error.name});draw();}
+    }catch(error){
+      stop(false);
+      captureIssue=error.name==='NotAllowedError'
+        ? 'Camera access was denied. Allow camera access in your browser, or use Take a photo or Choose an existing photo below.'
+        : 'The camera could not start. Try Start camera again, or use Take a photo or Choose an existing photo below.';
+      void event('permission_or_start_error',{error_type:error.name});draw();
+    }
   };
   $('stop').onclick=()=>stop();$('problem').onchange=()=>void event('problem.changed',{paper_problem:$('problem').value});
   function discardSelection() {
