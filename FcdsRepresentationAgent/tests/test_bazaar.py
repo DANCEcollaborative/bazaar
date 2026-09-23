@@ -38,6 +38,7 @@ class BazaarTests(unittest.TestCase):
                 "openai.prompt.context=Representation test tutor.\nopenai.context.flag=true\n"
                 "openai.context.length=20\nopenai.temperature=0.2\nopenai.model.name=test\n"
                 "user-poll-rate=3600\nuser-poll-timeout=1\n")
+            shutil.copyfile(properties / "RepresentationCameraListener.properties", properties / "QuietCamera.properties")
             (properties / "apiKeys.properties").write_text("offline-test-placeholder\n")
             cp = str(BAZAAR / "build/fcdsrepresentationagent.jar") + ":" + str(BAZAAR / "build/llmcamera-runtime.jar")
             built = subprocess.run([JAVAC, "--release", "8", "-Xlint:-options", "-cp", cp,

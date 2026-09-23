@@ -134,7 +134,7 @@ test('a selected photo is reviewed, archived and retried without starting a stre
   assert.match(page.get('manualStatus').textContent, /not finished uploading/i);
   page.offline(false); await page.flush();
   assert.equal(page.rows.get(frame.id).kind, 'relay', 'durable receipt survives archive acknowledgement');
-  assert.match(page.get('manualStatus').textContent, /Photo uploaded. Waiting for the tutor/i);
+  assert.match(page.get('manualStatus').textContent, /Photo uploaded. Delivering it to your Paper tutor page/i);
   await page.relayStatus();
   assert.match(page.get('manualStatus').textContent, /sent to the tutor/i);
   assert.equal(page.calls.find(call => call.url.endsWith('/frame-status')).body.frame_id, frame.id);
@@ -274,4 +274,16 @@ test('camera permission denial survives successful uploads and explains photo fa
   assert.equal(page.get('preview').hidden, false);
   assert.match(page.get('status').textContent, /Camera running/);
   assert.doesNotMatch(page.get('status').textContent, /denied/);
+});
+
+
+test('setup photo acknowledgement directs students to the preview without promising a reply', async () => {
+  const page = await camera(new Map(), false, {phase:'Setup'});
+  page.get('chooseInput').files = [{type:'image/png'}];
+  await page.get('chooseInput').onchange();await settle();
+  await page.get('sendPhoto').onclick();await settle();
+  assert.match(page.get('manualStatus').textContent, /Delivering it to your Paper tutor page/);
+  await page.relayStatus();
+  assert.match(page.get('manualStatus').textContent, /Check the preview on your Paper tutor page/);
+  assert.doesNotMatch(page.get('manualStatus').textContent, /feedback|reply|response|Waiting for the tutor/i);
 });

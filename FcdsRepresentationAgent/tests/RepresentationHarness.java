@@ -29,6 +29,22 @@ public class RepresentationHarness {
             handled++; senders.add(event.getFrom());
         }
     }
+    static class QuietCamera extends RepresentationCameraListener {
+        long now; int requests, previews; boolean failPayload;
+        String reply = "No response";
+        java.util.List<String> payloads = new java.util.ArrayList<String>();
+        java.util.List<String> previewUsers = new java.util.ArrayList<String>();
+        QuietCamera(Agent agent) { super(agent); }
+        protected long feedbackNowMillis() { return now; }
+        protected String requestModel(InputCoordinator source, String payload, Boolean system) {
+            requests++;payloads.add(payload);return reply;
+        }
+        public void displayImageOnPrivatePage(InputCoordinator source,String user,String image,String mime) {
+            previews++;previewUsers.add(user);
+        }
+        public boolean almostIdentical(String first,String second) { return first.equals(second); }
+        public String getAllMessages(InputCoordinator source,String prompt,String sender) { if (failPayload) throw new IllegalStateException("offline payload failure");return "This participant's private history: " + sender + "\n" + prompt; }
+    }
     static class TestAgent extends Agent {
         TestAgent(String name) {
             super(name);
@@ -364,13 +380,76 @@ public class RepresentationHarness {
         StateMemory.commitSharedState(photoState, staggered);
         int beforePhotos = staggeredInput.proposals.size();
         camera.handleImageEvent(staggeredInput, new ImageEvent(staggeredInput, "Camera_1", "Zm9v", "image/jpeg", 1, 1, "manual:test", 1));
-        check(staggeredInput.proposals.size() == beforePhotos + 2, "late manual photo explicitly reports closed paper feedback");
-        for (int i = beforePhotos; i < staggeredInput.proposals.size(); i++) {
+        check(staggeredInput.proposals.size() == beforePhotos + 3, "late manual photo explicitly reports closed paper feedback");
+        for (int i = beforePhotos + 1; i < staggeredInput.proposals.size(); i++) {
             check(staggeredInput.proposals.get(i) instanceof PrivateMessageEvent, "late photo response stays private");
             check(((MessageEvent) staggeredInput.proposals.get(i)).getText().contains("after the paper phase"), "late photo notice states why there is no tutor feedback");
         }
         camera.handleImageEvent(staggeredInput, new ImageEvent(staggeredInput, "Camera_1", "Zm9v", "image/jpeg", 1, 1, "continuous", 2));
-        check(staggeredInput.proposals.size() == beforePhotos + 2, "late continuous frames do not spam notices");
+        check(staggeredInput.proposals.size() == beforePhotos + 4, "late continuous frames update preview but do not spam notices");
+        TestAgent quietAgent = new TestAgent("OPEBot_quiet");
+        TestInput quietInput = new TestInput(quietAgent); quietAgent.addComponent(quietInput);
+        State quietState = new State();quietState.setStepInfo("Setup", "other", "setup_ready", "representation_gate");
+        StateMemory.commitSharedState(quietState,quietAgent);
+        QuietCamera quiet = new QuietCamera(quietAgent);
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","c2V0dXA=","image/jpeg",1,1,"manual:first",1));
+        check(quiet.requests == 0 && quiet.previews == 1, "Setup photo updates preview without any LLM request");
+        check("c2V0dXA=".equals(StateMemory.getSharedState(quietAgent).getCurrentImage("1")), "Setup photo updates latest participant image state");
+        quiet.reply="You can use the Take a photo option.";
+        quiet.handleMessageEvent(quietInput,new MessageEvent(quietInput,"Private_1","How do I send a photo?"));
+        check(quiet.requests == 1, "explicit Setup question still receives tutoring");
+        check(quiet.payloads.get(0).contains("DIRECT STUDENT QUESTION"), "direct question policy is explicit");
+        quietState=StateMemory.getSharedState(quietAgent);quietState.setStepInfo("Paper","other","paper_work","representation_gate");StateMemory.commitSharedState(quietState,quietAgent);
+        quiet.reply="No response";
+        int quietMessages=quietInput.proposals.size();
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","cHJvbXB0","image/jpeg",1,1,"manual:prompt",2));
+        check(quiet.requests == 2 && quietInput.proposals.size() == quietMessages, "prompt-only manual photo may remain silent");
+        check(quiet.payloads.get(1).contains("BACKGROUND IMAGE OBSERVATION") && quiet.payloads.get(1).contains("blank page") && quiet.payloads.get(1).contains("manual photo alone does not require"), "background policy defaults to silence, including manual uploads");
+        quiet.now=1000;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","aml0dGVy","image/jpeg",1,1,"manual:jitter",3));
+        check(quiet.requests == 2 && quiet.previews == 3, "cooldown keeps preview current without another assessment");
+        check("aml0dGVy".equals(StateMemory.getSharedState(quietAgent).getCurrentImage("1")), "latest image for direct questions is the newest frame, not last assessed image");
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_2","cGVyc29uMg==","image/jpeg",1,1,"continuous",1));
+        check(quiet.requests == 3, "one participant's cooldown never suppresses another participant");
+        quiet.reply="The previous term means the previous true reading.";
+        quiet.handleMessageEvent(quietInput,new MessageEvent(quietInput,"Private_1","What does the previous term mean?"));
+        check(quiet.requests == 4 && quiet.payloads.get(3).contains("aml0dGVy"), "direct questions bypass cooldown and see the newest image");
+        check(!quiet.payloads.get(3).contains("cGVyc29uMg=="), "direct question never includes another participant's image");
+        quiet.now=121000;quiet.reply="No response";
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","cHJvbXB0","image/jpeg",1,1,"manual:unchanged",4));
+        check(quiet.requests == 5, "No response sentinel does not permanently cache a transient model failure or blank image");
+        quiet.now=122000;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","cHJvbXB0","image/jpeg",1,1,"manual:retry-unchanged",5));
+        check(quiet.requests == 5 && quietInput.proposals.size() == quietMessages+2, "legitimately quiet retry stays quiet and respects cooldown");
+        quiet.now=242000;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","bmV3IHdvcms=","image/jpeg",1,1,"continuous",5));
+        check(quiet.requests == 6 && quiet.payloads.get(5).contains("PRIOR ASSESSED IMAGE") && quiet.payloads.get(5).contains("cHJvbXB0"), "new assessment compares the last assessed image rather than jitter frames");
+        check(quiet.payloads.get(5).contains("previous true reading") && !quiet.payloads.get(5).contains("cGVyc29uMg=="), "novelty context uses recent feedback for this participant only");
+        quiet.now=370000;quiet.reply="Which true value influences this reading?";
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","bmV3Mg==","image/jpeg",1,1,"continuous",6));
+        int afterUseful=quietInput.proposals.size();
+        int usefulRequests=quiet.requests;quiet.now=500000;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","bmV3Mg==","image/jpeg",1,1,"continuous",7));
+        check(quiet.requests == usefulRequests, "unchanged image with a useful delivered hint stays suppressed after cooldown");
+        quiet.now=620000;quiet.reply="WHICH true value influences this reading!";
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","bmV3Mw==","image/jpeg",1,1,"continuous",7));
+        check(quietInput.proposals.size() == afterUseful, "repeated background hint is deterministically suppressed");
+        quiet.now=750000;quiet.reply="I only see the activity prompt; please send a clearer photo.";
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","bmV3NA==","image/jpeg",1,1,"manual:blank",8));
+        check(quietInput.proposals.size() == afterUseful, "routine unreadable/prompt-only nag is suppressed even if model returns it");
+        quiet.handleMessageEvent(quietInput,new MessageEvent(quietInput,"Private_1","Can you read my photo?"));
+        check(quietInput.proposals.size() == afterUseful+2, "direct readability question bypasses background-only suppression");
+        quiet.now=880000;quiet.reply="No response";quiet.failPayload=true;
+        int beforeFailedPayload=quiet.requests;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","cmV0cnk=","image/jpeg",1,1,"continuous",9));
+        check(quiet.requests == beforeFailedPayload, "payload preparation failure never invokes the model");
+        quiet.failPayload=false;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_1","cmV0cnk=","image/jpeg",1,1,"continuous",10));
+        check(quiet.requests == beforeFailedPayload+1, "failed preparation does not mark an image assessed or start cooldown");
+        int beforeInvalid=quiet.previews;
+        quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_9","aW52YWxpZA==","image/jpeg",1,1,"manual:invalid",1));
+        check(quiet.previews == beforeInvalid, "unknown camera identity cannot update a private preview");
+
         State outputState = new State();
         outputState.setStepInfo("Paper", "other", "paper_work", "representation_gate");
         MessageEvent partialAck = new MessageEvent(input, "OPEBot", "Alice is ready. 1/2 ready.", "REPRESENTATION_CONTROL", "REPRESENTATION_PHASE_Paper");

@@ -89,10 +89,10 @@
   async function event(kind,payload={}) { try {await put(kind,payload);} catch {issue='Local storage failed. Capture has stopped';stop(false);draw();} }
   function relayMessage(result) {
     if (paperEnded || result.relay_state === 'phase_closed') return;
-    if (!cameraAllowed()) { $('manualStatus').textContent = 'Photo uploaded. Checking whether the paper tutor is available…'; return; }
+    if (!cameraAllowed()) { $('manualStatus').textContent = 'Photo uploaded. Checking delivery to your Paper tutor page…'; return; }
     $('manualStatus').textContent = result.relay_state === 'accepted_by_relay'
-      ? 'Photo sent to the tutor. Check your Paper tutor page for feedback.'
-      : 'Photo uploaded. Waiting for the tutor; you can keep working.';
+      ? 'Photo sent to the tutor. Check the preview on your Paper tutor page.'
+      : 'Photo uploaded. Delivering it to your Paper tutor page…';
   }
   async function flush() {
     if(busy)return;busy=true;
@@ -255,7 +255,7 @@
   const existing=queuedRecords.filter(e=>e.kind==='relay' || (e.kind==='frame' && e.body.capture_mode==='manual'));
   if(existing.length) {
     const latest=existing[existing.length-1];latestManualFrameId=latest.id;
-    $('manualStatus').textContent=latest.kind==='relay' ? 'Photo uploaded. Checking delivery to the tutor…' : 'Your previous photo is waiting to upload. Keep this page open.';
+    $('manualStatus').textContent=latest.kind==='relay' ? 'Photo uploaded. Checking delivery to your Paper tutor page…' : 'Your previous photo is waiting to upload. Keep this page open.';
   }
   await refreshPhase();
   await event('page.opened',{version:'0.1.0',user_agent:navigator.userAgent});setInterval(()=>void flush(),2000);
