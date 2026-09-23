@@ -4,7 +4,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 
 ## Behavior
 
-- Supports 1–4 actual participants; paper → NumPy coding → saved-notebook submission.
+- Supports 1–3 actual participants; paper → NumPy coding → saved-notebook submission.
 - Readiness requires all present participants, plus a passing task1 recovery callback for early Coding completion. Deadlines still allow unfinished submission.
 - Ignores synthetic/private readiness, duplicate callbacks, and stale timers; retains early readiness during introductory prompts.
 - Keeps paper readiness sent during Setup, including withdrawals. Exact participant names and reconnects are tracked by an activity-local presence watcher; Alex and Alexander remain distinct.
@@ -26,7 +26,7 @@ python3 -m unittest discover -s tests -v
 node --test tests/camera_queue.test.cjs
 ```
 
-The small JAR uses that unchanged dependency in its manifest. No shared base JAR is overwritten. Java tests run offline with placeholder credentials and cover all participant counts from 1–4, phase gates, Setup readiness, disconnect/reconnect, prefix-related names, rapid private questions, early callbacks, room isolation, and tutor payload/response format. The camera queue test uses mocked browser services to check offline retention, acknowledgement validation, replay after reload, and participant queue isolation; it does not replace a real-phone acceptance check.
+The small JAR uses that unchanged dependency in its manifest. No shared base JAR is overwritten. Java tests run offline with placeholder credentials and cover all participant counts from 1–3, phase gates, Setup readiness, disconnect/reconnect, prefix-related names, rapid private questions, early callbacks, room isolation, and tutor payload/response format. The camera queue test uses mocked browser services to check offline retention, acknowledgement validation, replay after reload, and participant queue isolation; it does not replace a real-phone acceptance check.
 
 ## Deployment boundaries
 
