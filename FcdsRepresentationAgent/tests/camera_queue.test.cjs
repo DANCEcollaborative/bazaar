@@ -59,6 +59,9 @@ async function camera(rows = new Map(), storageFails = false) {
     fetch: async (url, options) => {
       const body = JSON.parse(options.body); calls.push({ url, body, headers: options.headers });
       if (failure) throw Error('offline');
+      if (url.endsWith('/frame-status')) return { ok: true, json: async () => ({
+        stored: true, frame_id: body.frame_id, relay_state: 'accepted_by_relay'
+      }) };
       return { ok: true, json: async () => ({ stored: true,
         frame_id: wrongAck ? 'wrong-id' : body.frame_id,
         event_ids: wrongAck ? [] : (body.events || []).map(e => e.event_id) }) };
@@ -68,7 +71,8 @@ async function camera(rows = new Map(), storageFails = false) {
   return { rows, calls, get, intervals, windowEvents, documentEvents,
     offline(value) { failure = value; }, wrongAck(value) { wrongAck = value; },
     get stoppedTracks() { return stoppedTracks; },
-    async flush() { intervals.get(2000)(); await settle(); } };
+    async flush() { intervals.get(2000)(); await settle(); },
+    async relayStatus() { intervals.get(3000)(); await settle(); } };
 }
 
 test('camera retains failed/unacknowledged frames, then retries the same ID after reload', async () => {
@@ -119,7 +123,10 @@ test('a selected photo is reviewed, archived and retried without starting a stre
   assert.match(page.get('manualStatus').textContent, /queued on this device/i);
   page.offline(false); await page.flush();
   assert.ok(!page.rows.has(frame.id));
-  assert.match(page.get('manualStatus').textContent, /saved on Bree/i);
+  assert.match(page.get('manualStatus').textContent, /saved on Bree and queued for the tutor service/i);
+  await page.relayStatus();
+  assert.match(page.get('manualStatus').textContent, /sent to the tutor service/i);
+  assert.equal(page.calls.find(call => call.url.endsWith('/frame-status')).body.frame_id, frame.id);
   page.get('takeInput').files = [{ type: 'image/jpeg' }];
   await page.get('takeInput').onchange(); await settle();
   assert.equal(page.get('sendPhoto').disabled, false, 'another photo can be sent later');

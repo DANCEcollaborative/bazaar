@@ -8,6 +8,7 @@
   let sequence = 0, db, stream, timer, socket, busy = false, taking = false;
   let issue = '', queued = 0, lastSaved = '', stopped = true;
   let selectedPhotoFile = null, manualBusy = false;
+  let latestManualFrameId = null, pendingRelayFrameId = null, checkingRelay = false;
   const valid = /^fcds-p2-26-fall-1a-room\d{9}$/.test(room || '') && /^[1-4]$/.test(user || '') && /^\d+\.[a-f0-9]{64}$/.test(credential || '');
   $('start').disabled = !valid;
   $('takePhoto').disabled = $('choosePhoto').disabled = !valid;
@@ -37,7 +38,7 @@
     const id=crypto.randomUUID(), time=new Date().toISOString(), seq=++sequence;
     const body=kind==='frame' ? {room_id:room,participant_id:user,frame_id:id,producer_id:producer,producer_sequence:seq,captured_at:time,...payload} :
       {room_id:room,participant_id:user,events:[{event_id:id,producer_id:producer,producer_sequence:seq,occurred_at:time,event_type:'camera.'+kind,payload}]};
-    await change(s=>s.put({id,time,seq,room,user,kind,body}));queued++;draw();
+    await change(s=>s.put({id,time,seq,room,user,kind,body}));queued++;draw();return id;
   }
   async function event(kind,payload={}) { try {await put(kind,payload);} catch {issue='Local storage failed. Capture has stopped';stop(false);draw();} }
   async function flush() {
@@ -54,9 +55,13 @@
         await change(s=>s.delete(e.id));queued--;lastSaved=new Date().toLocaleTimeString();
         if(e.kind==='frame' && e.body.capture_mode==='manual') {
           pendingManual--;
-          $('manualStatus').textContent = result.relay_state==='accepted_by_relay'
-            ? 'Photo saved on Bree and sent to the tutor service. Check your private Paper tutor page for the preview or a reply.'
-            : 'Photo saved on Bree and queued for the tutor service. Check your private Paper tutor page; you can keep working while it arrives.';
+          if(!latestManualFrameId || latestManualFrameId===e.id) {
+            latestManualFrameId=e.id;
+            pendingRelayFrameId=result.relay_state==='accepted_by_relay' ? null : e.id;
+            $('manualStatus').textContent = pendingRelayFrameId
+              ? 'Photo saved on Bree and queued for the tutor service. Check your private Paper tutor page; you can keep working while it arrives.'
+              : 'Photo saved on Bree and sent to the tutor service. Check your private Paper tutor page for the preview or a reply.';
+          }
         }
       }
       issue='';
@@ -65,6 +70,23 @@
       if(pendingManual>0)$('manualStatus').textContent='Your photo is queued on this device, but has not reached Bree. Upload will retry: '+issue+'. Keep this page open.';
     }
     finally{busy=false;draw();}
+  }
+  async function checkManualRelay() {
+    if(!pendingRelayFrameId || checkingRelay)return;
+    const frameId=pendingRelayFrameId;checkingRelay=true;
+    try {
+      const response=await fetch('/fcds-recorder/v1/camera/frame-status',{
+        method:'POST',headers:{'Content-Type':'application/json','Authorization':'Camera '+credential},
+        body:JSON.stringify({room_id:room,participant_id:user,frame_id:frameId}),signal:AbortSignal.timeout(15000)
+      });
+      if(!response.ok)return;
+      const result=await response.json();
+      if(result.stored && result.frame_id===frameId && result.relay_state==='accepted_by_relay' && latestManualFrameId===frameId) {
+        pendingRelayFrameId=null;
+        $('manualStatus').textContent='Photo saved on Bree and sent to the tutor service. Check your private Paper tutor page for the preview or a reply.';
+      }
+    }catch(_) { /* Archive is durable; retry the status check without re-uploading. */ }
+    finally{checkingRelay=false;}
   }
   async function capture() {
     if(taking || !stream)return;taking=true;
@@ -152,7 +174,8 @@
         maxSide=Math.round(maxSide*0.75);quality=0.65;
       }
       if(!imageBase64 || imageBase64.length*3/4>2*1024*1024)throw Error('This photo is too large to save. Choose a smaller photo.');
-      await put('frame',{imageBase64,mimeType:'image/jpeg',width:canvas.width,height:canvas.height,paper_problem:$('problem').value,capture_mode:'manual'});
+      latestManualFrameId=await put('frame',{imageBase64,mimeType:'image/jpeg',width:canvas.width,height:canvas.height,paper_problem:$('problem').value,capture_mode:'manual'});
+      pendingRelayFrameId=null;
       $('manualStatus').textContent='Photo queued on this device. Saving to Bree… Keep this page open.';
       discardSelection();await event('manual.submitted',{paper_problem:$('problem').value});void flush();
     }catch(error){$('manualStatus').textContent=error.message || 'Could not queue the photo. Try again.';if(error.name!=='QueueFullError')await event('manual.send_error',{error_type:error.name});$('sendPhoto').disabled=!selectedPhotoFile;}
@@ -160,5 +183,5 @@
   };
   window.addEventListener('online',()=>{void event('online');void flush();});window.addEventListener('offline',()=>{issue='Offline; records are queued on this phone';void event('offline');draw();});
   window.addEventListener('pagehide',()=>stop());document.addEventListener('visibilitychange',()=>void event('visibility',{state:document.visibilityState}));
-  await event('page.opened',{version:'0.1.0',user_agent:navigator.userAgent});setInterval(()=>void flush(),2000);void flush();
+  await event('page.opened',{version:'0.1.0',user_agent:navigator.userAgent});setInterval(()=>void flush(),2000);setInterval(()=>void checkManualRelay(),3000);void flush();
 })();
