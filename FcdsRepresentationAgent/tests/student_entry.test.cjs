@@ -88,6 +88,46 @@ const user = { name: 'Entry Test', email: 'entry-test@example.invalid' };
    await p.locator('#logoutBtn').click();await p.waitForTimeout(650);
    assert(await p.locator('#startBtn').isDisabled());assert(await p.locator('#loggedOut').isVisible());
   });
+  async function googleSignIn(page,email) {
+   const token='test.'+Buffer.from(JSON.stringify({email,name:'CMU Browser Test'})).toString('base64url')+'.signature';
+   await page.evaluate(credential=>handleCredentialResponse({credential}),token);
+   return token;
+  }
+  for (const email of ['student@cmu.edu','student@andrew.cmu.edu']) {
+   let joined=false;
+   await scenario('first Google sign-in auto-enrolls '+email,route=>ok(joined?[{activity_id:ACT}]:[])(route),async(p,c)=>{
+    let sentToken;
+    await c.route(origin+'/api/activity/'+ACT+'/self-enroll',async route=>{
+     sentToken=route.request().headers().authorization;
+     assert.equal(route.request().method(),'POST');joined=true;
+     return route.fulfill({json:{status:'enrolled',activity_id:ACT,email}});
+    });
+    const token=await googleSignIn(p,email);
+    await p.getByText('You are enrolled.',{exact:false}).waitFor();
+    assert.equal(sentToken,'Bearer '+token);assert(await p.locator('#startBtn').isEnabled());
+    assert(!await p.evaluate(x=>JSON.stringify(sessionStorage).includes(x),token));
+    await p.reload();await p.getByText('You are enrolled.',{exact:false}).waitFor();
+    assert(await p.locator('#startBtn').isEnabled());
+   },null);
+  }
+  await scenario('saved CMU identity requires a fresh Google sign-in before first enrollment',ok([]),async p=>{
+   await p.getByRole('button',{name:'Sign in again'}).waitFor();assert(await p.locator('#startBtn').isDisabled());
+   await p.getByRole('button',{name:'Sign in again'}).click();assert(await p.locator('#loggedOut').isVisible());
+  },{name:'CMU Test',email:'new@andrew.cmu.edu'});
+  await scenario('expired Google credential requests sign-in again',ok([]),async(p,c)=>{
+   await c.route(origin+'/api/activity/'+ACT+'/self-enroll',route=>route.fulfill({status:401,json:{detail:'Expired'}}));
+   await googleSignIn(p,'new@andrew.cmu.edu');await p.getByRole('button',{name:'Sign in again'}).waitFor();
+   assert(await p.locator('#startBtn').isDisabled());
+  },null);
+  await scenario('disabled activity or rejected verification does not enable launch',ok([]),async(p,c)=>{
+   await c.route(origin+'/api/activity/'+ACT+'/self-enroll',route=>route.fulfill({status:403,json:{detail:'Unavailable'}}));
+   await googleSignIn(p,'new@andrew.cmu.edu');await p.getByText('CMU access could not be enabled.',{exact:false}).waitFor();
+   assert(await p.locator('#startBtn').isDisabled());
+  },null);
+  await scenario('lookalike domain cannot trigger CMU self-enrollment',ok([]),async p=>{
+   await googleSignIn(p,'new@cmu.edu.evil.example');await p.getByText('This account is not enrolled.',{exact:false}).waitFor();
+   assert(await p.locator('#startBtn').isDisabled());
+  },null);
   console.log(`${passed} browser scenarios passed`);
  } finally {await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

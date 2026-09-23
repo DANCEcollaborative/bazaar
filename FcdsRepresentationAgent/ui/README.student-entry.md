@@ -6,8 +6,11 @@ hostname is a different server and is not this deployment.
 
 The page launches only activity `fcds-p2-26-fall-1a`, titled **Recover the sensor
 readings**. It uses the existing Google client, enabled-activity enrollment API,
-and Lobby allocation endpoint. It does not enroll users automatically or alter
-other activities. Unknown accounts, disabled activities, enrollment outages,
+and Lobby allocation endpoint. It automatically enrolls newly signed-in CMU accounts through the activity-specific
+server endpoint after Google verification; it does not alter other activities.
+Existing invited non-CMU accounts retain access. The Google credential stays in
+memory, not browser storage. A stored but unenrolled CMU identity must sign in
+again to activate access. Unknown accounts, disabled activities, enrollment outages,
 popup blocking and allocation failures have visible recovery instructions.
 
 Publish this whole file; the historical `patch_login.py` and `patch_group_wait.py`

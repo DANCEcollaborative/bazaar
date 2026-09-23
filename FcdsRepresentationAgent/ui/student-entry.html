@@ -194,7 +194,7 @@
         <div class="auth-section">
             <div id="loggedOut" class="hidden">
                 <!-- Google Sign-In Button Container -->
-                <p class="intro">Sign in with the Google account your instructor enrolled for this activity.</p>
+                <p class="intro">Sign in with your CMU Google account to join automatically. Any @cmu.edu address or CMU subdomain, such as @andrew.cmu.edu, is eligible. Previously invited accounts can also sign in.</p>
                 <div id="googleSignInDiv"></div>
                 <p id="googleStatus" role="status" class="intro"></p>
 
@@ -248,6 +248,14 @@
         let enrolled = false;
         let enrollmentRequest = 0;
         let launching = false;
+        let googleCredential = null; // Used only in memory for verified CMU self-enrollment.
+        let needsGoogleSignIn = false;
+
+        function isCmuEmail(email) {
+            const parts = email.trim().toLowerCase().split('@');
+            return parts.length === 2 && parts[0] &&
+                (parts[1] === 'cmu.edu' || parts[1].endsWith('.cmu.edu'));
+        }
 
         // Utility functions
         function showStatus(message, type) {
@@ -265,6 +273,8 @@
             enrolled = false;
             startBtn.disabled = true;
             retryEnrollmentBtn.classList.add('hidden');
+            retryEnrollmentBtn.textContent = 'Recheck enrollment';
+            needsGoogleSignIn = false;
             enrollmentStatus.textContent = 'Checking your enrollment…';
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 15000);
@@ -275,9 +285,34 @@
                 if (!Array.isArray(activities)) throw new Error('Invalid enrollment response');
                 if (request !== enrollmentRequest || currentUser?.email !== email) return;
                 enrolled = activities.some(activity => activity.activity_id === ACTIVITY_ID);
+                if (!enrolled && isCmuEmail(email) && googleCredential) {
+                    enrollmentStatus.textContent = 'Joining with your CMU account…';
+                    const joined = await fetch(`${JUPYTER_SERVER}/api/activity/${ACTIVITY_ID}/self-enroll`, {
+                        method: 'POST', headers: {Authorization: `Bearer ${googleCredential}`}, signal: controller.signal
+                    });
+                    if (request !== enrollmentRequest || currentUser?.email !== email) return;
+                    if (joined.status === 401) {
+                        googleCredential = null;
+                        needsGoogleSignIn = true;
+                    } else if (joined.status === 403) {
+                        enrollmentStatus.textContent = 'CMU access could not be enabled. Use a verified CMU Google account; if the activity is unavailable, contact your instructor.';
+                        retryEnrollmentBtn.classList.remove('hidden');
+                        return;
+                    } else {
+                        if (!joined.ok) throw new Error('Self-enrollment unavailable');
+                        const result = await joined.json();
+                        if (request !== enrollmentRequest || currentUser?.email !== email) return;
+                        if (result.activity_id !== ACTIVITY_ID || result.email !== email) throw new Error('Enrollment identity mismatch');
+                        enrolled = true;
+                    }
+                }
+                if (!enrolled && isCmuEmail(email) && !googleCredential) needsGoogleSignIn = true;
                 enrollmentStatus.textContent = enrolled
                     ? 'You are enrolled. Your instruction notebook will open when the activity is ready.'
-                    : 'This account is not enrolled in this activity, or the activity is currently unavailable. Check the email shown above. Ask your instructor to enroll that email or enable the activity, then recheck here. You can also sign out to use another account.';
+                    : needsGoogleSignIn
+                        ? 'CMU accounts can join automatically. Sign in again with Google to verify this account and enable access.'
+                        : 'This account is not enrolled. Automatic access is available with a CMU Google account. Sign out to switch accounts, or ask your instructor for an invitation to this activity.';
+                if (needsGoogleSignIn) retryEnrollmentBtn.textContent = 'Sign in again';
                 retryEnrollmentBtn.classList.toggle('hidden', enrolled);
             } catch (error) {
                 if (request !== enrollmentRequest || currentUser?.email !== email) return;
@@ -289,7 +324,9 @@
             }
         }
         retryEnrollmentBtn.addEventListener('click', () => {
-            if (currentUser && !launching) loadActivity(currentUser.email);
+            if (launching) return;
+            if (needsGoogleSignIn) signOut();
+            else if (currentUser) loadActivity(currentUser.email);
         });
 
         function showLoggedIn(user) {
@@ -311,6 +348,9 @@
             logoutBtn.classList.add('hidden');
 
             currentUser = null;
+            googleCredential = null;
+            needsGoogleSignIn = false;
+            startBtn.textContent = 'Start activity';
             enrolled = false;
             ++enrollmentRequest;
             startBtn.disabled = true;
@@ -341,9 +381,10 @@
             const userInfo = parseJwt(response.credential);
 
             if (userInfo && typeof userInfo.email === 'string' && userInfo.email && typeof userInfo.name === 'string' && userInfo.name) {
+                googleCredential = response.credential;
                 currentUser = {
                     name: userInfo.name,
-                    email: userInfo.email,
+                    email: userInfo.email.trim().toLowerCase(),
                     picture: userInfo.picture
                 };
 
@@ -397,12 +438,13 @@
         }
 
         // Logout
-        logoutBtn.addEventListener('click', () => {
+        function signOut() {
             sessionStorage.removeItem('currentUser');
             window.google?.accounts?.id?.disableAutoSelect();
             showLoggedOut();
             hideStatus();
-        });
+        }
+        logoutBtn.addEventListener('click', signOut);
 
         // Start JupyterLab
         startBtn.addEventListener('click', async () => {
