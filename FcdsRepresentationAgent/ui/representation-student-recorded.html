@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Your paper tutor · FCDS Representation</title>
+  <title>Paper tutor</title>
   <style>
     *{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:#172335;font:16px/1.5 system-ui,sans-serif}
     header,main{max-width:1440px;margin:auto;padding:18px 28px}header{padding-bottom:8px}h1{font-size:26px;margin:0 0 4px}h2{font-size:18px;margin:0 0 8px}p{margin:6px 0}
-    .muted{color:#506075}.setup{display:flex;gap:24px;align-items:center;background:white;border:1px solid #d3dce7;border-radius:12px;padding:18px 24px;margin-bottom:20px}
+    .muted{color:#506075}.setup{display:flex;gap:24px;align-items:center;background:white;border:1px solid #d3dce7;border-radius:6px;padding:18px 24px;margin-bottom:20px}
     #qr{flex:none;width:158px;height:158px}#qr svg{width:100%;height:100%}ol{padding-left:22px;margin:6px 0}.ids{display:flex;gap:22px;flex-wrap:wrap;font-size:14px}code{background:#edf2f7;padding:2px 6px;border-radius:4px}
     a{color:#154db4}button{font:inherit;border:1px solid #a9b8cc;border-radius:6px;padding:6px 12px;background:white;color:#154db4;cursor:pointer}.actions{display:flex;align-items:center;gap:18px;margin-top:10px}
     #private{width:100%;height:720px;min-height:65vh;border:1px solid #d3dce7;border-radius:10px;background:white}#error{color:#a32620;background:#fff1ed;padding:20px;border-radius:8px}[hidden]{display:none!important}
@@ -14,23 +14,23 @@
   </style>
 </head>
 <body>
-  <header><h1>Your paper tutor</h1><p id="participant" class="muted"></p><p>Keep your JupyterLab notebook open for the questions and code. This page is for your own paper preview and private tutoring.</p></header>
+  <header><h1>Paper tutor</h1><p id="participant" class="muted"></p><p>Keep your JupyterLab notebook open for the questions and code. This page contains the paper preview and private chat.</p></header>
   <main>
     <p id="error" hidden>Open your personal Paper tutor link from your JupyterLab view. This page is missing its room or participant ID.</p>
     <section id="content" hidden>
       <section class="setup" aria-labelledby="camera-title">
         <div id="qr" aria-label="QR code for your phone camera"></div>
-        <div><h2 id="camera-title">Connect your phone for Phase 1</h2>
+        <div><h2 id="camera-title">Camera setup</h2>
           <ol><li>Scan this QR code with your phone, or open the camera link on another device. Your IDs are filled in.</li><li>For continuous paper capture, allow camera access, aim at your work, and tap <strong>Start camera</strong>. Or tap <strong>Take a photo</strong> / <strong>Choose an existing photo</strong> to send one image whenever you want, including if continuous capture fails.</li><li>Check the paper preview below. Ask the tutor a question in the private chat.</li></ol>
           <p><strong>Stop continuous capture when the bot announces Phase 2.</strong> You can continue coding in your notebook. A photo is saved on Bree before it is passed to the tutor; keep the camera page open while records are pending.</p>
           <div class="ids"><span>Session ID: <code id="session-id"></code></span><span>Your User ID: <code id="user-id"></code></span></div>
           <div class="actions"><a id="camera-link" target="_blank" rel="noopener">Camera link — open on phone</a><button id="copy-camera" type="button">Copy camera link</button><span id="copy-status" role="status"></span></div>
         </div>
       </section>
-      <p>Camera still images and tutor interactions are saved for this activity. Keep the phone page open until it confirms all records are saved on Bree.</p><h2>Your paper preview and private chat</h2>
+      <p>Camera still images and tutor interactions are saved for this activity. Keep the phone page open until it confirms all records are saved on Bree.</p><h2>Paper preview and private chat</h2>
       <p class="muted">Use <code>paper done</code>, <code>coding done</code>, and <code>submitted</code> in the <strong>JupyterLab group chat</strong>, not the private chat below.</p>
-      <p id="preview-status" class="muted" role="status">Waiting for your first paper image. Start continuous capture or send one photo; the preview and tutor feedback may take a little time to arrive.</p>
-      <iframe id="private" title="Your paper preview and private tutor"></iframe>
+      <p id="preview-status" class="muted" role="status">No image received yet. Start the camera or send a photo. The preview and feedback may take a moment to appear.</p>
+      <iframe id="private" title="Paper preview and private chat"></iframe>
     </section>
   </main>
   <script src="/bazaar/static/representation-qrcode.js"></script>
