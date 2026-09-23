@@ -92,6 +92,7 @@ def prepare(bundle, destination):
     (pages / "tab-share-representation.html.html").write_text(page)
     shutil.copyfile(bundle / "ui/representation-student.html", pages / "representation-student.html")
     shutil.copyfile(bundle / "ui/representation-student-recorded.html", pages / "representation-student-recorded.html")
+    shutil.copyfile(bundle / "ui/representation-private-space.html", pages / "representation-private-space.html")
     for name in ("camera_fcds-recorded.html", "camera_fcds-recorded.js"):
         shutil.copyfile(bundle / "ui" / name, static / name)
     shutil.copyfile(bundle / "ui/qrcode-1.4.4.js", static / "representation-qrcode.js")

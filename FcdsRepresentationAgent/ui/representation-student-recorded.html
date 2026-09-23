@@ -49,7 +49,7 @@
       const camera = new URL('/bazaar/static/camera_fcds-recorded.html', location.origin);
       camera.searchParams.set('room', room.replace(/^fcdsrepresentation/, '')); camera.searchParams.set('user', user); camera.hash = location.hash;
       const link = document.getElementById('camera-link'); link.href = camera.href;
-      document.getElementById('private').src = '/bazaar/chat/' + room + '/Private_' + user + '/Private_' + user + '/?html=private_space';
+      document.getElementById('private').src = '/bazaar/chat/' + room + '/Private_' + user + '/Private_' + user + '/?html=representation-private-space';
       document.getElementById('private').addEventListener('load', () => {
         const doc = document.getElementById('private').contentDocument;
         const img = doc && doc.getElementById('camera_image');
