@@ -39,7 +39,8 @@ async function camera(rows = new Map(), storageFails = false) {
   const db = fakeDatabase(rows);
   const windowEvents = {}, documentEvents = {};
   const context = {
-    URLSearchParams, URL: { createObjectURL: () => 'blob:synthetic', revokeObjectURL() {} }, Date, JSON, Promise, Error, String, Math, crypto: webcrypto,
+    URLSearchParams, Date, JSON, Promise, Error, String, Math, crypto: webcrypto,
+    FileReader: class { readAsDataURL() { queueMicrotask(() => { this.result = 'data:image/png;base64,c3ludGhldGlj'; this.onload?.(); }); } },
     location: { search: '?room=' + room + '&user=1', hash: '#capture=' + credential },
     document: { getElementById: get, createElement: name => get(name),
       addEventListener: (name, fn) => { documentEvents[name] = fn; } },

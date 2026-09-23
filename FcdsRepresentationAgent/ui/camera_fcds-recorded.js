@@ -7,7 +7,7 @@
   const producer = 'camera:' + crypto.randomUUID();
   let sequence = 0, db, stream, timer, socket, busy = false, taking = false;
   let issue = '', queued = 0, lastSaved = '', stopped = true;
-  let selectedPhotoUrl = null, selectedPhotoFile = null, manualBusy = false;
+  let selectedPhotoFile = null, manualBusy = false;
   const valid = /^fcds-p2-26-fall-1a-room\d{9}$/.test(room || '') && /^[1-4]$/.test(user || '') && /^\d+\.[a-f0-9]{64}$/.test(credential || '');
   $('start').disabled = !valid;
   $('takePhoto').disabled = $('choosePhoto').disabled = !valid;
@@ -102,8 +102,7 @@
   };
   $('stop').onclick=()=>stop();$('problem').onchange=()=>void event('problem.changed',{paper_problem:$('problem').value});
   function discardSelection() {
-    if(selectedPhotoUrl)URL.revokeObjectURL(selectedPhotoUrl);
-    selectedPhotoUrl=null;selectedPhotoFile=null;
+    selectedPhotoFile=null;
     $('manualPreview').removeAttribute('src');$('manualPreview').hidden=true;
     $('takeInput').value=$('chooseInput').value='';
     $('sendPhoto').disabled=$('discardPhoto').disabled=true;
@@ -115,15 +114,22 @@
     const file=input.files?.[0];if(!file)return;
     discardSelection();
     if(!file.type.startsWith('image/')) {$('manualStatus').textContent='Choose an image file, then try again.';return;}
-    const url=URL.createObjectURL(file),preview=$('manualPreview');
+    if(file.size>25*1024*1024) {$('manualStatus').textContent='This file is too large to open. Choose a smaller photo.';return;}
+    const preview=$('manualPreview');
     try {
-      await new Promise((resolve,reject)=>{preview.onload=resolve;preview.onerror=reject;preview.src=url;});
+      // Bree allows data: images in its CSP, but blocks blob: object URLs.
+      const dataUrl=await new Promise((resolve,reject)=>{
+        const reader=new FileReader();reader.onload=()=>resolve(reader.result);
+        reader.onerror=()=>reject(reader.error || Error('Could not read the file'));
+        reader.readAsDataURL(file);
+      });
+      await new Promise((resolve,reject)=>{preview.onload=resolve;preview.onerror=()=>reject(Error('Could not display the photo'));preview.src=dataUrl;});
       if(!preview.naturalWidth || !preview.naturalHeight)throw Error('The selected image could not be read');
-      selectedPhotoUrl=url;selectedPhotoFile=file;preview.hidden=false;
+      selectedPhotoFile=file;preview.hidden=false;
       $('sendPhoto').disabled=$('discardPhoto').disabled=false;
       $('manualStatus').textContent='Review the photo. Make sure your writing is readable and no private information is visible, then press Send this photo.';
       await event('manual.selected',{paper_problem:$('problem').value});
-    }catch(error){URL.revokeObjectURL(url);preview.removeAttribute('src');$('manualStatus').textContent='The photo could not be opened. Choose another image.';await event('manual.selection_error',{error_type:error.name});}
+    }catch(error){preview.removeAttribute('src');$('manualStatus').textContent='The photo could not be opened. Choose another image.';await event('manual.selection_error',{error_type:error.name || 'ImageLoadError'});}
   }
   $('takeInput').onchange=()=>void selectPhoto($('takeInput'));
   $('chooseInput').onchange=()=>void selectPhoto($('chooseInput'));
