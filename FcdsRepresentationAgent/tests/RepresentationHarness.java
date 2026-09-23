@@ -377,9 +377,11 @@ public class RepresentationHarness {
         check(RepresentationOutputCoordinator.currentControlMessage(partialAck, outputState), "partial readiness is visible while phase is current");
         outputState.setStepInfo("Coding", "other", "coding_work", "representation_gate");
         check(!RepresentationOutputCoordinator.currentControlMessage(partialAck, outputState), "queued paper acknowledgment cannot appear after coding begins");
-        MessageEvent noReceipt = new MessageEvent(input, "OPEBot", "No stored submission found", "REPRESENTATION_CONTROL", "REPRESENTATION_PHASE_Submit", "REPRESENTATION_STEP_submission_acknowledgement");
+        MessageEvent noReceipt = new MessageEvent(input, "OPEBot", "No stored submission found", "REPRESENTATION_CONTROL", "REPRESENTATION_PHASE_Submit", "REPRESENTATION_SUBMISSION_PENDING");
+        outputState.setStepInfo("Submit", "other", "submission_instructions", "prompt");
+        check(RepresentationOutputCoordinator.currentControlMessage(noReceipt, outputState), "early submitted gets guidance during introduction");
         outputState.setStepInfo("Submit", "other", "submission_acknowledgement", "representation_gate");
-        check(RepresentationOutputCoordinator.currentControlMessage(noReceipt, outputState), "missing receipt guidance shown while waiting");
+        check(RepresentationOutputCoordinator.currentControlMessage(noReceipt, outputState), "guidance created during introduction remains valid after receipt gate opens");
         outputState.setStepInfo("Submit", "other", "closing_message", "prompt");
         check(!RepresentationOutputCoordinator.currentControlMessage(noReceipt, outputState), "queued missing-receipt warning cannot appear after verified completion");
         check(RepresentationOutputCoordinator.currentControlMessage(new MessageEvent(input, "OPEBot", "Phase 2 starts now"), outputState), "ordinary plan prompts remain unaffected");

@@ -27,11 +27,16 @@ public class RepresentationOutputCoordinator extends OutputCoordinator {
     /** Output arbitration may hold a control reply until a newer phase starts. */
     public static boolean currentControlMessage(MessageEvent message, State state) {
         if (!message.hasAnnotations("REPRESENTATION_CONTROL")) return true;
+        // The submission introduction and receipt gate are one student action.
+        // A warning produced while the introduction's speaking timer runs is
+        // still useful at the gate; it becomes stale only after verified receipt.
+        if (message.hasAnnotations("REPRESENTATION_SUBMISSION_PENDING") &&
+                !"submission_instructions".equals(state.getStepName()) &&
+                !"submission_acknowledgement".equals(state.getStepName())) return false;
         for (String annotation : message.getAllAnnotations()) {
             if (annotation.startsWith("REPRESENTATION_PHASE_") &&
                     !annotation.equals("REPRESENTATION_PHASE_" + state.getStageName())) return false;
-            if (annotation.startsWith("REPRESENTATION_STEP_") &&
-                    !annotation.equals("REPRESENTATION_STEP_" + state.getStepName())) return false;
+
         }
         return true;
     }

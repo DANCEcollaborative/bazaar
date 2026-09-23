@@ -267,8 +267,8 @@ public class RepresentationPlanExecutor extends PlanExecutor {
         response.addAnnotations("REPRESENTATION_CONTROL");
         if (currentPlan != null && currentPlan.currentStage != null) {
             response.addAnnotations("REPRESENTATION_PHASE_" + currentPlan.currentStage.name);
-            if ("Submit".equals(currentPlan.currentStage.name) && current() != null)
-                response.addAnnotations("REPRESENTATION_STEP_" + current().name);
+            if ("Submit".equals(currentPlan.currentStage.name))
+                response.addAnnotations("REPRESENTATION_SUBMISSION_PENDING");
         }
         source.pushEventProposal(response);
     }
