@@ -65,10 +65,22 @@ const user = { name: 'Entry Test', email: 'entry-test@example.invalid' };
    await lab.waitForURL(/RTC:workspace.ipynb/);
    const url=new URL(lab.url()); assert.equal(url.pathname,'/test/lab/tree/RTC:workspace.ipynb');
    assert.equal(url.searchParams.get('token'),'synthetic'); assert.equal(url.searchParams.get('room_name'),'test-room');
-   assert.deepEqual(body,{name:user.name,email:user.email,password:user.email,entityId:ACT});
+   assert.deepEqual(body,{name:user.name,email:user.email,password:user.email,entityId:ACT,participationMode:'solo'});
    await p.getByRole('button',{name:'Reopen activity'}).waitFor();
    await p.reload(); await p.getByText('You are enrolled.',{exact:false}).waitFor();
    assert(await p.locator('#startBtn').isEnabled());
+  });
+  await scenario('group choice is sent and explains matching wait',ok([{activity_id:ACT}]),async (p,c)=>{
+   await p.getByText('You are enrolled.',{exact:false}).waitFor();
+   await p.locator('input[value="group"]').check();
+   let body;
+   await c.route(origin+'/getJupyterlabUrl',async route=>{body=route.request().postDataJSON();return route.fulfill({status:409,json:{detail:'You already started with Work alone. Select that option to reopen your room.'}});});
+   await p.locator('#startBtn').click();
+   await p.getByText('You already started with Work alone.',{exact:false}).waitFor();
+   assert.equal(body.participationMode,'group');
+   assert(await p.locator('#participationChoice').isEnabled());
+   await p.reload();await p.getByText('You are enrolled.',{exact:false}).waitFor();
+   assert(await p.locator('input[value="group"]').isChecked());
   });
   await scenario('popup denial gives an actionable error without starting allocation',ok([{activity_id:ACT}]),async p=>{
    await p.getByText('You are enrolled.',{exact:false}).waitFor();
