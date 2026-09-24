@@ -25,7 +25,7 @@
         $('status').textContent = 'The paper phase has ended. Capture has stopped.';
         $('manualStatus').textContent = 'Your photo upload is not finished. Keep this page open until the pending photos have uploaded.' + (issue ? ' Upload will retry: ' + issue + '.' : ' Uploading…') + ' These photos will not receive tutor feedback.';
       } else {
-        $('status').textContent = $('manualStatus').textContent = 'The paper phase has ended. Return to your JupyterLab notebook for the next step. New photos will not receive tutor feedback.';
+        $('status').textContent = $('manualStatus').textContent = 'The paper phase has ended. Camera capture has stopped automatically. Return to your JupyterLab notebook for the next step. New photos will not receive tutor feedback.';
       }
     } else if (!allowed) {
       $('status').textContent = phaseIssue || 'Checking the activity phase… Photo controls will be available during the paper phase.';
@@ -41,7 +41,11 @@
     if (result.phase === 'Coding' || result.phase === 'Submit') paperEnded = true;
     phase = ['Setup','Paper','Coding','Submit'].includes(result.phase) ? result.phase : null;
     if(phase)phaseIssue='';
-    if (!cameraAllowed() && stream) stop(false);
+    if (!cameraAllowed() && stream) {
+      if (!paperEnded) captureIssue = 'Capture paused while the activity phase was unavailable. When the connection returns, press Start camera to resume.';
+      void event('capture.paused', {reason: paperEnded ? 'paper_phase_ended' : 'phase_unavailable'});
+      stop(false);
+    }
     draw();
   }
   async function refreshPhase() {
@@ -163,8 +167,30 @@
     }catch(error){issue='Frame could not be queued; capture stopped';await event('capture.error',{error_type:error.name});stop(false);draw();}
     finally{taking=false;}
   }
+  function connectFeedback() {
+    if (socket) return;
+    socket=io('/',{path:'/bazsocket'});
+    socket.on('connect',()=>{socket.emit('adduser','fcdsrepresentation'+room,'Camera_'+user,true,'Camera_'+user,null);void event('relay.connected');});
+    socket.on('disconnect',reason=>void event('relay.disconnected',{reason}));
+    socket.on('connect_error',()=>void event('relay.error'));
+    socket.on('update_private_chat',(_to,from,text)=>{
+      text=String(text);
+      if (from==='Camera_'+user || text.includes('cameraImageUpdate:::true')) return;
+      if (text.startsWith('multimodal:::true;%;')) {
+        const fields={};
+        for (const field of text.split(';%;')) {
+          const split=field.indexOf(':::');
+          if (split>=0) fields[field.slice(0,split)]=field.slice(split+3);
+        }
+        text=fields.speech || '';
+        from=fields.from || from;
+      }
+      if (!text.trim()) return;
+      const p=document.createElement('p');p.textContent=String(from)+': '+text;$('feed').prepend(p);
+    });
+  }
   function stop(record=true) {
-    clearInterval(timer);stream?.getTracks().forEach(t=>t.stop());stream=null;$('preview').srcObject=null;$('preview').hidden=true;socket?.disconnect();socket=null;stopped=true;
+    clearInterval(timer);stream?.getTracks().forEach(t=>t.stop());stream=null;$('preview').srcObject=null;$('preview').hidden=true;stopped=true;
     $('start').disabled=false;$('stop').disabled=true;if(record)void event('stopped');draw();void flush();
   }
   $('start').onclick=async()=>{
@@ -174,12 +200,6 @@
       stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
       if(!cameraAllowed()){stop(false);return;}
       $('preview').srcObject=stream;$('preview').hidden=false;await $('preview').play();stopped=false;$('stop').disabled=false;captureIssue='';
-      // Relay connectivity affects preview/tutoring, not whether images are archived.
-      socket=io('/',{path:'/bazsocket'});
-      socket.on('connect',()=>{socket.emit('adduser','fcdsrepresentation'+room,'Camera_'+user,true,'Camera_'+user,null);void event('relay.connected');});
-      socket.on('disconnect',reason=>void event('relay.disconnected',{reason}));
-      socket.on('connect_error',()=>void event('relay.error'));
-      socket.on('update_private_chat',(_to,from,text)=>{if(from==='Camera_'+user)return;const p=document.createElement('p');p.textContent=String(from)+': '+String(text);$('feed').prepend(p);});
       await event('started',{interval_ms:10000,audio:false});await capture();timer=setInterval(()=>void capture(),10000);draw();
     }catch(error){
       stop(false);
@@ -249,7 +269,8 @@
     finally{manualBusy=false;draw();}
   };
   window.addEventListener('online',()=>{void event('online');void flush();});window.addEventListener('offline',()=>{issue='Offline; records are queued on this phone';void event('offline');draw();});
-  window.addEventListener('pagehide',()=>stop());document.addEventListener('visibilitychange',()=>void event('visibility',{state:document.visibilityState}));
+  window.addEventListener('pagehide',()=>{stop();socket?.disconnect();socket=null;});
+  window.addEventListener('pageshow',()=>{connectFeedback();void refreshPhase();});document.addEventListener('visibilitychange',()=>void event('visibility',{state:document.visibilityState}));
   const queuedRecords=await records();
   pendingPhotos=queuedRecords.filter(e=>e.kind==='frame').length;
   const existing=queuedRecords.filter(e=>e.kind==='relay' || (e.kind==='frame' && e.body.capture_mode==='manual'));
@@ -257,6 +278,7 @@
     const latest=existing[existing.length-1];latestManualFrameId=latest.id;
     $('manualStatus').textContent=latest.kind==='relay' ? 'Photo uploaded. Checking delivery to your Paper tutor page…' : 'Your previous photo is waiting to upload. Keep this page open.';
   }
+  connectFeedback();
   await refreshPhase();
   await event('page.opened',{version:'0.1.0',user_agent:navigator.userAgent});setInterval(()=>void flush(),2000);
   setInterval(()=>void refreshPhase().then(checkManualRelay),3000);void flush();void checkManualRelay();

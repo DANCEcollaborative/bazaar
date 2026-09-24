@@ -231,6 +231,13 @@ public class RepresentationCameraListener extends LlmCameraListener {
         return result.toString();
     }
 
+    protected String platformStatus(InputCoordinator source) {
+        Object listener = source.getListenerByName("RepresentationPlanExecutor");
+        return listener instanceof RepresentationPlanExecutor
+            ? ((RepresentationPlanExecutor) listener).tutorStatusText()
+            : "Platform status unavailable. Do not infer a current check result or submission receipt.";
+    }
+
     @Override public String constructPayloadMultiParty(InputCoordinator source, String prompt, String sender) {
         try {
             JSONObject payload = new JSONObject(super.constructPayloadMultiParty(source, prompt, sender));
@@ -250,6 +257,11 @@ public class RepresentationCameraListener extends LlmCameraListener {
                 + (("Paper".equals(phase) || "Setup".equals(phase))
                     ? "Students reason on paper. Ask about true versus recorded values, dependency expansion, coefficient signs and powers, and matrix row/column meaning. Do not give NumPy code or a complete solution. Use only clearly visible paper details."
                     : "Students are coding or submitting. Discuss the code or question they share. Do not infer their current code from an earlier paper image. Do not claim tests passed or submission succeeded without the platform receipt."));
+            if ("Coding".equals(phase) || "Submit".equals(phase)) {
+                system.put("content", system.getString("content")
+                    + "\nAUTHORITATIVE PLATFORM STATUS (fetched now): " + platformStatus(source)
+                    + " A passed check confirms the tested saved notebook passed. Acknowledge that result; do not contradict it using earlier code or errors in conversation history. You cannot see subsequent edits unless the student shares them. If asked about old incorrect code, distinguish that example from the checked notebook. A passed check is not a stored submission or a final grade.");
+            }
             Observation background=observation.get();
             if (background != null) {
                 system.put("content",system.getString("content") + " Recent feedback already given to this participant: " + background.recentReplies.toString());

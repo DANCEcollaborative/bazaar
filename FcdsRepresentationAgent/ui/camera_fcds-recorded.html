@@ -1,10 +1,15 @@
 <!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Paper camera · FCDS</title>
-<style>body{max-width:700px;margin:auto;padding:20px;font:17px/1.5 system-ui;background:#f5f7fa;color:#172335}video,#manualPreview{width:100%;max-height:55vh;object-fit:contain;background:#222;border-radius:10px}button,select{font:inherit;padding:10px;margin:5px}#status,#manualStatus{padding:12px;background:#fff2ce;border-radius:8px}small{display:block}button:disabled{opacity:.5}[hidden]{display:none!important}.manual{margin-top:24px;border-top:1px solid #ccd5e0;padding-top:12px}</style>
+<style>body{max-width:700px;margin:auto;padding:20px;font:17px/1.5 system-ui;background:#f5f7fa;color:#172335}video,#manualPreview{width:100%;max-height:55vh;object-fit:contain;background:#222;border-radius:10px}button,select{font:inherit;padding:10px;margin:5px}#status,#manualStatus{padding:12px;background:#fff2ce;border-radius:8px}small{display:block}#feed p{white-space:pre-wrap;overflow-wrap:anywhere}button:disabled{opacity:.5}[hidden]{display:none!important}.manual{margin-top:24px;border-top:1px solid #ccd5e0;padding-top:12px}</style>
 <h1>Paper camera</h1><p>During Phase 1, you can leave the camera running for a still image about every 10 seconds, or send individual photos. Both options send photos to your private tutor.</p>
+<section aria-labelledby="problemHeading"><h2 id="problemHeading">Recover the sensor readings</h2>
+<p>A sensor records each true value plus one third of the previous true value:</p>
+<p><strong>r<sub>i</sub> = s<sub>i</sub> + (1/3)s<sub>i-1</sub></strong>, with s<sub>-1</sub> = 0. Here s is the true value and r is the recorded value. There is no wraparound or additional noise.</p>
+<p>Recorded values: <strong>[9, 9, 5, 1, 6, 5]</strong>.</p>
+<p>On paper, design a way to recover all the true values and explain why it works for any sequence length. Show the whole transformation using equations, arrows, or a coefficient matrix. You will implement it with NumPy in Phase 2.</p></section>
 <p id="identity"></p><video id="preview" autoplay playsinline muted hidden></video><canvas id="canvas" hidden></canvas>
 <p><label>Current paper problem <select id="problem"><option value="1">Recover the sensor readings</option></select></label></p>
 <button id="start">Start camera</button><button id="stop" disabled>Stop camera</button>
-<p id="status" role="status">Connecting to your activity…</p><small>Stop the camera when Phase 2 begins, then continue in JupyterLab.</small>
+<p id="status" role="status">Connecting to your activity…</p><small>Capture stops automatically when Phase 2 begins. Continue in JupyterLab.</small>
 <section class="manual" aria-labelledby="manualHeading"><h2 id="manualHeading">Send a single paper photo</h2>
 <p>Use this option to send an individual photo or if continuous capture is unavailable. Choosing a photo stops continuous capture so your phone camera is free; you can restart it afterward. You can also open this link on a computer and choose a photo you already have. Check that only your paper is visible before sending.</p>
 <button id="takePhoto" type="button">Take a photo</button><button id="choosePhoto" type="button">Choose an existing photo</button>

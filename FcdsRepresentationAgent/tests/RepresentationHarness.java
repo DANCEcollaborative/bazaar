@@ -170,7 +170,13 @@ public class RepresentationHarness {
             check(!sizedPlan.notices.toString().contains("Submission 42 is stored"), "only closing prompt confirms completion");
         }
         TestAgent a = new TestAgent("OPEBot_test001");
-        InputCoordinator input = new InputCoordinator(a, "inputCoordinator", "");
+        final TestPlan[] statusRef = new TestPlan[1];
+        InputCoordinator input = new InputCoordinator(a, "inputCoordinator", "") {
+            public BasilicaListener getListenerByName(String name) {
+                if ("RepresentationPlanExecutor".equals(name) && statusRef[0] != null) return statusRef[0];
+                return super.getListenerByName(name);
+            }
+        };
         a.addComponent(input);
         State state = new State();
         state.addStudent("1"); state.setName("1", "Alice");
@@ -231,6 +237,8 @@ public class RepresentationHarness {
         check(!history.path.equals(other.path), "different room histories");
         check(!history.retrieveChatHistory(20, "public").toString().contains("ROOM_TWO_ONLY"), "no cross-room context");
         for (Class type : history.getListenerEventClasses()) input.addListener(type, history);
+        final TestPlan tutorPlan = new TestPlan(a);
+        statusRef[0] = tutorPlan;
         RepresentationCameraListener camera = new RepresentationCameraListener(a);
         for (Class type : camera.getPreprocessorEventClasses()) input.addPreProcessor(type, camera);
         check(input.getPreProcessor("RepresentationCameraListener") == camera, "onboarding finds camera in the preprocessor registry");
@@ -246,8 +254,18 @@ public class RepresentationHarness {
         state = StateMemory.getSharedState(a);
         state.setStepInfo("Coding", "other", "coding_work", "representation_gate");
         StateMemory.commitSharedState(state, a);
+        tutorPlan.checkState = "passed";
         String coding = camera.constructPayloadMultiParty(input, "help", "Private_1");
         check(coding.contains("CURRENT PHASE: Coding") && !coding.contains("image_url"), "coding omits stale image");
+        check(coding.contains("Latest saved-notebook check: passed"), "tutor receives authoritative passing result");
+        tutorPlan.checkState = "failed";
+        check(camera.constructPayloadMultiParty(input,"help","Private_1").contains("Latest saved-notebook check: failed"), "tutor does not retain old pass");
+        tutorPlan.receipt = 17;
+        check(tutorPlan.tutorStatusText().contains("submission ID: 17"), "tutor receives real submission receipt");
+        tutorPlan.unavailable = true;
+        check(tutorPlan.tutorStatusText().contains("status unavailable"), "status outage is not a failure or pass");
+        tutorPlan.unavailable = false;tutorPlan.responseRoom = "wrong-room";
+        check(tutorPlan.tutorStatusText().contains("status unavailable"), "other room status is not used");
         check(!camera.messageFilter(new MessageEvent(input, "Alice", "paper done")), "control phrases are not tutoring prompts");
         String welcome = RepresentationOutputCoordinator.onboardingText("Alice Smith", "fcdsrepresentationfcds-p2-26-fall-1a-room260911995", 1);
         check(welcome.contains("Start here") && welcome.contains("Open paper tutor"), "welcome directs students to their own Jupyter view");

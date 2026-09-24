@@ -131,6 +131,24 @@ public class RepresentationPlanExecutor extends PlanExecutor {
         return latest == null ? new JSONObject() : latest;
     }
 
+    /** Fresh, minimal platform evidence for tutoring; never include the roster or student work. */
+    public String tutorStatusText() {
+        try {
+            JSONObject status = fetchRoomStatus();
+            if (!validRoomStatus(status)) throw new IllegalStateException("Room mismatch");
+            JSONObject latest = status.optJSONObject("latest_check");
+            String check = latest == null ? "not run" : latest.optString("state", "unavailable");
+            if (!check.matches("passed|failed|checking|not run")) check = "unavailable";
+            long receipt = status.optLong("submission_id", 0);
+            return "Latest saved-notebook check: " + check + ". "
+                + (status.optBoolean("stored", false) && receipt > 0
+                    ? "Notebook stored; submission ID: " + receipt + "."
+                    : "No stored submission receipt.");
+        } catch (Exception error) {
+            return "Platform status unavailable. Do not infer a current check result or submission receipt.";
+        }
+    }
+
     public static String controlCommand(String text) {
         if (text == null) return null;
         String normalized = text.trim().toLowerCase(Locale.ROOT).replaceAll("[\\p{Punct}]+$", "")

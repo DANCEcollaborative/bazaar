@@ -26,7 +26,8 @@ function fakeDatabase(rows) {
 }
 
 async function camera(rows = new Map(), storageFails = false, options = {}) {
-  const elements = {}, intervals = new Map(), calls = [];
+  const elements = {}, intervals = new Map(), calls = [], socketEvents = {}, feed = [];
+  let disconnects = 0;
   let cameraError = options.cameraError || null;
   let failure = false, uploadFailure = false, wrongAck = false, stoppedTracks = 0;
   let phase = options.phase === undefined ? 'Paper' : options.phase;
@@ -35,7 +36,7 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
     style: {}, value: '1', videoWidth: 960, videoHeight: 720, readyState: 2,
     naturalWidth: 1200, naturalHeight: 900, removeAttribute() {}, click() {},
     play: async () => {}, getContext: () => ({ drawImage() {} }),
-    toDataURL: () => 'data:image/jpeg;base64,c3ludGhldGlj', prepend() {},
+    toDataURL: () => 'data:image/jpeg;base64,c3ludGhldGlj', prepend(p) {feed.push(p.textContent);},
     set src(value) { this._src = value; queueMicrotask(() => this.onload?.()); },
     get src() { return this._src; }
   };
@@ -56,7 +57,7 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
       if (storageFails) request.onerror?.();
       else { request.result = db; request.onsuccess?.(); }
     }); return request; } },
-    io: () => ({ on() {}, disconnect() {} }),
+    io: () => ({ on(name, fn) {socketEvents[name]=fn;}, emit() {}, disconnect() {disconnects++;} }),
     setInterval: (fn, delay) => { intervals.set(delay, fn); return delay; },
     clearInterval: delay => intervals.delete(delay),
     AbortSignal: { timeout: () => undefined },
@@ -76,7 +77,8 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
     }
   };
   await vm.runInNewContext(source, context); await settle();
-  return { rows, calls, get, intervals, windowEvents, documentEvents,
+  return { rows, calls, get, intervals, windowEvents, documentEvents, socketEvents, feed,
+    get disconnects() {return disconnects;},
     cameraError(value) { cameraError = value; }, offline(value) { failure = value; }, uploadFailure(value) { uploadFailure = value; }, wrongAck(value) { wrongAck = value; },
     phase(value) { phase = value; }, phaseDenied(value) { phaseDenied = value; }, framePhase(value) { framePhase = value; }, relayState(value) { relayState = value; },
     get stoppedTracks() { return stoppedTracks; },
@@ -286,4 +288,22 @@ test('setup photo acknowledgement directs students to the preview without promis
   await page.relayStatus();
   assert.match(page.get('manualStatus').textContent, /Check the preview on your Paper tutor page/);
   assert.doesNotMatch(page.get('manualStatus').textContent, /feedback|reply|response|Waiting for the tutor/i);
+});
+
+
+test('phone feedback decodes speech, ignores image envelopes, and stays connected without capture', async () => {
+  const page = await camera();
+  const receive = page.socketEvents.update_private_chat;
+  assert.equal(typeof receive, 'function', 'single-photo users connect before starting camera');
+  receive('Camera_1', 'OPEBot', 'multimodal:::true;%;from:::OPEBot;%;to:::Camera_1;%;speech:::Check s[i].');
+  assert.equal(page.feed[0], 'OPEBot: Check s[i].');
+  receive('Camera_1', 'OPEBot', 'cameraImageUpdate:::true;%;image:::secret-base64');
+  assert.equal(page.feed.length, 1);
+  await page.get('start').onclick();await settle();
+  page.get('stop').onclick();await settle();
+  assert.equal(page.disconnects, 0, 'stopping capture keeps tutor feedback connected');
+  receive('Camera_1', 'OPEBot', 'A plain reply');
+  assert.equal(page.feed[1], 'OPEBot: A plain reply');
+  page.windowEvents.pagehide();
+  assert.equal(page.disconnects, 1);
 });
