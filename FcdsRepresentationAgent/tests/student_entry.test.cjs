@@ -30,7 +30,7 @@ const user = { name: 'Entry Test', email: 'entry-test@example.invalid' };
   const ok=rows=>route=>route.fulfill({json:rows});
   await scenario('logged out and mobile layout',ok([]),async p=>{
    await p.setViewportSize({width:390,height:844});
-   assert(await p.getByRole('heading',{name:'JupyterLab Bot Chat',exact:true}).isVisible());
+   assert(await p.getByRole('heading',{name:'Activity chat',exact:true}).isVisible());
    assert.equal(await p.locator('select').count(),0);
    assert.equal(await p.locator('#loggedOut').isVisible(),true);
    assert.equal(await p.locator('#startBtn').isVisible(),false);
