@@ -37,7 +37,6 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 		predictionCommand = getProperties().getProperty("predictionCommand", predictionCommand);
 		Process process;
 		File lightSideLocation = new File(pathToLightSide);
-		System.err.println("LightSide absolute path: " + lightSideLocation.getAbsolutePath());
 		
 		classificationString = getProperties().getProperty("classifications", classificationString);
 		String[] classificationList = classificationString.split(","); 
@@ -54,10 +53,10 @@ public class LightSideMessageAnnotator extends BasilicaAdapter
 						
 			Boolean isAlive = process.isAlive();
 			if (isAlive) {
-				System.err.println("LightSideMessageAnnotator: LightSide process is alive");
+				System.err.println("LightSide process is alive");
 			}
 			else {
-				System.err.println("LightSideMessageAnnotator: LightSide process is NOT alive");			
+				System.err.println("LightSide process is NOT alive");			
 			}
 			
 		} 

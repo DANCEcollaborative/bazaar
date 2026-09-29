@@ -41,12 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.time.LocalDateTime;
-import java.util.Properties;
 
 import basilica2.agents.events.PoseEvent.poseEventType;
-import basilica2.util.PropertiesLoader;
-import edu.cmu.cs.lti.project911.utils.log.Logger;
-
 import java.util.Collections;
 /**
  * 
@@ -92,42 +88,11 @@ public class State
 	private Boolean multimodalDontListenWhileSpeaking = true; 
 	private LocalDateTime multimodalDontListenEnd = null; 
 	public String globalActiveListener = "";
-	public String currentImage = "";
-	public String currentImageMimeType = "";
-	private Map<String, String> currentImageByUser = new HashMap<String, String>();
-	private Map<String, String> currentImageMimeTypeByUser = new HashMap<String, String>();
 
 	// public String conceptId;
 	// public String conceptExecutionStatus;
 
 	private Map<String, Object> stateMap = new HashMap<String, Object>();
-
-	private static String[] ignorePrefixes = new String[0];
-
-	static
-	{
-		// Loaded once per JVM (not per-instance) since State objects are
-		// created/copied very frequently.
-		Properties properties = PropertiesLoader.loadProperties(State.class.getSimpleName() + ".properties");
-
-		if (properties != null)
-		{
-			String ignorePrefixesProperty = properties.getProperty("ignore_prefixes", "").trim();
-			if (ignorePrefixesProperty.isEmpty())
-			{
-				ignorePrefixes = new String[0];
-			}
-			else
-			{
-				ignorePrefixes = ignorePrefixesProperty.split("\\s*,\\s*");
-			}
-		}
-	}
-
-	public static String[] getIgnorePrefixes()
-	{
-		return ignorePrefixes;
-	}
 
 	public static State copy(State s)
 	{
@@ -144,13 +109,6 @@ public class State
 		news.multimodalDontListenWhileSpeaking = s.multimodalDontListenWhileSpeaking;
 		news.multimodalDontListenEnd = s.multimodalDontListenEnd;
 		news.globalActiveListener = s.globalActiveListener;
-		news.currentImage = s.currentImage;
-		news.currentImageMimeType = s.currentImageMimeType;
-
-		for (Map.Entry<String, String> entry : s.currentImageByUser.entrySet())
-			news.currentImageByUser.put(entry.getKey(), entry.getValue());
-		for (Map.Entry<String, String> entry : s.currentImageMimeTypeByUser.entrySet())
-			news.currentImageMimeTypeByUser.put(entry.getKey(), entry.getValue());
 
 		Map<String, Object> map = s.more();
 		for (String k : map.keySet())
@@ -196,49 +154,27 @@ public class State
 
 	public void addStudent(String sid)
 	{
-		System.err.println("===== State,addStudent - sid: " + sid); 
-		if (!hasIgnoredPrefix(sid)) {
-			if ((!sid.contentEquals(identityAllUsers)) && (!sid.equals("tab_group")) && (!sid.equals("Group Chat"))) {
-//			if ((!sid.contentEquals(identityAllUsers)) && (!sid.equals("tab_group"))) {
-				Student s = new Student();
-				boolean found = false;
-				for (int i = 0; i < students.size(); i++)
-				{
-					if (sid.startsWith(students.get(i).chatId))
-					{
-						found = true;
-						s = students.get(i);
-					}
-				}
-				if (!found)
-				{
-					s.chatId = sid;
-					s.name = sid;
-					s.role = "UNASSIGNED";
-					students.add(s);
-				}
-				s.isPresent = true;			
-			}
-		}
-	}
-	
-	/**
-	 * Checks whether userName begins with any of the prefixes configured
-	 * via the 'ignore_prefixes' property.
-	 */
-	private boolean hasIgnoredPrefix(String userName)
-	{
-		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName);
-		for (String prefix : ignorePrefixes)
-		{
-			if (!prefix.isEmpty() && userName.startsWith(prefix)) 
+//		System.err.println("===== State,addStudent - sid: " + sid); 
+		if (!sid.contentEquals(identityAllUsers)) {
+			Student s = new Student();
+			boolean found = false;
+			for (int i = 0; i < students.size(); i++)
 			{
-				System.out.println("\n\n *** ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'true' ***\n\n");		
-				return true;
+				if (sid.startsWith(students.get(i).chatId))
+				{
+					found = true;
+					s = students.get(i);
+				}
 			}
+			if (!found)
+			{
+				s.chatId = sid;
+				s.name = sid;
+				s.role = "UNASSIGNED";
+				students.add(s);
+			}
+			s.isPresent = true;			
 		}
-		System.out.println("ActivityTracker, hasIgnoredPrefix - enter - userName=" + userName + "  -- returning 'false' ***\n\n");	
-		return false;
 	}
 
 	public void removeStudent(String sid)
@@ -267,27 +203,10 @@ public class State
 		return sid;
 	}
 
-	public String getStudentId(String studentName)
-	{
-		for (int i = 0; i < students.size(); i++)
-		{
-			Student s = students.get(i);
-			// if (s.isPresent)				// No need to check if student is present to return name
-			if (true)
-			{
-				if (s.name.equalsIgnoreCase(studentName)) { return s.chatId; };
-			}
-		}
-		return null;
-	}
-
 	public void setName(String sid, String name)
 	{
-		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
-//		if ((!sid.equals(identityAllUsers)) && (!hasIgnoredPrefix(sid)) && (!hasIgnoredPrefix(name)) && 
-//				(!sid.equals("tab_group")) && (!sid.equals("Group Chat"))) {
-		if ((!sid.equals(identityAllUsers)) && (!hasIgnoredPrefix(sid)) && (!hasIgnoredPrefix(name)) && 
-				(!sid.equals("tab_group")) && (!sid.equals("Group Chat")) && (!name.equals("Group Chat"))) {
+//		System.err.println("===== State,setName - sid: " + sid + " -- name: " + name); 
+		if (!sid.equals(identityAllUsers)) {
 			for (int i = 0; i < students.size(); i++)
 			{
 				if (sid.startsWith(students.get(i).chatId))
@@ -455,7 +374,6 @@ public class State
 			// if (students.get(i).isPresent)
 			if (true)
 			{
-				System.err.println("State.getStudentIdsPresentOrNot - inlcluding chatId: " + students.get(i).chatId);
 				ids.add(students.get(i).chatId);
 			}
 		}
@@ -727,49 +645,7 @@ public class State
 	public String getGlobalActiveListener() {
 		return globalActiveListener;
 	}
-
-	public void setCurrentImage (String image) {
-		this.currentImage = image;
-	}
 	
-	public String getCurrentImage() {
-		return this.currentImage; 
-	}
-
-	public void setCurrentImageMimeType (String imageMimeType) {
-		this.currentImageMimeType = imageMimeType;
-	}
-
-	public String getCurrentImageMimeType() {
-		return this.currentImageMimeType;
-	}
-
-	// Per-userId latest image tracking.
-
-	public void setCurrentImage(String userId, String image) {
-		this.currentImageByUser.put(userId, image);
-	}
-
-	/**
-	 * @return the latest image received for userId, or null if no image has
-	 *         been received yet for that userId.
-	 */
-	public String getCurrentImage(String userId) {
-		return this.currentImageByUser.get(userId);
-	}
-
-	public void setCurrentImageMimeType(String userId, String imageMimeType) {
-		this.currentImageMimeTypeByUser.put(userId, imageMimeType);
-	}
-
-	/**
-	 * @return the MIME type of the latest image received for userId, or null
-	 *         if no image has been received yet for that userId.
-	 */
-	public String getCurrentImageMimeType(String userId) {
-		return this.currentImageMimeTypeByUser.get(userId);
-	}
-
 
 
 	@Override

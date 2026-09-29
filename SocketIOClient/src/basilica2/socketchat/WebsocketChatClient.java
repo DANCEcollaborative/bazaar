@@ -5,7 +5,8 @@ import io.socket.IOCallback;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
  */
-import io.socket.client.*;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import java.net.URI; 
@@ -26,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import basilica2.agents.components.ChatClient;
-import basilica2.agents.events.ImageEvent;
 import basilica2.agents.events.MessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import basilica2.agents.events.PrivateMessageEvent;
@@ -53,13 +53,11 @@ public class WebsocketChatClient extends Component implements ChatClient
 
 	String socketURL = "http://localhost:8000";
 	String socketSubURL = null;
-	Agent agent; 
 	String agentUserName = "ROBOT";
 	String agentRoomName = "ROOM";
 //	private String multiModalDelim = ";%;";
 //	private String withinModeDelim = ":::";	
 	private String sendFilePrefix = "sendfile-";
-	private static final String CAMERA_FRAME_TAG = "cameraframe";  
 
 
 	boolean connected = false;
@@ -84,7 +82,6 @@ public class WebsocketChatClient extends Component implements ChatClient
 	public WebsocketChatClient(Agent a, String n, String pf)
 	{
 		super(a, n, pf);
-		agent = a;
 
 		socketURL = myProperties.getProperty("socket_url", socketURL);
 		socketSubURL = myProperties.getProperty("socket_suburl", socketSubURL);
@@ -436,7 +433,7 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					System.err.println("WebsocketChatClient: Connection established");
+					System.err.println("Connection established");
 					log(Logger.LOG_NORMAL, "WebsocketChatClient, EVENT_CONNECT");
 				}
 			}).on("updateusers", new Emitter.Listener() { 
@@ -483,85 +480,19 @@ public class WebsocketChatClient extends Component implements ChatClient
 				@Override
 				public void call(Object... args)
 				{
-					String senderUsername = (String)args[0];
 					String message = (String)args[1];
 					message = StringEscapeUtils.unescapeHtml4(message);
-//					if (message.contains(CAMERA_FRAME_TAG + MultiModalFilter.withinModeDelim)) {
-					if (message.contains(CAMERA_FRAME_TAG)) {
-						System.out.println("WebsocketChatClient, updatechat received camera pic in message");
-					}
-					else {
-						System.out.println("WebsocketChatClient, updatechat received message: " + message);
-				        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);
-					}	
-
-			        // -------------------------------------------------------
-			        // Detect camera frame messages before other checks.
-			        // A camera frame message is multimodal and contains the
-			        // cameraframe::: tag.  We parse all fields and broadcast
-			        // an ImageEvent so vision/OCR listeners can handle it.
-			        // -------------------------------------------------------
-				    if (message.contains(CAMERA_FRAME_TAG)) {
-
-			        	System.err.println("\n*** WebsocketChatClient, updatechat: cameraframe received in multimodal message ***\n");
-			        	String[] segments = message.split(
-			        		java.util.regex.Pattern.quote(MultiModalFilter.multiModalDelim));
-
-			        	String imageBase64 = "";
-			        	String mimeType    = "image/jpeg";
-			        	String problemId   = "";
-			        	String fromUser    = senderUsername;
-			        	int    width       = 0;
-			        	int    height      = 0;
-			        	int    frameCount  = 0;
-
-			        	for (String segment : segments) {
-			        		// Split on ::: but limit to 2 parts so base64 content
-			        		// (which may contain colons) is never split further.
-			        		String[] kv = segment.split(
-			        			java.util.regex.Pattern.quote(MultiModalFilter.withinModeDelim), 2);
-			        		if (kv.length < 2) continue;
-			        		String key   = kv[0].trim();
-			        		String value = kv[1];          // preserve base64 exactly
-
-			        		switch (key) {
-			        			case "from":        fromUser    = value;                   break;
-			        			case "mimeType":    mimeType    = value;                   break;
-			        			case "problemId":   problemId   = value;                   break;
-			        			case "cameraframe": imageBase64 = value;                   break;
-			        			case "width":
-			        				try { width  = Integer.parseInt(value.trim()); } catch (NumberFormatException ignored) {}
-			        				break;
-			        			case "height":
-			        				try { height = Integer.parseInt(value.trim()); } catch (NumberFormatException ignored) {}
-			        				break;
-			        			case "frameCount":
-			        				try { frameCount = Integer.parseInt(value.trim()); } catch (NumberFormatException ignored) {}
-			        				break;
-			        			default: break;
-			        		}
-			        	}
-			        				 
-			        	System.err.println("*** WebsocketChatClient, updatechat: Image received");
-			        	System.err.println("*** WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
-			        		+ " size=" + width + "x" + height + " from=" + fromUser);
-			        	log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat: ImageEvent frame=" + frameCount
-			        		+ " size=" + width + "x" + height + " from=" + fromUser);
-			        	ImageEvent ie = new ImageEvent(WebsocketChatClient.this,
-			        		fromUser, imageBase64, mimeType, width, height, problemId, frameCount);
-			        	WebsocketChatClient.this.broadcast(ie);
-
-			        // -------------------------------------------------------
-			        // Existing path: sendfile prefix check, then normal chat.
-			        // -------------------------------------------------------
-			        } else if (message.startsWith(sendFilePrefix)) {
+					System.out.println("WebsocketChatClient, updatechat received message: " + message);
+			        log(Logger.LOG_NORMAL,"WebsocketChatClient, updatechat received message: " + message);	
+			        
+			        if (message.startsWith(sendFilePrefix)) {
 			        	String filename = message.replace(sendFilePrefix,"");
 						System.out.println("WebsocketChatClient, updatechat with sendfile received: " + filename); 
 						log(Logger.LOG_NORMAL, "WebsocketChatClient, updatechat with sendfile received - filename = " + filename);					
 						FileEvent.fileEventType eventType = FileEvent.fileEventType.valueOf("created"); 
 						FileEvent fe = new FileEvent(WebsocketChatClient.this,filename,eventType);
 						WebsocketChatClient.this.broadcast(fe);
-
+			        	
 			        } else {			        
 						MessageEvent me = new MessageEvent(WebsocketChatClient.this, (String)args[0], message);
 						WebsocketChatClient.this.broadcast(me);
@@ -578,30 +509,31 @@ public class WebsocketChatClient extends Component implements ChatClient
 					String message = (String)args[1];
 					user = StringEscapeUtils.unescapeHtml4(user);
 					message = StringEscapeUtils.unescapeHtml4(message);
-					System.out.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
+					System.err.println("WebsocketChatClient, sendpm received from user " + user + ": " + message);
 			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, sendpm received from user " + user + ": " + message);
 //					MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, message);
 					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private message.");
 			        MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, test_message);
 					WebsocketChatClient.this.broadcast(me);
-				}	 
-				
+				}	        
 			}).on("update_private_chat", new Emitter.Listener() { 
 
 				@Override
 				public void call(Object... args)
 				{
-					String toUser = (String)args[0];
-					toUser = StringEscapeUtils.unescapeHtml4(toUser);
-					String fromUser = (String)args[1];
-					fromUser = StringEscapeUtils.unescapeHtml4(fromUser);
-					String message = (String)args[2];
+					String user = (String)args[0];
+					String message = (String)args[1];
+					user = StringEscapeUtils.unescapeHtml4(user);
 					message = StringEscapeUtils.unescapeHtml4(message);
-					System.out.println("WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
-			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, update_private_chat received from " + fromUser + "  to " + toUser  + ":  " + message);
-					PrivateMessageEvent pme = new PrivateMessageEvent(WebsocketChatClient.this, toUser, fromUser, message);
-					System.out.println("WebsocketChatClient: broadcasting PrivateMessageEvent"); 
-					WebsocketChatClient.this.broadcast(pme);
+					System.err.println("WebsocketChatClient, update_private_chat received from user " + user + ": " + message);
+			        Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"WebsocketChatClient, update_private_chat received from user " + user + ": " + message);
+					String test_message = "Shhhh. Bazaar received a private message from " + user + "."; 
+//					String test_message = StringEscapeUtils.unescapeHtml4("Shhhh. Bazaar received a private message."); 
+//					MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, message);
+//			        MessageEvent me = new MessageEvent(WebsocketChatClient.this, user, test_message);
+//					WebsocketChatClient.this.broadcast(me);
+					insertMessage(test_message); 
+					
 				}	        
 			}).on("sendfile", new Emitter.Listener() { 
 
@@ -709,8 +641,5 @@ public class WebsocketChatClient extends Component implements ChatClient
 				}
 			});	
 	}
-
-
-		
 
 }

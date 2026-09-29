@@ -42,7 +42,7 @@ public class OntologySentenceMatcher extends ASentenceMatcher
 	public OntologySentenceMatcher(String dictPath, String stopwordPath)
 	{
 		setStopWords(stopwordPath);
-		Collections.addAll(stopWords, "i", "think", "because", "s", ",", ".", "!", "?", ":", "-", "Ñ", "'", "\"");
+		Collections.addAll(stopWords, "i", "think", "because", "s", ",", ".", "!", "?", ":", "-", "'", "\"");
 
 		addDictionary(dictPath, true);
 	}

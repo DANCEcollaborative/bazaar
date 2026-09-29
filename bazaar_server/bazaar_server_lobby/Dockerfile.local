@@ -4,7 +4,7 @@ USER root
 
 # Install maven
 RUN apt-get update
-RUN apt-get install -y netcat screen vim wget
+RUN apt-get install -y netcat-openbsd screen vim wget
 
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -

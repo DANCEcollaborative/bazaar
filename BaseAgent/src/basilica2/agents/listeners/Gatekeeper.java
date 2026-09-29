@@ -27,6 +27,7 @@ public class Gatekeeper extends BasilicaAdapter
 	private Collection<String> receivedKeys = new ArrayList<String>();
 	// private String keyPhrase = "^(ok|okay)?\\s*(ready)|(next)|(done)(\\p{Punct}+|\\s*$)";
 	private String keyPhrase = ".*(ready|next|done).*";
+	private String defaultKeyPhrase = keyPhrase;
 	private Pattern keyPattern;
 	private String stepName = "step";
 	private PromptTable prompter;
@@ -49,6 +50,8 @@ public class Gatekeeper extends BasilicaAdapter
 			catch(Exception e) {e.printStackTrace();}
 		}
 		
+		defaultKeyPhrase = keyPhrase;
+		
 		keyPattern = Pattern.compile(keyPhrase, Pattern.CASE_INSENSITIVE);
 		System.err.println("\n\n*** GATEKEEPER *** keyPhrase: " + keyPhrase + "\n\n");
 		
@@ -67,6 +70,11 @@ public class Gatekeeper extends BasilicaAdapter
 	{
 		keyPhrase = phrase;
 		keyPattern = Pattern.compile(keyPhrase, Pattern.CASE_INSENSITIVE);
+	}
+	
+	public void resetKeyPhrase()
+	{
+		setKeyPhrase(defaultKeyPhrase);
 	}
 
 	public void resetGateForAllStudents()

@@ -62,8 +62,7 @@ public class PresenceEvent extends Event
     public PresenceEvent(Component s, String a, String t) {
         super(s);
 //		System.err.println("PresenceEvent constructor 1 - username: " + a); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Presence Event constructor 1 -- s=" + s + "   a=" + a + "   t=" + t);
-        System.out.println("Presence Event constructor 1 -- s=" + s + "   a=" + a + "   t=" + t); 
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 1 - username:" + a);
         agentname = a;
         type = t;
     }
@@ -71,8 +70,7 @@ public class PresenceEvent extends Event
     public PresenceEvent(Component s, String a, String t, String id) {
         super(s);
 //		System.err.println("PresenceEvent constructor 1 - username:" + a + "  userID:" + id); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Presence Event constructor 2 -- s=" + s + "   a=" + a + "   t=" + t + "   id=" + id);
-        System.out.println("Presence Event constructor 2 -- s=" + s + "   a=" + a + "   t=" + t + "   id=" + id); 
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 2 - username:" + a + "  userID:" + id);
         agentname = a;
         type = t;
         agentid = id;
@@ -81,8 +79,7 @@ public class PresenceEvent extends Event
     public PresenceEvent(Component s, String a, String t, String id, String perspective) {
         super(s);
 //		System.err.println("PresenceEvent constructor 3 - username:" + a + "  userID:" + id); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Presence Event constructor 3 -- s=\" + s + \"   a=" + a + "   t=" + t + "   id=" + id + "   perspective=" + perspective);
-        System.out.println("Presence Event constructor 3 -- s=" + s + "   a=" + a + "   t=" + t + "   id=" + id + "   perspective=" + perspective); 
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 3 - username:" + a + "  userID:" + id);
         agentname = a;
         type = t;
         agentid = id;
@@ -92,9 +89,7 @@ public class PresenceEvent extends Event
     public PresenceEvent(Component s, String a, String t, String id, String perspective, String update) {
         super(s);
 //		System.err.println("PresenceEvent constructor 4 - username:" + a + "  userID:" + id); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Presence Event constructor 4 -- s=" + s + "   a=" + a + "   t=" + t + "   id=" + id + "   perspective=" + perspective + "   update=" + update);
-//      System.err.println("PresenceEvent  --  a: " + a +  "  --  t: " + t  + "  --  id: " + id); 
-        System.out.println("Presence Event constructor 4 -- s=" + s + "   a=" + a + "   t=" + t + "   id=" + id + "   perspective=" + perspective + "   update=" + update); 
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 4 - username:" + a + "  userID:" + id);
         agentname = a;
         type = t;
         agentid = id;
@@ -105,9 +100,8 @@ public class PresenceEvent extends Event
     public PresenceEvent(Component s, String a, String t, int num) {
         super(s);
 //		System.err.println("PresenceEvent constructor 5 - username:" + a + "  numUsers:" + String.valueOf(num)); 
-		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"Presence Event constructor 5 -- s=" + s + "   a=" + a + "   t=" + t + "   num=" + String.valueOf(num));
-        System.out.println("Presence Event constructor 5 -- s=" + s + "   a=" + a + "   t=" + t + "   num=" + String.valueOf(num)); 
-        agentname = a; 
+//		Logger.commonLog(getClass().getSimpleName(),Logger.LOG_NORMAL,"PresenceEvent constructor 5 - username:" + a + "  numUsers:" + String.valueOf(num));
+        agentname = a;
         type = t;
         numUsers = num;
 	}
