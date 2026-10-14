@@ -9,6 +9,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 - Ignores synthetic/private readiness, duplicate callbacks, and stale timers; retains early readiness during introductory prompts.
 - Keeps paper readiness sent during Setup, including withdrawals. Exact participant names and reconnects are tracked by an activity-local presence watcher; Alex and Alexander remain distinct.
 - Processes each private question once, including questions from different students sent together, without the inherited room-wide time filter.
+- Replays the cached paper preview when a private page connects or reconnects, without another upload or model request.
 - Room-specific tutoring history; paper images omitted from Coding prompts; inherited tutor JSON response contract preserved.
 - One personal laptop tutor link per participant, shown in that student's JupyterLab view rather than posted in group chat, with phone-camera QR pairing and private preview/chat. Extensionless HTML selector plus old-link compatibility alias.
 - The Dev phone page supports continuous still capture or a student-selected single photo. Choosing a photo stops continuous capture to release the phone camera. Each selected photo is reviewed before upload and archived through the same Bree queue; the Dev tutor handles it even when it resembles the previous frame. The phone page distinguishes local queueing from Bree archival and tutor-service relay.
@@ -16,7 +17,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 
 ## Files and build
 
-`bazaar/src/` contains only new classes; `bazaar/runtime/` contains activity plans and overrides. `ui/` contains the personal page, MIT-licensed qrcode-generator 1.4.4, and transformations of the existing camera/login files. `final_grader/` contains the matching single-task adapter for the separate Activity Server. Student content lives in `nachiketdk/fcds-p2-representation`.
+`bazaar/src/` contains only new classes; `bazaar/runtime/` contains activity plans and overrides. `ui/` contains the personal page, MIT-licensed qrcode-generator 1.4.4, and transformations of the existing camera/login files. `final_grader/` contains the matching single-task adapter for the separate Activity Server. Student content lives in `DANCEcollaborative/fcds-p2-representation` (`main`).
 
 Copy the deployed `llmcameraagent.jar` into `bazaar/vendor/llmcameraagent.jar` locally. It must have SHA-256 `441ecf88afaeb9645f4ae18f1d2068aa6972e86d0657101021cab6eaa32e84c0`. This pinned dependency is intentionally not committed. Use a JDK with `--release 8` support:
 
@@ -38,6 +39,6 @@ New rooms select the agent through their OPE module. Existing rooms retain their
 
 ## Current activity
 
-Recover the sensor readings: r[i] = s[i] + (1/3) s[i-1], s[-1] = 0. Twenty minutes on paper and twenty-five minutes coding one recover_readings function. Student source and reproducible notebook/worksheet builder live in the content repository's lesson directory. The final score is out of 1.
+Recover the sensor readings: r[i] = s[i] + (1/3) s[i-1], s[-1] = 0. Twenty minutes on paper and twenty-five minutes coding one recover_readings function. Student source and reproducible notebook builder live in the content repository's lesson directory. The final score is out of 1.
 
 Deployment and browser-test evidence is recorded in the project docs; historical two-task results do not certify the current exercise. Physical-phone acceptance remains separate from automated browser tests.
