@@ -2,6 +2,12 @@
 
 Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for module/activity `fcds-p2-26-fall-1a`. The original llmcamera agent and shared Java classes are unchanged.
 
+Maintained branch: `codex/fcds-preview-reconnect` until PR #239 merges, then
+`main`. Older `codex/fcds-data-capture` and `codex/fcds-representation-activity`
+branches are superseded. Start with the
+[platform deployment guide](https://github.com/DANCEcollaborative/ope-platform-operator/tree/main/deploy/fcds)
+for all component locations and routine start/stop commands.
+
 ## Behavior
 
 - Supports 1–3 actual participants; paper → NumPy coding → saved-notebook submission.
@@ -19,7 +25,7 @@ Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for 
 
 `bazaar/src/` contains only new classes; `bazaar/runtime/` contains activity plans and overrides. `ui/` contains the personal page, MIT-licensed qrcode-generator 1.4.4, and transformations of the existing camera/login files. `final_grader/` contains the matching single-task adapter for the separate Activity Server. Student content lives in `DANCEcollaborative/fcds-p2-representation` (`main`).
 
-Copy the deployed `llmcameraagent.jar` into `bazaar/vendor/llmcameraagent.jar` locally. It must have SHA-256 `441ecf88afaeb9645f4ae18f1d2068aa6972e86d0657101021cab6eaa32e84c0`. This pinned dependency is intentionally not committed. Use a JDK with `--release 8` support:
+Copy Bree's `/usr0/DANCEcollaborative/bazaar/bazaar_server/bazaar_server_lobby/agents/fcdsrepresentationagent/llmcamera-runtime.jar` into `bazaar/vendor/llmcameraagent.jar` locally. It must have SHA-256 `441ecf88afaeb9645f4ae18f1d2068aa6972e86d0657101021cab6eaa32e84c0`. This pinned dependency is intentionally not committed. It supplies the inherited camera agent framework; our behavior is in `bazaar/src/`. Use a JDK with `--release 8` support, setting `JAVAC` if your default compiler is Java 8:
 
 ```sh
 python3 bazaar/build.py
@@ -31,7 +37,37 @@ The small JAR uses that unchanged dependency in its manifest. No shared base JAR
 
 ## Deployment boundaries
 
-`prepare_bree.py --bundle <this-directory> --destination <new-private-directory>` prepares files from the existing Bree baseline and refuses to replace a staging directory. It inherits runtime secrets locally on Bree; never commit or upload the prepared runtime. Install only the new agent, camera, and HTML files under `/usr0/DANCEcollaborative/bazaar/bazaar_server/bazaar_server_lobby/` using the existing container mounts. Keep backups, including `agent.xml` and overridden properties. Apply `ui/patch_login.py` to a backed-up `/var/www/html/k8sjchat.html` separately. No shared service restart is necessary; fresh agent processes load the new files.
+The installed files are under
+`/usr0/DANCEcollaborative/bazaar/bazaar_server/bazaar_server_lobby/` on Bree:
+
+| Source | Installed location relative to that directory |
+| --- | --- |
+| `bazaar/build/fcdsrepresentationagent.jar` | `agents/fcdsrepresentationagent/fcdsrepresentationagent.jar` |
+| `bazaar/runtime/` plans and properties | Same relative paths under `agents/fcdsrepresentationagent/` |
+| `bazaar/tutor-context.txt` | `openai.prompt.context` in the agent's `properties/RepresentationCameraListener.properties` |
+| `ui/representation-*.html` | `lobby/html_pages/` |
+| `ui/camera_fcds-recorded.html`, `ui/camera_fcds-recorded.js` | `lobby/static/` |
+| `ui/qrcode-1.4.4.js` | `lobby/static/representation-qrcode.js` |
+
+`ui/student-entry.html` is the complete `/var/www/html/k8sjchat.html` source;
+publish it directly. The old incremental login patch scripts are historical.
+`final_grader/` is installed separately under the Activity Server's mounted
+`grading/grader_fcds_representation/` directory selected by this activity's `task_graders` setting.
+
+For an existing installation, deploy only changed files from this checkout,
+atomically, preserving ownership and a rollback. Update `FCDS_RELEASE.json`
+beside the deployed JAR with the source commit and JAR SHA-256. Runtime copies
+of Java source are only references; edit/build from Git. Keep `agent.xml`,
+secret-bearing properties, `capture.key` and the capture spool intact. New room
+processes load the new JAR; no shared service restart is necessary.
+
+`prepare_bree.py --bundle <this-directory> --destination <new-private-directory>`
+is the original bootstrap helper, not an update installer. It inherits local
+runtime secrets and generates a new signing key. Do not replace an existing
+runtime with its output or rotate an existing key while updating. Prepared
+directories must never be committed. A genuinely new deployment also needs
+the shared Bazaar/Apache setup and activity registration, as described by the
+platform guide; cloning this agent alone does not recreate shared infrastructure.
 
 The existing Node route appends `.html`, so `html-page-group` must be `tab-share-representation`, without an extension. Serve `tab-share-representation.html.html` as a compatibility alias for links already posted in old rooms.
 
