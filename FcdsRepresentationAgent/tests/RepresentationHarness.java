@@ -468,6 +468,17 @@ public class RepresentationHarness {
         quiet.handleImageEvent(quietInput,new ImageEvent(quietInput,"Camera_9","aW52YWxpZA==","image/jpeg",1,1,"manual:invalid",1));
         check(quiet.previews == beforeInvalid, "unknown camera identity cannot update a private preview");
 
+        int beforeReconnect = quiet.previews, requestsBeforeReconnect = quiet.requests;
+        quiet.handlePresenceEvent(quietInput, new PresenceEvent(quietInput, "Private_1", PresenceEvent.PRESENT));
+        quiet.handlePresenceEvent(quietInput, new PresenceEvent(quietInput, "Private_2", PresenceEvent.PRESENT));
+        check(quiet.previews == beforeReconnect + 2, "late or reconnecting private pages receive their cached photo");
+        check(quiet.previewUsers.get(beforeReconnect).equals("1") && quiet.previewUsers.get(beforeReconnect+1).equals("2"),
+            "preview replay preserves participant routing");
+        quiet.handlePresenceEvent(quietInput, new PresenceEvent(quietInput, "Private_3", PresenceEvent.PRESENT));
+        quiet.handlePresenceEvent(quietInput, new PresenceEvent(quietInput, "Private_1", PresenceEvent.ABSENT));
+        check(quiet.previews == beforeReconnect + 2 && quiet.requests == requestsBeforeReconnect,
+            "missing images and departures do not replay; reconnect never calls the model");
+
         State outputState = new State();
         outputState.setStepInfo("Paper", "other", "paper_work", "representation_gate");
         MessageEvent partialAck = new MessageEvent(input, "OPEBot", "Alice is ready. 1/2 ready.", "REPRESENTATION_CONTROL", "REPRESENTATION_PHASE_Paper");
