@@ -59,6 +59,23 @@ public class RepresentationCameraListener extends LlmCameraListener {
         return value == null ? "Setup" : value;
     }
 
+    @Override public void handlePresenceEvent(InputCoordinator source, PresenceEvent event) throws JSONException {
+        String name = event.getUsername();
+        if (name != null && name.matches("Private_[1-3]")) {
+            // A photo can arrive before this page connects, or while it reloads.
+            // Replay the cached preview without re-uploading or asking the model.
+            if (PresenceEvent.PRESENT.equals(event.getType())) {
+                String user = name.substring("Private_".length());
+                State state = StateMemory.getSharedState(agent);
+                String image = state.getCurrentImage(user);
+                if (image != null && !image.isEmpty())
+                    displayImageOnPrivatePage(source, user, image, state.getCurrentImageMimeType(user));
+            }
+            return;
+        }
+        super.handlePresenceEvent(source, event);
+    }
+
     @Override public boolean messageFilter(MessageEvent event) {
         if (RepresentationPlanExecutor.controlCommand(event.getText()) != null) return false;
         return super.messageFilter(event);
