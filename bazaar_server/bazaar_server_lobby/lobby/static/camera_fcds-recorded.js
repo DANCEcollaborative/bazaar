@@ -1,3 +1,21 @@
+/* Rotate decoded pixels, preserving every corner; EXIF is handled by browser decoding. */
+function drawOrientedImage(canvas, source, degrees, maxSide) {
+  if (!Number.isFinite(degrees)) throw Error('Invalid rotation');
+  const width=source.videoWidth || source.naturalWidth || source.width;
+  const height=source.videoHeight || source.naturalHeight || source.height;
+  if (!width || !height) throw Error('Image is not ready');
+  const radians=degrees*Math.PI/180, cos=Math.abs(Math.cos(radians)), sin=Math.abs(Math.sin(radians));
+  const boundWidth=width*cos+height*sin, boundHeight=width*sin+height*cos;
+  const scale=Math.min(1,maxSide/Math.max(boundWidth,boundHeight));
+  canvas.width=Math.max(1,Math.ceil(boundWidth*scale-1e-9));
+  canvas.height=Math.max(1,Math.ceil(boundHeight*scale-1e-9));
+  const context=canvas.getContext('2d');
+  context.fillStyle='#fff';context.fillRect(0,0,canvas.width,canvas.height);
+  context.translate(canvas.width/2,canvas.height/2);context.rotate(radians);
+  context.drawImage(source,-width*scale/2,-height*scale/2,width*scale,height*scale);
+  return canvas;
+}
+
 /* Versioned Dev camera: queue locally, acknowledge only after archival on Bree. */
 (async () => {
   const $ = id => document.getElementById(id);
@@ -8,6 +26,40 @@
   let sequence = 0, db, stream, timer, socket, busy = false, taking = false;
   let issue = '', captureIssue = '', queued = 0, pendingPhotos = 0, lastSaved = '', stopped = true;
   let selectedPhotoFile = null, manualBusy = false;
+  let cameraRotation=null, cameraEpoch=0, photoEpoch=0, heldFrame=null, lastFrame=null, heldCapturedAt=null, lastCapturedAt=null;
+  let photoRotation=0, photoConfidence='low', photoMethod='manual', photoReadable=true, photoWritingPresent;
+  let photoOrienting=false;
+  const orientationBudgetMs=5000;
+  const blankResult=result=>result.writing_present===false && result.confidence==='high' && !result.readable && result.rotation_degrees===0;
+  const normalizeAngle=value=>((value+180)%360+360)%360-180;
+  function cameraReview(source, angle) {
+    lastFrame=source;$('cameraAngle').value=String(angle);
+    drawOrientedImage($('correctedPreview'),source,angle,960);
+    $('correctedPreview').hidden=false;$('cameraCorrection').hidden=false;
+  }
+  function photoReview(angle) {
+    photoRotation=normalizeAngle(angle);$('photoAngle').value=String(photoRotation);
+    drawOrientedImage($('correctedPhoto'),$('manualPreview'),photoRotation,1600);
+    $('correctedPhoto').hidden=false;
+  }
+  async function detectOrientation(source, deadline=performance.now()+orientationBudgetMs) {
+    const probe=drawOrientedImage(document.createElement('canvas'),source,0,960);
+    const imageBase64=probe.toDataURL('image/jpeg',0.75).split(',')[1];
+    const remaining=Math.floor(deadline-performance.now());
+    if(remaining<=0)throw Error('Orientation deadline exceeded');
+    const response=await fetch('/fcds-recorder/v1/camera/orientation',{
+      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Camera '+credential},
+      body:JSON.stringify({room_id:room,participant_id:user,imageBase64}),signal:AbortSignal.timeout(Math.min(4800,remaining))
+    });
+    if(!response.ok)throw Error('Automatic orientation is unavailable');
+    const result=await response.json();
+    if(!Number.isFinite(result.rotation_degrees) || Math.abs(result.rotation_degrees)>180 ||
+       !['high','medium','low'].includes(result.confidence) || typeof result.readable!=='boolean')throw Error('Invalid orientation result');
+    if('writing_present' in result && typeof result.writing_present!=='boolean')throw Error('Invalid writing presence');
+    if(result.writing_present===false && (result.rotation_degrees!==0 || result.readable))throw Error('Invalid blank result');
+    if(performance.now()>=deadline)throw Error('Orientation deadline exceeded');
+    return {...result,deadline};
+  }
   let latestManualFrameId = null, checkingRelay = false;
   let phase = null, phaseIssue = '', paperEnded = false, checkingPhase = false;
   const valid = /^fcds-p2-26-fall-1a-room\d{9}$/.test(room || '') && /^[1-4]$/.test(user || '') && /^\d+\.[a-f0-9]{64}$/.test(credential || '');
@@ -18,8 +70,14 @@
   function draw() {
     const allowed = cameraAllowed();
     $('start').disabled = !allowed || !stopped;
-    $('takePhoto').disabled = $('choosePhoto').disabled = !allowed;
+    $('takePhoto').disabled = $('choosePhoto').disabled = !allowed || manualBusy;
+    $('discardPhoto').disabled=!selectedPhotoFile || manualBusy;
     $('sendPhoto').disabled = !allowed || manualBusy || !selectedPhotoFile;
+    for(const id of ['photoLeft','photoRight','photoAngle','photoAuto'])$(id).disabled=!allowed || manualBusy || !selectedPhotoFile;
+    $('useCameraAngle').disabled=!allowed || !stream || !lastFrame;
+    $('cameraAuto').disabled=!allowed || !stream || taking || !lastFrame;
+    $('photoAuto').disabled=!allowed || manualBusy || photoOrienting || !selectedPhotoFile;
+    for(const id of ['cameraLeft','cameraRight','cameraAngle'])$(id).disabled=!allowed || !stream || !lastFrame;
     if (paperEnded) {
       if (pendingPhotos > 0) {
         $('status').textContent = 'The paper phase has ended. Capture has stopped.';
@@ -151,21 +209,49 @@
     finally{checkingRelay=false;draw();}
   }
   async function capture() {
-    if(taking || !stream || !cameraAllowed())return;taking=true;
+    if(taking || !stream || !cameraAllowed() || (heldFrame && cameraRotation===null))return;taking=true;
+    const epoch=cameraEpoch;
     try {
       const pending=await records();
       if(pending.length>=240 || pending.reduce((n,e)=>n+JSON.stringify(e).length,0)>64*1024*1024) {
         await event('capture.paused',{reason:'queue capacity reached'});stop(false);issue='Capture paused because the upload queue is full. Wait for uploads, then restart';draw();return;
       }
-      if(!stream || !cameraAllowed())return;
+      if(epoch!==cameraEpoch || !stream || !cameraAllowed())return;
       const video=$('preview');
       if(!video.videoWidth || video.readyState<2){await event('capture.skipped',{reason:'video not ready'});return;}
-      const canvas=$('canvas'),scale=Math.min(1,960/video.videoWidth);
-      canvas.width=Math.round(video.videoWidth*scale);canvas.height=Math.round(video.videoHeight*scale);
-      canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
-      await put('frame',{imageBase64:canvas.toDataURL('image/jpeg',0.65).split(',')[1],mimeType:'image/jpeg',width:canvas.width,height:canvas.height,paper_problem:$('problem').value,capture_mode:'continuous'});void flush();
+      const startedAt=performance.now();
+      const raw=heldFrame || drawOrientedImage(document.createElement('canvas'),video,0,Math.max(video.videoWidth,video.videoHeight));
+      const capturedAt=heldFrame?heldCapturedAt:new Date().toISOString();lastCapturedAt=capturedAt;
+      let angle=cameraRotation, confidence='high', method='manual', readable=true, writingPresent, correctionDeadline;
+      if(angle===null) {
+        cameraReview(raw,0);draw();$('orientationStatus').textContent='Checking writing orientation…';
+        let result;
+        try {result=await detectOrientation(raw,startedAt+orientationBudgetMs);}
+        catch(_) {result={rotation_degrees:0,confidence:'low',readable:false};}
+        if(epoch!==cameraEpoch || !stream || !cameraAllowed())return;
+        angle=result.readable?result.rotation_degrees:0;confidence=result.confidence;method='automatic';
+        readable=result.readable;writingPresent=result.writing_present;correctionDeadline=result.deadline;
+        if(confidence!=='high' || (!readable && !blankResult(result))) {
+          heldFrame=raw;heldCapturedAt=capturedAt;
+          $('orientationStatus').textContent='Capture is paused: automatic orientation did not succeed within five seconds or was uncertain. Please manually orient the page using the controls below, then use this angle, or retry automatic orientation.';
+          return;
+        }
+      }
+      if(epoch!==cameraEpoch || !stream || !cameraAllowed())return;
+      heldFrame=null;cameraReview(raw,angle);
+      const canvas=drawOrientedImage($('canvas'),raw,angle,960);
+      const imageBase64=canvas.toDataURL('image/jpeg',0.65).split(',')[1];
+      if(correctionDeadline!==undefined && performance.now()>=correctionDeadline) {
+        heldFrame=raw;heldCapturedAt=capturedAt;cameraReview(raw,0);
+        $('orientationStatus').textContent='Capture is paused: automatic correction exceeded five seconds. Adjust the preview, then use this angle, or retry.';
+        return;
+      }
+      await put('frame',{imageBase64,mimeType:'image/jpeg',width:canvas.width,height:canvas.height,paper_problem:$('problem').value,capture_mode:'continuous',captured_at:capturedAt,orientation:{method,rotation_degrees:angle,confidence,readable,...(writingPresent===undefined?{}:{writing_present:writingPresent})}});void flush();
+      $('orientationStatus').textContent=method==='automatic'
+        ? (writingPresent===false?'No writing detected. Image kept unrotated; capture continues.':'Orientation corrected automatically.')
+        : 'Using your camera angle. Select Automatic to check each new image again.';
     }catch(error){issue='Frame could not be queued; capture stopped';await event('capture.error',{error_type:error.name});stop(false);draw();}
-    finally{taking=false;}
+    finally{if(epoch===cameraEpoch)taking=false;draw();}
   }
   function connectFeedback() {
     if (socket) return;
@@ -190,17 +276,19 @@
     });
   }
   function stop(record=true) {
+    cameraEpoch++;taking=false;heldFrame=null;lastFrame=null;$('cameraCorrection').hidden=true;$('correctedPreview').hidden=true;
     clearInterval(timer);stream?.getTracks().forEach(t=>t.stop());stream=null;$('preview').srcObject=null;$('preview').hidden=true;stopped=true;
     $('start').disabled=false;$('stop').disabled=true;if(record)void event('stopped');draw();void flush();
   }
   $('start').onclick=async()=>{
     if(!cameraAllowed())return;
-    captureIssue='';$('start').disabled=true;
+    cameraRotation=null;const startEpoch=++cameraEpoch;captureIssue='';$('start').disabled=true;
     try {
-      stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
-      if(!cameraAllowed()){stop(false);return;}
-      $('preview').srcObject=stream;$('preview').hidden=false;await $('preview').play();stopped=false;$('stop').disabled=false;captureIssue='';
-      await event('started',{interval_ms:10000,audio:false});await capture();timer=setInterval(()=>void capture(),10000);draw();
+      const openedStream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});
+      if(startEpoch!==cameraEpoch || !cameraAllowed()){openedStream.getTracks().forEach(track=>track.stop());return;}
+      stream=openedStream;
+      $('preview').srcObject=stream;$('preview').hidden=false;await $('preview').play();if(startEpoch!==cameraEpoch || !stream || !cameraAllowed())return;stopped=false;$('stop').disabled=false;captureIssue='';
+      await event('started',{interval_ms:10000,audio:false});if(startEpoch!==cameraEpoch || !stream || !cameraAllowed())return;timer=setInterval(()=>void capture(),10000);await capture();draw();
     }catch(error){
       stop(false);
       captureIssue=error.name==='NotAllowedError'
@@ -211,17 +299,20 @@
   };
   $('stop').onclick=()=>stop();$('problem').onchange=()=>void event('problem.changed',{paper_problem:$('problem').value});
   function discardSelection() {
-    selectedPhotoFile=null;
+    photoReadable=true;photoWritingPresent=undefined;
+    photoEpoch++;photoOrienting=false;selectedPhotoFile=null;photoRotation=0;photoConfidence='low';photoMethod='manual';
+    $('correctedPhoto').hidden=true;$('photoCorrection').hidden=true;
     $('manualPreview').removeAttribute('src');$('manualPreview').hidden=true;
     $('takeInput').value=$('chooseInput').value='';
     $('sendPhoto').disabled=$('discardPhoto').disabled=true;
   }
   $('takePhoto').onclick=()=>{if(!cameraAllowed())return;if(stream)stop();$('takeInput').click();};
   $('choosePhoto').onclick=()=>{if(!cameraAllowed())return;if(stream)stop();$('chooseInput').click();};
-  $('discardPhoto').onclick=()=>{discardSelection();$('manualStatus').textContent='Photo discarded. You can take or choose another.';draw();};
+  $('discardPhoto').onclick=()=>{if(manualBusy)return;discardSelection();$('manualStatus').textContent='Photo discarded. You can take or choose another.';draw();};
   async function selectPhoto(input) {
-    const file=input.files?.[0];if(!file || !cameraAllowed())return;
+    const file=input.files?.[0];if(!file || !cameraAllowed() || manualBusy)return;
     discardSelection();
+    const selectionEpoch=photoEpoch;
     if(!file.type.startsWith('image/')) {$('manualStatus').textContent='Choose an image file, then try again.';return;}
     if(file.size>25*1024*1024) {$('manualStatus').textContent='This file is too large to open. Choose a smaller photo.';return;}
     const preview=$('manualPreview');
@@ -232,41 +323,98 @@
         reader.onerror=()=>reject(reader.error || Error('Could not read the file'));
         reader.readAsDataURL(file);
       });
+      if(selectionEpoch!==photoEpoch || !cameraAllowed())return;
       await new Promise((resolve,reject)=>{preview.onload=resolve;preview.onerror=()=>reject(Error('Could not display the photo'));preview.src=dataUrl;});
+      if(selectionEpoch!==photoEpoch)return;
       if(!preview.naturalWidth || !preview.naturalHeight)throw Error('The selected image could not be read');
       if(!cameraAllowed()){discardSelection();draw();return;}
-      selectedPhotoFile=file;preview.hidden=false;
+      selectedPhotoFile=file;preview.hidden=true;$('photoCorrection').hidden=false;photoReview(0);
       $('sendPhoto').disabled=$('discardPhoto').disabled=false;
       $('manualStatus').textContent='Review the photo. Make sure your writing is readable and no private information is visible, then press Send this photo.';
       await event('manual.selected',{paper_problem:$('problem').value});
-    }catch(error){preview.removeAttribute('src');$('manualStatus').textContent='The photo could not be opened. Choose another image.';await event('manual.selection_error',{error_type:error.name || 'ImageLoadError'});}
+      if(selectionEpoch===photoEpoch)await orientPhoto();
+    }catch(error){if(selectionEpoch!==photoEpoch)return;preview.removeAttribute('src');$('manualStatus').textContent='The photo could not be opened. Choose another image.';await event('manual.selection_error',{error_type:error.name || 'ImageLoadError'});}
   }
   $('takeInput').onchange=()=>void selectPhoto($('takeInput'));
   $('chooseInput').onchange=()=>void selectPhoto($('chooseInput'));
   $('sendPhoto').onclick=async()=>{
     if(manualBusy || !selectedPhotoFile || !cameraAllowed())return;
-    manualBusy=true;$('sendPhoto').disabled=true;
+    if(photoOrienting){photoMethod='manual';photoConfidence='high';photoReadable=true;photoWritingPresent=undefined;}
+    photoEpoch++;photoOrienting=false;manualBusy=true;draw();
     try {
       const pending=await records();
       if(pending.length>=240 || pending.reduce((n,e)=>n+JSON.stringify(e).length,0)>64*1024*1024) {
         const full=Error('The upload queue is full. Keep this page open until earlier records are saved, then try again.');full.name='QueueFullError';throw full;
       }
+      if(!cameraAllowed() || !selectedPhotoFile)return;
       const preview=$('manualPreview'),canvas=document.createElement('canvas');
       let maxSide=1600,quality=0.75,imageBase64;
       for(let attempt=0;attempt<3;attempt++) {
-        const scale=Math.min(1,maxSide/Math.max(preview.naturalWidth,preview.naturalHeight));
-        canvas.width=Math.round(preview.naturalWidth*scale);canvas.height=Math.round(preview.naturalHeight*scale);
-        canvas.getContext('2d').drawImage(preview,0,0,canvas.width,canvas.height);
+        drawOrientedImage(canvas,preview,photoRotation,maxSide);
         imageBase64=canvas.toDataURL('image/jpeg',quality).split(',')[1];
         if(imageBase64 && imageBase64.length*3/4<=2*1024*1024)break;
         maxSide=Math.round(maxSide*0.75);quality=0.65;
       }
       if(!imageBase64 || imageBase64.length*3/4>2*1024*1024)throw Error('This photo is too large to save. Choose a smaller photo.');
-      latestManualFrameId=await put('frame',{imageBase64,mimeType:'image/jpeg',width:canvas.width,height:canvas.height,paper_problem:$('problem').value,capture_mode:'manual'});
+      latestManualFrameId=await put('frame',{imageBase64,mimeType:'image/jpeg',width:canvas.width,height:canvas.height,paper_problem:$('problem').value,capture_mode:'manual',orientation:{method:photoMethod,rotation_degrees:photoRotation,confidence:photoConfidence,readable:photoReadable,...(photoWritingPresent===undefined?{}:{writing_present:photoWritingPresent})}});
       $('manualStatus').textContent='Photo uploading… Keep this page open.';
       discardSelection();await event('manual.submitted',{paper_problem:$('problem').value});void flush();
     }catch(error){$('manualStatus').textContent=error.message || 'Could not queue the photo. Try again.';if(error.name!=='QueueFullError')await event('manual.send_error',{error_type:error.name});$('sendPhoto').disabled=!selectedPhotoFile;}
     finally{manualBusy=false;draw();}
+  };
+  async function orientPhoto() {
+    if(!selectedPhotoFile || manualBusy || photoOrienting || !cameraAllowed())return;
+    const epoch=++photoEpoch;photoOrienting=true;draw();
+    $('manualStatus').textContent='Checking writing orientation…';
+    try {
+      const result=await detectOrientation($('manualPreview'));
+      if(epoch!==photoEpoch || !selectedPhotoFile || !cameraAllowed())return;
+      photoConfidence=result.confidence;photoMethod='automatic';photoReadable=result.readable;photoWritingPresent=result.writing_present;
+      photoReview(result.readable?result.rotation_degrees:0);
+      if(performance.now()>=result.deadline){photoReview(0);throw Error('Orientation deadline exceeded');}
+      if(blankResult(result)){
+        $('manualStatus').textContent='No writing detected. Photo kept unrotated. Review it, then send this photo.';
+        return;
+      }
+      $('manualStatus').textContent=result.confidence==='high' && result.readable
+        ? 'Orientation corrected. Review the writing, adjust if needed, then send this photo.'
+        : 'Orientation is uncertain. Adjust the preview until the writing is upright, then send this photo to confirm.';
+      if(result.confidence!=='high' || !result.readable)photoMethod='manual';
+    } catch(_) {
+      if(epoch!==photoEpoch || !selectedPhotoFile)return;
+      photoMethod='manual';photoConfidence='low';photoReadable=true;photoWritingPresent=undefined;
+      $('manualStatus').textContent='Automatic orientation is unavailable or exceeded five seconds. Adjust the preview until the writing is upright, then send this photo to confirm.';
+    } finally {if(epoch===photoEpoch)photoOrienting=false;draw();}
+  }
+  function adjustPhoto(angle) {
+    if(manualBusy || !selectedPhotoFile || !cameraAllowed() || !Number.isFinite(angle))return;
+    photoEpoch++;photoOrienting=false;
+    photoMethod='manual';photoConfidence='high';photoReadable=true;photoWritingPresent=undefined;photoReview(angle);
+    $('manualStatus').textContent='Using your manual orientation. Review the writing, then send this photo.';draw();
+  }
+  $('photoLeft').onclick=()=>adjustPhoto(photoRotation-90);
+  $('photoRight').onclick=()=>adjustPhoto(photoRotation+90);
+  $('photoAngle').onchange=()=>adjustPhoto(Number($('photoAngle').value));
+  $('photoAuto').onclick=()=>void orientPhoto();
+  function adjustCamera(angle) {
+    if(!stream || !lastFrame || !cameraAllowed() || !Number.isFinite(angle))return;
+    cameraEpoch++;taking=false;
+    // Pause uploads until the student explicitly confirms this camera setting.
+    heldFrame=lastFrame;heldCapturedAt=lastCapturedAt;cameraRotation=null;cameraReview(lastFrame,normalizeAngle(angle));
+    $('orientationStatus').textContent='Review this angle, then use it for this camera to resume capture.';draw();
+  }
+  $('cameraLeft').onclick=()=>adjustCamera(Number($('cameraAngle').value)-90);
+  $('cameraRight').onclick=()=>adjustCamera(Number($('cameraAngle').value)+90);
+  $('cameraAngle').onchange=()=>adjustCamera(Number($('cameraAngle').value));
+  $('useCameraAngle').onclick=()=>{
+    if(!stream || !lastFrame || !cameraAllowed())return;
+    const angle=Number($('cameraAngle').value);if(!Number.isFinite(angle))return;
+    cameraEpoch++;taking=false;
+    cameraRotation=normalizeAngle(angle);void capture();
+  };
+  $('cameraAuto').onclick=()=>{
+    if(taking || !stream || !cameraAllowed())return;
+    cameraRotation=null;heldFrame=null;void capture();
   };
   window.addEventListener('online',()=>{void event('online');void flush();});window.addEventListener('offline',()=>{issue='Offline; records are queued on this phone';void event('offline');draw();});
   window.addEventListener('pagehide',()=>{stop();socket?.disconnect();socket=null;});
@@ -280,6 +428,6 @@
   }
   connectFeedback();
   await refreshPhase();
-  await event('page.opened',{version:'0.1.0',user_agent:navigator.userAgent});setInterval(()=>void flush(),2000);
+  await event('page.opened',{version:'0.2.0',user_agent:navigator.userAgent});setInterval(()=>void flush(),2000);
   setInterval(()=>void refreshPhase().then(checkManualRelay),3000);void flush();void checkManualRelay();
 })();
