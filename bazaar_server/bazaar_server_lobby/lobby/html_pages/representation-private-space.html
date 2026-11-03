@@ -229,6 +229,7 @@ ul.tab li a:focus, .active {
         flex: 0 0 auto;
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 8px;
         padding: 8px 12px;
         background: #6D6E71;
@@ -259,6 +260,9 @@ ul.tab li a:focus, .active {
     .zoom-btn:hover { background: #a10f28; }
     .zoom-btn:active { background: #8a0d22; }
     #zoom_reset { width: auto; padding: 0 10px; font-size: 12px; }
+    #rotation_reset { width: auto; padding: 0 10px; font-size: 12px; }
+    #picture_angle { width: 65px; color: #172335; }
+    .rotation-label { font-size: 13px; }
     #zoom_level { font-size: 13px; min-width: 44px; text-align: center; }
 
     /* ---- The picture itself: centered, scrollable in both
@@ -277,10 +281,16 @@ ul.tab li a:focus, .active {
         overflow: auto;
         background: #fff;
     }
+    #camera_image_stage {
+        position: relative;
+        flex: 0 0 auto;
+        margin: auto;
+    }
     #camera_image {
-        margin: auto;      /* centers the picture; safe with overflow:auto
-                               scrolling to every edge, unlike
-                               align-items/justify-content centering */
+        position: absolute;
+        top: 50%; left: 50%;
+        transform-origin: center;
+        margin: 0; /* The stage centers the rotated bounds and owns scrolling. */
         display: block;
         max-width: none !important;
         max-height: none !important;
@@ -545,11 +555,19 @@ ul.tab li a:focus, .active {
         var boxW = box.clientWidth;
         var boxH = box.clientHeight;
         if (!boxW || !boxH) return;
-        var fitScale = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
+        var radians = pictureRotation * Math.PI / 180;
+        var cos = Math.abs(Math.cos(radians)), sin = Math.abs(Math.sin(radians));
+        var boundWidth = img.naturalWidth * cos + img.naturalHeight * sin;
+        var boundHeight = img.naturalWidth * sin + img.naturalHeight * cos;
+        var fitScale = Math.min(boxW / boundWidth, boxH / boundHeight);
         if (!isFinite(fitScale) || fitScale <= 0) fitScale = 1;
         var scale = fitScale * (pictureZoomPct / 100);
-        img.style.width = Math.round(img.naturalWidth * scale) + 'px';
-        img.style.height = Math.round(img.naturalHeight * scale) + 'px';
+        img.style.width = (img.naturalWidth * scale) + 'px';
+        img.style.height = (img.naturalHeight * scale) + 'px';
+        img.style.transform = 'translate(-50%, -50%) rotate(' + pictureRotation + 'deg)';
+        var stage = document.getElementById('camera_image_stage');
+        stage.style.width = Math.ceil(boundWidth * scale) + 'px';
+        stage.style.height = Math.ceil(boundHeight * scale) + 'px';
     }
 
     function getMultimodalValue(field, data)
@@ -840,6 +858,16 @@ ul.tab li a:focus, .active {
 
     // ---- Picture zoom tool (shrink / expand pictures in the picture space) ----
     var pictureZoomPct = 100;
+    var pictureRotation = 0;
+
+    function setPictureRotation(angle)
+    {
+        if (!Number.isFinite(angle)) return;
+        pictureRotation = ((angle + 180) % 360 + 360) % 360 - 180;
+        document.getElementById('picture_angle').value = pictureRotation;
+        sizeCameraImage();
+    }
+
     var PICTURE_ZOOM_STEPS = [25, 50, 75, 100, 125, 150, 200, 300, 400];
 
     function applyPictureZoom()
@@ -899,6 +927,10 @@ ul.tab li a:focus, .active {
 		$('#zoom_in').click(function() { stepPictureZoom(1); });
 		$('#zoom_out').click(function() { stepPictureZoom(-1); });
 		$('#zoom_reset').click(function() { resetPictureZoom(); });
+        $('#rotate_left').click(function() { setPictureRotation(pictureRotation - 90); });
+        $('#rotate_right').click(function() { setPictureRotation(pictureRotation + 90); });
+        $('#picture_angle').on('change', function() { setPictureRotation(Number(this.value)); });
+        $('#rotation_reset').click(function() { setPictureRotation(0); });
 		applyPictureZoom();
 
 		// Re-fit/re-size the camera picture whenever a new image finishes
@@ -982,10 +1014,14 @@ ul.tab li a:focus, .active {
     <div id="image_column">
         <div class="zoom-toolbar">
             <span class="zoom-label">Picture</span>
-            <button type="button" class="zoom-btn" id="zoom_out" title="Shrink picture">&minus;</button>
+            <button type="button" class="zoom-btn" id="zoom_out" title="Shrink picture" aria-label="Shrink picture">&minus;</button>
             <span id="zoom_level">100%</span>
-            <button type="button" class="zoom-btn" id="zoom_in" title="Expand picture">+</button>
-            <button type="button" class="zoom-btn" id="zoom_reset" title="Reset picture size">Reset</button>
+            <button type="button" class="zoom-btn" id="zoom_in" title="Expand picture" aria-label="Expand picture">+</button>
+            <button type="button" class="zoom-btn" id="zoom_reset" title="Reset picture size">Reset size</button>
+            <button type="button" class="zoom-btn" id="rotate_left" title="Rotate left 90 degrees" aria-label="Rotate left 90 degrees">↶</button>
+            <button type="button" class="zoom-btn" id="rotate_right" title="Rotate right 90 degrees" aria-label="Rotate right 90 degrees">↷</button>
+            <label class="rotation-label">Clockwise angle <input id="picture_angle" type="number" min="-180" max="180" step="0.5" value="0" aria-label="Picture clockwise angle">°</label>
+            <button type="button" class="zoom-btn" id="rotation_reset" title="Reset picture rotation">Reset angle</button>
         </div>
 
         <!-- Latest camera image for this user, pushed privately by LlmCameraListener
@@ -993,7 +1029,7 @@ ul.tab li a:focus, .active {
              and the "cameraImageUpdate:::true" tag handled in update_private_chat).
              Centered, and scrollable in both directions once zoomed in. -->
         <div id="camera_image_div">
-            <img id="camera_image" />
+            <div id="camera_image_stage"><img id="camera_image" alt="Your latest paper photo" /></div>
         </div>
 
         <div id="image_container" class="container">

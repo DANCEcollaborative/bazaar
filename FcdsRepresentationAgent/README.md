@@ -80,16 +80,18 @@ Recover the sensor readings: r[i] = s[i] + (1/3) s[i-1], s[-1] = 0. Twenty minut
 Deployment and browser-test evidence is recorded in the project docs; historical two-task results do not certify the current exercise. Physical-phone acceptance remains separate from automated browser tests.
 
 
-## Camera orientation
+## Picture orientation
 
-The recorded camera page requests automatic writing orientation before queueing each new image. The authenticated Bree endpoint `/fcds-recorder/v1/camera/orientation` sends a reduced JPEG to a separately configured OpenAI vision model, which estimates the clockwise correction (including tilt). Only a readable result labeled `high` by the model is used automatically. This label is a model judgment, not a calibrated accuracy guarantee. The browser rotates decoded pixels on a white, expanded canvas, fits the result to the existing size limit, and encodes the JPEG once for upload. Browser image decoding handles file EXIF orientation; the application does not apply EXIF rotation again.
+The served pages in `bazaar_server/bazaar_server_lobby/lobby/html_pages/` and
+`lobby/static/` are the source for the private picture viewer and recorded camera.
+The corresponding three `ui/` paths are links to these files so preparation uses
+the same pages rather than overwriting them with older copies.
 
-The continuous preview offers quarter turns, a numeric fine angle, a confirmation button that fixes the angle for that camera, and a return to automatic mode. A manual setting lasts until the camera restarts or automatic mode is selected; adjust it if the camera or paper moves. Selected photos are oriented individually and always reviewed before Send. Confirmed blank frames (high confidence, writing_present false, readable false, zero angle) continue uploading unrotated; every subsequent automatic capture checks for writing again. Hands, pens, page ruling and background objects must not determine rotation. Ambiguous or obscured work, uncertain blank classifications and unavailable detection hold continuous uploads for manual review. Capture can therefore pause while offline, although corrected frames already in IndexedDB still retry normally. A held, unconfirmed frame exists only in memory and is lost on page close. Previously queued frames are preserved as captured; this change does not repair historical images.
+The private Paper tutor page provides zoom, left/right quarter turns, a precise
+clockwise angle, and separate size/angle resets. Rotation stays selected as new
+camera frames arrive and fits the rotated image within the viewer; enlarged
+images scroll to every edge. These controls change only this browser's view.
+The tutor and archive receive the original camera image, and no orientation
+model requests or camera-side rotation are performed.
 
-The corrected JPEG is queued before archival and is used unchanged by the relay. The recorder stores orientation method, clockwise angle, confidence label, readability and optional writing-presence flag with the frame. Manual confirmation is a student judgment, not independent verification of legibility. Rotation preserves the capture timestamp even if inference takes time. The LLM tutoring agent and student desktop page require no changes.
-
-Deploy the matching recorder changes and enable its `compose.orientation.yaml` override before publishing these two camera files. Without the configured service, manual correction remains available. Instructions are in the recorder README in `ope-platform-operator`.
-
-Validation: `node --test tests/camera_queue.test.cjs` covers automatic rotation dimensions, uncertain-frame holds, outage fallback, manual overrides, cancellation, phase gates, and archival retries. Browser rendering and real-device EXIF behavior require acceptance testing. Use representative anonymized equation photos rotated by 0, 90, 180, 270 degrees and tilted angles; measure orientation error and ambiguous-frame handling before classroom use. Model accuracy is not established by mocked service tests.
-
-Automatic correction has a five-second budget: probe preparation, inference and continuous-frame render/JPEG encoding are checked against a monotonic deadline. Fetch has at most 4.8 seconds, and late results are discarded; over-budget render results are reset before queueing. This prevents late automatic corrections but does not guarantee successful corrections within five seconds on a real phone. Provider failures/timeouts do not establish that a frame is blank. Manual correction remains available. If automatic correction fails, is uncertain, or reaches the five-second deadline, the student is prompted to orient the page manually. Manual rotation and confirmation remain available while detection runs; a manual adjustment takes precedence over late results. Confirmed blank pages remain unrotated. Earlier model trials used the previous two-second target; acceptance against the five-second MVP target and physical-phone checks remain outstanding.
+Validation: `node --test tests/camera_queue.test.cjs tests/private_chat_ready.test.cjs tests/picture_orientation.test.cjs`.

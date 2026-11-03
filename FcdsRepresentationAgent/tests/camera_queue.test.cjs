@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { webcrypto } = require('node:crypto');
 
-const source = fs.readFileSync(path.join(__dirname, '../ui/camera_fcds-recorded.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../../bazaar_server/bazaar_server_lobby/lobby/static/camera_fcds-recorded.js'), 'utf8');
 const room = 'fcds-p2-26-fall-1a-room260911999';
 const credential = '2000000000.' + 'a'.repeat(64);
 const settle = async () => { for (let n = 0; n < 80; n++) await Promise.resolve(); };
@@ -27,10 +27,7 @@ function fakeDatabase(rows) {
 
 async function camera(rows = new Map(), storageFails = false, options = {}) {
   const elements = {}, intervals = new Map(), calls = [], socketEvents = {}, feed = [];
-  const orientationWait=options.orientationWait;
   let disconnects = 0, nowMs = 0;
-  let orientationResult=options.orientation || {rotation_degrees:0,confidence:'high',readable:true};
-  let orientationFailure=false;
   let cameraError = options.cameraError || null;
   let failure = false, uploadFailure = false, wrongAck = false, stoppedTracks = 0;
   let phase = options.phase === undefined ? 'Paper' : options.phase;
@@ -67,12 +64,6 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
     AbortSignal: { timeout: () => undefined },
     fetch: async (url, requestOptions) => {
       const body = JSON.parse(requestOptions.body); calls.push({ url, body, headers: requestOptions.headers });
-      if(url.endsWith('/orientation')) {
-        if(orientationFailure)throw Error('orientation offline');
-        if(orientationWait)await orientationWait;
-        nowMs+=options.orientationElapsedMs || 0;
-        return {ok:true,json:async()=>orientationResult};
-      }
       if (failure) throw Error('offline');
       const phaseResult = {phase, camera_allowed: phase === 'Paper' || phase === 'Setup'};
       if (url.endsWith('/phase')) return {ok: !phaseDenied, status:phaseDenied ? 403 : 200, json: async () => phaseResult};
@@ -89,7 +80,6 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
   await vm.runInNewContext(source, context); await settle();
   return { rows, calls, get, intervals, windowEvents, documentEvents, socketEvents, feed,
     get disconnects() {return disconnects;},
-    orientation(value) {orientationResult=value;}, orientationFailure(value) {orientationFailure=value;},
     cameraError(value) { cameraError = value; }, offline(value) { failure = value; }, uploadFailure(value) { uploadFailure = value; }, wrongAck(value) { wrongAck = value; },
     phase(value) { phase = value; }, phaseDenied(value) { phaseDenied = value; }, framePhase(value) { framePhase = value; }, relayState(value) { relayState = value; },
     get stoppedTracks() { return stoppedTracks; },
@@ -135,7 +125,7 @@ test('a selected photo is reviewed, archived and retried without starting a stre
   page.offline(true);
   page.get('chooseInput').files = [{ type: 'image/png' }];
   await page.get('chooseInput').onchange(); await settle();
-  assert.equal(page.get('correctedPhoto').hidden, false);
+  assert.equal(page.get('manualPreview').hidden, false);
   assert.equal(page.get('sendPhoto').disabled, false);
   await page.get('sendPhoto').onclick(); await settle();
   const frame = [...page.rows.values()].find(row => row.kind === 'frame');
@@ -320,217 +310,13 @@ test('phone feedback decodes speech, ignores image envelopes, and stays connecte
 });
 
 
-test('automatic orientation is applied before the JPEG enters the durable queue', async()=>{
-  const page=await camera(new Map(),false,{orientation:{rotation_degrees:90,confidence:'high',readable:true}});
-  page.uploadFailure(true);
+test('camera captures and selected photos upload without orientation requests or metadata', async()=>{
+  const page=await camera();page.uploadFailure(true);
   await page.get('start').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.width,720);assert.equal(frame.body.height,960);
-  assert.deepEqual(frame.body.orientation,{method:'automatic',rotation_degrees:90,confidence:'high',readable:true});
-  assert.equal(page.calls.filter(call=>call.url.endsWith('/orientation')).length,1);
-});
-
-test('uncertain orientation holds capture; manual angle resumes without another model request', async()=>{
-  const page=await camera(new Map(),false,{orientation:{rotation_degrees:180,confidence:'low',readable:true}});
-  page.uploadFailure(true);
-  await page.get('start').onclick();await settle();
-  assert.ok(![...page.rows.values()].some(row=>row.kind==='frame'));
-  assert.match(page.get('orientationStatus').textContent,/paused/);
-  page.get('cameraAngle').value='-90';page.get('cameraAngle').onchange();
-  page.get('useCameraAngle').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.rotation_degrees,-90);
-  assert.equal(frame.body.orientation.method,'manual');
-  assert.equal(page.calls.filter(call=>call.url.endsWith('/orientation')).length,1);
-  page.intervals.get(10000)();await settle();
-  assert.equal([...page.rows.values()].filter(row=>row.kind==='frame').length,2);
-});
-
-test('orientation outage does not archive an uncorrected continuous frame', async()=>{
-  const page=await camera();page.orientationFailure(true);
-  await page.get('start').onclick();await settle();
-  assert.ok(!page.calls.some(call=>call.url.endsWith('/frame')));
-  assert.equal(page.get('useCameraAngle').disabled,false);
-});
-
-test('late orientation response is discarded after stopping capture', async()=>{
-  let resolve;
-  const wait=new Promise(done=>resolve=done);
-  const page=await camera(new Map(),false,{orientationWait:wait});
-  const starting=page.get('start').onclick();await settle();
-  page.get('stop').onclick();resolve();await starting;await settle();
-  assert.ok(!page.calls.some(call=>call.url.endsWith('/frame')));
-  assert.equal(page.get('correctedPreview').hidden,true);
-  assert.ok(!page.intervals.has(10000),'stopped capture does not restart its timer');
-});
-
-test('manual photo can override an automatic angle before queueing', async()=>{
-  const page=await camera(new Map(),false,{orientation:{rotation_degrees:180,confidence:'high',readable:true}});
-  page.uploadFailure(true);page.get('chooseInput').files=[{type:'image/jpeg'}];
-  page.get('chooseInput').onchange();await settle();
-  page.get('photoLeft').onclick();
-  await page.get('sendPhoto').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.rotation_degrees,90);
-  assert.equal(frame.body.orientation.method,'manual');
-  assert.equal(frame.body.width,900);assert.equal(frame.body.height,1200);
-});
-
-test('phase ending during orientation prevents that frame from being uploaded',async()=>{
-  let resolve;const wait=new Promise(done=>resolve=done);
-  const page=await camera(new Map(),false,{orientationWait:wait});
-  const starting=page.get('start').onclick();await settle();
-  page.phase('Coding');await page.relayStatus();resolve();await starting;await settle();
-  assert.ok(!page.calls.some(call=>call.url.endsWith('/frame')));
-  assert.equal(page.get('start').disabled,true);
-});
-
-test('a manually confirmed photo can queue while automatic detection and uploads are unavailable',async()=>{
-  const page=await camera();page.orientationFailure(true);page.offline(true);
   page.get('chooseInput').files=[{type:'image/jpeg'}];page.get('chooseInput').onchange();await settle();
-  assert.match(page.get('manualStatus').textContent,/unavailable/);
-  page.get('photoRight').onclick();await page.get('sendPhoto').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.method,'manual');
-  assert.equal(frame.body.orientation.rotation_degrees,90);
-});
-
-test('rotation bounds contain all four image corners for quarter turns and arbitrary tilt',()=>{
-  const helper=source.split('/* Versioned Dev camera')[0];
-  const draw=vm.runInNewContext(helper+';drawOrientedImage');
-  for(const angle of [0,90,180,-90,17,-32.5]){
-    let translate,rotate,rectangle;
-    const canvas={getContext:()=>({fillRect(){},translate(x,y){translate=[x,y];},rotate(a){rotate=a;},drawImage(...args){rectangle=args.slice(1);}})};
-    draw(canvas,{width:1280,height:720},angle,960);
-    const [left,top,width,height]=rectangle;
-    for(const [x,y] of [[left,top],[left+width,top],[left,top+height],[left+width,top+height]]){
-      const u=x*Math.cos(rotate)-y*Math.sin(rotate)+translate[0];
-      const v=x*Math.sin(rotate)+y*Math.cos(rotate)+translate[1];
-      assert.ok(u>=-1e-8&&u<=canvas.width+1e-8&&v>=-1e-8&&v<=canvas.height+1e-8,'corner is preserved at '+angle);
-    }
-    assert.ok(Math.max(canvas.width,canvas.height)<=960);
-    if(angle===90){assert.equal(canvas.width,540);assert.equal(canvas.height,960);assert.ok(rotate>0);}
-  }
-});
-
-
-test('blank frames stay unrotated and capture rechecks for writing on the next frame',async()=>{
-  const blank={rotation_degrees:0,confidence:'high',readable:false,writing_present:false};
-  const page=await camera(new Map(),false,{orientation:blank});page.uploadFailure(true);
-  await page.get('start').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.ok(frame,'blank frame is queued without manual intervention');
-  assert.equal(frame.body.width,960);assert.equal(frame.body.height,720);
-  assert.deepEqual(frame.body.orientation,{method:'automatic',...blank});
-  assert.match(page.get('orientationStatus').textContent,/No writing detected/);
-  page.orientation({rotation_degrees:90,confidence:'high',readable:true,writing_present:true});
-  page.intervals.get(10000)();await settle();
+  await page.get('sendPhoto').onclick();await settle();
   const frames=[...page.rows.values()].filter(row=>row.kind==='frame');
-  assert.equal(frames.length,2);assert.equal(frames[1].body.orientation.rotation_degrees,90);
-  assert.equal(frames[1].body.orientation.writing_present,true);
-  assert.equal(page.calls.filter(call=>call.url.endsWith('/orientation')).length,2);
-});
-
-test('obscured writing and uncertain blank classification hold capture without rotation',async()=>{
-  for(const result of [
-    {rotation_degrees:90,confidence:'high',readable:false,writing_present:true},
-    {rotation_degrees:0,confidence:'low',readable:false,writing_present:false},
-    {rotation_degrees:90,confidence:'high',readable:false,writing_present:false}
-  ]){
-    const page=await camera(new Map(),false,{orientation:result});
-    await page.get('start').onclick();await settle();
-    assert.ok(!page.calls.some(call=>call.url.endsWith('/frame')));
-    assert.equal(page.get('cameraAngle').value,'0');
-    assert.match(page.get('orientationStatus').textContent,/paused/);
-  }
-});
-
-test('blank selected photos stay unrotated and preserve presence metadata on Send',async()=>{
-  const blank={rotation_degrees:0,confidence:'high',readable:false,writing_present:false};
-  const page=await camera(new Map(),false,{orientation:blank});page.uploadFailure(true);
-  page.get('chooseInput').files=[{type:'image/jpeg'}];page.get('chooseInput').onchange();await settle();
-  assert.match(page.get('manualStatus').textContent,/No writing detected/);
-  await page.get('sendPhoto').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.deepEqual(frame.body.orientation,{method:'automatic',...blank});
-});
-
-test('late provider results never become automatic corrections or archived frames',async()=>{
-  const page=await camera(new Map(),false,{orientationElapsedMs:5000,
-    orientation:{rotation_degrees:90,confidence:'high',readable:true,writing_present:true}});
-  await page.get('start').onclick();await settle();
-  assert.ok(!page.calls.some(call=>call.url.endsWith('/frame')));
-  assert.equal(page.get('cameraAngle').value,'0');
-  assert.match(page.get('orientationStatus').textContent,/paused/);
-});
-
-test('continuous JPEG encoding is included in the correction deadline',async()=>{
-  const page=await camera(new Map(),false,{orientationElapsedMs:4500,renderElapsedMs:500,
-    orientation:{rotation_degrees:90,confidence:'high',readable:true,writing_present:true}});
-  await page.get('start').onclick();await settle();
-  assert.ok(!page.calls.some(call=>call.url.endsWith('/frame')));
-  assert.equal(page.get('cameraAngle').value,'0');
-  assert.match(page.get('orientationStatus').textContent,/exceeded five seconds/);
-});
-
-test('late selected-photo detection leaves the photo unrotated for manual review',async()=>{
-  const page=await camera(new Map(),false,{orientationElapsedMs:5001,
-    orientation:{rotation_degrees:90,confidence:'high',readable:true,writing_present:true}});
-  page.get('chooseInput').files=[{type:'image/jpeg'}];page.get('chooseInput').onchange();await settle();
-  assert.equal(page.get('photoAngle').value,'0');
-  assert.match(page.get('manualStatus').textContent,/exceeded five seconds/);
-});
-
-
-test('automatic corrections taking more than two seconds can succeed before five seconds',async()=>{
-  const page=await camera(new Map(),false,{orientationElapsedMs:4200,renderElapsedMs:300,
-    orientation:{rotation_degrees:90,confidence:'high',readable:true,writing_present:true}});
-  page.uploadFailure(true);await page.get('start').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.method,'automatic');
-  assert.equal(frame.body.orientation.rotation_degrees,90);
-});
-
-test('manual camera controls remain available during detection and late results cannot override them',async()=>{
-  let resolve;const wait=new Promise(done=>resolve=done);
-  const page=await camera(new Map(),false,{orientationWait:wait,
-    orientation:{rotation_degrees:180,confidence:'high',readable:true,writing_present:true}});
-  page.uploadFailure(true);const starting=page.get('start').onclick();await settle();
-  for(const id of ['cameraLeft','cameraRight','cameraAngle','useCameraAngle'])assert.equal(page.get(id).disabled,false,id);
-  page.get('cameraRight').onclick();page.get('useCameraAngle').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.method,'manual');assert.equal(frame.body.orientation.rotation_degrees,90);
-  resolve();await starting;await settle();
-  assert.equal(page.get('cameraAngle').value,'90');
-  assert.equal([...page.rows.values()].filter(row=>row.kind==='frame').length,1);
-  assert.ok(page.intervals.has(10000),'manual takeover preserves continuous capture');
-  page.intervals.get(10000)();await settle();
-  assert.equal([...page.rows.values()].filter(row=>row.kind==='frame').length,2);
-});
-
-test('manual photo controls and Send remain available during detection and preserve the manual angle',async()=>{
-  let resolve;const wait=new Promise(done=>resolve=done);
-  const page=await camera(new Map(),false,{orientationWait:wait,
-    orientation:{rotation_degrees:180,confidence:'high',readable:true,writing_present:true}});
-  page.uploadFailure(true);page.get('chooseInput').files=[{type:'image/jpeg'}];
-  page.get('chooseInput').onchange();await settle();
-  for(const id of ['photoLeft','photoRight','photoAngle','sendPhoto'])assert.equal(page.get(id).disabled,false,id);
-  page.get('photoLeft').onclick();resolve();await settle();
-  assert.equal(page.get('photoAngle').value,'-90');
-  await page.get('sendPhoto').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.method,'manual');assert.equal(frame.body.orientation.rotation_degrees,-90);
-});
-
-test('sending a manually reviewed photo before detection finishes invalidates the pending result',async()=>{
-  let resolve;const wait=new Promise(done=>resolve=done);
-  const page=await camera(new Map(),false,{orientationWait:wait});
-  page.uploadFailure(true);page.get('chooseInput').files=[{type:'image/jpeg'}];
-  page.get('chooseInput').onchange();await settle();
-  await page.get('sendPhoto').onclick();await settle();
-  const frame=[...page.rows.values()].find(row=>row.kind==='frame');
-  assert.equal(frame.body.orientation.method,'manual');
-  resolve();await settle();
-  assert.equal([...page.rows.values()].filter(row=>row.kind==='frame').length,1);
-  assert.equal(page.get('photoCorrection').hidden,true);
+  assert.equal(frames.length,2);
+  assert.ok(frames.every(row=>!('orientation' in row.body)));
+  assert.ok(!page.calls.some(call=>call.url.endsWith('/orientation')));
 });
