@@ -1,0 +1,1 @@
+../../bazaar_server/bazaar_server_lobby/lobby/static/representation-picture-rotation.js

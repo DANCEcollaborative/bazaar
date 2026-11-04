@@ -5,10 +5,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { webcrypto } = require('node:crypto');
 
-const source = fs.readFileSync(path.join(__dirname, '../ui/camera_fcds-recorded.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '../../bazaar_server/bazaar_server_lobby/lobby/static/camera_fcds-recorded.js'), 'utf8');
 const room = 'fcds-p2-26-fall-1a-room260911999';
 const credential = '2000000000.' + 'a'.repeat(64);
-const settle = async () => { for (let n = 0; n < 30; n++) await Promise.resolve(); };
+const settle = async () => { for (let n = 0; n < 80; n++) await Promise.resolve(); };
 
 function fakeDatabase(rows) {
   return { transaction() {
@@ -27,26 +27,27 @@ function fakeDatabase(rows) {
 
 async function camera(rows = new Map(), storageFails = false, options = {}) {
   const elements = {}, intervals = new Map(), calls = [], socketEvents = {}, feed = [];
-  let disconnects = 0;
+  let disconnects = 0, nowMs = 0;
   let cameraError = options.cameraError || null;
   let failure = false, uploadFailure = false, wrongAck = false, stoppedTracks = 0;
   let phase = options.phase === undefined ? 'Paper' : options.phase;
   let framePhase = null, relayState = options.relayState || 'accepted_by_relay', phaseDenied = !!options.phaseDenied;
+  const makeCanvas=()=>({width:0,height:0,getContext:()=>({drawImage(){},fillRect(){},translate(){},rotate(){}}),toDataURL:()=> 'data:image/jpeg;base64,c3ludGhldGlj'});
   const get = id => elements[id] ||= {
-    style: {}, value: '1', videoWidth: 960, videoHeight: 720, readyState: 2,
-    naturalWidth: 1200, naturalHeight: 900, removeAttribute() {}, click() {},
-    play: async () => {}, getContext: () => ({ drawImage() {} }),
-    toDataURL: () => 'data:image/jpeg;base64,c3ludGhldGlj', prepend(p) {feed.push(p.textContent);},
+    style: {}, value: '1', ...(id==='preview'?{videoWidth:960,videoHeight:720,readyState:2}:{}),
+    ...(id==='manualPreview'?{naturalWidth:1200,naturalHeight:900}:{}), removeAttribute() {}, click() {},
+    play: async () => {}, getContext: () => ({ drawImage() {},fillRect(){},translate(){},rotate(){} }),
+    toDataURL: () => {if(id==='canvas')nowMs+=options.renderElapsedMs || 0;return 'data:image/jpeg;base64,c3ludGhldGlj';}, prepend(p) {feed.push(p.textContent);},
     set src(value) { this._src = value; queueMicrotask(() => this.onload?.()); },
     get src() { return this._src; }
   };
   const db = fakeDatabase(rows);
   const windowEvents = {}, documentEvents = {};
   const context = {
-    URLSearchParams, Date, JSON, Promise, Error, String, Math, crypto: webcrypto,
+    URLSearchParams, Date, JSON, Promise, Error, String, Math, crypto: webcrypto, performance:{now:()=>nowMs},
     FileReader: class { readAsDataURL() { queueMicrotask(() => { this.result = 'data:image/png;base64,c3ludGhldGlj'; this.onload?.(); }); } },
     location: { search: '?room=' + room + '&user=1', hash: '#capture=' + credential },
-    document: { getElementById: get, createElement: name => get(name),
+    document: { getElementById: get, createElement: name => name==='canvas'?makeCanvas():get(name),
       addEventListener: (name, fn) => { documentEvents[name] = fn; } },
     window: { addEventListener: (name, fn) => { windowEvents[name] = fn; } },
     navigator: { userAgent: 'synthetic test', mediaDevices: { getUserMedia: async () => {
@@ -61,8 +62,8 @@ async function camera(rows = new Map(), storageFails = false, options = {}) {
     setInterval: (fn, delay) => { intervals.set(delay, fn); return delay; },
     clearInterval: delay => intervals.delete(delay),
     AbortSignal: { timeout: () => undefined },
-    fetch: async (url, options) => {
-      const body = JSON.parse(options.body); calls.push({ url, body, headers: options.headers });
+    fetch: async (url, requestOptions) => {
+      const body = JSON.parse(requestOptions.body); calls.push({ url, body, headers: requestOptions.headers });
       if (failure) throw Error('offline');
       const phaseResult = {phase, camera_allowed: phase === 'Paper' || phase === 'Setup'};
       if (url.endsWith('/phase')) return {ok: !phaseDenied, status:phaseDenied ? 403 : 200, json: async () => phaseResult};
@@ -306,4 +307,16 @@ test('phone feedback decodes speech, ignores image envelopes, and stays connecte
   assert.equal(page.feed[1], 'OPEBot: A plain reply');
   page.windowEvents.pagehide();
   assert.equal(page.disconnects, 1);
+});
+
+
+test('camera captures and selected photos upload without orientation requests or metadata', async()=>{
+  const page=await camera();page.uploadFailure(true);
+  await page.get('start').onclick();await settle();
+  page.get('chooseInput').files=[{type:'image/jpeg'}];page.get('chooseInput').onchange();await settle();
+  await page.get('sendPhoto').onclick();await settle();
+  const frames=[...page.rows.values()].filter(row=>row.kind==='frame');
+  assert.equal(frames.length,2);
+  assert.ok(frames.every(row=>!('orientation' in row.body)));
+  assert.ok(!page.calls.some(call=>call.url.endsWith('/orientation')));
 });
