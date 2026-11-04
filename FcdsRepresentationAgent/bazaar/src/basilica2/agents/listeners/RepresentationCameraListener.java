@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import basilica2.agents.data.State;
 import basilica2.agents.components.RepresentationCapture;
+import basilica2.agents.components.TutorImageRotation;
 import basilica2.agents.events.PrivateMessageEvent;
 import basilica2.agents.events.PresenceEvent;
 import edu.cmu.cs.lti.basilica2.core.Event;
@@ -102,8 +103,18 @@ public class RepresentationCameraListener extends LlmCameraListener {
     @Override public String sendToOpenAI(InputCoordinator source,String payload,Boolean fromSystem) {
         String request=UUID.randomUUID().toString();long started=System.currentTimeMillis();
         try {
-            RepresentationCapture.record(agent,"tutor.request",RepresentationCapture.data("request_id",request,"phase",stage(),"body",new JSONObject(payload)));
+            final String originalPayload=payload;
+            final String participant=requestParticipant.get();
+            TutorImageRotation.Prepared prepared=TutorImageRotation.prepare(payload,new TutorImageRotation.Lookup(){
+                public TutorImageRotation.Rotation get() throws Exception {return currentImageRotation(participant);}
+            });
+            payload=prepared.payload;
+            RepresentationCapture.record(agent,"tutor.request",RepresentationCapture.data("request_id",request,"phase",stage(),"body",new JSONObject(originalPayload),
+                "body_contains_original_images",true,"sent_body_sha256",TutorImageRotation.hash(payload.getBytes(java.nio.charset.StandardCharsets.UTF_8)),
+                "image_rotations",TutorImageRotation.renderingMetadata(prepared)));
             if (observation.get() != null) observation.get().requested=true;
+            // TEMPORARY EVIDENCE: comment out only this call after reviewing the first 20 images.
+            saveTutorImageEvidence(prepared,request,participant);
             String result=requestModel(source,payload,fromSystem);
             String modelResult=result;
             Observation current=observation.get();
@@ -141,6 +152,21 @@ public class RepresentationCameraListener extends LlmCameraListener {
             RepresentationCapture.record(agent,"tutor.error",RepresentationCapture.data("request_id",request,"error_type",e.getClass().getSimpleName()));
             throw new IllegalStateException(e);
         }
+    }
+
+    protected TutorImageRotation.Rotation currentImageRotation(String user) throws Exception {
+        String endpoint=getProperties().getProperty("camera.rotation.url","https://bree.lti.cs.cmu.edu/fcds-recorder/v1/camera/image-rotation");
+        return TutorImageRotation.lookup(endpoint,RepresentationCapture.room(agent),user);
+    }
+    protected void saveTutorImageEvidence(TutorImageRotation.Prepared prepared,String request,String user) throws Exception {
+        TutorImageRotation.captureEvidence(prepared,request,RepresentationCapture.room(agent),user);
+    }
+
+    @Override public void displayImageOnPrivatePage(InputCoordinator source,String user,String image,String mime) {
+        // Preserve original identity: the inherited implementation re-encodes/shrinks
+        // previews, which prevents their hashes resolving to archived originals.
+        String message="cameraImageUpdate:::true;%;mimeType:::"+mime+";%;image:::"+image;
+        source.pushEventProposal(new PrivateMessageEvent(source,"Private_"+user,"OPEBot",message));
     }
 
     /** Injection point for offline tests; production keeps the existing API transport. */

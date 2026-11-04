@@ -102,8 +102,45 @@ its angle is saved. Reloads restore the saved angle. Zoom remains local.
 The recorder assigns the latest saved participant angle to new captures and
 keeps per-frame changes as separate immutable events. Original uploaded bytes
 are retained; exports and relay requests carry clockwise rotation metadata,
-with `pixels_rotated: false`, for a future renderer. No automatic orientation
-model or camera-side rotation is performed. Existing tutor code still consumes
-the original pixels; applying stored angles to model input is a later change.
+with `pixels_rotated: false`, for export rendering. No automatic orientation
+model or camera-side rotation is performed. The Java tutor now reads the latest
+saved student angle immediately before each image-bearing LLM request and
+renders its images in memory using that clockwise angle. This includes prior
+comparison images. Zero preserves the original bytes. The angle is read once
+per request, so a setting change applies to the next question even if the
+original capture is older. Lookup failures stop the image request instead of
+silently assuming zero. Text-only requests do not need a rotation lookup.
+
+`camera.rotation.url` in `RepresentationCameraListener.properties` defaults to
+`https://bree.lti.cs.cmu.edu/fcds-recorder/v1/camera/image-rotation`. The lookup uses
+the existing signing key to obtain a participant-scoped credential; no API key
+or credential is put into URLs. Deploy the recorder's `current_rotation` read
+support before the rebuilt activity JAR; only new agent processes load the JAR.
+The activity's preview override sends original bytes, preserving the identity
+used by the browser to save angles. The shared inherited runtime JAR is unchanged.
+
+Temporary evidence saving is currently ENABLED at the `saveTutorImageEvidence`
+call in `RepresentationCameraListener.sendToOpenAI`. It captures the first 20
+image occurrences handed to the LLM transport per JVM, including any comparison
+images. A text-only request does not count. On first use a private temporary
+`fcds-llm-image-evidence-*` directory is created and its full path is printed as
+`FCDS_LLM_IMAGE_EVIDENCE_DIR`. Each image has JSON metadata with applied angle,
+revision, original/sent image hashes, full outgoing request hash, and its position
+in that request. `-Dfcds.llm.evidence.dir=/absolute/private/path` can select an
+empty review directory. Use a fresh directory for each run. These temporary
+files contain student work; they are not published by the application.
+
+The evidence is captured just before the existing HTTPS transport. It shows
+exact outgoing bytes, not proof that a provider accepted or analyzed them.
+After the user reviews the evidence, comment out only the clearly marked
+`saveTutorImageEvidence(prepared,request,participant);` call and rebuild. Leave
+rotation enabled. The permanent capture journal retains original request images
+and rendering metadata/hashes, not the temporary rotated copies.
+
+`tests/test_llm_rotation.py` exercises the production Java HTTPS sender and signed
+recorder lookup with a local HTTPS receiver. It verifies exact request/file byte
+matches, whole-request hashes, rotation direction/bounds, changing settings,
+original preservation, preview identity, comparison images, and the 20-image
+cap. It calls no external model.
 
 Validation: `node --test tests/camera_queue.test.cjs tests/private_chat_ready.test.cjs tests/picture_orientation.test.cjs tests/picture_rotation_storage.test.cjs`.

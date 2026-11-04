@@ -36,6 +36,8 @@ public class RepresentationHarness {
         java.util.List<String> previewUsers = new java.util.ArrayList<String>();
         QuietCamera(Agent agent) { super(agent); }
         protected long feedbackNowMillis() { return now; }
+        protected TutorImageRotation.Rotation currentImageRotation(String user) {return new TutorImageRotation.Rotation(0,0);}
+        protected void saveTutorImageEvidence(TutorImageRotation.Prepared prepared,String request,String user) {}
         protected String requestModel(InputCoordinator source, String payload, Boolean system) {
             requests++;payloads.add(payload);return reply;
         }
