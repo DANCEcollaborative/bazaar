@@ -262,6 +262,7 @@ ul.tab li a:focus, .active {
     #zoom_reset { width: auto; padding: 0 10px; font-size: 12px; }
     #rotation_reset { width: auto; padding: 0 10px; font-size: 12px; }
     #picture_angle { width: 65px; color: #172335; }
+    #rotation_status { flex-basis: 100%; font-size: 12px; }
     .rotation-label { font-size: 13px; }
     #zoom_level { font-size: 13px; min-width: 44px; text-align: center; }
 
@@ -349,6 +350,7 @@ ul.tab li a:focus, .active {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/DANCECollaborative/bazaar@latest/bazaar_server/bazaar_server_lobby/lobby/colors.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 
+<script src="/bazaar/static/representation-picture-rotation.js"></script>
 <script>
     var windowHasFocus = true;
     var unreadMessages = 0;
@@ -518,6 +520,8 @@ ul.tab li a:focus, .active {
     function updateCameraImage(mimeType, imageBase64)
     {
         var img = document.getElementById('camera_image');
+        latestPictureBase64=imageBase64;
+        if(pictureRotationStore)pictureRotationStore.image(imageBase64);
         img.src = 'data:' + mimeType + ';base64,' + imageBase64;
         document.getElementById('camera_image_div').style.display = 'flex';
         var col = document.getElementById('image_column');
@@ -859,13 +863,15 @@ ul.tab li a:focus, .active {
     // ---- Picture zoom tool (shrink / expand pictures in the picture space) ----
     var pictureZoomPct = 100;
     var pictureRotation = 0;
+    var pictureRotationStore = null, latestPictureBase64 = null;
 
-    function setPictureRotation(angle)
+    function setPictureRotation(angle, save)
     {
         if (!Number.isFinite(angle)) return;
         pictureRotation = ((angle + 180) % 360 + 360) % 360 - 180;
         document.getElementById('picture_angle').value = pictureRotation;
         sizeCameraImage();
+        if(save!==false && pictureRotationStore)pictureRotationStore.change(pictureRotation);
     }
 
     var PICTURE_ZOOM_STEPS = [25, 50, 75, 100, 125, 150, 200, 300, 400];
@@ -923,6 +929,18 @@ ul.tab li a:focus, .active {
 			}
 		});
 
+        const cameraRoom=location.pathname.match(/fcds-p2-26-fall-1a-room[0-9]{9}/);
+        const cameraUser=location.pathname.match(/\/Private_([1-4])\//);
+        const captureCredential=new URLSearchParams(location.hash.slice(1)).get('capture');
+        const rotationStatus=message=>{document.getElementById('rotation_status').textContent=message;};
+        if(cameraRoom && cameraUser && captureCredential) {
+            pictureRotationStore=createPictureRotation({room:cameraRoom[0],user:cameraUser[1],credential:captureCredential,
+                apply:angle=>setPictureRotation(angle,false),status:rotationStatus});
+            if(latestPictureBase64)pictureRotationStore.image(latestPictureBase64);
+        } else rotationStatus('Angle changes are displayed only. Open your personal Paper tutor link to save them.');
+        window.addEventListener('beforeunload',function(event){
+            if(pictureRotationStore && pictureRotationStore.pending()){event.preventDefault();event.returnValue='';}
+        });
 		// picture zoom tool
 		$('#zoom_in').click(function() { stepPictureZoom(1); });
 		$('#zoom_out').click(function() { stepPictureZoom(-1); });
@@ -1022,6 +1040,7 @@ ul.tab li a:focus, .active {
             <button type="button" class="zoom-btn" id="rotate_right" title="Rotate right 90 degrees" aria-label="Rotate right 90 degrees">↷</button>
             <label class="rotation-label">Clockwise angle <input id="picture_angle" type="number" min="-180" max="180" step="0.5" value="0" aria-label="Picture clockwise angle">°</label>
             <button type="button" class="zoom-btn" id="rotation_reset" title="Reset picture rotation">Reset angle</button>
+            <span id="rotation_status" role="status" aria-live="polite">Waiting for a paper image.</span>
         </div>
 
         <!-- Latest camera image for this user, pushed privately by LlmCameraListener

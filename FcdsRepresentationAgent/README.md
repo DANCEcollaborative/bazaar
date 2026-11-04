@@ -84,14 +84,26 @@ Deployment and browser-test evidence is recorded in the project docs; historical
 
 The served pages in `bazaar_server/bazaar_server_lobby/lobby/html_pages/` and
 `lobby/static/` are the source for the private picture viewer and recorded camera.
-The corresponding three `ui/` paths are links to these files so preparation uses
+The corresponding `ui/` paths are links to these files so preparation uses
 the same pages rather than overwriting them with older copies.
 
 The private Paper tutor page provides zoom, left/right quarter turns, a precise
 clockwise angle, and separate size/angle resets. Rotation stays selected as new
 camera frames arrive and fits the rotated image within the viewer; enlarged
-images scroll to every edge. These controls change only this browser's view.
-The tutor and archive receive the original camera image, and no orientation
-model requests or camera-side rotation are performed.
+images scroll to every edge. The viewer saves each image's clockwise angle to the recorder using the
+participant-scoped credential forwarded in the private iframe's URL fragment.
+The displayed original's SHA-256 resolves to its archived frame ID; writes bind
+to that ID so a late save cannot change the next image. Repeated identical bytes
+resolve to the latest matching capture for that participant. Angle choices stay
+visible across new images, including images already in flight when an angle
+changes. Save failures are shown and retried in order; keep the page open until
+its angle is saved. Reloads restore the saved angle. Zoom remains local.
 
-Validation: `node --test tests/camera_queue.test.cjs tests/private_chat_ready.test.cjs tests/picture_orientation.test.cjs`.
+The recorder assigns the latest saved participant angle to new captures and
+keeps per-frame changes as separate immutable events. Original uploaded bytes
+are retained; exports and relay requests carry clockwise rotation metadata,
+with `pixels_rotated: false`, for a future renderer. No automatic orientation
+model or camera-side rotation is performed. Existing tutor code still consumes
+the original pixels; applying stored angles to model input is a later change.
+
+Validation: `node --test tests/camera_queue.test.cjs tests/private_chat_ready.test.cjs tests/picture_orientation.test.cjs tests/picture_rotation_storage.test.cjs`.
