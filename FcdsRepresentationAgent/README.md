@@ -21,6 +21,12 @@ for all component locations and routine start/stop commands.
 - The Dev phone page supports continuous still capture or a student-selected single photo. Choosing a photo stops continuous capture to release the phone camera. Each selected photo is reviewed before upload and archived through the same Bree queue; the Dev tutor handles it even when it resembles the previous frame. The phone page distinguishes local queueing from Bree archival and tutor-service relay.
 - Notebook opens by default through a scoped patch to Bree's existing login page.
 
+A failed direct tutor request (including a rotation lookup failure) produces a
+private retry notice and a sanitized `tutor.question_error` capture event. It
+does not terminate the input worker or send an image with an assumed rotation.
+Later messages and camera previews continue. Background failures keep their
+existing retry/cooldown behavior and do not send failure notices.
+
 ## Files and build
 
 `bazaar/src/` contains only new classes; `bazaar/runtime/` contains activity plans and overrides. `ui/` contains the personal page, MIT-licensed qrcode-generator 1.4.4, and transformations of the existing camera/login files. `final_grader/` contains the matching single-task adapter for the separate Activity Server. Student content lives in `DANCEcollaborative/fcds-p2-representation` (`main`).
@@ -32,6 +38,9 @@ python3 bazaar/build.py
 python3 -m unittest discover -s tests -v
 node --test tests/camera_queue.test.cjs
 ```
+
+The HTTPS rotation integration test additionally requires Pillow, OpenSSL, and
+JDK `keytool`. It respects `JAVA`, `JAVAC`, and `KEYTOOL` executable overrides.
 
 The small JAR uses that unchanged dependency in its manifest. No shared base JAR is overwritten. Java tests run offline with placeholder credentials and cover all participant counts from 1–3, phase gates, Setup readiness, disconnect/reconnect, prefix-related names, rapid private questions, early callbacks, room isolation, and tutor payload/response format. The camera queue test uses mocked browser services to check offline retention, acknowledgement validation, replay after reload, and participant queue isolation; it does not replace a real-phone acceptance check.
 
@@ -102,8 +111,46 @@ its angle is saved. Reloads restore the saved angle. Zoom remains local.
 The recorder assigns the latest saved participant angle to new captures and
 keeps per-frame changes as separate immutable events. Original uploaded bytes
 are retained; exports and relay requests carry clockwise rotation metadata,
-with `pixels_rotated: false`, for a future renderer. No automatic orientation
-model or camera-side rotation is performed. Existing tutor code still consumes
-the original pixels; applying stored angles to model input is a later change.
+with `pixels_rotated: false`, for export rendering. No automatic orientation
+model or camera-side rotation is performed. The Java tutor now reads the latest
+saved student angle immediately before each image-bearing LLM request and
+renders its images in memory using that clockwise angle. This includes prior
+comparison images. Zero preserves the original bytes. The angle is read once
+per request, so a setting change applies to the next question even if the
+original capture is older. Lookup failures stop that image request instead of
+silently assuming zero; direct questions receive a private retry notice and the
+input worker continues processing later events. Text-only requests do not need a rotation lookup.
+
+`camera.rotation.url` in `RepresentationCameraListener.properties` defaults to
+`https://bree.lti.cs.cmu.edu/fcds-recorder/v1/camera/image-rotation`. The lookup uses
+the existing signing key to obtain a participant-scoped credential; no API key
+or credential is put into URLs. Deploy the recorder's `current_rotation` read
+support before the rebuilt activity JAR; only new agent processes load the JAR.
+The activity's preview override sends original bytes, preserving the identity
+used by the browser to save angles. The shared inherited runtime JAR is unchanged.
+
+Temporary evidence saving is currently ENABLED at the `saveTutorImageEvidence`
+call in `RepresentationCameraListener.sendToOpenAI`. It captures the first 20
+image occurrences handed to the LLM transport per JVM, including any comparison
+images. A text-only request does not count. On first use a private temporary
+`fcds-llm-image-evidence-*` directory is created and its full path is printed as
+`FCDS_LLM_IMAGE_EVIDENCE_DIR`. Each image has JSON metadata with applied angle,
+revision, original/sent image hashes, full outgoing request hash, and its position
+in that request. `-Dfcds.llm.evidence.dir=/absolute/private/path` can select an
+empty review directory. Use a fresh directory for each run. These temporary
+files contain student work; they are not published by the application.
+
+The evidence is captured just before the existing HTTPS transport. It shows
+exact outgoing bytes, not proof that a provider accepted or analyzed them.
+After the user reviews the evidence, comment out only the clearly marked
+`saveTutorImageEvidence(prepared,request,participant);` call and rebuild. Leave
+rotation enabled. The permanent capture journal retains original request images
+and rendering metadata/hashes, not the temporary rotated copies.
+
+`tests/test_llm_rotation.py` exercises the production Java HTTPS sender and signed
+recorder lookup with a local HTTPS receiver. It verifies exact request/file byte
+matches, whole-request hashes, rotation direction/bounds, changing settings,
+original preservation, preview identity, comparison images, and the 20-image
+cap. It calls no external model.
 
 Validation: `node --test tests/camera_queue.test.cjs tests/private_chat_ready.test.cjs tests/picture_orientation.test.cjs tests/picture_rotation_storage.test.cjs`.
