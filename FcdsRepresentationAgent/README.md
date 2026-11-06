@@ -129,22 +129,24 @@ support before the rebuilt activity JAR; only new agent processes load the JAR.
 The activity's preview override sends original bytes, preserving the identity
 used by the browser to save angles. The shared inherited runtime JAR is unchanged.
 
-Temporary evidence saving is currently ENABLED at the `saveTutorImageEvidence`
-call in `RepresentationCameraListener.sendToOpenAI`. It captures the first 20
-image occurrences handed to the LLM transport per JVM, including any comparison
-images. A text-only request does not count. On first use a private temporary
-`fcds-llm-image-evidence-*` directory is created and its full path is printed as
-`FCDS_LLM_IMAGE_EVIDENCE_DIR`. Each image has JSON metadata with applied angle,
-revision, original/sent image hashes, full outgoing request hash, and its position
-in that request. `-Dfcds.llm.evidence.dir=/absolute/private/path` can select an
-empty review directory. Use a fresh directory for each run. These temporary
-files contain student work; they are not published by the application.
+Temporary evidence saving is disabled by default. To enable it for a review run,
+set `-Dfcds.llm.evidence.dir=/absolute/private/path` to a fresh, empty directory.
+The `saveTutorImageEvidence` call in `RepresentationCameraListener.sendToOpenAI`
+runs only when that JVM property is present. The offline rotation test sets it
+explicitly, so normal test runs still verify the evidence files.
+
+It captures the first 20 image occurrences handed to the LLM transport per JVM,
+including comparison images. A text-only request does not count. The directory's
+full path is printed as `FCDS_LLM_IMAGE_EVIDENCE_DIR`. Each image has JSON metadata
+with applied angle, revision, original/sent image hashes, full outgoing request
+hash, and its position in that request. These temporary files contain student
+work; they are not published by the application.
 
 The evidence is captured just before the existing HTTPS transport. It shows
 exact outgoing bytes, not proof that a provider accepted or analyzed them.
-After the user reviews the evidence, comment out only the clearly marked
-`saveTutorImageEvidence(prepared,request,participant);` call and rebuild. Leave
-rotation enabled. The permanent capture journal retains original request images
+After reviewing the evidence, remove the JVM property to disable saving; no
+source edit is needed. Rotation remains enabled.
+The permanent capture journal retains original request images
 and rendering metadata/hashes, not the temporary rotated copies.
 
 `tests/test_llm_rotation.py` exercises the production Java HTTPS sender and signed

@@ -113,8 +113,9 @@ public class RepresentationCameraListener extends LlmCameraListener {
                 "body_contains_original_images",true,"sent_body_sha256",TutorImageRotation.hash(payload.getBytes(java.nio.charset.StandardCharsets.UTF_8)),
                 "image_rotations",TutorImageRotation.renderingMetadata(prepared)));
             if (observation.get() != null) observation.get().requested=true;
-            // TEMPORARY EVIDENCE: comment out only this call after reviewing the first 20 images.
-            saveTutorImageEvidence(prepared,request,participant);
+            // Evidence saving is opt-in; offline rotation tests supply this property.
+            if (System.getProperty("fcds.llm.evidence.dir") != null)
+                saveTutorImageEvidence(prepared,request,participant);
             String result=requestModel(source,payload,fromSystem);
             String modelResult=result;
             Observation current=observation.get();
