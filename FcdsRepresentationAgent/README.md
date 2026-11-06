@@ -2,10 +2,9 @@
 
 Source for the dedicated `fcdsrepresentation` Bazaar agent deployed on Bree for module/activity `fcds-p2-26-fall-1a`. The original llmcamera agent and shared Java classes are unchanged.
 
-Maintained branch: `codex/fcds-preview-reconnect` until PR #239 merges, then
-`main`. Older `codex/fcds-data-capture` and `codex/fcds-representation-activity`
+Maintained branch: `main` (PR #239 merged). Older `codex/fcds-data-capture` and `codex/fcds-representation-activity`
 branches are superseded. Start with the
-[platform deployment guide](https://github.com/DANCEcollaborative/ope-platform-operator/tree/main/deploy/fcds)
+[platform deployment guide](https://github.com/DANCEcollaborative/ope-platform-operator/tree/dev/deploy/fcds)
 for all component locations and routine start/stop commands.
 
 ## Behavior
