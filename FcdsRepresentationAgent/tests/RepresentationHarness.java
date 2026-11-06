@@ -36,6 +36,8 @@ public class RepresentationHarness {
         java.util.List<String> previewUsers = new java.util.ArrayList<String>();
         QuietCamera(Agent agent) { super(agent); }
         protected long feedbackNowMillis() { return now; }
+        protected TutorImageRotation.Rotation currentImageRotation(String user) {return new TutorImageRotation.Rotation(0,0);}
+        protected void saveTutorImageEvidence(TutorImageRotation.Prepared prepared,String request,String user) {}
         protected String requestModel(InputCoordinator source, String payload, Boolean system) {
             requests++;payloads.add(payload);return reply;
         }
@@ -44,6 +46,18 @@ public class RepresentationHarness {
         }
         public boolean almostIdentical(String first,String second) { return first.equals(second); }
         public String getAllMessages(InputCoordinator source,String prompt,String sender) { if (failPayload) throw new IllegalStateException("offline payload failure");return "This participant's private history: " + sender + "\n" + prompt; }
+    }
+    static class RecoveringCamera extends QuietCamera {
+        boolean failLookup = true;
+        RecoveringCamera(Agent agent) { super(agent); }
+        public boolean messageFilter(MessageEvent event) { return true; }
+        public String sendToOpenAI(InputCoordinator source, String payload, Boolean system) {
+            if (failLookup) {
+                failLookup=false;
+                throw new IllegalStateException(new java.io.IOException("Rotation lookup unavailable"));
+            }
+            return super.sendToOpenAI(source,payload,system);
+        }
     }
     static class TestAgent extends Agent {
         TestAgent(String name) {
@@ -478,6 +492,44 @@ public class RepresentationHarness {
         quiet.handlePresenceEvent(quietInput, new PresenceEvent(quietInput, "Private_1", PresenceEvent.ABSENT));
         check(quiet.previews == beforeReconnect + 2 && quiet.requests == requestsBeforeReconnect,
             "missing images and departures do not replay; reconnect never calls the model");
+
+        final TestAgent recoveryAgent = new TestAgent("OPEBot_recovery");
+        final TestInput recoveryInput = new TestInput(recoveryAgent);recoveryAgent.addComponent(recoveryInput);
+        State recoveryState = new State();recoveryState.setStepInfo("Setup","other","setup_ready","representation_gate");
+        StateMemory.commitSharedState(recoveryState,recoveryAgent);
+        final RecoveringCamera recoveryCamera = new RecoveringCamera(recoveryAgent);
+        recoveryCamera.reply="Check the sign of the previous term.";
+        final java.util.concurrent.atomic.AtomicReference<Throwable> workerError =
+            new java.util.concurrent.atomic.AtomicReference<Throwable>();
+        Thread recoveryWorker = new Thread(new Runnable() {
+            public void run() {
+                recoveryCamera.preProcessEvent(recoveryInput,new MessageEvent(recoveryInput,"Private_1","Is this correct?"));
+                check(recoveryCamera.requests == 0,"failed rotation never reaches model transport");
+                check(recoveryInput.proposals.size() == 1,"failed question sends one retry notice");
+                PrivateMessageEvent notice=(PrivateMessageEvent)recoveryInput.proposals.get(0);
+                check(notice.getDestinationUser().equals("Private_1") && notice.getText().contains("try sending it again"),
+                    "failure notice stays private and does not expose exception details");
+                recoveryCamera.preProcessEvent(recoveryInput,new ImageEvent(recoveryInput,"Camera_1","cmVjb3Zlcnk=","image/jpeg",1,1,"manual:recovery",1));
+                recoveryCamera.preProcessEvent(recoveryInput,new MessageEvent(recoveryInput,"Private_2","What about my answer?"));
+            }
+        });
+        recoveryWorker.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            public void uncaughtException(Thread thread,Throwable error) { workerError.set(error); }
+        });
+        recoveryWorker.start();recoveryWorker.join(5000);
+        check(!recoveryWorker.isAlive() && workerError.get() == null,"rotation failure does not terminate event dispatch");
+        check(recoveryCamera.previews == 1,"camera preview continues after a failed question");
+        check(recoveryCamera.requests == 1,"next participant question reaches model after lookup recovers");
+        check(recoveryInput.proposals.size() == 3,"successful question still delivers the private and camera replies");
+        check(((PrivateMessageEvent)recoveryInput.proposals.get(1)).getDestinationUser().equals("Private_2"),
+            "recovered reply belongs to the next participant, not the failed question");
+        recoveryCamera.failPayload=true;
+        recoveryCamera.preProcessEvent(recoveryInput,new MessageEvent(recoveryInput,"Private_1","Another question"));
+        check(recoveryCamera.requests == 1 && recoveryInput.proposals.size() == 4,
+            "payload preparation failures also leave the worker available and never call the model");
+        recoveryCamera.failPayload=false;
+        recoveryCamera.preProcessEvent(recoveryInput,new MessageEvent(recoveryInput,"Private_1","Retry"));
+        check(recoveryCamera.requests == 2,"later question works after a payload failure");
 
         State outputState = new State();
         outputState.setStepInfo("Paper", "other", "paper_work", "representation_gate");

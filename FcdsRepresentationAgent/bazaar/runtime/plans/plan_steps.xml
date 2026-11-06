@@ -18,4 +18,9 @@
     <step type="prompt" delay="10" prompt="THANKS">closing_message</step>
     <step type="logout" delay="0">logout</step>
   </stage>
+  <stage name="EndStage" type="other" delay="0" timeout="4860">  
+    <step type="chatlog" delay="2" >CHAT_LOGS</step> 
+    <step type="send_end" delay="2">send_end</step>  
+    <step type="logout" delay="0">LOGOUT</step>
+  </stage>
 </plan>
