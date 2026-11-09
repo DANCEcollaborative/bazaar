@@ -101,7 +101,7 @@ app.use(require('express').json({ limit: '10mb' }));
 
 // Adding content security policy
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com/ https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://bree.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://exodar.oli.cmu.edu/baz/static/ https://vlab-chatbot.vercel.app/; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bree.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ http://bree.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bree.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ https://bree.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ http://bree.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bree.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/ https://bree.lti.cs.cmu.edu/ https://cdn.jsdelivr.net/gh/DANCECollaborative/ wss://128.2.204.249:40001; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://rawgit.com/gtomar/ 'unsafe-inline'; script-src 'self' https://cdn.socket.io/3.1.1/socket.io.min.js https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/ https://rawgit.com/marinawang/ https://cdnjs.cloudflare.com/ajax/libs/socket.io/ https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/; img-src * data:; frame-src 'self' https://sketchfab.com/ https://colab.research.google.com/ https://docs.google.com/ https://vlab-chatbot.vercel.app/"); 
+    res.setHeader("Content-Security-Policy", "default-src https://docs.google.com/ https://erebor.lti.cs.cmu.edu:* https://bazaar.lti.cs.cmu.edu:* https://bree.lti.cs.cmu.edu:* https://forum.lti.cs.cmu.edu:* https://collab.lti.cs.cmu.edu:* https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://exodar.oli.cmu.edu/baz/static/ https://vlab-chatbot.vercel.app/; connect-src 'self' ws://bazaar.lti.cs.cmu.edu/bazsocket/ ws://bree.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/bazsocket/ http://bree.lti.cs.cmu.edu/bazsocket/ wss://bazaar.lti.cs.cmu.edu/bazsocket/ wss://bree.lti.cs.cmu.edu/bazsocket/ https://bazaar.lti.cs.cmu.edu/bazsocket/ https://bree.lti.cs.cmu.edu/bazsocket/ http://bazaar.lti.cs.cmu.edu/local/bazsocket/ http://bree.lti.cs.cmu.edu/local/bazsocket/ wss://bazaar.lti.cs.cmu.edu/local/bazsocket/ wss://bree.lti.cs.cmu.edu/local/bazsocket/ https://bazaar.lti.cs.cmu.edu/ https://bree.lti.cs.cmu.edu/ https://cdn.jsdelivr.net/gh/DANCECollaborative/ wss://128.2.204.249:40001; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com/css https://cdn.jsdelivr.net/gh/DANCECollaborative/ https://rawgit.com/gtomar/ 'unsafe-inline'; script-src 'self' https://cdn.socket.io/3.1.1/socket.io.min.js https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js https://rawgit.com/gtomar/ https://rawgit.com/marinawang/ https://cdnjs.cloudflare.com/ajax/libs/socket.io/ https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com/ https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/fonts/; img-src * data:; frame-src 'self' https://sketchfab.com/ https://colab.research.google.com/ https://docs.google.com/ https://vlab-chatbot.vercel.app/"); 
     return next();
 });
 
@@ -355,6 +355,36 @@ function emitToAgentOnly(room, event, ...args) {
     }
 		console.log("emitToAgentOnly -- about to emit");
     s.emit(event, ...args);
+}
+
+// DIAGNOSTIC: for `room`, logs (a) the socket ids Socket.IO's own room
+// adapter currently considers live members of that room, and (b) every
+// username this app's own user_sockets bookkeeping has registered for that
+// room, cross-checking each bookkeeping entry's socket.id against the
+// adapter's live set. A username that shows liveMember=false is registered
+// in our bookkeeping but NOT actually a member of the room as far as
+// io.sockets.in(room).emit(...) is concerned -- i.e. any broadcast to this
+// room will silently skip that socket, even though addUser()/user_sockets
+// think it's still connected here. This is exactly the failure mode
+// emitToAgentOnly() above was written to route around for OPEBot; this
+// helper makes it visible for every other username sharing the room
+// (e.g. the ClientServer/JupyterLab connection), which currently has no
+// such bypass.
+function logRoomMembership(room, callerTag) {
+    const liveMemberIds = Array.from(io.sockets.adapter.rooms.get(room) || []);
+    const roomSockets = user_sockets[room] || {};
+    const bookkeepingUsernames = Object.keys(roomSockets);
+    console.log(`[DIAG][ROOM] (${callerTag}) room="${room}" liveSocketIds=[${liveMemberIds.join(', ')}]`);
+    if (bookkeepingUsernames.length === 0) {
+        console.log(`[DIAG][ROOM] (${callerTag}) no usernames registered in user_sockets["${room}"]`);
+        return;
+    }
+    bookkeepingUsernames.forEach((uname) => {
+        const s = roomSockets[uname];
+        const socketId = s ? s.id : undefined;
+        const isLiveMember = !!socketId && liveMemberIds.includes(socketId);
+        console.log(`[DIAG][ROOM] (${callerTag})   username="${uname}" socket.id=${socketId} connected=${s ? s.connected : 'n/a'} liveMember=${isLiveMember}`);
+    });
 }
 // ---------------------------------------------------------------------------
 
@@ -1918,6 +1948,8 @@ io.sockets.on('connection', async (socket) => {
 		logMessage(socket, data, "text", sender, senderId);
                 console.log("socket.on('sendchat'): socket.clientID = " + socket.clientID + " sender = " + sender);
 
+		// logRoomMembership(socket.room, 'sendchat');
+
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
 // 		else if (socket.username == "MLAgent")
@@ -1947,6 +1979,8 @@ io.sockets.on('connection', async (socket) => {
 
 		logMessage(socket, data, "text", sender, senderId);
                 console.log("socket.on('sendchatwithroom: -- room: " + room + " socket.clientID = " + socket.clientID + " sender = " + sender);
+
+		// logRoomMembership(room, 'sendchatwithroom');
 
 // 		if (socket.clientID == "ClientServer-NoEcho") {
 // 			// Do nothing for no echo
