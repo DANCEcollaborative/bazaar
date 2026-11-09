@@ -35,6 +35,61 @@
   </main>
   <script src="/bazaar/static/representation-qrcode.js"></script>
   <script>
+    // The private chat is a same-origin iframe; its messages and styles live there.
+    async function enableChatMath(doc) {
+      const conversation = doc && doc.getElementById('conversation');
+      if (!conversation) return;
+      const katexBase = 'https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/';
+      const stylesheet = doc.createElement('link');
+      stylesheet.rel = 'stylesheet'; stylesheet.href = katexBase + 'katex.min.css';
+      doc.head.appendChild(stylesheet);
+      const style = doc.createElement('style');
+      style.textContent = '#conversation .katex-display {overflow-x:auto;overflow-y:hidden;padding:4px 0;}';
+      doc.head.appendChild(style);
+      const loadScript = src => new Promise((resolve, reject) => {
+        const script = doc.createElement('script');
+        script.src = src; script.onload = resolve; script.onerror = reject;
+        doc.head.appendChild(script);
+      });
+      try {
+        await loadScript(katexBase + 'katex.min.js');
+        await loadScript(katexBase + 'contrib/auto-render.min.js');
+      } catch (error) {
+        console.warn('Chat math could not load; showing the original notation.', error);
+        return;
+      }
+      const options = {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false,
+        trust: false,
+        ignoredClasses: ['katex']
+      };
+      const rendered = new WeakSet();
+      const renderMessages = () => {
+        // Disconnect while rendering so KaTeX's own DOM changes do not loop.
+        observer.disconnect();
+        const atBottom = conversation.scrollHeight - conversation.scrollTop - conversation.clientHeight < 40;
+        try {
+          conversation.querySelectorAll('.message').forEach(message => {
+            if (rendered.has(message)) return;
+            doc.defaultView.renderMathInElement(message, options);
+            rendered.add(message);
+          });
+          if (atBottom) conversation.scrollTop = conversation.scrollHeight;
+        } finally {
+          observer.observe(conversation, {childList: true, subtree: true});
+        }
+      };
+      const observer = new MutationObserver(renderMessages);
+      renderMessages();
+      doc.defaultView.addEventListener('pagehide', () => observer.disconnect(), {once: true});
+    }
+
     const params = new URLSearchParams(location.search);
     const room = location.pathname.split('/').find(p => /^fcdsrepresentationfcds-p2-26-fall-1a-room\d+$/.test(p));
     const user = params.get('user');
@@ -52,6 +107,7 @@
       document.getElementById('private').src = '/bazaar/chat/' + room + '/Private_' + user + '/Private_' + user + '/?html=representation-private-space' + location.hash;
       document.getElementById('private').addEventListener('load', () => {
         const doc = document.getElementById('private').contentDocument;
+        enableChatMath(doc);
         const img = doc && doc.getElementById('camera_image');
         const input = doc && doc.getElementById('data');
         if (input) {input.placeholder = 'Ask your private tutor… (Enter to send)'; input.setAttribute('aria-label', 'Message your private tutor');}
